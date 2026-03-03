@@ -337,24 +337,17 @@ layout: null
   </style>
 </head>
 <body>
-  {% if site.html_pages %}
-    {% assign all_pages = site.html_pages | sort: "nav_order" %}
-  {% else %}
-    {% assign all_pages = site.pages | sort: "nav_order" %}
-  {% endif %}
-
-  {% if site.html_files %}
-    {% assign html_files = site.html_files | sort: "name" %}
-  {% else %}
-    {% assign html_files = site.static_files | sort: "name" %}
-  {% endif %}
+  {% assign all_pages = site.pages | sort: "nav_order" %}
+  {% assign html_files = site.static_files | sort: "name" %}
   {% assign featured_count = 0 %}
   {% assign library_count = 0 %}
   {% assign fallback_count = 0 %}
   {% assign hero_primary_used = false %}
 
   {% for p in all_pages %}
-    {% if p.name != "index.html" and p.ext == ".html" and p.listed != false %}
+    {% assign page_path_parts = p.path | split: "/" %}
+    {% assign page_ext = p.path | split: "." | last | downcase %}
+    {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false %}
       {% if p.featured == true %}
         {% assign featured_count = featured_count | plus: 1 %}
       {% else %}
@@ -387,7 +380,9 @@ layout: null
         </p>
         <div class="hero-actions">
           {% for p in all_pages %}
-            {% if p.name != "index.html" and p.ext == ".html" and p.listed != false and p.featured == true %}
+            {% assign page_path_parts = p.path | split: "/" %}
+            {% assign page_ext = p.path | split: "." | last | downcase %}
+            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and p.featured == true %}
               {% if hero_primary_used == false %}
                 <a class="btn btn-primary" href="{{ p.url | relative_url }}">{{ p.hero_label | default: p.card_title | default: p.title }}</a>
                 {% assign hero_primary_used = true %}
@@ -439,7 +434,9 @@ layout: null
         </div>
         <div class="cards cards-featured">
           {% for p in all_pages %}
-            {% if p.name != "index.html" and p.ext == ".html" and p.listed != false and p.featured == true %}
+            {% assign page_path_parts = p.path | split: "/" %}
+            {% assign page_ext = p.path | split: "." | last | downcase %}
+            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and p.featured == true %}
             <article class="card card-featured tone-{{ p.card_tone | default: 'blue' }}">
               <div class="card-head">
                 {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
@@ -469,7 +466,9 @@ layout: null
         </div>
         <div class="cards">
           {% for p in all_pages %}
-            {% if p.name != "index.html" and p.ext == ".html" and p.listed != false and p.featured != true %}
+            {% assign page_path_parts = p.path | split: "/" %}
+            {% assign page_ext = p.path | split: "." | last | downcase %}
+            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and p.featured != true %}
             <article class="card tone-{{ p.card_tone | default: 'slate' }}">
               <div class="card-head">
                 {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
