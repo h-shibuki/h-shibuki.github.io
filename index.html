@@ -6,21 +6,21 @@ layout: null
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quick Build Saga | GitHub Pages</title>
-  <meta name="description" content="Quick Build Saga の公開ページ。主要ガイドへの導線と、追加 HTML の自動一覧をまとめたトップページです。">
+  <title>Quick Build Saga | 公開ページ</title>
+  <meta name="description" content="Quick Build Saga の公開ページ一覧。主要ガイドは大きなカードで表示し、追加した HTML は front matter を使ってタイトル・説明・並び順まで自動反映します。">
   <style>
     :root{
       --bg:#0b1020;
       --bg2:#121937;
-      --card:#ffffff;
+      --paper:#ffffff;
+      --paper-soft:#f8fafc;
       --ink:#1f2937;
       --muted:#6b7280;
       --line:#e5e7eb;
-      --accent:#2563eb;
-      --accent-2:#1d4ed8;
-      --soft:#eff6ff;
-      --hero:#dbeafe;
+      --hero-line:rgba(255,255,255,.14);
+      --hero-text:#dbeafe;
       --shadow:0 20px 60px rgba(15,23,42,.12);
+      --shadow-soft:0 10px 30px rgba(15,23,42,.08);
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
@@ -31,15 +31,20 @@ layout: null
       line-height:1.7;
       background:
         radial-gradient(circle at top right, rgba(59,130,246,.18), transparent 30%),
-        linear-gradient(180deg, var(--bg) 0px, var(--bg2) 420px, #f8fafc 420px, #f8fafc 100%);
+        linear-gradient(180deg, var(--bg) 0px, var(--bg2) 460px, #f8fafc 460px, #f8fafc 100%);
     }
-    a{color:var(--accent); text-decoration:none}
-    a:hover{text-decoration:underline}
+    a{color:inherit;text-decoration:none}
+    a:hover{text-decoration:none}
+    code{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      background:#eef2ff;
+      color:#1e3a8a;
+      padding:.15rem .45rem;
+      border-radius:8px;
+      font-size:.92em;
+    }
     .container{max-width:1120px;margin:0 auto;padding:0 20px}
-    .header{
-      padding:22px 0;
-      color:#fff;
-    }
+    .header{padding:22px 0;color:#fff}
     .brand{
       display:inline-flex;
       align-items:center;
@@ -49,197 +54,264 @@ layout: null
       letter-spacing:.02em;
     }
     .brand-mark{
-      width:12px;height:12px;border-radius:999px;background:#60a5fa;
+      width:12px;
+      height:12px;
+      border-radius:999px;
+      background:#60a5fa;
       box-shadow:0 0 0 8px rgba(96,165,250,.18);
     }
-    .hero{
-      padding:42px 0 72px;
-      color:#fff;
-    }
+    .hero{padding:42px 0 78px;color:#fff}
     .hero-grid{
       display:grid;
-      grid-template-columns: minmax(0,1.2fr) minmax(320px,.8fr);
+      grid-template-columns:minmax(0,1.15fr) minmax(300px,.85fr);
       gap:28px;
-      align-items:center;
+      align-items:start;
     }
     .eyebrow{
       display:inline-block;
       margin-bottom:14px;
       padding:8px 12px;
-      border:1px solid rgba(255,255,255,.18);
+      border:1px solid var(--hero-line);
       border-radius:999px;
       background:rgba(255,255,255,.08);
-      font-size:.9rem;
       color:#dbeafe;
+      font-size:.9rem;
+      font-weight:700;
     }
     h1{
       margin:0 0 14px;
-      font-size:clamp(2rem, 5vw, 3.6rem);
-      line-height:1.08;
+      font-size:clamp(2rem,5vw,3.7rem);
+      line-height:1.06;
       letter-spacing:-.02em;
     }
     .lead{
-      margin:0 0 22px;
+      margin:0 0 24px;
+      max-width:50rem;
       font-size:1.05rem;
-      color:#dbeafe;
-      max-width:48rem;
+      color:var(--hero-text);
     }
     .hero-actions{
       display:flex;
       flex-wrap:wrap;
       gap:12px;
-      margin-bottom:18px;
+      margin-bottom:22px;
     }
     .btn{
-      display:inline-block;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
       padding:12px 18px;
       border-radius:14px;
-      font-weight:700;
+      font-weight:800;
       border:1px solid transparent;
       transition:transform .12s ease, box-shadow .12s ease, background .12s ease;
     }
-    .btn:hover{
-      text-decoration:none;
-      transform:translateY(-1px);
-    }
+    .btn:hover{transform:translateY(-1px)}
     .btn-primary{
       background:#fff;
-      color:var(--accent-2);
+      color:#1d4ed8;
       box-shadow:var(--shadow);
     }
     .btn-secondary{
       background:rgba(255,255,255,.08);
       color:#fff;
-      border-color:rgba(255,255,255,.18);
+      border-color:var(--hero-line);
     }
-    .hero-note{
-      color:#bfdbfe;
-      font-size:.95rem;
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(3,minmax(0,1fr));
+      gap:12px;
+      max-width:640px;
     }
-    .hero-card{
+    .stat{
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--hero-line);
+      backdrop-filter:blur(10px);
+    }
+    .stat strong{
+      display:block;
+      font-size:1.6rem;
+      line-height:1;
+      margin-bottom:6px;
+      color:#fff;
+    }
+    .stat span{color:#bfdbfe;font-size:.92rem}
+    .hero-panel{
       background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.08));
-      border:1px solid rgba(255,255,255,.14);
+      border:1px solid var(--hero-line);
       border-radius:24px;
       padding:24px;
-      backdrop-filter: blur(12px);
+      backdrop-filter:blur(12px);
       box-shadow:var(--shadow);
     }
-    .hero-card h2{
+    .hero-panel h2{
       margin:0 0 10px;
-      color:#fff;
       font-size:1.2rem;
+      color:#fff;
     }
-    .hero-card ul{
-      margin:0;
-      padding-left:1.2rem;
-      color:#dbeafe;
-    }
-    .main{
-      padding:0 0 72px;
-    }
+    .hero-panel p,
+    .hero-panel li{color:#dbeafe}
+    .hero-panel ul{margin:0;padding-left:1.2rem}
+    .main{padding:0 0 72px}
     .section{
       margin-top:28px;
-      background:#fff;
+      background:var(--paper);
       border:1px solid var(--line);
       border-radius:28px;
       padding:32px;
-      box-shadow:var(--shadow);
+      box-shadow:var(--shadow-soft);
     }
     .section h2{
       margin:0 0 10px;
       font-size:1.6rem;
       line-height:1.2;
     }
-    .section p{
-      margin:0 0 1rem;
-      color:#374151;
+    .section p{margin:0 0 1rem;color:#374151}
+    .section-head{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:end;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .section-note{
+      color:#6b7280;
+      font-size:.95rem;
     }
     .cards{
       display:grid;
-      grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
       gap:20px;
       margin-top:20px;
     }
+    .cards-featured{
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    }
     .card{
+      --tone:#2563eb;
+      --tone-soft:#eff6ff;
+      --tone-ink:#1d4ed8;
+      position:relative;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      min-height:230px;
       border:1px solid var(--line);
       border-radius:24px;
       padding:24px;
-      background:linear-gradient(180deg, #fff, #f8fbff);
+      background:linear-gradient(180deg,#fff 0%, #f8fbff 100%);
     }
-    .card .tag{
-      display:inline-block;
-      margin-bottom:12px;
-      padding:6px 10px;
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0 0 auto 0;
+      height:6px;
+      background:linear-gradient(90deg, var(--tone) 0%, var(--tone) 62%, transparent 100%);
+    }
+    .card-featured{
+      min-height:260px;
+      box-shadow:var(--shadow-soft);
+    }
+    .card-head{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:8px;
+      margin-bottom:14px;
+    }
+    .pill,
+    .meta-chip{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      min-height:32px;
+      padding:6px 11px;
       border-radius:999px;
-      background:var(--soft);
-      color:var(--accent-2);
       font-size:.85rem;
+      font-weight:800;
+    }
+    .pill{
+      background:var(--tone-soft);
+      color:var(--tone-ink);
+    }
+    .pill-ghost{
+      background:#f3f4f6;
+      color:#374151;
+    }
+    .meta-chip{
+      background:#f8fafc;
+      color:#475569;
+      border:1px solid #e2e8f0;
       font-weight:700;
     }
     .card h3{
       margin:0 0 10px;
       font-size:1.35rem;
       line-height:1.35;
+      letter-spacing:-.01em;
     }
     .card p{
       margin:0 0 18px;
       color:#4b5563;
     }
-    .card .card-actions{
+    .card-footer{
+      margin-top:auto;
       display:flex;
       flex-wrap:wrap;
       gap:10px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .filename{
+      font-size:.88rem;
+      color:#6b7280;
     }
     .mini-btn{
-      display:inline-block;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
       padding:10px 14px;
       border-radius:12px;
-      background:var(--soft);
-      color:var(--accent-2);
-      font-weight:700;
+      background:var(--tone-soft);
+      color:var(--tone-ink);
+      font-weight:800;
     }
-    .mini-btn:hover{
-      text-decoration:none;
-      background:#dbeafe;
-    }
-    .steps{
-      counter-reset: step;
+    .mini-btn:hover{filter:brightness(.98)}
+    .tone-blue{--tone:#2563eb;--tone-soft:#eff6ff;--tone-ink:#1d4ed8}
+    .tone-indigo{--tone:#4f46e5;--tone-soft:#eef2ff;--tone-ink:#4338ca}
+    .tone-gold{--tone:#c58917;--tone-soft:#fff8e8;--tone-ink:#9a6700}
+    .tone-bronze{--tone:#9a5b32;--tone-soft:#fdf3ec;--tone-ink:#7c3d17}
+    .tone-slate{--tone:#475569;--tone-soft:#f1f5f9;--tone-ink:#334155}
+    .workflow{
       display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
       gap:16px;
       margin-top:18px;
     }
     .step{
-      display:grid;
-      grid-template-columns:52px 1fr;
-      gap:16px;
-      align-items:start;
-      padding:18px;
       border:1px solid var(--line);
-      border-radius:20px;
-      background:#fff;
+      border-radius:22px;
+      padding:20px;
+      background:var(--paper-soft);
     }
     .step-number{
-      width:52px;height:52px;border-radius:16px;
-      display:grid;place-items:center;
-      font-weight:800;
-      color:var(--accent-2);
-      background:var(--soft);
+      width:40px;
+      height:40px;
+      border-radius:14px;
+      display:grid;
+      place-items:center;
+      margin-bottom:12px;
+      font-weight:900;
+      color:#1d4ed8;
+      background:#dbeafe;
     }
-    .step h3{
-      margin:2px 0 8px;
-      font-size:1.08rem;
-    }
-    .step p{
-      margin:0;
-      color:#4b5563;
-    }
-    code{
-      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
-      background:#f3f4f6;
-      padding:.12rem .38rem;
-      border-radius:7px;
-      font-size:.92em;
-    }
+    .step h3{margin:0 0 8px;font-size:1.05rem}
+    .step p{margin:0;color:#4b5563}
     .callout{
       margin-top:18px;
       padding:18px 20px;
@@ -255,36 +327,38 @@ layout: null
       font-size:.95rem;
     }
     @media (max-width: 920px){
-      .hero-grid{
-        grid-template-columns:1fr;
-      }
-      .section{
-        padding:24px;
-      }
+      .hero-grid{grid-template-columns:1fr}
+      .section{padding:24px}
+    }
+    @media (max-width: 640px){
+      .stats{grid-template-columns:1fr}
+      .card-footer{align-items:flex-start}
     }
   </style>
 </head>
 <body>
-  {% assign featured = "index.html|player-guide.html|gm-guide.html" | split: "|" %}
-  {% assign auto_html_pages = site.html_pages | sort: "name" %}
-  {% assign auto_html_files = site.html_files | sort: "name" %}
-  {% assign extra_count = 0 %}
+  {% assign all_pages = site.html_pages | sort: "nav_order" %}
+  {% assign html_files = site.html_files | sort: "name" %}
+  {% assign featured_count = 0 %}
+  {% assign library_count = 0 %}
+  {% assign fallback_count = 0 %}
+  {% assign hero_primary_used = false %}
 
-  {% for p in auto_html_pages %}
-    {% unless featured contains p.name %}
-      {% if p.dir == "/" %}
-        {% assign extra_count = extra_count | plus: 1 %}
+  {% for p in all_pages %}
+    {% if p.name != "index.html" and p.listed != false %}
+      {% if p.featured == true %}
+        {% assign featured_count = featured_count | plus: 1 %}
+      {% else %}
+        {% assign library_count = library_count | plus: 1 %}
       {% endif %}
-    {% endunless %}
+    {% endif %}
   {% endfor %}
 
-  {% for f in auto_html_files %}
+  {% for f in html_files %}
     {% assign path_parts = f.path | split: "/" %}
-    {% unless featured contains f.name %}
-      {% if path_parts.size == 2 %}
-        {% assign extra_count = extra_count | plus: 1 %}
-      {% endif %}
-    {% endunless %}
+    {% if f.name != "index.html" and path_parts.size == 2 %}
+      {% assign fallback_count = fallback_count | plus: 1 %}
+    {% endif %}
   {% endfor %}
 
   <header class="header">
@@ -296,28 +370,48 @@ layout: null
   <section class="hero">
     <div class="container hero-grid">
       <div>
-        <div class="eyebrow">GitHub Pages でそのまま公開できるトップページ</div>
-        <h1>Quick Build Saga の<br>公開ページ</h1>
+        <div class="eyebrow">Jekyll の front matter で自動整理するトップページ</div>
+        <h1>公開ページを、<br>きれいに自動で並べる</h1>
         <p class="lead">
-          プレイヤー向けガイドと GM 向けガイドを、1つのトップページから見やすくたどれるようにまとめました。
-          さらに、ルート直下に追加した HTML は下の一覧へ自動で反映されます。
+          主要ガイドは大きなカードで、追加ページはタイトル・説明・並び順・カテゴリ付きのカードで表示します。
+          今後は HTML 側に front matter を足すだけで、トップページの導線まで一緒に整います。
         </p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="{{ '/player-guide.html' | relative_url }}">プレイヤーズガイドを見る</a>
-          <a class="btn btn-secondary" href="{{ '/gm-guide.html' | relative_url }}">GMガイドを見る</a>
+          {% for p in all_pages %}
+            {% if p.name != "index.html" and p.listed != false and p.featured == true %}
+              {% if hero_primary_used == false %}
+                <a class="btn btn-primary" href="{{ p.url | relative_url }}">{{ p.hero_label | default: p.card_title | default: p.title }}</a>
+                {% assign hero_primary_used = true %}
+              {% else %}
+                <a class="btn btn-secondary" href="{{ p.url | relative_url }}">{{ p.hero_label | default: p.card_title | default: p.title }}</a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
         </div>
-        <div class="hero-note">
-          はじめての公開でも使いやすいように、ファイルを置くだけで動く構成にしています。
+        <div class="stats">
+          <div class="stat">
+            <strong>{{ featured_count }}</strong>
+            <span>主要ガイド</span>
+          </div>
+          <div class="stat">
+            <strong>{{ library_count }}</strong>
+            <span>ライブラリ</span>
+          </div>
+          <div class="stat">
+            <strong>{{ featured_count | plus: library_count | plus: fallback_count }}</strong>
+            <span>掲載ページ合計</span>
+          </div>
         </div>
       </div>
 
-      <aside class="hero-card">
-        <h2>このサイトに入っているもの</h2>
+      <aside class="hero-panel">
+        <h2>長期運用向けのルール</h2>
+        <p>新しい HTML を追加するときは、最初に front matter を書いておくのがおすすめです。</p>
         <ul>
-          <li>トップページ（この <code>index.html</code>）</li>
-          <li>トップで案内する主要ガイド</li>
-          <li>ルート直下の追加 HTML を自動で一覧化するセクション</li>
-          <li>GitHub Pages 向けのシンプルな静的構成</li>
+          <li><code>featured: true</code> なら上段の主要ガイドに出ます</li>
+          <li><code>nav_order</code> で並び順を制御できます</li>
+          <li><code>badge</code> と <code>page_type</code> で見た目を揃えられます</li>
+          <li><code>listed: false</code> で一覧から外せます</li>
         </ul>
       </aside>
     </div>
@@ -325,134 +419,124 @@ layout: null
 
   <main class="main">
     <div class="container">
-      <section class="section" id="guides">
-        <h2>読む人別に選べます</h2>
-        <p>どちらから読んでも大丈夫です。プレイヤーは遊び方を、GM は進行や裁定の考え方を確認できます。</p>
-
-        <div class="cards">
-          <article class="card">
-            <div class="tag">For Players</div>
-            <h3>プレイヤーズガイド</h3>
-            <p>
-              はじめて遊ぶ人向けに、宣言の書き方、タグの読み方、難度の見方、卓越宣言の考え方をまとめています。
-            </p>
-            <div class="card-actions">
-              <a class="mini-btn" href="{{ '/player-guide.html' | relative_url }}">開く</a>
-            </div>
-          </article>
-
-          <article class="card">
-            <div class="tag">For GMs</div>
-            <h3>GMガイド</h3>
-            <p>
-              局面の作り方、難度5段階の使い分け、タグ設計、裁定の基本手順、初心者GM向けチェックリストを読めます。
-            </p>
-            <div class="card-actions">
-              <a class="mini-btn" href="{{ '/gm-guide.html' | relative_url }}">開く</a>
-            </div>
-          </article>
+      {% if featured_count > 0 %}
+      <section class="section" id="featured">
+        <div class="section-head">
+          <div>
+            <h2>主要ガイド</h2>
+            <p>このサイトで最初に読んでほしいページです。front matter の <code>featured</code> で掲載位置を決めています。</p>
+          </div>
+          <div class="section-note">{{ featured_count }} page{% if featured_count != 1 %}s{% endif %}</div>
         </div>
-      </section>
-
-      {% if extra_count > 0 %}
-      <section class="section" id="more-pages">
-        <h2>その他の公開ページ</h2>
-        <p>
-          トップで個別に案内している主要ガイド以外の HTML を自動で表示します。
-          今後はルート直下に <code>.html</code> を追加して push するだけで、この一覧にも反映されます。
-        </p>
-        <p>
-          各ページの <code>&lt;title&gt;</code> があれば表示名として使い、
-          <code>&lt;meta name="description"&gt;</code> があれば説明文にも反映します。
-        </p>
-
-        <div class="cards">
-          {% for p in auto_html_pages %}
-            {% unless featured contains p.name %}
-              {% if p.dir == "/" %}
-              {% assign fallback_title = p.name | replace: '.html', '' | replace: '-', ' ' | replace: '_', ' ' %}
-              <article class="card auto-card" data-page-url="{{ p.url | relative_url }}">
-                <div class="tag">Auto</div>
-                <h3 class="auto-title">{{ p.title | default: fallback_title }}</h3>
-                <p class="auto-description">{{ p.description | default: 'HTML を自動検出して追加しています。' }}</p>
-                <div class="card-actions">
-                  <a class="mini-btn" href="{{ p.url | relative_url }}">開く</a>
-                </div>
-              </article>
-              {% endif %}
-            {% endunless %}
-          {% endfor %}
-
-          {% for f in auto_html_files %}
-            {% assign path_parts = f.path | split: "/" %}
-            {% unless featured contains f.name %}
-              {% if path_parts.size == 2 %}
-              {% assign fallback_title = f.basename | replace: '-', ' ' | replace: '_', ' ' %}
-              <article class="card auto-card" data-page-url="{{ f.path | relative_url }}">
-                <div class="tag">Auto</div>
-                <h3 class="auto-title">{{ fallback_title }}</h3>
-                <p class="auto-description">HTML を自動検出して追加しています。</p>
-                <div class="card-actions">
-                  <a class="mini-btn" href="{{ f.path | relative_url }}">開く</a>
-                </div>
-              </article>
-              {% endif %}
-            {% endunless %}
+        <div class="cards cards-featured">
+          {% for p in all_pages %}
+            {% if p.name != "index.html" and p.listed != false and p.featured == true %}
+            <article class="card card-featured tone-{{ p.card_tone | default: 'blue' }}">
+              <div class="card-head">
+                {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
+                {% if p.page_type %}<span class="meta-chip">{{ p.page_type }}</span>{% endif %}
+              </div>
+              <h3>{{ p.card_title | default: p.title }}</h3>
+              <p>{{ p.description | default: 'ページの説明を front matter に書くと、ここに表示されます。' }}</p>
+              <div class="card-footer">
+                <span class="filename">{{ p.name }}</span>
+                <a class="mini-btn" href="{{ p.url | relative_url }}">開く</a>
+              </div>
+            </article>
+            {% endif %}
           {% endfor %}
         </div>
       </section>
       {% endif %}
 
-      <section class="section" id="about">
-        <h2>公開のポイント</h2>
-        <p>
-          このサイトは画像や外部ライブラリに依存せず、HTMLだけで完結しています。
-          そのため、GitHub Pages にアップロードするとそのまま公開しやすい構成です。
-        </p>
-        <p>
-          公開後の URL は、ユーザーサイトなら
-          <code>https://あなたのGitHubユーザー名.github.io/</code>
-          になります。
-        </p>
+      {% if library_count > 0 %}
+      <section class="section" id="library">
+        <div class="section-head">
+          <div>
+            <h2>ライブラリ</h2>
+            <p>世界設定、リプレイ、補助ページなど。front matter に書いた情報をそのままカードに反映しています。</p>
+          </div>
+          <div class="section-note">{{ library_count }} page{% if library_count != 1 %}s{% endif %}</div>
+        </div>
+        <div class="cards">
+          {% for p in all_pages %}
+            {% if p.name != "index.html" and p.listed != false and p.featured != true %}
+            <article class="card tone-{{ p.card_tone | default: 'slate' }}">
+              <div class="card-head">
+                {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
+                {% if p.page_type %}<span class="meta-chip">{{ p.page_type }}</span>{% endif %}
+              </div>
+              <h3>{{ p.card_title | default: p.title }}</h3>
+              <p>{{ p.description | default: 'ページの説明を front matter に書くと、ここに表示されます。' }}</p>
+              <div class="card-footer">
+                <span class="filename">{{ p.name }}</span>
+                <a class="mini-btn" href="{{ p.url | relative_url }}">開く</a>
+              </div>
+            </article>
+            {% endif %}
+          {% endfor %}
+        </div>
       </section>
+      {% endif %}
 
-      <section class="section" id="start">
-        <h2>最初にやること</h2>
-        <div class="steps">
-          <div class="step">
-            <div class="step-number">1</div>
-            <div>
-              <h3>GitHub に <code>ユーザー名.github.io</code> という名前のリポジトリを作る</h3>
-              <p>例: ユーザー名が <code>example</code> なら、リポジトリ名は <code>example.github.io</code> です。</p>
-            </div>
+      {% if fallback_count > 0 %}
+      <section class="section" id="fallback">
+        <div class="section-head">
+          <div>
+            <h2>自動検出（メタ情報なし）</h2>
+            <p>front matter がない HTML もリンクは自動で張られます。見た目を整えたいときは front matter と <code>meta description</code> を追加してください。</p>
           </div>
-          <div class="step">
-            <div class="step-number">2</div>
-            <div>
-              <h3>このページ一式をアップロードする</h3>
-              <p><code>index.html</code>、<code>player-guide.html</code>、<code>gm-guide.html</code> と、公開したい追加の <code>.html</code> を同じ場所に置いてください。</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">3</div>
-            <div>
-              <h3>GitHub Pages を有効化する</h3>
-              <p>リポジトリの <code>Settings</code> → <code>Pages</code> で、公開元を <code>main</code> ブランチの <code>/(root)</code> に設定します。</p>
-            </div>
-          </div>
-          <div class="step">
-            <div class="step-number">4</div>
-            <div>
-              <h3>公開URLを開く</h3>
-              <p>数分後に、<code>https://あなたのGitHubユーザー名.github.io/</code> で表示されます。追加した HTML は自動で一覧に現れます。</p>
-            </div>
+          <div class="section-note">{{ fallback_count }} page{% if fallback_count != 1 %}s{% endif %}</div>
+        </div>
+        <div class="cards">
+          {% for f in html_files %}
+            {% assign path_parts = f.path | split: "/" %}
+            {% if f.name != "index.html" and path_parts.size == 2 %}
+            {% assign fallback_title = f.basename | replace: '-', ' ' | replace: '_', ' ' %}
+            <article class="card auto-card tone-slate" data-page-url="{{ f.path | relative_url }}">
+              <div class="card-head">
+                <span class="pill pill-ghost">Auto</span>
+                <span class="meta-chip">No front matter</span>
+              </div>
+              <h3 class="auto-title">{{ fallback_title }}</h3>
+              <p class="auto-description">HTML を自動検出して追加しています。</p>
+              <div class="card-footer">
+                <span class="filename">{{ f.name }}</span>
+                <a class="mini-btn" href="{{ f.path | relative_url }}">開く</a>
+              </div>
+            </article>
+            {% endif %}
+          {% endfor %}
+        </div>
+      </section>
+      {% endif %}
+
+      <section class="section" id="workflow">
+        <div class="section-head">
+          <div>
+            <h2>新しいページを増やすときの流れ</h2>
+            <p>普段は <code>index.html</code> を触らなくても大丈夫です。新しい HTML 側に必要な情報を書けば、トップページが追従します。</p>
           </div>
         </div>
-
+        <div class="workflow">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3>front matter を書く</h3>
+            <p><code>title</code>、<code>description</code>、<code>nav_order</code>、<code>badge</code> を先頭に追加します。</p>
+          </article>
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3>HTML の head もそろえる</h3>
+            <p><code>&lt;title&gt;</code> と <code>&lt;meta name="description"&gt;</code> を front matter と揃えると、検索向けにもきれいです。</p>
+          </article>
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3>push すると自動反映</h3>
+            <p>GitHub Pages の Jekyll ビルドで一覧が再生成され、トップページのカードに反映されます。</p>
+          </article>
+        </div>
         <div class="callout">
-          <strong>ヒント:</strong>
-          今後追加するページは、<code>&lt;title&gt;</code> を入れておくと一覧の表示名がきれいになります。
-          <code>&lt;meta name="description" content="..."&gt;</code> を入れておくと説明文も拾えます。
+          <strong>補足:</strong> 一覧に出したくないページは <code>listed: false</code>、上段の主要ガイドに出したいページは <code>featured: true</code> を使ってください。
         </div>
       </section>
     </div>
@@ -504,7 +588,7 @@ layout: null
             if (descriptionNode) descriptionNode.textContent = truncate(description, 110);
           }
         } catch (error) {
-          // 取得に失敗した場合は、Jekyll 側で生成したフォールバック表示をそのまま使う。
+          // 取得に失敗した場合はフォールバック表示をそのまま使う。
         }
       };
 
