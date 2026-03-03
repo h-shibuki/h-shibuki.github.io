@@ -337,15 +337,24 @@ layout: null
   </style>
 </head>
 <body>
-  {% assign all_pages = site.html_pages | sort: "nav_order" %}
-  {% assign html_files = site.html_files | sort: "name" %}
+  {% if site.html_pages %}
+    {% assign all_pages = site.html_pages | sort: "nav_order" %}
+  {% else %}
+    {% assign all_pages = site.pages | sort: "nav_order" %}
+  {% endif %}
+
+  {% if site.html_files %}
+    {% assign html_files = site.html_files | sort: "name" %}
+  {% else %}
+    {% assign html_files = site.static_files | sort: "name" %}
+  {% endif %}
   {% assign featured_count = 0 %}
   {% assign library_count = 0 %}
   {% assign fallback_count = 0 %}
   {% assign hero_primary_used = false %}
 
   {% for p in all_pages %}
-    {% if p.name != "index.html" and p.listed != false %}
+    {% if p.name != "index.html" and p.ext == ".html" and p.listed != false %}
       {% if p.featured == true %}
         {% assign featured_count = featured_count | plus: 1 %}
       {% else %}
@@ -356,7 +365,7 @@ layout: null
 
   {% for f in html_files %}
     {% assign path_parts = f.path | split: "/" %}
-    {% if f.name != "index.html" and path_parts.size == 2 %}
+    {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 %}
       {% assign fallback_count = fallback_count | plus: 1 %}
     {% endif %}
   {% endfor %}
@@ -378,7 +387,7 @@ layout: null
         </p>
         <div class="hero-actions">
           {% for p in all_pages %}
-            {% if p.name != "index.html" and p.listed != false and p.featured == true %}
+            {% if p.name != "index.html" and p.ext == ".html" and p.listed != false and p.featured == true %}
               {% if hero_primary_used == false %}
                 <a class="btn btn-primary" href="{{ p.url | relative_url }}">{{ p.hero_label | default: p.card_title | default: p.title }}</a>
                 {% assign hero_primary_used = true %}
@@ -430,7 +439,7 @@ layout: null
         </div>
         <div class="cards cards-featured">
           {% for p in all_pages %}
-            {% if p.name != "index.html" and p.listed != false and p.featured == true %}
+            {% if p.name != "index.html" and p.ext == ".html" and p.listed != false and p.featured == true %}
             <article class="card card-featured tone-{{ p.card_tone | default: 'blue' }}">
               <div class="card-head">
                 {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
@@ -460,7 +469,7 @@ layout: null
         </div>
         <div class="cards">
           {% for p in all_pages %}
-            {% if p.name != "index.html" and p.listed != false and p.featured != true %}
+            {% if p.name != "index.html" and p.ext == ".html" and p.listed != false and p.featured != true %}
             <article class="card tone-{{ p.card_tone | default: 'slate' }}">
               <div class="card-head">
                 {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
@@ -491,7 +500,7 @@ layout: null
         <div class="cards">
           {% for f in html_files %}
             {% assign path_parts = f.path | split: "/" %}
-            {% if f.name != "index.html" and path_parts.size == 2 %}
+            {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 %}
             {% assign fallback_title = f.basename | replace: '-', ' ' | replace: '_', ' ' %}
             <article class="card auto-card tone-slate" data-page-url="{{ f.path | relative_url }}">
               <div class="card-head">
