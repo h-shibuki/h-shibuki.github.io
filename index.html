@@ -347,7 +347,11 @@ layout: null
   {% for p in all_pages %}
     {% assign page_path_parts = p.path | split: "/" %}
     {% assign page_ext = p.path | split: "." | last | downcase %}
-    {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false %}
+    {% assign is_hidden_page = false %}
+    {% if p.name == "owner.html" or p.name contains "_setting_all" %}
+      {% assign is_hidden_page = true %}
+    {% endif %}
+    {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true %}
       {% if p.featured == true %}
         {% assign featured_count = featured_count | plus: 1 %}
       {% else %}
@@ -358,7 +362,11 @@ layout: null
 
   {% for f in html_files %}
     {% assign path_parts = f.path | split: "/" %}
-    {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 %}
+    {% assign is_hidden_file = false %}
+    {% if f.name == "owner.html" or f.name contains "_setting_all" %}
+      {% assign is_hidden_file = true %}
+    {% endif %}
+    {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 and is_hidden_file != true %}
       {% assign fallback_count = fallback_count | plus: 1 %}
     {% endif %}
   {% endfor %}
@@ -382,7 +390,11 @@ layout: null
           {% for p in all_pages %}
             {% assign page_path_parts = p.path | split: "/" %}
             {% assign page_ext = p.path | split: "." | last | downcase %}
-            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and p.featured == true %}
+    {% assign is_hidden_page = false %}
+    {% if p.name == "owner.html" or p.name contains "_setting_all" %}
+      {% assign is_hidden_page = true %}
+    {% endif %}
+            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true and p.featured == true %}
               {% if hero_primary_used == false %}
                 <a class="btn btn-primary" href="{{ p.url | relative_url }}">{{ p.hero_label | default: p.card_title | default: p.title }}</a>
                 {% assign hero_primary_used = true %}
@@ -436,7 +448,11 @@ layout: null
           {% for p in all_pages %}
             {% assign page_path_parts = p.path | split: "/" %}
             {% assign page_ext = p.path | split: "." | last | downcase %}
-            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and p.featured == true %}
+    {% assign is_hidden_page = false %}
+    {% if p.name == "owner.html" or p.name contains "_setting_all" %}
+      {% assign is_hidden_page = true %}
+    {% endif %}
+            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true and p.featured == true %}
             <article class="card card-featured tone-{{ p.card_tone | default: 'blue' }}">
               <div class="card-head">
                 {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
@@ -468,7 +484,11 @@ layout: null
           {% for p in all_pages %}
             {% assign page_path_parts = p.path | split: "/" %}
             {% assign page_ext = p.path | split: "." | last | downcase %}
-            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and p.featured != true %}
+    {% assign is_hidden_page = false %}
+    {% if p.name == "owner.html" or p.name contains "_setting_all" %}
+      {% assign is_hidden_page = true %}
+    {% endif %}
+            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true and p.featured != true %}
             <article class="card tone-{{ p.card_tone | default: 'slate' }}">
               <div class="card-head">
                 {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
@@ -499,7 +519,11 @@ layout: null
         <div class="cards">
           {% for f in html_files %}
             {% assign path_parts = f.path | split: "/" %}
-            {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 %}
+    {% assign is_hidden_file = false %}
+    {% if f.name == "owner.html" or f.name contains "_setting_all" %}
+      {% assign is_hidden_file = true %}
+    {% endif %}
+            {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 and is_hidden_file != true %}
             {% assign fallback_title = f.basename | replace: '-', ' ' | replace: '_', ' ' %}
             <article class="card auto-card tone-slate" data-page-url="{{ f.path | relative_url }}">
               <div class="card-head">
