@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quick Build Saga プレイヤー用エディタ</title>
-  <meta name="description" content="Quick Build Saga のプレイヤー宣言を、テンプレート下書きから GM に渡せるテキストへ整えるためのブラウザ用エディタです。">
+  <title>Quick Build Saga 宣言補助ツール</title>
+  <meta name="description" content="Quick Build Saga のプレイヤー宣言を、テンプレート下書きから GM に渡せるテキストへ整えるためのブラウザ用エディタです。GM局面と、任意のPC情報を見比べながら使えます。">
   <style>
     :root {
       --bg: #f7f7f5;
@@ -534,11 +534,12 @@
   <header class="page-header">
     <div class="container">
       <p class="eyebrow">Quick Build Saga</p>
-      <h1>プレイヤー用エディタ</h1>
-      <p class="lead">宣言テンプレートから下書きを作り、そのまま GM に渡せるプレーンテキストへ整えるための補助ツールです。テンプレートに沿って書き始めても、途中で自由記述へ切り替えて崩してもかまいません。</p>
+      <h1>宣言補助ツール</h1>
+      <p class="lead">宣言テンプレートから下書きを作り、そのまま GM に渡せるプレーンテキストへ整えるための補助ツールです。GM の局面を整理して見ながら、任意で PC 情報も並べて参照できます。テンプレートに沿って書き始めても、途中で自由記述へ切り替えて崩してもかまいません。</p>
       <nav class="nav-links" aria-label="関連ページ">
         <a href="./">トップ</a>
         <a href="./player-guide.html">プレイヤーズガイド</a>
+        <a href="./pc-tool.html">PC作成補助ツール</a>
         <a href="./gm-guide.html">GMガイド</a>
       </nav>
     </div>
@@ -549,9 +550,10 @@
       <p class="kicker">このページでできること</p>
       <div class="stack">
         <p>1. GM の局面文を貼り付けて、<strong>現況・期限・争点・既知情報・難度・選択肢例</strong> を見やすく確認できます。</p>
-        <p>2. プレイヤーズガイドの宣言テンプレートや「宣言前確認」を元に、<strong>下書き</strong> を作れます。</p>
-        <p>3. 途中で <strong>自由記述</strong> に切り替え、見出しを増やしたり、文章を崩したりできます。</p>
-        <p>4. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の投稿や GM への送付に使えます。</p>
+        <p>2. 任意で PC の本文を読み込み、<strong>名前・立場・野望・大切なもの・得意なやり方</strong> などを参照表示できます。</p>
+        <p>3. プレイヤーズガイドの宣言テンプレートや「宣言前確認」を元に、<strong>下書き</strong> を作れます。</p>
+        <p>4. 途中で <strong>自由記述</strong> に切り替え、見出しを増やしたり、文章を崩したりできます。</p>
+        <p>5. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の投稿や GM への送付に使えます。</p>
       </div>
       <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。</p>
     </section>
@@ -591,6 +593,28 @@
             <button type="button" id="clearIdeasButton" class="ghost">選択を外す</button>
           </div>
         </div>
+
+        <details id="pcReferenceDetails">
+          <summary>任意: PC 情報を表示する</summary>
+          <p class="small">PC作成補助ツールで作った内容を、このブラウザから読み込むか、本文を貼り付けて整理表示できます。ここで表示する内容は、宣言の本文へ自動では入りません。</p>
+          <div class="button-row">
+            <button type="button" id="loadPcFromToolButton" class="secondary">このブラウザの PC 作成ツールから読む</button>
+            <button type="button" id="parsePcButton" class="primary">PC 本文を読み取る</button>
+            <button type="button" id="clearPcButton" class="ghost">PC 欄を消去</button>
+          </div>
+          <label for="pcInput">PC の本文</label>
+          <textarea id="pcInput" placeholder="例:
+名前: リゼ
+立場: 港町の見習い航海士
+野望: どの港でも通用する海図作りで名を残す
+大切なもの:
+- 叔父の航海日誌（自分が海へ出る理由そのもの）
+得意なやり方: 調査と準備
+命運点: 2/2
+野望度: 1"></textarea>
+          <div id="pcSummary" class="scene-summary empty" aria-live="polite">まだ PC 情報は読み取っていません。</div>
+          <p class="inline-note">読み取った PC 情報は補助表示用です。必要なら自由記述へ引用してください。</p>
+        </details>
       </section>
 
       <section class="panel" aria-labelledby="editor-panel-title">
@@ -733,6 +757,7 @@
   <script>
     (() => {
       const STORAGE_KEY = "qbs-play-tool-v1";
+      const PC_TOOL_STORAGE_KEY = "qbs-pc-tool-v1";
       const MODE_HELP = {
         declaration: "テンプレート付きの通常宣言です。必要なところだけ埋め、空欄は残しても構いません。",
         precheck: "方針そのものが決められないときの短い事実確認です。1局面につき1回、3点までを想定しています。",
@@ -785,11 +810,24 @@
         choices: []
       });
 
+      const emptyPc = () => ({
+        name: "",
+        role: "",
+        ambition: "",
+        important: [],
+        methods: "",
+        fate: "",
+        ambitionLevel: "",
+        note: ""
+      });
+
       const defaultState = () => ({
         mode: "declaration",
         keepBlankFields: true,
         sceneRaw: "",
         scene: emptyScene(),
+        pcRaw: "",
+        pc: emptyPc(),
         choiceSelections: [],
         customIdea: "",
         declaration: {
@@ -819,6 +857,12 @@
         customIdea: document.getElementById("customIdea"),
         applyIdeasButton: document.getElementById("applyIdeasButton"),
         clearIdeasButton: document.getElementById("clearIdeasButton"),
+        pcReferenceDetails: document.getElementById("pcReferenceDetails"),
+        pcInput: document.getElementById("pcInput"),
+        parsePcButton: document.getElementById("parsePcButton"),
+        clearPcButton: document.getElementById("clearPcButton"),
+        loadPcFromToolButton: document.getElementById("loadPcFromToolButton"),
+        pcSummary: document.getElementById("pcSummary"),
         modeHelp: document.getElementById("modeHelp"),
         tabButtons: Array.from(document.querySelectorAll(".tab-button")),
         modePanels: {
@@ -856,6 +900,9 @@
         state.scene = parseSceneText(state.sceneRaw);
         ensureChoiceSelectionLength();
       }
+      if (state.pcRaw.trim()) {
+        state.pc = parsePcText(state.pcRaw);
+      }
       syncInputsFromState();
       bindEvents();
       renderAll();
@@ -880,6 +927,29 @@
           renderAll();
           saveState();
           setStatus("局面欄を空にしました。", "");
+        });
+
+        els.pcInput.addEventListener("input", () => {
+          state.pcRaw = els.pcInput.value;
+          saveState();
+          setStatus("PC の原文を更新しました。必要なら「PC 本文を読み取る」を押してください。", "");
+        });
+
+        els.parsePcButton.addEventListener("click", () => {
+          parsePcFromInput(true);
+        });
+
+        els.clearPcButton.addEventListener("click", () => {
+          state.pcRaw = "";
+          state.pc = emptyPc();
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("PC 欄を空にしました。", "");
+        });
+
+        els.loadPcFromToolButton.addEventListener("click", () => {
+          loadPcFromToolStorage();
         });
 
         els.customIdea.addEventListener("input", () => {
@@ -1071,6 +1141,10 @@
               ...emptyScene(),
               ...(parsed.scene || {})
             },
+            pc: {
+              ...emptyPc(),
+              ...(parsed.pc || {})
+            },
             choiceSelections: Array.isArray(parsed.choiceSelections) ? parsed.choiceSelections : []
           };
         } catch (error) {
@@ -1091,6 +1165,7 @@
 
       function syncInputsFromState() {
         els.sceneInput.value = state.sceneRaw;
+        els.pcInput.value = state.pcRaw;
         els.customIdea.value = state.customIdea;
         els.objective.value = state.declaration.objective;
         els.minimum.value = state.declaration.minimum;
@@ -1105,11 +1180,15 @@
         els.freeText.value = state.freeText;
         els.keepBlankFields.checked = state.keepBlankFields;
         els.filenameBase.value = state.filenameBase;
+        if (els.pcReferenceDetails) {
+          els.pcReferenceDetails.open = Boolean(state.pcRaw.trim());
+        }
       }
 
       function renderAll() {
         renderMode();
         renderSceneSummary();
+        renderPcSummary();
         renderOutput();
         renderValidation();
       }
@@ -1142,6 +1221,36 @@
             setStatus("既定のラベルは読み取れませんでした。原文はそのまま使えます。", "warn");
           }
         }
+      }
+
+      function parsePcFromInput(announce) {
+        state.pcRaw = els.pcInput.value;
+        state.pc = parsePcText(state.pcRaw);
+        syncInputsFromState();
+        renderPcSummary();
+        saveState();
+
+        if (announce) {
+          const parts = countPcParts(state.pc);
+          if (parts > 0) {
+            setStatus(`PC 情報を読み取りました。見つかった項目: ${parts}件`, "success");
+          } else {
+            setStatus("既定のラベルは読み取れませんでした。原文はそのまま使えます。", "warn");
+          }
+        }
+      }
+
+      function countPcParts(pc) {
+        let count = 0;
+        ["name", "role", "ambition", "methods", "fate", "ambitionLevel", "note"].forEach((key) => {
+          if ((pc[key] || "").trim()) {
+            count += 1;
+          }
+        });
+        if (Array.isArray(pc.important) && pc.important.filter((item) => String(item || "").trim()).length) {
+          count += 1;
+        }
+        return count;
       }
 
       function countSceneParts(scene) {
@@ -1368,6 +1477,234 @@
         renderValidation();
         saveState();
         setStatus("選んだ案を現在の下書きへ反映しました。", "success");
+      }
+
+      function parsePcText(text) {
+        const pc = emptyPc();
+        if (!text.trim()) {
+          return pc;
+        }
+
+        const lines = text.replace(/\r\n?/g, "\n").split("\n");
+        let currentKey = "";
+
+        for (const rawLine of lines) {
+          const line = rawLine.trimEnd();
+          const labelMatch = line.match(/^\s*(名前|立場|野望|大切なもの(?:\s*[12])?|得意なやり方|命運点|野望度|補足(?:\s*[（(]任意[)）])?)\s*[:：]\s*(.*)$/);
+          if (labelMatch) {
+            currentKey = normalizePcLabel(labelMatch[1]);
+            const rest = labelMatch[2].trim();
+            if (currentKey === "important") {
+              if (rest) {
+                pc.important.push(rest);
+              }
+            } else if (currentKey) {
+              pc[currentKey] = rest;
+            }
+            continue;
+          }
+
+          if (!line.trim()) {
+            continue;
+          }
+
+          if (currentKey === "important") {
+            if (/^\s*[-*・]\s+/.test(line)) {
+              pc.important.push(stripChoice(line));
+            } else if (pc.important.length) {
+              pc.important[pc.important.length - 1] += " " + line.trim();
+            } else {
+              pc.important.push(line.trim());
+            }
+            continue;
+          }
+
+          if (currentKey) {
+            pc[currentKey] = appendLine(pc[currentKey], line.trim());
+          }
+        }
+
+        pc.important = pc.important
+          .map((item) => String(item || "").trim())
+          .filter(Boolean);
+
+        return pc;
+      }
+
+      function normalizePcLabel(label) {
+        const compact = String(label || "")
+          .replace(/\s+/g, "")
+          .replace(/\(任意\)|（任意）/g, "");
+
+        if (compact.startsWith("大切なもの")) {
+          return "important";
+        }
+
+        const mapping = {
+          "名前": "name",
+          "立場": "role",
+          "野望": "ambition",
+          "得意なやり方": "methods",
+          "命運点": "fate",
+          "野望度": "ambitionLevel",
+          "補足": "note"
+        };
+
+        return mapping[compact] || "";
+      }
+
+      function renderPcSummary() {
+        const pc = state.pc || emptyPc();
+        const cards = [];
+
+        if (pc.name.trim()) {
+          cards.push(renderPcCard("名前", pc.name));
+        }
+        if (pc.role.trim()) {
+          cards.push(renderPcCard("立場", pc.role));
+        }
+        if (pc.ambition.trim()) {
+          cards.push(renderPcCard("野望", pc.ambition));
+        }
+        if (Array.isArray(pc.important) && pc.important.length) {
+          cards.push(renderPcCard("大切なもの", pc.important.map((item) => `- ${item}`).join("\n")));
+        }
+        if (pc.methods.trim()) {
+          cards.push(renderPcCard("得意なやり方", pc.methods));
+        }
+        if (pc.fate.trim()) {
+          cards.push(renderPcCard("命運点", pc.fate));
+        }
+        if (pc.ambitionLevel.trim()) {
+          cards.push(renderPcCard("野望度", pc.ambitionLevel));
+        }
+        if (pc.note.trim()) {
+          cards.push(renderPcCard("補足", pc.note));
+        }
+
+        if (!cards.length) {
+          els.pcSummary.className = "scene-summary empty";
+          els.pcSummary.textContent = state.pcRaw.trim()
+            ? "既定のラベルは読み取れていません。原文はそのまま残っています。"
+            : "まだ PC 情報は読み取っていません。";
+          return;
+        }
+
+        els.pcSummary.className = "scene-summary";
+        els.pcSummary.innerHTML = `<div class="scene-card-grid">${cards.join("")}</div>`;
+      }
+
+      function renderPcCard(title, body) {
+        return `
+          <article class="scene-card">
+            <h3>${escapeHtml(title)}</h3>
+            <p>${escapeHtml(body)}</p>
+          </article>
+        `;
+      }
+
+      function loadPcFromToolStorage() {
+        try {
+          const raw = localStorage.getItem(PC_TOOL_STORAGE_KEY);
+          if (!raw) {
+            setStatus("このブラウザに PC 作成ツールの保存データが見つかりませんでした。", "warn");
+            return;
+          }
+
+          const parsed = JSON.parse(raw);
+          const text = serializePcToolStateForDisplay(parsed);
+
+          if (!text.trim()) {
+            setStatus("PC 作成ツールの保存データは見つかりましたが、読み取れる本文がありませんでした。", "warn");
+            return;
+          }
+
+          state.pcRaw = text;
+          state.pc = parsePcText(text);
+          syncInputsFromState();
+          renderPcSummary();
+          saveState();
+          setStatus("PC 作成ツールの保存データを読み込みました。", "success");
+        } catch (error) {
+          console.error(error);
+          setStatus("PC 作成ツールの保存データを読み込めませんでした。", "error");
+        }
+      }
+
+      function serializePcToolStateForDisplay(saved) {
+        if (!saved || typeof saved !== "object") {
+          return "";
+        }
+
+        if (saved.mode === "free" && typeof saved.freeText === "string" && saved.freeText.trim()) {
+          return saved.freeText.trimEnd();
+        }
+
+        const character = saved.character || {};
+        const important = Array.isArray(character.important) ? character.important.map((item) => String(item || "")) : [];
+        const keepBlank = saved.keepBlankFields !== false;
+        const lines = [];
+
+        pushPcLine(lines, "名前", character.name || "", keepBlank);
+        pushPcLine(lines, "立場", character.role || "", keepBlank);
+        pushPcLine(lines, "野望", character.ambition || "", keepBlank);
+
+        if (keepBlank || important.some((item) => item.trim())) {
+          lines.push("大切なもの:");
+          const bullets = keepBlank
+            ? (important.length ? important.slice(0, 2) : ["", ""])
+            : important.filter((item) => item.trim());
+          const items = bullets.length ? bullets : [""];
+          items.forEach((item) => {
+            const text = String(item || "").trim();
+            lines.push(text ? `- ${text}` : "-");
+          });
+        }
+
+        pushPcLine(lines, "得意なやり方", character.methods || "", keepBlank);
+        pushPcLine(lines, "命運点", formatPcToolFate(saved, character), keepBlank);
+        pushPcLine(lines, "野望度", formatPcToolAmbition(character), keepBlank);
+        pushPcLine(lines, "補足 (任意)", character.note || "", keepBlank);
+
+        return lines.join("\n").trimEnd();
+      }
+
+      function pushPcLine(lines, label, value, keepBlank) {
+        const text = String(value || "").trim();
+        if (!keepBlank && !text) {
+          return;
+        }
+        lines.push(text ? `${label}: ${text}` : `${label}:`);
+      }
+
+      function formatPcToolFate(saved, character) {
+        const importantCount = (Array.isArray(character.important) ? character.important : [])
+          .filter((item) => String(item || "").trim()).length;
+        const autoMax = String(Math.max(importantCount + 1, 1));
+        const current = String(character.fateCurrent || "").trim();
+        const max = saved.autoFateFromImportant
+          ? String(character.fateMax || "").trim() || autoMax
+          : String(character.fateMax || "").trim();
+
+        if (!current && !max) {
+          return "";
+        }
+        if (!max) {
+          return current;
+        }
+        return `${current || max}/${max}`;
+      }
+
+      function formatPcToolAmbition(character) {
+        const current = String(character.ambitionCurrent || "").trim();
+        const goal = String(character.ambitionGoal || "").trim();
+        if (!current && !goal) {
+          return "";
+        }
+        if (!goal) {
+          return current;
+        }
+        return `${current || "1"}/${goal}`;
       }
 
       function appendBlock(current, block) {

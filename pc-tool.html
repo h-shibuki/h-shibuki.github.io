@@ -1,0 +1,1307 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick Build Saga PC作成補助ツール</title>
+  <meta name="description" content="Quick Build Saga の PC 作成を、テンプレート下書きから GM に渡せるテキストへ整えるためのブラウザ用エディタです。">
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --card: #ffffff;
+      --text: #1c1f23;
+      --muted: #5d6670;
+      --line: #d7dce2;
+      --line-strong: #b8c1cc;
+      --accent: #204a8f;
+      --accent-soft: #eaf1ff;
+      --good: #1f6d3d;
+      --good-soft: #e9f7ef;
+      --warn: #8a5b00;
+      --warn-soft: #fff4d6;
+      --danger: #a12727;
+      --danger-soft: #fdeaea;
+      --shadow: 0 12px 32px rgba(10, 22, 40, 0.06);
+      --radius: 14px;
+      --radius-small: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background: linear-gradient(180deg, #fafbfd 0%, var(--bg) 220px);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .page-header {
+      padding: 40px 0 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+    }
+
+    .lead {
+      max-width: 64rem;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-top: 20px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .main-grid {
+      display: grid;
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin-top: 0;
+      line-height: 1.25;
+    }
+
+    .panel p:first-child,
+    .panel h2:first-child,
+    .panel h3:first-child {
+      margin-top: 0;
+    }
+
+    .small,
+    .muted {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 0.94rem;
+    }
+
+    .inline-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-small);
+      background: var(--accent-soft);
+      color: #183764;
+      font-size: 0.95rem;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    .tab-row,
+    .button-row,
+    .toolbar,
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    label,
+    legend {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: inherit;
+      background: #fff;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    button:focus-visible,
+    .tab-button:focus-visible {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(32, 74, 143, 0.12);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 112px;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    button,
+    .file-button {
+      appearance: none;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    button:hover,
+    .file-button:hover {
+      border-color: var(--accent);
+      background: #fcfdff;
+      transform: translateY(-1px);
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button.primary:hover {
+      background: #17396f;
+    }
+
+    button.secondary {
+      background: var(--accent-soft);
+      border-color: #c7d7ff;
+      color: #183764;
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    .file-button {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .file-button input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .tab-row {
+      margin-bottom: 14px;
+    }
+
+    .tab-button {
+      border-radius: 12px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab-button[aria-selected="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #183764;
+    }
+
+    .mode-panel[hidden] {
+      display: none;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field-span-2 {
+      grid-column: 1 / -1;
+    }
+
+    .sub-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field-help {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .helper-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fbfcfe;
+    }
+
+    .helper-card h3 {
+      margin: 0 0 8px;
+      font-size: 0.98rem;
+      color: var(--accent);
+    }
+
+    .helper-card p {
+      margin: 0;
+    }
+
+    .tips-list,
+    .validation-list,
+    .checklist {
+      margin: 12px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .validation-list {
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .validation-item {
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+    }
+
+    .validation-item.info {
+      background: var(--accent-soft);
+      border-color: #cfe0ff;
+      color: #183764;
+    }
+
+    .validation-item.warn {
+      background: var(--warn-soft);
+      border-color: #efd28a;
+      color: #6d4a00;
+    }
+
+    .validation-item.error {
+      background: var(--danger-soft);
+      border-color: #edb3b3;
+      color: #7f1f1f;
+    }
+
+    .output-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      align-items: start;
+    }
+
+    .output-area {
+      min-height: 360px;
+    }
+
+    .side-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      background: #fbfcfe;
+      display: grid;
+      gap: 14px;
+    }
+
+    .side-card h3 {
+      margin-bottom: 0;
+    }
+
+    .option-line {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .option-line input {
+      margin-top: 4px;
+      flex: none;
+    }
+
+    .status-line {
+      min-height: 1.5em;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .status-line.success {
+      color: var(--good);
+    }
+
+    .status-line.warn {
+      color: var(--warn);
+    }
+
+    .status-line.error {
+      color: var(--danger);
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .kicker {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 980px) {
+      .output-grid,
+      .field-grid,
+      .sub-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 20px, 100%);
+      }
+
+      .panel {
+        padding: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">Quick Build Saga</p>
+      <h1>PC作成補助ツール</h1>
+      <p class="lead">プレイヤーズガイドの PC 作成項目をもとに、下書きからそのまま GM に渡せるプレーンテキストへ整えるための補助ツールです。テンプレートから始めても、最後は自由記述へ切り替えて崩しても構いません。</p>
+      <nav class="nav-links" aria-label="関連ページ">
+        <a href="./">トップ</a>
+        <a href="./player-guide.html">プレイヤーズガイド</a>
+        <a href="./play-tool.html">宣言補助ツール</a>
+        <a href="./gm-guide.html">GMガイド</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+    <section class="panel">
+      <p class="kicker">このページでできること</p>
+      <div class="stack">
+        <p>1. <strong>名前・立場・野望・大切なもの・得意なやり方・命運点・野望度</strong> を、テンプレートに沿って下書きできます。</p>
+        <p>2. 空欄を残したまま出力することも、空欄の行を省略することもできます。</p>
+        <p>3. 途中で <strong>自由記述</strong> に切り替え、見出しを増やしたり、本文を崩したりできます。</p>
+        <p>4. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の開始時共有や GM への提出に使えます。</p>
+      </div>
+      <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。同じブラウザなら、宣言補助ツールからこの PC 情報を任意で読み込めます。</p>
+    </section>
+
+    <section class="panel" aria-labelledby="editor-panel-title">
+      <h2 id="editor-panel-title">1. PC の下書きを作る</h2>
+      <div class="tab-row" role="tablist" aria-label="入力モード">
+        <button type="button" class="tab-button" id="tabTemplate" data-mode="template" role="tab" aria-selected="true" aria-controls="panelTemplate">テンプレート</button>
+        <button type="button" class="tab-button" id="tabFree" data-mode="free" role="tab" aria-selected="false" aria-controls="panelFree">自由記述</button>
+      </div>
+      <p id="modeHelp" class="small">プレイヤーズガイドの 7項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。</p>
+
+      <section id="panelTemplate" class="mode-panel" role="tabpanel" aria-labelledby="tabTemplate">
+        <div class="field-grid">
+          <div>
+            <label for="name">名前</label>
+            <input type="text" id="name" placeholder="PC の名前">
+          </div>
+          <div>
+            <label for="role">立場</label>
+            <input type="text" id="role" placeholder="港町の見習い航海士 など">
+            <p class="field-help">ひとことで、その PC がどんな人物かを表します。</p>
+          </div>
+          <div class="field-span-2">
+            <label for="ambition">野望</label>
+            <textarea id="ambition" placeholder="PC が最終的にかなえたい大きな目標"></textarea>
+            <p class="field-help">今の立場から、どこまで上がりたいのかが見える形だと扱いやすくなります。</p>
+          </div>
+          <div>
+            <label for="important1">大切なもの 1</label>
+            <textarea id="important1" placeholder="名前 + その意味"></textarea>
+          </div>
+          <div>
+            <label for="important2">大切なもの 2 (任意)</label>
+            <textarea id="important2" placeholder="2つ目があれば"></textarea>
+            <p class="field-help">初心者は 1つで十分です。</p>
+          </div>
+          <div class="field-span-2">
+            <label for="methods">得意なやり方</label>
+            <input type="text" id="methods" placeholder="調査と準備 / 交渉と根回し / 嘘と変装 など">
+          </div>
+          <div class="helper-card field-span-2">
+            <h3>数値まわりの目安</h3>
+            <p id="fateHint">命運点の目安: 大切なものの数 + 1</p>
+            <div class="toolbar" style="margin-top:12px;">
+              <label class="option-line"><input type="checkbox" id="autoFateFromImportant" checked>命運点の最大値は「大切なものの数 + 1」を初期値に使う</label>
+            </div>
+          </div>
+          <div>
+            <label for="fateCurrent">命運点 現在値</label>
+            <input type="text" id="fateCurrent" placeholder="2">
+          </div>
+          <div>
+            <label for="fateMax">命運点 最大値</label>
+            <input type="text" id="fateMax" placeholder="2">
+            <p class="field-help">自動計算を使わないなら、ここを直接書き換えてください。</p>
+          </div>
+          <div>
+            <label for="ambitionCurrent">野望度 現在値</label>
+            <input type="text" id="ambitionCurrent" placeholder="1">
+          </div>
+          <div>
+            <label for="ambitionGoal">野望度 終点の目安</label>
+            <input type="text" id="ambitionGoal" placeholder="5">
+            <p class="field-help">標準ルールの目安は 5 ですが、GM が調整しても構いません。</p>
+          </div>
+          <div class="field-span-2">
+            <label for="note">補足 (任意)</label>
+            <textarea id="note" placeholder="世界観との接点、口調のメモ、仲間との関係、見た目の特徴など"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section id="panelFree" class="mode-panel" role="tabpanel" aria-labelledby="tabFree" hidden>
+        <p class="small">見出しを増やしたり、テンプレートを崩したり、自由な書式で本文を整えるモードです。既存の出力をここへ引き継いでから仕上げる使い方を想定しています。</p>
+        <label for="freeText">自由記述</label>
+        <textarea id="freeText" class="output-area" placeholder="ここでは本文をそのまま編集できます。"></textarea>
+        <div class="button-row">
+          <button type="button" id="pullCurrentOutputButton" class="secondary">現在の出力をここへ引き継ぐ</button>
+          <button type="button" id="insertTemplateButton" class="ghost">PC テンプレートを挿入</button>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel" aria-labelledby="output-panel-title">
+      <h2 id="output-panel-title">2. GM へ渡すテキスト</h2>
+      <div class="output-grid">
+        <div>
+          <div class="toolbar">
+            <label class="option-line"><input type="checkbox" id="keepBlankFields" checked>テンプレートモードでは空欄の行も残す</label>
+          </div>
+          <label for="outputText">出力プレビュー</label>
+          <textarea id="outputText" class="mono output-area" readonly></textarea>
+          <ul id="validationList" class="validation-list" aria-live="polite"></ul>
+        </div>
+        <aside class="side-card">
+          <h3>保存と移行</h3>
+          <div>
+            <label for="filenameBase">保存ファイル名</label>
+            <input type="text" id="filenameBase" value="qbs-pc" placeholder="qbs-pc">
+            <p class="footer-note">保存時に日時を付けて <span class="mono">.txt</span> にします。</p>
+          </div>
+          <div class="stack">
+            <button type="button" id="copyButton" class="primary">クリップボードへコピー</button>
+            <button type="button" id="downloadButton">TXT 保存</button>
+            <label class="file-button">TXT を読み込む<input type="file" id="importFile" accept=".txt,text/plain"></label>
+            <button type="button" id="promoteToFreeButton" class="secondary">この出力を自由記述へ引き継ぐ</button>
+            <button type="button" id="resetButton" class="ghost">下書きを初期化</button>
+          </div>
+          <p id="statusLine" class="status-line" aria-live="polite">下書きはブラウザ内に自動保存されます。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="panel">
+      <details>
+        <summary>迷ったときの着眼点</summary>
+        <ul class="tips-list">
+          <li>立場は「どんな人物か」がひとことで伝わる短さにする</li>
+          <li>野望は今の立場からどこまで行きたいかが見える形にする</li>
+          <li>大切なものは「名前 + その意味」で書くと扱いやすい</li>
+          <li>得意なやり方は、宣言時の手段にもつながる言葉にする</li>
+        </ul>
+      </details>
+      <details>
+        <summary>このページの想定フロー</summary>
+        <ol class="checklist">
+          <li>テンプレートで PC の骨組みを作る</li>
+          <li>必要なら自由記述へ引き継いで整える</li>
+          <li>TXT 保存して GM へ渡す</li>
+          <li>同じブラウザなら、宣言補助ツールでこの PC を参照する</li>
+        </ol>
+      </details>
+    </section>
+  </main>
+
+  <noscript>
+    <div class="container" style="padding-bottom:40px;">
+      <section class="panel">
+        <p><strong>JavaScript を有効にしてください。</strong> このエディタはブラウザ上の JavaScript で動作します。</p>
+      </section>
+    </div>
+  </noscript>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = "qbs-pc-tool-v1";
+      const MODE_HELP = {
+        template: "プレイヤーズガイドの 7項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。",
+        free: "本文を自由に編集できます。見出しを増やしたり、テンプレートを崩したりしたいときに使います。"
+      };
+
+      const PC_TEMPLATE = [
+        "名前:",
+        "立場:",
+        "野望:",
+        "大切なもの:",
+        "- ",
+        "- ",
+        "得意なやり方:",
+        "命運点:",
+        "野望度:",
+        "補足 (任意):"
+      ].join("\n");
+
+      const defaultState = () => ({
+        mode: "template",
+        keepBlankFields: true,
+        autoFateFromImportant: true,
+        character: {
+          name: "",
+          role: "",
+          ambition: "",
+          important: ["", ""],
+          methods: "",
+          fateCurrent: "",
+          fateMax: "",
+          ambitionCurrent: "1",
+          ambitionGoal: "5",
+          note: ""
+        },
+        freeText: "",
+        filenameBase: "qbs-pc",
+        updatedAt: null
+      });
+
+      const state = loadState();
+
+      const els = {
+        modeHelp: document.getElementById("modeHelp"),
+        tabButtons: Array.from(document.querySelectorAll(".tab-button")),
+        modePanels: {
+          template: document.getElementById("panelTemplate"),
+          free: document.getElementById("panelFree")
+        },
+        name: document.getElementById("name"),
+        role: document.getElementById("role"),
+        ambition: document.getElementById("ambition"),
+        important1: document.getElementById("important1"),
+        important2: document.getElementById("important2"),
+        methods: document.getElementById("methods"),
+        autoFateFromImportant: document.getElementById("autoFateFromImportant"),
+        fateCurrent: document.getElementById("fateCurrent"),
+        fateMax: document.getElementById("fateMax"),
+        ambitionCurrent: document.getElementById("ambitionCurrent"),
+        ambitionGoal: document.getElementById("ambitionGoal"),
+        note: document.getElementById("note"),
+        fateHint: document.getElementById("fateHint"),
+        freeText: document.getElementById("freeText"),
+        pullCurrentOutputButton: document.getElementById("pullCurrentOutputButton"),
+        insertTemplateButton: document.getElementById("insertTemplateButton"),
+        keepBlankFields: document.getElementById("keepBlankFields"),
+        outputText: document.getElementById("outputText"),
+        validationList: document.getElementById("validationList"),
+        filenameBase: document.getElementById("filenameBase"),
+        copyButton: document.getElementById("copyButton"),
+        downloadButton: document.getElementById("downloadButton"),
+        importFile: document.getElementById("importFile"),
+        promoteToFreeButton: document.getElementById("promoteToFreeButton"),
+        resetButton: document.getElementById("resetButton"),
+        statusLine: document.getElementById("statusLine")
+      };
+
+      syncInputsFromState();
+      bindEvents();
+      renderAll();
+
+      function bindEvents() {
+        els.tabButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            state.mode = button.dataset.mode;
+            renderMode();
+            renderOutput();
+            renderValidation();
+            saveState();
+          });
+        });
+
+        bindField(els.name, (value) => state.character.name = value);
+        bindField(els.role, (value) => state.character.role = value);
+        bindField(els.ambition, (value) => state.character.ambition = value);
+        bindField(els.important1, (value) => state.character.important[0] = value);
+        bindField(els.important2, (value) => state.character.important[1] = value);
+        bindField(els.methods, (value) => state.character.methods = value);
+        bindField(els.fateCurrent, (value) => state.character.fateCurrent = value);
+        bindField(els.fateMax, (value) => state.character.fateMax = value);
+        bindField(els.ambitionCurrent, (value) => state.character.ambitionCurrent = value);
+        bindField(els.ambitionGoal, (value) => state.character.ambitionGoal = value);
+        bindField(els.note, (value) => state.character.note = value);
+        bindField(els.freeText, (value) => state.freeText = value);
+
+        els.autoFateFromImportant.addEventListener("change", () => {
+          state.autoFateFromImportant = els.autoFateFromImportant.checked;
+          renderFateHint();
+          renderOutput();
+          renderValidation();
+          saveState();
+        });
+
+        els.keepBlankFields.addEventListener("change", () => {
+          state.keepBlankFields = els.keepBlankFields.checked;
+          renderOutput();
+          renderValidation();
+          saveState();
+        });
+
+        bindField(els.filenameBase, (value) => {
+          state.filenameBase = value;
+          saveState();
+        }, false);
+
+        els.pullCurrentOutputButton.addEventListener("click", () => {
+          state.freeText = getOutputText();
+          state.mode = "free";
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("現在の出力を自由記述へ引き継ぎました。", "success");
+        });
+
+        els.insertTemplateButton.addEventListener("click", () => {
+          state.freeText = appendBlock(state.freeText, PC_TEMPLATE);
+          syncInputsFromState();
+          renderOutput();
+          renderValidation();
+          saveState();
+          setStatus("自由記述へ PC テンプレートを挿入しました。", "success");
+        });
+
+        els.copyButton.addEventListener("click", async () => {
+          const text = getOutputText();
+          if (!text.trim()) {
+            setStatus("まだ保存できる本文がありません。", "warn");
+            return;
+          }
+
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              fallbackCopy(text);
+            }
+            setStatus("出力をクリップボードへコピーしました。", "success");
+          } catch (error) {
+            console.error(error);
+            setStatus("コピーに失敗しました。ブラウザの権限設定を確認してください。", "error");
+          }
+        });
+
+        els.downloadButton.addEventListener("click", () => {
+          const text = getOutputText();
+          if (!text.trim()) {
+            setStatus("まだ保存できる本文がありません。", "warn");
+            return;
+          }
+
+          const filename = buildFilename(state.filenameBase || "qbs-pc");
+          downloadText(filename, text);
+          setStatus(`TXT を保存しました: ${filename}`, "success");
+        });
+
+        els.importFile.addEventListener("change", async (event) => {
+          const file = event.target.files && event.target.files[0];
+          if (!file) {
+            return;
+          }
+
+          try {
+            const text = await file.text();
+            hydrateFromText(text);
+            saveState();
+            setStatus(`TXT を読み込みました: ${file.name}`, "success");
+          } catch (error) {
+            console.error(error);
+            setStatus("TXT の読み込みに失敗しました。", "error");
+          } finally {
+            els.importFile.value = "";
+          }
+        });
+
+        els.promoteToFreeButton.addEventListener("click", () => {
+          state.freeText = getOutputText();
+          state.mode = "free";
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("出力を自由記述へ引き継ぎました。", "success");
+        });
+
+        els.resetButton.addEventListener("click", () => {
+          const ok = window.confirm("現在の下書きを初期化します。よろしいですか。");
+          if (!ok) {
+            return;
+          }
+          Object.assign(state, defaultState());
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("下書きを初期化しました。", "success");
+        });
+      }
+
+      function bindField(element, setter, refreshDerived = true) {
+        element.addEventListener("input", () => {
+          setter(element.value);
+          if (refreshDerived) {
+            renderFateHint();
+            renderOutput();
+            renderValidation();
+          }
+          saveState();
+        });
+      }
+
+      function loadState() {
+        const initial = defaultState();
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            return initial;
+          }
+          const parsed = JSON.parse(raw);
+          return {
+            ...initial,
+            ...parsed,
+            character: {
+              ...initial.character,
+              ...(parsed.character || {}),
+              important: Array.isArray(parsed.character && parsed.character.important)
+                ? [parsed.character.important[0] || "", parsed.character.important[1] || ""]
+                : initial.character.important.slice()
+            }
+          };
+        } catch (error) {
+          console.warn("Failed to load local draft", error);
+          return initial;
+        }
+      }
+
+      function saveState() {
+        state.updatedAt = new Date().toISOString();
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (error) {
+          console.warn("Failed to save local draft", error);
+          setStatus("自動保存に失敗しました。ブラウザの保存領域を確認してください。", "warn");
+        }
+      }
+
+      function syncInputsFromState() {
+        els.name.value = state.character.name;
+        els.role.value = state.character.role;
+        els.ambition.value = state.character.ambition;
+        els.important1.value = state.character.important[0] || "";
+        els.important2.value = state.character.important[1] || "";
+        els.methods.value = state.character.methods;
+        els.autoFateFromImportant.checked = state.autoFateFromImportant;
+        els.fateCurrent.value = state.character.fateCurrent;
+        els.fateMax.value = state.character.fateMax;
+        els.ambitionCurrent.value = state.character.ambitionCurrent;
+        els.ambitionGoal.value = state.character.ambitionGoal;
+        els.note.value = state.character.note;
+        els.freeText.value = state.freeText;
+        els.keepBlankFields.checked = state.keepBlankFields;
+        els.filenameBase.value = state.filenameBase;
+      }
+
+      function renderAll() {
+        renderMode();
+        renderFateHint();
+        renderOutput();
+        renderValidation();
+      }
+
+      function renderMode() {
+        els.modeHelp.textContent = MODE_HELP[state.mode] || MODE_HELP.template;
+        els.tabButtons.forEach((button) => {
+          const selected = button.dataset.mode === state.mode;
+          button.setAttribute("aria-selected", String(selected));
+        });
+        Object.entries(els.modePanels).forEach(([mode, panel]) => {
+          panel.hidden = mode !== state.mode;
+        });
+      }
+
+      function estimateImportantCount() {
+        return state.character.important
+          .filter((item) => String(item || "").trim()).length;
+      }
+
+      function estimateFateMax() {
+        return Math.max(estimateImportantCount() + 1, 1);
+      }
+
+      function renderFateHint() {
+        const count = estimateImportantCount();
+        const max = estimateFateMax();
+        els.fateHint.textContent = `命運点の目安: 大切なもの ${count}件 -> ${max}/${max}`;
+      }
+
+      function serializeCharacter(character, keepBlank) {
+        const lines = [];
+
+        pushLine(lines, "名前", character.name, keepBlank);
+        pushLine(lines, "立場", character.role, keepBlank);
+        pushLine(lines, "野望", character.ambition, keepBlank);
+
+        const important = Array.isArray(character.important)
+          ? character.important.map((item) => String(item || ""))
+          : [];
+        if (keepBlank || important.some((item) => item.trim())) {
+          lines.push("大切なもの:");
+          const items = keepBlank ? important.slice(0, 2) : important.filter((item) => item.trim());
+          const normalized = items.length ? items : [""];
+          normalized.forEach((item) => {
+            const text = String(item || "").trim();
+            lines.push(text ? `- ${text}` : "-");
+          });
+        }
+
+        pushLine(lines, "得意なやり方", character.methods, keepBlank);
+        pushLine(lines, "命運点", formatFateValue(character), keepBlank);
+        pushLine(lines, "野望度", formatAmbitionValue(character), keepBlank);
+        pushLine(lines, "補足 (任意)", character.note, keepBlank);
+
+        return lines.join("\n");
+      }
+
+      function pushLine(lines, label, value, keepBlank) {
+        const text = String(value || "").trim();
+        if (!keepBlank && !text) {
+          return;
+        }
+        lines.push(text ? `${label}: ${text}` : `${label}:`);
+      }
+
+      function formatFateValue(character) {
+        const current = String(character.fateCurrent || "").trim();
+        const manualMax = String(character.fateMax || "").trim();
+        const autoMax = String(estimateFateMax());
+        const max = state.autoFateFromImportant ? (manualMax || autoMax) : manualMax;
+
+        if (!current && !max) {
+          return "";
+        }
+        if (!max) {
+          return current;
+        }
+        return `${current || max}/${max}`;
+      }
+
+      function formatAmbitionValue(character) {
+        const current = String(character.ambitionCurrent || "").trim();
+        const goal = String(character.ambitionGoal || "").trim();
+
+        if (!current && !goal) {
+          return "";
+        }
+        if (!goal) {
+          return current;
+        }
+        return `${current || "1"}/${goal}`;
+      }
+
+      function getOutputText() {
+        if (state.mode === "free") {
+          return state.freeText;
+        }
+        return serializeCharacter(state.character, state.keepBlankFields);
+      }
+
+      function renderOutput() {
+        els.outputText.value = getOutputText();
+      }
+
+      function renderValidation() {
+        const items = validateCurrentState();
+        if (!items.length) {
+          els.validationList.innerHTML = "";
+          return;
+        }
+        els.validationList.innerHTML = items.map((item) => `
+          <li class="validation-item ${item.level}">${escapeHtml(item.text)}</li>
+        `).join("");
+      }
+
+      function validateCurrentState() {
+        const items = [];
+        const output = getOutputText();
+
+        if (!output.trim()) {
+          items.push({ level: "error", text: "まだ本文が空です。テンプレートでも自由記述でもよいので、まず 1行以上書いてください。" });
+          return items;
+        }
+
+        if (state.mode === "template") {
+          if (!state.character.name.trim()) {
+            items.push({ level: "warn", text: "名前が空です。まずは呼び名だけでもあると扱いやすくなります。" });
+          }
+          if (!state.character.role.trim()) {
+            items.push({ level: "warn", text: "立場が空です。どんな人物かをひとことで示すと、卓への乗せ方が見えやすくなります。" });
+          }
+          if (!state.character.ambition.trim()) {
+            items.push({ level: "warn", text: "野望が空です。キャンペーンの土台になるので、できれば先に書いておくと扱いやすくなります。" });
+          }
+          if (!estimateImportantCount()) {
+            items.push({ level: "info", text: "大切なもの が空です。初心者でも 1つあると、その PC らしさが出しやすくなります。" });
+          }
+          if (!state.character.methods.trim()) {
+            items.push({ level: "info", text: "得意なやり方 が空です。宣言時の手段にもつながるので、ひとつ決めておくと便利です。" });
+          }
+          if (!state.autoFateFromImportant && !state.character.fateCurrent.trim() && !state.character.fateMax.trim()) {
+            items.push({ level: "info", text: "命運点 が空です。自動計算を切っているなら、現在値や最大値を書いておくと扱いやすくなります。" });
+          }
+          if (!state.keepBlankFields) {
+            items.push({ level: "info", text: "空欄の行は出力から省略しています。テンプレートの形を残したいなら「空欄の行も残す」をオンにしてください。" });
+          }
+        } else {
+          if (!state.freeText.trim()) {
+            items.push({ level: "warn", text: "自由記述が空です。現在の出力を引き継ぐボタンから始めると作りやすくなります。" });
+          } else if (!/[\n:：]/.test(state.freeText) && state.freeText.trim().length < 30) {
+            items.push({ level: "info", text: "短い本文です。名前・立場・野望のどれかが伝わるかだけ見直すと安心です。" });
+          }
+        }
+
+        return items;
+      }
+
+      function hydrateFromText(text) {
+        const normalized = text.replace(/\r\n?/g, "\n").trimEnd();
+        const parsed = parsePcText(normalized);
+
+        if (parsed.matched >= 3) {
+          state.mode = "template";
+          state.character = parsed.pc;
+          syncInputsFromState();
+          renderAll();
+          return;
+        }
+
+        state.mode = "free";
+        state.freeText = normalized;
+        syncInputsFromState();
+        renderAll();
+      }
+
+      function parsePcText(text) {
+        const pc = {
+          name: "",
+          role: "",
+          ambition: "",
+          important: ["", ""],
+          methods: "",
+          fateCurrent: "",
+          fateMax: "",
+          ambitionCurrent: "",
+          ambitionGoal: "",
+          note: ""
+        };
+
+        const lines = text.split("\n");
+        let matched = 0;
+        let currentKey = "";
+        let importantIndex = 0;
+
+        for (const rawLine of lines) {
+          const line = rawLine.trimEnd();
+          const match = line.match(/^\s*(名前|立場|野望|大切なもの(?:\s*[12])?|得意なやり方|命運点|野望度|補足(?:\s*[（(]任意[)）])?)\s*[:：]\s*(.*)$/);
+          if (match) {
+            currentKey = normalizeLabel(match[1]);
+            const value = match[2].trim();
+
+            if (currentKey === "important") {
+              if (value && importantIndex < 2) {
+                pc.important[importantIndex] = value;
+                importantIndex += 1;
+              }
+            } else if (currentKey === "fate") {
+              parseFateValue(value, pc);
+            } else if (currentKey === "ambitionLevel") {
+              parseAmbitionValue(value, pc);
+            } else if (currentKey) {
+              pc[currentKey] = value;
+            }
+
+            if (currentKey) {
+              matched += 1;
+            }
+            continue;
+          }
+
+          if (!line.trim()) {
+            continue;
+          }
+
+          if (currentKey === "important") {
+            const item = line.replace(/^\s*[-*・]\s*/, "").trim();
+            if (!item) {
+              continue;
+            }
+            if (importantIndex < 2) {
+              pc.important[importantIndex] = item;
+              importantIndex += 1;
+            } else {
+              pc.important[1] = appendLine(pc.important[1], item);
+            }
+            continue;
+          }
+
+          if (!currentKey) {
+            continue;
+          }
+
+          if (currentKey === "fate" || currentKey === "ambitionLevel") {
+            continue;
+          }
+
+          pc[currentKey] = appendLine(pc[currentKey], line.trim());
+        }
+
+        return { pc, matched };
+      }
+
+      function normalizeLabel(label) {
+        const compact = String(label || "")
+          .replace(/\s+/g, "")
+          .replace(/\(任意\)|（任意）/g, "");
+
+        if (compact.startsWith("大切なもの")) {
+          return "important";
+        }
+
+        const mapping = {
+          "名前": "name",
+          "立場": "role",
+          "野望": "ambition",
+          "得意なやり方": "methods",
+          "命運点": "fate",
+          "野望度": "ambitionLevel",
+          "補足": "note"
+        };
+
+        return mapping[compact] || "";
+      }
+
+      function parseFateValue(value, pc) {
+        const trimmed = String(value || "").trim();
+        if (!trimmed) {
+          pc.fateCurrent = "";
+          pc.fateMax = "";
+          return;
+        }
+        const parts = trimmed.split("/");
+        if (parts.length >= 2) {
+          pc.fateCurrent = parts[0].trim();
+          pc.fateMax = parts[1].trim();
+        } else {
+          pc.fateCurrent = trimmed;
+        }
+      }
+
+      function parseAmbitionValue(value, pc) {
+        const trimmed = String(value || "").trim();
+        if (!trimmed) {
+          pc.ambitionCurrent = "";
+          pc.ambitionGoal = "";
+          return;
+        }
+        const parts = trimmed.split("/");
+        if (parts.length >= 2) {
+          pc.ambitionCurrent = parts[0].trim();
+          pc.ambitionGoal = parts[1].trim();
+        } else {
+          pc.ambitionCurrent = trimmed;
+        }
+      }
+
+      function appendLine(current, next) {
+        if (!next) {
+          return current || "";
+        }
+        if (!current) {
+          return next;
+        }
+        return `${current}\n${next}`;
+      }
+
+      function appendBlock(current, block) {
+        const left = (current || "").trimEnd();
+        const right = (block || "").trim();
+        if (!right) {
+          return left;
+        }
+        if (!left) {
+          return right;
+        }
+        return `${left}\n${right}`;
+      }
+
+      function fallbackCopy(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "readonly");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      function buildFilename(base) {
+        const safeBase = (base || "qbs-pc")
+          .trim()
+          .replace(/[\\/:*?"<>|]+/g, "-")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "") || "qbs-pc";
+
+        const now = new Date();
+        const timestamp = [
+          now.getFullYear(),
+          pad(now.getMonth() + 1),
+          pad(now.getDate()),
+          "-",
+          pad(now.getHours()),
+          pad(now.getMinutes())
+        ].join("");
+
+        return `${safeBase}-${timestamp}.txt`;
+      }
+
+      function pad(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function downloadText(filename, text) {
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;")
+          .replace(/\n/g, "<br>");
+      }
+
+      function setStatus(text, tone) {
+        els.statusLine.textContent = text;
+        els.statusLine.className = `status-line${tone ? ` ${tone}` : ""}`;
+      }
+    })();
+  </script>
+</body>
+</html>

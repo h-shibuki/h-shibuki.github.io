@@ -1,376 +1,298 @@
----
-layout: null
----
 <!doctype html>
 <html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quick Build Saga</title>
-  <meta name="description" content="Quick Build Saga の公開ページ一覧。追加した HTML を自動反映します。">
+  <meta name="description" content="Quick Build Saga のルール、補助ツール、世界設定、実プレイへの入口です。">
   <style>
-    :root{
-      --bg:#0b1020;
-      --bg2:#121937;
-      --paper:#ffffff;
-      --paper-soft:#f8fafc;
-      --ink:#1f2937;
-      --muted:#6b7280;
-      --line:#e5e7eb;
-      --shadow:0 20px 60px rgba(15,23,42,.12);
-      --shadow-soft:0 10px 30px rgba(15,23,42,.08);
+    :root {
+      --bg: #f7f7f5;
+      --card: #ffffff;
+      --text: #1c1f23;
+      --muted: #5d6670;
+      --line: #d7dce2;
+      --accent: #204a8f;
+      --accent-soft: #eaf1ff;
+      --shadow: 0 12px 32px rgba(10, 22, 40, 0.06);
+      --radius: 16px;
+      --radius-small: 12px;
     }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{
-      margin:0;
-      font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI","YuGothic","Meiryo",sans-serif;
-      color:var(--ink);
-      line-height:1.7;
-      background:
-        radial-gradient(circle at top right, rgba(59,130,246,.18), transparent 30%),
-        linear-gradient(180deg, var(--bg) 0px, var(--bg2) 240px, #f8fafc 240px, #f8fafc 100%);
+
+    * {
+      box-sizing: border-box;
     }
-    a{color:inherit;text-decoration:none}
-    a:hover{text-decoration:none}
-    .container{max-width:1120px;margin:0 auto;padding:0 20px}
-    .header{
-      padding:36px 0 10px;
-      color:#fff;
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background: linear-gradient(180deg, #fafbfd 0%, var(--bg) 220px);
     }
-    .page-title{
-      margin:0;
-      font-size:clamp(2rem,5vw,3.7rem);
-      line-height:1.06;
-      letter-spacing:-.02em;
-      font-weight:800;
+
+    a {
+      color: var(--accent);
     }
-    .main{padding:18px 0 72px}
-    .section{
-      margin-top:24px;
-      background:var(--paper);
-      border:1px solid var(--line);
-      border-radius:28px;
-      padding:32px;
-      box-shadow:var(--shadow-soft);
+
+    .container {
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
     }
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:20px;
+
+    .page-header {
+      padding: 48px 0 28px;
     }
-    .cards-featured{
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: 0.92rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
     }
-    .cards-spaced{margin-top:20px}
-    .card{
-      --tone:#2563eb;
-      --tone-soft:#eff6ff;
-      --tone-ink:#1d4ed8;
-      position:relative;
-      overflow:hidden;
-      display:flex;
-      flex-direction:column;
-      min-height:230px;
-      border:1px solid var(--line);
-      border-radius:24px;
-      padding:24px;
-      background:linear-gradient(180deg,#fff 0%, #f8fbff 100%);
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.2rem, 4vw, 3.3rem);
+      line-height: 1.1;
     }
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0 0 auto 0;
-      height:6px;
-      background:linear-gradient(90deg, var(--tone) 0%, var(--tone) 62%, transparent 100%);
+
+    .lead {
+      max-width: 68rem;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
     }
-    .card-featured{
-      min-height:260px;
-      box-shadow:var(--shadow-soft);
+
+    .main-grid {
+      display: grid;
+      gap: 20px;
+      padding-bottom: 40px;
     }
-    .card-head{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      gap:8px;
-      margin-bottom:14px;
+
+    .section-card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
     }
-    .pill,
-    .meta-chip{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      min-height:32px;
-      padding:6px 11px;
-      border-radius:999px;
-      font-size:.85rem;
-      font-weight:800;
+
+    .section-card h2 {
+      margin: 0 0 6px;
+      font-size: 1.6rem;
+      line-height: 1.2;
     }
-    .pill{
-      background:var(--tone-soft);
-      color:var(--tone-ink);
+
+    .section-card p {
+      margin: 0;
     }
-    .pill-ghost{
-      background:#f3f4f6;
-      color:#374151;
+
+    .section-eyebrow {
+      margin: 0 0 12px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
     }
-    .meta-chip{
-      background:#f8fafc;
-      color:#475569;
-      border:1px solid #e2e8f0;
-      font-weight:700;
+
+    .link-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 18px;
     }
-    .card h3{
-      margin:0 0 10px;
-      font-size:1.35rem;
-      line-height:1.35;
-      letter-spacing:-.01em;
+
+    .link-card {
+      display: grid;
+      gap: 8px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: #fff;
+      text-decoration: none;
+      color: inherit;
+      transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
     }
-    .card p{
-      margin:0 0 18px;
-      color:#4b5563;
+
+    .link-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent);
+      box-shadow: 0 10px 24px rgba(10, 22, 40, 0.08);
     }
-    .card-footer{
-      margin-top:auto;
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
+
+    .link-card h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.25;
+      color: var(--accent);
     }
-    .filename{
-      font-size:.88rem;
-      color:#6b7280;
+
+    .link-card p {
+      color: var(--muted);
+      font-size: 0.96rem;
     }
-    .mini-btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:42px;
-      padding:10px 14px;
-      border-radius:12px;
-      background:var(--tone-soft);
-      color:var(--tone-ink);
-      font-weight:800;
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 6px;
     }
-    .mini-btn:hover{filter:brightness(.98)}
-    .tone-blue{--tone:#2563eb;--tone-soft:#eff6ff;--tone-ink:#1d4ed8}
-    .tone-indigo{--tone:#4f46e5;--tone-soft:#eef2ff;--tone-ink:#4338ca}
-    .tone-gold{--tone:#c58917;--tone-soft:#fff8e8;--tone-ink:#9a6700}
-    .tone-bronze{--tone:#9a5b32;--tone-soft:#fdf3ec;--tone-ink:#7c3d17}
-    .tone-slate{--tone:#475569;--tone-soft:#f1f5f9;--tone-ink:#334155}
-    .footer{
-      padding:16px 0 44px;
-      text-align:center;
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: #183764;
+      font-size: 0.84rem;
+      font-weight: 700;
     }
-    .owner-link{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:40px;
-      padding:10px 14px;
-      border-radius:12px;
-      border:1px solid #dbeafe;
-      background:#fff;
-      color:#1d4ed8;
-      font-weight:700;
-      box-shadow:var(--shadow-soft);
+
+    .note {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: var(--radius-small);
+      background: var(--accent-soft);
+      color: #183764;
+      font-size: 0.95rem;
     }
-    @media (max-width: 920px){
-      .section{padding:24px}
+
+    @media (max-width: 860px) {
+      .link-grid {
+        grid-template-columns: 1fr;
+      }
     }
-    @media (max-width: 640px){
-      .card-footer{align-items:flex-start}
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 20px, 100%);
+      }
+
+      .section-card {
+        padding: 18px;
+      }
     }
   </style>
 </head>
 <body>
-  {% assign all_pages = site.pages | sort: "nav_order" %}
-  {% assign html_files = site.static_files | sort: "name" %}
-  {% assign featured_count = 0 %}
-  {% assign library_count = 0 %}
-  {% assign fallback_count = 0 %}
-
-  {% for p in all_pages %}
-    {% assign page_path_parts = p.path | split: "/" %}
-    {% assign page_ext = p.path | split: "." | last | downcase %}
-    {% assign is_hidden_page = false %}
-    {% if p.name == "owner.html" or p.name contains "_setting_all" %}
-      {% assign is_hidden_page = true %}
-    {% endif %}
-    {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true %}
-      {% if p.featured == true %}
-        {% assign featured_count = featured_count | plus: 1 %}
-      {% else %}
-        {% assign library_count = library_count | plus: 1 %}
-      {% endif %}
-    {% endif %}
-  {% endfor %}
-
-  {% for f in html_files %}
-    {% assign path_parts = f.path | split: "/" %}
-    {% assign is_hidden_file = false %}
-    {% if f.name == "owner.html" or f.name contains "_setting_all" %}
-      {% assign is_hidden_file = true %}
-    {% endif %}
-    {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 and is_hidden_file != true %}
-      {% assign fallback_count = fallback_count | plus: 1 %}
-    {% endif %}
-  {% endfor %}
-
-  <header class="header">
+  <header class="page-header">
     <div class="container">
-      <h1 class="page-title">Quick Build Saga</h1>
+      <p class="eyebrow">Quick Build Saga</p>
+      <h1>Quick Build Saga</h1>
+      <p class="lead">PBM 形式を前提にした、自作のテキスト中心 TRPG です。プレイヤーズガイド、プレイヤー用補助ツール、GMガイド、世界設定、実プレイの入口をここにまとめています。</p>
     </div>
   </header>
 
-  <main class="main">
-    <div class="container">
-      {% if featured_count > 0 %}
-      <section class="section" id="featured">
-        <div class="cards cards-featured">
-          {% for p in all_pages %}
-            {% assign page_path_parts = p.path | split: "/" %}
-            {% assign page_ext = p.path | split: "." | last | downcase %}
-            {% assign is_hidden_page = false %}
-            {% if p.name == "owner.html" or p.name contains "_setting_all" %}
-              {% assign is_hidden_page = true %}
-            {% endif %}
-            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true and p.featured == true %}
-            <article class="card card-featured tone-{{ p.card_tone | default: 'blue' }}">
-              <div class="card-head">
-                {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
-                {% if p.page_type %}<span class="meta-chip">{{ p.page_type }}</span>{% endif %}
-              </div>
-              <h3>{{ p.card_title | default: p.title }}</h3>
-              <p>{{ p.description | default: 'ページの説明を front matter に書くと、ここに表示されます。' }}</p>
-              <div class="card-footer">
-                <span class="filename">{{ p.name }}</span>
-                <a class="mini-btn" href="{{ p.url | relative_url }}">開く</a>
-              </div>
-            </article>
-            {% endif %}
-          {% endfor %}
-        </div>
-      </section>
-      {% endif %}
+  <main class="container main-grid">
+    <section class="section-card">
+      <p class="section-eyebrow">For Players 基本ルール</p>
+      <h2>プレイヤーズガイド</h2>
+      <p>宣言の書き方、タグ、難度、命運点、卓越宣言など、プレイヤー向けの基本ルールをまとめたガイドです。</p>
+      <div class="link-grid">
+        <a class="link-card" href="./player-guide.html">
+          <h3>プレイヤーズガイドを開く</h3>
+          <p>宣言テンプレート、宣言前確認、難度の見方、PC作成の基本を読むための入口です。</p>
+          <div class="tag-row">
+            <span class="tag">基本ルール</span>
+            <span class="tag">初回はこちら</span>
+          </div>
+        </a>
+      </div>
+    </section>
 
-      {% if library_count > 0 or fallback_count > 0 %}
-      <section class="section" id="pages">
-        {% if library_count > 0 %}
-        <div class="cards">
-          {% for p in all_pages %}
-            {% assign page_path_parts = p.path | split: "/" %}
-            {% assign page_ext = p.path | split: "." | last | downcase %}
-            {% assign is_hidden_page = false %}
-            {% if p.name == "owner.html" or p.name contains "_setting_all" %}
-              {% assign is_hidden_page = true %}
-            {% endif %}
-            {% if p.name != "index.html" and page_ext == "html" and page_path_parts.size == 1 and p.listed != false and is_hidden_page != true and p.featured != true %}
-            <article class="card tone-{{ p.card_tone | default: 'slate' }}">
-              <div class="card-head">
-                {% if p.badge %}<span class="pill">{{ p.badge }}</span>{% endif %}
-                {% if p.page_type %}<span class="meta-chip">{{ p.page_type }}</span>{% endif %}
-              </div>
-              <h3>{{ p.card_title | default: p.title }}</h3>
-              <p>{{ p.description | default: 'ページの説明を front matter に書くと、ここに表示されます。' }}</p>
-              <div class="card-footer">
-                <span class="filename">{{ p.name }}</span>
-                <a class="mini-btn" href="{{ p.url | relative_url }}">開く</a>
-              </div>
-            </article>
-            {% endif %}
-          {% endfor %}
-        </div>
-        {% endif %}
+    <section class="section-card">
+      <p class="section-eyebrow">Player Tools プレイヤー用補助ツール</p>
+      <h2>PC作成と宣言の補助</h2>
+      <p>プレイヤーズガイドと GM ガイドの間で使う、ブラウザ上の補助ツールです。テンプレートから下書きを作り、そのまま GM に渡せるプレーンテキストへ整えられます。</p>
+      <div class="link-grid">
+        <a class="link-card" href="./pc-tool.html">
+          <h3>PC作成補助ツール</h3>
+          <p>名前・立場・野望・大切なもの・得意なやり方・命運点・野望度を下書きし、TXT 保存できます。</p>
+          <div class="tag-row">
+            <span class="tag">プレイヤー用</span>
+            <span class="tag">TXT保存</span>
+          </div>
+        </a>
+        <a class="link-card" href="./play-tool.html">
+          <h3>宣言補助ツール</h3>
+          <p>GM の局面を整理表示しながら宣言や宣言前確認の下書きを作れます。任意で PC 情報も並べて参照できます。</p>
+          <div class="tag-row">
+            <span class="tag">宣言支援</span>
+            <span class="tag">自由記述対応</span>
+          </div>
+        </a>
+      </div>
+      <div class="note">同じブラウザで使うと、PC作成補助ツールの保存内容を宣言補助ツールから任意で読み込めます。どちらも入力内容はブラウザ内の <code>localStorage</code> に保存し、外部へ送信しません。</div>
+    </section>
 
-        {% if fallback_count > 0 %}
-        <div class="cards{% if library_count > 0 %} cards-spaced{% endif %}">
-          {% for f in html_files %}
-            {% assign path_parts = f.path | split: "/" %}
-            {% assign is_hidden_file = false %}
-            {% if f.name == "owner.html" or f.name contains "_setting_all" %}
-              {% assign is_hidden_file = true %}
-            {% endif %}
-            {% if f.name != "index.html" and f.extname == ".html" and path_parts.size == 2 and is_hidden_file != true %}
-            {% assign fallback_title = f.basename | replace: '-', ' ' | replace: '_', ' ' %}
-            <article class="card auto-card tone-slate" data-page-url="{{ f.path | relative_url }}">
-              <div class="card-head">
-                <span class="pill pill-ghost">Auto</span>
-                <span class="meta-chip">No front matter</span>
-              </div>
-              <h3 class="auto-title">{{ fallback_title }}</h3>
-              <p class="auto-description">HTML を自動検出して追加しています。</p>
-              <div class="card-footer">
-                <span class="filename">{{ f.name }}</span>
-                <a class="mini-btn" href="{{ f.path | relative_url }}">開く</a>
-              </div>
-            </article>
-            {% endif %}
-          {% endfor %}
-        </div>
-        {% endif %}
-      </section>
-      {% endif %}
-    </div>
+    <section class="section-card">
+      <p class="section-eyebrow">For GMs 運用ガイド</p>
+      <h2>GMガイド</h2>
+      <p>局面設計、難度 5段階、タグ運用、裁定手順、シナリオ進行の考え方をまとめた GM 向けガイドです。</p>
+      <div class="link-grid">
+        <a class="link-card" href="./gm-guide.html">
+          <h3>GMガイドを開く</h3>
+          <p>局面テンプレート、選択肢例、裁定の読み方、進行の考え方をまとめています。</p>
+          <div class="tag-row">
+            <span class="tag">GM向け</span>
+            <span class="tag">運用</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <p class="section-eyebrow">World Guide 世界設定</p>
+      <h2>イルセア西部・灰冠時代</h2>
+      <p>世界観、地域、勢力、種族、神々、噂、キャラクター作成の材料をまとめたプレイヤー向け世界設定ガイドです。</p>
+      <div class="link-grid">
+        <a class="link-card" href="./irsea_player_guide.html">
+          <h3>世界設定ガイドを開く</h3>
+          <p>PC の立場や野望を考えるときの材料として使えます。</p>
+          <div class="tag-row">
+            <span class="tag">世界設定</span>
+            <span class="tag">プレイヤー向け</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <p class="section-eyebrow">Replay 実プレイ</p>
+      <h2>灰水橋の灯</h2>
+      <p>小説モードとログモードを並列表示した、旧版ルールによる実プレイのサンプルリプレイです。</p>
+      <div class="link-grid">
+        <a class="link-card" href="./sample_replay_01.html">
+          <h3>実プレイサンプルを開く</h3>
+          <p>どんな温度感で PBM が進むかを読むための見本です。</p>
+          <div class="tag-row">
+            <span class="tag">リプレイ</span>
+            <span class="tag">サンプル</span>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <section class="section-card">
+      <p class="section-eyebrow">Other その他</p>
+      <h2>GM用資料</h2>
+      <p>別ページで管理している GM 用の資料への入口です。</p>
+      <div class="link-grid">
+        <a class="link-card" href="./gm.html">
+          <h3>GM用資料を開く</h3>
+          <p>追加の GM 向け資料がある場合はこちらから辿れます。</p>
+          <div class="tag-row">
+            <span class="tag">補足資料</span>
+          </div>
+        </a>
+      </div>
+    </section>
   </main>
-
-  <footer class="footer">
-    <div class="container">
-      <a class="owner-link" href="{{ '/gm.html' | relative_url }}">GM用資料</a>
-    </div>
-  </footer>
-
-  <script>
-    (() => {
-      const normalize = (text) => (text || "").replace(/\s+/g, " ").trim();
-      const truncate = (text, maxLength) => {
-        if (!text || text.length <= maxLength) return text;
-        return text.slice(0, maxLength - 1).trimEnd() + "…";
-      };
-
-      const applyMetadata = async (card) => {
-        const url = card.dataset.pageUrl;
-        if (!url) return;
-
-        try {
-          const response = await fetch(url, { credentials: "same-origin" });
-          if (!response.ok) return;
-
-          const html = await response.text();
-          const doc = new DOMParser().parseFromString(html, "text/html");
-
-          const title = normalize(
-            doc.querySelector("title")?.textContent ||
-            doc.querySelector("h1")?.textContent
-          );
-
-          const description = normalize(
-            doc.querySelector('meta[name="description"]')?.getAttribute("content") ||
-            doc.querySelector("h1 + p")?.textContent ||
-            doc.querySelector("p")?.textContent
-          );
-
-          if (title) {
-            const titleNode = card.querySelector(".auto-title");
-            if (titleNode) titleNode.textContent = title;
-          }
-
-          if (description) {
-            const descriptionNode = card.querySelector(".auto-description");
-            if (descriptionNode) descriptionNode.textContent = truncate(description, 110);
-          }
-        } catch (error) {
-          // 取得に失敗した場合はフォールバック表示をそのまま使う。
-        }
-      };
-
-      window.addEventListener("DOMContentLoaded", () => {
-        document.querySelectorAll(".auto-card").forEach((card) => {
-          applyMetadata(card);
-        });
-      });
-    })();
-  </script>
 </body>
 </html>
