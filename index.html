@@ -4,295 +4,921 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quick Build Saga</title>
-  <meta name="description" content="Quick Build Saga のルール、補助ツール、世界設定、実プレイへの入口です。">
+  <meta name="description" content="Quick Build Saga の基本ルール、世界観ごとの資料、旧版やGM専用資料への入口です。">
   <style>
     :root {
-      --bg: #f7f7f5;
-      --card: #ffffff;
-      --text: #1c1f23;
-      --muted: #5d6670;
-      --line: #d7dce2;
-      --accent: #204a8f;
-      --accent-soft: #eaf1ff;
-      --shadow: 0 12px 32px rgba(10, 22, 40, 0.06);
-      --radius: 16px;
-      --radius-small: 12px;
+      --bg: #f4f1eb;
+      --bg-deep: #ece7df;
+      --paper: #fffdfa;
+      --paper-strong: #ffffff;
+      --text: #1f252d;
+      --muted: #5c6570;
+      --line: #d7d0c7;
+      --line-strong: #bcae9d;
+      --accent: #6a3f2d;
+      --accent-soft: rgba(106, 63, 45, 0.10);
+      --accent-soft-2: rgba(33, 71, 104, 0.10);
+      --shadow: 0 18px 40px rgba(36, 27, 18, 0.08);
+      --shadow-soft: 0 10px 24px rgba(36, 27, 18, 0.06);
+      --radius-xl: 28px;
+      --radius-lg: 22px;
+      --radius: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.65;
       color: var(--text);
-      background: linear-gradient(180deg, #fafbfd 0%, var(--bg) 220px);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(106, 63, 45, 0.10), transparent 34%),
+        radial-gradient(circle at top right, rgba(33, 71, 104, 0.10), transparent 28%),
+        linear-gradient(180deg, #f8f6f2 0%, var(--bg) 280px, var(--bg-deep) 100%);
     }
 
     a {
-      color: var(--accent);
+      color: inherit;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
     }
 
     .container {
-      width: min(1120px, calc(100% - 32px));
+      width: min(var(--max), calc(100% - 32px));
       margin: 0 auto;
     }
 
-    .page-header {
-      padding: 48px 0 28px;
+    .hero {
+      padding: 34px 0 26px;
     }
 
-    .eyebrow {
-      margin: 0 0 10px;
-      font-size: 0.92rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: var(--accent);
+    .hero-shell {
+      display: grid;
+      grid-template-columns: minmax(0, 1.6fr) minmax(280px, 0.9fr);
+      gap: 22px;
+      align-items: stretch;
+    }
+
+    .hero-main,
+    .hero-side {
+      border: 1px solid rgba(188, 174, 157, 0.62);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.90), rgba(255, 253, 250, 0.96));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .hero-main {
+      padding: 34px 34px 28px;
+    }
+
+    .hero-side {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .eyebrow,
+    .section-kicker,
+    .world-kicker,
+    .tiny-heading {
+      margin: 0;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
+      font-weight: 800;
+      color: var(--accent);
     }
 
     h1 {
-      margin: 0;
-      font-size: clamp(2.2rem, 4vw, 3.3rem);
-      line-height: 1.1;
+      margin: 10px 0 0;
+      font-size: clamp(2.4rem, 4.6vw, 4rem);
+      line-height: 1.06;
+      letter-spacing: -0.02em;
     }
 
     .lead {
-      max-width: 68rem;
-      margin: 16px 0 0;
+      margin: 18px 0 0;
+      max-width: 48rem;
       color: var(--muted);
-      font-size: 1.02rem;
+      font-size: 1.05rem;
     }
 
-    .main-grid {
+    .jump-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
+
+    .jump-link,
+    .pill,
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 34px;
+      padding: 8px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(106, 63, 45, 0.18);
+      background: rgba(255, 255, 255, 0.72);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--accent);
+      transition: transform 140ms ease, box-shadow 140ms ease, border-color 140ms ease;
+    }
+
+    .jump-link:hover,
+    .resource-card:hover .pill,
+    .world-link:hover .pill {
+      border-color: rgba(106, 63, 45, 0.32);
+    }
+
+    .jump-link:hover,
+    .jump-link:focus-visible {
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-soft);
+      outline: none;
+    }
+
+    .hero-note {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+    }
+
+    .step-list {
+      margin: 0;
+      padding: 0;
+      list-style: none;
       display: grid;
-      gap: 20px;
-      padding-bottom: 40px;
+      gap: 10px;
     }
 
-    .section-card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
+    .step-item {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 12px 12px;
+      border-radius: 16px;
+      background: rgba(106, 63, 45, 0.05);
+      border: 1px solid rgba(106, 63, 45, 0.10);
+    }
+
+    .step-no {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: linear-gradient(180deg, rgba(106, 63, 45, 0.92), rgba(80, 45, 30, 1));
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.98rem;
+    }
+
+    .step-item strong {
+      display: block;
+      font-size: 0.98rem;
+      line-height: 1.35;
+    }
+
+    .step-item span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .main {
+      display: grid;
+      gap: 28px;
+      padding-bottom: 44px;
+    }
+
+    .section-block {
+      scroll-margin-top: 22px;
+      border: 1px solid rgba(188, 174, 157, 0.70);
+      border-radius: var(--radius-xl);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(255, 252, 248, 0.97));
       box-shadow: var(--shadow);
-      padding: 24px;
+      overflow: hidden;
     }
 
-    .section-card h2 {
-      margin: 0 0 6px;
-      font-size: 1.6rem;
+    .section-head {
+      display: grid;
+      gap: 10px;
+      padding: 28px 28px 0;
+    }
+
+    .section-head h2 {
+      margin: 0;
+      font-size: clamp(1.65rem, 2vw, 2.15rem);
       line-height: 1.2;
     }
 
-    .section-card p {
+    .section-head p {
       margin: 0;
+      color: var(--muted);
+      max-width: 68rem;
     }
 
-    .section-eyebrow {
-      margin: 0 0 12px;
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: var(--accent);
-      text-transform: uppercase;
+    .section-body {
+      padding: 22px 28px 28px;
     }
 
-    .link-grid {
+    .resource-grid {
       display: grid;
-      gap: 14px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      margin-top: 18px;
+      gap: 18px;
     }
 
-    .link-card {
+    .resource-card,
+    .world-link,
+    .placeholder-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      border: 1px solid rgba(188, 174, 157, 0.74);
+      background: var(--paper-strong);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .resource-card,
+    .world-link {
       display: grid;
-      gap: 8px;
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: var(--radius-small);
-      background: #fff;
       text-decoration: none;
       color: inherit;
-      transition: transform 120ms ease, border-color 120ms ease, box-shadow 120ms ease;
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
     }
 
-    .link-card:hover {
-      transform: translateY(-2px);
-      border-color: var(--accent);
-      box-shadow: 0 10px 24px rgba(10, 22, 40, 0.08);
+    .resource-card:hover,
+    .resource-card:focus-visible,
+    .world-link:hover,
+    .world-link:focus-visible {
+      transform: translateY(-3px);
+      border-color: rgba(106, 63, 45, 0.40);
+      box-shadow: 0 18px 34px rgba(36, 27, 18, 0.11);
+      outline: none;
     }
 
-    .link-card h3 {
-      margin: 0;
-      font-size: 1.08rem;
-      line-height: 1.25;
-      color: var(--accent);
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(188, 174, 157, 0.65);
+      background: linear-gradient(135deg, rgba(106, 63, 45, 0.18), rgba(33, 71, 104, 0.12));
+      isolation: isolate;
     }
 
-    .link-card p {
-      color: var(--muted);
-      font-size: 0.96rem;
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: auto -10% -28% auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.38), transparent 70%);
+      z-index: 0;
+      pointer-events: none;
     }
 
-    .tag-row {
+    .thumb-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 180ms ease;
+      z-index: 1;
+    }
+
+    .has-thumb .thumb-image {
+      opacity: 1;
+    }
+
+    .has-thumb .thumb-fallback {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    .thumb-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(17, 17, 17, 0.00) 20%, rgba(17, 17, 17, 0.16) 100%);
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 180ms ease;
+    }
+
+    .has-thumb .thumb-overlay {
+      opacity: 1;
+    }
+
+    .thumb-fallback {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      display: grid;
+      align-content: end;
+      gap: 8px;
+      padding: 16px;
+      color: #2c231b;
+      transition: opacity 160ms ease, visibility 160ms ease;
+    }
+
+    .thumb-fallback strong {
+      display: block;
+      font-size: clamp(1.15rem, 2.2vw, 1.38rem);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+    }
+
+    .thumb-fallback span,
+    .thumb-fallback small {
+      display: block;
+    }
+
+    .thumb-fallback .tiny-heading {
+      color: rgba(74, 39, 25, 0.84);
+    }
+
+    .thumb-fallback small {
+      color: rgba(44, 35, 27, 0.72);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
+
+    .theme-guide .thumb {
+      background: linear-gradient(135deg, rgba(86, 58, 40, 0.22), rgba(212, 186, 143, 0.24));
+    }
+
+    .theme-tool .thumb {
+      background: linear-gradient(135deg, rgba(33, 71, 104, 0.22), rgba(152, 194, 212, 0.22));
+    }
+
+    .theme-gm .thumb {
+      background: linear-gradient(135deg, rgba(78, 53, 94, 0.22), rgba(196, 175, 218, 0.22));
+    }
+
+    .theme-world .thumb {
+      background: linear-gradient(135deg, rgba(73, 82, 45, 0.22), rgba(196, 202, 146, 0.24));
+    }
+
+    .theme-archive .thumb {
+      background: linear-gradient(135deg, rgba(98, 84, 61, 0.20), rgba(196, 180, 152, 0.24));
+    }
+
+    .card-body {
+      display: grid;
+      gap: 12px;
+      padding: 18px 18px 20px;
+    }
+
+    .label-row {
       display: flex;
       flex-wrap: wrap;
       gap: 8px;
-      margin-top: 6px;
     }
 
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      padding: 4px 9px;
-      border-radius: 999px;
+    .pill {
+      min-height: 30px;
+      padding: 6px 10px;
+      font-size: 0.82rem;
       background: var(--accent-soft);
-      color: #183764;
-      font-size: 0.84rem;
-      font-weight: 700;
+      color: var(--accent);
     }
 
-    .note {
-      margin-top: 16px;
-      padding: 12px 14px;
-      border-radius: var(--radius-small);
-      background: var(--accent-soft);
-      color: #183764;
-      font-size: 0.95rem;
+    .pill.cool {
+      background: var(--accent-soft-2);
+      color: #244765;
+      border-color: rgba(33, 71, 104, 0.16);
     }
 
-    @media (max-width: 860px) {
-      .link-grid {
+    .card-body h3,
+    .world-link h4,
+    .placeholder-card h4 {
+      margin: 0;
+      font-size: 1.18rem;
+      line-height: 1.32;
+      letter-spacing: -0.01em;
+    }
+
+    .card-body p,
+    .world-link p,
+    .placeholder-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.97rem;
+    }
+
+    .world-stack {
+      display: grid;
+      gap: 20px;
+    }
+
+    .world-card {
+      border: 1px solid rgba(188, 174, 157, 0.76);
+      border-radius: var(--radius-lg);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 243, 236, 0.98));
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+
+    .world-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 18px;
+      align-items: end;
+      padding: 22px 22px 0;
+    }
+
+    .world-head h3 {
+      margin: 8px 0 0;
+      font-size: 1.5rem;
+      line-height: 1.2;
+    }
+
+    .world-head p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      max-width: 54rem;
+    }
+
+    .world-body {
+      padding: 18px 22px 22px;
+    }
+
+    .world-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .world-link {
+      min-height: 100%;
+    }
+
+    .world-link .card-body,
+    .placeholder-card {
+      height: 100%;
+    }
+
+    .placeholder-card {
+      display: grid;
+      gap: 10px;
+      padding: 18px;
+      align-content: start;
+      background:
+        linear-gradient(180deg, rgba(106, 63, 45, 0.04), rgba(255, 255, 255, 0.96)),
+        repeating-linear-gradient(-45deg, rgba(106, 63, 45, 0.03), rgba(106, 63, 45, 0.03) 12px, rgba(255, 255, 255, 0.72) 12px, rgba(255, 255, 255, 0.72) 24px);
+    }
+
+    .placeholder-card .status-pill {
+      justify-self: start;
+      min-height: 28px;
+      padding: 5px 10px;
+      background: rgba(106, 63, 45, 0.08);
+      font-size: 0.8rem;
+    }
+
+    .info-strip {
+      margin-top: 18px;
+      padding: 14px 16px;
+      border-radius: 16px;
+      border: 1px solid rgba(106, 63, 45, 0.14);
+      background: rgba(106, 63, 45, 0.05);
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .info-strip strong {
+      color: var(--text);
+    }
+
+    footer {
+      padding: 0 0 36px;
+    }
+
+    .footer-card {
+      border: 1px solid rgba(188, 174, 157, 0.70);
+      border-radius: var(--radius-lg);
+      background: rgba(255, 255, 255, 0.82);
+      box-shadow: var(--shadow-soft);
+      padding: 18px 20px;
+      color: var(--muted);
+      font-size: 0.93rem;
+    }
+
+    .footer-card p {
+      margin: 0;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92em;
+      background: rgba(33, 71, 104, 0.08);
+      padding: 2px 6px;
+      border-radius: 8px;
+      color: #244765;
+    }
+
+    @media (max-width: 980px) {
+      .hero-shell,
+      .world-head {
         grid-template-columns: 1fr;
       }
     }
 
-    @media (max-width: 720px) {
+    @media (max-width: 860px) {
+      .resource-grid,
+      .world-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
       .container {
-        width: min(100% - 20px, 100%);
+        width: min(100% - 18px, 100%);
       }
 
-      .section-card {
-        padding: 18px;
+      .hero-main {
+        padding: 26px 20px 22px;
+      }
+
+      .hero-side,
+      .section-head,
+      .section-body,
+      .world-head,
+      .world-body {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+      .section-head {
+        padding-top: 22px;
+      }
+
+      .card-body {
+        padding: 16px 16px 18px;
       }
     }
   </style>
 </head>
 <body>
-  <header class="page-header">
-    <div class="container">
-      <p class="eyebrow">Quick Build Saga</p>
-      <h1>Quick Build Saga</h1>
-      <p class="lead">PBM 形式を前提にした、自作のテキスト中心 TRPG です。プレイヤーズガイド、プレイヤー用補助ツール、GMガイド、世界設定、実プレイの入口をここにまとめています。</p>
+  <header class="hero">
+    <div class="container hero-shell">
+      <section class="hero-main" aria-labelledby="site-title">
+        <p class="eyebrow">PBM Text-first TRPG</p>
+        <h1 id="site-title">Quick Build Saga</h1>
+        <p class="lead">PBM 形式を前提にした、文章主体の自作 TRPG です。汎用の基本ルールと補助ツール、世界観ごとの資料、旧版や GM 専用資料への入口をここにまとめています。</p>
+        <nav class="jump-row" aria-label="セクション移動">
+          <a class="jump-link" href="#basic-rules">基本ルール</a>
+          <a class="jump-link" href="#world-guides">世界観ごとの資料</a>
+          <a class="jump-link" href="#other-materials">その他</a>
+        </nav>
+      </section>
+
+      <aside class="hero-side" aria-label="読み始めの目安">
+        <p class="section-kicker">Recommended Flow</p>
+        <p class="hero-note">初めて遊ぶときの流れを、トップからそのままたどれるように並べています。</p>
+        <ol class="step-list">
+          <li class="step-item">
+            <span class="step-no">1</span>
+            <div>
+              <strong>プレイヤーズガイド</strong>
+              <span>まず基本の考え方と宣言の書き方を読む。</span>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-no">2</span>
+            <div>
+              <strong>PC作成ツール</strong>
+              <span>PC の土台を作り、テキストとして保存する。</span>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-no">3</span>
+            <div>
+              <strong>宣言ツール</strong>
+              <span>局面を読み込み、宣言や宣言前確認の下書きを作る。</span>
+            </div>
+          </li>
+          <li class="step-item">
+            <span class="step-no">4</span>
+            <div>
+              <strong>GMガイド</strong>
+              <span>GM 側の運用や局面設計を確認する。</span>
+            </div>
+          </li>
+        </ol>
+      </aside>
     </div>
   </header>
 
-  <main class="container main-grid">
-    <section class="section-card">
-      <p class="section-eyebrow">For Players 基本ルール</p>
-      <h2>プレイヤーズガイド</h2>
-      <p>宣言の書き方、タグ、難度、命運点、卓越宣言など、プレイヤー向けの基本ルールをまとめたガイドです。</p>
-      <div class="link-grid">
-        <a class="link-card" href="./player-guide.html">
-          <h3>プレイヤーズガイドを開く</h3>
-          <p>宣言テンプレート、宣言前確認、難度の見方、PC作成の基本を読むための入口です。</p>
-          <div class="tag-row">
-            <span class="tag">基本ルール</span>
-            <span class="tag">初回はこちら</span>
-          </div>
-        </a>
+  <main class="container main">
+    <section class="section-block" id="basic-rules" aria-labelledby="basic-rules-title">
+      <div class="section-head">
+        <p class="section-kicker">Basic Rules / 汎用</p>
+        <h2 id="basic-rules-title">基本ルール（汎用）</h2>
+        <p>どの世界観でも共通して使うルールと、プレイヤー・GM のやり取りを支える補助ツールをここにまとめています。</p>
+      </div>
+      <div class="section-body">
+        <div class="resource-grid">
+          <a class="resource-card theme-guide" href="./player-guide.html" data-preview-page="./player-guide.html" data-thumb-alt="プレイヤーズガイドのサムネイル">
+            <div class="thumb">
+              <img class="thumb-image" alt="">
+              <div class="thumb-overlay" aria-hidden="true"></div>
+              <div class="thumb-fallback">
+                <p class="tiny-heading">Basic Rules</p>
+                <strong>Player Guide</strong>
+                <small>宣言テンプレート、宣言前確認、難度の見方、PC 作成の基本。</small>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="label-row">
+                <span class="pill">基本ルール</span>
+                <span class="pill">初回はこちら</span>
+              </div>
+              <h3>プレイヤーズガイド</h3>
+              <p>宣言の書き方、タグ、難度、命運点、卓越宣言、PC 作成の基本をまとめたガイドです。</p>
+            </div>
+          </a>
+
+          <a class="resource-card theme-tool" href="./pc-tool.html" data-preview-page="./pc-tool.html" data-thumb-alt="PC作成補助ツールのサムネイル">
+            <div class="thumb">
+              <img class="thumb-image" alt="">
+              <div class="thumb-overlay" aria-hidden="true"></div>
+              <div class="thumb-fallback">
+                <p class="tiny-heading">Player Tool</p>
+                <strong>Character Builder</strong>
+                <small>名前、立場、野望、大切なもの、命運点などを下書きして TXT 保存。</small>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="label-row">
+                <span class="pill cool">補助ツール</span>
+                <span class="pill">TXT保存</span>
+              </div>
+              <h3>PC作成ツール</h3>
+              <p>テンプレートを埋めながら PC 情報をまとめ、そのまま GM へ渡せるプレーンテキストへ整えます。</p>
+            </div>
+          </a>
+
+          <a class="resource-card theme-tool" href="./play-tool.html" data-preview-page="./play-tool.html" data-thumb-alt="宣言補助ツールのサムネイル">
+            <div class="thumb">
+              <img class="thumb-image" alt="">
+              <div class="thumb-overlay" aria-hidden="true"></div>
+              <div class="thumb-fallback">
+                <p class="tiny-heading">Player Tool</p>
+                <strong>Declaration Builder</strong>
+                <small>局面を整理しながら、宣言や宣言前確認の下書きを作成。</small>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="label-row">
+                <span class="pill cool">補助ツール</span>
+                <span class="pill">自由記述対応</span>
+              </div>
+              <h3>宣言ツール</h3>
+              <p>GM の局面を読み込みつつ、宣言テンプレート・宣言前確認・自由記述を切り替えて使えます。任意で PC 情報の参照も可能です。</p>
+            </div>
+          </a>
+
+          <a class="resource-card theme-gm" href="./gm-guide.html" data-preview-page="./gm-guide.html" data-thumb-alt="GMガイドのサムネイル">
+            <div class="thumb">
+              <img class="thumb-image" alt="">
+              <div class="thumb-overlay" aria-hidden="true"></div>
+              <div class="thumb-fallback">
+                <p class="tiny-heading">GM Rules</p>
+                <strong>Game Master Guide</strong>
+                <small>局面設計、難度 5 段階、タグ運用、裁定手順、進行の考え方。</small>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="label-row">
+                <span class="pill">GM向け</span>
+                <span class="pill">運用</span>
+              </div>
+              <h3>GMガイド</h3>
+              <p>局面テンプレート、選択肢例、裁定の読み方、キャンペーン運用の考え方をまとめた GM 向けガイドです。</p>
+            </div>
+          </a>
+        </div>
+
+        <div class="info-strip"><strong>補助ツールの連携:</strong> PC作成ツールと宣言ツールは、同じブラウザで使うと保存内容を連携して参照できます。入力内容はブラウザ内の <code>localStorage</code> に保存し、外部へ送信しません。</div>
       </div>
     </section>
 
-    <section class="section-card">
-      <p class="section-eyebrow">Player Tools プレイヤー用補助ツール</p>
-      <h2>PC作成と宣言の補助</h2>
-      <p>プレイヤーズガイドと GM ガイドの間で使う、ブラウザ上の補助ツールです。テンプレートから下書きを作り、そのまま GM に渡せるプレーンテキストへ整えられます。</p>
-      <div class="link-grid">
-        <a class="link-card" href="./pc-tool.html">
-          <h3>PC作成補助ツール</h3>
-          <p>名前・立場・野望・大切なもの・得意なやり方・命運点・野望度を下書きし、TXT 保存できます。</p>
-          <div class="tag-row">
-            <span class="tag">プレイヤー用</span>
-            <span class="tag">TXT保存</span>
-          </div>
-        </a>
-        <a class="link-card" href="./play-tool.html">
-          <h3>宣言補助ツール</h3>
-          <p>GM の局面を整理表示しながら宣言や宣言前確認の下書きを作れます。任意で PC 情報も並べて参照できます。</p>
-          <div class="tag-row">
-            <span class="tag">宣言支援</span>
-            <span class="tag">自由記述対応</span>
-          </div>
-        </a>
+    <section class="section-block" id="world-guides" aria-labelledby="world-guides-title">
+      <div class="section-head">
+        <p class="section-kicker">World-specific Materials</p>
+        <h2 id="world-guides-title">世界観ごとのセクション</h2>
+        <p>世界設定ごとに、設定集・シナリオ・リプレイなどをまとめるための領域です。いまは「イルセア西部・灰冠時代」を公開しており、今後ほかの世界観も別ブロックで追加しやすい形にしてあります。</p>
       </div>
-      <div class="note">同じブラウザで使うと、PC作成補助ツールの保存内容を宣言補助ツールから任意で読み込めます。どちらも入力内容はブラウザ内の <code>localStorage</code> に保存し、外部へ送信しません。</div>
-    </section>
+      <div class="section-body">
+        <div class="world-stack">
+          <article class="world-card">
+            <div class="world-head">
+              <div>
+                <p class="world-kicker">World / 現在公開中</p>
+                <h3>イルセア西部・灰冠時代</h3>
+                <p>古い帝国の遺跡、危うい王国、神殿、遠い森や山や草原がせめぎ合う地域を舞台にした世界観です。PC の立場や野望を考える材料になる設定集をここに置いています。</p>
+              </div>
+              <span class="status-pill">現在の世界観</span>
+            </div>
+            <div class="world-body">
+              <div class="world-grid">
+                <a class="world-link theme-world" href="./irsea_player_guide.html" data-preview-page="./irsea_player_guide.html" data-thumb-alt="イルセア西部・灰冠時代の設定集サムネイル">
+                  <div class="thumb">
+                    <img class="thumb-image" alt="">
+                    <div class="thumb-overlay" aria-hidden="true"></div>
+                    <div class="thumb-fallback">
+                      <p class="tiny-heading">World Guide</p>
+                      <strong>Irsea / Gray Crown Era</strong>
+                      <small>世界観、地域、勢力、種族、神々、噂、テンプレート。</small>
+                    </div>
+                  </div>
+                  <div class="card-body">
+                    <div class="label-row">
+                      <span class="pill">設定集</span>
+                      <span class="pill">プレイヤー向け</span>
+                    </div>
+                    <h4>イルセア西部・灰冠時代 設定集</h4>
+                    <p>世界観の常識、地域と勢力、種族、神々、公開されている噂、PC 作成の材料をまとめています。</p>
+                  </div>
+                </a>
 
-    <section class="section-card">
-      <p class="section-eyebrow">For GMs 運用ガイド</p>
-      <h2>GMガイド</h2>
-      <p>局面設計、難度 5段階、タグ運用、裁定手順、シナリオ進行の考え方をまとめた GM 向けガイドです。</p>
-      <div class="link-grid">
-        <a class="link-card" href="./gm-guide.html">
-          <h3>GMガイドを開く</h3>
-          <p>局面テンプレート、選択肢例、裁定の読み方、進行の考え方をまとめています。</p>
-          <div class="tag-row">
-            <span class="tag">GM向け</span>
-            <span class="tag">運用</span>
-          </div>
-        </a>
-      </div>
-    </section>
+                <div class="placeholder-card" aria-label="追加予定の資料">
+                  <span class="status-pill">追加予定</span>
+                  <h4>この世界観のシナリオやリプレイ</h4>
+                  <p>今後、イルセア西部・灰冠時代向けのシナリオ、リプレイ、補助資料などをここへ並べられるようにしてあります。</p>
+                </div>
+              </div>
+            </div>
+          </article>
 
-    <section class="section-card">
-      <p class="section-eyebrow">World Guide 世界設定</p>
-      <h2>イルセア西部・灰冠時代</h2>
-      <p>世界観、地域、勢力、種族、神々、噂、キャラクター作成の材料をまとめたプレイヤー向け世界設定ガイドです。</p>
-      <div class="link-grid">
-        <a class="link-card" href="./irsea_player_guide.html">
-          <h3>世界設定ガイドを開く</h3>
-          <p>PC の立場や野望を考えるときの材料として使えます。</p>
-          <div class="tag-row">
-            <span class="tag">世界設定</span>
-            <span class="tag">プレイヤー向け</span>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section-card">
-      <p class="section-eyebrow">Replay 実プレイ</p>
-      <h2>灰水橋の灯</h2>
-      <p>小説モードとログモードを並列表示した、旧版ルールによる実プレイのサンプルリプレイです。</p>
-      <div class="link-grid">
-        <a class="link-card" href="./sample_replay_01.html">
-          <h3>実プレイサンプルを開く</h3>
-          <p>どんな温度感で PBM が進むかを読むための見本です。</p>
-          <div class="tag-row">
-            <span class="tag">リプレイ</span>
-            <span class="tag">サンプル</span>
-          </div>
-        </a>
+          <!--
+            新しい世界観を追加するときは、この world-card を複製し、
+            見出し・説明・リンクを差し替えてください。
+            例: ポストアポカリプス / スチームパンク など
+          -->
+        </div>
       </div>
     </section>
 
-    <section class="section-card">
-      <p class="section-eyebrow">Other その他</p>
-      <h2>GM用資料</h2>
-      <p>別ページで管理している GM 用の資料への入口です。</p>
-      <div class="link-grid">
-        <a class="link-card" href="./gm.html">
-          <h3>GM用資料を開く</h3>
-          <p>追加の GM 向け資料がある場合はこちらから辿れます。</p>
-          <div class="tag-row">
-            <span class="tag">補足資料</span>
-          </div>
-        </a>
+    <section class="section-block" id="other-materials" aria-labelledby="other-materials-title">
+      <div class="section-head">
+        <p class="section-kicker">Other / Archive</p>
+        <h2 id="other-materials-title">その他</h2>
+        <p>旧版ルールの資料や、通常の導線から分けて置いておきたい GM 専用資料などをここにまとめています。</p>
+      </div>
+      <div class="section-body">
+        <div class="resource-grid">
+          <a class="resource-card theme-archive" href="./sample_replay_01.html" data-preview-page="./sample_replay_01.html" data-thumb-alt="灰水橋の灯のサムネイル">
+            <div class="thumb">
+              <img class="thumb-image" alt="">
+              <div class="thumb-overlay" aria-hidden="true"></div>
+              <div class="thumb-fallback">
+                <p class="tiny-heading">Archive / Replay</p>
+                <strong>灰水橋の灯</strong>
+                <small>小説モードとログモードを並列表示した、旧版ルールによるサンプルリプレイ。</small>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="label-row">
+                <span class="pill">旧版</span>
+                <span class="pill">リプレイ</span>
+              </div>
+              <h3>灰水橋の灯</h3>
+              <p>旧版ルールによる実プレイサンプルです。現在の基本ルールとは分けて、資料アーカイブとして配置しています。</p>
+            </div>
+          </a>
+
+          <a class="resource-card theme-gm" href="./gm.html" data-preview-page="./gm.html" data-thumb-alt="GM用資料のサムネイル">
+            <div class="thumb">
+              <img class="thumb-image" alt="">
+              <div class="thumb-overlay" aria-hidden="true"></div>
+              <div class="thumb-fallback">
+                <p class="tiny-heading">GM Only</p>
+                <strong>Owner Area</strong>
+                <small>通常のトップ導線とは別に置く、GM 専用の補足資料。</small>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="label-row">
+                <span class="pill">GM専用</span>
+                <span class="pill">補足資料</span>
+              </div>
+              <h3>GM専用資料</h3>
+              <p>別ページで管理している GM 用の追加資料への入口です。通常のルール導線と分けて置いています。</p>
+            </div>
+          </a>
+        </div>
       </div>
     </section>
   </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-card">
+        <p>各カードは、リンク先ページに <code>og:image</code> や先頭の画像があれば自動でサムネイルとして表示します。画像がないページは、トップ側のフォールバック表示のまま使えるようにしてあります。</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      const cacheKey = 'qbs:index-thumbnail-cache:v1';
+      let cache = {};
+      try {
+        cache = JSON.parse(localStorage.getItem(cacheKey) || '{}') || {};
+      } catch (_error) {
+        cache = {};
+      }
+
+      function applyThumbnail(card, url) {
+        if (!url) return;
+        const img = card.querySelector('.thumb-image');
+        if (!img) return;
+        img.src = url;
+        img.addEventListener('load', () => {
+          card.classList.add('has-thumb');
+        }, { once: true });
+      }
+
+      function resolveAsset(raw, pageUrl) {
+        try {
+          return new URL(raw, new URL(pageUrl, window.location.href)).href;
+        } catch (_error) {
+          return '';
+        }
+      }
+
+      async function fetchThumbnail(card) {
+        const manualThumb = card.dataset.thumb;
+        const pageUrl = card.dataset.previewPage;
+        if (manualThumb) {
+          applyThumbnail(card, manualThumb);
+          return;
+        }
+        if (!pageUrl) return;
+
+        const cacheHit = cache[pageUrl];
+        if (cacheHit) {
+          applyThumbnail(card, cacheHit);
+          return;
+        }
+
+        try {
+          const response = await fetch(pageUrl, { credentials: 'same-origin' });
+          if (!response.ok) return;
+          const html = await response.text();
+          const doc = new DOMParser().parseFromString(html, 'text/html');
+          const candidates = [
+            doc.querySelector('meta[property="og:image"]')?.getAttribute('content'),
+            doc.querySelector('meta[name="twitter:image"]')?.getAttribute('content'),
+            doc.querySelector('main img')?.getAttribute('src'),
+            doc.querySelector('article img')?.getAttribute('src'),
+            doc.querySelector('img')?.getAttribute('src')
+          ].filter(Boolean);
+          if (!candidates.length) return;
+          const assetUrl = resolveAsset(candidates[0], pageUrl);
+          if (!assetUrl) return;
+          cache[pageUrl] = assetUrl;
+          try {
+            localStorage.setItem(cacheKey, JSON.stringify(cache));
+          } catch (_error) {
+            /* no-op */
+          }
+          applyThumbnail(card, assetUrl);
+        } catch (_error) {
+          /* 画像が拾えないときはフォールバック表示のまま */
+        }
+      }
+
+      document.querySelectorAll('[data-preview-page], [data-thumb]').forEach((card) => {
+        fetchThumbnail(card);
+      });
+    }());
+  </script>
 </body>
 </html>
