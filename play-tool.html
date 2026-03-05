@@ -1,0 +1,1623 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Quick Build Saga プレイヤー用エディタ</title>
+  <meta name="description" content="Quick Build Saga のプレイヤー宣言を、テンプレート下書きから GM に渡せるテキストへ整えるためのブラウザ用エディタです。">
+  <style>
+    :root {
+      --bg: #f7f7f5;
+      --card: #ffffff;
+      --text: #1c1f23;
+      --muted: #5d6670;
+      --line: #d7dce2;
+      --line-strong: #b8c1cc;
+      --accent: #204a8f;
+      --accent-soft: #eaf1ff;
+      --good: #1f6d3d;
+      --good-soft: #e9f7ef;
+      --warn: #8a5b00;
+      --warn-soft: #fff4d6;
+      --danger: #a12727;
+      --danger-soft: #fdeaea;
+      --shadow: 0 12px 32px rgba(10, 22, 40, 0.06);
+      --radius: 14px;
+      --radius-small: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+      color: var(--text);
+      background: linear-gradient(180deg, #fafbfd 0%, var(--bg) 220px);
+    }
+
+    a {
+      color: var(--accent);
+    }
+
+    a:hover {
+      text-decoration-thickness: 2px;
+    }
+
+    .container {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    .page-header {
+      padding: 40px 0 28px;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      line-height: 1.15;
+    }
+
+    .lead {
+      max-width: 64rem;
+      margin: 16px 0 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px 14px;
+      margin-top: 20px;
+    }
+
+    .nav-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 12px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.75);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .main-grid {
+      display: grid;
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    .split-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: 1.02fr 1fr;
+    }
+
+    .panel {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin-top: 0;
+      line-height: 1.25;
+    }
+
+    .panel p:first-child,
+    .panel h2:first-child,
+    .panel h3:first-child {
+      margin-top: 0;
+    }
+
+    .muted,
+    .small {
+      color: var(--muted);
+    }
+
+    .small {
+      font-size: 0.94rem;
+    }
+
+    .inline-note {
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: var(--radius-small);
+      background: var(--accent-soft);
+      color: #183764;
+      font-size: 0.95rem;
+    }
+
+    .stack {
+      display: grid;
+      gap: 14px;
+    }
+
+    label,
+    legend {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    input[type="text"],
+    textarea {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: inherit;
+      background: #fff;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    input[type="text"]:focus,
+    textarea:focus,
+    button:focus-visible,
+    .tab-button:focus-visible,
+    .pill-choice:focus-within {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 4px rgba(32, 74, 143, 0.12);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 112px;
+    }
+
+    .scene-textarea {
+      min-height: 300px;
+    }
+
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    .button-row,
+    .toolbar,
+    .tab-row,
+    .footer-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    button,
+    .file-button {
+      appearance: none;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: #fff;
+      color: var(--text);
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
+    }
+
+    button:hover,
+    .file-button:hover {
+      border-color: var(--accent);
+      background: #fcfdff;
+      transform: translateY(-1px);
+    }
+
+    button.primary {
+      border-color: var(--accent);
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button.primary:hover {
+      background: #17396f;
+    }
+
+    button.secondary {
+      background: var(--accent-soft);
+      border-color: #c7d7ff;
+      color: #183764;
+    }
+
+    button.ghost {
+      background: transparent;
+    }
+
+    .file-button {
+      position: relative;
+      overflow: hidden;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .file-button input {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .tab-row {
+      margin-bottom: 14px;
+    }
+
+    .tab-button {
+      border-radius: 12px;
+      padding: 11px 14px;
+      border: 1px solid var(--line);
+      background: #fff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .tab-button[aria-selected="true"] {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+      color: #183764;
+    }
+
+    .mode-panel[hidden] {
+      display: none;
+    }
+
+    .field-grid {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .field-span-2 {
+      grid-column: 1 / -1;
+    }
+
+    .field-help {
+      margin-top: 6px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .choice-box {
+      margin-top: 16px;
+      border: 1px dashed var(--line-strong);
+      border-radius: 12px;
+      padding: 16px;
+      background: #fbfcfe;
+    }
+
+    .choice-grid {
+      display: grid;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .pill-choice {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 12px 14px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #fff;
+    }
+
+    .pill-choice input {
+      margin-top: 4px;
+      flex: none;
+    }
+
+    .scene-summary {
+      margin-top: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .scene-summary.empty {
+      border: 1px dashed var(--line-strong);
+      border-radius: 12px;
+      padding: 14px;
+      color: var(--muted);
+      background: #fbfcfd;
+    }
+
+    .scene-card-grid {
+      display: grid;
+      gap: 12px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .scene-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .scene-card h3 {
+      margin: 0 0 6px;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    .scene-card p {
+      margin: 0;
+      white-space: pre-wrap;
+    }
+
+    .tips-list,
+    .validation-list,
+    .checklist {
+      margin: 12px 0 0;
+      padding-left: 1.2em;
+    }
+
+    .validation-list {
+      display: grid;
+      gap: 10px;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    .validation-item {
+      border-radius: 12px;
+      padding: 10px 12px;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+    }
+
+    .validation-item.info {
+      background: var(--accent-soft);
+      border-color: #cfe0ff;
+      color: #183764;
+    }
+
+    .validation-item.warn {
+      background: var(--warn-soft);
+      border-color: #efd28a;
+      color: #6d4a00;
+    }
+
+    .validation-item.error {
+      background: var(--danger-soft);
+      border-color: #edb3b3;
+      color: #7f1f1f;
+    }
+
+    .output-grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      align-items: start;
+    }
+
+    .output-area {
+      min-height: 360px;
+    }
+
+    .side-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 16px;
+      background: #fbfcfe;
+      display: grid;
+      gap: 14px;
+    }
+
+    .side-card h3 {
+      margin-bottom: 0;
+    }
+
+    .option-line {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-size: 0.95rem;
+      color: var(--text);
+    }
+
+    .option-line input {
+      margin-top: 4px;
+      flex: none;
+    }
+
+    .status-line {
+      min-height: 1.5em;
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .status-line.success {
+      color: var(--good);
+    }
+
+    .status-line.warn {
+      color: var(--warn);
+    }
+
+    .status-line.error {
+      color: var(--danger);
+    }
+
+    details {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      background: #fff;
+    }
+
+    details summary {
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .footer-note {
+      margin-top: 6px;
+      font-size: 0.92rem;
+      color: var(--muted);
+    }
+
+    .kicker {
+      font-size: 0.88rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+
+    @media (max-width: 980px) {
+      .split-grid,
+      .output-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field-grid,
+      .scene-card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .container {
+        width: min(100% - 20px, 100%);
+      }
+
+      .panel {
+        padding: 18px;
+      }
+
+      .scene-textarea {
+        min-height: 240px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="container">
+      <p class="eyebrow">Quick Build Saga</p>
+      <h1>プレイヤー用エディタ</h1>
+      <p class="lead">宣言テンプレートから下書きを作り、そのまま GM に渡せるプレーンテキストへ整えるための補助ツールです。テンプレートに沿って書き始めても、途中で自由記述へ切り替えて崩してもかまいません。</p>
+      <nav class="nav-links" aria-label="関連ページ">
+        <a href="./">トップ</a>
+        <a href="./player-guide.html">プレイヤーズガイド</a>
+        <a href="./gm-guide.html">GMガイド</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container main-grid">
+    <section class="panel">
+      <p class="kicker">このページでできること</p>
+      <div class="stack">
+        <p>1. GM の局面文を貼り付けて、<strong>現況・期限・争点・既知情報・難度・選択肢例</strong> を見やすく確認できます。</p>
+        <p>2. プレイヤーズガイドの宣言テンプレートや「宣言前確認」を元に、<strong>下書き</strong> を作れます。</p>
+        <p>3. 途中で <strong>自由記述</strong> に切り替え、見出しを増やしたり、文章を崩したりできます。</p>
+        <p>4. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の投稿や GM への送付に使えます。</p>
+      </div>
+      <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。</p>
+    </section>
+
+    <div class="split-grid">
+      <section class="panel" aria-labelledby="scene-panel-title">
+        <h2 id="scene-panel-title">1. GM の局面を貼る</h2>
+        <p class="small">GMガイドの局面テンプレートをそのまま貼り付けると、読み取れる部分だけ整理して表示します。うまく読み取れなくても、原文はそのまま残ります。</p>
+        <label for="sceneInput">局面の本文</label>
+        <textarea id="sceneInput" class="scene-textarea" placeholder="例:
+〖導入〗
+亡き師の名誉を守る機会が来た。
+
+〖局面〗
+現況: 亡き師が反逆者と通じていたように見える書状が見つかった
+期限: 三日後の審問まで
+争点: 師の名誉、師の家族の安全、PC自身の将来
+既知情報: 書状は本物らしく見えるが、見つかった場所と保管記録に不審点がある
+難度: 絶望
+選択肢例:
+- 保管記録の不審点を洗う
+- 旧知の書記を味方につける
+- 審問官へ根回しして延期の余地を作る"></textarea>
+        <div class="button-row">
+          <button type="button" id="parseSceneButton" class="primary">局面を読み取る</button>
+          <button type="button" id="clearSceneButton" class="ghost">局面欄を消去</button>
+        </div>
+        <div id="sceneSummary" class="scene-summary empty" aria-live="polite">まだ局面は読み取っていません。</div>
+        <div id="choiceBox" class="choice-box" hidden>
+          <h3>選択肢例の使い方</h3>
+          <p class="small">そのまま 1つ選んでも、複数を組み合わせても、選択肢にない第三の案を書いてもかまいません。</p>
+          <div id="choiceGrid" class="choice-grid"></div>
+          <label for="customIdea">第三の案 / 自分で書く案</label>
+          <textarea id="customIdea" placeholder="選択肢例にない案を書くなら、ここへ。"></textarea>
+          <div class="button-row">
+            <button type="button" id="applyIdeasButton" class="secondary">選んだ案を現在の下書きへ反映</button>
+            <button type="button" id="clearIdeasButton" class="ghost">選択を外す</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="editor-panel-title">
+        <h2 id="editor-panel-title">2. 書き方を選ぶ</h2>
+        <div class="tab-row" role="tablist" aria-label="入力モード">
+          <button type="button" class="tab-button" id="tabDeclaration" data-mode="declaration" role="tab" aria-selected="true" aria-controls="panelDeclaration">宣言</button>
+          <button type="button" class="tab-button" id="tabPrecheck" data-mode="precheck" role="tab" aria-selected="false" aria-controls="panelPrecheck">宣言前確認</button>
+          <button type="button" class="tab-button" id="tabFree" data-mode="free" role="tab" aria-selected="false" aria-controls="panelFree">自由記述</button>
+        </div>
+        <p id="modeHelp" class="small">テンプレート付きの通常宣言です。必要なところだけ埋め、空欄は残しても構いません。</p>
+
+        <section id="panelDeclaration" class="mode-panel" role="tabpanel" aria-labelledby="tabDeclaration">
+          <div class="field-grid">
+            <div class="field-span-2">
+              <label for="objective">主目的</label>
+              <textarea id="objective" placeholder="その局面で、いちばん達成したいこと"></textarea>
+              <p class="field-help">1宣言につき1つに絞ると扱いやすくなります。</p>
+            </div>
+            <div class="field-span-2">
+              <label for="minimum">最低限ライン</label>
+              <textarea id="minimum" placeholder="理想通りでなくても、ここまでは達成したいこと"></textarea>
+              <p class="field-help">PBM ではここがあると、GM が止まらず返しやすくなります。</p>
+            </div>
+            <div class="field-span-2">
+              <label for="methods">手段</label>
+              <textarea id="methods" placeholder="どう進めるか。調査、交渉、準備、根回し、魔術、仲間への指示など。"></textarea>
+              <p class="field-help">PC 本人だけでなく、仲間、NPC、町や組織の手順をどう動かすかまで書いて構いません。</p>
+            </div>
+            <div>
+              <label for="protect">守りたいもの</label>
+              <textarea id="protect" placeholder="できれば傷つけたくないもの"></textarea>
+            </div>
+            <div>
+              <label for="sacrifice">捨ててもよいもの</label>
+              <textarea id="sacrifice" placeholder="代償として差し出してもよいもの"></textarea>
+            </div>
+            <div class="field-span-2">
+              <label for="collateral">担保 (任意)</label>
+              <textarea id="collateral" placeholder="このくらいの代償や余波なら受ける、という提案"></textarea>
+              <p class="field-help">担保は相談用の提案であり、免責ではありません。</p>
+            </div>
+            <div class="field-span-2">
+              <label for="note">補足 (任意)</label>
+              <textarea id="note" placeholder="作戦の細部、使いたいNPC、狙い、台詞、条件分岐などを自由に書けます。"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section id="panelPrecheck" class="mode-panel" role="tabpanel" aria-labelledby="tabPrecheck" hidden>
+          <p class="small">方針そのものが決められないときだけ使う、短い事実確認の下書きです。1局面につき 1回、3点までを想定しています。</p>
+          <div class="field-grid">
+            <div class="field-span-2">
+              <label for="precheck1">1.</label>
+              <textarea id="precheck1" placeholder="今日は何日ですか、のような短い確認"></textarea>
+            </div>
+            <div class="field-span-2">
+              <label for="precheck2">2.</label>
+              <textarea id="precheck2" placeholder="PCなら知っていて当然の情報など"></textarea>
+            </div>
+            <div class="field-span-2">
+              <label for="precheck3">3.</label>
+              <textarea id="precheck3" placeholder="3点まで"></textarea>
+            </div>
+          </div>
+        </section>
+
+        <section id="panelFree" class="mode-panel" role="tabpanel" aria-labelledby="tabFree" hidden>
+          <p class="small">見出しを増やしたり、テンプレートを崩したり、自由な書式で本文を整えるモードです。既存の出力をここへ引き継いでから仕上げる使い方を想定しています。</p>
+          <label for="freeText">自由記述</label>
+          <textarea id="freeText" class="output-area" placeholder="ここでは本文をそのまま編集できます。"></textarea>
+          <div class="button-row">
+            <button type="button" id="pullCurrentOutputButton" class="secondary">現在の出力をここへ引き継ぐ</button>
+            <button type="button" id="insertDeclarationTemplateButton" class="ghost">宣言テンプレートを挿入</button>
+            <button type="button" id="insertPrecheckTemplateButton" class="ghost">宣言前確認テンプレートを挿入</button>
+          </div>
+        </section>
+      </section>
+    </div>
+
+    <section class="panel" aria-labelledby="output-panel-title">
+      <h2 id="output-panel-title">3. GM へ渡すテキスト</h2>
+      <div class="output-grid">
+        <div>
+          <div class="toolbar">
+            <label class="option-line"><input type="checkbox" id="keepBlankFields" checked>宣言モードでは空欄の行も残す</label>
+          </div>
+          <label for="outputText">出力プレビュー</label>
+          <textarea id="outputText" class="mono output-area" readonly></textarea>
+          <ul id="validationList" class="validation-list" aria-live="polite"></ul>
+        </div>
+        <aside class="side-card">
+          <h3>保存と移行</h3>
+          <div>
+            <label for="filenameBase">保存ファイル名</label>
+            <input type="text" id="filenameBase" value="qbs-declaration" placeholder="qbs-declaration">
+            <p class="footer-note">保存時に日時を付けて <span class="mono">.txt</span> にします。</p>
+          </div>
+          <div class="stack">
+            <button type="button" id="copyButton" class="primary">クリップボードへコピー</button>
+            <button type="button" id="downloadButton">TXT 保存</button>
+            <label class="file-button">TXT を読み込む<input type="file" id="importFile" accept=".txt,text/plain"></label>
+            <button type="button" id="promoteToFreeButton" class="secondary">この出力を自由記述へ引き継ぐ</button>
+            <button type="button" id="resetButton" class="ghost">下書きを初期化</button>
+          </div>
+          <p id="statusLine" class="status-line" aria-live="polite">下書きはブラウザ内に自動保存されます。</p>
+        </aside>
+      </div>
+    </section>
+
+    <section class="panel">
+      <details>
+        <summary>迷ったときの着眼点</summary>
+        <ul class="tips-list">
+          <li>GM の選択肢から 1つ選び、守りたいもの と 捨ててもよいもの だけ足す</li>
+          <li>選択肢にない第三の案を 1つ書く</li>
+          <li>まずは何を止めたいか、誰を守りたいか、どのタグを軽くしたいかを考える</li>
+          <li>まずは何の準備を先に済ませたいかを書く</li>
+        </ul>
+      </details>
+      <details>
+        <summary>このページの想定フロー</summary>
+        <ol class="checklist">
+          <li>GM の局面を貼り付ける</li>
+          <li>宣言テンプレートで下書きを作る</li>
+          <li>必要なら自由記述へ引き継いで整える</li>
+          <li>TXT 保存して GM へ渡す</li>
+        </ol>
+      </details>
+    </section>
+  </main>
+
+  <noscript>
+    <div class="container" style="padding-bottom:40px;">
+      <section class="panel">
+        <p><strong>JavaScript を有効にしてください。</strong> このエディタはブラウザ上の JavaScript で動作します。</p>
+      </section>
+    </div>
+  </noscript>
+
+  <script>
+    (() => {
+      const STORAGE_KEY = "qbs-play-tool-v1";
+      const MODE_HELP = {
+        declaration: "テンプレート付きの通常宣言です。必要なところだけ埋め、空欄は残しても構いません。",
+        precheck: "方針そのものが決められないときの短い事実確認です。1局面につき1回、3点までを想定しています。",
+        free: "本文を自由に編集できます。見出しを増やしたり、テンプレートを崩したりしたいときに使います。"
+      };
+
+      const DECLARATION_TEMPLATE = [
+        "主目的:",
+        "最低限ライン:",
+        "手段:",
+        "守りたいもの:",
+        "捨ててもよいもの:",
+        "担保 (任意):",
+        "補足 (任意):"
+      ].join("\n");
+
+      const PRECHECK_TEMPLATE = [
+        "〖宣言前確認〗",
+        "1.",
+        "2.",
+        "3."
+      ].join("\n");
+
+      const FIELD_LABELS = [
+        ["objective", "主目的"],
+        ["minimum", "最低限ライン"],
+        ["methods", "手段"],
+        ["protect", "守りたいもの"],
+        ["sacrifice", "捨ててもよいもの"],
+        ["collateral", "担保 (任意)"],
+        ["note", "補足 (任意)"]
+      ];
+
+      const sceneLabels = {
+        "現況": "situation",
+        "期限": "deadline",
+        "争点": "stakes",
+        "既知情報": "known",
+        "難度": "difficulty",
+        "選択肢例": "choices"
+      };
+
+      const emptyScene = () => ({
+        intro: "",
+        situation: "",
+        deadline: "",
+        stakes: "",
+        known: "",
+        difficulty: "",
+        choices: []
+      });
+
+      const defaultState = () => ({
+        mode: "declaration",
+        keepBlankFields: true,
+        sceneRaw: "",
+        scene: emptyScene(),
+        choiceSelections: [],
+        customIdea: "",
+        declaration: {
+          objective: "",
+          minimum: "",
+          methods: "",
+          protect: "",
+          sacrifice: "",
+          collateral: "",
+          note: ""
+        },
+        precheck: ["", "", ""],
+        freeText: "",
+        filenameBase: "qbs-declaration",
+        updatedAt: null
+      });
+
+      const state = loadState();
+
+      const els = {
+        sceneInput: document.getElementById("sceneInput"),
+        parseSceneButton: document.getElementById("parseSceneButton"),
+        clearSceneButton: document.getElementById("clearSceneButton"),
+        sceneSummary: document.getElementById("sceneSummary"),
+        choiceBox: document.getElementById("choiceBox"),
+        choiceGrid: document.getElementById("choiceGrid"),
+        customIdea: document.getElementById("customIdea"),
+        applyIdeasButton: document.getElementById("applyIdeasButton"),
+        clearIdeasButton: document.getElementById("clearIdeasButton"),
+        modeHelp: document.getElementById("modeHelp"),
+        tabButtons: Array.from(document.querySelectorAll(".tab-button")),
+        modePanels: {
+          declaration: document.getElementById("panelDeclaration"),
+          precheck: document.getElementById("panelPrecheck"),
+          free: document.getElementById("panelFree")
+        },
+        objective: document.getElementById("objective"),
+        minimum: document.getElementById("minimum"),
+        methods: document.getElementById("methods"),
+        protect: document.getElementById("protect"),
+        sacrifice: document.getElementById("sacrifice"),
+        collateral: document.getElementById("collateral"),
+        note: document.getElementById("note"),
+        precheck1: document.getElementById("precheck1"),
+        precheck2: document.getElementById("precheck2"),
+        precheck3: document.getElementById("precheck3"),
+        freeText: document.getElementById("freeText"),
+        pullCurrentOutputButton: document.getElementById("pullCurrentOutputButton"),
+        insertDeclarationTemplateButton: document.getElementById("insertDeclarationTemplateButton"),
+        insertPrecheckTemplateButton: document.getElementById("insertPrecheckTemplateButton"),
+        keepBlankFields: document.getElementById("keepBlankFields"),
+        outputText: document.getElementById("outputText"),
+        validationList: document.getElementById("validationList"),
+        filenameBase: document.getElementById("filenameBase"),
+        copyButton: document.getElementById("copyButton"),
+        downloadButton: document.getElementById("downloadButton"),
+        importFile: document.getElementById("importFile"),
+        promoteToFreeButton: document.getElementById("promoteToFreeButton"),
+        resetButton: document.getElementById("resetButton"),
+        statusLine: document.getElementById("statusLine")
+      };
+
+      if (state.sceneRaw.trim()) {
+        state.scene = parseSceneText(state.sceneRaw);
+        ensureChoiceSelectionLength();
+      }
+      syncInputsFromState();
+      bindEvents();
+      renderAll();
+
+      function bindEvents() {
+        els.sceneInput.addEventListener("input", () => {
+          state.sceneRaw = els.sceneInput.value;
+          saveState();
+          setStatus("局面の原文を更新しました。必要なら「局面を読み取る」を押してください。", "");
+        });
+
+        els.parseSceneButton.addEventListener("click", () => {
+          parseSceneFromInput(true);
+        });
+
+        els.clearSceneButton.addEventListener("click", () => {
+          state.sceneRaw = "";
+          state.scene = emptyScene();
+          state.choiceSelections = [];
+          state.customIdea = "";
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("局面欄を空にしました。", "");
+        });
+
+        els.customIdea.addEventListener("input", () => {
+          state.customIdea = els.customIdea.value;
+          saveState();
+        });
+
+        els.applyIdeasButton.addEventListener("click", () => {
+          applySceneIdeasToCurrentMode();
+        });
+
+        els.clearIdeasButton.addEventListener("click", () => {
+          state.choiceSelections = new Array(state.scene.choices.length).fill(false);
+          state.customIdea = "";
+          syncInputsFromState();
+          renderSceneSummary();
+          saveState();
+          setStatus("選択肢の選択を外しました。", "");
+        });
+
+        els.tabButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            state.mode = button.dataset.mode;
+            renderMode();
+            renderOutput();
+            renderValidation();
+            saveState();
+          });
+        });
+
+        bindField(els.objective, (value) => state.declaration.objective = value);
+        bindField(els.minimum, (value) => state.declaration.minimum = value);
+        bindField(els.methods, (value) => state.declaration.methods = value);
+        bindField(els.protect, (value) => state.declaration.protect = value);
+        bindField(els.sacrifice, (value) => state.declaration.sacrifice = value);
+        bindField(els.collateral, (value) => state.declaration.collateral = value);
+        bindField(els.note, (value) => state.declaration.note = value);
+
+        bindField(els.precheck1, (value) => state.precheck[0] = value);
+        bindField(els.precheck2, (value) => state.precheck[1] = value);
+        bindField(els.precheck3, (value) => state.precheck[2] = value);
+
+        bindField(els.freeText, (value) => state.freeText = value);
+
+        els.keepBlankFields.addEventListener("change", () => {
+          state.keepBlankFields = els.keepBlankFields.checked;
+          renderOutput();
+          renderValidation();
+          saveState();
+        });
+
+        bindField(els.filenameBase, (value) => {
+          state.filenameBase = value;
+          saveState();
+        }, false);
+
+        els.pullCurrentOutputButton.addEventListener("click", () => {
+          state.freeText = getOutputText();
+          state.mode = "free";
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("現在の出力を自由記述へ引き継ぎました。", "success");
+        });
+
+        els.insertDeclarationTemplateButton.addEventListener("click", () => {
+          state.freeText = appendBlock(state.freeText, DECLARATION_TEMPLATE);
+          syncInputsFromState();
+          renderOutput();
+          renderValidation();
+          saveState();
+          setStatus("自由記述へ宣言テンプレートを挿入しました。", "success");
+        });
+
+        els.insertPrecheckTemplateButton.addEventListener("click", () => {
+          state.freeText = appendBlock(state.freeText, PRECHECK_TEMPLATE);
+          syncInputsFromState();
+          renderOutput();
+          renderValidation();
+          saveState();
+          setStatus("自由記述へ宣言前確認テンプレートを挿入しました。", "success");
+        });
+
+        els.copyButton.addEventListener("click", async () => {
+          const text = getOutputText();
+          if (!text.trim()) {
+            setStatus("まだ保存できる本文がありません。", "warn");
+            return;
+          }
+
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+            } else {
+              fallbackCopy(text);
+            }
+            setStatus("出力をクリップボードへコピーしました。", "success");
+          } catch (error) {
+            console.error(error);
+            setStatus("コピーに失敗しました。ブラウザの権限設定を確認してください。", "error");
+          }
+        });
+
+        els.downloadButton.addEventListener("click", () => {
+          const text = getOutputText();
+          if (!text.trim()) {
+            setStatus("まだ保存できる本文がありません。", "warn");
+            return;
+          }
+
+          const filename = buildFilename(state.filenameBase || "qbs-declaration");
+          downloadText(filename, text);
+          setStatus(`TXT を保存しました: ${filename}`, "success");
+        });
+
+        els.importFile.addEventListener("change", async (event) => {
+          const file = event.target.files && event.target.files[0];
+          if (!file) {
+            return;
+          }
+
+          try {
+            const text = await file.text();
+            hydrateFromText(text);
+            saveState();
+            setStatus(`TXT を読み込みました: ${file.name}`, "success");
+          } catch (error) {
+            console.error(error);
+            setStatus("TXT の読み込みに失敗しました。", "error");
+          } finally {
+            els.importFile.value = "";
+          }
+        });
+
+        els.promoteToFreeButton.addEventListener("click", () => {
+          state.freeText = getOutputText();
+          state.mode = "free";
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("出力を自由記述へ引き継ぎました。", "success");
+        });
+
+        els.resetButton.addEventListener("click", () => {
+          const ok = window.confirm("現在の下書きを初期化します。よろしいですか。");
+          if (!ok) {
+            return;
+          }
+          Object.assign(state, defaultState());
+          syncInputsFromState();
+          renderAll();
+          saveState();
+          setStatus("下書きを初期化しました。", "success");
+        });
+      }
+
+      function bindField(element, setter, refreshDerived = true) {
+        element.addEventListener("input", () => {
+          setter(element.value);
+          if (refreshDerived) {
+            renderOutput();
+            renderValidation();
+          }
+          saveState();
+        });
+      }
+
+      function loadState() {
+        const initial = defaultState();
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) {
+            return initial;
+          }
+          const parsed = JSON.parse(raw);
+          return {
+            ...initial,
+            ...parsed,
+            declaration: {
+              ...initial.declaration,
+              ...(parsed.declaration || {})
+            },
+            precheck: Array.isArray(parsed.precheck) ? [
+              parsed.precheck[0] || "",
+              parsed.precheck[1] || "",
+              parsed.precheck[2] || ""
+            ] : initial.precheck,
+            scene: {
+              ...emptyScene(),
+              ...(parsed.scene || {})
+            },
+            choiceSelections: Array.isArray(parsed.choiceSelections) ? parsed.choiceSelections : []
+          };
+        } catch (error) {
+          console.warn("Failed to load local draft", error);
+          return initial;
+        }
+      }
+
+      function saveState() {
+        state.updatedAt = new Date().toISOString();
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (error) {
+          console.warn("Failed to save local draft", error);
+          setStatus("自動保存に失敗しました。ブラウザの保存領域を確認してください。", "warn");
+        }
+      }
+
+      function syncInputsFromState() {
+        els.sceneInput.value = state.sceneRaw;
+        els.customIdea.value = state.customIdea;
+        els.objective.value = state.declaration.objective;
+        els.minimum.value = state.declaration.minimum;
+        els.methods.value = state.declaration.methods;
+        els.protect.value = state.declaration.protect;
+        els.sacrifice.value = state.declaration.sacrifice;
+        els.collateral.value = state.declaration.collateral;
+        els.note.value = state.declaration.note;
+        els.precheck1.value = state.precheck[0];
+        els.precheck2.value = state.precheck[1];
+        els.precheck3.value = state.precheck[2];
+        els.freeText.value = state.freeText;
+        els.keepBlankFields.checked = state.keepBlankFields;
+        els.filenameBase.value = state.filenameBase;
+      }
+
+      function renderAll() {
+        renderMode();
+        renderSceneSummary();
+        renderOutput();
+        renderValidation();
+      }
+
+      function renderMode() {
+        els.modeHelp.textContent = MODE_HELP[state.mode] || MODE_HELP.declaration;
+        els.tabButtons.forEach((button) => {
+          const selected = button.dataset.mode === state.mode;
+          button.setAttribute("aria-selected", String(selected));
+        });
+        Object.entries(els.modePanels).forEach(([mode, panel]) => {
+          panel.hidden = mode !== state.mode;
+        });
+      }
+
+      function parseSceneFromInput(announce) {
+        state.sceneRaw = els.sceneInput.value;
+        state.scene = parseSceneText(state.sceneRaw);
+        state.choiceSelections = new Array(state.scene.choices.length).fill(false);
+        state.customIdea = "";
+        syncInputsFromState();
+        renderSceneSummary();
+        saveState();
+
+        if (announce) {
+          const parts = countSceneParts(state.scene);
+          if (parts > 0) {
+            setStatus(`局面を読み取りました。見つかった項目: ${parts}件`, "success");
+          } else {
+            setStatus("既定のラベルは読み取れませんでした。原文はそのまま使えます。", "warn");
+          }
+        }
+      }
+
+      function countSceneParts(scene) {
+        let count = 0;
+        ["intro", "situation", "deadline", "stakes", "known", "difficulty"].forEach((key) => {
+          if ((scene[key] || "").trim()) {
+            count += 1;
+          }
+        });
+        if (scene.choices.length) {
+          count += 1;
+        }
+        return count;
+      }
+
+      function parseSceneText(text) {
+        const scene = emptyScene();
+        if (!text.trim()) {
+          return scene;
+        }
+
+        const lines = text.replace(/\r\n?/g, "\n").split("\n");
+        let activeSection = "";
+        let activeKey = "";
+
+        for (const rawLine of lines) {
+          const line = rawLine.trimEnd();
+          const sectionMatch = line.match(/^〖\s*(導入|局面)\s*〗$/);
+          if (sectionMatch) {
+            activeSection = sectionMatch[1] === "導入" ? "intro" : "scene";
+            activeKey = "";
+            continue;
+          }
+
+          const labelMatch = line.match(/^\s*(現況|期限|争点|既知情報|難度|選択肢例)\s*[:：]\s*(.*)$/);
+          if (labelMatch) {
+            activeKey = sceneLabels[labelMatch[1]];
+            const rest = labelMatch[2].trim();
+            if (activeKey === "choices") {
+              if (rest) {
+                scene.choices.push(stripChoice(rest));
+              }
+            } else {
+              scene[activeKey] = rest;
+            }
+            continue;
+          }
+
+          if (!line.trim()) {
+            if (activeKey !== "choices") {
+              activeKey = activeKey;
+            }
+            continue;
+          }
+
+          if (activeKey === "choices") {
+            if (/^\s*[-*・]\s+/.test(line)) {
+              scene.choices.push(stripChoice(line));
+            } else if (scene.choices.length) {
+              scene.choices[scene.choices.length - 1] += " " + line.trim();
+            } else {
+              scene.choices.push(stripChoice(line));
+            }
+            continue;
+          }
+
+          if (activeKey && activeKey !== "choices") {
+            scene[activeKey] = appendLine(scene[activeKey], line.trim());
+            continue;
+          }
+
+          if (activeSection === "intro") {
+            scene.intro = appendLine(scene.intro, line.trim());
+          }
+        }
+
+        scene.choices = scene.choices
+          .map((choice) => choice.trim())
+          .filter(Boolean);
+
+        return scene;
+      }
+
+      function stripChoice(text) {
+        return text.replace(/^\s*[-*・]\s*/, "").trim();
+      }
+
+      function appendLine(current, next) {
+        if (!next) {
+          return current || "";
+        }
+        if (!current) {
+          return next;
+        }
+        return `${current}\n${next}`;
+      }
+
+      function renderSceneSummary() {
+        const scene = state.scene || emptyScene();
+        const cards = [];
+
+        if (scene.intro.trim()) {
+          cards.push(renderSceneCard("導入", scene.intro));
+        }
+        if (scene.situation.trim()) {
+          cards.push(renderSceneCard("現況", scene.situation));
+        }
+        if (scene.deadline.trim()) {
+          cards.push(renderSceneCard("期限", scene.deadline));
+        }
+        if (scene.stakes.trim()) {
+          cards.push(renderSceneCard("争点", scene.stakes));
+        }
+        if (scene.known.trim()) {
+          cards.push(renderSceneCard("既知情報", scene.known));
+        }
+        if (scene.difficulty.trim()) {
+          cards.push(renderSceneCard("難度", scene.difficulty));
+        }
+
+        if (!cards.length) {
+          els.sceneSummary.className = "scene-summary empty";
+          els.sceneSummary.textContent = state.sceneRaw.trim()
+            ? "既定のラベルは読み取れていません。原文はそのまま残っています。"
+            : "まだ局面は読み取っていません。";
+        } else {
+          els.sceneSummary.className = "scene-summary";
+          els.sceneSummary.innerHTML = `<div class="scene-card-grid">${cards.join("")}</div>`;
+        }
+
+        renderChoices();
+      }
+
+      function renderSceneCard(title, body) {
+        return `
+          <article class="scene-card">
+            <h3>${escapeHtml(title)}</h3>
+            <p>${escapeHtml(body)}</p>
+          </article>
+        `;
+      }
+
+      function renderChoices() {
+        const choices = state.scene.choices || [];
+        if (!choices.length) {
+          els.choiceBox.hidden = true;
+          els.choiceGrid.innerHTML = "";
+          return;
+        }
+
+        ensureChoiceSelectionLength();
+        els.choiceBox.hidden = false;
+        els.choiceGrid.innerHTML = choices.map((choice, index) => {
+          const checked = state.choiceSelections[index] ? "checked" : "";
+          return `
+            <label class="pill-choice">
+              <input type="checkbox" data-choice-index="${index}" ${checked}>
+              <span>${escapeHtml(choice)}</span>
+            </label>
+          `;
+        }).join("");
+
+        Array.from(els.choiceGrid.querySelectorAll("input[type='checkbox']")).forEach((input) => {
+          input.addEventListener("change", () => {
+            const index = Number(input.dataset.choiceIndex);
+            state.choiceSelections[index] = input.checked;
+            saveState();
+          });
+        });
+      }
+
+      function ensureChoiceSelectionLength() {
+        const length = state.scene.choices.length;
+        if (!Array.isArray(state.choiceSelections)) {
+          state.choiceSelections = [];
+        }
+        state.choiceSelections = state.choiceSelections.slice(0, length);
+        while (state.choiceSelections.length < length) {
+          state.choiceSelections.push(false);
+        }
+      }
+
+      function applySceneIdeasToCurrentMode() {
+        const ideas = [];
+        ensureChoiceSelectionLength();
+        state.scene.choices.forEach((choice, index) => {
+          if (state.choiceSelections[index]) {
+            ideas.push(choice);
+          }
+        });
+        if (state.customIdea.trim()) {
+          ideas.push(state.customIdea.trim());
+        }
+
+        if (!ideas.length) {
+          setStatus("まず選択肢例か第三の案を 1つ以上選んでください。", "warn");
+          return;
+        }
+
+        if (state.mode === "declaration") {
+          state.declaration.methods = appendBlock(state.declaration.methods, ideas.join("\n"));
+        } else if (state.mode === "precheck") {
+          let cursor = 0;
+          for (let i = 0; i < state.precheck.length && cursor < ideas.length; i += 1) {
+            if (!state.precheck[i].trim()) {
+              state.precheck[i] = ideas[cursor];
+              cursor += 1;
+            }
+          }
+          while (cursor < ideas.length) {
+            state.precheck[2] = appendBlock(state.precheck[2], ideas[cursor]);
+            cursor += 1;
+          }
+        } else {
+          const lines = ideas.map((idea) => `- ${idea}`).join("\n");
+          state.freeText = appendBlock(state.freeText, lines);
+        }
+
+        state.choiceSelections = new Array(state.scene.choices.length).fill(false);
+        state.customIdea = "";
+        syncInputsFromState();
+        renderSceneSummary();
+        renderOutput();
+        renderValidation();
+        saveState();
+        setStatus("選んだ案を現在の下書きへ反映しました。", "success");
+      }
+
+      function appendBlock(current, block) {
+        const left = (current || "").trimEnd();
+        const right = (block || "").trim();
+        if (!right) {
+          return left;
+        }
+        if (!left) {
+          return right;
+        }
+        return `${left}\n${right}`;
+      }
+
+      function serializeDeclaration(declaration, keepBlank) {
+        return FIELD_LABELS
+          .filter(([key]) => keepBlank || (declaration[key] || "").trim())
+          .map(([key, label]) => `${label}: ${(declaration[key] || "").trim()}`.trimEnd())
+          .join("\n");
+      }
+
+      function serializePrecheck(items) {
+        return [
+          "〖宣言前確認〗",
+          `1. ${(items[0] || "").trim()}`.trimEnd(),
+          `2. ${(items[1] || "").trim()}`.trimEnd(),
+          `3. ${(items[2] || "").trim()}`.trimEnd()
+        ].join("\n");
+      }
+
+      function getOutputText() {
+        if (state.mode === "free") {
+          return state.freeText;
+        }
+        if (state.mode === "precheck") {
+          return serializePrecheck(state.precheck);
+        }
+        return serializeDeclaration(state.declaration, state.keepBlankFields);
+      }
+
+      function renderOutput() {
+        els.outputText.value = getOutputText();
+      }
+
+      function renderValidation() {
+        const items = validateCurrentState();
+        if (!items.length) {
+          els.validationList.innerHTML = "";
+          return;
+        }
+        els.validationList.innerHTML = items.map((item) => `
+          <li class="validation-item ${item.level}">${escapeHtml(item.text)}</li>
+        `).join("");
+      }
+
+      function validateCurrentState() {
+        const items = [];
+        const output = getOutputText();
+
+        if (!output.trim()) {
+          items.push({ level: "error", text: "まだ本文が空です。どのモードでもよいので、まず 1行以上書いてください。" });
+          return items;
+        }
+
+        if (state.mode === "declaration") {
+          const d = state.declaration;
+          if (!d.objective.trim()) {
+            items.push({ level: "warn", text: "主目的が空です。保証される中心は主目的 1つなので、できれば先に書いておくと扱いやすくなります。" });
+          } else if (d.objective.trim().length > 70 || /[、。]/.test(d.objective.trim()) && d.objective.trim().length > 36) {
+            items.push({ level: "info", text: "主目的が長めです。ひとつに絞ると、GM も返しやすくなります。" });
+          }
+          if (!d.minimum.trim()) {
+            items.push({ level: "info", text: "最低限ラインが空です。PBM ではここがあると話が止まりにくくなります。" });
+          }
+          if (!d.methods.trim()) {
+            items.push({ level: "warn", text: "手段が空です。少なくとも「何をしたいか / どうやるか / 何を守りたいか」の 3つがあると返答しやすくなります。" });
+          }
+          if (!d.protect.trim() && !d.sacrifice.trim()) {
+            items.push({ level: "info", text: "守りたいもの と 捨ててもよいもの が両方空です。ここを分けると PC らしさが出ます。" });
+          }
+          if (!state.keepBlankFields) {
+            items.push({ level: "info", text: "空欄の行は出力から省略しています。テンプレートの形を残したいなら「空欄の行も残す」をオンにしてください。" });
+          }
+        } else if (state.mode === "precheck") {
+          const filled = state.precheck.filter((item) => item.trim()).length;
+          if (filled === 0) {
+            items.push({ level: "warn", text: "宣言前確認が空です。質問がないなら通常の宣言モードへ戻って構いません。" });
+          } else if (filled === 3) {
+            items.push({ level: "info", text: "宣言前確認は 3点まで入っています。追加したい場合は通常の宣言や自由記述で整理してください。" });
+          }
+        } else if (state.mode === "free") {
+          if (!state.freeText.trim()) {
+            items.push({ level: "warn", text: "自由記述が空です。現在の出力を引き継ぐボタンから始めると作りやすくなります。" });
+          } else if (!/[\n:：]/.test(state.freeText) && state.freeText.trim().length < 30) {
+            items.push({ level: "info", text: "短い本文です。GM に渡す前に、主目的や手段が伝わるかだけ見直すと安心です。" });
+          }
+        }
+
+        return items;
+      }
+
+      function hydrateFromText(text) {
+        const normalized = text.replace(/\r\n?/g, "\n").trimEnd();
+        const precheck = parsePrecheckText(normalized);
+        if (precheck) {
+          state.mode = "precheck";
+          state.precheck = precheck;
+          syncInputsFromState();
+          renderAll();
+          return;
+        }
+
+        const declaration = parseDeclarationText(normalized);
+        if (declaration) {
+          state.mode = "declaration";
+          state.declaration = declaration;
+          syncInputsFromState();
+          renderAll();
+          return;
+        }
+
+        state.mode = "free";
+        state.freeText = normalized;
+        syncInputsFromState();
+        renderAll();
+      }
+
+      function parsePrecheckText(text) {
+        if (!/^〖\s*宣言前確認\s*〗/m.test(text)) {
+          return null;
+        }
+        const result = ["", "", ""];
+        const lines = text.split("\n");
+        for (const line of lines) {
+          const match = line.match(/^\s*([1-3])\.\s*(.*)$/);
+          if (match) {
+            result[Number(match[1]) - 1] = match[2];
+          }
+        }
+        return result;
+      }
+
+      function parseDeclarationText(text) {
+        const lines = text.split("\n");
+        const declaration = {
+          objective: "",
+          minimum: "",
+          methods: "",
+          protect: "",
+          sacrifice: "",
+          collateral: "",
+          note: ""
+        };
+        const labelToKey = new Map([
+          ["主目的", "objective"],
+          ["最低限ライン", "minimum"],
+          ["手段", "methods"],
+          ["守りたいもの", "protect"],
+          ["捨ててもよいもの", "sacrifice"],
+          ["担保 (任意)", "collateral"],
+          ["補足 (任意)", "note"]
+        ]);
+        let currentKey = "";
+        let matched = 0;
+
+        for (const rawLine of lines) {
+          const line = rawLine.trimEnd();
+          const match = line.match(/^\s*(主目的|最低限ライン|手段|守りたいもの|捨ててもよいもの|担保 \(任意\)|補足 \(任意\))\s*[:：]\s*(.*)$/);
+          if (match) {
+            currentKey = labelToKey.get(match[1]) || "";
+            declaration[currentKey] = match[2].trim();
+            matched += 1;
+            continue;
+          }
+
+          if (!currentKey || !line.trim()) {
+            continue;
+          }
+
+          declaration[currentKey] = appendLine(declaration[currentKey], line.trim());
+        }
+
+        return matched >= 2 ? declaration : null;
+      }
+
+      function fallbackCopy(text) {
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        textarea.setAttribute("readonly", "readonly");
+        textarea.style.position = "absolute";
+        textarea.style.left = "-9999px";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+
+      function buildFilename(base) {
+        const safeBase = (base || "qbs-declaration")
+          .trim()
+          .replace(/[\\/:*?"<>|]+/g, "-")
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-")
+          .replace(/^-|-$/g, "") || "qbs-declaration";
+
+        const now = new Date();
+        const timestamp = [
+          now.getFullYear(),
+          pad(now.getMonth() + 1),
+          pad(now.getDate()),
+          "-",
+          pad(now.getHours()),
+          pad(now.getMinutes())
+        ].join("");
+
+        return `${safeBase}-${timestamp}.txt`;
+      }
+
+      function pad(value) {
+        return String(value).padStart(2, "0");
+      }
+
+      function downloadText(filename, text) {
+        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+      }
+
+      function escapeHtml(text) {
+        return String(text)
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;")
+          .replace(/\n/g, "<br>");
+      }
+
+      function setStatus(text, tone) {
+        els.statusLine.textContent = text;
+        els.statusLine.className = `status-line${tone ? ` ${tone}` : ""}`;
+      }
+
+    })();
+  </script>
+</body>
+</html>
