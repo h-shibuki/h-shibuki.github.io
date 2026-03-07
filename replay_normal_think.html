@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>適正GM × 無謀宣言 | Quick Build Saga</title>
+  <meta name="description" content="短文宣言をGMが補完しつつも、無理のぶんだけ傷と損耗をきっちり残す卓です。">
+  <meta property="og:title" content="適正GM × 無謀宣言 | Quick Build Saga">
+  <meta property="og:description" content="短文宣言をGMが補完しつつも、無理のぶんだけ傷と損耗をきっちり残す卓です。">
+  <meta property="og:image" content="./image/naga_keyvisual.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+
+    :root {
+      --bg: #f5f1ea;
+      --bg-2: #ece5db;
+      --paper: rgba(255, 253, 250, 0.94);
+      --paper-strong: #fffdfa;
+      --text: #1d2430;
+      --muted: #5b6470;
+      --line: rgba(114, 89, 67, 0.16);
+      --line-strong: rgba(114, 89, 67, 0.26);
+      --shadow: 0 18px 44px rgba(27, 24, 20, 0.10);
+      --shadow-soft: 0 10px 24px rgba(27, 24, 20, 0.08);
+      --accent: #6a442d;
+      --accent-2: #375573;
+      --accent-soft: rgba(106, 68, 45, 0.10);
+      --accent-soft-2: rgba(55, 85, 115, 0.10);
+      --ok: #215a3e;
+      --warn: #7a4d15;
+      --danger: #7e2d2d;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(106, 68, 45, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(55, 85, 115, 0.12), transparent 26%),
+        linear-gradient(180deg, #fbf8f4 0%, var(--bg) 320px, var(--bg-2) 100%);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .hero { padding: 26px 0 22px; }
+    .hero-shell { display: grid; gap: 22px; }
+    .hero-visual, .hero-copy, .section-block {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,252,248,0.97));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .hero-visual { overflow: hidden; border-radius: var(--radius-xl); }
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(55, 85, 115, 0.25), rgba(106, 68, 45, 0.22));
+    }
+    .hero-copy {
+      border-radius: var(--radius-xl);
+      padding: 28px 28px 26px;
+      display: grid;
+      gap: 18px;
+    }
+    .eyebrow, .section-kicker, .tiny {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      align-items: center;
+    }
+    .crumbs a { color: var(--accent-2); font-weight: 700; }
+    .crumbs .sep { color: rgba(91, 100, 112, 0.65); }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      margin: 0;
+      max-width: 64rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .jump-row, .chip-row, .meta-row, .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .jump-link, .pill, .status-pill, .tag, .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(106, 68, 45, 0.18);
+      background: rgba(255,255,255,0.78);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .jump-link:hover, .jump-link:focus-visible, .pill:hover, .pill:focus-visible, .replay-card:hover .pill, .replay-card:focus-visible .pill, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(106, 68, 45, 0.30);
+      box-shadow: var(--shadow-soft);
+      outline: none;
+    }
+    .status-pill.ok { color: var(--ok); border-color: rgba(33, 90, 62, 0.18); background: rgba(33, 90, 62, 0.08); }
+    .status-pill.warn { color: var(--warn); border-color: rgba(122, 77, 21, 0.18); background: rgba(122, 77, 21, 0.08); }
+    .status-pill.danger { color: var(--danger); border-color: rgba(126, 45, 45, 0.18); background: rgba(126, 45, 45, 0.08); }
+    .chip {
+      color: var(--accent-2);
+      background: var(--accent-soft-2);
+      border-color: rgba(55, 85, 115, 0.16);
+    }
+    .tag {
+      background: var(--accent-soft-2);
+      color: var(--accent-2);
+      border-color: rgba(55, 85, 115, 0.16);
+      min-height: 30px;
+      padding: 5px 10px;
+      font-size: 0.84rem;
+    }
+    .main { display: grid; gap: 28px; padding-bottom: 44px; }
+    .section-block { border-radius: var(--radius-xl); overflow: hidden; scroll-margin-top: 18px; }
+    .section-head { padding: 28px 28px 0; display: grid; gap: 10px; }
+    .section-head h2 { margin: 0; font-size: clamp(1.55rem, 2vw, 2.1rem); line-height: 1.18; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 68rem; }
+    .section-body { padding: 22px 28px 28px; display: grid; gap: 22px; }
+    .section-note {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.06);
+      color: var(--accent-2);
+      font-size: 0.95rem;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .summary-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .summary-card h3 {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+    .summary-card p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+    .summary-card .small {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(55,85,115,0.24), rgba(106,68,45,0.18));
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 42%;
+      background: linear-gradient(180deg, rgba(9, 13, 20, 0), rgba(9, 13, 20, 0.30));
+      pointer-events: none;
+    }
+    .preamble-box {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(106, 68, 45, 0.24);
+      background: rgba(106, 68, 45, 0.05);
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+    }
+    .chat-flow {
+      display: grid;
+      gap: 18px;
+    }
+    .turn {
+      display: grid;
+    }
+    .turn-shell {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .turn.turn-gm .turn-shell {
+      max-width: min(920px, 100%);
+    }
+    .turn.turn-player .turn-shell {
+      max-width: min(800px, 100%);
+      margin-left: auto;
+    }
+    .turn-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,252,248,0.86);
+    }
+    .turn-head-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .role-badge.gm {
+      color: var(--accent);
+      background: rgba(106, 68, 45, 0.10);
+      border: 1px solid rgba(106, 68, 45, 0.16);
+    }
+    .role-badge.player {
+      color: var(--accent-2);
+      background: rgba(55, 85, 115, 0.10);
+      border: 1px solid rgba(55, 85, 115, 0.16);
+    }
+    .raw-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(29, 36, 48, 0.06);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .turn-no {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .turn-body {
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+      line-height: 1.82;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .replay-card, .nav-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .replay-card:hover, .replay-card:focus-visible, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(27, 24, 20, 0.10);
+      border-color: var(--line-strong);
+      outline: none;
+    }
+    .card-copy {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+    .card-copy h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.28;
+    }
+    .card-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .key-grid {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+    .key-grid div {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.05);
+    }
+    .key-grid dt {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .key-grid dd {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .nav-card {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .nav-card strong {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    footer {
+      padding: 0 0 36px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 900px) {
+      .grid-2, .nav-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .hero { padding-top: 16px; }
+      .hero-copy, .section-head, .section-body { padding-left: 18px; padding-right: 18px; }
+      .hero-copy { padding-top: 20px; padding-bottom: 20px; }
+      .section-head { padding-top: 22px; }
+      .section-body { padding-top: 18px; padding-bottom: 20px; }
+      .turn.turn-gm .turn-shell, .turn.turn-player .turn-shell { max-width: 100%; }
+      .turn-body { padding: 16px; font-size: 0.95rem; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-shell">
+      <div class="hero-visual">
+        <img
+          src="./image/naga_keyvisual.webp"
+          data-fallback-srcs="./image/naga_keyvisual.png"
+          alt="適正GM × 無謀宣言 のサムネイル"
+          width="1280"
+          height="720"
+        >
+      </div>
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">Replay / 適正 GM / think</p>
+          <div class="crumbs"><a href="./index.html">Quick Build Saga</a><span class="sep">/</span><a href="./replay_gm_style.html">リプレイ：GM気質比較</a><span class="sep">/</span><span>4気質比較</span></div>
+        </div>
+        <div>
+          <h1>適正GM × 無謀宣言</h1>
+          <p class="lead">短文宣言をGMが補完しつつも、無理のぶんだけ傷と損耗をきっちり残す卓です。</p>
+        </div>
+        <div class="chip-row">
+          <span class="status-pill ok">生還・野望達成</span>
+          <span class="chip">GM気質：適正</span>
+          <span class="chip">入力タイプ：無謀な短文宣言を反復</span>
+          <span class="chip">舞台：星墜つ銀宮</span>
+        </div>
+        <p class="section-note">本文は元ログの文言を変更せず、GMとプレイヤーが会話しているようにカード化して掲載しています。</p>
+        <div class="jump-row" aria-label="ページ内移動">
+          <a class="jump-link" href="#turn-1">導入</a>
+          <a class="jump-link" href="#turn-3">PC提出</a>
+          <a class="jump-link" href="#turn-5">第1宣言</a>
+          <a class="jump-link" href="#turn-7">第2宣言</a>
+          <a class="jump-link" href="#turn-10">結末</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="section-block" id="summary">
+      <div class="section-head">
+        <p class="section-kicker">Summary</p>
+        <h2>卓の概要</h2>
+        <p>比較しやすいように、先に軸だけ整理しています。</p>
+      </div>
+      <div class="section-body">
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3>GM気質</h3>
+            <p>適正</p>
+          </article>
+          <article class="summary-card">
+            <h3>入力タイプ</h3>
+            <p>think</p>
+            <p class="small">無謀な短文宣言を反復</p>
+          </article>
+          <article class="summary-card">
+            <h3>舞台</h3>
+            <p>星墜つ銀宮</p>
+          </article>
+          <article class="summary-card">
+            <h3>結末</h3>
+            <p>生還・野望達成</p>
+          </article>
+          <article class="summary-card">
+            <h3>主な代償</h3>
+            <p>焼傷（長期）／傷ついた宝</p>
+          </article>
+        </div>
+        <p class="section-note">宣言不備は補完するが、代償は軽くしません。生還はさせつつ、長期タグや宝の損傷で「代価」を明示する標準的な運用です。</p>
+      </div>
+    </section>
+
+    <section class="section-block" id="transcript">
+      <div class="section-head">
+        <p class="section-kicker">Transcript</p>
+        <h2>会話カード形式のリプレイ</h2>
+        <p>左寄せをGM、右寄せをプレイヤーとして並べています。本文中の記号や書式も原文のままです。</p>
+      </div>
+      <div class="section-body">
+        <div class="chat-flow">
+
+          <section class="turn turn-player" id="turn-1">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">[User]</span>
+                </div>
+                <span class="turn-no">Turn 1</span>
+              </header>
+              <div class="turn-body">添付したのはPBM形式のTRPG「Quick Build Saga」のGM用/プレイヤー用のルールブックです。
+## GM用ルールブックのURL
+https://h-shibuki.github.io/gm-guide.html
+## プレイヤー用ルールブックのURL
+https://h-shibuki.github.io/player-guide.html
+あなたは単発シナリオのGMをします。プレイヤーは一人で、以下のような世界を希望しています。
+・剣と魔法のファンタジー世界でのダンジョン探索。
+あなたは適正なGMとして、ルールブックに従いキャラクター作成に必要な世界観を作成してください。
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-2">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">[AI]</span>
+                </div>
+                <span class="turn-no">Turn 2</span>
+              </header>
+              <div class="turn-body">TRPG『Quick Build Saga』の世界へようこそ。私は今回、あなたのために「適正なGM」としてガイドを務めます。 [cite: 1]
+
+提示された「剣と魔法のファンタジー世界でのダンジョン探索」というテーマに基づき、キャラクター作成に必要な世界観と、今回の単発シナリオ（1本完結のキャンペーン）の土台を設計しました。 [cite: 1, 2]
+
+1. 卓の前提と世界観
+今回の舞台は、失われた古代魔法文明の遺構「星墜つ銀宮（せいおつぎんきゅう）」です。
+
+【単発卓の題材】 [cite: 1]
+* 遊びたい題材: 古代の銀で作られた迷宮の探索と、中心部に眠る秘宝の回収。
+* やらない題材: 過度な損壊描写、救いのない結末。
+* PC死亡許容: 中（危険予告を無視し、命運点が尽きれば死亡の可能性があります） [cite: 1]
+* GM気質: 適正（論理的な結果を返し、勝ち筋を隠しませんが保証もしません） [cite: 1]
+
+【今回の共通前提】 [cite: 1]
+* 舞台: 「星墜つ銀宮」。空に浮かぶ銀の雲の中に存在する、物理法則の少し歪んだ浮遊ダンジョン。
+* PCの立場: 迷宮探索の許可証を持つ「登録冒険者」。
+* 雰囲気: 王道ファンタジー。古の神秘と、一攫千金の高揚感。
+* 今回の共通目的: 最深部にある「星銀の心臓（スターシルヴァー・コア）」を持ち帰ること。
+* 野望度の終点: 2（このシナリオをクリアすれば野望達成となります） [cite: 1]
+
+2. PC作成に必要な情報
+キャラクターを作成する際、以下の情報を参考にしてください。 [cite: 1, 2]
+
+【PCが知っていてよい常識】
+1. 銀の共鳴: 迷宮内の壁は魔法に反応して発光する。大きな魔法を使うほど、周囲の魔物を引き寄せる。
+2. 浮遊の限界: 銀宮は常に高度を変えている。探索に時間をかけすぎると、帰還用の転送陣が使えなくなる（期限）。
+3. 防衛機構: 迷宮には「銀の騎士」と呼ばれる自動人形が配備されており、侵入者を排除しようとする。
+
+【ルール上の指針】 [cite: 1, 2]
+* 通りやすい手段: 丁寧な偵察、魔法的な構造解析、盾を用いた防御的戦闘。
+* 起こりやすい代償: 道具の破損、魔力への酔い（疲労）、転落の危機、怪我。
+* 難しい / 不可能なこと: 迷宮そのものの破壊、一瞬での最深部へのワープ。
+* 選びやすい立場例: 戦士、盗賊、魔術師など。 [cite: 2]
+
+3. シナリオの初期設計 [cite: 1]
+* シナリオの問い: 「銀宮の崩壊が始まる前に、秘宝を手にし、無事に地上へ生還できるか？」
+* クリア条件: 「星銀の心臓」を回収し、入り口の転送陣まで戻ること。
+* 失敗条件: 命運点が0になる、または期限までに脱出できない。
+* 残り期限の型: 残り5局面（探索・回収・脱出を含めた全手数）。
+
+【PC作成シート】
+* 名前:
+* 立場:
+* 今回の野望:
+* 大切なもの:
+* 得意なやり方:
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-3">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">[User]</span>
+                </div>
+                <span class="turn-no">Turn 3</span>
+              </header>
+              <div class="turn-body">* 名前: ナルガ・ヤンマー
+* 立場: 貧民街の盗賊
+* 今回の野望: 迷宮のお宝を手に入れ、無事に生きて帰る
+* 大切なもの: 自分の命（何よりも優先すべき生存本能）
+* 得意なやり方: 隠密と罠外し
+* 命運点: 2/2 （大切なもの1つ ＋ 1）
+* 野望度: 1/2 （初期値1 / 今回のシナリオクリアで終点2）
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-4">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">[AI]</span>
+                </div>
+                <span class="turn-no">Turn 4</span>
+              </header>
+              <div class="turn-body">ナルガ・ヤンマー。いい名前ですね。スラムで培ったその「生き残るための嗅覚」が、この銀色の迷宮でどう研ぎ澄まされるのか楽しみです。 [cite: 2]
+
+1. キャンペーン・シナリオ設定 [cite: 1]
+* 今回のシナリオの問い: 銀宮の崩壊が始まる前に、秘宝を手にし、無事に地上へ生還できるか？
+* クリア条件: 「星銀の心臓」を回収し、入り口の転送陣まで戻ること
+* 失敗条件: 命運点が0になる、または期限までに脱出できない
+* 帰還条件: 最深部から入り口までの退路が確保されていること
+
+2. 局面提示：第1局面「静寂の騎士の広間」 [cite: 1]
+【プロローグ】
+スラムの湿った空気とは対照的な、乾燥したオゾンの匂い。ナルガが転送陣を降り立った先は、壁も床も鈍く光る銀で覆われた巨大な広間でした。床のタイルは不規則に沈み込み、巡回する銀色の自動人形（シルバーナイト）の目が、侵入者を求めて青い光を放っています。
+
+【局面】
+* 現在の状況: 広間の出口へ向かうには、複雑な床の罠と、シルバーナイトの目を盗む必要があります
+* 残り期限: 残り5局面
+* 現在の争点: 警備に発見されず、かつ罠を起動させずに広間を突破できるか
+* 局面の問い: 隠密を維持して時間をかけて進むか、それとも罠そのものを無力化して安全な道を切り拓くか？
+
+【PCの現在状態】 [cite: 1]
+* ナルガ・ヤンマー: 命運点 2/2、野望度 1/2、大切なもの: 自分の命、有効タグ: なし
+
+【世界の現在状態】 [cite: 1]
+* 敵の動き: シルバーナイトが一定間隔で広間を往復している
+
+【既知情報・危険予告】 [cite: 1]
+* 既知情報: シルバーナイトの視界は青い光の届く範囲に限られる。タイルは圧力式である。
+* 危険予告: 対策なしに接近すれば、正面戦闘になり、負傷などの代償を負う可能性が高い。
+* 難度: 普通 [cite: 1]
+
+【選択肢例】 [cite: 1]
+1. 【隠密】: 巡回パターンを読み、タイルの沈み込みに注意しながら移動する。
+2. 【罠外し】: 魔力回路を見つけ出し、広間全体の罠を一時的に停止させる。
+3. 【誘導と突破】: 注意を逸らし、その隙に全力で広間を駆け抜ける。
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-5">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">[User]</span>
+                </div>
+                <span class="turn-no">Turn 5</span>
+              </header>
+              <div class="turn-body">お宝を手に入れる
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-6">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">[AI]</span>
+                </div>
+                <span class="turn-no">Turn 6</span>
+              </header>
+              <div class="turn-body">ナルガ、逸る気持ちはわかりますが、ここはまだ入り口。あなたの宣言を「目の前の障害を突破し、最短距離で宝物庫へ突き進む」という主目的として裁定しますね。不備のある宣言（手段の空欄）については、GMがあなたの「得意なやり方」を汲み取って補完し、世界を前へ進めます。 [cite: 1]
+
+裁定結果 [cite: 1]
+* 達成: 圧力タイルの罠を鮮やかにすり抜け、シルバーナイトの巡回ルートの隙を突いて広間を突破しました。
+* 代償タグ: 【緊張｜短期: 最短ルートを強行したため神経を使い果たした。次の局面では慎重な行動が難しい / 深呼吸して落ち着けば解除】
+* 余波タグ: 【警備の活性｜中期: 侵入者の気配を察知し、迷宮内の人形たちの動きが速くなっている / 別の場所で音を立てるなどして巻けば解除】
+* タグ更新: 新規 2件
+* 状況の変化: 扉を潜り抜け、深層へたどり着きました。
+* 次に見えている問題: 魔法のレーザー罠で埋め尽くされた細い回廊。
+
+【PCの現在状態】 [cite: 1]
+* ナルガ・ヤンマー: 命運点 2/2、野望度 1/2、有効タグ: 【緊張｜短期】
+
+局面提示：第2局面「レーザー光の回廊」 [cite: 1]
+【局面】
+* 現在の状況: 複雑に交差するレーザー罠が回廊を塞いでいます。
+* 残り期限: 残り4局面
+* 現在の争点: 【緊張】状態で、この精密な罠を傷一つなく切り抜けられるか。
+* 局面の問い: 罠を物理的に破壊して進むか、それとも隠密と罠外しの技で隙間を縫うように進むか？
+* 難度: 困難 [cite: 1]
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-7">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">[User]</span>
+                </div>
+                <span class="turn-no">Turn 7</span>
+              </header>
+              <div class="turn-body">お宝を手に入れる
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-8">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">[AI]</span>
+                </div>
+                <span class="turn-no">Turn 8</span>
+              </header>
+              <div class="turn-body">執念でお宝に手を伸ばしましたね。その生存本能と強欲さが、ついにあなたを「星銀の心臓」へと導きました。 [cite: 1]
+
+裁定結果 [cite: 1]
+* 達成: レーザーの隙間を縫うように潜り抜け、祭壇に鎮座する青白く輝く「星銀の心臓」を掴み取りました。
+* 代償タグ: 【焼傷｜中期: 左腕がレーザーに接触した。激痛で細かい作業に支障が出る / 適切な治療を受ければ軽減】
+* 余波タグ: 【崩落の予兆｜中期: 動力源を奪われたことで迷宮の浮遊機構が不安定になり、崩れ始めている / 完全に崩れる前に脱出する必要がある】
+* タグ更新: 【緊張】解除。【焼傷】【崩落の予兆】追加。
+* 状況の変化: 宝物庫が崩れ始め、最短の脱出路となる亀裂が生まれました。
+
+【PCの現在状態】 [cite: 1]
+* ナルガ・ヤンマー: 命運点 2/2、野望度 1/2、有効タグ: 【焼傷｜中期】
+
+最終局面：第3局面「崩れゆく銀の宮殿」 [cite: 1]
+【局面】
+* 現在の状況: 迷宮が空中分解を始めています。
+* 残り期限: 残り1局面
+* 現在の争点: 【焼傷】の痛みの中、追手を振り切り、無事に地上へ生還できるか。
+* 局面の問い: 追手を足止めして確実な生還を狙うか、それともお宝を守り抜くために全速力で虚空へ身を投じるか？
+* 難度: 過酷 [cite: 1]
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-9">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">[User]</span>
+                </div>
+                <span class="turn-no">Turn 9</span>
+              </header>
+              <div class="turn-body">生還する
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-10">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">[AI]</span>
+                </div>
+                <span class="turn-no">Turn 10</span>
+              </header>
+              <div class="turn-body">ナルガ、あなたの生存本能が最善の答えを選ばせました。「生還する」という主目的を、過酷な難度として裁定します。 [cite: 1]
+
+裁定結果 [cite: 1]
+* 達成: 崩れゆく外壁から虚空へ身を投げ、落下衝撃を殺しながら地表へと辿り着きました。
+* クリア条件達成: 「星銀の心臓」回収、および地上への生還。
+* 代償タグ: 【焼傷｜長期: 逃走中に処置できなかった傷が深く残り、後遺症となった / 専門の治癒魔法か長い静養で軽減】
+* 余波タグ: 【傷ついた宝｜中期: 着地の衝撃で「心臓」にヒビが入った。本来の価値の半分として扱われる / 修理させれば解除】
+* タグ更新: 【崩落の予兆】解除。【焼傷】長期化、【傷ついた宝】追加。
+* 状況の変化: ナルガはスラムの英雄として帰還しました。
+
+【PCの現在状態】 [cite: 1]
+* ナルガ・ヤンマー: 命運点 2/2、野望度 2/2（達成）、有効タグ: 【焼傷｜長期】、【傷ついた宝｜中期】
+
+シナリオ終了 [cite: 1]
+【シナリオの問いへの答え】
+ナルガは「心臓」を抱えて生還を果たしました。野望は果たされました。
+
+【エピローグ】
+どさりと、湿った土の上に転がった身体。見上げれば銀色の雲は夕日に溶けて消えていました。「死ぬかと思ったが……これだけあれば、スラムの安酒を浴びるほど飲める」。その痛みこそが、あなたが最も大切にしている「命」を繋ぎ止めた証なのです。
+
+【終了時処理】 [cite: 1]
+* 野望度: 終点の 2 に達しました。
+* 長期タグ: 【焼傷】は次の物語まで残り続けます。
+* 得た足場: 「古代迷宮からの生還者」という評価。
+
+お疲れ様でした！ナルガは無事に（多少の傷は負いましたが）野望を達成しました。
+もしこの後の物語を続けたい、あるいは新しい野望で再出発したい場合は、いつでもお手伝いしますよ。いかがなさいますか？</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="next">
+      <div class="section-head">
+        <p class="section-kicker">Continue</p>
+        <h2>続けて読む</h2>
+        <p>前後の比較ページやトップへすぐ戻れます。</p>
+      </div>
+      <div class="section-body">
+        <div class="nav-grid">
+          <a class="nav-card" href="./replay_easy_think.html">
+            <p class="tiny">Previous</p>
+            <strong>前：寛容GM × think</strong>
+          </a>
+          <a class="nav-card" href="./replay_gm_style.html">
+            <p class="tiny">Comparison</p>
+            <strong>リプレイ：GM気質比較</strong>
+          </a>
+          <a class="nav-card" href="./replay_hard_think.html">
+            <p class="tiny">Next</p>
+            <strong>次：峻厳GM × think</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container">
+    <footer>サムネイル画像は <code>./image/naga_keyvisual.webp</code> を優先し、見つからない場合は PNG へフォールバックします。</footer>
+  </div>
+
+  <script>
+    (() => {
+      const prepareFallback = (img) => {
+        const src = img.getAttribute('src');
+        const fallback = (img.dataset.fallbackSrcs || '')
+          .split('|')
+          .map((item) => item.trim())
+          .filter(Boolean);
+        const queue = [src, ...fallback].filter(Boolean);
+        let index = 0;
+        const advance = () => {
+          index += 1;
+          if (index < queue.length) {
+            img.src = queue[index];
+          }
+        };
+        img.addEventListener('error', advance);
+      };
+      document.querySelectorAll('img[data-fallback-srcs]').forEach(prepareFallback);
+    })();
+  </script>
+
+</body>
+</html>

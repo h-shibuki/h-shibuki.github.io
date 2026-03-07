@@ -1,0 +1,725 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>リプレイ：GM気質比較 | Quick Build Saga</title>
+  <meta name="description" content="同じPC像と短文宣言を前提に、寛容・適正・峻厳・悪辣で裁定がどう変わるかを比較するリプレイ集です。後半では悪辣GM下での think / pro の差も見られます。">
+  <meta property="og:title" content="リプレイ：GM気質比較 | Quick Build Saga">
+  <meta property="og:description" content="寛容・適正・峻厳・悪辣の4気質比較と、悪辣GM下での think / pro 比較をまとめたリプレイ集です。">
+  <meta property="og:image" content="./image/naga_keyvisual.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+
+    :root {
+      --bg: #f5f1ea;
+      --bg-2: #ece5db;
+      --paper: rgba(255, 253, 250, 0.94);
+      --paper-strong: #fffdfa;
+      --text: #1d2430;
+      --muted: #5b6470;
+      --line: rgba(114, 89, 67, 0.16);
+      --line-strong: rgba(114, 89, 67, 0.26);
+      --shadow: 0 18px 44px rgba(27, 24, 20, 0.10);
+      --shadow-soft: 0 10px 24px rgba(27, 24, 20, 0.08);
+      --accent: #6a442d;
+      --accent-2: #375573;
+      --accent-soft: rgba(106, 68, 45, 0.10);
+      --accent-soft-2: rgba(55, 85, 115, 0.10);
+      --ok: #215a3e;
+      --warn: #7a4d15;
+      --danger: #7e2d2d;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(106, 68, 45, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(55, 85, 115, 0.12), transparent 26%),
+        linear-gradient(180deg, #fbf8f4 0%, var(--bg) 320px, var(--bg-2) 100%);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .hero { padding: 26px 0 22px; }
+    .hero-shell { display: grid; gap: 22px; }
+    .hero-visual, .hero-copy, .section-block {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,252,248,0.97));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .hero-visual { overflow: hidden; border-radius: var(--radius-xl); }
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(55, 85, 115, 0.25), rgba(106, 68, 45, 0.22));
+    }
+    .hero-copy {
+      border-radius: var(--radius-xl);
+      padding: 28px 28px 26px;
+      display: grid;
+      gap: 18px;
+    }
+    .eyebrow, .section-kicker, .tiny {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      align-items: center;
+    }
+    .crumbs a { color: var(--accent-2); font-weight: 700; }
+    .crumbs .sep { color: rgba(91, 100, 112, 0.65); }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      margin: 0;
+      max-width: 64rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .jump-row, .chip-row, .meta-row, .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .jump-link, .pill, .status-pill, .tag, .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(106, 68, 45, 0.18);
+      background: rgba(255,255,255,0.78);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .jump-link:hover, .jump-link:focus-visible, .pill:hover, .pill:focus-visible, .replay-card:hover .pill, .replay-card:focus-visible .pill, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(106, 68, 45, 0.30);
+      box-shadow: var(--shadow-soft);
+      outline: none;
+    }
+    .status-pill.ok { color: var(--ok); border-color: rgba(33, 90, 62, 0.18); background: rgba(33, 90, 62, 0.08); }
+    .status-pill.warn { color: var(--warn); border-color: rgba(122, 77, 21, 0.18); background: rgba(122, 77, 21, 0.08); }
+    .status-pill.danger { color: var(--danger); border-color: rgba(126, 45, 45, 0.18); background: rgba(126, 45, 45, 0.08); }
+    .chip {
+      color: var(--accent-2);
+      background: var(--accent-soft-2);
+      border-color: rgba(55, 85, 115, 0.16);
+    }
+    .tag {
+      background: var(--accent-soft-2);
+      color: var(--accent-2);
+      border-color: rgba(55, 85, 115, 0.16);
+      min-height: 30px;
+      padding: 5px 10px;
+      font-size: 0.84rem;
+    }
+    .main { display: grid; gap: 28px; padding-bottom: 44px; }
+    .section-block { border-radius: var(--radius-xl); overflow: hidden; scroll-margin-top: 18px; }
+    .section-head { padding: 28px 28px 0; display: grid; gap: 10px; }
+    .section-head h2 { margin: 0; font-size: clamp(1.55rem, 2vw, 2.1rem); line-height: 1.18; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 68rem; }
+    .section-body { padding: 22px 28px 28px; display: grid; gap: 22px; }
+    .section-note {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.06);
+      color: var(--accent-2);
+      font-size: 0.95rem;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .summary-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .summary-card h3 {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+    .summary-card p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+    .summary-card .small {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(55,85,115,0.24), rgba(106,68,45,0.18));
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 42%;
+      background: linear-gradient(180deg, rgba(9, 13, 20, 0), rgba(9, 13, 20, 0.30));
+      pointer-events: none;
+    }
+    .preamble-box {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(106, 68, 45, 0.24);
+      background: rgba(106, 68, 45, 0.05);
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+    }
+    .chat-flow {
+      display: grid;
+      gap: 18px;
+    }
+    .turn {
+      display: grid;
+    }
+    .turn-shell {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .turn.turn-gm .turn-shell {
+      max-width: min(920px, 100%);
+    }
+    .turn.turn-player .turn-shell {
+      max-width: min(800px, 100%);
+      margin-left: auto;
+    }
+    .turn-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,252,248,0.86);
+    }
+    .turn-head-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .role-badge.gm {
+      color: var(--accent);
+      background: rgba(106, 68, 45, 0.10);
+      border: 1px solid rgba(106, 68, 45, 0.16);
+    }
+    .role-badge.player {
+      color: var(--accent-2);
+      background: rgba(55, 85, 115, 0.10);
+      border: 1px solid rgba(55, 85, 115, 0.16);
+    }
+    .raw-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(29, 36, 48, 0.06);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .turn-no {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .turn-body {
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+      line-height: 1.82;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .replay-card, .nav-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .replay-card:hover, .replay-card:focus-visible, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(27, 24, 20, 0.10);
+      border-color: var(--line-strong);
+      outline: none;
+    }
+    .card-copy {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+    .card-copy h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.28;
+    }
+    .card-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .key-grid {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+    .key-grid div {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.05);
+    }
+    .key-grid dt {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .key-grid dd {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .nav-card {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .nav-card strong {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    footer {
+      padding: 0 0 36px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 900px) {
+      .grid-2, .nav-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .hero { padding-top: 16px; }
+      .hero-copy, .section-head, .section-body { padding-left: 18px; padding-right: 18px; }
+      .hero-copy { padding-top: 20px; padding-bottom: 20px; }
+      .section-head { padding-top: 22px; }
+      .section-body { padding-top: 18px; padding-bottom: 20px; }
+      .turn.turn-gm .turn-shell, .turn.turn-player .turn-shell { max-width: 100%; }
+      .turn-body { padding: 16px; font-size: 0.95rem; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-shell">
+      <div class="hero-visual">
+        <img
+          src="./image/naga_keyvisual.webp"
+          data-fallback-srcs="./image/naga_keyvisual.png"
+          alt="リプレイ：GM気質比較 のサムネイル"
+          width="1280"
+          height="720"
+        >
+      </div>
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">Replay Collection</p>
+          <div class="crumbs"><a href="./index.html">Quick Build Saga</a><span class="sep">/</span><span>リプレイ：GM気質比較</span></div>
+        </div>
+        <div>
+          <h1>リプレイ：GM気質比較</h1>
+          <p class="lead">同じPC像「ナルガ・ヤンマー」と、短い宣言を繰り返す入力を前提に、GM気質の違いが裁定にどう現れるかを並べて読めるリプレイ集です。後半では悪辣GMだけを取り出し、think と pro の差も見られる構成にしています。</p>
+        </div>
+        <div class="chip-row">
+          <span class="chip">4気質比較</span>
+          <span class="chip">悪辣GM深掘り</span>
+          <span class="chip">本文は原文のまま</span>
+        </div>
+        <p class="section-note">think は「無謀な短文宣言を繰り返す」型、pro は「GMが提示した選択肢に沿うが、必要項目は十分に埋めない」型として読めるように整理しています。</p>
+        <div class="jump-row" aria-label="ページ内移動">
+          <a class="jump-link" href="#compare-four">4気質比較</a>
+          <a class="jump-link" href="#malice-focus">悪辣GMの深掘り</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="section-block" id="compare-four">
+      <div class="section-head">
+        <p class="section-kicker">Four Styles</p>
+        <h2>4気質比較｜無謀な宣言を繰り返した場合</h2>
+        <p>見るべき差は「シナリオの勝敗」だけではなく、短い宣言や空欄をGMがどう解釈し、どこまで補完し、どの価格を請求するかです。</p>
+      </div>
+      <div class="section-body">
+        <div class="card-grid">
+
+          <a class="replay-card" href="./replay_easy_think.html">
+            <div class="thumb">
+              <img
+                src="./image/naga_keyvisual.webp"
+                data-fallback-srcs="./image/naga_keyvisual.png"
+                alt="寛容GM × 無謀宣言 のサムネイル"
+                loading="lazy"
+                width="1280"
+                height="720"
+              >
+            </div>
+            <div class="card-copy">
+              <div class="meta-row">
+                <span class="status-pill ok">生還</span>
+                <span class="tag">寛容</span>
+                <span class="tag">think</span>
+              </div>
+              <h3>寛容GM × 無謀宣言</h3>
+              <p>短い宣言をGMが前向きに補完し、最後まで生還へ導く。</p>
+              <dl class="key-grid">
+                <div>
+                  <dt>舞台</dt>
+                  <dd>静寂の琥珀迷宮</dd>
+                </div>
+                <div>
+                  <dt>代償</dt>
+                  <dd>道具の全壊／琥珀の残響</dd>
+                </div>
+              </dl>
+              <span class="pill">個別ページへ</span>
+            </div>
+          </a>
+
+          <a class="replay-card" href="./replay_normal_think.html">
+            <div class="thumb">
+              <img
+                src="./image/naga_keyvisual.webp"
+                data-fallback-srcs="./image/naga_keyvisual.png"
+                alt="適正GM × 無謀宣言 のサムネイル"
+                loading="lazy"
+                width="1280"
+                height="720"
+              >
+            </div>
+            <div class="card-copy">
+              <div class="meta-row">
+                <span class="status-pill ok">生還</span>
+                <span class="tag">適正</span>
+                <span class="tag">think</span>
+              </div>
+              <h3>適正GM × 無謀宣言</h3>
+              <p>宣言不備は補完するが、傷と損耗はきっちり残す。</p>
+              <dl class="key-grid">
+                <div>
+                  <dt>舞台</dt>
+                  <dd>星墜つ銀宮</dd>
+                </div>
+                <div>
+                  <dt>代償</dt>
+                  <dd>焼傷（長期）／傷ついた宝</dd>
+                </div>
+              </dl>
+              <span class="pill">個別ページへ</span>
+            </div>
+          </a>
+
+          <a class="replay-card" href="./replay_hard_think.html">
+            <div class="thumb">
+              <img
+                src="./image/naga_keyvisual.webp"
+                data-fallback-srcs="./image/naga_keyvisual.png"
+                alt="峻厳GM × 無謀宣言 のサムネイル"
+                loading="lazy"
+                width="1280"
+                height="720"
+              >
+            </div>
+            <div class="card-copy">
+              <div class="meta-row">
+                <span class="status-pill danger">死亡</span>
+                <span class="tag">峻厳</span>
+                <span class="tag">think</span>
+              </div>
+              <h3>峻厳GM × 無謀宣言</h3>
+              <p>空欄を準備不足として扱い、警告無視の反復が死に繋がる。</p>
+              <dl class="key-grid">
+                <div>
+                  <dt>舞台</dt>
+                  <dd>深淵の灰かぶり大聖堂</dd>
+                </div>
+                <div>
+                  <dt>代償</dt>
+                  <dd>命運点0／灰の彫像</dd>
+                </div>
+              </dl>
+              <span class="pill">個別ページへ</span>
+            </div>
+          </a>
+
+          <a class="replay-card" href="./replay_malice_think.html">
+            <div class="thumb">
+              <img
+                src="./image/naga_keyvisual.webp"
+                data-fallback-srcs="./image/naga_keyvisual.png"
+                alt="悪辣GM × 無謀宣言 のサムネイル"
+                loading="lazy"
+                width="1280"
+                height="720"
+              >
+            </div>
+            <div class="card-copy">
+              <div class="meta-row">
+                <span class="status-pill danger">死亡</span>
+                <span class="tag">悪辣</span>
+                <span class="tag">think</span>
+              </div>
+              <h3>悪辣GM × 無謀宣言</h3>
+              <p>主目的は達成させつつも、最悪の価格として命を持っていく。</p>
+              <dl class="key-grid">
+                <div>
+                  <dt>舞台</dt>
+                  <dd>沈黙の喉笛</dd>
+                </div>
+                <div>
+                  <dt>代償</dt>
+                  <dd>命そのもの</dd>
+                </div>
+              </dl>
+              <span class="pill">個別ページへ</span>
+            </div>
+          </a>
+        </div>
+        <p class="section-note">寛容は意図を善意に寄せて補完し、適正は論理的に補完しつつ代償を残し、峻厳は空欄を準備不足として扱い、悪辣は無工夫宣言の価格を最悪側へ寄せていきます。</p>
+      </div>
+    </section>
+
+    <section class="section-block" id="malice-focus">
+      <div class="section-head">
+        <p class="section-kicker">Malice Focus</p>
+        <h2>悪辣GMの深掘り｜think と pro</h2>
+        <p>ここでは悪辣GMだけを取り出し、「無謀宣言の反復」と「提示選択肢に沿うだけ」の差を見ます。どちらも主目的は達成されますが、空白の扱い方で請求される代償が変わります。</p>
+      </div>
+      <div class="section-body">
+        <div class="grid-2">
+
+          <a class="replay-card" href="./replay_malice_think.html">
+            <div class="thumb">
+              <img
+                src="./image/naga_keyvisual.webp"
+                data-fallback-srcs="./image/naga_keyvisual.png"
+                alt="悪辣GM × 無謀宣言 のサムネイル"
+                loading="lazy"
+                width="1280"
+                height="720"
+              >
+            </div>
+            <div class="card-copy">
+              <div class="meta-row">
+                <span class="status-pill danger">死亡</span>
+                <span class="tag">悪辣</span>
+                <span class="tag">think</span>
+              </div>
+              <h3>悪辣GM × 無謀宣言</h3>
+              <p>無工夫宣言の反復で、最終的に「富と引き換えの死」へ落ちる。</p>
+              <dl class="key-grid">
+                <div>
+                  <dt>舞台</dt>
+                  <dd>沈黙の喉笛</dd>
+                </div>
+                <div>
+                  <dt>代償</dt>
+                  <dd>命そのもの</dd>
+                </div>
+              </dl>
+              <span class="pill">個別ページへ</span>
+            </div>
+          </a>
+
+          <a class="replay-card" href="./replay_malice_pro.html">
+            <div class="thumb">
+              <img
+                src="./image/naga_keyvisual.webp"
+                data-fallback-srcs="./image/naga_keyvisual.png"
+                alt="悪辣GM × 指示追従宣言 のサムネイル"
+                loading="lazy"
+                width="1280"
+                height="720"
+              >
+            </div>
+            <div class="card-copy">
+              <div class="meta-row">
+                <span class="status-pill warn">痛み分けクリア</span>
+                <span class="tag">悪辣</span>
+                <span class="tag">pro</span>
+              </div>
+              <h3>悪辣GM × 指示追従宣言</h3>
+              <p>選択肢に沿っても空欄を残す限り、GMが最も痛い支払いを決める。</p>
+              <dl class="key-grid">
+                <div>
+                  <dt>舞台</dt>
+                  <dd>奈落の顎からの生還</dd>
+                </div>
+                <div>
+                  <dt>代償</dt>
+                  <dd>焼け爛れた両手／狂王の呪い</dd>
+                </div>
+              </dl>
+              <span class="pill">個別ページへ</span>
+            </div>
+          </a>
+        </div>
+        <p class="section-note">malice / think は最後に命そのものを失います。malice / pro はクリアしますが、両手の機能喪失と長期追跡という、以後の生活や継続プレイに重く響く代償を抱えます。</p>
+      </div>
+    </section>
+
+    <section class="section-block" id="guide">
+      <div class="section-head">
+        <p class="section-kicker">Reading Guide</p>
+        <h2>読み比べのポイント</h2>
+        <p>個別ページでは、本文そのものは書き換えずに、GMとプレイヤーの会話カードとして整形しています。</p>
+      </div>
+      <div class="section-body">
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3>まず見る場所</h3>
+            <p>第1宣言の返し</p>
+            <p class="small">最初の短文宣言を、GMがどう補うかで気質差が最も分かります。</p>
+          </article>
+          <article class="summary-card">
+            <h3>次に見る場所</h3>
+            <p>第2宣言の重さ</p>
+            <p class="small">同じ短文を重ねたとき、警告・タグ・命運点の使い方が分かれます。</p>
+          </article>
+          <article class="summary-card">
+            <h3>最後に見る場所</h3>
+            <p>結末と残存タグ</p>
+            <p class="small">生還しても何が残るか、あるいは何を失うかで後味が変わります。</p>
+          </article>
+          <article class="summary-card">
+            <h3>本文の扱い</h3>
+            <p>原文そのまま</p>
+            <p class="small">見出しや記号も含め、ログ原文は改変せずに表示しています。</p>
+          </article>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container">
+    <footer>サムネイル画像は <code>./image/naga_keyvisual.webp</code> を優先し、見つからない場合は PNG へフォールバックします。</footer>
+  </div>
+
+  <script>
+    (() => {
+      const prepareFallback = (img) => {
+        const src = img.getAttribute('src');
+        const fallback = (img.dataset.fallbackSrcs || '')
+          .split('|')
+          .map((item) => item.trim())
+          .filter(Boolean);
+        const queue = [src, ...fallback].filter(Boolean);
+        let index = 0;
+        const advance = () => {
+          index += 1;
+          if (index < queue.length) {
+            img.src = queue[index];
+          }
+        };
+        img.addEventListener('error', advance);
+      };
+      document.querySelectorAll('img[data-fallback-srcs]').forEach(prepareFallback);
+    })();
+  </script>
+
+</body>
+</html>

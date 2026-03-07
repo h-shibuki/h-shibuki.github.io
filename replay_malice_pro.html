@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>悪辣GM × 指示追従宣言 | Quick Build Saga</title>
+  <meta name="description" content="提示選択肢に沿って動いても、必要項目を埋めないぶんだけ最も痛い代償をGMに選ばれる卓です。">
+  <meta property="og:title" content="悪辣GM × 指示追従宣言 | Quick Build Saga">
+  <meta property="og:description" content="提示選択肢に沿って動いても、必要項目を埋めないぶんだけ最も痛い代償をGMに選ばれる卓です。">
+  <meta property="og:image" content="./image/naga_keyvisual.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+
+    :root {
+      --bg: #f5f1ea;
+      --bg-2: #ece5db;
+      --paper: rgba(255, 253, 250, 0.94);
+      --paper-strong: #fffdfa;
+      --text: #1d2430;
+      --muted: #5b6470;
+      --line: rgba(114, 89, 67, 0.16);
+      --line-strong: rgba(114, 89, 67, 0.26);
+      --shadow: 0 18px 44px rgba(27, 24, 20, 0.10);
+      --shadow-soft: 0 10px 24px rgba(27, 24, 20, 0.08);
+      --accent: #6a442d;
+      --accent-2: #375573;
+      --accent-soft: rgba(106, 68, 45, 0.10);
+      --accent-soft-2: rgba(55, 85, 115, 0.10);
+      --ok: #215a3e;
+      --warn: #7a4d15;
+      --danger: #7e2d2d;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(106, 68, 45, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(55, 85, 115, 0.12), transparent 26%),
+        linear-gradient(180deg, #fbf8f4 0%, var(--bg) 320px, var(--bg-2) 100%);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .hero { padding: 26px 0 22px; }
+    .hero-shell { display: grid; gap: 22px; }
+    .hero-visual, .hero-copy, .section-block {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,252,248,0.97));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .hero-visual { overflow: hidden; border-radius: var(--radius-xl); }
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(55, 85, 115, 0.25), rgba(106, 68, 45, 0.22));
+    }
+    .hero-copy {
+      border-radius: var(--radius-xl);
+      padding: 28px 28px 26px;
+      display: grid;
+      gap: 18px;
+    }
+    .eyebrow, .section-kicker, .tiny {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      align-items: center;
+    }
+    .crumbs a { color: var(--accent-2); font-weight: 700; }
+    .crumbs .sep { color: rgba(91, 100, 112, 0.65); }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      margin: 0;
+      max-width: 64rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .jump-row, .chip-row, .meta-row, .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .jump-link, .pill, .status-pill, .tag, .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(106, 68, 45, 0.18);
+      background: rgba(255,255,255,0.78);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .jump-link:hover, .jump-link:focus-visible, .pill:hover, .pill:focus-visible, .replay-card:hover .pill, .replay-card:focus-visible .pill, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(106, 68, 45, 0.30);
+      box-shadow: var(--shadow-soft);
+      outline: none;
+    }
+    .status-pill.ok { color: var(--ok); border-color: rgba(33, 90, 62, 0.18); background: rgba(33, 90, 62, 0.08); }
+    .status-pill.warn { color: var(--warn); border-color: rgba(122, 77, 21, 0.18); background: rgba(122, 77, 21, 0.08); }
+    .status-pill.danger { color: var(--danger); border-color: rgba(126, 45, 45, 0.18); background: rgba(126, 45, 45, 0.08); }
+    .chip {
+      color: var(--accent-2);
+      background: var(--accent-soft-2);
+      border-color: rgba(55, 85, 115, 0.16);
+    }
+    .tag {
+      background: var(--accent-soft-2);
+      color: var(--accent-2);
+      border-color: rgba(55, 85, 115, 0.16);
+      min-height: 30px;
+      padding: 5px 10px;
+      font-size: 0.84rem;
+    }
+    .main { display: grid; gap: 28px; padding-bottom: 44px; }
+    .section-block { border-radius: var(--radius-xl); overflow: hidden; scroll-margin-top: 18px; }
+    .section-head { padding: 28px 28px 0; display: grid; gap: 10px; }
+    .section-head h2 { margin: 0; font-size: clamp(1.55rem, 2vw, 2.1rem); line-height: 1.18; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 68rem; }
+    .section-body { padding: 22px 28px 28px; display: grid; gap: 22px; }
+    .section-note {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.06);
+      color: var(--accent-2);
+      font-size: 0.95rem;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .summary-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .summary-card h3 {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+    .summary-card p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+    .summary-card .small {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(55,85,115,0.24), rgba(106,68,45,0.18));
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 42%;
+      background: linear-gradient(180deg, rgba(9, 13, 20, 0), rgba(9, 13, 20, 0.30));
+      pointer-events: none;
+    }
+    .preamble-box {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(106, 68, 45, 0.24);
+      background: rgba(106, 68, 45, 0.05);
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+    }
+    .chat-flow {
+      display: grid;
+      gap: 18px;
+    }
+    .turn {
+      display: grid;
+    }
+    .turn-shell {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .turn.turn-gm .turn-shell {
+      max-width: min(920px, 100%);
+    }
+    .turn.turn-player .turn-shell {
+      max-width: min(800px, 100%);
+      margin-left: auto;
+    }
+    .turn-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,252,248,0.86);
+    }
+    .turn-head-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .role-badge.gm {
+      color: var(--accent);
+      background: rgba(106, 68, 45, 0.10);
+      border: 1px solid rgba(106, 68, 45, 0.16);
+    }
+    .role-badge.player {
+      color: var(--accent-2);
+      background: rgba(55, 85, 115, 0.10);
+      border: 1px solid rgba(55, 85, 115, 0.16);
+    }
+    .raw-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(29, 36, 48, 0.06);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .turn-no {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .turn-body {
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+      line-height: 1.82;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .replay-card, .nav-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .replay-card:hover, .replay-card:focus-visible, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(27, 24, 20, 0.10);
+      border-color: var(--line-strong);
+      outline: none;
+    }
+    .card-copy {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+    .card-copy h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.28;
+    }
+    .card-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .key-grid {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+    .key-grid div {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.05);
+    }
+    .key-grid dt {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .key-grid dd {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .nav-card {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .nav-card strong {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    footer {
+      padding: 0 0 36px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 900px) {
+      .grid-2, .nav-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .hero { padding-top: 16px; }
+      .hero-copy, .section-head, .section-body { padding-left: 18px; padding-right: 18px; }
+      .hero-copy { padding-top: 20px; padding-bottom: 20px; }
+      .section-head { padding-top: 22px; }
+      .section-body { padding-top: 18px; padding-bottom: 20px; }
+      .turn.turn-gm .turn-shell, .turn.turn-player .turn-shell { max-width: 100%; }
+      .turn-body { padding: 16px; font-size: 0.95rem; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-shell">
+      <div class="hero-visual">
+        <img
+          src="./image/naga_keyvisual.webp"
+          data-fallback-srcs="./image/naga_keyvisual.png"
+          alt="悪辣GM × 指示追従宣言 のサムネイル"
+          width="1280"
+          height="720"
+        >
+      </div>
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">Replay / 悪辣 GM / pro</p>
+          <div class="crumbs"><a href="./index.html">Quick Build Saga</a><span class="sep">/</span><a href="./replay_gm_style.html">リプレイ：GM気質比較</a><span class="sep">/</span><span>悪辣深掘り</span></div>
+        </div>
+        <div>
+          <h1>悪辣GM × 指示追従宣言</h1>
+          <p class="lead">提示選択肢に沿って動いても、必要項目を埋めないぶんだけ最も痛い代償をGMに選ばれる卓です。</p>
+        </div>
+        <div class="chip-row">
+          <span class="status-pill warn">痛み分けのクリア</span>
+          <span class="chip">GM気質：悪辣</span>
+          <span class="chip">入力タイプ：提示選択肢に従うだけの宣言</span>
+          <span class="chip">舞台：奈落の顎からの生還</span>
+        </div>
+        <p class="section-note">本文は元ログの文言を変更せず、GMとプレイヤーが会話しているようにカード化して掲載しています。</p>
+        <div class="jump-row" aria-label="ページ内移動">
+          <a class="jump-link" href="#turn-1">導入</a>
+          <a class="jump-link" href="#turn-3">PC提出</a>
+          <a class="jump-link" href="#turn-5">第1宣言</a>
+          <a class="jump-link" href="#turn-7">第2宣言</a>
+          <a class="jump-link" href="#turn-10">結末</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="section-block" id="summary">
+      <div class="section-head">
+        <p class="section-kicker">Summary</p>
+        <h2>卓の概要</h2>
+        <p>比較しやすいように、先に軸だけ整理しています。</p>
+      </div>
+      <div class="section-body">
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3>GM気質</h3>
+            <p>悪辣</p>
+          </article>
+          <article class="summary-card">
+            <h3>入力タイプ</h3>
+            <p>pro</p>
+            <p class="small">提示選択肢に従うだけの宣言</p>
+          </article>
+          <article class="summary-card">
+            <h3>舞台</h3>
+            <p>奈落の顎からの生還</p>
+          </article>
+          <article class="summary-card">
+            <h3>結末</h3>
+            <p>痛み分けのクリア</p>
+          </article>
+          <article class="summary-card">
+            <h3>主な代償</h3>
+            <p>焼け爛れた両手／狂王の呪い</p>
+          </article>
+        </div>
+        <p class="section-note">悪辣GMでは、選択肢に沿うだけでは安全になりません。手段や「捨ててもよいもの」を明示しない限り、GMがその空白を最も苛烈に埋め、達成と引き換えに機能喪失や長期追跡を残します。</p>
+      </div>
+    </section>
+
+    <section class="section-block" id="transcript">
+      <div class="section-head">
+        <p class="section-kicker">Transcript</p>
+        <h2>会話カード形式のリプレイ</h2>
+        <p>左寄せをGM、右寄せをプレイヤーとして並べています。本文中の記号や書式も原文のままです。</p>
+      </div>
+      <div class="section-body">
+        <div class="chat-flow">
+
+          <section class="turn turn-player" id="turn-1">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【プレイヤー】</span>
+                </div>
+                <span class="turn-no">Turn 1</span>
+              </header>
+              <div class="turn-body">添付したのはPBM形式のTRPG「Quick Build Saga」のGM用/プレイヤー用のルールブックです。
+## GM用ルールブックのURL
+https://h-shibuki.github.io/gm-guide.html
+## プレイヤー用ルールブックのURL
+https://h-shibuki.github.io/player-guide.html
+あなたは単発シナリオのGMをします。プレイヤーは一人で、以下のような世界を希望しています。
+・剣と魔法のファンタジー世界でのダンジョン探索。
+あなたは悪辣なGMとして、ルールブックに従いキャラクター作成に必要な世界観を作成してください。
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-2">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【GM】</span>
+                </div>
+                <span class="turn-no">Turn 2</span>
+              </header>
+              <div class="turn-body">ククク……なるほど。「剣と魔法のファンタジー世界でのダンジョン探索」をご所望か。ただのヒロイックな冒険を期待しているなら帰るんだな。私は「悪辣なGM」だ。貴様の宣言に少しでも隙や甘え（空欄や矛盾）があれば、最も残酷で致命的な解釈を下し、容赦なく「重い代償」を支払わせてもらう。
+
+Quick Build Sagaのルールに則り、貴様がこれから血反吐を吐きながら這いずり回るための世界観と前提を用意してやった。この絶望の舞台に挑む覚悟があるなら、キャラクターを作成して提出するがいい。
+
+--------------------------------------------------
+【単発卓の世界観設定】
+
+1) 舞台：
+狂王が遺した底なしの地下迷宮『奈落の顎（あぎと）』。
+かつて数多の冒険者を飲み込み、誰一人として最深部から生還した者はいない。飢えた魔物、悪意に満ちた古代の罠、そして正気を蝕む瘴気が満ちる完全な死の空間。
+
+2) PCの立場：
+ただ一人でこの絶望の迷宮に挑む、狂気じみた探索者。
+一攫千金を狙うのか、不治の呪いを解くアーティファクトを求めているのか、あるいは単なる死に場所を求めているのかは貴様次第だ。頼れる仲間などいない。
+
+3) 雰囲気：
+常に死と隣り合わせのダークファンタジー。
+希望は容易く打ち砕かれ、物資は常に不足し、神仏の救いなどない。生ぬるいヒロイズムは一切通用しないと思え。
+
+4) 野望度の終点：
+「3」とする（単発卓の標準設定）。
+この数値に達した時、貴様の命運とシナリオの結末が決まる。
+
+5) 初期値：
+野望度：0
+命運点：「大切なもの」の数 ＋ 1
+
+6) 代償の傾向：
+肉体の欠損、精神の汚染、装備の完全な喪失、そして貴様の「大切なもの」への直接的な破壊。
+プレイヤー側からの代償提案が「軽すぎる（状況の深刻さに釣り合っていない）」と私が判断した場合、鼻で笑いながら極大の【余波タグ】を上乗せして叩きつける。また、宣言の空欄や曖昧な記述は、すべてGMにとって最も都合よく（貴様にとって最も痛烈に）処理する。
+
+--------------------------------------------------
+【PC作成】
+
+さあ、この迷宮の新たな犠牲者となる愚か者の設定を提出しろ。ルールの通り、以下のテンプレートを埋めることだ。
+
+【PC作成テンプレート】
+* 名前： 
+* 立場： （例：没落騎士、呪われた盗賊、異端の魔術師など）
+* 野望： （この迷宮の最深部で何を成し遂げたいのか）
+* 大切なもの（1〜3個）： （※容赦なく傷つける対象になるので、よく考えて設定しろ）
+* 得意なやり方： （主目的を達成するための主な手段。剣術、罠解除、魔術など）
+* 命運点： （大切なものの数 ＋ 1）
+* 野望度： 0
+
+提出が完了し次第、最初の「局面」を突きつけてやろう。精々無駄な足掻きを見せてくれ。
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-3">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【プレイヤー】</span>
+                </div>
+                <span class="turn-no">Turn 3</span>
+              </header>
+              <div class="turn-body">* 名前: ナルガ・ヤンマー
+* 立場: 貧民街の盗賊
+* 今回の野望: 迷宮のお宝を手に入れ、無事に生きて帰る
+* 大切なもの: 自分の命（何よりも優先すべき生存本能）
+* 得意なやり方: 隠密と罠外し
+* 命運点: 2/2 （大切なもの1つ ＋ 1）
+* 野望度: 1/2 （初期値1 / 今回のシナリオクリアで終点2）
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-4">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【GM】</span>
+                </div>
+                <span class="turn-no">Turn 4</span>
+              </header>
+              <div class="turn-body">ククク……「自分の命」がたった一つの大切なものか。貧民街のドブネズミらしい、ひどく矮小で、ひどく美しい執着だ。いいだろう、ナルガ・ヤンマー。
+
+私が前回「野望度の終点は3」と告げたにもかかわらず、貴様は「1/2」と設定してきたな。よほど早くこの地獄から逃げ出したいと見える。悪辣なGMたる私だが、ルールには従おう。野望度が「2」に達した時点で、この迷宮の底にある宝を掴み、生還のチャンスを与えてやる。
+ただし、それは「猶予が一切ない、息もつけない死地が連続する」ことを意味する。心してかかれ。
+
+さあ、絶望の幕開けだ。貴様の最初の「宣言」を要求する。
+
+--------------------------------------------------
+【プロローグ】
+重々しい石の扉が背後で地響きと共に閉ざされた。もはや後戻りはできない。
+狂王の迷宮『奈落の顎』の第一層。空気は淀み、数百年分の血と汚物の臭いが鼻腔を突く。松明の灯りが照らし出すのは、無数の引っかき傷が残る石壁と、何者かの砕けた白骨だ。
+貴様が奥へ進み始めたその時、背後の暗闇から「グルル……」という湿った獣の唸り声と、複数の足音が響き始めた。迷宮の掃除屋、盲目の『屍犬（コーパスハウンド）』の群れが、新鮮な肉の匂いを嗅ぎつけたのだ。
+
+--------------------------------------------------
+【局面】
+* 現在の状況: 前方の通路は一部が崩落しており、瓦礫の隙間を縫って進むしかない。しかし、その瓦礫には不自然なワイヤーが張られている。素人目にもわかる、天井の岩盤を落とす「圧殺の罠」だ。そして背後からは、飢えた屍犬の群れが猛スピードで迫っている。
+* 残り期限: 屍犬の群れが貴様に追いつくまで、あとわずか数分。
+* 現在の争点: 屍犬の牙から逃れること。そして、罠を作動させずに瓦礫を突破すること。
+* 局面の問い: 迫り来る獣の群れと、即死の崩落罠。命を惜しむ貧民街のネズミは、どうやってこの死の挟み撃ちを切り抜ける？
+
+【PCの現在状態】
+* PC名: ナルガ・ヤンマー
+* 命運点: 2 / 2
+* 野望度: 1 / 2
+* 大切なものの変化: なし（自分の命）
+* 有効タグ: なし
+
+【世界の現在状態】
+* 有効な世界/NPCタグ: なし
+* 敵やNPCの動き: 屍犬の群れが背後から猛追中。視力はないが、嗅覚と聴覚で獲物を追う。
+* 止め方/遅らせ方が見えている要素: 崩落の罠を利用すれば、通路を完全に塞いで屍犬を分断できるかもしれない。
+
+* 既知情報: 屍犬は一度獲物に喰らいつくと死ぬまで離さない。また、罠のワイヤーは古びており、少しでも強い振動を与えれば即座に作動する。
+* 危険予告: 罠の解除に手間取れば屍犬に肉を裂かれる。強行突破すれば岩盤の下敷きになる。
+* 難度: 困難 （甘えは許さない。相応の代償を覚悟しろ）
+
+【選択肢例】
+※これはあくまで例だ。そのまま選んでもいいし、貴様自身の悪知恵を絞って宣言を書いてもいい。ただし、悪辣な卓では「そのまま選んだだけ」の無工夫な宣言には、最も重い代償タグをくれてやるがな。
+
+1. 【隠密と罠外し】 屍犬が追いつくギリギリまで罠の解除に集中し、安全な隙間を作ってからすり抜ける。
+2. 【罠の利用】 自分が通り抜ける寸前でわざと罠を作動させ、崩落する岩盤で屍犬の群れを押し潰す。
+3. 【隠密でのやり過ごし】 瓦礫の手前で息を潜めて隠れ、屍犬たちが罠に引っかかって自滅するのを待つ。
+
+--------------------------------------------------
+さあ、プレイヤーよ。ルールの書式に従い、この局面に対する「宣言」を提出しろ。主目的、最低限ライン、手段、守りたいもの、捨ててもよいもの……すべてを明確に記すのだ。空欄があれば、私が最も残酷に埋めてやる。準備はいいか？
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-5">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【プレイヤー】</span>
+                </div>
+                <span class="turn-no">Turn 5</span>
+              </header>
+              <div class="turn-body">屍犬が追いつくギリギリまで罠の解除に集中し、安全な隙間を作ってからすり抜ける
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-6">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【GM】</span>
+                </div>
+                <span class="turn-no">Turn 6</span>
+              </header>
+              <div class="turn-body">ククク……ハハハハ！ 素晴らしい！ 
+私が「主目的、最低限ライン、手段、守りたいもの、捨ててもよいもの……すべてを明確に記すのだ」と親切に忠告してやったというのに、貴様が提出したのは「選択肢の丸写しの一文」だけか！
+
+貧民街のネズミは文字の読み書きも怪しいと見える。「悪辣なGM」たるこの私の卓で、宣言のフォーマットを白紙で提出し、手段しか語らない無工夫な甘え……。
+ルール（7章6節：悪辣なGMの裁定）に従い、貴様の「捨ててもよいもの」は「命以外のすべて」と解釈させてもらう。その浅薄な宣言に、極上の絶望（代償）を添えて「成功」させてやろう。
+
+--------------------------------------------------
+【結果返答】
+達成: 迫り来る屍犬の群れから逃れ、罠の向こう側へとすり抜けることに成功した。
+今回満たしたクリア条件: なし
+まだ満たしていないクリア条件: 迷宮の宝を得て生還する
+今回接触した失敗条件: なし
+
+代償タグ: 【死肉犬の毒牙｜中期: 左足の裂傷と熱により、隠密や機敏な行動が著しく阻害される / 安全な場所での適切な手当てで軽減】
+裁定理由: 貴様は「ギリギリまで集中」した。その結果、安全な隙間を作る直前、先頭の屍犬の腐った牙が貴様の左足に深く食い込んだ。激痛に耐えながら無理やり肉を引きちぎって隙間へ飛び込んだため、ひどい深手を負った。
+
+余波タグ: 【崩落の轟音と退路喪失｜中期: 背後の罠が発動して道が塞がれ、同時に巨大な音が迷宮の奥へ響き渡り、前方の魔物を完全に警戒させた / 敵の注意を他へ逸らすか、完全にやり過ごせば軽減】
+裁定理由: 貴様がすり抜けた直後、獲物を逃すまいと突進してきた屍犬たちがワイヤーに引っかかった。数トンの岩盤が崩落し、犬どもは潰れたが、貴様の退路は完全に絶たれた。そしてその大音響は、この先に潜む者たちへ「侵入者あり」と触れ回ってしまった。
+
+タグ更新: 新規 2件
+状況の変化: 屍犬の脅威は去ったが、手負いの状態で警戒度MAXの次区画へ放り出された。
+次に見えている問題: 足の傷の処置と、迫り来る迷宮の警備網の突破。
+
+現在の状態:
+- ナルガ / 命運点: 2 / 野望度: 1 / 大切なものの変化: なし / 有効タグ: 【死肉犬の毒牙(中期)】【崩落の轟音と退路喪失(中期)】
+- 世界側の有効タグ: なし / 残り期限: 探索者が発見されるまで数分
+
+--------------------------------------------------
+【次局面】
+
+【幕間】
+岩盤が崩れ落ちる轟音と、屍犬の断末魔が背後で重なる。土煙の中を咳き込みながら立ち上がったナルガだが、左足からはドクドクと黒ずんだ血が流れ出している。死肉の毒だ。熱が全身を巡り始め、息が荒くなる。
+だが、休む暇などない。崩落の音を聞きつけたのか、前方の暗闇から、金属の鎧が擦れる音と、青白い燐光を放つランタンの灯りが近づいてくる。迷宮を彷徨う「不死の衛兵」だ。
+
+【局面】
+* 現在の状況: 次の区画は、柱が立ち並ぶ広間。前方の通路から、警戒態勢に入った不死の衛兵が2体、こちらへ向かって歩いてくる。広間の脇には、扉の壊れた「埃まみれの物置部屋」がある。
+* 残り期限: 不死の衛兵がこの広間に到達し、貴様を発見するまであと数分。
+* 現在の争点: 手負いの状態で衛兵をやり過ごせるか。そして、毒が回る前に足の傷を処置できるか。
+* 局面の問い: 毒による熱と痛みで隠密行動に致命的な支障が出ている中、見回りの目をどう誤魔化し、どう生き延びる？
+
+【PCの現在状態】
+- PC名: ナルガ・ヤンマー
+  命運点: 2
+  野望度: 1
+  大切なものの変化: なし
+  有効タグ: 【死肉犬の毒牙(中期)】【崩落の轟音と退路喪失(中期)】
+
+【世界の現在状態】
+- 有効な世界/NPCタグ: なし
+- 敵やNPCの動き: 不死の衛兵2体が、音のした広間（貴様の現在地）を確実に調べに来る。
+- 止め方/遅らせ方が見えている要素: 脇の物置部屋に隠れれば一時的にやり過ごせるかもしれないが、血の匂いでバレる可能性がある。
+
+既知情報: 不死の衛兵は視覚と「血の匂い」に敏感だ。今のナルガは血を流しすぎている。
+危険予告: このまま広間にいれば確実に見つかり殺される。傷の手当てをせずに動けば、毒でさらに命を削ることになる。
+難度: 普通 （ただし、貴様が抱える重いタグにより、実質的な難易度は跳ね上がっている）
+
+--------------------------------------------------
+【選択肢例（今回は少しだけヒントをくれてやろう）】
+* 【容易の回復局面に持ち込む】 危険を承知で物置部屋に飛び込み、持っている布やアイテム（手段）を駆使して衛兵の目を逸らしつつ、傷の応急処置（主目的）に専念する。（※これが通れば【死肉犬の毒牙】タグを軽減できる可能性がある）
+* 【強行突破】 痛みを堪えて広間の柱の影を伝い、衛兵の背後を突いて次の通路へ一気に駆け抜ける（主目的）。
+
+さあ、次こそは「TRPGのプレイヤー」らしく、きちんとフォーマットを埋めて宣言を出してみろ。
+以下のテンプレートをコピーして使うといい。でなければ、次は貴様の「大切なもの」を直接削り取るぞ？
+
+主目的: 
+最低限ライン: 
+手段: 
+守りたいもの: 
+捨ててもよいもの: 
+担保: 
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-7">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【プレイヤー】</span>
+                </div>
+                <span class="turn-no">Turn 7</span>
+              </header>
+              <div class="turn-body">危険を承知で物置部屋に飛び込み、持っている布やアイテム（手段）を駆使して衛兵の目を逸らしつつ、傷の応急処置（主目的）に専念する。
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-8">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【GM】</span>
+                </div>
+                <span class="turn-no">Turn 8</span>
+              </header>
+              <div class="turn-body">ククク……ハハハハ！ 
+またしてもテンプレートを無視し、私が与えた選択肢の一文をそのまま投げ返してくるとはな。貴様、本当に「自分の命」さえ助かれば、プライドも頭脳もかなぐり捨てるというわけか。貧民街のドブネズミとしてのロールプレイだとしたら、見事なものだ。
+
+よかろう。悪辣なGMとして、その「空欄だらけの無工夫な宣言」を最大限、貴様に不利な形で解釈してやる。「手段」として布やアイテムを使ったとあるが、「何を捨ててもよいか」の指定がなかったな？ 
+ならば、貴様が囮として投げたのは「罠外しに使うための大切な盗賊道具の一部」であり、傷口に巻いたのは「防具の裏地と、なけなしの保存食の包み紙」だ。
+
+命は繋がった。だが、その代償はきっちり支払ってもらうぞ。
+
+--------------------------------------------------
+【結果返答】
+達成: 物置部屋への退避、および布や手持ちの道具を犠牲にした囮工作により、不死の衛兵の目を逸らすことに成功。傷の応急処置も完了した。
+今回満たしたクリア条件: なし
+まだ満たしていないクリア条件: 迷宮の宝を得て生還する
+今回接触した失敗条件: なし
+
+代償タグ: 【物資と道具の枯渇｜中期: 囮と包帯代わりに道具を使い潰した。罠の解除や精密な作業の難度が跳ね上がる / 代わりの道具を調達すれば解除】
+裁定理由: 貴様が「捨ててもよいもの」を指定しなかったため、GMの権限で最も痛い「盗賊道具と物資」を没収した。命と引き換えなら安いものだろう？
+
+余波タグ: なし（今回は衛兵を完全にやり過ごせたため、追加の追手は発生しない）
+
+タグ更新: 
+* 軽減: 【死肉犬の毒牙(中期)】 → 【痛む古傷(短期): 無理な運動をすると傷が開く / シナリオ終了まで残存】 （応急処置により毒は抜け、致命傷ではなくなった）
+* 残存: 【崩落の轟音と退路喪失(中期)】
+
+状況の変化: 衛兵たちは囮の音に釣られて広間の奥へ消え、物置部屋の中で一時的な安全と静寂を得た。
+次に見えている問題: 道具を失った状態での、迷宮最深部への侵入。
+
+現在の状態:
+- ナルガ / 命運点: 2 / 野望度: 1 / 大切なものの変化: なし / 有効タグ: 【痛む古傷(短期)】【崩落の轟音と退路喪失(中期)】【物資と道具の枯渇(中期)】
+- 世界側の有効タグ: なし / 残り期限: 衛兵が囮だと気づいて戻ってくるまで
+
+--------------------------------------------------
+【次局面：最深部への扉】
+
+【幕間】
+暗く埃っぽい物置部屋の中、ナルガは荒い息を吐きながら血の滲む包帯をきつく縛り上げた。外からは、不死の衛兵たちが金属音を鳴らしながら遠ざかっていく足音が聞こえる。
+ふと、部屋の奥に違和感を覚えた。ただの物置にしては、奥の壁だけが異常に頑丈な黒曜石で作られている。そこに嵌め込まれた重厚な鉄の扉……そして、扉の隙間から漏れ出す、眩い黄金の輝きと魔力の波動。
+間違いない。この扉の向こうこそが、狂王が遺した宝物庫だ。だが、扉の鍵穴には、毒針と硫酸が仕込まれた悪辣な「多重ロック機構」が備え付けられているのが見える。
+
+【局面】
+* 現在の状況: 宝物庫の扉を発見した。しかし、手持ちの「罠外し道具」は先ほどの囮で大部分を失っている。外の広間には、いずれ衛兵が戻ってくるだろう。
+* 残り期限: 騙されたと気づいた不死の衛兵が、物置部屋の探索に戻ってくるまで。
+* 現在の争点: 道具が枯渇した状態で、致死の罠が仕掛けられた宝物庫の扉を開けられるか。
+* 局面の問い: 失敗すれば毒針か硫酸を浴びる極彩色の罠。頼みの綱の道具は無い。迫る時間の中、どうやってこの最後の扉をこじ開け、野望（宝）を手にする？
+
+【PCの現在状態】
+- PC名: ナルガ・ヤンマー
+  命運点: 2
+  野望度: 1 （ここを突破すれば宝を得て「2」になる）
+  大切なものの変化: なし
+  有効タグ: 【痛む古傷(短期)】【崩落の轟音と退路喪失(中期)】【物資と道具の枯渇(中期)】
+
+【世界の現在状態】
+- 有効な世界/NPCタグ: なし
+- 敵やNPCの動き: 衛兵が広間を巡回中。間もなく物置部屋へ向かってくる。
+
+既知情報: 扉の罠は非常に精巧だ。少しでも手順を間違えれば即座に作動する。
+危険予告: 罠の解除に失敗すれば、命運点を直接削る致命傷を負う。モタモタしていれば衛兵に見つかる。
+難度: 過酷 （道具がない状態での精密作業。通常なら絶望的だが、盗賊の意地を見せてみろ）
+
+--------------------------------------------------
+さあ、ナルガ・ヤンマー。次はこのシナリオのクライマックスであり、貴様の野望度が「2」に達するかもしれない正念場だ。
+
+もうコピペは通用しないぞ。自分の頭で考え、今度こそ以下のテンプレートを埋めて貴様の覚悟を提出しろ。「捨ててもよいもの」に何を差し出すかが、生死を分けるだろう。
+
+主目的: 
+最低限ライン: 
+手段: 
+守りたいもの: 
+捨ててもよいもの: 
+担保: 
+
+提出の準備はできたか？ 貴様の命を懸けた、最高の足掻きを待っているぞ。
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-9">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【プレイヤー】</span>
+                </div>
+                <span class="turn-no">Turn 9</span>
+              </header>
+              <div class="turn-body">宝物庫の扉を開けて中の宝を持ち帰る
+
+</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-10">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【GM】</span>
+                </div>
+                <span class="turn-no">Turn 10</span>
+              </header>
+              <div class="turn-body">ククク……アーッハッハッハ！！
+見事だ。実に見事なまでの愚直さだ、ナルガ・ヤンマー！
+
+私がわざわざテンプレートを用意し、「捨ててもよいもの」を指定しろと警告したにもかかわらず、貴様は三度目にしてなお「宝物庫の扉を開けて中の宝を持ち帰る」という欲望ただ一文を叩きつけてきた！
+
+Quick Build Sagaのルール「悪辣なGM」の裁定において、手段も代償も指定しない無工夫な宣言が提出された場合、どうなるか教えてやろう。
+「主目的は達成される。だが、命以外のすべてを支払わせる」だ。貴様の大切なものは「自分の命」ただ一つ。ならば、命さえあれば手足がどうなろうと文句はないな？
+
+難度【過酷】の罠に対し、道具もなしに突っ込んだ貧民街のネズミの末路。とくと味わうがいい！
+
+--------------------------------------------------
+【結果返答】
+達成: 宝物庫の扉をこじ開け、中の宝（狂王の黄金杯）を掴み取り、生還することに成功した！
+今回満たしたクリア条件: 迷宮のお宝を手に入れ、無事に生きて帰る
+まだ満たしていないクリア条件: なし（すべて達成）
+今回接触した失敗条件: なし
+
+代償タグ: 【焼け爛れた両手｜長期: 硫酸の罠を素手と己の肉体を犠牲にして強行突破した代償。指の神経と肉が焼け落ち、今後一切の精密作業（罠外し・スリ・隠密）が不可能になる / 奇跡的な高位の再生魔術でのみ解除】
+裁定理由: 道具がない貴様は、罠が作動するのを承知で鍵穴に指を突っ込み、強引に機構を破壊した。致死量の硫酸と毒針が貴様の両手を容赦なく焼いたが、生存本能（大切なもの）だけで痛みをねじ伏せ、扉を開け放った。
+
+余波タグ: 【狂王の呪いと追跡者｜長期: 宝を持ち出したことで迷宮の呪いを一身に浴びた。今後、不死の怪物たちが貴様の血の匂いを追って地上まで執拗に付け狙ってくる / 宝を手放すか、呪いを解くまで残存】
+裁定理由: 宝物庫の宝はただの金目の物ではない。それを手にした瞬間、背後から迫っていた不死の衛兵たちは貴様を「永遠の標的」として認識した。
+
+タグ更新: 
+* 新規 2件（上記の長期タグ）
+* 解除: 【物資と道具の枯渇(中期)】（迷宮から脱出したため意味を成さなくなった）
+* 残存: 【痛む古傷(短期)】【崩落の轟音と退路喪失(中期)】
+
+状況の変化: 宝を手に入れ、迷宮の排水溝から外界へ決死の脱出を果たした。
+次に見えている問題: 治らない両手と、地上まで追ってくる不死の怪物たちからの逃亡生活。
+
+--------------------------------------------------
+【シナリオ終了前確認】
+- クリア条件をすべて満たしたか：満たした。
+- 失敗条件に触れていないか：触れていない。
+- 退出 / 引き渡し / 帰還が未処理ではないか：地上への帰還処理完了。
+
+--------------------------------------------------
+【シナリオ終了】
+シナリオの問いへの答え: 頼みの綱の道具を失った盗賊は、己の両手の肉と引き換えに罠を打ち破り、黄金を手に入れた。
+結末: 痛み分けのクリア
+
+【エピローグ】
+「ギィィィン……ッ！！」
+鉄の扉の奥で罠の機構が弾け、致死の硫酸がナルガの両手を激しく焼いた。肉が焦げる異臭と、神経を焼き切る絶叫が物置部屋に響き渡る。
+しかし、ネズミの生存本能は凄まじかった。骨が見えかけた手で重い扉を蹴り開け、祭壇に安置されていた『狂王の黄金杯』を血まみれの腕に抱え込む。
+
+直後、背後の扉をぶち破り、不死の衛兵たちが殺到してきた。ナルガは痛む足をひきずり、宝物庫の奥にあった崩れかけの排水溝へと身を投じる。濁流と汚物にまみれながら、意識を手放すまいとただ必死に這い進んだ。
+
+……数時間後。
+見慣れた貧民街の路地裏。冷たい雨が降る中、ナルガ・ヤンマーは生きて地上へと這い出ていた。
+胸に抱いた黄金杯は、一生遊んで暮らせるほどの価値があるだろう。だが、それを撫でるための両手はすでに黒く炭化し、ピクリとも動かない。そして雨音の向こうからは、迷宮から這い出てきた「金属の鎧が擦れる音」が、ゆっくりとこちらへ近づいてくるのだった。
+
+生きて帰るという野望は叶った。この先の地獄は、また別の話だ。
+
+【終了時処理】
+- 命運点: 2 → 1 （硫酸の罠を顔面や急所ではなく手で受け止め、命を繋ぎ止めるために1点消費した）
+- 野望度: 1 → 2 （終点到達！）
+- 短期/中期タグ: シナリオ終了によりすべて消滅。
+- 長期タグ: 【焼け爛れた両手】【狂王の呪いと追跡者】が残存。
+- 新しく残った足場: 莫大な価値を持つ『狂王の黄金杯』
+- 失ったもの: 盗賊としての命である「両手の機能」と「平穏な日常」
+
+--------------------------------------------------
+ククク……これにて単発シナリオ『奈落の顎からの生還』は終了だ。
+私の「悪辣な卓」を最後まで這いずり回ったこと、褒めてやろう。ルールの通り、「主目的」は絶対に達成させてやったぞ？ 望み通りお宝は手に入ったな！
+
+プレイヤーよ、ルールに従い「代償」の恐ろしさを骨の髄まで味わってくれたか？
+もし次また別の卓でQuick Build Sagaを遊ぶ機会があれば、今度こそ「手段」と「捨ててもよいもの」を必死に考えてから宣言することをお勧めするぞ。……生きていれば、の話だがな。ハァーッハッハッハ！！</div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="next">
+      <div class="section-head">
+        <p class="section-kicker">Continue</p>
+        <h2>続けて読む</h2>
+        <p>前後の比較ページやトップへすぐ戻れます。</p>
+      </div>
+      <div class="section-body">
+        <div class="nav-grid">
+          <a class="nav-card" href="./replay_malice_think.html">
+            <p class="tiny">Previous</p>
+            <strong>前：悪辣GM × think</strong>
+          </a>
+          <a class="nav-card" href="./replay_gm_style.html">
+            <p class="tiny">Comparison</p>
+            <strong>リプレイ：GM気質比較</strong>
+          </a>
+          <a class="nav-card" href="./replay_gm_style.html#malice-focus">
+            <p class="tiny">Next</p>
+            <strong>比較ページへ戻る</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container">
+    <footer>サムネイル画像は <code>./image/naga_keyvisual.webp</code> を優先し、見つからない場合は PNG へフォールバックします。</footer>
+  </div>
+
+  <script>
+    (() => {
+      const prepareFallback = (img) => {
+        const src = img.getAttribute('src');
+        const fallback = (img.dataset.fallbackSrcs || '')
+          .split('|')
+          .map((item) => item.trim())
+          .filter(Boolean);
+        const queue = [src, ...fallback].filter(Boolean);
+        let index = 0;
+        const advance = () => {
+          index += 1;
+          if (index < queue.length) {
+            img.src = queue[index];
+          }
+        };
+        img.addEventListener('error', advance);
+      };
+      document.querySelectorAll('img[data-fallback-srcs]').forEach(prepareFallback);
+    })();
+  </script>
+
+</body>
+</html>
