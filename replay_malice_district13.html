@@ -1,0 +1,913 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>悪辣GM × ゾンビ・サバイバル | Quick Build Saga</title>
+  <meta name="description" content="悪辣GM運用のゾンビ終末卓で、状況情報を束ねた卓越宣言により、重い後味を残しつつも生還を掴む個別リプレイです。">
+  <meta property="og:title" content="悪辣GM × ゾンビ・サバイバル | Quick Build Saga">
+  <meta property="og:description" content="悪辣GM運用のゾンビ終末卓で、状況情報を束ねた卓越宣言により、重い後味を残しつつも生還を掴む個別リプレイです。">
+  <meta property="og:image" content="./image/saku_keyvisual.webp">
+  <meta name="twitter:card" content="summary_large_image">
+  <style>
+
+:root {
+      --bg: #f5f1ea;
+      --bg-2: #ece5db;
+      --paper: rgba(255, 253, 250, 0.94);
+      --paper-strong: #fffdfa;
+      --text: #1d2430;
+      --muted: #5b6470;
+      --line: rgba(114, 89, 67, 0.16);
+      --line-strong: rgba(114, 89, 67, 0.26);
+      --shadow: 0 18px 44px rgba(27, 24, 20, 0.10);
+      --shadow-soft: 0 10px 24px rgba(27, 24, 20, 0.08);
+      --accent: #6a442d;
+      --accent-2: #375573;
+      --accent-soft: rgba(106, 68, 45, 0.10);
+      --accent-soft-2: rgba(55, 85, 115, 0.10);
+      --ok: #215a3e;
+      --warn: #7a4d15;
+      --danger: #7e2d2d;
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius: 18px;
+      --radius-sm: 14px;
+      --max: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(106, 68, 45, 0.12), transparent 32%),
+        radial-gradient(circle at top right, rgba(55, 85, 115, 0.12), transparent 26%),
+        linear-gradient(180deg, #fbf8f4 0%, var(--bg) 320px, var(--bg-2) 100%);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(var(--max), calc(100% - 32px)); margin: 0 auto; }
+    .hero { padding: 26px 0 22px; }
+    .hero-shell { display: grid; gap: 22px; }
+    .hero-visual, .hero-copy, .section-block {
+      border: 1px solid var(--line);
+      background: linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,252,248,0.97));
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+    .hero-visual { overflow: hidden; border-radius: var(--radius-xl); }
+    .hero-visual img {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      background: linear-gradient(135deg, rgba(55, 85, 115, 0.25), rgba(106, 68, 45, 0.22));
+    }
+    .hero-copy {
+      border-radius: var(--radius-xl);
+      padding: 28px 28px 26px;
+      display: grid;
+      gap: 18px;
+    }
+    .eyebrow, .section-kicker, .tiny {
+      margin: 0;
+      font-size: 0.82rem;
+      line-height: 1.3;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+      color: var(--accent);
+    }
+    .crumbs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.92rem;
+      align-items: center;
+    }
+    .crumbs a { color: var(--accent-2); font-weight: 700; }
+    .crumbs .sep { color: rgba(91, 100, 112, 0.65); }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 4.4vw, 3.4rem);
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+    }
+    .lead {
+      margin: 0;
+      max-width: 64rem;
+      color: var(--muted);
+      font-size: 1.02rem;
+    }
+    .jump-row, .chip-row, .meta-row, .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .jump-link, .pill, .status-pill, .tag, .chip {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 34px;
+      padding: 7px 13px;
+      border-radius: 999px;
+      border: 1px solid rgba(106, 68, 45, 0.18);
+      background: rgba(255,255,255,0.78);
+      color: var(--accent);
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .jump-link:hover, .jump-link:focus-visible, .pill:hover, .pill:focus-visible, .replay-card:hover .pill, .replay-card:focus-visible .pill, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-1px);
+      border-color: rgba(106, 68, 45, 0.30);
+      box-shadow: var(--shadow-soft);
+      outline: none;
+    }
+    .status-pill.ok { color: var(--ok); border-color: rgba(33, 90, 62, 0.18); background: rgba(33, 90, 62, 0.08); }
+    .status-pill.warn { color: var(--warn); border-color: rgba(122, 77, 21, 0.18); background: rgba(122, 77, 21, 0.08); }
+    .status-pill.danger { color: var(--danger); border-color: rgba(126, 45, 45, 0.18); background: rgba(126, 45, 45, 0.08); }
+    .chip {
+      color: var(--accent-2);
+      background: var(--accent-soft-2);
+      border-color: rgba(55, 85, 115, 0.16);
+    }
+    .tag {
+      background: var(--accent-soft-2);
+      color: var(--accent-2);
+      border-color: rgba(55, 85, 115, 0.16);
+      min-height: 30px;
+      padding: 5px 10px;
+      font-size: 0.84rem;
+    }
+    .main { display: grid; gap: 28px; padding-bottom: 44px; }
+    .section-block { border-radius: var(--radius-xl); overflow: hidden; scroll-margin-top: 18px; }
+    .section-head { padding: 28px 28px 0; display: grid; gap: 10px; }
+    .section-head h2 { margin: 0; font-size: clamp(1.55rem, 2vw, 2.1rem); line-height: 1.18; }
+    .section-head p { margin: 0; color: var(--muted); max-width: 68rem; }
+    .section-body { padding: 22px 28px 28px; display: grid; gap: 22px; }
+    .section-note {
+      margin: 0;
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.06);
+      color: var(--accent-2);
+      font-size: 0.95rem;
+    }
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+    .summary-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      padding: 18px;
+      box-shadow: var(--shadow-soft);
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .summary-card h3 {
+      margin: 0;
+      font-size: 0.96rem;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+    .summary-card p {
+      margin: 0;
+      font-size: 1rem;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+    .summary-card .small {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+    .thumb {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(55,85,115,0.24), rgba(106,68,45,0.18));
+    }
+    .thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .thumb::after {
+      content: "";
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 42%;
+      background: linear-gradient(180deg, rgba(9, 13, 20, 0), rgba(9, 13, 20, 0.30));
+      pointer-events: none;
+    }
+    .preamble-box {
+      border-radius: var(--radius-lg);
+      border: 1px dashed rgba(106, 68, 45, 0.24);
+      background: rgba(106, 68, 45, 0.05);
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+    }
+    .chat-flow {
+      display: grid;
+      gap: 18px;
+    }
+    .turn {
+      display: grid;
+    }
+    .turn-shell {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.86);
+      box-shadow: var(--shadow-soft);
+      overflow: hidden;
+    }
+    .turn.turn-gm .turn-shell {
+      max-width: min(920px, 100%);
+    }
+    .turn.turn-player .turn-shell {
+      max-width: min(800px, 100%);
+      margin-left: auto;
+    }
+    .turn-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,252,248,0.86);
+    }
+    .turn-head-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 30px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 0.84rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+    }
+    .role-badge.gm {
+      color: var(--accent);
+      background: rgba(106, 68, 45, 0.10);
+      border: 1px solid rgba(106, 68, 45, 0.16);
+    }
+    .role-badge.player {
+      color: var(--accent-2);
+      background: rgba(55, 85, 115, 0.10);
+      border: 1px solid rgba(55, 85, 115, 0.16);
+    }
+    .raw-label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(29, 36, 48, 0.06);
+      color: var(--muted);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+    .turn-no {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--muted);
+    }
+    .turn-body {
+      padding: 18px;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 0.96rem;
+      line-height: 1.82;
+    }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+    }
+    .replay-card, .nav-card {
+      border-radius: var(--radius-lg);
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.84);
+      overflow: hidden;
+      box-shadow: var(--shadow-soft);
+      transition: transform 150ms ease, box-shadow 150ms ease, border-color 150ms ease;
+    }
+    .replay-card:hover, .replay-card:focus-visible, .nav-card:hover, .nav-card:focus-visible {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 28px rgba(27, 24, 20, 0.10);
+      border-color: var(--line-strong);
+      outline: none;
+    }
+    .card-copy {
+      padding: 18px;
+      display: grid;
+      gap: 10px;
+    }
+    .card-copy h3 {
+      margin: 0;
+      font-size: 1.08rem;
+      line-height: 1.28;
+    }
+    .card-copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.55;
+    }
+    .key-grid {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+      padding: 0;
+    }
+    .key-grid div {
+      display: grid;
+      gap: 2px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(55, 85, 115, 0.10);
+      background: rgba(55, 85, 115, 0.05);
+    }
+    .key-grid dt {
+      margin: 0;
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--accent-2);
+    }
+    .key-grid dd {
+      margin: 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .nav-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+    }
+    .nav-card {
+      padding: 18px;
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+    .nav-card strong {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+    footer {
+      padding: 0 0 36px;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+    @media (max-width: 900px) {
+      .grid-2, .nav-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .container { width: min(var(--max), calc(100% - 20px)); }
+      .hero { padding-top: 16px; }
+      .hero-copy, .section-head, .section-body { padding-left: 18px; padding-right: 18px; }
+      .hero-copy { padding-top: 20px; padding-bottom: 20px; }
+      .section-head { padding-top: 22px; }
+      .section-body { padding-top: 18px; padding-bottom: 20px; }
+      .turn.turn-gm .turn-shell, .turn.turn-player .turn-shell { max-width: 100%; }
+      .turn-body { padding: 16px; font-size: 0.95rem; }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container hero-shell">
+      <div class="hero-visual">
+        <img
+          src="./image/saku_keyvisual.webp"
+          data-fallback-srcs="./image/saku_keyvisual.png|./image/saku_keyvisual.jpg"
+          alt="悪辣GM × ゾンビ・サバイバル のサムネイル"
+          width="1280"
+          height="720"
+        >
+      </div>
+      <div class="hero-copy">
+        <div>
+          <p class="eyebrow">Replay Collection</p>
+          <div class="crumbs"><a href="./index.html">Quick Build Saga</a><span class="sep">/</span><a href="./replay_gm_style.html">リプレイ：GM気質比較</a><span class="sep">/</span><span>個別実例</span></div>
+        </div>
+        <div>
+          <h1>悪辣GM × ゾンビ・サバイバル</h1>
+          <p class="lead">悪辣GM運用の終末サバイバル卓で、プレイヤーが状況情報と得意分野を束ねた卓越宣言を重ね、重い後味を残しながらも生還する個別実例です。</p>
+        </div>
+        <div class="chip-row">
+          <span class="status-pill ok">クリア</span>
+          <span class="chip">GM気質：悪辣</span>
+          <span class="chip">入力タイプ：卓越宣言型</span>
+          <span class="chip">舞台：District 13 の埋葬</span>
+        </div>
+        <p class="section-note">本文は元ログの文言を変更せず、GMとプレイヤーが会話しているようにカード化して掲載しています。</p>
+        <div class="jump-row" aria-label="ページ内移動">
+          <a class="jump-link" href="#turn-1">導入</a>
+          <a class="jump-link" href="#turn-3">PC提出</a>
+          <a class="jump-link" href="#turn-5">局面1宣言</a>
+          <a class="jump-link" href="#turn-7">最終宣言</a>
+          <a class="jump-link" href="#turn-8">結末</a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main class="container main">
+    <section class="section-block" id="summary">
+      <div class="section-head">
+        <p class="section-kicker">Summary</p>
+        <h2>卓の概要</h2>
+        <p>比較ページの補助線として、この卓で見えている軸を先に整理しています。</p>
+      </div>
+      <div class="section-body">
+        <div class="summary-grid">
+          <article class="summary-card">
+            <h3>GM気質</h3>
+            <p>悪辣</p>
+          </article>
+          <article class="summary-card">
+            <h3>入力タイプ</h3>
+            <p>卓越宣言型</p>
+            <p class="small">状況情報を拾い、退路や捨て札まで明示</p>
+          </article>
+          <article class="summary-card">
+            <h3>舞台</h3>
+            <p>District 13 の埋葬</p>
+          </article>
+          <article class="summary-card">
+            <h3>結末</h3>
+            <p>クリア（PC生存・野望達成）</p>
+          </article>
+          <article class="summary-card">
+            <h3>主な代償</h3>
+            <p>喉の酷使／凍りついた瞳</p>
+          </article>
+        </div>
+        <p class="section-note">悪辣GMは弱い宣言に重い請求をしますが、状況情報と得意なやり方を踏まえた卓越宣言には支払い軽減で応答します。この卓は、think / pro 比較だけでは見えにくいその振れ幅を示す個別実例です。</p>
+      </div>
+    </section>
+
+    <section class="section-block" id="transcript">
+      <div class="section-head">
+        <p class="section-kicker">Transcript</p>
+        <h2>会話カード形式のリプレイ</h2>
+        <p>左寄せをGM、右寄せをプレイヤーとして並べています。本文中の記号や書式も原文のままです。</p>
+      </div>
+      <div class="section-body">
+        <div class="chat-flow">
+
+
+          <section class="turn turn-player" id="turn-1">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【ユーザー】</span>
+                </div>
+                <span class="turn-no">Turn 1</span>
+              </header>
+              <div class="turn-body">添付したのはPBM形式のTRPG「Quick Build Saga」のGM用/プレイヤー用のルールブックです。
+## GM用ルールブックのURL
+https://h-shibuki.github.io/gm-guide.html
+## プレイヤー用ルールブックのURL
+https://h-shibuki.github.io/player-guide.html
+あなたは単発シナリオのGMをします。プレイヤーは一人で、以下のような世界を希望しています。
+・ゾンビがあふれた世界でのサバイバル生活。
+あなたは悪辣なGMとして、ルールブックに従いキャラクター作成に必要な世界観を作成してください。
+（※gm-guide.html および player-guide.html のファイル内容が送信されました）</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-2">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【AI (GM)】</span>
+                </div>
+                <span class="turn-no">Turn 2</span>
+              </header>
+              <div class="turn-body">やあ、絶望的な終末世界へようこそ。ゾンビが跋扈し、倫理が死に絶えた世界でのサバイバル……いいですね。私は今回、「悪辣なGM」として君を極限まで追い詰める役割を担わせてもらうよ。
+
+「成功は約束されるが、安くはない」――それがこの世界のルールだ。君が生き延びるために何を差し出すのか、楽しみにしているよ。
+
+まずはルールブックの「設定未定の単発卓テンプレート」に基づき、今回の世界観とPC作成に必要な情報を提示する。
+
+---
+
+## ゾンビ・サバイバル：District 13 の埋葬
+
+### 【単発卓の題材】
+プレイヤーが遊びたい一文: ゾンビがあふれた世界でのサバイバル生活。
+
+### 【やらない題材】
+* 避けたい要素: 過度な性的暴行描写、子供への直接的な残虐行為。
+* 苦手な描写: （プレイヤーからの事前指定があれば追加。なければ標準的なグロテスク描写は含む）
+* GM気質の希望: 悪辣（救いを隠し、醜い道を勧め、代償は重く積み上げる）。
+* PC死亡許容: 高（死線へ無策で踏み込めば、命運点は容易に尽きるだろう）。
+
+### 【今回の共通前提】
+* 舞台: 壊滅した都市のショッピングモール「ホロウ・グレン」。周囲は数万の「飢えた者」に包囲されている。
+* PCたちの共通立場: モールの最上階に逃げ込んだ生存者。
+* PC同士の共通関係: 偶然居合わせただけの赤の他人、あるいは利害関係の一致した一時的な協力者。
+* 雰囲気: 飢餓、不信、閉塞感。
+* 今回の共通目的: 屋上に飛来する「最後の救助ヘリ」に乗り込み、この街を脱出する。
+* 失敗条件の核: 全員が感染する、あるいはヘリが離陸するまでに屋上に到達できない。
+* 残り期限の型: 残り3局面（3回の大きな行動のあと、ヘリは飛び立つ）。
+
+### 【PC作成に必要な情報】
+* PCが知っていてよい常識:
+    1. 噛まれたら終わりだ。数時間で「飢えた者」に変わる。
+    2. 奴らは「音」に敏感だ。銃声は死を招く招待状になる。
+    3. 食料と水は底を突いている。空腹は判断力を鈍らせる。
+* 通りやすい手段: 隠密、囮を使った誘導、バリケード構築。
+* 起こりやすい代償: 怪我、消耗、感染の疑い、貴重な物資の紛失、他者からの不信。
+* 難しい / 不可能なこと: ゾンビの群れへの正面突破、一人での生存（誰かを犠牲にしない限り）。
+* 選びやすい立場例: 逃げ遅れた警備員、冷酷な生存者、怯える市民、負傷した医師。
+* 避けたいPC案: 世界を救うスーパーヒーロー（この世界に救世主はいない）。
+
+### 【語り口プロフィール】
+* 文体: 乾いた、皮肉の混じるラノベ風。
+* 視点: PC寄りの三人称。
+* 会話量: 多め。
+* 後味: 苦い。生き残っても「何か」を失っている。
+* GMが借りてよいPC内面の範囲: 飢えによる焦燥、傷口の痛み、生存本能による醜い衝動。
+
+---
+
+## キャラクター作成のお願い
+
+この世界観を元に、君のPCを作成してほしい。以下の項目を埋めるか、自由な文章で君のキャラクターを表現してくれ。
+
+* 名前:
+* 立場: （例：警備員、元強盗、看護師など）
+* 今回の野望: （例：何としてもヘリに乗る、生き別れの娘をヘリに乗せるなど）
+    * ※単発なので「今回の目的」を野望として扱う。
+* 大切なもの: （1つか2つ。命運点の最大値に関わる）
+* 得意なやり方: （例：隠密、力押し、交渉など）
+
+君がキャラクターを提出してくれたら、私はキャンペーン設計書を作成し、最初の絶望的な局面を提示しよう。
+
+準備ができたら、君のPCについて教えてくれないか？</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-3">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【ユーザー】</span>
+                </div>
+                <span class="turn-no">Turn 3</span>
+              </header>
+              <div class="turn-body">名前: サック・ライル
+立場: メカニック
+野望: 自分の利益最大を求めて生き残る
+大切なもの:
+- 自分の命
+-
+得意なやり方: 先読みできる頭脳、自分の利益を最大化する口車、こっそり行動する
+命運点: 2/2
+野望度: 1/2
+補足 (任意):</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-4">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【AI (GM)】</span>
+                </div>
+                <span class="turn-no">Turn 4</span>
+              </header>
+              <div class="turn-body">サック・ライル、実にこの世界に相応しい男だ。自分の命を最優先にし、他人の善意や信頼を利益のために切り売りする……「悪辣なGM」として、君のようなキャラクターを追い詰める（あるいはその醜悪な成功を祝福する）のは至上の喜びだよ。
+
+君が「大切なもの」を1つ（自分の命）に絞ったため、ルール通り命運点の最大値は 1+1で「2」 となる。野望度の終点は単発シナリオの標準である 「2」 に設定しよう。
+
+それでは、設計書を確定し、最初の局面を提示する。
+
+---
+
+## キャンペーン設計：District 13 の埋葬
+
+* PCの野望: 自分の利益最大を求めて生き残る
+* 野望度の終点: 2
+* 想定シナリオ数: 1（単発）
+* 最後に問うこと: 「最後の一枠を奪うために、君は『人間』であることを捨てられるか？」
+
+## シナリオ設計：ホロウ・グレンの脱出
+
+* シナリオの問い: 誰を、何を犠牲にして屋上へ辿り着くか
+* クリア条件: 屋上の救助ヘリに乗り込む
+* 失敗条件: 感染する、あるいはヘリが離陸するまでに屋上に到達できない
+* 期限: 残り3局面（ヘリのエンジン音が遠くから聞こえ始めている）
+* 主要局面の目安: 3局面
+    1. 3階： 封鎖されたシャッターと「飢えた者」の群れ（現在）
+    2. 4階： 生存者グループとの対立と資材の奪い合い
+    3. 屋上： 最後の審判
+
+---
+
+## 局面1：血と油のチェックメイト
+
+【今回のシナリオの問い】
+誰を、何を犠牲にして屋上へ辿り着くか。
+
+【プロローグ】
+ショッピングモール「ホロウ・グレン」の3階、従業員用通路。サック、君の鼻を突くのは死体の腐臭と、使い古された機械油の匂いだ。
+君の隣には、怯えきった若い女の生存者が一人、君の作業着の裾を掴んで震えている。通路の先、屋上へ続く唯一の貨物エレベーターは電力が遮断され、重いシャッターの向こう側からは、数百の「飢えた者」たちが扉を叩く、不気味な湿った音が響いている。
+
+【局面】
+* 現在の状況: 屋上への最短ルートである貨物エレベーターが停止。予備電源を起動するには、露出した配電盤を修理する必要がある。
+* 残り期限: 3局面（ヘリのエンジン音が遠くから聞こえ始めている）。
+* 現在の争点: 修理中の無防備な時間をどう稼ぐか。隣の女をどう「利用」するか。
+* 局面の問い: 自分の手を汚さずに道を切り開くか、それとも誰かの命を「コスト」として支払うか。
+
+【PCの現在状態】
+* サック・ライル:
+    * 命運点: 2/2
+    * 野望度: 1/2
+    * 大切なもの: 自分の命（無傷）
+    * 有効タグ: なし
+
+【世界の現在状態】
+* 有効な世界タグ: なし
+* 敵やNPCの動き: シャッターの歪みが限界に近い。隣の女は君の修理技術だけを頼りにしている。
+* 止め方/遅らせ方が見えている要素: 女を囮にする、配電盤を強引にバイパスする、騒音を立てて群れを誘導する。
+
+既知情報:
+配電盤の修理には時間がかかる。その間、誰かが背後の防火扉を支えていなければ、ゾンビが背後からなだれ込むだろう。
+
+危険予告:
+【無策】で修理を強行すれば、背後から襲われ【重傷】を負う、あるいは命運点を失う可能性が極めて高い。
+
+難度: 困難（主目的達成には代償と余波が伴う）。
+
+選択肢例（悪辣なGMによる提示）:
+1. 「君がここを支えてくれれば、二人とも助かる」: 女に背後の扉を任せ、自分は安全に修理を終える。当然、彼女がどうなるかは保証しない。
+2. 「静かに、だが確実に」: 自分の利益のために、彼女を囮として反対側の通路へ突き飛ばし、その隙に隠密性を保ちながら修理を行う。
+3. 「取引といこうか」: 彼女が持っている数少ない食料や薬品を「修理代」として全て巻き上げた上で、彼女を盾にして作業を進める。
+
+---
+
+サック、君ならこの状況をどう切り抜ける？「口車」で彼女を絶望的な防衛戦に駆り立てるか、それとももっと効率的な「こっそりとした」裏切りを選ぶか……。
+
+宣言を待っているよ。君の「利益」が最大化されることを祈っている（私はそうはさせないがね）。</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-5">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【ユーザー】</span>
+                </div>
+                <span class="turn-no">Turn 5</span>
+              </header>
+              <div class="turn-body">主目的: 4階の生存者グループを囮にして、その間に屋上直通エレベータを修理して屋上に行き、ヘリが到着するまで4階との出入口を封鎖する
+最低限ライン: 二人（自分と彼女）の安全
+手段: 重いシャッターなのですぐに破られることはない。配電盤を修理できるのはメカニックの自分だけである。自分はこっそり行動と口車が得意であり、彼女を含めて生存者グループは空腹で判断力を鈍らせているので口車は成功する。ゾンビは音に敏感なので4階の他の生存者グループが騒ぎを起こせば、3階と屋上にいるゾンビは全て4階に集中する。彼女に封鎖用の資材準備を口車で頼み、その間に自分は4階にこっそり行き、不信の雰囲気が漂っている4階の生存者グループが仲間割れで騒ぎを起こすよう口車で誘導する。可能ならば屋上はヘリの音でゾンビが寄ってくる可能性が高いから屋上に行かない方が良いと口車で思わせる。生存者グループが騒ぎを起こす前にこっそり3階に戻り、彼らが騒ぎを起こしてゾンビが4階に集まっている間に配電盤を修理および4階に止まらないよう加工して（自分はメカニックなので知識も技術もある）屋上直通の貨物エレベータで屋上に向かう。ヘリ到着時にヘリの音でゾンビが屋上に来ないよう出入口を封鎖する。メカニックの技術を活かして、ヘリに乗り込むまでの時間を稼ぐ程度の頑丈な封鎖をする。
+守りたいもの: 自分と彼女
+捨ててもよいもの: 他の生存者
+退路 / 先に確保するもの (任意): 4階の生存者を口車にのせた後、こっそりと3階に引き上げるための退路
+担保 (任意):
+補足 (任意):</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-6">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【AI (GM)】</span>
+                </div>
+                <span class="turn-no">Turn 6</span>
+              </header>
+              <div class="turn-body">サック、実に素晴らしい「構造そのものを崩す」宣言だ。君の冷徹な知性と、メカニックとしての腕前、そして生存者たちを文字通りの「使い捨ての肉」として扱う決断は、この状況を打開するに足る卓越宣言として認めよう。
+
+## 裁定：屍の上に築く、絶対安全圏
+
+* 達成: 貨物エレベーターの修理およびバイパス加工の成功。4階生存者グループの壊滅と引き換えにしたゾンビの誘導。屋上への到達と、出入口の堅牢な封鎖。
+* 今回満たしたクリア条件: 「屋上への到達」「帰還/脱出のための足場（屋上）の確保」。
+* まだ満たしていないクリア条件: 「ヘリへの乗り込みと離陸（生存）」。
+* 今回接触した失敗条件: なし。ただし、4階の生存者を犠牲にしたことで、君への「世界の視線」は変質した。
+
+### 裁定の考え方
+君の宣言は、既存の情報（音への敏感さ、空腹による判断力低下）を完璧に利用し、障害を正面から突破するのではなく、構造を変えて無効化しているため、卓越宣言として扱う。本来「困難」な局面であれば代償と余波が伴うが、卓越した手段により、支払いは「妥当な代償（喉の酷使）」のみに軽減する。
+
+### 結果：地獄を置き去りにして
+
+君の「口車」は、極限状態の生存者たちに見事な火をつけた。
+「屋上には救いはない、4階の武器庫を開放し、ここで戦うしかない！」
+君が煽った偽りの希望は、彼らの間で醜い内紛を引き起こし、その怒号と銃声はモール中の「飢えた者」たちを4階へと吸い寄せた。
+
+その阿鼻叫喚を背に、君は冷徹にエレベーターの基盤を組み替える。
+エレベーターが3階から屋上へと静かに上昇を始めたとき、4階のフロアからは肉が裂け、絶望が吠える音が響いていた。
+君の隣で、連れてきた女は震えながら君を見ている。……いや、彼女が見ているのは君の背後に広がる惨劇ではなく、「今、隣で笑いながら人々を死に追いやった男」という怪物そのものだ。
+
+屋上に辿り着いた君は、メカニックの腕を活かし、扉を完璧に溶接・封鎖した。
+ヘリのローター音が近づいてくる。……だが、君の計算には入っていなかった「余波」が、耳の奥に残っている。
+
+---
+
+* 代償タグ: 【喉の酷使｜短期: 喋りすぎにより声が掠れ、次の局面では「口車」が使いにくい / 休息すれば解除】
+* 余波タグ: なし（卓越宣言により相殺）
+* タグ更新: 新規 1件
+
+### 現在の状態
+* サック・ライル:
+    * 命運点: 2/2
+    * 野望度: 2/2（終点到達）
+    * 大切なもの: 自分の命（無傷）
+    * 有効タグ: 【喉の酷使】
+
+* 世界の現在状態:
+    * 残り期限: 1局面（ヘリが屋上へ旋回中）。
+    * 封鎖状態: 4階からの追手やゾンビは当面遮断されている。
+    * 屋上の問い: ヘリが着陸する。だが、操縦士は血まみれの君たちを見て、銃を構えている。「……4階の連中はどうした？ 感染していない証拠を見せろ！」
+
+---
+
+## シナリオ終了の時：最後に問うこと
+
+サック、君の野望度は終点の 2 に達した。
+君は目的通り「自分の利益を最大化し、生き残る」ための最後の一歩を目前にしている。
+ヘリの操縦士を説得し、自分たちだけを乗せてこの地獄を飛び立つことができれば、君の完全な勝利だ。
+
+最後の問いだ。
+「口車」が効かない掠れた声で、君は操縦士に何を差し出し、どう納得させる？
+あるいは、隣にいる「君の正体を知ってしまった女」を、どう扱うつもりだ？ 彼女は君の汚いやり方の生き証人だ。彼女を連れて行くことは、君の将来にとって「利益」かな？
+
+エンディングに向けた最後の行動を宣言してくれ。</div>
+            </div>
+          </section>
+
+          <section class="turn turn-player" id="turn-7">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge player">プレイヤー</span>
+                  <span class="raw-label">【ユーザー】</span>
+                </div>
+                <span class="turn-no">Turn 7</span>
+              </header>
+              <div class="turn-body">主目的: 自分と彼女を安全な場所まで運んでもらう
+最低限ライン: 自分の安全
+手段: 操縦士は危険を承知であえてビルの屋上に来たのだから任務か正義感かは分からないが救出の意思があり、理不尽な要求（お前だけは置いていく、彼女を寄こせ等）はしないと思われる。そのため、妥当な対価であれば普通に払う。操縦士は吊り橋効果で胸が高鳴っている彼女に掠れた声で愛を囁き、口づけという行動でもって彼女の口をふさぐ。
+守りたいもの: 自分と彼女の安全
+捨ててもよいもの: 長期にわたる信頼
+退路 / 先に確保するもの (任意):
+担保 (任意):
+補足 (任意): もし、操縦士が彼女の恋人とかで彼女を救いにきたというのであれば素直に彼女を譲る。その場合でも、彼女を助けたのは事実であるし、自分を安全な場所につれていくぐらいの要求は通るはずである。また、彼女もいずれ自分の手口に嫌気がさすかもしれないが、現在は危険地帯を脱した安堵が勝っているはずで、少なくとも自分が安全地帯で別れるまでの間に問題行動は起こさないはずである。</div>
+            </div>
+          </section>
+
+          <section class="turn turn-gm" id="turn-8">
+            <div class="turn-shell">
+              <header class="turn-head">
+                <div class="turn-head-main">
+                  <span class="role-badge gm">GM</span>
+                  <span class="raw-label">【AI (GM)】</span>
+                </div>
+                <span class="turn-no">Turn 8</span>
+              </header>
+              <div class="turn-body">サック・ライル、君の幕引きは見事だ。極限状態の心理学――いわゆる「吊り橋効果」すらも自分の利益のために利用し、掠れた声と唇で「真実」を封印する。操縦士の疑念を、安っぽいロマンスの情景で上書きして見せたわけだ。
+
+悪辣なGMとして、君のこの「計算された欺瞞」を高く評価しよう。 君の野望度は終点に達し、物語は結末を迎える。
+
+---
+
+## 裁定：静寂のテイクオフ
+
+* 達成: 自分と彼女の救出成功。ヘリによる安全圏への移動。
+* 今回満たしたクリア条件: 「ヘリへの乗り込み」「生存」。
+* シナリオの問いへの答え: 4階の全員を「囮」という名のコストとして支払い、自分と一人の証人を救い出した。
+
+### 裁定の考え方
+操縦士は君の掠れた声と、震える女を抱き寄せるその姿に「地獄を生き延びた恋人たち」という、もっともらしい物語を見て取った。 君が差し出した「長期にわたる信頼（彼女からの不信）」を代償として受け取り、君の主目的を完全達成とする。
+
+---
+
+## 【シナリオ終了】
+
+結末: クリア（PC生存、野望達成）
+
+### 【エピローグ】
+ヘリがホロウ・グレンの屋上を離れ、高度を上げる。
+下界では、君が溶接した扉を突き破ろうとする「飢えた者」たちの黒い群れが、豆粒のように小さくなっていく。 4階で火を放たれたフロアからは、黒い煙が立ち昇っていた。
+
+隣に座る彼女は、君に口づけられた感触をなぞるように、無言で唇を震わせている。 安堵、恐怖、そして君という男への底知れない嫌悪。 様々な感情が混ざり合い、彼女の精神はついに沈黙を選んだ。 君にとっては、これ以上ないほど都合の良い「静かな証人」の誕生だ。
+
+操縦士がヘッドセット越しに、掠れた声の君に話しかける。
+「……運が良かったな。あと数分遅ければ、見捨てて離陸するところだった。あんたが彼女を離さなかったおかげだ」
+
+サック、君は血のついた手で、彼女の肩を優しく抱き寄せる。
+安全圏へ向かうヘリの振動は心地よく、君の懐には、あのモールで掠め取った「利益」が重く鎮座している。 
+
+君は生き残った。
+背後に数多の死体を積み上げ、隣にいる女の心を殺し、自分の命を最高値で売り抜けて。
+
+---
+
+### 【終了時処理】
+* 命運点: 2/2（消費なし）
+* 野望度: 2/2（自分の利益を最大化し、生存した）
+* 短期タグ: 解除（喉の酷使）
+* 長期タグ: 新規 【凍りついた瞳｜長期: 隣にいる彼女は君の正体を知っている。彼女が口を開くか、あるいはその沈黙が君の心を削るか / 彼女の信頼をいつか取り戻すか、完全に縁を切れば解除】
+* 新しく残った足場: 安全圏への通行許可、生存者としての地位。
+
+「サック・ライル、おめでとう。君はこの地獄でもっとも効率的に、もっとも醜く、勝利を掴み取った」</div>
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </section>
+
+    <section class="section-block" id="next">
+      <div class="section-head">
+        <p class="section-kicker">Continue</p>
+        <h2>続けて読む</h2>
+        <p>悪辣GMの比較ページや関連リプレイへ戻れます。</p>
+      </div>
+      <div class="section-body">
+        <div class="nav-grid">
+          <a class="nav-card" href="./replay_malice_think.html">
+            <p class="tiny">Related</p>
+            <strong>悪辣GM × think</strong>
+          </a>
+          <a class="nav-card" href="./replay_gm_style.html">
+            <p class="tiny">Comparison</p>
+            <strong>リプレイ：GM気質比較</strong>
+          </a>
+          <a class="nav-card" href="./replay_malice_pro.html">
+            <p class="tiny">Related</p>
+            <strong>悪辣GM × pro</strong>
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="container">
+    <footer>サムネイル画像は <code>./image/saku_keyvisual.webp</code> を優先し、見つからない場合は PNG / JPG へフォールバックします。</footer>
+  </div>
+
+  <script>
+    (() => {
+      const prepareFallback = (img) => {
+        const src = img.getAttribute('src');
+        const fallback = (img.dataset.fallbackSrcs || '')
+          .split('|')
+          .map((item) => item.trim())
+          .filter(Boolean);
+        const queue = [src, ...fallback].filter(Boolean);
+        let index = 0;
+        const advance = () => {
+          index += 1;
+          if (index < queue.length) {
+            img.src = queue[index];
+          }
+        };
+        img.addEventListener('error', advance);
+      };
+      document.querySelectorAll('img[data-fallback-srcs]').forEach(prepareFallback);
+    })();
+  </script>
+
+</body>
+</html>
