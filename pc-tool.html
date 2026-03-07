@@ -4,13 +4,13 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Quick Build Saga PC作成補助ツール</title>
-  <meta name="description" content="Quick Build Saga の PC 作成を、テンプレート下書きから GM に渡せるテキストへ整えるためのブラウザ用エディタです。">
+  <meta name="description" content="Quick Build Saga の PC 作成を、最新版プレイヤーズガイド準拠でそのまま GM に渡せるテキストへ整えるブラウザ用エディタです。">
   <style>
     :root {
       --bg: #f7f7f5;
       --card: #ffffff;
       --text: #1c1f23;
-      --muted: #5d6670;
+      --muted: #59636f;
       --line: #d7dce2;
       --line-strong: #b8c1cc;
       --accent: #204a8f;
@@ -22,72 +22,53 @@
       --danger: #a12727;
       --danger-soft: #fdeaea;
       --shadow: 0 12px 32px rgba(10, 22, 40, 0.06);
-      --radius: 14px;
-      --radius-small: 10px;
+      --radius: 16px;
+      --radius-small: 12px;
     }
 
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       line-height: 1.65;
       color: var(--text);
-      background: linear-gradient(180deg, #fafbfd 0%, var(--bg) 220px);
+      background: linear-gradient(180deg, #fafbfd 0%, var(--bg) 260px);
     }
-
-    a {
-      color: var(--accent);
-    }
-
-    a:hover {
-      text-decoration-thickness: 2px;
-    }
+    a { color: var(--accent); }
+    a:hover { text-decoration-thickness: 2px; }
 
     .container {
-      width: min(1180px, calc(100% - 32px));
+      width: min(1280px, calc(100% - 32px));
       margin: 0 auto;
     }
 
-    .page-header {
-      padding: 40px 0 28px;
-    }
-
+    .page-header { padding: 42px 0 28px; }
     .eyebrow {
       margin: 0 0 8px;
-      font-size: 0.9rem;
+      font-size: .9rem;
       font-weight: 700;
-      letter-spacing: 0.04em;
+      letter-spacing: .04em;
       color: var(--accent);
       text-transform: uppercase;
     }
-
     h1 {
       margin: 0;
       font-size: clamp(2rem, 4vw, 3rem);
       line-height: 1.15;
     }
-
     .lead {
-      max-width: 64rem;
+      max-width: 70rem;
       margin: 16px 0 0;
       color: var(--muted);
       font-size: 1.02rem;
     }
-
     .nav-links {
       display: flex;
       flex-wrap: wrap;
       gap: 10px 14px;
-      margin-top: 20px;
+      margin-top: 22px;
     }
-
     .nav-links a {
       display: inline-flex;
       align-items: center;
@@ -95,15 +76,15 @@
       padding: 8px 12px;
       border: 1px solid var(--line);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.75);
+      background: rgba(255,255,255,.76);
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: .95rem;
     }
 
     .main-grid {
       display: grid;
       gap: 20px;
-      padding-bottom: 40px;
+      padding-bottom: 42px;
     }
 
     .panel {
@@ -114,90 +95,51 @@
       padding: 22px;
     }
 
-    .panel h2,
-    .panel h3 {
+    .panel h2, .panel h3, .panel h4 {
       margin-top: 0;
       line-height: 1.25;
     }
 
-    .panel p:first-child,
-    .panel h2:first-child,
-    .panel h3:first-child {
-      margin-top: 0;
+    .kicker {
+      margin: 0 0 12px;
+      color: var(--accent);
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
     }
 
-    .small,
-    .muted {
-      color: var(--muted);
-    }
-
-    .small {
-      font-size: 0.94rem;
-    }
-
+    .small, .muted { color: var(--muted); }
+    .small { font-size: .95rem; }
     .inline-note {
-      margin-top: 12px;
-      padding: 10px 12px;
+      margin-top: 14px;
+      padding: 12px 14px;
       border-radius: var(--radius-small);
       background: var(--accent-soft);
       color: #183764;
-      font-size: 0.95rem;
+      font-size: .95rem;
     }
+    .stack { display: grid; gap: 14px; }
 
-    .stack {
+    .hero-grid,
+    .editor-grid,
+    .output-grid {
       display: grid;
-      gap: 14px;
+      gap: 20px;
     }
 
-    .tab-row,
-    .button-row,
-    .toolbar,
-    .footer-actions {
+    .hero-grid { grid-template-columns: 1.25fr .95fr; }
+    .editor-grid { grid-template-columns: minmax(0, 1.25fr) minmax(290px, .95fr); }
+    .output-grid { grid-template-columns: minmax(0, 1fr) 320px; }
+
+    .tab-row, .button-row, .toolbar, .chip-row, .scale-row {
       display: flex;
       flex-wrap: wrap;
       gap: 10px;
       align-items: center;
     }
 
-    label,
-    legend {
-      display: block;
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    input[type="text"],
-    textarea {
-      width: 100%;
-      border: 1px solid var(--line-strong);
-      border-radius: 12px;
-      padding: 12px 14px;
-      font: inherit;
-      color: inherit;
-      background: #fff;
-      transition: border-color 160ms ease, box-shadow 160ms ease;
-    }
-
-    input[type="text"]:focus,
-    textarea:focus,
-    button:focus-visible,
-    .tab-button:focus-visible {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(32, 74, 143, 0.12);
-    }
-
-    textarea {
-      resize: vertical;
-      min-height: 112px;
-    }
-
-    .mono {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-
-    button,
-    .file-button {
+    .tab-button, .chip-button, button, .file-button {
       appearance: none;
       border: 1px solid var(--line-strong);
       border-radius: 999px;
@@ -210,237 +152,311 @@
       transition: transform 120ms ease, border-color 120ms ease, background 120ms ease;
     }
 
-    button:hover,
-    .file-button:hover {
+    button:hover, .file-button:hover, .tab-button:hover, .chip-button:hover {
       border-color: var(--accent);
       background: #fcfdff;
       transform: translateY(-1px);
     }
 
-    button.primary {
-      border-color: var(--accent);
+    button.primary, .tab-button[aria-selected="true"] {
       background: var(--accent);
       color: #fff;
-    }
-
-    button.primary:hover {
-      background: #17396f;
+      border-color: var(--accent);
     }
 
     button.secondary {
       background: var(--accent-soft);
-      border-color: #c7d7ff;
       color: #183764;
+      border-color: #bcd0ff;
     }
 
-    button.ghost {
-      background: transparent;
-    }
-
-    .file-button {
-      position: relative;
-      overflow: hidden;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-    }
-
-    .file-button input {
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      cursor: pointer;
-    }
-
-    .tab-row {
-      margin-bottom: 14px;
-    }
-
-    .tab-button {
-      border-radius: 12px;
-      padding: 11px 14px;
-      border: 1px solid var(--line);
+    button.ghost, .file-button {
       background: #fff;
-      font: inherit;
+    }
+
+    .chip-button[data-active="true"] {
+      background: var(--good-soft);
+      color: #114a28;
+      border-color: #a8d2b7;
+    }
+
+    label, legend {
+      display: block;
       font-weight: 700;
-      cursor: pointer;
+      margin-bottom: 8px;
     }
 
-    .tab-button[aria-selected="true"] {
+    input[type="text"], textarea {
+      width: 100%;
+      border: 1px solid var(--line-strong);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font: inherit;
+      color: inherit;
+      background: #fff;
+      transition: border-color 160ms ease, box-shadow 160ms ease;
+    }
+
+    input[type="text"]:focus, textarea:focus,
+    button:focus-visible, .tab-button:focus-visible, .chip-button:focus-visible,
+    .scale-pill input:focus-visible + span {
+      outline: none;
       border-color: var(--accent);
-      background: var(--accent-soft);
-      color: #183764;
+      box-shadow: 0 0 0 4px rgba(32, 74, 143, 0.12);
     }
 
-    .mode-panel[hidden] {
-      display: none;
+    textarea {
+      resize: vertical;
+      min-height: 108px;
+    }
+
+    .output-area { min-height: 280px; }
+    .mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
     .field-grid {
       display: grid;
-      gap: 14px;
+      gap: 16px;
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    .field-span-2 {
-      grid-column: 1 / -1;
-    }
-
-    .sub-grid {
-      display: grid;
-      gap: 12px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
+    .field-span-2 { grid-column: 1 / -1; }
     .field-help {
-      margin-top: 6px;
-      font-size: 0.9rem;
+      margin: 8px 0 0;
+      font-size: .92rem;
       color: var(--muted);
-      font-weight: 400;
     }
 
-    .helper-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px;
-      background: #fbfcfe;
-    }
-
-    .helper-card h3 {
-      margin: 0 0 8px;
-      font-size: 0.98rem;
-      color: var(--accent);
-    }
-
-    .helper-card p {
+    .option-line {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       margin: 0;
+      font-weight: 600;
     }
 
+    .scale-panel {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: linear-gradient(180deg, rgba(234,241,255,.6), rgba(255,255,255,.9));
+    }
+
+    .scale-row { margin-top: 10px; }
+
+    .scale-pill {
+      display: inline-flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .scale-pill input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .scale-pill span {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      background: #fff;
+      font-weight: 700;
+      cursor: pointer;
+      transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+    }
+
+    .scale-pill span:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .scale-pill input:checked + span {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .helper-card,
+    .reference-card,
+    .example-card,
+    .status-card,
+    .side-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius-small);
+      background: #fff;
+    }
+
+    .helper-card,
+    .reference-card,
+    .example-card,
+    .status-card {
+      padding: 16px;
+    }
+
+    .reference-stack {
+      display: grid;
+      gap: 14px;
+      align-content: start;
+    }
+
+    .reference-card h3,
+    .example-card h3,
+    .status-card h3 {
+      margin-bottom: 8px;
+      font-size: 1rem;
+    }
+
+    .reference-card ul,
     .tips-list,
-    .validation-list,
     .checklist {
-      margin: 12px 0 0;
-      padding-left: 1.2em;
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .reference-card li + li,
+    .tips-list li + li,
+    .checklist li + li {
+      margin-top: 6px;
+    }
+
+    .mini-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .93rem;
+    }
+
+    .mini-table th,
+    .mini-table td {
+      text-align: left;
+      padding: 9px 10px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+    }
+
+    .mini-table th {
+      width: 7.4rem;
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .mini-table tr:last-child th,
+    .mini-table tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .hint-box {
+      margin-top: 12px;
+      padding: 12px 14px;
+      border-radius: var(--radius-small);
+      background: var(--good-soft);
+      color: #124626;
+    }
+
+    .status-card.info {
+      background: #f9fbff;
+    }
+    .status-card.warn {
+      background: var(--warn-soft);
+    }
+    .status-card.good {
+      background: var(--good-soft);
+    }
+
+    .output-grid > aside.side-card {
+      padding: 18px;
+    }
+
+    .footer-note {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
     }
 
     .validation-list {
+      list-style: none;
+      padding: 0;
+      margin: 14px 0 0;
       display: grid;
       gap: 10px;
-      padding-left: 0;
-      list-style: none;
     }
 
     .validation-item {
+      padding: 11px 12px;
       border-radius: 12px;
-      padding: 10px 12px;
-      border: 1px solid transparent;
-      font-size: 0.95rem;
-    }
-
-    .validation-item.info {
-      background: var(--accent-soft);
-      border-color: #cfe0ff;
-      color: #183764;
-    }
-
-    .validation-item.warn {
-      background: var(--warn-soft);
-      border-color: #efd28a;
-      color: #6d4a00;
+      font-size: .94rem;
     }
 
     .validation-item.error {
       background: var(--danger-soft);
-      border-color: #edb3b3;
-      color: #7f1f1f;
+      color: #7a1818;
     }
-
-    .output-grid {
-      display: grid;
-      gap: 20px;
-      grid-template-columns: minmax(0, 1fr) 300px;
-      align-items: start;
+    .validation-item.warn {
+      background: var(--warn-soft);
+      color: #7a5500;
     }
-
-    .output-area {
-      min-height: 360px;
-    }
-
-    .side-card {
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 16px;
-      background: #fbfcfe;
-      display: grid;
-      gap: 14px;
-    }
-
-    .side-card h3 {
-      margin-bottom: 0;
-    }
-
-    .option-line {
-      display: flex;
-      gap: 10px;
-      align-items: flex-start;
-      font-size: 0.95rem;
-      color: var(--text);
-    }
-
-    .option-line input {
-      margin-top: 4px;
-      flex: none;
+    .validation-item.info {
+      background: var(--accent-soft);
+      color: #183764;
     }
 
     .status-line {
-      min-height: 1.5em;
+      margin: 0;
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: #f4f6f9;
       color: var(--muted);
-      font-size: 0.94rem;
+      font-size: .94rem;
     }
-
     .status-line.success {
-      color: var(--good);
+      background: var(--good-soft);
+      color: #124626;
     }
-
     .status-line.warn {
-      color: var(--warn);
+      background: var(--warn-soft);
+      color: #7a5500;
     }
-
     .status-line.error {
-      color: var(--danger);
+      background: var(--danger-soft);
+      color: #7a1818;
     }
 
     details {
       border: 1px solid var(--line);
       border-radius: 12px;
-      padding: 12px 14px;
       background: #fff;
+      padding: 12px 14px;
     }
 
-    details summary {
+    details + details {
+      margin-top: 12px;
+    }
+
+    summary {
       cursor: pointer;
       font-weight: 700;
     }
 
-    .footer-note {
-      margin-top: 6px;
-      font-size: 0.92rem;
-      color: var(--muted);
+    .file-button input[type="file"] {
+      display: none;
     }
 
-    .kicker {
-      font-size: 0.88rem;
-      font-weight: 700;
-      letter-spacing: 0.04em;
-      color: var(--accent);
-      text-transform: uppercase;
+    .example-output {
+      white-space: pre-wrap;
+      margin: 0;
+      padding: 12px;
+      border-radius: 12px;
+      background: #f7f9fc;
+      border: 1px solid var(--line);
+      font-size: .92rem;
     }
 
-    @media (max-width: 980px) {
-      .output-grid,
-      .field-grid,
-      .sub-grid {
+    @media (max-width: 1040px) {
+      .hero-grid, .editor-grid, .output-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -453,6 +469,18 @@
       .panel {
         padding: 18px;
       }
+
+      .field-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .field-span-2 {
+        grid-column: auto;
+      }
+
+      .output-area {
+        min-height: 220px;
+      }
     }
   </style>
 </head>
@@ -461,7 +489,7 @@
     <div class="container">
       <p class="eyebrow">Quick Build Saga</p>
       <h1>PC作成補助ツール</h1>
-      <p class="lead">プレイヤーズガイドの PC 作成項目をもとに、下書きからそのまま GM に渡せるプレーンテキストへ整えるための補助ツールです。テンプレートから始めても、最後は自由記述へ切り替えて崩しても構いません。</p>
+      <p class="lead">最新版プレイヤーズガイドの PC 作成ルールに合わせて、<strong>この画面だけ見ながら</strong> PC の下書きから GM に渡す本文まで整えるための補助ツールです。単発向けの終点 2、標準キャンペーン向けの終点 5、半完成キャラ枠、自由記述の出し方も画面内にまとめています。</p>
       <nav class="nav-links" aria-label="関連ページ">
         <a href="./">トップ</a>
         <a href="./player-guide.html">プレイヤーズガイド</a>
@@ -473,94 +501,191 @@
 
   <main class="container main-grid">
     <section class="panel">
-      <p class="kicker">このページでできること</p>
-      <div class="stack">
-        <p>1. <strong>名前・立場・野望・大切なもの・得意なやり方・命運点・野望度</strong> を、テンプレートに沿って下書きできます。</p>
-        <p>2. 空欄を残したまま出力することも、空欄の行を省略することもできます。</p>
-        <p>3. 途中で <strong>自由記述</strong> に切り替え、見出しを増やしたり、本文を崩したりできます。</p>
-        <p>4. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の開始時共有や GM への提出に使えます。</p>
+      <div class="hero-grid">
+        <div>
+          <p class="kicker">このページでできること</p>
+          <div class="stack">
+            <p>1. <strong>名前・立場・野望・大切なもの・得意なやり方・命運点・野望度</strong> を、最新の 7 項目に沿って下書きできます。</p>
+            <p>2. <strong>単発（終点 2）</strong> と <strong>標準キャンペーン（終点 5）</strong> の目安を切り替えながら埋められます。</p>
+            <p>3. <strong>半完成キャラ枠</strong> から叩き台を入れたり、<strong>自由記述で提出してよい</strong> 形式へ切り替えたりできます。</p>
+            <p>4. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の開始時共有や GM への提出に使えます。</p>
+          </div>
+          <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。同じブラウザなら、宣言補助ツールからこの PC 情報を任意で読み込めます。</p>
+        </div>
+        <aside class="reference-stack">
+          <article class="reference-card">
+            <h3>7項目の早見</h3>
+            <table class="mini-table">
+              <tr><th>立場</th><td>どんな人物かをひとことで。</td></tr>
+              <tr><th>野望</th><td>今の立場からどこまで上がりたいか。単発なら今回の目標でも可。</td></tr>
+              <tr><th>大切なもの</th><td>1〜2個。<strong>名前 + その意味</strong> で書くと扱いやすい。</td></tr>
+              <tr><th>得意</th><td>宣言時の手段につながる方法や発想。</td></tr>
+              <tr><th>命運点</th><td>初期値は <strong>大切なものの数 + 1</strong>。</td></tr>
+              <tr><th>野望度</th><td>初期値は <strong>1</strong>。終点は標準 5、単発は 2 のことが多い。</td></tr>
+            </table>
+          </article>
+          <article class="reference-card">
+            <h3>自由記述で出すなら</h3>
+            <ul>
+              <li>何者か</li>
+              <li>なぜ今回動くか</li>
+              <li>何が得意か</li>
+              <li>何を失いたくないか</li>
+            </ul>
+            <div class="button-row" style="margin-top:12px;">
+              <button type="button" id="insertFreePromptButton" class="secondary">自由記述の雛形を挿入</button>
+            </div>
+          </article>
+        </aside>
       </div>
-      <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。同じブラウザなら、宣言補助ツールからこの PC 情報を任意で読み込めます。</p>
     </section>
 
     <section class="panel" aria-labelledby="editor-panel-title">
-      <h2 id="editor-panel-title">1. PC の下書きを作る</h2>
-      <div class="tab-row" role="tablist" aria-label="入力モード">
-        <button type="button" class="tab-button" id="tabTemplate" data-mode="template" role="tab" aria-selected="true" aria-controls="panelTemplate">テンプレート</button>
-        <button type="button" class="tab-button" id="tabFree" data-mode="free" role="tab" aria-selected="false" aria-controls="panelFree">自由記述</button>
-      </div>
-      <p id="modeHelp" class="small">プレイヤーズガイドの 7項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。</p>
+      <div class="editor-grid">
+        <div>
+          <h2 id="editor-panel-title">1. PC の下書きを作る</h2>
+          <div class="tab-row" role="tablist" aria-label="入力モード">
+            <button type="button" class="tab-button" id="tabTemplate" data-mode="template" role="tab" aria-selected="true" aria-controls="panelTemplate">テンプレート</button>
+            <button type="button" class="tab-button" id="tabFree" data-mode="free" role="tab" aria-selected="false" aria-controls="panelFree">自由記述</button>
+          </div>
+          <p id="modeHelp" class="small">プレイヤーズガイドの 7 項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。</p>
 
-      <section id="panelTemplate" class="mode-panel" role="tabpanel" aria-labelledby="tabTemplate">
-        <div class="field-grid">
-          <div>
-            <label for="name">名前</label>
-            <input type="text" id="name" placeholder="PC の名前">
-          </div>
-          <div>
-            <label for="role">立場</label>
-            <input type="text" id="role" placeholder="港町の見習い航海士 など">
-            <p class="field-help">ひとことで、その PC がどんな人物かを表します。</p>
-          </div>
-          <div class="field-span-2">
-            <label for="ambition">野望</label>
-            <textarea id="ambition" placeholder="PC が最終的にかなえたい大きな目標"></textarea>
-            <p class="field-help">今の立場から、どこまで上がりたいのかが見える形だと扱いやすくなります。</p>
-          </div>
-          <div>
-            <label for="important1">大切なもの 1</label>
-            <textarea id="important1" placeholder="名前 + その意味"></textarea>
-          </div>
-          <div>
-            <label for="important2">大切なもの 2 (任意)</label>
-            <textarea id="important2" placeholder="2つ目があれば"></textarea>
-            <p class="field-help">初心者は 1つで十分です。</p>
-          </div>
-          <div class="field-span-2">
-            <label for="methods">得意なやり方</label>
-            <input type="text" id="methods" placeholder="調査と準備 / 交渉と根回し / 嘘と変装 など">
-          </div>
-          <div class="helper-card field-span-2">
-            <h3>数値まわりの目安</h3>
-            <p id="fateHint">命運点の目安: 大切なものの数 + 1</p>
-            <div class="toolbar" style="margin-top:12px;">
-              <label class="option-line"><input type="checkbox" id="autoFateFromImportant" checked>命運点の最大値は「大切なものの数 + 1」を初期値に使う</label>
+          <section id="panelTemplate" class="mode-panel" role="tabpanel" aria-labelledby="tabTemplate">
+            <div class="scale-panel">
+              <label>今回の遊び方の目安</label>
+              <p class="small" style="margin:0;">単発なら「今回の話でかなえたい直近の目標」を、標準キャンペーンなら「PC が最終的にかなえたい大きな目標」を野望に置くと埋めやすいです。</p>
+              <div class="scale-row" role="radiogroup" aria-label="遊び方の目安">
+                <label class="scale-pill">
+                  <input type="radio" name="campaignScale" value="oneshot" id="scaleOneshot">
+                  <span>単発 / 終点 2</span>
+                </label>
+                <label class="scale-pill">
+                  <input type="radio" name="campaignScale" value="campaign" id="scaleCampaign" checked>
+                  <span>標準 / 終点 5</span>
+                </label>
+                <label class="scale-pill">
+                  <input type="radio" name="campaignScale" value="custom" id="scaleCustom">
+                  <span>自由設定</span>
+                </label>
+              </div>
+              <div id="scaleHint" class="hint-box">標準キャンペーン向け。野望度の初期値は 1、終点の目安は 5 です。</div>
             </div>
-          </div>
-          <div>
-            <label for="fateCurrent">命運点 現在値</label>
-            <input type="text" id="fateCurrent" placeholder="2">
-          </div>
-          <div>
-            <label for="fateMax">命運点 最大値</label>
-            <input type="text" id="fateMax" placeholder="2">
-            <p class="field-help">自動計算を使わないなら、ここを直接書き換えてください。</p>
-          </div>
-          <div>
-            <label for="ambitionCurrent">野望度 現在値</label>
-            <input type="text" id="ambitionCurrent" placeholder="1">
-          </div>
-          <div>
-            <label for="ambitionGoal">野望度 終点の目安</label>
-            <input type="text" id="ambitionGoal" placeholder="5">
-            <p class="field-help">標準ルールの目安は 5 ですが、GM が調整しても構いません。</p>
-          </div>
-          <div class="field-span-2">
-            <label for="note">補足 (任意)</label>
-            <textarea id="note" placeholder="世界観との接点、口調のメモ、仲間との関係、見た目の特徴など"></textarea>
-          </div>
-        </div>
-      </section>
 
-      <section id="panelFree" class="mode-panel" role="tabpanel" aria-labelledby="tabFree" hidden>
-        <p class="small">見出しを増やしたり、テンプレートを崩したり、自由な書式で本文を整えるモードです。既存の出力をここへ引き継いでから仕上げる使い方を想定しています。</p>
-        <label for="freeText">自由記述</label>
-        <textarea id="freeText" class="output-area" placeholder="ここでは本文をそのまま編集できます。"></textarea>
-        <div class="button-row">
-          <button type="button" id="pullCurrentOutputButton" class="secondary">現在の出力をここへ引き継ぐ</button>
-          <button type="button" id="insertTemplateButton" class="ghost">PC テンプレートを挿入</button>
+            <div class="chip-row" style="margin-top:16px;">
+              <span class="small">半完成キャラ枠:</span>
+              <button type="button" class="chip-button" data-preset="rogue">盗賊 / 隠密役</button>
+              <button type="button" class="chip-button" data-preset="warrior">戦士 / 前線役</button>
+              <button type="button" class="chip-button" data-preset="scholar">学者 / 調査役</button>
+              <button type="button" class="chip-button" data-preset="exorcist">祓い手 / 対怪異役</button>
+              <button type="button" class="chip-button" data-preset="survivor">生存者 / 逃走役</button>
+              <button type="button" id="clearPresetButton" class="ghost">枠だけ外す</button>
+            </div>
+
+            <div class="field-grid" style="margin-top:16px;">
+              <div>
+                <label for="name">名前</label>
+                <input type="text" id="name" placeholder="PC の名前">
+              </div>
+              <div>
+                <label for="role">立場</label>
+                <input type="text" id="role" placeholder="港町の見習い航海士 / 貧民街育ちの盗賊 など">
+                <p class="field-help">どんな人物かをひとことで表します。</p>
+              </div>
+              <div class="field-span-2">
+                <label for="ambition">野望</label>
+                <textarea id="ambition" placeholder="標準: PC が最終的にかなえたい大きな目標 / 単発: 今回の話でかなえたい直近の目標"></textarea>
+                <p class="field-help">大きすぎても構いません。今の立場からどこまで上がりたいのか、または今回どこまで届きたいのかが見える形にします。</p>
+              </div>
+              <div>
+                <label for="important1">大切なもの 1</label>
+                <textarea id="important1" placeholder="例: 亡き師の研究ノート（師の遺志そのもの）"></textarea>
+              </div>
+              <div>
+                <label for="important2">大切なもの 2 (任意)</label>
+                <textarea id="important2" placeholder="2つ目があれば"></textarea>
+                <p class="field-help">1つか 2つ。初心者は 1つで十分です。</p>
+              </div>
+              <div class="field-span-2">
+                <label for="methods">得意なやり方</label>
+                <input type="text" id="methods" placeholder="調査と準備 / 交渉と根回し / 力仕事と現場指揮 / 祈りと供養 / 嘘と変装">
+                <p class="field-help">その PC がよく使う方法や発想です。宣言時の手段につながる言葉にすると使いやすくなります。</p>
+              </div>
+              <div class="helper-card field-span-2">
+                <h3>数値まわりの目安</h3>
+                <p id="fateHint">命運点の目安: 大切なものの数 + 1</p>
+                <div class="toolbar" style="margin-top:12px;">
+                  <label class="option-line"><input type="checkbox" id="autoFateFromImportant" checked>命運点の最大値は「大切なものの数 + 1」を初期値に使う</label>
+                </div>
+              </div>
+              <div>
+                <label for="fateCurrent">命運点 現在値</label>
+                <input type="text" id="fateCurrent" placeholder="2">
+              </div>
+              <div>
+                <label for="fateMax">命運点 最大値</label>
+                <input type="text" id="fateMax" placeholder="2">
+                <p class="field-help">自動計算を切ると、ここを自由に書き換えられます。</p>
+              </div>
+              <div>
+                <label for="ambitionCurrent">野望度 現在値</label>
+                <input type="text" id="ambitionCurrent" placeholder="1">
+              </div>
+              <div>
+                <label for="ambitionGoal">野望度 終点</label>
+                <input type="text" id="ambitionGoal" placeholder="5">
+                <p class="field-help">標準の目安は 5、単発の目安は 2 です。GM が開始時に調整できます。</p>
+              </div>
+              <div class="field-span-2">
+                <label for="note">補足 (任意)</label>
+                <textarea id="note" placeholder="世界観との接点、仲間との関係、長期動機と今回の動機の分け方、口調、見た目の特徴など"></textarea>
+                <p class="field-help">自由記述で出すなら、ここではなく自由記述タブへまとめてもかまいません。</p>
+              </div>
+            </div>
+          </section>
+
+          <section id="panelFree" class="mode-panel" role="tabpanel" aria-labelledby="tabFree" hidden>
+            <p class="small">見出しを増やしたり、テンプレートを崩したり、自由な書式で本文を整えるモードです。GM が確認しやすいよう、名前 / どんな人物か / なぜ今回動くか / 何が得意か / 何を失いたくないか が見えると扱いやすくなります。</p>
+            <label for="freeText">自由記述</label>
+            <textarea id="freeText" class="output-area" placeholder="ここでは本文をそのまま編集できます。"></textarea>
+            <div class="button-row">
+              <button type="button" id="pullCurrentOutputButton" class="secondary">現在の出力をここへ引き継ぐ</button>
+              <button type="button" id="insertTemplateButton" class="ghost">PC テンプレートを挿入</button>
+              <button type="button" id="insertFreePromptButton2" class="ghost">自由記述の雛形を挿入</button>
+            </div>
+          </section>
         </div>
-      </section>
+
+        <aside class="reference-stack">
+          <article class="status-card info">
+            <h3>いまの目安</h3>
+            <div id="currentGuideSummary" class="small">標準キャンペーン向け。長期の野望を書き、終点 5 を目安にします。</div>
+          </article>
+          <article class="example-card">
+            <h3>半完成キャラ枠の使い方</h3>
+            <p class="small" style="margin-top:0;">迷ったら枠を押して、<strong>名前・細部・世界観に合わせた言い換え</strong> だけ足せば始められます。</p>
+            <div id="presetSummary" class="small">まだ枠は選んでいません。</div>
+          </article>
+          <article class="reference-card">
+            <h3>画面だけで決める順</h3>
+            <ol class="checklist">
+              <li>立場を 1 行で決める</li>
+              <li>野望を 1 行で決める</li>
+              <li>大切なものを 1 つ置く</li>
+              <li>得意なやり方を 1 つ置く</li>
+              <li>命運点と野望度を整える</li>
+            </ol>
+          </article>
+          <article class="reference-card">
+            <h3>迷ったときの着眼点</h3>
+            <ul class="tips-list">
+              <li>立場は「どんな人物か」がひとことで伝わる短さにする</li>
+              <li>野望は今の立場からどこまで行きたいかが見える形にする</li>
+              <li>大切なものは「名前 + その意味」で書く</li>
+              <li>得意なやり方は、宣言時の手段にもつながる言葉にする</li>
+            </ul>
+          </article>
+        </aside>
+      </div>
     </section>
 
     <section class="panel" aria-labelledby="output-panel-title">
@@ -581,36 +706,39 @@
             <input type="text" id="filenameBase" value="qbs-pc" placeholder="qbs-pc">
             <p class="footer-note">保存時に日時を付けて <span class="mono">.txt</span> にします。</p>
           </div>
-          <div class="stack">
+          <div class="stack" style="margin-top:14px;">
             <button type="button" id="copyButton" class="primary">クリップボードへコピー</button>
             <button type="button" id="downloadButton">TXT 保存</button>
             <label class="file-button">TXT を読み込む<input type="file" id="importFile" accept=".txt,text/plain"></label>
             <button type="button" id="promoteToFreeButton" class="secondary">この出力を自由記述へ引き継ぐ</button>
             <button type="button" id="resetButton" class="ghost">下書きを初期化</button>
           </div>
-          <p id="statusLine" class="status-line" aria-live="polite">下書きはブラウザ内に自動保存されます。</p>
+          <p id="statusLine" class="status-line" aria-live="polite" style="margin-top:14px;">下書きはブラウザ内に自動保存されます。</p>
         </aside>
       </div>
     </section>
 
     <section class="panel">
       <details>
-        <summary>迷ったときの着眼点</summary>
-        <ul class="tips-list">
-          <li>立場は「どんな人物か」がひとことで伝わる短さにする</li>
-          <li>野望は今の立場からどこまで行きたいかが見える形にする</li>
-          <li>大切なものは「名前 + その意味」で書くと扱いやすい</li>
-          <li>得意なやり方は、宣言時の手段にもつながる言葉にする</li>
-        </ul>
-      </details>
-      <details>
         <summary>このページの想定フロー</summary>
         <ol class="checklist">
-          <li>テンプレートで PC の骨組みを作る</li>
-          <li>必要なら自由記述へ引き継いで整える</li>
+          <li>単発 / 標準の目安を選ぶ</li>
+          <li>必要なら半完成キャラ枠を入れる</li>
+          <li>7 項目を埋める</li>
           <li>TXT 保存して GM へ渡す</li>
           <li>同じブラウザなら、宣言補助ツールでこの PC を参照する</li>
         </ol>
+      </details>
+      <details>
+        <summary>記入例を見る</summary>
+        <pre class="example-output">名前: リゼ
+立場: 港町の見習い航海士
+野望: どの港でも通用する海図作りで名を残す
+大切なもの:
+- 叔父の航海日誌（自分が海へ出る理由そのもの）
+得意なやり方: 調査と準備
+命運点: 2/2
+野望度: 1/5</pre>
       </details>
     </section>
   </main>
@@ -627,7 +755,7 @@
     (() => {
       const STORAGE_KEY = "qbs-pc-tool-v1";
       const MODE_HELP = {
-        template: "プレイヤーズガイドの 7項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。",
+        template: "プレイヤーズガイドの 7 項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。",
         free: "本文を自由に編集できます。見出しを増やしたり、テンプレートを崩したりしたいときに使います。"
       };
 
@@ -644,10 +772,68 @@
         "補足 (任意):"
       ].join("\n");
 
+      const FREE_PROMPT_TEMPLATE = [
+        "名前:",
+        "どんな人物か:",
+        "なぜ今回動くのか:",
+        "何が得意か:",
+        "何を失いたくないか:"
+      ].join("\n");
+
+      const PRESETS = {
+        rogue: {
+          name: "盗賊 / 隠密役",
+          role: "貧民街育ちの盗賊",
+          methods: "隠密と偵察 / 罠外しと逃走",
+          important1: "街の仲間（見捨てたくない居場所）",
+          ambitionCampaign: "街の裏を仕切れる大物になる",
+          ambitionOneshot: "財宝を持ち帰る / 仲間全員で生還する",
+          summary: "隠密・偵察・逃走が軸。単発なら「財宝を持ち帰る」や「仲間全員で生還する」に落としやすい枠です。"
+        },
+        warrior: {
+          name: "戦士 / 前線役",
+          role: "流れ者の護衛",
+          methods: "力仕事と現場指揮 / 防御と時間稼ぎ",
+          important1: "雇い主への義理（見捨てたくない責任）",
+          ambitionCampaign: "守るべき相手を選べる身分になる",
+          ambitionOneshot: "依頼人を守り抜く / 退路を確保する",
+          summary: "前線で受け止める役。守るものと退路を決めると、そのまま宣言ツールへつながります。"
+        },
+        scholar: {
+          name: "学者 / 調査役",
+          role: "書庫の下級書記",
+          methods: "調査と準備 / 記録と推理",
+          important1: "恩師の研究ノート（学びの支え）",
+          ambitionCampaign: "真実を残せる学者になる",
+          ambitionOneshot: "真相を持ち帰る / 原因を突き止める",
+          summary: "調査・記録・推理が軸。既知情報を拾って積み上げる宣言と相性がよい枠です。"
+        },
+        exorcist: {
+          name: "祓い手 / 対怪異役",
+          role: "山寺育ちの祓い手",
+          methods: "祈りと供養 / 結界と鎮静",
+          important1: "護符袋（信仰の手応え）",
+          ambitionCampaign: "怪異を鎮める術を各地に残す",
+          ambitionOneshot: "怪異を鎮めて生還する",
+          summary: "怪異や呪いに向き合う枠。供養や鎮静を「得意なやり方」にそのまま置きやすいです。"
+        },
+        survivor: {
+          name: "生存者 / 逃走役",
+          role: "遭難から生き延びた漂流者",
+          methods: "我慢と逃走 / 応急処置と確保",
+          important1: "帰る場所（戻りたい居場所）",
+          ambitionCampaign: "安心して帰れる場所を取り戻す",
+          ambitionOneshot: "全員で脱出する / 夜明けまで持ちこたえる",
+          summary: "脱出・持久・応急処置が軸。単発の閉鎖空間や災害ものへそのまま載せやすい枠です。"
+        }
+      };
+
       const defaultState = () => ({
         mode: "template",
         keepBlankFields: true,
         autoFateFromImportant: true,
+        campaignScale: "campaign",
+        presetKey: "",
         character: {
           name: "",
           role: "",
@@ -688,8 +874,6 @@
         note: document.getElementById("note"),
         fateHint: document.getElementById("fateHint"),
         freeText: document.getElementById("freeText"),
-        pullCurrentOutputButton: document.getElementById("pullCurrentOutputButton"),
-        insertTemplateButton: document.getElementById("insertTemplateButton"),
         keepBlankFields: document.getElementById("keepBlankFields"),
         outputText: document.getElementById("outputText"),
         validationList: document.getElementById("validationList"),
@@ -699,7 +883,19 @@
         importFile: document.getElementById("importFile"),
         promoteToFreeButton: document.getElementById("promoteToFreeButton"),
         resetButton: document.getElementById("resetButton"),
-        statusLine: document.getElementById("statusLine")
+        statusLine: document.getElementById("statusLine"),
+        pullCurrentOutputButton: document.getElementById("pullCurrentOutputButton"),
+        insertTemplateButton: document.getElementById("insertTemplateButton"),
+        insertFreePromptButton: document.getElementById("insertFreePromptButton"),
+        insertFreePromptButton2: document.getElementById("insertFreePromptButton2"),
+        scaleOneshot: document.getElementById("scaleOneshot"),
+        scaleCampaign: document.getElementById("scaleCampaign"),
+        scaleCustom: document.getElementById("scaleCustom"),
+        scaleHint: document.getElementById("scaleHint"),
+        currentGuideSummary: document.getElementById("currentGuideSummary"),
+        presetSummary: document.getElementById("presetSummary"),
+        presetButtons: Array.from(document.querySelectorAll("[data-preset]")),
+        clearPresetButton: document.getElementById("clearPresetButton")
       };
 
       syncInputsFromState();
@@ -710,9 +906,8 @@
         els.tabButtons.forEach((button) => {
           button.addEventListener("click", () => {
             state.mode = button.dataset.mode;
-            renderMode();
-            renderOutput();
-            renderValidation();
+            syncInputsFromState();
+            renderAll();
             saveState();
           });
         });
@@ -732,9 +927,7 @@
 
         els.autoFateFromImportant.addEventListener("change", () => {
           state.autoFateFromImportant = els.autoFateFromImportant.checked;
-          renderFateHint();
-          renderOutput();
-          renderValidation();
+          renderAll();
           saveState();
         });
 
@@ -750,6 +943,32 @@
           saveState();
         }, false);
 
+        [els.scaleOneshot, els.scaleCampaign, els.scaleCustom].forEach((radio) => {
+          radio.addEventListener("change", () => {
+            if (!radio.checked) {
+              return;
+            }
+            state.campaignScale = radio.value;
+            applyScaleDefaults();
+            renderAll();
+            saveState();
+          });
+        });
+
+        els.presetButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            applyPreset(button.dataset.preset || "");
+          });
+        });
+
+        els.clearPresetButton.addEventListener("click", () => {
+          state.presetKey = "";
+          highlightPresetButtons();
+          renderGuideCards();
+          saveState();
+          setStatus("半完成キャラ枠の選択だけ外しました。入力済みの本文は残しています。", "success");
+        });
+
         els.pullCurrentOutputButton.addEventListener("click", () => {
           state.freeText = getOutputText();
           state.mode = "free";
@@ -761,62 +980,53 @@
 
         els.insertTemplateButton.addEventListener("click", () => {
           state.freeText = appendBlock(state.freeText, PC_TEMPLATE);
+          state.mode = "free";
           syncInputsFromState();
-          renderOutput();
-          renderValidation();
+          renderAll();
           saveState();
-          setStatus("自由記述へ PC テンプレートを挿入しました。", "success");
+          setStatus("PC テンプレートを自由記述へ挿入しました。", "success");
+        });
+
+        [els.insertFreePromptButton, els.insertFreePromptButton2].forEach((button) => {
+          button.addEventListener("click", () => {
+            state.freeText = appendBlock(state.freeText, FREE_PROMPT_TEMPLATE);
+            state.mode = "free";
+            syncInputsFromState();
+            renderAll();
+            saveState();
+            setStatus("自由記述の雛形を自由記述欄へ挿入しました。", "success");
+          });
         });
 
         els.copyButton.addEventListener("click", async () => {
           const text = getOutputText();
-          if (!text.trim()) {
-            setStatus("まだ保存できる本文がありません。", "warn");
-            return;
-          }
-
           try {
-            if (navigator.clipboard && window.isSecureContext) {
+            if (navigator.clipboard?.writeText) {
               await navigator.clipboard.writeText(text);
             } else {
               fallbackCopy(text);
             }
-            setStatus("出力をクリップボードへコピーしました。", "success");
+            setStatus("出力テキストをクリップボードへコピーしました。", "success");
           } catch (error) {
             console.error(error);
-            setStatus("コピーに失敗しました。ブラウザの権限設定を確認してください。", "error");
+            fallbackCopy(text);
+            setStatus("クリップボード API を使えなかったため、代替手段でコピーを試みました。", "warn");
           }
         });
 
         els.downloadButton.addEventListener("click", () => {
           const text = getOutputText();
-          if (!text.trim()) {
-            setStatus("まだ保存できる本文がありません。", "warn");
-            return;
-          }
-
-          const filename = buildFilename(state.filenameBase || "qbs-pc");
-          downloadText(filename, text);
-          setStatus(`TXT を保存しました: ${filename}`, "success");
-        });
-
-        els.importFile.addEventListener("change", async (event) => {
-          const file = event.target.files && event.target.files[0];
-          if (!file) {
-            return;
-          }
-
-          try {
-            const text = await file.text();
-            hydrateFromText(text);
-            saveState();
-            setStatus(`TXT を読み込みました: ${file.name}`, "success");
-          } catch (error) {
-            console.error(error);
-            setStatus("TXT の読み込みに失敗しました。", "error");
-          } finally {
-            els.importFile.value = "";
-          }
+          const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+          const link = document.createElement("a");
+          link.href = URL.createObjectURL(blob);
+          link.download = buildFilename(state.filenameBase);
+          document.body.appendChild(link);
+          link.click();
+          setTimeout(() => {
+            URL.revokeObjectURL(link.href);
+            link.remove();
+          }, 0);
+          setStatus("TXT を保存しました。", "success");
         });
 
         els.promoteToFreeButton.addEventListener("click", () => {
@@ -825,15 +1035,30 @@
           syncInputsFromState();
           renderAll();
           saveState();
-          setStatus("出力を自由記述へ引き継ぎました。", "success");
+          setStatus("現在の出力を自由記述に引き継ぎました。", "success");
+        });
+
+        els.importFile.addEventListener("change", async () => {
+          const file = els.importFile.files && els.importFile.files[0];
+          if (!file) {
+            return;
+          }
+          try {
+            const text = await file.text();
+            hydrateFromText(text);
+            saveState();
+            setStatus("TXT を読み込みました。", "success");
+          } catch (error) {
+            console.error(error);
+            setStatus("TXT の読み込みに失敗しました。", "error");
+          } finally {
+            els.importFile.value = "";
+          }
         });
 
         els.resetButton.addEventListener("click", () => {
-          const ok = window.confirm("現在の下書きを初期化します。よろしいですか。");
-          if (!ok) {
-            return;
-          }
-          Object.assign(state, defaultState());
+          const base = defaultState();
+          Object.assign(state, base);
           syncInputsFromState();
           renderAll();
           saveState();
@@ -841,50 +1066,72 @@
         });
       }
 
-      function bindField(element, setter, refreshDerived = true) {
+      function bindField(element, apply, rerender = true) {
         element.addEventListener("input", () => {
-          setter(element.value);
-          if (refreshDerived) {
-            renderFateHint();
-            renderOutput();
-            renderValidation();
+          apply(element.value);
+          if (rerender) {
+            renderAll();
           }
           saveState();
         });
       }
 
       function loadState() {
-        const initial = defaultState();
+        const base = defaultState();
         try {
           const raw = localStorage.getItem(STORAGE_KEY);
           if (!raw) {
-            return initial;
+            return base;
           }
           const parsed = JSON.parse(raw);
-          return {
-            ...initial,
+          const merged = {
+            ...base,
             ...parsed,
             character: {
-              ...initial.character,
+              ...base.character,
               ...(parsed.character || {}),
               important: Array.isArray(parsed.character && parsed.character.important)
                 ? [parsed.character.important[0] || "", parsed.character.important[1] || ""]
-                : initial.character.important.slice()
+                : base.character.important.slice()
             }
           };
+          if (!["template", "free"].includes(merged.mode)) {
+            merged.mode = "template";
+          }
+          if (!["oneshot", "campaign", "custom"].includes(merged.campaignScale)) {
+            merged.campaignScale = inferScaleFromCharacter(merged.character);
+          }
+          if (!merged.character.ambitionCurrent) {
+            merged.character.ambitionCurrent = "1";
+          }
+          if (!merged.character.ambitionGoal) {
+            merged.character.ambitionGoal = merged.campaignScale === "oneshot" ? "2" : "5";
+          }
+          return merged;
         } catch (error) {
-          console.warn("Failed to load local draft", error);
-          return initial;
+          console.error(error);
+          return base;
         }
       }
 
+      function inferScaleFromCharacter(character) {
+        const goal = String(character && character.ambitionGoal || "").trim();
+        if (goal === "2") {
+          return "oneshot";
+        }
+        if (goal === "5" || !goal) {
+          return "campaign";
+        }
+        return "custom";
+      }
+
       function saveState() {
-        state.updatedAt = new Date().toISOString();
         try {
+          state.updatedAt = Date.now();
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
         } catch (error) {
-          console.warn("Failed to save local draft", error);
-          setStatus("自動保存に失敗しました。ブラウザの保存領域を確認してください。", "warn");
+          console.error(error);
+          setStatus("ブラウザ保存に失敗しました。容量制限の可能性があります。", "error");
         }
       }
 
@@ -892,8 +1139,8 @@
         els.name.value = state.character.name;
         els.role.value = state.character.role;
         els.ambition.value = state.character.ambition;
-        els.important1.value = state.character.important[0] || "";
-        els.important2.value = state.character.important[1] || "";
+        els.important1.value = state.character.important[0];
+        els.important2.value = state.character.important[1];
         els.methods.value = state.character.methods;
         els.autoFateFromImportant.checked = state.autoFateFromImportant;
         els.fateCurrent.value = state.character.fateCurrent;
@@ -904,11 +1151,17 @@
         els.freeText.value = state.freeText;
         els.keepBlankFields.checked = state.keepBlankFields;
         els.filenameBase.value = state.filenameBase;
+        els.scaleOneshot.checked = state.campaignScale === "oneshot";
+        els.scaleCampaign.checked = state.campaignScale === "campaign";
+        els.scaleCustom.checked = state.campaignScale === "custom";
       }
 
       function renderAll() {
         renderMode();
+        renderScaleHint();
         renderFateHint();
+        highlightPresetButtons();
+        renderGuideCards();
         renderOutput();
         renderValidation();
       }
@@ -924,9 +1177,19 @@
         });
       }
 
+      function renderScaleHint() {
+        const scale = state.campaignScale;
+        if (scale === "oneshot") {
+          els.scaleHint.textContent = "単発向け。野望には「今回の話でかなえたい直近の目標」を置きやすく、終点の目安は 2 です。";
+        } else if (scale === "campaign") {
+          els.scaleHint.textContent = "標準キャンペーン向け。野望には長期の目標を置きやすく、終点の目安は 5 です。";
+        } else {
+          els.scaleHint.textContent = "自由設定。終点は GM と相談して好きに調整できます。野望の書き方も単発 / 長期どちらでも構いません。";
+        }
+      }
+
       function estimateImportantCount() {
-        return state.character.important
-          .filter((item) => String(item || "").trim()).length;
+        return state.character.important.filter((item) => String(item || "").trim()).length;
       }
 
       function estimateFateMax() {
@@ -935,13 +1198,85 @@
 
       function renderFateHint() {
         const count = estimateImportantCount();
-        const max = estimateFateMax();
-        els.fateHint.textContent = `命運点の目安: 大切なもの ${count}件 -> ${max}/${max}`;
+        const autoMax = estimateFateMax();
+        const goal = String(state.character.ambitionGoal || "").trim() || (state.campaignScale === "oneshot" ? "2" : "5");
+        els.fateHint.textContent = `命運点の目安: 大切なもの ${count}件 → ${autoMax}/${autoMax} / 野望度の初期値 1 → 終点の目安 ${goal}`;
+      }
+
+      function renderGuideCards() {
+        const scale = state.campaignScale;
+        if (scale === "oneshot") {
+          els.currentGuideSummary.textContent = "単発向け。長い人生目標ではなく、今回の話でかなえたい目標を書いて構いません。終点の目安は 2 です。";
+        } else if (scale === "campaign") {
+          els.currentGuideSummary.textContent = "標準キャンペーン向け。長期の野望を書き、野望度は 1 から始め、終点 5 を目安にします。";
+        } else {
+          els.currentGuideSummary.textContent = "自由設定。終点や野望の粒度は GM 次第です。必要なら今回の目標と長期の動機を補足へ分けておくと伝わりやすくなります。";
+        }
+
+        const preset = PRESETS[state.presetKey];
+        els.presetSummary.textContent = preset
+          ? `${preset.name}: ${preset.summary}`
+          : "まだ枠は選んでいません。迷ったら 1 つ押して、名前と細部だけ調整してください。";
+      }
+
+      function highlightPresetButtons() {
+        els.presetButtons.forEach((button) => {
+          button.dataset.active = String(button.dataset.preset === state.presetKey);
+        });
+      }
+
+      function applyScaleDefaults() {
+        if (!state.character.ambitionCurrent.trim()) {
+          state.character.ambitionCurrent = "1";
+        }
+
+        if (state.campaignScale === "oneshot") {
+          state.character.ambitionGoal = "2";
+          if (state.presetKey && PRESETS[state.presetKey]) {
+            const preset = PRESETS[state.presetKey];
+            if (!state.character.ambition.trim() || state.character.ambition === preset.ambitionCampaign) {
+              state.character.ambition = preset.ambitionOneshot;
+            }
+          }
+        } else if (state.campaignScale === "campaign") {
+          state.character.ambitionGoal = "5";
+          if (state.presetKey && PRESETS[state.presetKey]) {
+            const preset = PRESETS[state.presetKey];
+            if (!state.character.ambition.trim() || state.character.ambition === preset.ambitionOneshot) {
+              state.character.ambition = preset.ambitionCampaign;
+            }
+          }
+        }
+        syncInputsFromState();
+      }
+
+      function applyPreset(key) {
+        const preset = PRESETS[key];
+        if (!preset) {
+          return;
+        }
+        state.presetKey = key;
+        state.character.role = preset.role;
+        state.character.methods = preset.methods;
+        state.character.important[0] = preset.important1;
+        if (!state.character.name.trim()) {
+          state.character.name = "";
+        }
+        state.character.ambition = state.campaignScale === "oneshot" ? preset.ambitionOneshot : preset.ambitionCampaign;
+        if (!state.character.note.trim()) {
+          state.character.note = `${preset.name} の半完成キャラ枠から開始。世界観に合わせて言い換えてかまいません。`;
+        }
+        if (!state.character.fateCurrent.trim()) {
+          state.character.fateCurrent = String(estimateImportantCount() + 1);
+        }
+        syncInputsFromState();
+        renderAll();
+        saveState();
+        setStatus(`${preset.name} の半完成キャラ枠を反映しました。名前と細部だけ決めればそのまま使えます。`, "success");
       }
 
       function serializeCharacter(character, keepBlank) {
         const lines = [];
-
         pushLine(lines, "名前", character.name, keepBlank);
         pushLine(lines, "立場", character.role, keepBlank);
         pushLine(lines, "野望", character.ambition, keepBlank);
@@ -963,7 +1298,6 @@
         pushLine(lines, "命運点", formatFateValue(character), keepBlank);
         pushLine(lines, "野望度", formatAmbitionValue(character), keepBlank);
         pushLine(lines, "補足 (任意)", character.note, keepBlank);
-
         return lines.join("\n");
       }
 
@@ -980,7 +1314,6 @@
         const manualMax = String(character.fateMax || "").trim();
         const autoMax = String(estimateFateMax());
         const max = state.autoFateFromImportant ? (manualMax || autoMax) : manualMax;
-
         if (!current && !max) {
           return "";
         }
@@ -993,7 +1326,6 @@
       function formatAmbitionValue(character) {
         const current = String(character.ambitionCurrent || "").trim();
         const goal = String(character.ambitionGoal || "").trim();
-
         if (!current && !goal) {
           return "";
         }
@@ -1020,9 +1352,7 @@
           els.validationList.innerHTML = "";
           return;
         }
-        els.validationList.innerHTML = items.map((item) => `
-          <li class="validation-item ${item.level}">${escapeHtml(item.text)}</li>
-        `).join("");
+        els.validationList.innerHTML = items.map((item) => `<li class="validation-item ${item.level}">${escapeHtml(item.text)}</li>`).join("");
       }
 
       function validateCurrentState() {
@@ -1030,37 +1360,55 @@
         const output = getOutputText();
 
         if (!output.trim()) {
-          items.push({ level: "error", text: "まだ本文が空です。テンプレートでも自由記述でもよいので、まず 1行以上書いてください。" });
+          items.push({ level: "error", text: "まだ本文が空です。テンプレートでも自由記述でもよいので、まず 1 行以上書いてください。" });
           return items;
         }
 
         if (state.mode === "template") {
           if (!state.character.name.trim()) {
-            items.push({ level: "warn", text: "名前が空です。まずは呼び名だけでもあると扱いやすくなります。" });
+            items.push({ level: "warn", text: "名前が空です。呼び名だけでもあると扱いやすくなります。" });
           }
           if (!state.character.role.trim()) {
-            items.push({ level: "warn", text: "立場が空です。どんな人物かをひとことで示すと、卓への乗せ方が見えやすくなります。" });
+            items.push({ level: "warn", text: "立場が空です。どんな人物かをひとことで示すと、卓へ乗せやすくなります。" });
           }
           if (!state.character.ambition.trim()) {
-            items.push({ level: "warn", text: "野望が空です。キャンペーンの土台になるので、できれば先に書いておくと扱いやすくなります。" });
+            items.push({ level: "warn", text: "野望が空です。単発なら今回の目標、標準なら長期の目標を 1 行で置くと動かしやすくなります。" });
+          } else if (state.campaignScale === "oneshot" && state.character.ambition.trim().length > 65) {
+            items.push({ level: "info", text: "単発の目安にしては野望がやや長めです。今回の話で何を達成したいかに寄せると扱いやすくなります。" });
           }
           if (!estimateImportantCount()) {
-            items.push({ level: "info", text: "大切なもの が空です。初心者でも 1つあると、その PC らしさが出しやすくなります。" });
+            items.push({ level: "info", text: "大切なもの が空です。初心者でも 1 つあると、その PC らしさが出しやすくなります。" });
+          }
+          const importantTexts = state.character.important.filter((item) => String(item || "").trim());
+          if (importantTexts.length && !importantTexts.some((item) => /[（(].+[)）]/.test(item))) {
+            items.push({ level: "info", text: "大切なもの は「名前 + その意味」にすると、GM が扱いやすくなります。" });
           }
           if (!state.character.methods.trim()) {
-            items.push({ level: "info", text: "得意なやり方 が空です。宣言時の手段にもつながるので、ひとつ決めておくと便利です。" });
+            items.push({ level: "info", text: "得意なやり方 が空です。宣言時の手段にもつながるので、1 つ決めておくと便利です。" });
           }
           if (!state.autoFateFromImportant && !state.character.fateCurrent.trim() && !state.character.fateMax.trim()) {
             items.push({ level: "info", text: "命運点 が空です。自動計算を切っているなら、現在値や最大値を書いておくと扱いやすくなります。" });
+          }
+          if (state.campaignScale === "oneshot" && String(state.character.ambitionGoal || "").trim() !== "2") {
+            items.push({ level: "info", text: "単発の目安は終点 2 です。あえて変えるならそのままで構いません。" });
+          }
+          if (state.campaignScale === "campaign" && String(state.character.ambitionGoal || "").trim() !== "5") {
+            items.push({ level: "info", text: "標準キャンペーンの目安は終点 5 です。GM が開始時に調整するならそのままで構いません。" });
           }
           if (!state.keepBlankFields) {
             items.push({ level: "info", text: "空欄の行は出力から省略しています。テンプレートの形を残したいなら「空欄の行も残す」をオンにしてください。" });
           }
         } else {
           if (!state.freeText.trim()) {
-            items.push({ level: "warn", text: "自由記述が空です。現在の出力を引き継ぐボタンから始めると作りやすくなります。" });
-          } else if (!/[\n:：]/.test(state.freeText) && state.freeText.trim().length < 30) {
-            items.push({ level: "info", text: "短い本文です。名前・立場・野望のどれかが伝わるかだけ見直すと安心です。" });
+            items.push({ level: "warn", text: "自由記述が空です。現在の出力を引き継ぐボタンか、自由記述の雛形から始めると作りやすいです。" });
+          } else {
+            const text = state.freeText.trim();
+            if (!/(名前|どんな人物か|立場)/.test(text)) {
+              items.push({ level: "info", text: "自由記述でも、何者かがわかる一文があると整理しやすくなります。" });
+            }
+            if (!/(なぜ今回動くか|野望)/.test(text)) {
+              items.push({ level: "info", text: "自由記述でも、今回なぜ動くか / どこを目指すか が見えると GM が整理しやすくなります。" });
+            }
           }
         }
 
@@ -1074,6 +1422,7 @@
         if (parsed.matched >= 3) {
           state.mode = "template";
           state.character = parsed.pc;
+          state.campaignScale = inferScaleFromCharacter(parsed.pc);
           syncInputsFromState();
           renderAll();
           return;
@@ -1106,7 +1455,7 @@
 
         for (const rawLine of lines) {
           const line = rawLine.trimEnd();
-          const match = line.match(/^\s*(名前|立場|野望|大切なもの(?:\s*[12])?|得意なやり方|命運点|野望度|補足(?:\s*[（(]任意[)）])?)\s*[:：]\s*(.*)$/);
+          const match = line.match(/^\s*(名前|立場|どんな人物か|野望|なぜ今回動くのか|大切なもの(?:\s*[12])?|何を失いたくないか|得意なやり方|何が得意か|命運点|野望度|補足(?:\s*[（(]任意[)）])?)\s*[:：]\s*(.*)$/);
           if (match) {
             currentKey = normalizeLabel(match[1]);
             const value = match[2].trim();
@@ -1148,15 +1497,15 @@
             continue;
           }
 
-          if (!currentKey) {
-            continue;
-          }
-
-          if (currentKey === "fate" || currentKey === "ambitionLevel") {
+          if (!currentKey || currentKey === "fate" || currentKey === "ambitionLevel") {
             continue;
           }
 
           pc[currentKey] = appendLine(pc[currentKey], line.trim());
+        }
+
+        if (!pc.ambitionCurrent) {
+          pc.ambitionCurrent = "1";
         }
 
         return { pc, matched };
@@ -1167,15 +1516,18 @@
           .replace(/\s+/g, "")
           .replace(/\(任意\)|（任意）/g, "");
 
-        if (compact.startsWith("大切なもの")) {
+        if (compact.startsWith("大切なもの") || compact === "何を失いたくないか") {
           return "important";
         }
 
         const mapping = {
           "名前": "name",
           "立場": "role",
+          "どんな人物か": "role",
           "野望": "ambition",
+          "なぜ今回動くのか": "ambition",
           "得意なやり方": "methods",
+          "何が得意か": "methods",
           "命運点": "fate",
           "野望度": "ambitionLevel",
           "補足": "note"
@@ -1275,31 +1627,18 @@
         return String(value).padStart(2, "0");
       }
 
-      function downloadText(filename, text) {
-        const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-        const url = URL.createObjectURL(blob);
-        const link = document.createElement("a");
-        link.href = url;
-        link.download = filename;
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        URL.revokeObjectURL(url);
+      function setStatus(message, level = "") {
+        els.statusLine.textContent = message;
+        els.statusLine.className = `status-line${level ? ` ${level}` : ""}`;
       }
 
-      function escapeHtml(text) {
-        return String(text)
+      function escapeHtml(value) {
+        return String(value || "")
           .replace(/&/g, "&amp;")
           .replace(/</g, "&lt;")
           .replace(/>/g, "&gt;")
           .replace(/"/g, "&quot;")
-          .replace(/'/g, "&#39;")
-          .replace(/\n/g, "<br>");
-      }
-
-      function setStatus(text, tone) {
-        els.statusLine.textContent = text;
-        els.statusLine.className = `status-line${tone ? ` ${tone}` : ""}`;
+          .replace(/'/g, "&#39;");
       }
     })();
   </script>
