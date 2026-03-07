@@ -619,6 +619,10 @@
           <button type="button" class="tab-button" id="tabFree" data-mode="free" role="tab" aria-selected="false" aria-controls="panelFree">自由記述</button>
         </div>
         <p id="modeHelp" class="small">テンプレート付きの通常宣言です。必要なところだけ埋め、空欄は残しても構いません。</p>
+        <div class="button-row" style="margin-bottom:10px;">
+          <button type="button" id="clearDraftFieldsButton">質問 / 宣言欄を消去</button>
+        </div>
+        <p class="small" style="margin-top:0;">次の局面へ移るときに、宣言・宣言前確認・自由記述の入力欄だけ消します。局面文と PC 情報は残ります。</p>
 
         <section id="panelDeclaration" class="mode-panel" role="tabpanel" aria-labelledby="tabDeclaration">
           <div class="field-grid">
@@ -1010,7 +1014,8 @@
         importFile: document.getElementById("importFile"),
         promoteToFreeButton: document.getElementById("promoteToFreeButton"),
         resetButton: document.getElementById("resetButton"),
-        statusLine: document.getElementById("statusLine")
+        statusLine: document.getElementById("statusLine"),
+        clearDraftFieldsButton: document.getElementById("clearDraftFieldsButton")
       };
 
       if (!state.scene || typeof state.scene !== "object") {
@@ -1038,6 +1043,10 @@
           renderAll();
           saveState();
           setStatus("局面欄を消去しました。", "success");
+        });
+
+        els.clearDraftFieldsButton.addEventListener("click", () => {
+          clearDraftFields(true);
         });
 
         els.sceneInput.addEventListener("input", () => {
@@ -1228,6 +1237,28 @@
           }
           saveState();
         });
+      }
+
+      function clearDraftFields(announce) {
+        state.declaration = {
+          objective: "",
+          minimum: "",
+          methods: "",
+          protect: "",
+          sacrifice: "",
+          retreat: "",
+          collateral: "",
+          note: ""
+        };
+        state.precheck = ["", "", ""];
+        state.freeText = "";
+        syncInputsFromState();
+        renderAll();
+        saveState();
+
+        if (announce) {
+          setStatus("質問 / 宣言欄を消去しました。", "success");
+        }
       }
 
       function loadState() {
