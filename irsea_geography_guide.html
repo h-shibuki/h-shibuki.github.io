@@ -1,0 +1,807 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>イルセア西部・灰冠時代 旅路と宿駅の運用帳</title>
+<style>
+:root{
+  --bg:#f6f1e8;
+  --paper:#fffdf8;
+  --paper-2:#f3ecdf;
+  --paper-3:#efe6d7;
+  --line:#dccfb9;
+  --line-strong:#c8b496;
+  --text:#2f2922;
+  --muted:#6b6255;
+  --heading:#2a2219;
+  --accent:#7a5d38;
+  --link:#4e6781;
+  --shadow:0 12px 32px rgba(51,40,25,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  color:var(--text);
+  background:linear-gradient(180deg,#fbf8f2 0%, var(--bg) 100%);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic",Meiryo,sans-serif;
+  line-height:1.85;
+}
+a{color:var(--link);text-decoration:none}
+a:hover{text-decoration:underline}
+.page{max-width:1220px;margin:0 auto;padding:28px 18px 72px;}
+.hero,.section,.toc,.card,.map-card,.route-card,.callout{
+  background:var(--paper);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+}
+.hero{padding:30px 32px 24px;margin-bottom:18px;}
+.hero h1{margin:0 0 .25em;font-size:clamp(2rem,3vw,2.9rem);color:var(--heading);}
+.hero p{margin:.55em 0;}
+.badge-row,.pill-row{display:flex;flex-wrap:wrap;gap:.55rem;}
+.badge-row{margin-top:1rem;}
+.pill{
+  display:inline-flex;align-items:center;gap:.35rem;
+  padding:.34rem .72rem;border-radius:999px;border:1px solid var(--line);
+  background:var(--paper-2);font-size:.92rem;color:var(--muted);font-weight:600;
+}
+.pill.soft{background:#f7f2e9;}
+.toc{padding:18px 22px;margin-bottom:18px;}
+.toc h2{margin:0 0 .55rem;font-size:1.08rem;color:var(--heading);}
+.toc ul{margin:.2rem 0 0 1.15rem;padding:0;columns:2;column-gap:2rem;}
+.toc li{margin:.25rem 0;break-inside:avoid;}
+.section{padding:24px 26px;margin-top:18px;}
+.section h2{margin:0 0 .45em;font-size:clamp(1.4rem,2.2vw,1.82rem);color:var(--heading);}
+.section h3{margin:0 0 .45rem;color:var(--heading);font-size:1.16rem;}
+.lead{color:var(--muted);margin:.2rem 0 1rem;}
+.grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+.grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;}
+.card{padding:18px 20px;}
+.card p{margin:.45em 0;}
+.map-card{padding:16px;}
+svg{width:100%;height:auto;display:block;border-radius:18px;background:linear-gradient(180deg,#f8f3ea 0%, #efe6d8 100%);border:1px solid var(--line);}
+.map-region{font-size:22px;font-weight:700;fill:#5c4d3c;opacity:.8;}
+.map-water{font-size:18px;font-weight:700;fill:#3c6e88;}
+.map-road{font-size:16px;font-weight:700;fill:#6d5131;}
+.map-short{font-size:14px;font-weight:700;fill:#9a6049;}
+.map-city{font-size:18px;fill:#2a2219;font-weight:700;paint-order:stroke;stroke:#fffdf8;stroke-width:4px;stroke-linejoin:round;}
+.map-city.small{font-size:15px;}
+.map-city.major{font-size:20px;}
+.map-legend-label{font-size:15px;fill:#44372c;font-weight:700;}
+.map-legend-note{font-size:13px;fill:#6b6255;}
+.capital{fill:#7a5d38;stroke:#fffdf8;stroke-width:4px;}
+.city{fill:#6e7c65;stroke:#fffdf8;stroke-width:4px;}
+.tower{fill:#8b6d46;stroke:#fffdf8;stroke-width:4px;}
+.waypoint{fill:#73879b;stroke:#fffdf8;stroke-width:4px;}
+.callout{padding:16px 18px;background:linear-gradient(180deg,#fffdf8 0%, #f9f4ea 100%);}
+.callout strong{color:var(--heading);}
+.note-box{padding:14px 16px;border-radius:18px;background:#fbf6ee;border:1px solid var(--line);}
+.table-wrap{overflow-x:auto;margin-top:10px;}
+table{width:100%;border-collapse:collapse;font-size:.96rem;}
+th,td{padding:12px 12px;vertical-align:top;border-top:1px solid var(--line);}
+thead th{background:var(--paper-2);border-top:0;text-align:left;color:var(--heading);}
+tbody tr:nth-child(even) td{background:rgba(242,234,220,.34);}
+.route-card{padding:18px 20px;margin-top:16px;}
+.route-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;}
+.route-head h3{margin:0;color:var(--heading);font-size:1.15rem;}
+.route-line{margin:.45em 0 0;}
+.route-meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:12px;}
+.route-meta > div{padding:12px 14px;border:1px solid var(--line);border-radius:16px;background:#fbf7ef;}
+.route-meta .k{display:block;font-weight:800;color:var(--heading);margin-bottom:.18rem;}
+.sub{color:var(--muted);font-size:.92rem;margin-top:.2rem;}
+.footer{margin-top:22px;text-align:center;color:var(--muted);font-size:.92rem;}
+hr.soft{border:0;border-top:1px solid var(--line-strong);margin:20px 0 10px;}
+
+
+.ops-guide{margin-top:18px}
+.ops-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-top:14px}
+.ops-box{padding:14px 16px;border:1px solid var(--line);border-radius:16px;background:var(--paper-2)}
+.ops-box h3{margin:.1rem 0 .35rem;font-size:1rem}
+.ops-box p{margin:0;color:var(--muted)}
+.ops-title{margin:18px 0 8px;font-size:1.02rem;color:var(--heading)}
+.ops-wrap{margin-top:0}
+.ops-table td:nth-child(1){min-width:180px}
+.ops-table td:nth-child(2){min-width:150px}
+.ops-table td:nth-child(3){min-width:140px}
+.ops-table td:nth-child(4){min-width:280px}
+.ops-table td:nth-child(5){min-width:280px}
+@media (max-width:1020px){
+  .ops-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:780px){
+  .ops-grid{grid-template-columns:1fr}
+}
+
+@media (max-width:1020px){
+  .grid-2,.grid-3,.route-meta{grid-template-columns:1fr;}
+  .toc ul{columns:1;}
+  .route-head{flex-direction:column;align-items:flex-start;}
+}
+@media (max-width:780px){
+  .page{padding:18px 12px 40px}
+  .hero,.section,.toc,.card,.map-card,.route-card{padding:18px}
+}
+@media print{
+  body{background:#fff}
+  .page{max-width:none;padding:0}
+  .hero,.section,.toc,.card,.map-card,.route-card,.callout{box-shadow:none;border-color:#ddd}
+  a{color:inherit;text-decoration:none}
+}
+
+.route-note{margin:8px 0 8px;color:var(--muted);font-size:.93rem;}
+.season-table td:nth-child(1){min-width:86px;font-weight:700;}
+.season-table td:nth-child(2){min-width:118px;}
+.season-table td:nth-child(3){min-width:230px;}
+.season-table td:nth-child(4){min-width:250px;}
+.boundary-table td:nth-child(1){min-width:180px;font-weight:700;}
+.boundary-table td:nth-child(2){min-width:180px;}
+.boundary-table td:nth-child(3){min-width:220px;}
+.boundary-table td:nth-child(4){min-width:230px;}
+.encounter-table td:nth-child(1){width:58px;text-align:center;font-weight:800;}
+.encounter-table td:nth-child(2){min-width:210px;}
+.encounter-table td:nth-child(3){min-width:240px;}
+.encounter-table td:nth-child(4){min-width:250px;}
+</style>
+</head>
+<body>
+<main class="page">
+<section class="hero">
+<h1>イルセア西部・灰冠時代 旅路と宿駅の運用帳</h1>
+<p>都・砦・村・関・橋塞市・河港を結ぶ <strong>主要街道・河路・峠路・宿駅</strong> を、卓でそのまま使える運用粒度まで掘り下げたHTML版です。</p>
+<p>各宿駅ごとに <strong>名物・顔役・税や通行の癖・夜に起きやすい事件</strong> を併記し、さらに各街道ごとに <strong>季節別の遅延表・通行証が必要になる境界一覧・遭遇表</strong> を足して、旅・宿・埋葬・通行証・荷印票・死者記録が、どこでどう重みを持つかをすぐ拾える構成にしています。</p>
+<div class="badge-row"><span class="pill">徒歩1日ごとの宿駅</span><span class="pill">各宿駅の運用欄つき</span><span class="pill">税・通行・夜の事件</span><span class="pill">TRPG卓運用向け</span><span class="pill">季節遅延表つき</span><span class="pill">境界と文書の一覧</span><span class="pill">遭遇表 d8</span></div>
+</section><section class="callout ops-guide" id="ops-guide"><h2>宿駅運用欄の見方</h2><p class="lead">宿駅に着いた瞬間に言えることと、道に出た瞬間に起きることを、卓で即答できる欄へ切ってあります。地理の確認より先に、その場の空気・通し方・面倒の種が分かるようにしてあります。</p><div class="ops-grid"><div class="ops-box"><h3>名物</h3><p>食べ物、特産、よく出る小物です。会話の掴みや買い物の言い訳に使えます。</p></div><div class="ops-box"><h3>顔役</h3><p>最初に話を通すと楽な人物です。宿主、秤場守、司灯、代官、渡守など現場の顔を置いています。</p></div><div class="ops-box"><h3>税や通行の癖</h3><p>荷印票、通行証、死亡・埋葬証、冬営協定札、氏族契印など、どの書類や慣習で止まるかを示します。</p></div><div class="ops-box"><h3>夜に起きやすい事件</h3><p>その宿で一晩休んだだけで始められるトラブルです。盗難、齟齬、病、火、失踪、密談を混ぜています。</p></div></div><p class="lead">各街道には、道そのものを回すための三つの表も足しています。季節で何が詰まり、どこで文書が見られ、路上で何に出会うかを、そのままシーンへ起こせます。</p><div class="ops-grid"><div class="ops-box"><h3>季節別の遅延表</h3><p>春夏秋冬ごとの遅れ方です。旅日数の修正だけでなく、何が遅れの原因か、どこへ先に話を通すべきかまで書いています。</p></div><div class="ops-box"><h3>通行証が必要になる境界一覧</h3><p>通行証そのものに加え、荷印票、宿泊証明、死亡・埋葬証、境界通行証、氏族契印など、その場で一緒に見られやすい文書も載せています。</p></div><div class="ops-box"><h3>遭遇表 d8</h3><p>半日ごと、夜の宿ごと、あるいは話が緩んだ瞬間に振るための表です。人・文書・荷・怪異が混ざるようにしてあります。</p></div></div></section>
+<section class="toc">
+<h2>目次</h2>
+<ul>
+<li><a href="#premise">1. 旅の前提と使い方</a></li>
+<li><a href="#map">2. 広域の見取り図</a></li>
+<li><a href="#capital">3. 王都からの距離早見</a></li>
+<li><a href="#overview">4. 路線一覧</a></li>
+<li><a href="#north">5. 北辺路線</a></li>
+<li><a href="#south">6. 巡礼・埋葬・南侯路線</a></li>
+<li><a href="#east">7. 東境路線</a></li>
+<li><a href="#west">8. 西門・工兵路線</a></li>
+<li><a href="#river">9. 河港・保険路線</a></li>
+<li><a href="#urban">10. 起終点で使いやすい大宿・宿屋通り</a></li>
+<li><a href="#landmarks">11. 地名・地形・ランドマーク索引</a></li>
+<li><a href="#index">12. 宿駅総索引</a></li>
+</ul>
+</section>
+<section class="section" id="premise">
+<h2>1. 旅の前提と使い方</h2>
+<div class="grid-2">
+<div class="card">
+<h3>旅は「どこを通るか」ではなく「誰の帳面に載るか」でもある</h3>
+<p>この世界では、旅の安全は<strong>宿駅、巡路会、通行証、荷印票、遺体返送、埋葬記録</strong>で支えられています。街道の外は本当に危なく、速さよりも紹介状や記録の正しさがものを言います。</p>
+<p>だからPCが旅をするときは、「どの宿駅を使うか」「誰の顔で通るか」「荷と死者の記録が合っているか」を考えるだけで、その土地らしい宣言になります。</p>
+</div>
+<div class="card">
+<h3>この資料での距離の目盛り</h3>
+<p>安全な徒歩旅は<strong>1日 = 宿駅1つ = 20〜30km前後</strong>の感覚でまとめています。王都近郊や巡礼路はやや整備がよく、北辺・湿地・山道・森境は同じ1日でも疲れ方が違います。</p>
+<p>宿駅のない支路では、<strong>村会の共同火床・峠番屋・橋小屋・隔離小屋</strong>のような「泊まれるが宿ではない場所」も中継として載せています。</p>
+</div>
+</div>
+<div class="grid-3" style="margin-top:16px">
+<div class="note-box"><strong>安全な徒歩旅</strong><br/>宿駅を一つ渡るごとに1日進む感覚で扱う。</div>
+<div class="note-box"><strong>荷車隊</strong><br/>3日進むごとに半日〜1日ぶんの遅れが自然。</div>
+<div class="note-box"><strong>軽騎・早馬</strong><br/>整備路なら徒歩の半分強まで短縮できる。</div>
+<div class="note-box"><strong>河船</strong><br/>下りは速く、上りは陸路に近づく。水位と霧が大事。</div>
+<div class="note-box"><strong>冬の北辺</strong><br/>2〜3日旅ごとに+1日を見ると補給感が出る。</div>
+<div class="note-box"><strong>森境・墓域</strong><br/>近道の可否は距離より作法と許可で決まる。</div>
+</div>
+<div class="callout" style="margin-top:16px">
+<strong>卓での使いどころ</strong><br/>
+      出自の説明には「どの路の人か」、局面設計には「どの宿駅で何が止まるか」、シナリオ導入には「どの荷・どの死者・どの通行証が詰まったか」を置くと、この世界の実務感が一気に出ます。
+    </div>
+</section>
+<section class="section" id="map">
+<h2>2. 広域の見取り図</h2>
+<p class="lead">縮尺よりも接続感を優先した略図です。主要圏域と主要拠点、どの方向へ街道が伸びるかを掴むための下敷きとして使います。</p>
+<div class="map-card"><svg aria-label="イルセア西部・灰冠時代の広域略図" role="img" viewbox="0 0 920 620">
+<defs>
+<filter height="140%" id="shadow" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="rgba(80,64,40,.18)" stddeviation="3"></fedropshadow>
+</filter>
+<marker id="arrow" markerheight="10" markerunits="strokeWidth" markerwidth="10" orient="auto" refx="8" refy="5">
+<path d="M0,0 L10,5 L0,10 z" fill="#7a5d38"></path>
+</marker>
+</defs>
+<!-- regions -->
+<rect fill="#f6f1e8" height="620" rx="24" width="920" x="0" y="0"></rect>
+<path d="M0 0 L250 0 L220 180 L260 330 L210 530 L0 620 Z" fill="#e7dfd0" stroke="#ccbba4"></path>
+<path d="M700 0 L920 0 L920 620 L760 620 L720 450 L760 250 Z" fill="#e5ecd9" stroke="#bcc9a4"></path>
+<path d="M240 360 C380 330, 500 360, 650 430 L650 620 L160 620 L150 520 Z" fill="#efe3cf" stroke="#d6c4a7"></path>
+<path d="M650 420 C760 380, 850 420, 920 520 L920 620 L650 620 Z" fill="#e8ddc6" stroke="#d0be9f"></path>
+<path d="M250 100 C320 40, 470 30, 620 80 L620 170 L250 170 Z" fill="#e1e5ea" stroke="#c3c9d2"></path>
+<path d="M70 470 C120 420, 210 430, 240 560 L0 620 L0 500 Z" fill="#dde6d2" stroke="#bcc9a4"></path>
+<!-- region labels -->
+<text class="map-region" x="90" y="80">西門圏 / 西鉄嶺</text>
+<text class="map-region" x="325" y="78">北辺圏 / 黒月南縁</text>
+<text class="map-region" x="300" y="220">王領カレディア盆地</text>
+<text class="map-region" x="740" y="88">東境圏 / 東白森</text>
+<text class="map-region" x="250" y="525">南侯圏・聖都墓域</text>
+<text class="map-region" x="38" y="560">河港・自由市圏</text>
+<text class="map-region" x="742" y="535">南東草原</text>
+<!-- rivers -->
+<path d="M820 290 C700 285, 620 300, 520 300 S330 330, 240 420 S170 500, 145 540" fill="none" stroke="#8ab0c9" stroke-linecap="round" stroke-width="16"></path>
+<path d="M420 10 C415 40, 400 70, 390 110 S360 200, 350 250" fill="none" stroke="#97bdd3" stroke-linecap="round" stroke-width="10"></path>
+<path d="M80 220 C130 235, 190 250, 260 270 S320 280, 350 290" fill="none" stroke="#97bdd3" stroke-linecap="round" stroke-width="8"></path>
+<path d="M650 390 C620 420, 575 445, 520 470" fill="none" stroke="#97bdd3" stroke-linecap="round" stroke-width="8"></path>
+<text class="map-water" x="535" y="278">冠河</text>
+<text class="map-water" x="360" y="145">灰背川</text>
+<text class="map-water" x="145" y="232">誓輪川</text>
+<text class="map-water" x="575" y="445">聖泉川</text>
+<text class="map-water" x="95" y="508">葦霧湿地</text>
+<!-- main roads -->
+<g fill="none" stroke="#7a5d38" stroke-linecap="round" stroke-width="4.5">
+<path d="M350 250 L370 110 L390 45 L404 18"></path> <!-- north -->
+<path d="M350 250 L535 260 L735 240"></path> <!-- east -->
+<path d="M350 250 L170 260 L70 160"></path> <!-- west -->
+<path d="M350 250 L360 420 L520 470 L650 390"></path> <!-- south loop -->
+<path d="M650 390 L690 520"></path> <!-- funeral -->
+<path d="M350 250 L170 500"></path> <!-- southwest -->
+</g>
+<!-- dangerous shortcuts -->
+<g fill="none" stroke="#a86d55" stroke-dasharray="10 8" stroke-linecap="round" stroke-width="3.5">
+<path d="M370 110 L390 45"></path> <!-- old beacon -->
+<path d="M535 260 L735 240"></path> <!-- forest shortcut overlay -->
+<path d="M170 260 L70 160"></path> <!-- quarry shortcut overlay -->
+<path d="M650 390 L690 520"></path> <!-- taboo shortcut -->
+</g>
+<!-- route labels -->
+<text class="map-road" x="292" y="170">北星街道</text>
+<text class="map-road" x="393" y="275">書記東道</text>
+<text class="map-road" x="218" y="246">誓橋街道</text>
+<text class="map-road" x="405" y="375">南侯馬道</text>
+<text class="map-road" x="650" y="460">葬列路</text>
+<text class="map-road" x="225" y="385">冠河下り</text>
+<text class="map-short" x="678" y="225">夢返し小径</text>
+<text class="map-short" x="122" y="186">砕石近道</text>
+<text class="map-short" x="392" y="72">烽火古道</text>
+<!-- nodes -->
+<g filter="url(#shadow)">
+<g>
+<circle class="capital" cx="350" cy="250" r="10"></circle>
+<text class="map-city major" x="364" y="246">王都カレディア</text>
+</g>
+<g>
+<circle class="city" cx="650" cy="390" r="9"></circle>
+<text class="map-city major" x="664" y="386">聖都ルーメン</text>
+</g>
+<g>
+<circle class="city" cx="690" cy="520" r="8"></circle>
+<text class="map-city" x="704" y="517">モルディア墓城</text>
+</g>
+<g>
+<circle class="city" cx="535" cy="260" r="8"></circle>
+<text class="map-city" x="549" y="256">セラト学匠市</text>
+</g>
+<g>
+<circle class="city" cx="735" cy="240" r="7"></circle>
+<text class="map-city" x="749" y="236">白樺関</text>
+</g>
+<g>
+<circle class="city" cx="370" cy="110" r="9"></circle>
+<text class="map-city major" x="384" y="106">グレイヴェル</text>
+</g>
+<g>
+<circle class="city" cx="390" cy="45" r="8"></circle>
+<text class="map-city" x="404" y="41">灰砦</text>
+</g>
+<g>
+<circle class="city" cx="404" cy="18" r="7"></circle>
+<text class="map-city" x="418" y="14">狼門砦</text>
+</g>
+<g>
+<circle class="city" cx="520" cy="80" r="6"></circle>
+<text class="map-city" x="534" y="76">霜泊村</text>
+</g>
+<g>
+<circle class="city" cx="170" cy="260" r="8"></circle>
+<text class="map-city" x="184" y="256">アルシェ橋塞市</text>
+</g>
+<g>
+<circle class="city" cx="70" cy="160" r="7"></circle>
+<text class="map-city" x="84" y="156">ヘルム坑</text>
+</g>
+<g>
+<circle class="city" cx="170" cy="500" r="9"></circle>
+<text class="map-city major" x="184" y="496">ノールハーフェン</text>
+</g>
+<g>
+<circle class="city" cx="360" cy="420" r="8"></circle>
+<text class="map-city" x="374" y="416">ブレダン軍馬市</text>
+</g>
+<g>
+<circle class="city" cx="520" cy="470" r="8"></circle>
+<text class="map-city" x="534" y="466">ラーケン修院市</text>
+</g>
+<g>
+<circle class="tower" cx="780" cy="200" r="6"></circle>
+<text class="map-city" x="794" y="196">境見の塔</text>
+</g>
+<g>
+<circle class="waypoint" cx="380" cy="180" r="5.5"></circle>
+<text class="map-city small" x="394" y="176">凍河宿エッダ</text>
+</g>
+</g>
+<!-- north arrow -->
+<g transform="translate(842 70)">
+<path d="M0 40 L18 0 L36 40" fill="none" stroke="#5e5143" stroke-width="4"></path>
+<text class="map-legend-label" text-anchor="middle" x="18" y="58">北</text>
+</g>
+<!-- legend -->
+<g transform="translate(28 24)">
+<rect fill="#fffdf8" height="108" rx="14" stroke="#d7c9b2" width="250" x="0" y="0"></rect>
+<circle class="capital" cx="18" cy="22" r="6.5"></circle><text class="map-legend-label" x="34" y="27">王国の中心拠点</text>
+<circle class="city" cx="18" cy="46" r="5.5"></circle><text class="map-legend-label" x="34" y="51">主要拠点</text>
+<circle class="tower" cx="18" cy="70" r="4.5"></circle><text class="map-legend-label" x="34" y="75">観測塔・中継地</text>
+<line stroke="#7a5d38" stroke-linecap="round" stroke-width="4.5" x1="136" x2="184" y1="22" y2="22"></line><text class="map-legend-label" x="194" y="27">安全路</text>
+<line stroke="#a86d55" stroke-dasharray="10 8" stroke-linecap="round" stroke-width="3.5" x1="136" x2="184" y1="46" y2="46"></line><text class="map-legend-label" x="194" y="51">危険な近道</text>
+<line stroke="#8ab0c9" stroke-linecap="round" stroke-width="8" x1="136" x2="184" y1="70" y2="70"></line><text class="map-legend-label" x="194" y="75">河路</text>
+<text class="map-legend-note" x="16" y="97">※ 方角と接続感を優先した運用用略図</text>
+</g>
+</svg></div>
+</section>
+<section class="section" id="capital">
+<h2>3. 王都からの距離早見</h2>
+<p class="lead">王都カレディアを基準に、卓で即答しやすい距離感へ直した表です。北辺と河港は数字以上に遠く、聖都は数字以上に人が多いので、単純な日数より段取りが旅程を左右します。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>到着地</th><th>方角</th><th>安全路の目安</th><th>補足</th></tr></thead>
+<tbody><tr><td><strong>聖都ルーメン</strong></td><td>南東</td><td>徒歩4日</td><td>巡礼路の本線。急使なら3日。</td></tr><tr><td><strong>グレイヴェル</strong></td><td>真北</td><td>徒歩6日</td><td>北辺の玄関口。荷車は7日見込み。</td></tr><tr><td><strong>灰砦</strong></td><td>北北東</td><td>徒歩10日</td><td>グレイヴェル経由。補給停止が政治問題になる。</td></tr><tr><td><strong>狼門砦</strong></td><td>真北</td><td>徒歩13日</td><td>王国北の喉元。冬はさらに+1〜2日。</td></tr><tr><td><strong>セラト学匠市</strong></td><td>東南東</td><td>徒歩3日</td><td>文書・写本・学徒の町。</td></tr><tr><td><strong>白樺関</strong></td><td>東北東</td><td>徒歩5日</td><td>セラト経由。関税と作法の門。</td></tr><tr><td><strong>アルシェ橋塞市</strong></td><td>西</td><td>徒歩3日</td><td>大橋と関税の要。</td></tr><tr><td><strong>ヘルム坑</strong></td><td>西北西</td><td>徒歩6日</td><td>アルシェ経由。工兵と鉱山の町。</td></tr><tr><td><strong>ブレダン軍馬市</strong></td><td>真南</td><td>徒歩3日</td><td>南侯の軍馬市場。</td></tr><tr><td><strong>ラーケン修院市</strong></td><td>南東</td><td>徒歩5日</td><td>ブレダン経由で2日追加。</td></tr><tr><td><strong>モルディア墓城</strong></td><td>南東</td><td>徒歩6日</td><td>聖都経由。死者記録の城塞市。</td></tr><tr><td><strong>ノールハーフェン</strong></td><td>南西</td><td>徒歩5日 / 河船下り3日</td><td>保険と倉庫の河港都市。</td></tr></tbody>
+</table>
+</div>
+</section>
+<section class="section" id="overview">
+<h2>4. 路線一覧</h2>
+<p class="lead">全路線を見渡すための早見表です。詳しい宿駅表はこの次の各章にあります。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>路線</th><th>結ぶ場所</th><th>方角</th><th>安全路</th><th>急ぎなら</th><th>主な人と荷</th></tr></thead>
+<tbody><tr><td><a href="#northstar">北星街道</a></td><td>王都カレディア → グレイヴェル</td><td>真北</td><td>徒歩6日</td><td>軽騎4日 / 荷車7日 / 初雪と雪解けは+1日</td><td>穀物、塩、兵徴、役文書、開拓民、北辺向けの雑貨</td></tr><tr><td><a href="#wolfroad">狼門軍道</a></td><td>グレイヴェル → 灰砦・狼門砦</td><td>北北東→真北</td><td>グレイヴェル→灰砦4日 / 灰砦→狼門砦3日</td><td>烽火古道で合計5〜6日。ただし旧宿駅跡と尾根路の危険が大きい。</td><td>塩、矢材、石灰、炉契鋲、壁材、病人、徴募兵、冬支度の品</td></tr><tr><td><a href="#shimofune">霜泊支路</a></td><td>灰砦 → 霜泊村</td><td>東北東</td><td>徒歩1日半</td><td>狩手の踏み道で1日。荷馬は通しにくい。</td><td>燻製肉、毛皮、薪、村会文書、若者の往来</td></tr><tr><td><a href="#pilgrimage">白冠巡礼道</a></td><td>王都カレディア → 聖都ルーメン</td><td>南東</td><td>徒歩4日</td><td>急使の軽騎なら3日。南侯私道を抜ける裏道も3日だが検分と通行料で揉めやすい。</td><td>巡礼者、誓約文書、寄進、病人、護符、聖職者の使い</td></tr><tr><td><a href="#funeral">葬列路</a></td><td>聖都ルーメン → モルディア墓城</td><td>真南</td><td>徒歩2日</td><td>白灰脇道なら1日半。ただし正規の葬列にはほぼ使えない。</td><td>遺体、石灰、納骨記録、遺族、供物、不死者対策の物資</td></tr><tr><td><a href="#horse">南侯馬道</a></td><td>王都カレディア → ブレダン軍馬市</td><td>真南</td><td>徒歩3日</td><td>騎手なら2日弱</td><td>軍馬、飼葉、鞍、蹄鉄、徴発文書、従士</td></tr><tr><td><a href="#bellherb">鐘薬道</a></td><td>ブレダン軍馬市 → ラーケン修院市・聖都ルーメン</td><td>東南東→北東</td><td>ブレダン→ラーケン2日 / ラーケン→聖都2日</td><td>軽馬の早駆けなら合計3日</td><td>薬草、負傷馬、病人、写本、鐘楼の報せ、避難民</td></tr><tr><td><a href="#scribe">書記東道</a></td><td>王都カレディア → セラト学匠市</td><td>東南東</td><td>徒歩3日</td><td>早馬2日</td><td>公文書、写本、星墨、地図、学徒、弁論のための証拠箱</td></tr><tr><td><a href="#birch">白樺路</a></td><td>セラト学匠市 → 白樺関</td><td>東北東</td><td>徒歩2日</td><td>夢返し小径を知る案内付きなら1日</td><td>通行証、樹脂、境界糸、白森向けの記録具、白森帰りの珍品</td></tr><tr><td><a href="#tower">森境観測路</a></td><td>白樺関 → 境見の塔</td><td>真東</td><td>記録官同行で徒歩1日</td><td>道を知る者なら半日強。無断侵入では帰路が倍になることもある。</td><td>観測記録、封門照会、境界糸、森産樹脂の少量輸送</td></tr><tr><td><a href="#bridge">誓橋街道</a></td><td>王都カレディア → アルシェ橋塞市</td><td>西</td><td>徒歩3日</td><td>軽騎2日</td><td>橋材、石灰、軍用車輪、関税文書、補給隊</td></tr><tr><td><a href="#iron">鉄塩街道</a></td><td>アルシェ橋塞市 → ヘルム坑</td><td>西北西</td><td>徒歩3日</td><td>砕石近道で2日。ただし崩れやすい。</td><td>鉱石、塩、工具、坑木、炉契鋲、工兵部材</td></tr><tr><td><a href="#pass">炉煙峠越え</a></td><td>ヘルム坑 → 西鉄嶺の盟約門前</td><td>西</td><td>徒歩2日</td><td>軽身なら1日半。冬は逆に+1日。</td><td>高品質鍛材、契約文、氏族間の贈答、炉契具</td></tr><tr><td><a href="#towpath">下り河堤道</a></td><td>王都河港 → ノールハーフェン</td><td>南西</td><td>徒歩5日</td><td>湿地抜けで4日。ただし盗賊と河霧が増える。</td><td>穀物、羊毛、樽、保険証文、現銀、王都発の封印荷</td></tr><tr><td><a href="#barge">冠河下り</a></td><td>王都河港 → ノールハーフェン</td><td>川下り</td><td>下り3日 / 上り5〜6日</td><td>追風と水位が揃えば下り2日半</td><td>川船便の急送荷、現銀、写本箱、密輸荷、遺体の秘密搬送</td></tr><tr><td><a href="#bridgeport">河税荷道</a></td><td>アルシェ橋塞市 → ノールハーフェン</td><td>北北東→南西</td><td>徒歩4日</td><td>河船と短い陸揚げを組み合わせれば3日</td><td>橋塞で止まった荷、再計量の穀物、関税証文、西門圏の鍛材</td></tr></tbody>
+</table>
+</div>
+</section>
+<section class="section" id="north">
+<h2>北辺路線</h2>
+<p class="lead">王都から北へ伸びる街道群。南半は穀倉と徴税の路、北半は補給と再建の路で、四日目以北から旅の空気がはっきり変わる。</p>
+<section class="route-card" id="northstar">
+<div class="route-head">
+<div>
+<h3>北星街道</h3>
+<p class="route-line"><strong>王都カレディア</strong> から <strong>グレイヴェル</strong> へ。南は白麦平野の開けた路、北は灰環丘陵の寒い路。石柵宿を越えると『王都の旅』ではなく『北辺入り』として扱われる。</p>
+</div>
+<div class="pill-row"><span class="pill">真北</span><span class="pill soft">安全路 徒歩6日</span><span class="pill soft">急ぎなら 軽騎4日 / 荷車7日 / 初雪と雪解けは+1日</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>巡路会、王都文官派、北辺総監府</span></div>
+<div><span class="k">この路を流れるもの</span><span>穀物、塩、兵徴、役文書、開拓民、北辺向けの雑貨</span></div>
+<div><span class="k">近道・危険道</span><span>灰環丘陵の旧税路を急げば5日だが、勝手関所と追い剥ぎに遭いやすい。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>白麦門宿</strong><div class="sub">王都から北へ1日</div></td><td>厩舎、穀秤、荷札所、農具屋</td><td>麦荷の隊商、税吏、季節雇い</td><td>収穫期は徴税争いと荷印票の不備が頻発する。</td></tr><tr><td>2日目</td><td><strong>灰柳宿</strong><div class="sub">白麦門宿から1日</div></td><td>井戸、荷車修理場、染め小屋、小礼拝堂</td><td>荷運び組合、巡礼崩れ、北向きの旅商</td><td>橋板の傷みと泥濘で荷車が滞りやすい。</td></tr><tr><td>3日目</td><td><strong>三炬渡し</strong><div class="sub">灰柳宿から1日</div></td><td>渡し場、番舎、路標灯、川霧鐘</td><td>使者、早馬、橋務役、護衛</td><td>増水期は渡し賃が跳ね上がり、偽通行証も出回る。</td></tr><tr><td>4日目</td><td><strong>石柵宿</strong><div class="sub">三炬渡しから1日</div></td><td>木柵宿、蹄鉄場、塩倉、見張り台</td><td>辺境兵、狩人、北帰りの開拓民</td><td>ここから先は私兵の勝手検分が始まりやすい。</td></tr><tr><td>5日目</td><td><strong>凍見台宿</strong><div class="sub">石柵宿から1日</div></td><td>風除け小屋、狼煙台、薪場、共同釜</td><td>難民列、巡路会の遅れ便、村会の使い</td><td>冬は凍傷、秋は狼害、春は補給不足が問題になる。</td></tr><tr><td>6日目</td><td><strong>グレイヴェル・狼泊大宿</strong><div class="sub">凍見台宿から1日</div></td><td>隊商宿、北図の棚、荷役場、装備更新の店並み</td><td>冒険者、護送人、総監府の使者、難民</td><td>街に入った途端に荷と人の値段が北辺相場へ変わる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>白麦門宿</strong></td><td>焦がし麦餅と計量済み麦袋</td><td>秤場守ミラ・白麦</td><td>北行き荷は朝夕二度、荷印票と穀秤印を見せる。種籾混載は別帳に回される。</td><td>徴税逃れの荷が夜中に麦袋へ潜り込み、朝の秤で斤量が合わなくなる。</td></tr><tr><td><strong>灰柳宿</strong></td><td>灰柳染めの手綱布と泥除け布</td><td>車輪親方ヨスタ</td><td>荷車は泥損補修銀を先に預ける慣習。橋板を痛めた車輪は出立前に焼印を押される。</td><td>修理待ちの荷車から荷札だけが抜かれ、別の荷へ差し替えられる。</td></tr><tr><td><strong>三炬渡し</strong></td><td>三本灯の渡し粥と川魚の燻し</td><td>渡守オルネ</td><td>渡し賃のほかに灯油代を取る。病人と死者を載せた舟は順番が繰り上がる。</td><td>川霧の夜、荷馬だけが対岸から戻り、同乗者の名前だけが帳面に残る。</td></tr><tr><td><strong>石柵宿</strong></td><td>石塩焼きの干し肉と蹄鉄打ち直し</td><td>柵番ドレフ</td><td>矢材・武具・塩はここから北辺扱いの別帳。私兵の勝手検分が入りやすい。</td><td>木柵の外で検分待ちの荷から、兵用塩だけがごっそり抜かれる。</td></tr><tr><td><strong>凍見台宿</strong></td><td>凍見茶と風除け皮幕</td><td>見張り女エルサ</td><td>北辺向け通行証の期限を厳しく見る。冬支度の薄い旅人は共同釜銀を追加で払う。</td><td>狼煙台に偽灯が上がり、北行き隊商が夜道へ誘い出される。</td></tr><tr><td><strong>グレイヴェル・狼泊大宿</strong></td><td>厚塩の煮込みと防寒革帯</td><td>ハンナ・ローク</td><td>宿帳照会と討伐札の確認が同時に行われる。無札は馬囲いに入れない。</td><td>掲示板の依頼が朝には剥がされ、代わりに黒札筋の誘い文が貼られている。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日〜1日</td><td>雪解け水で三炬渡しと丘陵裾がぬかるみ、種籾と農具の北行きが優先される。</td><td>急ぎ便でも渡し場待ちを見込む。大荷は白麦門宿で車輪と荷札を先に見せると揉めにくい。</td></tr><tr><td>夏</td><td>±0〜+半日</td><td>日が長く歩きやすいが、開拓民列・徴発文書・季節雇いが重なり、宿の厩舎が先に埋まる。</td><td>軽騎は速い。荷車は夕刻入りを避け、宿帳を早めに押さえる。</td></tr><tr><td>秋</td><td>+半日</td><td>収穫と納税で南側の秤場が混み、北へ向かう塩荷・雑貨荷が税吏に何度も止められる。</td><td>麦荷の列を避けるなら早朝に王都を出る。北行きは荷印票を二通持つと安心。</td></tr><tr><td>冬</td><td>+1〜2日</td><td>凍見台より北は吹雪と凍傷が敵。共同釜待ちと狼煙確認で、歩数より半日の刻みが重くなる。</td><td>単独行は避け、石柵宿で防寒と薪札を整える。軽装は北行きを断られることがある。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都北門〜白麦門宿</td><td>城門番は大荷と武装集団を先に止める。</td><td>荷印票、紹介状、役文書の控え。夜明け前後の再入都は都門の許しがあると早い。</td><td>荷主名と荷札が噛み合わないと半日待ち。税吏立会いまで車列ごと足止め。</td></tr><tr><td>三炬渡し</td><td>増水期と霧夜は、先に誰を渡すかで揉める。</td><td>通行証、宿帳の写し、病人や死者なら死亡・埋葬証。</td><td>順番が後ろへ回される。偽通行証を疑われると対岸照会が入る。</td></tr><tr><td>石柵宿以北</td><td>ここから北辺入りとして扱われる。</td><td>通行証、塩・矢材・武具の荷印票、開拓民列なら引受け先の書付け。</td><td>無札のままでも歩けるが、宿と馬囲いを断られやすい。私兵の勝手検分も増える。</td></tr><tr><td>凍見台宿〜グレイヴェル</td><td>難民列・徴募兵・開拓帰りが交錯し、人の身元照会が厳しくなる。</td><td>宿帳照会、短期通行証、徴募札や雇入れ証。</td><td>素性不明の旅人として外縁の仮小屋へ回され、朝の照会待ちになる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>白麦門宿で北行きの麦袋が一つだけ斤量違い</td><td>秤場守は列全体を止める気だが、荷運び組合は先へ出したがる。</td><td>袋の中身を替えたのは盗みではなく、徴税逃れを頼まれた農家の若者。</td></tr><tr><td>2</td><td>灰柳宿の橋板が割れ、荷車が一台傾く</td><td>誰の荷を先に下ろすかで怒号が飛ぶ。</td><td>橋板は自然損耗ではなく、旧税路へ流したい者が昨夜外した。</td></tr><tr><td>3</td><td>三炬渡しで、馬だけが対岸から戻る</td><td>乗っていたはずの使者の名前だけ帳面に残る。</td><td>川霧の中で偽舟が応答しており、使者は旧税路へ抜かれた可能性が高い。</td></tr><tr><td>4</td><td>石柵宿で私兵が荷車を開けさせたがる</td><td>通行証はあるのに、塩と矢材だけ念入りに見たがる。</td><td>北辺へ届く前に補給を一部抜くため、私兵と倉方が組んでいる。</td></tr><tr><td>5</td><td>凍見台宿の狼煙が二度続けて上がる</td><td>本物の急報か、北行き隊商を夜道へ出す偽灯か判別しづらい。</td><td>丘の向こうで勝手関所が動き、偽灯で列を散らして狙っている。</td></tr><tr><td>6</td><td>開拓帰りの一家が、荷よりも埋葬記録を抱いている</td><td>子の名を村会に残したいと泣きついてくる。</td><td>帰路で死者を出し、正式な死亡・埋葬証を出せる灯院を探している。</td></tr><tr><td>7</td><td>北帰りの冒険者が『旧税路は近い』と吹く</td><td>宿の若者たちが半日縮めようとしている。</td><td>近いのは本当だが、今夜は待ち伏せ役がすでに入っている。</td></tr><tr><td>8</td><td>グレイヴェル目前で、掲示板に貼るはずの依頼札が消える</td><td>依頼主は金を積むから黙って探せと言う。</td><td>依頼札を剥がしたのは黒札筋ではなく、北辺総監府の使いが内容を嫌ったため。</td></tr></tbody></table></div></section>
+<section class="route-card" id="wolfroad">
+<div class="route-head">
+<div>
+<h3>狼門軍道</h3>
+<p class="route-line"><strong>グレイヴェル</strong> から <strong>灰砦・狼門砦</strong> へ。補給がそのまま政治になる路線。井戸一本、水路一本の遅れが、砦の存亡や村会の不信に直結する。</p>
+</div>
+<div class="pill-row"><span class="pill">北北東→真北</span><span class="pill soft">安全路 グレイヴェル→灰砦4日 / 灰砦→狼門砦3日</span><span class="pill soft">急ぎなら 烽火古道で合計5〜6日。ただし旧宿駅跡と尾根路の危険が大きい。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>辺境総監府、工兵、守囲兵、自由村、商館護送人</span></div>
+<div><span class="k">この路を流れるもの</span><span>塩、矢材、石灰、炉契鋲、壁材、病人、徴募兵、冬支度の品</span></div>
+<div><span class="k">近道・危険道</span><span>烽火古道は早いが、旧埋葬地と崩れ尾根を踏む。狼歯尾根の山道も使えるが、悪天候時は命数勘定の近道。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>灰尾宿</strong><div class="sub">グレイヴェルから1日</div></td><td>荷馬囲い、乾草置場、馬鍛冶、夜番小屋</td><td>隊商護衛、毛皮商、塩荷の先行隊</td><td>荷札の差し替えと夜間の盗み見が起きやすい。</td></tr><tr><td>2日目</td><td><strong>凍河宿エッダ</strong><div class="sub">灰尾宿から1日</div></td><td>宿、隔離井戸、煮沸場、小病舎、死者確認帳場</td><td>癒灯士、巡路会、疫病避けの旅人</td><td>水源汚染、遺体確認、隔離命令の押し付け合いが起こる。</td></tr><tr><td>3日目</td><td><strong>烽火台宿</strong><div class="sub">凍河宿エッダから1日</div></td><td>烽火台、石灰穴、弩矢庫、風除け厩舎</td><td>工兵、弩兵、前線書記</td><td>虚偽の烽火報と配給の抜けがしばしば問題になる。</td></tr><tr><td>4日目</td><td><strong>灰砦・木柵の宿『灰盃亭』</strong><div class="sub">烽火台宿から1日</div></td><td>宿兼酒場、井戸広場、工兵倉、市、灯院</td><td>村人、守囲兵、獣人使節、遺跡拾い</td><td>壁修繕、配給、相続、異種族折衝が同じ広場で揉める。</td></tr><tr><td>5日目</td><td><strong>矢継宿</strong><div class="sub">灰砦から北へ1日</div></td><td>矢羽整え場、荷ぞり置場、材木柵</td><td>矢材荷、弓兵、木工職人</td><td>矢材の消失と木札未登録の荷がよく出る。</td></tr><tr><td>6日目</td><td><strong>雪爪宿</strong><div class="sub">矢継宿から1日</div></td><td>雪囲い宿、そり場、路標灯芯庫、予備糧倉</td><td>北上の兵、狼門急使、難民の戻り組</td><td>吹雪で道標が消え、宿そのものが埋まることがある。</td></tr><tr><td>7日目</td><td><strong>狼門砦前・終矢宿</strong><div class="sub">雪爪宿から1日</div></td><td>砦前宿、戦傷馬柵、聖別庫の外置場</td><td>守囲兵、諸侯の視察団、砦詰め工兵</td><td>徴発、通行停止、砦内持込の検分が最も厳しい。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>灰尾宿</strong></td><td>塩燻魚と荷馬の爪鉄</td><td>荷場頭ゲッサ</td><td>荷札と馬口数を夜番交代前に照合する。塩荷は一袋ごとに封紐の色を改める。</td><td>荷札の結び目だけが切られ、同じ塩荷が別荷として数え直される。</td></tr><tr><td><strong>凍河宿エッダ</strong></td><td>温塩湯と隔離用の白布面</td><td>隔離司灯ネア</td><td>発熱者が出た隊は宿帳と別に隔離帳へ載る。死者が出た場合は出立前に照合必須。</td><td>井戸の水が濁り、死者台帳にない名で葬送布が一枚増えている。</td></tr><tr><td><strong>烽火台宿</strong></td><td>薪脂団子と狼煙油</td><td>狼煙番ミコル</td><td>日没後の通過は護送証がないと難しい。伝令馬は厩銀を免除される。</td><td>偽の烽火が一本上がり、別働の護衛隊が空の道へ走らされる。</td></tr><tr><td><strong>灰砦・木柵の宿『灰盃亭』</strong></td><td>灰麦粥と鍋塩</td><td>ベオル・サン</td><td>北向き塩荷は宿で荷印票を見せて配分先を記す。守囲兵の糧札が優先される。</td><td>糧秣簿の数と厩の口数が合わず、夜のうちに誰かが兵糧を抜いている。</td></tr><tr><td><strong>矢継宿</strong></td><td>矢羽束と獣脂火皿</td><td>羽矢職リンダ</td><td>矢材・弦・鏃は兵札持ちへ先売り。軍需証文は額面より安く買い叩かれやすい。</td><td>納めるはずの矢束が一夜で粗製品にすり替わり、封蝋だけ本物のまま残る。</td></tr><tr><td><strong>雪爪宿</strong></td><td>雪爪羹と凍傷膏</td><td>宿母スロヴァ</td><td>皮幕のない旅人は共同炉銀を払う。夜明け前の出立は足跡確認まで認めない。</td><td>新雪の上で足跡が途中から消え、追うべき相手が人か獣か分からなくなる。</td></tr><tr><td><strong>狼門砦前・終矢宿</strong></td><td>終矢鍋と濃塩干し肉</td><td>副囲長エルム</td><td>砦入りでは矢数・塩斤数・同行名を終矢帳へ記す。遺体返送の荷が最優先。</td><td>補修報告は足りているのに、夜の壁から石灰と釘だけが消えていく。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+1日</td><td>雪解月は柵・橋・水路の損傷確認が先に立ち、補修資材の列が最優先になる。</td><td>兵や工兵に道を譲る前提で動く。灰尾宿までに壁材の荷印票を揃えておくと速い。</td></tr><tr><td>夏</td><td>±0〜+半日</td><td>もっとも重い荷を通しやすい時期。だが工兵契約と開拓流入で宿ごとの空きが薄い。</td><td>荷車は進みやすい。逆に軽装のよそ者は無札潜りと疑われやすい。</td></tr><tr><td>秋</td><td>+半日〜1日</td><td>備蓄と秋遠征準備で、塩・矢材・石灰が一気に詰まる。旧戦場まわりの霧も濃い。</td><td>灰砦で一泊して、先の枠を押さえてから狼門へ出るのが安全。</td></tr><tr><td>冬</td><td>+2〜4日 / ときに閉鎖</td><td>北辺見張りと吹雪が最優先。終矢宿以北は護衛つきの通し便しか動かない日もある。</td><td>死者返送と急病便は最優先だが、旅人は灰砦で足止めを食う前提で食糧を持つ。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>グレイヴェル北外</td><td>ここから先は補給路であり、旅人も軍務の目で見られる。</td><td>通行証、討伐札や組合依頼書、武装集団なら雇入れ証や紹介状。</td><td>無札なら北向き宿で馬を借りにくい。路上検分の回数も増える。</td></tr><tr><td>凍河宿エッダの隔離線</td><td>病と水源汚染の噂が立つと、宿の手前に臨時の止め札が出る。</td><td>灯院の証、病人名簿、施療引継ぎの書付け。</td><td>隔離待ちになり、その夜は同じ火床を他客と分けてもらえない。</td></tr><tr><td>灰砦門前</td><td>兵站判断と防衛判断が最優先。</td><td>通行証、塩・矢材・石灰・壁材の荷印票、守囲糧秣簿の照会、工兵徴用札。</td><td>『荷は入るが人は待て』が起こる。優先荷だけ取り上げられ、本人は翌朝照会になる。</td></tr><tr><td>灰砦〜狼門砦</td><td>北端の実戦路。夜通しは例外扱い。</td><td>守囲司令印の通行証、終矢帳への同行名記入、死亡・埋葬証を添えた遺体返送札。</td><td>日暮れ以後は原則停止。無断通過は密輸か敵探りとして追われる。</td></tr><tr><td>獣人使節や交換使同行時</td><td>停戦と越境交渉が絡むため、文書の重みが一段上がる。</td><td>冬営協定札またはその写し、捕虜交換記録、通商役の印。</td><td>片方の印しかないと、その場で停戦破りの疑いをかけられる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>灰尾宿で壁材の荷が一車分だけ消える</td><td>荷役頭は帳面を守りたい。工兵は今すぐ追いたい。</td><td>抜いたのは盗賊ではなく、下流で工兵予算を抜く者の手先。</td></tr><tr><td>2</td><td>凍河宿エッダで井戸が封じられている</td><td>宿主は病だと言うが、匂いはただの腐れ水ではない。</td><td>自然汚染でなく死者汚染で、境門院へ報せるべき案件。</td></tr><tr><td>3</td><td>烽火台宿で昨夜の狼煙記録が一行消えている</td><td>誰がどの刻に火を上げたか、証言が揃わない。</td><td>本物の急報を隠し、別件を優先したい者が帳面へ手を入れた。</td></tr><tr><td>4</td><td>灰盃亭に戻った徴募兵が、狼門は持つと言い張る</td><td>だが装備と顔つきが、途中で引き返した者のそれに見える。</td><td>虚偽の補修報告で砦予算が抜かれており、見たことを話せない。</td></tr><tr><td>5</td><td>矢継宿で塩俵の封が無事なまま、中身だけ軽い</td><td>運び手も宿番も封には触っていないと言う。</td><td>袋の底を開けて詰め直す古いやり口で、内通者は前宿にいる。</td></tr><tr><td>6</td><td>雪爪宿の外で旧埋葬地を踏んだ足跡が見つかる</td><td>近道を使った者がいるらしい。</td><td>旧戦場由来の強不死者を刺激しており、今夜だけ静かすぎる。</td></tr><tr><td>7</td><td>狼門前で、遺体返送の荷が最優先で列を抜く</td><td>兵も商人も文句を飲み込むしかない。</td><td>返される死者の中に、名を偽っていた密使が一人混じっている。</td></tr><tr><td>8</td><td>吹雪の切れ間に、獣人の冬営使節が単騎で現れる</td><td>荷より先に停戦札の照会を頼んでくる。</td><td>誰かが先に使節を襲い、停戦を壊しかけている。</td></tr></tbody></table></div></section>
+<section class="route-card" id="shimofune">
+<div class="route-head">
+<div>
+<h3>霜泊支路</h3>
+<p class="route-line"><strong>灰砦</strong> から <strong>霜泊村</strong> へ。正式な宿駅路ではなく、自由村の共同体の路。紹介がない旅人は『道を歩けても家に入れない』。</p>
+</div>
+<div class="pill-row"><span class="pill">東北東</span><span class="pill soft">安全路 徒歩1日半</span><span class="pill soft">急ぎなら 狩手の踏み道で1日。荷馬は通しにくい。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>村会、狩手、灰砦の使い、見張り当番</span></div>
+<div><span class="k">この路を流れるもの</span><span>燻製肉、毛皮、薪、村会文書、若者の往来</span></div>
+<div><span class="k">近道・危険道</span><span>雪期は川筋ではなく林の高みを回る。時間は半日伸びるが道迷いは減る。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>半日</td><td><strong>狩人橋小屋</strong><div class="sub">灰砦から半日</div></td><td>焚火床、橋番箱、獣除け柵</td><td>狩手、村会の若者、木材運び</td><td>橋板の張り替えと誰を村へ通すかで揉める。</td></tr><tr><td>1日半</td><td><strong>霜泊村</strong><div class="sub">狩人橋小屋から1日</div></td><td>村会長屋、共同穀倉、燻製小屋、見張り台、避難穴倉</td><td>自由村民、民兵、灰砦へ出る若者</td><td>共同備蓄と外部者の立入許可が常に争点になる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>狩人橋小屋</strong></td><td>煙肉串と罠縄</td><td>橋小屋番ノル</td><td>村の狩人はまとめて一枚の通行札で通る。外来者は炭板に名を残すのが慣習。</td><td>橋の下で仕掛け罠が切られ、獣ではなく人の血が少しだけ残る。</td></tr><tr><td><strong>霜泊村</strong></td><td>凍魚汁と白樹皮の籠</td><td>村会頭ヘイダ</td><td>正式な関税はないが、よそ者は塩・針・灯芯のいずれかを村会へ納めるのが礼。</td><td>戻らない狩手が出て、残された雪上の合図が村の慣習と食い違っている。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>沢筋が解け、狩人橋小屋まわりの踏み板が不安定になる。</td><td>灰砦で渡しの様子を聞いてから出る。荷馬は一頭ずつ通す前提。</td></tr><tr><td>夏</td><td>±0</td><td>もっとも歩きやすいが、村の若者は狩りと薪取りで家を空けがち。</td><td>道は短い。代わりに、誰が迎えるかを先に決めておく。</td></tr><tr><td>秋</td><td>+半日</td><td>燻製場と毛皮干しの仕事が重く、案内役の手が空きにくい。熊と狼も近い。</td><td>夕刻入りは避ける。村会へ先触れを出せば火床の用意が早い。</td></tr><tr><td>冬</td><td>+1日</td><td>沢より林の高みが安全になる。煙見張りと足跡読みで時間を取る。</td><td>半日で着く話は捨てる。灰砦で同行者と火口数を決めてから出る。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>灰砦東門</td><td>正式宿駅路ではないため、道そのものより受け入れ先が見られる。</td><td>灰砦の紹介状、村会宛ての書付け、見張り当番名。</td><td>道は通れても、村で火を分けてもらえない。外泊扱いになる。</td></tr><tr><td>狩人橋小屋</td><td>毛皮・燻肉・罠具の束は、税よりも村会の目で見られる。</td><td>村会の焼印、狩手札、必要なら荷印票。</td><td>よそ者荷として没収まではされないが、村で売れなくなる。</td></tr><tr><td>霜泊村の病人・死者搬送</td><td>共同体の名簿と埋葬順が重い。</td><td>灯院の照会、死亡・埋葬証、引取り先の名。</td><td>身元不明のまま村に入ると、共同墓地の外で朝まで止まる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>狩人橋小屋で、罠にかかった獣より先に人の荷が吊られている</td><td>誰かが荷を湿気から守るため勝手に罠木を使った。</td><td>村の若者と灰砦使いが、誰の道かで張り合っている。</td></tr><tr><td>2</td><td>霜泊村の子が、灰砦へ出すはずの手紙をなくした</td><td>本人は道で白い影を見たと怯える。</td><td>手紙は落としたのでなく、村の大人が読んで止めた。</td></tr><tr><td>3</td><td>煙見台から短い煙が三本上がる</td><td>狩りの合図か、村会の招きか判断がつかない。</td><td>この合図は『よそ者あり、ただし敵ではない』の印。意味を知らない同行者が騒ぎやすい。</td></tr><tr><td>4</td><td>林で会った猟師が、村へ入る前に名乗りと贈り物を要求する</td><td>理不尽に見えるが、この土地では礼儀の一部。</td><td>少し前に無札の流れ者が家へ押し入り、村が神経質になっている。</td></tr><tr><td>5</td><td>沢の氷に、狼でも人でもない歩幅の跡がつく</td><td>村人は騒がず、ただ日暮れ前に戻れと言う。</td><td>ただの大鹿かもしれないし、古い境の踏み跡かもしれない。</td></tr><tr><td>6</td><td>燻製小屋から肉でなく文書箱の匂いがする</td><td>村会文書をなぜ煙に当てているのか。</td><td>湿気で読めなくなる前に、灰砦へ出す名簿を乾かしている。</td></tr><tr><td>7</td><td>村の見張り当番が、戻るはずの刻に戻らない</td><td>雪なら珍しくないが、今夜はまだ降っていない。</td><td>見張りは狼ではなく、灰砦から来る予定の使者を先に拾っている。</td></tr><tr><td>8</td><td>霜泊村で『泊まっていけ』と言われた相手が二人いる</td><td>一方は村会、もう一方は個人の家。どちらへ泊まるかで顔が立つ。</td><td>村の中で、灰砦との距離をどう取るかの空気が割れている。</td></tr></tbody></table></div></section>
+</section>
+<section class="section" id="south">
+<h2>巡礼・埋葬・南侯路線</h2>
+<p class="lead">王都と聖都、南侯圏、墓域を結ぶ路線群。人が多く、儀礼や通行証がものを言う。速さより、誰の顔で通るかが旅程を左右する。</p>
+<section class="route-card" id="pilgrimage">
+<div class="route-head">
+<div>
+<h3>白冠巡礼道</h3>
+<p class="route-line"><strong>王都カレディア</strong> から <strong>聖都ルーメン</strong> へ。秩序だった旅に見えるが、失踪巡礼者、偽聖印、寄進の横流しが絶えない。宿の帳面は宿賃より身元の証明として重い。</p>
+</div>
+<div class="pill-row"><span class="pill">南東</span><span class="pill soft">安全路 徒歩4日</span><span class="pill soft">急ぎなら 急使の軽騎なら3日。南侯私道を抜ける裏道も3日だが検分と通行料で揉めやすい。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>巡路会本庁、巡礼宿組合、大神殿、王冠庁</span></div>
+<div><span class="k">この路を流れるもの</span><span>巡礼者、誓約文書、寄進、病人、護符、聖職者の使い</span></div>
+<div><span class="k">近道・危険道</span><span>南侯私道は速いが、私兵と勝手関所に当たりやすい。大人数巡礼には不向き。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>鐘雫宿</strong><div class="sub">王都から南東へ1日</div></td><td>湯屋、蝋燭棚、旅祈り所、共同厩舎</td><td>初巡礼の家族、告解を急ぐ旅人、代書人</td><td>偽の巡礼札と遺物売りが紛れ込みやすい。</td></tr><tr><td>2日目</td><td><strong>セプティア</strong><div class="sub">鐘雫宿から1日</div></td><td>巡礼宿組合の本宿、荷預り蔵、施し台所、小裁定室</td><td>宿屋頭、保護待ちの孤児、神殿使い</td><td>表はまっとうな宿場町だが、裏路では灰売り市も立つ。</td></tr><tr><td>3日目</td><td><strong>サルウェ巡路市</strong><div class="sub">セプティアから1日</div></td><td>宿場市、旅券照会所、馬替え場、伝令台</td><td>巡路会、連絡役、文書護送の一行</td><td>宿場の独立と巡路会の監督の綱引きが絶えない。</td></tr><tr><td>4日目</td><td><strong>聖都ルーメン・旅灯宿サルウェ分館</strong><div class="sub">サルウェ巡路市から1日</div></td><td>巡礼市の大宿、護符屋、浴場、施療案内</td><td>巡礼者、書記、神殿の下役、物見遊山の貴族</td><td>宿帳の照会、身元確認、寄進の扱いで列が長くなる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>鐘雫宿</strong></td><td>鐘形蜜菓と祝別水</td><td>香油売りミュナ</td><td>巡礼札に鐘蝋の小印を受けて進む。武装集団は礼拝堂前で人数を数えられる。</td><td>夜更けに偽巡礼が宿へ紛れ込み、翌朝には祝印だけが本物と入れ替わる。</td></tr><tr><td><strong>セプティア</strong></td><td>石匙粥と小巡礼牌</td><td>マルタ・石匙</td><td>安宿でも宿泊証明をきちんと出す。寄進荷は巡礼宿組合を通すと揉めにくい。</td><td>失踪巡礼者を探す声が上がる一方で、孤児をかくまうため部屋割りが一つ多い。</td></tr><tr><td><strong>サルウェ巡路市</strong></td><td>遅鐘豆煮と路標図</td><td>フェリオ・遅鐘</td><td>短期通行証の書き換えと荷の保管札がここで整う。宿場独自の口利きも強い。</td><td>預け荷の封紐は無事なのに、中身だけが別の市の荷へ化けている。</td></tr><tr><td><strong>聖都ルーメン・旅灯宿サルウェ分館</strong></td><td>清水粥と巡礼用の白布紐</td><td>サルヴィア・レン</td><td>巡礼荷は偽聖遺物と墓域品の検分を受ける。高位の紹介状があれば部屋も道も早い。</td><td>封じたはずの客間で密談が続き、夜明けには誰の宿泊記録にも残らない。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>±0〜+半日</td><td>井戸清めと道開きの季で巡礼が増え、安宿から先に埋まる。</td><td>宿泊証明を毎晩きちんと取る。遅く着くほど身元照会が長い。</td></tr><tr><td>夏</td><td>+半日</td><td>病人と施療希望者が増え、荷より人が詰まる。</td><td>護衛つきなら進めるが、水と休みを切ると一気に評判が悪くなる。</td></tr><tr><td>秋</td><td>+半日〜1日</td><td>収穫後の寄進・還願・上層巡礼が重なり、聖都手前で列が伸びる。</td><td>寄進荷は封紐を切らない。紹介状がある者はサルウェで先に照会しておく。</td></tr><tr><td>冬</td><td>+1日</td><td>本線は維持されるが、吹き込みと病人搬送で宿の回転が落ちる。</td><td>路は閉じないが遅い。暖火代を惜しむと凍えより先に不審者扱いされる。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都南東口〜鐘雫宿</td><td>大人数の巡礼や武装護衛は、列の頭数と行き先を問われる。</td><td>紹介状、寄進荷の荷印票、宿帳の控え。</td><td>身元の薄い者から後回し。偽巡礼札を疑われると荷も開けられる。</td></tr><tr><td>セプティア</td><td>宿泊証明と寄進荷の預りが重い宿場。</td><td>宿泊証明、寄進荷預り札、孤児・病人の保護引継ぎ書。</td><td>泊まれても、翌朝に宿証明が出ないと次宿で素性が薄く見られる。</td></tr><tr><td>サルウェ巡路市</td><td>宿場独自の口利きと巡路会の帳面が交わる。</td><td>短期通行証、宿泊証明、荷の保管札、失踪者照会の控え。</td><td>封紐が無事でも、中身照合のため一泊足されることがある。</td></tr><tr><td>聖都外縁〜旅灯宿サルウェ分館</td><td>聖都入りでは、ただ来た者より何を持ち込むかが見られる。</td><td>宿泊証明、紹介状、死亡・埋葬証、危険遺物届、必要なら限定通行札。</td><td>無札の骨壺や封印物はその場で止まり、大神殿か境門院の照会待ち。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>鐘雫宿で、祝別水の印だけ本物の巡礼者が見つかる</td><td>札と本人が一致しない。</td><td>偽巡礼札の作り手は安宿ではなく、上の宿から情報を流している。</td></tr><tr><td>2</td><td>セプティアで、泊まっていないはずの孤児が一人多い</td><td>誰も追い出したがらないが、記録は要る。</td><td>マルタ・石匙が匿っている子に、失踪巡礼者の手掛かりがある。</td></tr><tr><td>3</td><td>サルウェで預け荷の封紐はそのまま、中身だけ別物</td><td>宿場の誰かがやったにしては手際がよすぎる。</td><td>密輸の『見て見ぬふり』に絡む古い貸しが動いている。</td></tr><tr><td>4</td><td>聖都行きの病人担ぎが、宿ごとに人数を変えて申告している</td><td>列を早く通したいのか、もっと別の理由か。</td><td>一人は病人ではなく、誰にも見せたくない証人。</td></tr><tr><td>5</td><td>偽の聖印売りが、なぜか本物の道筋を知っている</td><td>逃げる先まで巡礼宿の裏路だ。</td><td>宿場の下働きから宿帳の流れを聞き出している。</td></tr><tr><td>6</td><td>貴族の物見遊山一行が、巡礼列へ割り込む</td><td>護衛も荷も多く、道そのものが詰まる。</td><td>聖都で会うはずの相手が、正式には会ってはいけない人物。</td></tr><tr><td>7</td><td>夜更けの客間で密談の気配がするのに、朝の宿帳に誰も残らない</td><td>分館の古参たちも顔を曇らせる。</td><td>巡路会本庁が二重台帳を黙認している一件と繋がっている。</td></tr><tr><td>8</td><td>『失踪巡礼者を見なかったか』と、三つの別口が同じ名を探している</td><td>神殿、宿場、家族で言い分が違う。</td><td>その巡礼者は失踪でなく、自分の名を捨てて別の帳面へ移った。</td></tr></tbody></table></div></section>
+<section class="route-card" id="funeral">
+<div class="route-head">
+<div>
+<h3>葬列路</h3>
+<p class="route-line"><strong>聖都ルーメン</strong> から <strong>モルディア墓城</strong> へ。この路では旅人より死者の順が上。道幅、宿の火床、荷馬の並び方まで、葬送の作法が優先される。</p>
+</div>
+<div class="pill-row"><span class="pill">真南</span><span class="pill soft">安全路 徒歩2日</span><span class="pill soft">急ぎなら 白灰脇道なら1日半。ただし正規の葬列にはほぼ使えない。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>境門院、癒灯院、葬列役、モルディア記録院</span></div>
+<div><span class="k">この路を流れるもの</span><span>遺体、石灰、納骨記録、遺族、供物、不死者対策の物資</span></div>
+<div><span class="k">近道・危険道</span><span>葬列離れ道は密売や逃げ道にはなるが、見つかれば重罪。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>白灰宿</strong><div class="sub">聖都南門から1日</div></td><td>柩置き場、石灰窯、静祈室、湧水小屋</td><td>境門補佐、遺族、石工、遺体護送人</td><td>身元確認の齟齬、供物の抜き取り、粗悪石灰が問題になる。</td></tr><tr><td>2日目</td><td><strong>モルディア墓城</strong><div class="sub">白灰宿から1日</div></td><td>納骨路、記録院、石灰庭、境門砦</td><td>墓守、書記、灯院補佐、不死者狩り</td><td>名と骨の照合、埋葬順、無名墓の扱いが政治になる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>白灰宿</strong></td><td>白灰粥と葬送布</td><td>墓布商ネマ</td><td>死者を運ぶ車は通常荷より優先。埋葬補助札か仮認め札がない遺体は留め置かれる。</td><td>棺の数は合っているのに、包まれた名札だけが別人のものに変わっている。</td></tr><tr><td><strong>モルディア墓城</strong></td><td>石灰湯と納骨灯</td><td>境門副官ラーデ</td><td>納骨路では遺体照合と石灰納付が必須。身元不明の死者は一晩でも帳面が荒れる。</td><td>無名骨壺が一つ増え、誰も持ち込んでいないのに受領欄だけ埋まっている。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>路肩が緩み、棺車や納骨荷は足を止めて進む。</td><td>白灰宿で車輪と石灰を先に整える。急いでも作法は縮まらない。</td></tr><tr><td>夏</td><td>+半日</td><td>暑気で遺体処置が急がれ、宿の火床と石灰樽が先に足りなくなる。</td><td>死者を運ぶ荷は朝発ちが基本。日暮れ前に白灰宿へ入れるよう逆算する。</td></tr><tr><td>秋</td><td>±0〜+半日</td><td>疫病や刈入れ後の事故で、遺族と供物の列が増えやすい。</td><td>供物や名簿の照合に時間を見込む。人より死者の順を優先する心づもりが要る。</td></tr><tr><td>冬</td><td>+1日</td><td>凍った路は歩きやすく見えて、棺車には危ない。墓城前で列を詰め直す。</td><td>火床代と護送人を惜しまない。夜道の短縮は重罪寄りに見られる。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>聖都南門</td><td>死者が出る旅では、出立前から記録が始まる。</td><td>死亡・埋葬証、遺族名簿、納骨記録の控え。</td><td>名が曖昧だと門前で止まり、相続や嫡出の照会まで進まない。</td></tr><tr><td>白灰宿</td><td>石灰・布・棺具の扱いと、夜通し運ぶかどうかが見られる。</td><td>死亡・埋葬証、石灰荷の荷印票、葬列役の書付け。</td><td>無札の棺や骨壺は宿の外で朝まで寝かされる。</td></tr><tr><td>モルディア墓城門前</td><td>名と埋葬順の照合が最重要。危ない遺体は別扱い。</td><td>死亡・埋葬証、埋葬台帳の照会、危険遺物届、必要なら限定通行札。</td><td>不一致があると遺族でも立ち会えない。まず境門院の裁き待ちになる。</td></tr><tr><td>葬列離れ道の脇門</td><td>正規列でない横抜けは、密売や逃げ道を疑われる。</td><td>正規の葬列書付け、緊急搬送の証。</td><td>見つかれば重罪扱い。荷も人も本線へ戻され、理由が帳面に残る。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>白灰宿で、骨壺の名だけ削れている</td><td>誰が触ったか分からない。</td><td>偶然ではなく、相続起算をずらしたい者の細工。</td></tr><tr><td>2</td><td>遺族が棺の並び順で言い争う</td><td>一見感情論だが、埋葬順は名誉と記録に響く。</td><td>争いの裏に嫡出と婚姻副本の問題が眠っている。</td></tr><tr><td>3</td><td>石灰樽の一つが軽い</td><td>途中でこぼしたにしては量が合わない。</td><td>石灰を抜いた者は別の夜荷へ回し、無札遺体を処理しようとしている。</td></tr><tr><td>4</td><td>墓城へ急ぐはずの葬列が、なぜか脇道へ寄る</td><td>先頭は『近いから』と言う。</td><td>正規の記録を避けたい死者が混じっている。</td></tr><tr><td>5</td><td>夜、道の先に灯が並ぶが、葬列役は火を消せと命じる</td><td>向こうの列は名乗らない。</td><td>本物の葬列ではなく、密売人が作法を真似て道を取ろうとしている。</td></tr><tr><td>6</td><td>納骨記録を持つ書記が、道中でひどく怯えている</td><td>紙を濡らすまいと抱え込んで眠れない。</td><td>記録の中に、有力者の不正埋葬を示す名がある。</td></tr><tr><td>7</td><td>墓城前で、遺体より供物の荷が先に通る</td><td>下働きは目を合わせない。</td><td>供物に見せた箱の中身は危険遺物で、限定通行札が切れている。</td></tr><tr><td>8</td><td>白灰脇道に犬とも狼ともつかぬ骨の跡</td><td>追うか、見なかったことにするか。</td><td>過去の未埋葬地が近く、今夜だけ風向きが悪い。</td></tr></tbody></table></div></section>
+<section class="route-card" id="horse">
+<div class="route-head">
+<div>
+<h3>南侯馬道</h3>
+<p class="route-line"><strong>王都カレディア</strong> から <strong>ブレダン軍馬市</strong> へ。整った街道だが、善政の路ではなく『誰の馬を誰が持っていくか』で空気が変わる路。馬の印は血筋や兵力に直結する。</p>
+</div>
+<div class="pill-row"><span class="pill">真南</span><span class="pill soft">安全路 徒歩3日</span><span class="pill soft">急ぎなら 騎手なら2日弱</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>南侯諸家、軍馬商、徴発係、盾燈の小院</span></div>
+<div><span class="k">この路を流れるもの</span><span>軍馬、飼葉、鞍、蹄鉄、徴発文書、従士</span></div>
+<div><span class="k">近道・危険道</span><span>南侯の領内道を継げば半日ほど縮むが、私兵の詮議が濃くなる。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>麦綱宿</strong><div class="sub">王都から南へ1日</div></td><td>飼葉倉、荷縄工房、牛馬井戸</td><td>荷役人、南侯の手代、馬方</td><td>飼葉横流しと徴発前倒しが起こりやすい。</td></tr><tr><td>2日目</td><td><strong>盾牧宿</strong><div class="sub">麦綱宿から1日</div></td><td>放牧囲い、獣医小屋、蹄洗い場</td><td>馬医、傭兵、仔馬買い付け人</td><td>焼印のすり替えと名馬盗難の噂が絶えない。</td></tr><tr><td>3日目</td><td><strong>ブレダン軍馬市</strong><div class="sub">盾牧宿から1日</div></td><td>馬市広場、蹄鉄街、厩舎丘、練兵野</td><td>騎兵、鞍職人、軍務派の使者</td><td>軍馬が私戦向けか辺境補給向けかで意味が変わる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>麦綱宿</strong></td><td>鞍針パンと麦酒</td><td>馬宿婆トニア</td><td>馬は頭数だけでなく綱色でも登録する。徴発札のある騎兵馬は囲いを先に取る。</td><td>夜のうちに轡だけが切られ、朝には高値の若馬一頭が消える。</td></tr><tr><td><strong>盾牧宿</strong></td><td>乾酪盾餅と飼葉束</td><td>放牧頭ガーヴ</td><td>放牧料と飼葉税を別々に払う。冬営協定札を持つ隊商は囲い場を分けてもらえる。</td><td>放牧地に火が走り、馬群が暴れた隙に誰かが焼印を付け替える。</td></tr><tr><td><strong>ブレダン軍馬市</strong></td><td>濃骨汁と良鞍油</td><td>獣医ユノ</td><td>軍馬は血統札と徴発印を二重に見る。健康馬ほど現銀より軍需証文払いに回されやすい。</td><td>名馬の脚を夜のうちに傷める者が出て、翌朝の値段と徴発順が丸ごと動く。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>仔馬と種付け期で牧区が閉じ、道は開いていても馬房の融通が利きにくい。</td><td>馬替えを当てにするなら、前宿で次宿へ口を入れておく。</td></tr><tr><td>夏</td><td>±0</td><td>もっとも速い時期。乾いた路で騎手便は走るが、砂埃で喉と目をやられやすい。</td><td>軽騎は強い。荷車は水場を刻んで無理なく進む。</td></tr><tr><td>秋</td><td>+半日</td><td>軍馬市の需要と徴発が重なり、馬の印と持ち主照会が増える。</td><td>半日縮める裏道より、正規の印をきれいに通す方が早い。</td></tr><tr><td>冬</td><td>+1日</td><td>飼葉と蹄の保全が先。路よりも馬の体調で止まる。</td><td>馬数を減らしてでも良い飼葉を持つ。無理に夜走りすると翌日が消える。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都南門〜麦綱宿</td><td>軍馬・従士・徴発荷は荷より人の方を見られる。</td><td>徴発文書、馬数書付け、鞍具の荷印票。</td><td>馬印と人数が合わないと、王都側へ差し戻される。</td></tr><tr><td>南侯の私道合流点</td><td>領内道は速いが、誰の道かがはっきりしている。</td><td>主家の紹介状、通行札、馬商の手形。</td><td>通れても『勝手に通った』借りが残り、次の関所で倍返しされやすい。</td></tr><tr><td>ブレダン軍馬市の囲い</td><td>馬の血筋と所有が兵力に直結するため、印が重い。</td><td>売買帳、馬印の控え、徴発文書、蹄鉄師の確認札。</td><td>印の薄い馬は囲い外へ回され、売買も宿泊も値が落ちる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>麦綱宿で、軍馬に付くはずの飼葉札が一束足りない</td><td>荷はあるのに、どれが優先馬か決まらない。</td><td>徴発係が別口へ売るため、先に札だけ抜いていた。</td></tr><tr><td>2</td><td>盾牧宿の厩で、蹄鉄だけきれいに外された馬が出る</td><td>盗みか嫌がらせか。</td><td>犯人は夜盗でなく、売れ筋を下げたい rival 馬商の手。</td></tr><tr><td>3</td><td>南侯の私兵が、旅人の鞍袋まで見たがる</td><td>馬を見る目は確かだが、荷を見る理由が薄い。</td><td>探しているのは馬ではなく、主家の内通文書。</td></tr><tr><td>4</td><td>仔馬を連れた少年が、印を焼かれる前に逃がしてくれと頼む</td><td>血筋の良い馬らしい。</td><td>逃がせば恩になるが、その馬は徴発予定馬でもある。</td></tr><tr><td>5</td><td>ブレダン軍馬市で、同じ馬に二つの売り手が現れる</td><td>双方とも書類は揃って見える。</td><td>一方は本物の所有者、一方は徴発を避けるため名義をずらした親族。</td></tr><tr><td>6</td><td>夜、軍馬のいななきで宿中が飛び起きる</td><td>厩で何かを見た馬だけが暴れる。</td><td>人の気配はあったが、盗人は何も持ち出していない。探していたのは帳面だ。</td></tr><tr><td>7</td><td>負傷馬を曳いた小隊が、神殿の小院へ急ぐ</td><td>兵より馬の手当てが先だと本気で言う。</td><td>その馬は将の証拠を乗せて戻った伝令馬。</td></tr><tr><td>8</td><td>鞍具屋の裏で、南侯家どうしの口論が聞こえる</td><td>表向きは馬価の話だが、声色が硬い。</td><td>誰の馬を誰の軍へ回すかで、主家間の私戦一歩手前まで来ている。</td></tr></tbody></table></div></section>
+<section class="route-card" id="bellherb">
+<div class="route-head">
+<div>
+<h3>鐘薬道</h3>
+<p class="route-line"><strong>ブレダン軍馬市</strong> から <strong>ラーケン修院市・聖都ルーメン</strong> へ。軍馬と薬と施療が混ざる実務路。南侯の荒っぽさと聖都の規律のあいだを、鐘の音がつないでいる。</p>
+</div>
+<div class="pill-row"><span class="pill">東南東→北東</span><span class="pill soft">安全路 ブレダン→ラーケン2日 / ラーケン→聖都2日</span><span class="pill soft">急ぎなら 軽馬の早駆けなら合計3日</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>修院、市場の薬師、癒灯院、巡路会</span></div>
+<div><span class="k">この路を流れるもの</span><span>薬草、負傷馬、病人、写本、鐘楼の報せ、避難民</span></div>
+<div><span class="k">近道・危険道</span><span>農道を刻めば半日短いが、病人搬送には向かず、荷車も壊れやすい。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>鐘見野宿</strong><div class="sub">ブレダンから1日</div></td><td>鐘楼、馬槽、簡易施療棚、旅祈り所</td><td>馬方、薬草採り、修院の伝令</td><td>薬包の盗難と負傷馬の押し付けが起きる。</td></tr><tr><td>2日目</td><td><strong>ラーケン修院市</strong><div class="sub">鐘見野宿から1日</div></td><td>修院本堂、写本室、薬草園、病舎、客舎</td><td>司姉、避難民、学徒、癒灯補佐</td><td>記録と施療のどちらを優先するかで軋む。</td></tr><tr><td>3日目</td><td><strong>薬棚宿</strong><div class="sub">ラーケン修院市から1日</div></td><td>乾燥棚、香草庫、隔離寝台、井戸</td><td>薬師、巡礼の病人、修院の下働き</td><td>検疫、偽薬、急患優先で宿帳が乱れやすい。</td></tr><tr><td>4日目</td><td><strong>聖都ルーメン</strong><div class="sub">薬棚宿から1日</div></td><td>東施療区、癒灯大病舎、巡礼市</td><td>司灯、病者、王都からの照会人</td><td>病舎の順番待ちと身元確認で時間を取られやすい。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>鐘見野宿</strong></td><td>鐘草茶と清水瓶</td><td>野司灯セリム</td><td>薬湯用の水は別井戸扱い。薬種の壺は赤白の封紐が切れていないか必ず見られる。</td><td>夜半に誰も鳴らしていない鐘が一度だけ鳴り、発熱者の寝床が空になる。</td></tr><tr><td><strong>ラーケン修院市</strong></td><td>修院根菜煮と乾葉香</td><td>薬園司姉メレナ</td><td>薬草は修院印で量目を取る。避難民は宿賃より先に体調札を渡される。</td><td>薬園から高価な草だけが抜かれ、代わりに似た葉が整然と差し込まれている。</td></tr><tr><td><strong>薬棚宿</strong></td><td>乾根の棚売りと傷薬膏</td><td>棚番ヨエル</td><td>液薬は瓶ごとに再計量。眠り草や刺激根は証文がないと朝まで預かりになる。</td><td>保管棚の壺が並びはそのままで中身だけ入れ替わり、症状の合う患者が出る。</td></tr><tr><td><strong>聖都ルーメン</strong></td><td>施療粥と消毒塩</td><td>マリゼル</td><td>癒灯院印のある救護荷は市荷より先に通る。病舎行きの荷は検分後すぐ搬入される。</td><td>夜の救護鐘が鳴り、誰の差配で動いたか分からない荷車が病舎へ滑り込む。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>道開きと施療巡回が重なり、病人と薬草荷が同時に動く。</td><td>軽馬なら速いが、担架や病人車を抜く余裕は捨てる。</td></tr><tr><td>夏</td><td>±0</td><td>草刈りと薬摘みの最盛。もっとも物は揃うが、宿ごとの乾棚が埋まりやすい。</td><td>薬荷は濡らさないことが最優先。昼の熱より夕立を嫌う。</td></tr><tr><td>秋</td><td>+半日</td><td>戦や収穫後の負傷・熱病・家畜病が増え、人も馬も修院へ寄る。</td><td>空いている早朝ほど運びやすい。鐘見野宿で先に病人の順番を取ると楽。</td></tr><tr><td>冬</td><td>+1日</td><td>路は残るが、病人搬送は速さより火床と湯の段取りが重くなる。</td><td>無理な夜走りはせず、修院ごとに引継ぎを書いて進む。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>ブレダン側の馬医検分</td><td>負傷馬・病馬・薬荷は、普通の旅荷より細かく見られる。</td><td>馬医の書付け、薬草荷の荷印票、病人名簿。</td><td>伝染を疑われると、その日じゅう囲いから出られない。</td></tr><tr><td>ラーケン修院市</td><td>修院の印が入ると路は通りやすくなる。</td><td>修院印、施療引継ぎ書、薬棚の受渡札。</td><td>無印の薬は怪しげな行商扱い。病人も修院外へ回される。</td></tr><tr><td>薬棚宿〜聖都手前</td><td>病人・遺骨・封じた薬物は、聖都入りで別口照会になる。</td><td>宿泊証明、施療記録、死亡・埋葬証、必要なら危険遺物届。</td><td>『治療のため』だけでは通らず、誰が責任を持つかを書かされる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>鐘見野宿で、同じ薬袋に二つの修院印が押されている</td><td>本物と偽物か、移送の途中か。</td><td>片方は期限切れの印で、誰かがわざと残した。</td></tr><tr><td>2</td><td>負傷馬を乗せた車が道を塞ぎ、馬が人より先に治療を受けたがる</td><td>付き添いの兵は焦り、薬師は冷静。</td><td>馬の鞍袋に、人に見せたくない報告書が入っている。</td></tr><tr><td>3</td><td>修院市で鐘が一つ多く鳴る</td><td>誰も慌てないが、地元の者だけが顔を見合わせる。</td><td>病舎の閉鎖合図で、今夜は特定の病人を外へ出したくない。</td></tr><tr><td>4</td><td>薬棚宿の乾棚から、下書きの処方だけが抜ける</td><td>高価な薬そのものは残っている。</td><td>抜いたのは盗人ではなく、症例を欲しがる競合修院の徒弟。</td></tr><tr><td>5</td><td>道端で倒れた旅人が、薬よりも宿泊証明を探している</td><td>手遅れではないが急ぎたい。</td><td>本人は病ではなく追っ手を避けており、証明が切れると正体が割れる。</td></tr><tr><td>6</td><td>薬草荷の匂いに混じって、焦げた骨のような匂いがする</td><td>運び手は知らないと言い張る。</td><td>袋の底に墓域品が混ざっており、聖都入りで大問題になる。</td></tr><tr><td>7</td><td>修院の下働きが、夜中に別の荷札へ貼り替えを頼んでくる</td><td>理由は『急ぎの患者』。</td><td>本当に急ぎなのは患者でなく、患者に紛れた証人。</td></tr><tr><td>8</td><td>聖都近くで、白布を巻いた一団が路を譲らない</td><td>巡礼か、葬列か、施療搬送か判別しづらい。</td><td>三つの名目を使い分けて人を隠して運ぶ熟練の一行。</td></tr></tbody></table></div></section>
+</section>
+<section class="section" id="east">
+<h2>東境路線</h2>
+<p class="lead">文書と学問の路から、誓約と境界の路へ切り替わる東の道。街道の理屈だけでは完結せず、白森側の作法が旅程に食い込む。</p>
+<section class="route-card" id="scribe">
+<div class="route-head">
+<div>
+<h3>書記東道</h3>
+<p class="route-line"><strong>王都カレディア</strong> から <strong>セラト学匠市</strong> へ。一見おだやかだが、軽い荷ほど重要な秘密を運ぶ。荷車より文書箱の方が厳重に守られることも珍しくない。</p>
+</div>
+<div class="pill-row"><span class="pill">東南東</span><span class="pill soft">安全路 徒歩3日</span><span class="pill soft">急ぎなら 早馬2日</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>書記・印章師組合、法学院、地図師会、星書院系の学徒</span></div>
+<div><span class="k">この路を流れるもの</span><span>公文書、写本、星墨、地図、学徒、弁論のための証拠箱</span></div>
+<div><span class="k">近道・危険道</span><span>古い帝冠道の石畳跡を使えば半日短いが、崩れた橋台が残る。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>墨樹宿</strong><div class="sub">王都から東南東へ1日</div></td><td>代書机、封蝋棚、荷札所、小文庫</td><td>書記見習い、法廷使い、伝令</td><td>封蝋破れや証文の写し違いが一番多い。</td></tr><tr><td>2日目</td><td><strong>羊皮紙宿</strong><div class="sub">墨樹宿から1日</div></td><td>羊皮紙乾棚、製本小屋、測量杭置場</td><td>製本工、学徒、地図師の徒弟</td><td>学生同士の決闘まがいの口論と、写本盗難が起きやすい。</td></tr><tr><td>3日目</td><td><strong>セラト学匠市</strong><div class="sub">羊皮紙宿から1日</div></td><td>法学院丘、写字市場、学徒宿区、星見塔</td><td>星書生、老教授、地図師、弁士</td><td>学説と法理の争いが、そのまま政治火種になる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>墨樹宿</strong></td><td>墨実酒と蝋板</td><td>代書女フィラ</td><td>封印文書は封蝋の色と手綱札を照合して扱う。書記見習いは机代を払って記録を写す。</td><td>たった一行欠けた控え写しが出回り、翌朝には領境争いの意味が変わっている。</td></tr><tr><td><strong>羊皮紙宿</strong></td><td>羊皮紙端の煮込みと磨き粉</td><td>紙漉ぎ親方ロヘン</td><td>皮紙束は品質ごとに税が違う。学匠市行きの写本便は雨避け箱の封を厳しく見る。</td><td>乾燥棚から下書きだけ盗まれ、偽印に向く真っ白な紙が一束だけ残される。</td></tr><tr><td><strong>セラト学匠市</strong></td><td>温写本酒と筆写用の薄餅</td><td>ルネ書商</td><td>禁書抜粋と講義写しは搬入時に所属を聞かれる。学徒宿の客舎は紹介状の有無で値が変わる。</td><td>学徒の失踪が起き、昨夜まであった観測控えだけが書架から抜け落ちる。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>農政台帳更新と道開きが重なり、軽い箱ほど役人の手元で滞る。</td><td>文書箱は濡れと封蝋割れを防ぐ。荷車より人の段取りを先に決める。</td></tr><tr><td>夏</td><td>±0</td><td>もっとも速いが、学徒と測量隊が多く、宿の机席が早く埋まる。</td><td>急便は走れる。泊まりで写しを取るなら日暮れ前に机を押さえる。</td></tr><tr><td>秋</td><td>+半日</td><td>訴えと納税照会が増え、法理や境界争いの紙が一気に流れる。</td><td>封を切らせない覚悟が必要。証文箱は宿主に預けた方が逆に安全。</td></tr><tr><td>冬</td><td>+半日</td><td>雪は浅いが湿りが紙の敵。速さより乾き場の確保が重くなる。</td><td>写本荷は少なくし、羊皮紙宿で乾棚を借りる前提で動く。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都東門</td><td>軽荷でも中身が政治なら止まる。</td><td>紹介状、役所印の封文、学徒札、必要なら都門通行の許し。</td><td>封蝋の色が帳面と違うだけで、受取り側照会まで動かない。</td></tr><tr><td>墨樹宿</td><td>公文書と私文書の線引きが最初に行われる。</td><td>封蝋控え、宿帳照会、代書人の副写し。</td><td>一行欠けた控えが広まると、翌日には意味が変わっている。</td></tr><tr><td>セラト学匠市の門前</td><td>学徒・講師・外来弁士で扱いが変わる。</td><td>学徒札、書庫閲覧許可、観測記録の控え、紹介状。</td><td>無札でも宿には入れるが、丘の上の書庫と法学院は閉ざされる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>墨樹宿で、封蝋の色だけ合わない箱が届く</td><td>差出人の名は本物だが、誰が押した蝋か分からない。</td><td>内容物は普通の訴状だが、封の違いがむしろ罠。</td></tr><tr><td>2</td><td>羊皮紙宿で学徒同士の口論が決闘寸前</td><td>争点は紙一枚の写し違い。</td><td>その一行に、領境争いをひっくり返す文言がある。</td></tr><tr><td>3</td><td>地図師の徒弟が、杭列をずらされたと怒っている</td><td>村人は畑を優先しただけだと言う。</td><td>ずらしたのは村人でなく、別の測量隊が結論を誘導したため。</td></tr><tr><td>4</td><td>古い石畳跡を使った急使が、橋台の前で立ち尽くす</td><td>崩れは読めていたはずだ。</td><td>追い手を切るため、わざと危うい近道を選んだ。</td></tr><tr><td>5</td><td>セラト行きの弁論箱から、証拠の下書きだけ抜かれる</td><td>本物の証拠品は残っている。</td><td>誰かが本番前に論点を知りたがっている。</td></tr><tr><td>6</td><td>学匠市手前で、観測塔へ向かう星書生が護衛を募る</td><td>荷は軽いが顔色が悪い。</td><td>持っているのは紙でなく、紙に書けない口頭情報。</td></tr><tr><td>7</td><td>宿の机席で、隣の客がこちらの筆癖を真似る</td><td>無害そうに見える。</td><td>偽写しを作る前段階で、本人の手癖を盗んでいる。</td></tr><tr><td>8</td><td>『昨夜まであった控えがない』と老教授が騒ぐ</td><td>書架は荒れていない。</td><td>抜けたのは禁書ではなく、誰も重要と思っていなかった境界覚え書き。</td></tr></tbody></table></div></section>
+<section class="route-card" id="birch">
+<div class="route-head">
+<div>
+<h3>白樺路</h3>
+<p class="route-line"><strong>セラト学匠市</strong> から <strong>白樺関</strong> へ。ここから先は、紙の正しさだけでは通れない。境界の記憶と人の誓いが、役所の論理を止めることがある。</p>
+</div>
+<div class="pill-row"><span class="pill">東北東</span><span class="pill soft">安全路 徒歩2日</span><span class="pill soft">急ぎなら 夢返し小径を知る案内付きなら1日</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>関税代官、地図師会、白森境界派、獣人通商役</span></div>
+<div><span class="k">この路を流れるもの</span><span>通行証、樹脂、境界糸、白森向けの記録具、白森帰りの珍品</span></div>
+<div><span class="k">近道・危険道</span><span>夢返し小径は早いが、作法を外すと帰りが遠くなる。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>誓筆宿</strong><div class="sub">セラトから1日</div></td><td>誓約卓、小記録所、境界案内札の棚</td><td>記録官、案内人、白森へ行く学徒</td><td>通行文言の一字違いで丸一日足止めされることがある。</td></tr><tr><td>2日目</td><td><strong>白樺関</strong><div class="sub">誓筆宿から1日</div></td><td>荷改め広場、関税所、樹脂倉、関前宿</td><td>関税代官、森境の使者、獣人隊商</td><td>過重税、勝手検分、境界作法違反の告発が多い。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>誓筆宿</strong></td><td>誓約墨と薄板旅札</td><td>通訳筆生マナル</td><td>境界通行証の文言をここで整えるのが慣例。冬営協定札持ちは別列へ回される。</td><td>乾いたはずの墨が朝には滲み、通行証の肝心の一文だけ読めなくなる。</td></tr><tr><td><strong>白樺関</strong></td><td>樹脂蝋と関麦汁</td><td>関代官フレド</td><td>荷の再計量と古い書式の通行証照会が長い。獣脂・塩・弓材はとくに念入りに見られる。</td><td>門上で二人分の声がしたと夜警は言うのに、見張り台には誰の足跡もない。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>雪解けで白樺林の境石が隠れ、関前の詮議が長くなる。</td><td>関へ着く前に書付けを並べ替える。口頭説明より紙の順序が大事。</td></tr><tr><td>夏</td><td>±0</td><td>もっとも通りやすいが、珍品と樹脂の荷が増え、関税の列が伸びる。</td><td>早さを取るなら少量荷。大荷は昼を外した方が通りやすい。</td></tr><tr><td>秋</td><td>+半日</td><td>霧と交易期が重なり、獣人隊商・境界記録官・学徒が同じ路へ乗る。</td><td>通訳や案内付きなら強い。無理に近道へ入らない。</td></tr><tr><td>冬</td><td>+1日</td><td>冬営交渉の季で、人より協定札の重みが増す。</td><td>荷を減らしてでも通行の面子を固める。関前宿で一晩置くのが無難。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>セラト東外</td><td>学匠市の物は軽くても高く、外へ出る時点で目をつけられる。</td><td>荷印票、写本や器具の控え、紹介状。</td><td>白森向け記録具が無札だと、その先で密輸扱いされやすい。</td></tr><tr><td>白樺関の外検分</td><td>ここが本線の関。人・荷・誓いをまとめて見られる。</td><td>通行証、荷印票、境界通行証、白森協約の抜粋、通訳騎手の通行札。</td><td>紙だけ正しくても、誰の責任で入るか曖昧だと止まる。</td></tr><tr><td>獣人隊商・冬営便の通過</td><td>交易と停戦が絡み、関税以上の意味を持つ。</td><td>冬営協定札または写し、捕虜交換記録、通商役の印。</td><td>片面だけの印では通さない。双方の面子が潰れるため。</td></tr><tr><td>白森帰りの珍品・樹脂荷</td><td>戻り荷は特に中身照会が増える。</td><td>荷印票、採取許しの控え、必要なら観測側の受領書。</td><td>関を越えても市場へは出せず、いったん保留倉へ回される。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>関前で、昨日と同じ荷に今日だけ別の税額が付く</td><td>代官は『境石が動いた』と言う。</td><td>誰かが夜のうちに目印をずらし、関税線を動かしている。</td></tr><tr><td>2</td><td>獣人通訳騎手が、荷より先に言葉の証人を探している</td><td>通りはできても、後日の争いを恐れている。</td><td>片方の記録官がわざと会釈だけで済ませ、言質を残さなかった。</td></tr><tr><td>3</td><td>白樺林の脇で、夢返し小径を知ると囁く案内人が現れる</td><td>半日縮むと言う。</td><td>小径自体はあるが、今の季節に使うと帰りに別の誓いを払う。</td></tr><tr><td>4</td><td>樹脂荷の匂いに混じって、知らない花粉の匂いがする</td><td>関番は過敏に反応する。</td><td>珍品荷に白森側の未記載植物が混ざっている。</td></tr><tr><td>5</td><td>白樺関の宿で、通商役どうしの祝杯が途中で止まる</td><td>笑っていた顔が一斉に固まる。</td><td>草原のどこかで、誰かが協定札なしに家畜を動かした。</td></tr><tr><td>6</td><td>関前宿『刃休め』で、荷より先に刃物の数を問われる</td><td>武器禁止ではないが、数が重い。</td><td>今夜は白森側の使いが来ており、無用な威圧を避けたい。</td></tr><tr><td>7</td><td>帰り荷の箱が、開けていないのに鳴る</td><td>荷主は顔色を変えない。</td><td>珍品と称した箱の中身は、ただの仕掛け時計ではなく記録具。</td></tr><tr><td>8</td><td>白樺の樹皮に、昨夜なかった印が増えている</td><td>地元の者は見なかったことにしたい。</td><td>境界記録官への呼び出しであり、返事を誤ると観測路が閉じる。</td></tr></tbody></table></div></section>
+<section class="route-card" id="tower">
+<div class="route-head">
+<div>
+<h3>森境観測路</h3>
+<p class="route-line"><strong>白樺関</strong> から <strong>境見の塔</strong> へ。数字で見れば近いが、もっとも『作法で遠くなる』路。立ち木一本、石列一本の意味が大きい。</p>
+</div>
+<div class="pill-row"><span class="pill">真東</span><span class="pill soft">安全路 記録官同行で徒歩1日</span><span class="pill soft">急ぎなら 道を知る者なら半日強。無断侵入では帰路が倍になることもある。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>境界記録官、観測塔の番、星書生、白森側の案内人</span></div>
+<div><span class="k">この路を流れるもの</span><span>観測記録、封門照会、境界糸、森産樹脂の少量輸送</span></div>
+<div><span class="k">近道・危険道</span><span>谷底の踏み跡は速いが、森側からは侮辱と取られやすい。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日</td><td><strong>境見の塔</strong><div class="sub">白樺関から東へ1日</div></td><td>観測台、記録庫、風見柱、宿直室</td><td>エルフ境界記録官、封門観測者、学徒</td><td>案内拒否、記録非公開、道迷いがそのまま外交問題になる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>境見の塔</strong></td><td>樹脂封管と観測粥</td><td>観測士リネア</td><td>境界通行証と観測命令札がそろわない者は塔下止まり。枝折りや焚火にも誓約が要る。</td><td>夜の森が道をひとつ増やし、戻った者の口からだけ塔の鐘数が合わなくなる。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>道開きは人の都合ではなく境の機嫌待ち。立木と石列の照合で時間が消える。</td><td>記録官同行で動く。急ぎでも開路の言葉を省かない。</td></tr><tr><td>夏</td><td>±0</td><td>歩数は短いが、順路を外すと半日が丸ごと消える。</td><td>荷は絞る。観測箱と保存容器だけにした方が安全。</td></tr><tr><td>秋</td><td>+1日</td><td>霧と落葉で目印が沈み、『近いはず』がもっとも危険になる。</td><td>必ず案内を入れる。帰路の目印を自分で勝手に付けない。</td></tr><tr><td>冬</td><td>+1日</td><td>雪で路そのものは見やすいが、立木の禁を破りやすい。</td><td>足跡を増やしすぎない。塔泊まり前提で火と食を持つ。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>白樺関の内検分</td><td>ここから先は観測路として別扱い。</td><td>境界通行証、白森協約の抜粋、観測命令札、記録官の同行印。</td><td>紙が揃っても同行印がなければ、観測でなく無断侵入に寄る。</td></tr><tr><td>石列と境木の並ぶ中途</td><td>法ではなく作法の境。声かけと立ち位置が問われる。</td><td>記録官の口上、供物札、荷数の申告。</td><td>違反は即罰より『帰路が遠くなる』形で返る。案内人が同行を嫌がる。</td></tr><tr><td>境見の塔</td><td>入るだけでなく、持ち込んだものと持ち帰るものが記録される。</td><td>観測命令札、封門観測報の控え、封じた箱の封紐。</td><td>無記録の持ち出しは塔内に留め置き。場合によっては白樺関まで逆送。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>記録官が、境界糸の張り直しを手伝えと言う</td><td>ただの糸に見えても、順番が決まっている。</td><td>昨夜、誰かが糸を跨いで入り、塔へ報せる前に直したい。</td></tr><tr><td>2</td><td>立木の根元に、昨日なかった石片が置かれている</td><td>通り過ぎてよいか判断しにくい。</td><td>白森側からの返答で、質問を受け取った印でもある。</td></tr><tr><td>3</td><td>谷底の踏み跡が異様に歩きやすそうに見える</td><td>急げば本当に速い。</td><td>速いのは確かだが、森側からは侮辱と取られ、次回の通行が難しくなる。</td></tr><tr><td>4</td><td>境見の塔の鐘が鳴らない</td><td>誰かが止めたのか、霧で湿っただけか。</td><td>鐘は止まっておらず、塔の番が鳴らせない事情を抱えている。</td></tr><tr><td>5</td><td>白い角を持つ獣が、一度だけこちらを見て路を横切る</td><td>案内人は視線を伏せる。</td><td>ただの獣かもしれないが、追えば境界破りの理由にされる。</td></tr><tr><td>6</td><td>星書生の持つ観測控えに、帰りの日付だけ先に書いてある</td><td>本人も気づいていない。</td><td>幻視ではなく、別の書庫から混じった写しの可能性が高い。</td></tr><tr><td>7</td><td>立木の影から、人の声だけが会話へ割り込む</td><td>姿は見えない。</td><td>白森側の案内人が試しているか、境の記憶が反響しているか判別しづらい。</td></tr><tr><td>8</td><td>塔へ向かう途中で、同行者の一人だけが路標を見失う</td><td>他の者には普通に見えている。</td><td>その者が昨夜どこかで境木へ無礼を働いた。今はまだ軽い拒絶で済んでいる。</td></tr></tbody></table></div></section>
+</section>
+<section class="section" id="west">
+<h2>西門・工兵路線</h2>
+<p class="lead">橋と石と鉄の道。王国の橋塞、工兵、ドワーフ契約が交差し、契約文と部材のどちらが欠けても道が死ぬ。</p>
+<section class="route-card" id="bridge">
+<div class="route-head">
+<div>
+<h3>誓橋街道</h3>
+<p class="route-line"><strong>王都カレディア</strong> から <strong>アルシェ橋塞市</strong> へ。大橋が無事かどうかで、王都の西半分の安心感が変わる。『橋を渡る』は、単なる移動ではなく検分の局面になる。</p>
+</div>
+<div class="pill-row"><span class="pill">西</span><span class="pill soft">安全路 徒歩3日</span><span class="pill soft">急ぎなら 軽騎2日</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>橋塞監督官、河道橋務局、石工、関税所</span></div>
+<div><span class="k">この路を流れるもの</span><span>橋材、石灰、軍用車輪、関税文書、補給隊</span></div>
+<div><span class="k">近道・危険道</span><span>河畔の低道は増水で沈みやすいが、通行税を嫌う者がよく使う。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>石鎖宿</strong><div class="sub">王都から西へ1日</div></td><td>石工庭、鎖修理場、荷馬場</td><td>石工、橋番、荷車隊</td><td>橋鋲の盗難と石材の規格違いが争いになる。</td></tr><tr><td>2日目</td><td><strong>誓輪渡し宿</strong><div class="sub">石鎖宿から1日</div></td><td>渡し場、誓いの小堂、橋台見張り</td><td>関税所の手代、伝令、橋修理人</td><td>通行税の二重取りと渡し賃の勝手値上げが起きやすい。</td></tr><tr><td>3日目</td><td><strong>アルシェ橋塞市</strong><div class="sub">誓輪渡し宿から1日</div></td><td>北堡、橋上関所、工兵庭、宿屋通り</td><td>監督官、工兵女房、商館の使者</td><td>橋上事故も、橋上死者も、すぐ政治問題になる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>石鎖宿</strong></td><td>鎖鍋と鉄塩パン</td><td>鎖鍛冶ボル</td><td>車軸の本数と鎖荷の重さで通行銀が決まる。橋材行きの荷は工兵印を優先する。</td><td>橋鎖の補修材が夜のうちに抜かれ、代わりに粗悪な鉄具が積まれている。</td></tr><tr><td><strong>誓輪渡し宿</strong></td><td>河輪粥と渡し魚の塩焼き</td><td>渡し司ミレク</td><td>車輪数を誓輪帳へ記してから渡る。浮荷は荷印票をもう一度切り直すことがある。</td><td>渡したはずの荷が対岸の帳面に載らず、舟だけが無人で戻ってくる。</td></tr><tr><td><strong>アルシェ橋塞市</strong></td><td>橋塞煮と鎖油</td><td>橋塞監督官ロダン</td><td>橋税は車幅と荷重で増える。橋上事故や死者は道灯司灯の帳面へ必ず記録される。</td><td>夜の橋で通行札のない死者が見つかり、誰も渡っていないはずの荷車痕が残る。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日〜1日</td><td>増水で橋脚と渡し場の両方が神経質になる。石灰と鎖の荷が優先される。</td><td>工兵荷に道を譲る気で動く。夕刻に橋へ着く旅程は避ける。</td></tr><tr><td>夏</td><td>±0</td><td>橋工事と石工便の最盛。路は強いが、荷重照会が長い。</td><td>軽騎は速い。荷車は車幅と車輪数を先に申告しておく。</td></tr><tr><td>秋</td><td>+半日</td><td>収穫後の再計量と納税で、橋を渡る列そのものが伸びる。</td><td>橋税の手間を惜しまない。裏の低道は後でより高くつく。</td></tr><tr><td>冬</td><td>+1日</td><td>橋上の風と凍りが厄介。事故一件で列が止まる。</td><td>徒歩でも滑り止めを持つ。日暮れ前に橋を越えきる計画で動く。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都西門〜石鎖宿</td><td>橋材・軍用車輪・石灰荷は出る時点で荷重を見られる。</td><td>荷印票、工兵印、紹介状。</td><td>規格違いが出ると石鎖宿で車ごと止まる。</td></tr><tr><td>誓輪渡し宿</td><td>車輪数と荷重が、そのまま渡し賃と橋税の前哨になる。</td><td>車輪数の記帳、荷印票、浮荷の切り直し票。</td><td>記録が曖昧だと対岸で二重取りに遭い、言い返す紙がなくなる。</td></tr><tr><td>アルシェ橋上関所</td><td>『橋を渡る』そのものが検分局面。</td><td>橋税の札、工兵印、塩・石灰・鎖の荷印票、事故時は死亡・埋葬証。</td><td>橋上で止められると列全体に睨まれる。無札の死者は即座に政治問題化。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>石鎖宿で橋鎖の補修材だけ質が落ちている</td><td>帳面上は同じ品として通っている。</td><td>差額を抜いているのは宿ではなく、橋の向こうの受取側。</td></tr><tr><td>2</td><td>誓輪渡しで、渡したはずの荷が対岸の帳面にない</td><td>舟は戻っている。</td><td>誰かが中洲で荷を下ろし、夜の橋へ横流ししている。</td></tr><tr><td>3</td><td>橋上で、通行札のない死者が見つかる</td><td>誰の列にも属していない。</td><td>落ちたのではなく、橋の上でわざと見つかる場所へ置かれた。</td></tr><tr><td>4</td><td>石工たちが、規格違いの石材を前に作業を止める</td><td>誰も責任を取りたがらない。</td><td>規格違いは事故でなく、工費を抜くための意図的な混入。</td></tr><tr><td>5</td><td>河畔の低道から、濡れていない荷車が一台だけ戻る</td><td>増水中に濡れていないのはおかしい。</td><td>裏道を知る者が、通行税を逃れて夜に動いている。</td></tr><tr><td>6</td><td>橋番が、荷より先に同行者の関係を問う</td><td>夫婦か、主従か、雇いか。</td><td>橋の向こうで起きた死傷事故の責任追及に、証言者を欲しがっている。</td></tr><tr><td>7</td><td>工兵の使いが、橋の真ん中で急に宿を探し始める</td><td>渡り切る方が早いはずだ。</td><td>会う相手が橋の上でしか会えない立場の人物。</td></tr><tr><td>8</td><td>夜の橋から鎖が鳴るのに、見張り台は静かなまま</td><td>風とも人ともつかない。</td><td>橋の下で誰かが係留し、上を通る列の荷を数えている。</td></tr></tbody></table></div></section>
+<section class="route-card" id="iron">
+<div class="route-head">
+<div>
+<h3>鉄塩街道</h3>
+<p class="route-line"><strong>アルシェ橋塞市</strong> から <strong>ヘルム坑</strong> へ。荷は重く、契約は細かい。道そのものより、秤と印と納期が旅の重さを決める。</p>
+</div>
+<div class="pill-row"><span class="pill">西北西</span><span class="pill soft">安全路 徒歩3日</span><span class="pill soft">急ぎなら 砕石近道で2日。ただし崩れやすい。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>鍛誓会、ドゥルガ契約窓口、工兵、坑夫頭</span></div>
+<div><span class="k">この路を流れるもの</span><span>鉱石、塩、工具、坑木、炉契鋲、工兵部材</span></div>
+<div><span class="k">近道・危険道</span><span>砕石近道は荷の軽い急ぎ便向け。荷車は安全路を使うのが常識。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>鍛縄宿</strong><div class="sub">アルシェから1日</div></td><td>索具場、仮鍛場、秤台、荷改め柵</td><td>工兵、坑夫、契約書持ちの番頭</td><td>契印の読み違いと納期詐称で口論が絶えない。</td></tr><tr><td>2日目</td><td><strong>砕石宿</strong><div class="sub">鍛縄宿から1日</div></td><td>採石小屋、崩れ避けの壁、予備車輪倉</td><td>石工、荷役、近道を狙う軽装隊</td><td>崩落、廃採石場の密掘り、怪我人の遅配が多い。</td></tr><tr><td>3日目</td><td><strong>ヘルム坑</strong><div class="sub">砕石宿から1日</div></td><td>坑口区、洗鉱区、精錬区、ドワーフ石宿</td><td>坑頭、炉司祭、氏族使者、工匠弟子</td><td>事故率と産出量のどちらを優先するかで空気が張る。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>鍛縄宿</strong></td><td>鍛縄麺と火口石</td><td>炉番サヴォ</td><td>塩荷と鉱石荷は別列検分。工匠見習札があれば工具荷の照会が少し早い。</td><td>車軸の楔だけが抜かれ、朝の出立で鉱石荷が一斉に横転しかける。</td></tr><tr><td><strong>砕石宿</strong></td><td>砥石粥と石塩漬</td><td>石切婆メンナ</td><td>石材車は道割れ負担銀を取られる。荷台の幅が広いと翌朝まで留め置きになる。</td><td>採石場の発破音が夜更けにも響き、誰も出していない石粉で宿の戸口が白くなる。</td></tr><tr><td><strong>ヘルム坑</strong></td><td>坑夫汁と炉前黒麦</td><td>坑頭バロク</td><td>坑札・給金・氏族契印の確認が重い。死亡者名簿の記載漏れは遺族争いに直結する。</td><td>一人分の賃金だけ受け取りがあり、当人は坑内にも宿にも見当たらない。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>解けた斜面が崩れやすく、重い荷は安全路を譲らない。</td><td>砕石近道を諦める決断が早いほど総時間は短い。</td></tr><tr><td>夏</td><td>±0</td><td>鍛冶・道路補修・鉱山便の盛り。最も荷を動かしやすい。</td><td>重荷で勝てる季節。秤と納期の紙を先に揃える。</td></tr><tr><td>秋</td><td>+半日</td><td>冬前の塩と工具の備蓄で、坑へ向かう荷も坑から出る荷も膨らむ。</td><td>一日早く出るより、正午前に秤場を抜ける方が効く。</td></tr><tr><td>冬</td><td>+1日</td><td>日が短く、路肩の氷で荷車が鈍る。軽荷でも崩れは怖い。</td><td>宿で車軸を見てもらう。荷減らしを嫌うと峠手前で一日失う。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>アルシェ橋塞市の西荷場</td><td>橋塞側の帳面と鉱路側の帳面をつなぐ地点。</td><td>荷印票、秤認証の控え、工兵印。</td><td>橋側と山側で重さが合わないと、その場で再計量。</td></tr><tr><td>砕石宿の再秤場</td><td>崩れやすい近道へ回すかどうかもここで判断される。</td><td>荷印票、再秤札、納期の書付け。</td><td>納期だけ急いで紙が薄いと、軽荷でも安全路へ強制される。</td></tr><tr><td>ヘルム坑の市前</td><td>市場までは通れても、坑内や氏族区画は別。</td><td>氏族契印、坑道作業許可札、工兵徴用札、契約文。</td><td>市場で荷を降ろすことはできるが、その先の受渡しが進まない。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>鍛縄宿で、塩俵の封だけ本物、中身だけ半分砂利</td><td>運び手は途中で触っていないと言う。</td><td>抜いた塩はさらに山奥で高く売るため、再秤場の内通者がいる。</td></tr><tr><td>2</td><td>砕石宿で再計量したら、橋塞側の秤と数が違う</td><td>どちらの秤も壊れていない。</td><td>片方が意図的に湿り分を多めに見ている。</td></tr><tr><td>3</td><td>坑夫頭が、通るだけの旅人に契約文の証人を頼む</td><td>紙は読めても、事情は分からない。</td><td>氏族内で後日の言い逃れを防ぐため、外部証人を欲しがっている。</td></tr><tr><td>4</td><td>崩れた斜面の下から、古い路標杭が出てくる</td><td>近道の存在を示している。</td><td>その先はただの古道ではなく、昔の坑道口に繋がる。</td></tr><tr><td>5</td><td>工兵徴用札を持つ若者が、仕事を嫌がって逃げている</td><td>罰は重い。</td><td>逃げたい理由は労苦より、見たくない契約違反を見てしまったから。</td></tr><tr><td>6</td><td>ヘルム坑手前で、氏族印の向きが逆な荷が見つかる</td><td>気づける者は少ない。</td><td>偽印そのものではなく、別氏族の品を奪って貼り直した。</td></tr><tr><td>7</td><td>鉱夫の賃銀を運ぶ便が、護衛を急募している</td><td>額の割に人が少ない。</td><td>賃銀だけでなく、崩落報告の写しも一緒に運んでいる。</td></tr><tr><td>8</td><td>夜の宿で、炉の色が一瞬だけ青く変わる</td><td>鍛冶場ならともかく、宿の火床だ。</td><td>荷の中に遺構核片混じりの試作品があり、熱に反応している。</td></tr></tbody></table></div></section>
+<section class="route-card" id="pass">
+<div class="route-head">
+<div>
+<h3>炉煙峠越え</h3>
+<p class="route-line"><strong>ヘルム坑</strong> から <strong>西鉄嶺の盟約門前</strong> へ。国境というより契約境。言葉より秤、秤より署名の順で重い。</p>
+</div>
+<div class="pill-row"><span class="pill">西</span><span class="pill soft">安全路 徒歩2日</span><span class="pill soft">急ぎなら 軽身なら1日半。冬は逆に+1日。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>ドゥルガ氏族会、契約役、峠番、鍛誓会の秤監</span></div>
+<div><span class="k">この路を流れるもの</span><span>高品質鍛材、契約文、氏族間の贈答、炉契具</span></div>
+<div><span class="k">近道・危険道</span><span>雪渓を横切る抜け道はあるが、氏族の面子を潰すので後が厄介。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>炉煙峠番屋</strong><div class="sub">ヘルム坑から1日</div></td><td>峠番舎、蓄火炉、吹雪避け石室</td><td>氏族使者、工兵急使、鍛工職人</td><td>吹雪と計量誤魔化しが同時に来る。</td></tr><tr><td>2日目</td><td><strong>盟約門前宿</strong><div class="sub">炉煙峠番屋から1日</div></td><td>受渡し小庭、計量所、契約卓、石宿</td><td>ドワーフ商工代表、王国役人、工兵買付け</td><td>印ひとつで荷が丸ごと返されることがある。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>炉煙峠番屋</strong></td><td>煤茶と熱釘</td><td>峠番ホルド</td><td>火種と鍛具の申告が必要。氏族印のある荷は雪避け小屋を優先して借りられる。</td><td>雪原の向こうから木戸を叩く音が続くが、開けると足跡がひとつもない。</td></tr><tr><td><strong>盟約門前宿</strong></td><td>盟約汁と鉄輪麺</td><td>氏族使者ドゥルン</td><td>氏族契印のない荷は門前で夜越し封緘。人間側の証文は氏族法の読み替えが入る。</td><td>偽の氏族印が見つかり、誰の荷を止めれば戦になるか分からなくなる。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日〜1日</td><td>雪解けの水と小崩れで、歩けても荷が通らない時間帯がある。</td><td>峠番屋の朝報せを聞いてから出る。早すぎる出立は損になりやすい。</td></tr><tr><td>夏</td><td>±0</td><td>もっとも安定。氏族どうしの贈答や契約便も増える。</td><td>荷より文書を濡らさない。速さより署名順を崩さない方が強い。</td></tr><tr><td>秋</td><td>+半日</td><td>早雪と風で、軽身でも刻限を誤ると峠で泊まる。</td><td>門前宿まで届かせたいなら、昼前にヘルム坑を出る。</td></tr><tr><td>冬</td><td>+1〜2日 / ときに閉止</td><td>雪渓抜けは論外になり、峠番の許しが旅程そのものになる。</td><td>軽身でも単独強行はしない。氏族便へ合わせる方が生き残る。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>ヘルム坑西門</td><td>ここからは国境より契約境として扱われる。</td><td>氏族契印、契約文の控え、山道案内の書付け。</td><td>荷はあっても署名順が違うと通らない。氏族の面子を潰すから。</td></tr><tr><td>炉煙峠番屋</td><td>天候と荷数で同じ紙の重みが変わる。</td><td>氏族契印、峠番の通し札、冬季は護衛便への組み込み許し。</td><td>『今日は通すが記録に残す』が起きる。次便まで信用が揺れる。</td></tr><tr><td>盟約門前</td><td>氏族外へ売れない品、贈答扱いの品、戦時優先の品が仕分けられる。</td><td>氏族契印、贈答目録、再販禁止の確認札。</td><td>門前を越えても市場へは出せず、返送か預け置きになる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>峠番が、荷より先に署名の順を見たがる</td><td>内容より先に並び順が問題になる。</td><td>氏族間の上下を逆に書いた文書で、無礼を誘う罠。</td></tr><tr><td>2</td><td>雪渓を切る近道を知ると言う案内人が現れる</td><td>半日縮む話は魅力的。</td><td>通れるのは事実だが、抜け道利用そのものが氏族の恥になる。</td></tr><tr><td>3</td><td>贈答荷の山羊が、なぜか空箱の前で立ち止まる</td><td>荷札上は贈り物だが軽すぎる。</td><td>中身を抜いて別口で売る算段が進んでいる。</td></tr><tr><td>4</td><td>峠の風が止んだ瞬間だけ、向こうの鍛音が聞こえる</td><td>距離の割に近すぎる。</td><td>ただの音の抜けか、古い坑道がまだどこかで繋がっているか。</td></tr><tr><td>5</td><td>門前宿で、別氏族の使いが同じ客間を嫌がる</td><td>酒量の問題ではない。</td><td>同席すると署名順と同格扱いになるため、外交上まずい。</td></tr><tr><td>6</td><td>契約役の若者が、文書箱を抱えて眠れない</td><td>失くしたら首が飛ぶと本気で思っている。</td><td>箱には契約だけでなく、坑路事故の責任線引きが入っている。</td></tr><tr><td>7</td><td>峠番屋の秤石が一つ足りない</td><td>量れないなら通れない。</td><td>誰かが先回りして、再計量をさせないつもり。</td></tr><tr><td>8</td><td>夜半、宿の炉から違う氏族歌が聞こえる</td><td>客の誰も歌っていない。</td><td>隣室にいるのは氏族使いでなく、その名を騙る交渉人かもしれない。</td></tr></tbody></table></div></section>
+</section>
+<section class="section" id="river">
+<h2>河港・保険路線</h2>
+<p class="lead">冠河を軸にした流通の路。歩けば堤道、急げば河船。どちらを選んでも、荷印票と保険証文が旅程の半分を占める。</p>
+<section class="route-card" id="towpath">
+<div class="route-head">
+<div>
+<h3>下り河堤道</h3>
+<p class="route-line"><strong>王都河港</strong> から <strong>ノールハーフェン</strong> へ。一見豊かな路だが、荷が止まれば全員が赤字になる。だから小さな詐欺も大きな火事と同じ顔で嫌われる。</p>
+</div>
+<div class="pill-row"><span class="pill">南西</span><span class="pill soft">安全路 徒歩5日</span><span class="pill soft">急ぎなら 湿地抜けで4日。ただし盗賊と河霧が増える。</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>河道橋務局、河港商館、保険商、荷運び組合</span></div>
+<div><span class="k">この路を流れるもの</span><span>穀物、羊毛、樽、保険証文、現銀、王都発の封印荷</span></div>
+<div><span class="k">近道・危険道</span><span>葦霧湿地の際を切る裏道は早いが、河賊と夜荷場に触れやすい。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>柳綱宿</strong><div class="sub">王都河港から1日</div></td><td>曳舟索置場、馬替え場、倉壁宿</td><td>曳き馬方、小舟の手配人、保険の手代</td><td>曳舟縄の切断と荷受け誤認が定番。</td></tr><tr><td>2日目</td><td><strong>葦守宿</strong><div class="sub">柳綱宿から1日</div></td><td>堤番小屋、井戸、穀袋乾し場</td><td>穀物隊商、堤守、地方税吏</td><td>堤防補修の人足徴発で旅が止まりやすい。</td></tr><tr><td>3日目</td><td><strong>河霧宿</strong><div class="sub">葦守宿から1日</div></td><td>霧鐘、船見台、泊まり船の縄杭</td><td>夜間河運、伝令、河商会の若手</td><td>霧で荷が入れ替わり、誰が受領したか曖昧になる。</td></tr><tr><td>4日目</td><td><strong>塩秤宿</strong><div class="sub">河霧宿から1日</div></td><td>大秤、塩倉、帳場、河商会詰め所</td><td>塩荷、保険代理、商館護衛</td><td>秤の不正と荷印票の二重発行が多い。</td></tr><tr><td>5日目</td><td><strong>ノールハーフェン・巡路大宿『潮灯館』</strong><div class="sub">塩秤宿から1日</div></td><td>北税関区、穀物河岸、大宿院、保険商館</td><td>荷役頭、商館末子、税関役、河賊上がりの船乗り</td><td>倉一つ燃えれば、翌日の相場と政治が変わる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>柳綱宿</strong></td><td>柳綱束と川豆粥</td><td>荷綱頭ベルカ</td><td>車荷と舟荷の荷印票をここで突き合わせる。綱代は荷主でなく運び手が立て替えることが多い。</td><td>係船綱が切られ、朝には一艘だけ別の荷印を付けたまま下っている。</td></tr><tr><td><strong>葦守宿</strong></td><td>葦盾敷と湿地干し魚</td><td>水番イェサ</td><td>濡れ荷には乾かし料が乗る。埋葬布と灯塩は緊急印があれば優先通過。</td><td>葦の間に小舟の灯が増え、誰も認めていない夜荷の積み替えが始まる。</td></tr><tr><td><strong>河霧宿</strong></td><td>霧塩汁と舟灯油</td><td>宿主ルオム</td><td>夜発ちは追加灯料が必要。霧が濃い日は船頭組合の判断で一斉に足止めされる。</td><td>向こう岸から答えた舟の声が、朝にはどの船頭のものでもないと判明する。</td></tr><tr><td><strong>塩秤宿</strong></td><td>塩餅と湿度札</td><td>秤監パルミ</td><td>塩荷は湿り気込みで量目を取り直す。灰混じり塩は半値評価で積み戻しになる。</td><td>倉の塩俵が外見そのまま灰へ置き換わり、帳簿だけ正しいまま残る。</td></tr><tr><td><strong>ノールハーフェン・巡路大宿『潮灯館』</strong></td><td>河魚煮と青封菓子</td><td>主人エドマ</td><td>高額荷は保険証文の控えを宿で写す。使節の荷は宿帳とは別の封緘台帳へ載る。</td><td>穀倉火事の報せと同時に、同じ荷へ三通の保険請求が持ち込まれる。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日〜1日</td><td>雪解月の増水で堤防補修が優先され、人足徴発で列が止まりやすい。</td><td>王都河港で堤守の報せを聞いてから出る。湿地抜け近道は春ほど損。</td></tr><tr><td>夏</td><td>±0</td><td>最も荷が流れる時期。乾きやすいが火事の怖さも増す。</td><td>荷は進む。代わりに保険証文と係船綱の管理が重くなる。</td></tr><tr><td>秋</td><td>+半日</td><td>穀物と羊毛と税の波が重なり、秤場と倉壁宿が詰まる。</td><td>塩秤宿で一泊前提の方が、夜中に無理するより速い。</td></tr><tr><td>冬</td><td>+半日</td><td>路は残るが河霧が深い。夜発ち判断が宿主側へ寄る。</td><td>急ぐより霧鐘の判断に従う。無理に出ると翌朝の照会が面倒。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都河港〜柳綱宿</td><td>車荷と舟荷の帳面を突き合わせる地点。</td><td>荷印票、保険証文の控え、荷綱頭の受取印。</td><td>紙が合わないと荷は出ても責任者名が残らず、事故時に詰む。</td></tr><tr><td>葦守宿の堤守線</td><td>補修や徴発が入ると、税より堤の都合が上に来る。</td><td>堤守の通し、緊急荷の印、医療・葬送なら対応書付け。</td><td>一般旅は後回し。勝手に抜けると翌宿へ『止め札破り』が回る。</td></tr><tr><td>塩秤宿</td><td>濡れ荷と塩荷はここで量り直し。</td><td>荷印票、湿度札、保険証文の控え。</td><td>半値評価や積み戻しになる。二重発行が見つかると列ごと照会。</td></tr><tr><td>ノールハーフェン北税関区</td><td>高額荷は宿と税関の両帳面へ載る。</td><td>荷印票、保険証文、宿泊証明、使節荷なら封緘台帳の控え。</td><td>通れても売れない。相場が立つまで保留倉へ回される。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>柳綱宿で、係船綱だけが夜のうちに切られる</td><td>荷はそのまま、船だけいない。</td><td>同じ荷へ二重請求を立てる保険詐欺の前段。</td></tr><tr><td>2</td><td>葦守宿で人足徴発が始まり、旅人にも土嚢を持てと言う</td><td>断れば道が止まる。</td><td>堤の綻びは本物だが、今だけ直すのは密荷の夜便を通すためでもある。</td></tr><tr><td>3</td><td>河霧宿で、声はしたのにどの船頭も応じていないと言う</td><td>霧の夜には珍しくないが気味が悪い。</td><td>向こう岸の夜荷場が合図している。</td></tr><tr><td>4</td><td>塩秤宿で、帳簿だけ正しい灰塩俵が見つかる</td><td>外見は完璧。</td><td>倉の内と外で入れ替えたため、紙だけ本当になっている。</td></tr><tr><td>5</td><td>保険の手代が、荷主でもない者へ先に質問する</td><td>誰が本当の責任者かを探っている。</td><td>荷主が別件で追われており、名義貸しが使われている。</td></tr><tr><td>6</td><td>夜の湿地に、小舟の灯が三つ増える</td><td>誰も正式に認めていない航路だ。</td><td>河賊というより、顔のある商人が裏荷を動かしている。</td></tr><tr><td>7</td><td>穀倉の煙が見え、街道の空気まで変わる</td><td>まだ遠いのに人が走り始める。</td><td>実火災か、相場を動かすための先走りかは分からない。</td></tr><tr><td>8</td><td>潮灯館へ届く前の高額荷へ、同じ番号の保険証文が二通付く</td><td>どちらも本物に見える。</td><td>商館内の派閥が別口の保証を切っており、事故が起これば政治になる。</td></tr></tbody></table></div></section>
+<section class="route-card" id="barge">
+<div class="route-head">
+<div>
+<h3>冠河下り</h3>
+<p class="route-line"><strong>王都河港</strong> から <strong>ノールハーフェン</strong> へ。道より速いが、船便は『流れてしまえば終わり』の怖さがある。事故も密輸も、陸より証拠が残りにくい。</p>
+</div>
+<div class="pill-row"><span class="pill">川下り</span><span class="pill soft">安全路 下り3日 / 上り5〜6日</span><span class="pill soft">急ぎなら 追風と水位が揃えば下り2日半</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>河商会、船大工組合、保険商館、塩縁の灰色圏</span></div>
+<div><span class="k">この路を流れるもの</span><span>川船便の急送荷、現銀、写本箱、密輸荷、遺体の秘密搬送</span></div>
+<div><span class="k">近道・危険道</span><span>夜間航行は半日縮むが、保険条件が悪化しやすい。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>誓輪合流泊</strong><div class="sub">王都河港から1日下り</div></td><td>合流泊地、夜泊縄杭、船見番所</td><td>小舟頭、急ぎの文書便、私的な使者</td><td>荷受け証のすり替えと夜間出航の黙認が起こる。</td></tr><tr><td>2日目</td><td><strong>葦霧北泊</strong><div class="sub">誓輪合流泊から1日下り</div></td><td>湿地泊、浅瀬見張り、曳舟小屋</td><td>河商会、川漁り、灰色の舟筋</td><td>河霧、舟倉下水門へ繋がる裏荷、失踪荷の噂。</td></tr><tr><td>3日目</td><td><strong>ノールハーフェン</strong><div class="sub">葦霧北泊から1日下り</div></td><td>船渠区、穀物河岸、保険商館、税関</td><td>荷役頭、樽工、税吏、保険代理</td><td>到着印が一刻遅れるだけで保険が割れる。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>誓輪合流泊</strong></td><td>合流魚の塩鍋と舳先札</td><td>舟番セロ</td><td>川路印と陸路印の両方がない荷は先へ流せない。合流泊で積み替えの立会いを取る。</td><td>係留したはずの小舟が縄だけ残して消え、積み荷の印だけ桟橋に並ぶ。</td></tr><tr><td><strong>葦霧北泊</strong></td><td>葦燻魚と霧火酒</td><td>泊守ネヤ</td><td>濃霧の日は泊数が一日伸びても宿銀は軽いが、灯料だけは倍になる。</td><td>夜霧の向こうから呼ぶ声に応じた者が、朝には別の船の名簿へ載っている。</td></tr><tr><td><strong>ノールハーフェン</strong></td><td>川口煮と積み替え麺</td><td>舟親方ダロ</td><td>荷揚げ権と船腹順の調整が厳しい。無断下ろしは荷役頭と税関の両方を敵に回す。</td><td>船渠下で盗品荷の仮置きが始まり、正規荷の木札まで巻き込んで消える。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>増水で速くはなるが、流木と岸崩れ待ちで出航が遅れやすい。</td><td>出発が遅れても焦らない。水位が揃えば道よりはまだ速い。</td></tr><tr><td>夏</td><td>±0</td><td>最速の季節。ただし浅瀬と火災の恐れが増え、夜間便は保険条件が渋くなる。</td><td>急送荷は強いが、夜便は帳面を二重に作る前提で頼む。</td></tr><tr><td>秋</td><td>+半日</td><td>穀船と霧が重なり、合流泊での順番待ちが伸びる。</td><td>昼の視界を優先し、上陸泊まりを惜しまない。</td></tr><tr><td>冬</td><td>+1日</td><td>氷縁と風で下りも鈍る。上りはさらに遅い。</td><td>夜間便を諦める。船頭組合の止めを破ると後で倍返しされる。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>王都河港の船渠</td><td>道より速い代わりに、出る前の帳面が厚い。</td><td>積荷目録、保険証文、船頭組合の受け札、乗客名簿。</td><td>無札客は乗れても事故時に『最初からいなかった』扱いになる。</td></tr><tr><td>誓輪合流泊</td><td>水位と流れの読み、ここから先の船頭の顔が変わる。</td><td>合流泊の受け印、夜航可否の札、急送荷の再封。</td><td>保険条件がその場で下げられ、急がせるほど紙面が悪くなる。</td></tr><tr><td>ノールハーフェン河岸</td><td>着いた瞬間から税と保険と宿の三つの帳面へ分かれる。</td><td>荷印票、保険証文、宿泊証明、高額荷なら封緘台帳。</td><td>どれか一つ欠けると、下ろせても受け渡しが止まり、相場待ちになる。</td></tr><tr><td>遺体・危険物の秘密搬送</td><td>川は証拠が薄くなるぶん、発覚時の照会が重い。</td><td>死亡・埋葬証、危険遺物届、必要なら限定通行札。</td><td>保険対象外扱い。船頭までまとめて責任を問われる。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>無人の艀がゆっくり流れてくる</td><td>荷はあるかもしれないし、ないかもしれない。</td><td>船頭たちは拾いたがらない。拾えば責任まで拾うから。</td></tr><tr><td>2</td><td>川霧の向こうから助けを呼ぶ鐘が鳴る</td><td>本物なら急ぐべきだが、音が軽すぎる。</td><td>偽難破で舟を寄せ、積荷番号を盗み見る手口。</td></tr><tr><td>3</td><td>船縁へ上げた箱の封はそのまま、箱だけ異様に軽い</td><td>いつ入れ替わったのか。</td><td>積荷は岸辺の見えない夜荷場で一度抜かれている。</td></tr><tr><td>4</td><td>船頭が、乗客名簿へ一人多く書こうとする</td><td>空席のはずだ。</td><td>誰かを『最初からいた』ことにしたい。</td></tr><tr><td>5</td><td>下りの早便で、沈んだはずの便袋が流れ着く</td><td>革袋は破れていない。</td><td>落ちたのでなく、誰かが捨てた。中身の紙だけ抜いてある。</td></tr><tr><td>6</td><td>合流泊で、別の船の保険請求書に自分の積荷番号がある</td><td>単純ミスに見えない。</td><td>先に事故をでっちあげ、荷を奪うつもりの詐欺。</td></tr><tr><td>7</td><td>夜間便を嫌がる老船頭が、今日はなぜか黙っている</td><td>金の問題ではない。</td><td>今夜だけ公に言えない客を乗せるよう圧がかかっている。</td></tr><tr><td>8</td><td>河岸へ着いた途端、商館の者が荷より先に乗客を数える</td><td>荷は逃げないのに。</td><td>追っているのは密輸人でなく、王都を出た証人。</td></tr></tbody></table></div></section>
+<section class="route-card" id="bridgeport">
+<div class="route-head">
+<div>
+<h3>河税荷道</h3>
+<p class="route-line"><strong>アルシェ橋塞市</strong> から <strong>ノールハーフェン</strong> へ。橋で絞り、港で回すための路。荷は動くが、誰の税に入るかでずっと揉めている。</p>
+</div>
+<div class="pill-row"><span class="pill">北北東→南西</span><span class="pill soft">安全路 徒歩4日</span><span class="pill soft">急ぎなら 河船と短い陸揚げを組み合わせれば3日</span></div>
+</div>
+<div class="route-meta">
+<div><span class="k">主に面倒を見る者</span><span>橋塞監督官、自由市商館、河道税の役人、荷印実務者</span></div>
+<div><span class="k">この路を流れるもの</span><span>橋塞で止まった荷、再計量の穀物、関税証文、西門圏の鍛材</span></div>
+<div><span class="k">近道・危険道</span><span>湿地沿いの低地道は速いが、盗賊より税の不明瞭さが危険。</span></div>
+</div>
+<div class="table-wrap">
+<table>
+<thead><tr><th>行程</th><th>宿駅・中継</th><th>あるもの</th><th>よく会う人</th><th>揉めやすいこと</th></tr></thead>
+<tbody>
+<tr><td>1日目</td><td><strong>河鎖宿</strong><div class="sub">アルシェから1日</div></td><td>荷改め柵、橋税帳場、馬車留め</td><td>関税所、再積み隊、護衛</td><td>橋と港のどちらで税を払うかで二重請求になりやすい。</td></tr><tr><td>2日目</td><td><strong>穀堤宿</strong><div class="sub">河鎖宿から1日</div></td><td>穀袋蔵、堤上宿、秤台</td><td>穀物商、荷印実務、保険見習い</td><td>濡れた穀袋の責任所在が争いになる。</td></tr><tr><td>3日目</td><td><strong>湿芦渡し</strong><div class="sub">穀堤宿から1日</div></td><td>渡し場、湿地橋、川霧鐘</td><td>渡し守、夜便、河賊に怯える小隊商</td><td>夜荷、荷崩れ、渡し賃の恣意運用が多い。</td></tr><tr><td>4日目</td><td><strong>ノールハーフェン</strong><div class="sub">湿芦渡しから1日</div></td><td>穀物河岸、税関、商館街</td><td>自由市商館、王都河港の代理、荷役頭</td><td>二重帳簿と関税対立がもっとも表面化する。</td></tr>
+</tbody>
+</table>
+</div><h4 class="ops-title">宿駅ごとの運用欄</h4><div class="table-wrap ops-wrap"><table class="ops-table"><thead><tr><th>宿駅</th><th>名物</th><th>顔役</th><th>税や通行の癖</th><th>夜に起きやすい事件</th></tr></thead><tbody><tr><td><strong>河鎖宿</strong></td><td>鉤鍋と関札麺</td><td>取立役サヴァ</td><td>内陸荷には仮港印を打つ。河税を先払いした荷は札色が変わるのでごまかしにくい。</td><td>税箱の銀が一袋だけ軽く、見張りは誰も通っていないと言い張る。</td></tr><tr><td><strong>穀堤宿</strong></td><td>大麦粥と倉守漬</td><td>倉番メテル</td><td>穀荷は腐り見本を抜いてから堤倉へ入れる。不作年は見本の扱いだけで喧嘩になる。</td><td>倉の火種がくすぶり、保険をかけた荷から順に「傷み」が見つかり始める。</td></tr><tr><td><strong>湿芦渡し</strong></td><td>鰻串と浅舟粥</td><td>渡し娘ヒシェ</td><td>浅舟しか渡せないので車荷は半分ずつ。重い荷は一時的に別荷印を切る。</td><td>渡し場で荷馬だけが戻り、竿役は向こう岸へ着いたと言うのに誰も見ていない。</td></tr><tr><td><strong>ノールハーフェン</strong></td><td>税関汁と青封乾果</td><td>イェンナ・トール</td><td>河税・関税・保険の三つ巴で止まる荷が多い。差押え札が付くと宿より先に倉へ回される。</td><td>夜のうちに差押え荷が別倉へ移され、朝には正規の荷印票まで揃って見つかる。</td></tr></tbody></table></div>
+<h4 class="ops-title">季節別の遅延表</h4><div class="table-wrap"><table class="season-table"><thead><tr><th>季節</th><th>遅延目安</th><th>詰まりやすい理由</th><th>卓での扱い</th></tr></thead><tbody><tr><td>春</td><td>+半日</td><td>低地が柔らかく、橋で絞った荷を港へ回す段取りが乱れやすい。</td><td>陸揚げ地を先に決める。荷そのものより積み替え順が遅延を決める。</td></tr><tr><td>夏</td><td>±0</td><td>複合輸送がもっとも回る。だからこそ、税の食い違いがすぐ表面化する。</td><td>半日縮めるなら、橋側と港側の帳面を同時に押さえる。</td></tr><tr><td>秋</td><td>+1日</td><td>再計量の穀物が増え、湿地渡しの順番が伸びる。</td><td>急ぐより水気を管理する。膨れた穀物はすぐ別税になる。</td></tr><tr><td>冬</td><td>+半日</td><td>盗賊は減るが、橋霜と湿地の凍り方が読みにくい。</td><td>荷を減らして転覆を避ける。宿を一つ飛ばす判断はしない。</td></tr></tbody></table></div><h4 class="ops-title">通行証が必要になる境界一覧</h4><p class="route-note">通行証そのものに加え、その場で一緒に見られやすい荷印票・宿泊証明・死亡・埋葬証・境界通行証なども併記しています。</p><div class="table-wrap"><table class="boundary-table"><thead><tr><th>区間・境界</th><th>止まりやすい理由</th><th>求められやすい文書・印</th><th>ないとどうなるか</th></tr></thead><tbody><tr><td>アルシェ橋塞市の橋税所</td><td>橋を渡ってきた時点の重さと幅が基準になる。</td><td>橋税札、荷印票、再輸送先の書付け。</td><td>後で重さが変わると、橋塞側へ責任が戻されて揉める。</td></tr><tr><td>穀堤宿の再計量</td><td>穀物・樽・鍛材を港向け基準へ切り替える。</td><td>荷印票、湿り見立ての控え、倉受け札。</td><td>一時保管へ回され、その日の船便を逃す。</td></tr><tr><td>湿芦渡し</td><td>陸荷から船荷へ変わる場所。紙も切り直しになる。</td><td>荷印票、積み替え目録、渡し賃札。</td><td>荷は着いても帳面が追いつかず、受け取り側が責任を嫌がる。</td></tr><tr><td>ノールハーフェンの受け倉</td><td>最後は税と市場の都合で仕分けられる。</td><td>荷印票、保険証文、宿泊証明、倉の受領印。</td><td>売り急ぎ荷として値を叩かれる。あるいは倉ごと留め置き。</td></tr></tbody></table></div><h4 class="ops-title">遭遇表 d8</h4><p class="route-note">半日ごと、宿に着いた夜ごと、あるいは話が弛んだ瞬間に1回振る想定です。振らずに選んでも使えます。</p><div class="table-wrap"><table class="encounter-table"><thead><tr><th>d8</th><th>出会うもの</th><th>その場で面倒になること</th><th>奥で動いているもの</th></tr></thead><tbody><tr><td>1</td><td>橋側の帳面と港側の帳面で、同じ荷が一つ足りない</td><td>紙の上では両方正しい。</td><td>片方の写しが古く、誰かが古い番号を意図的に使っている。</td></tr><tr><td>2</td><td>穀堤宿で、乾いていたはずの袋が急に膨れる</td><td>中身は悪くないが重い。</td><td>雨ではなく、途中で水を吸わせて税や保険をいじった。</td></tr><tr><td>3</td><td>湿芦渡しの船頭が、荷より先に『誰の税になる』かを聞く</td><td>運び手らしからぬ質問。</td><td>橋塞監督官と港税の役人が、水面下で取り分争いをしている。</td></tr><tr><td>4</td><td>再計量待ちの列へ、顔のある商人が裏道を勧める</td><td>盗賊より税が怖い路だ。</td><td>裏道そのものは安全だが、通ると後で『帳面外し』の弱みになる。</td></tr><tr><td>5</td><td>橋塞で止まっていたはずの荷が、先回りして港にある</td><td>誰もどうやって運んだか言えない。</td><td>公式には止めたことにしたまま、夜にだけ流す二重台帳の一件。</td></tr><tr><td>6</td><td>積み替え札が雨で滲み、似た番号が二つ残る</td><td>今のうちなら誤魔化せる。</td><td>どちらか一つは最初から偽札で、滲むのを待っていた。</td></tr><tr><td>7</td><td>荷役人が、穀物より鍛材の方を隠したがる</td><td>価値は逆に見える。</td><td>鍛材の行き先が軍需に繋がっており、税以外の目がある。</td></tr><tr><td>8</td><td>港へ着く直前、倉の受領印を持つ者が二人現れる</td><td>両方とも急がせる。</td><td>同じ商館の短期利得派と長期安定派が別の倉へ振り分けようとしている。</td></tr></tbody></table></div></section>
+</section>
+<section class="section" id="urban">
+<h2>10. 起終点で使いやすい大宿・宿屋通り</h2>
+<p class="lead">長旅の出入りでプレイヤーが名前を出しやすい、都市側の宿の窓口です。大都市では「街そのもの」よりも、どの門やどの河岸から出入りするかの方が実務上は重要です。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>都市・拠点</th><th>旅人が最初に頼る場所</th><th>どの路の窓口か</th><th>多い顔ぶれ</th></tr></thead>
+<tbody><tr><td><strong>王都カレディア</strong></td><td>北門隊商宿 / 王都河港館 / 南東門の旅宿</td><td>北路・西路・河路・巡礼路の起点。</td><td>隊商、書記、王都役人、保険の手代</td></tr><tr><td><strong>聖都ルーメン</strong></td><td>旅灯宿サルウェ分館 / 巡礼市の諸宿</td><td>白冠巡礼道・葬列路・鐘薬道の集点。</td><td>巡礼者、神殿下役、病人、境門補佐</td></tr><tr><td><strong>グレイヴェル</strong></td><td>狼泊大宿</td><td>北星街道と狼門軍道の接続点。</td><td>難民、辺境実務派、冒険者、護送人</td></tr><tr><td><strong>灰砦</strong></td><td>木柵の宿『灰盃亭』</td><td>北辺の実務拠点。村・市・兵站が未分離。</td><td>守囲兵、工兵、村人、獣人使節</td></tr><tr><td><strong>セラト学匠市</strong></td><td>学徒宿区の客舎</td><td>書記東道と白樺路の結節点。</td><td>星書生、地図師、弁士、学徒</td></tr><tr><td><strong>白樺関</strong></td><td>関前宿『刃休め』</td><td>東境圏の荷改めと作法の門。</td><td>関税代官、森境の使者、通訳騎手</td></tr><tr><td><strong>アルシェ橋塞市</strong></td><td>宿屋通り</td><td>誓橋街道・鉄塩街道・河税荷道の分岐点。</td><td>橋塞監督官、工兵、再積み隊</td></tr><tr><td><strong>ノールハーフェン</strong></td><td>巡路大宿『潮灯館』</td><td>下り河堤道・冠河下り・河税荷道の終着。</td><td>荷役頭、商館末子、税吏、保険代理</td></tr><tr><td><strong>ブレダン軍馬市</strong></td><td>馬市広場まわりの宿</td><td>南侯馬道と鐘薬道の中継。</td><td>騎兵、馬医、徴発係</td></tr><tr><td><strong>モルディア墓城</strong></td><td>記録院外宿</td><td>葬列路の終着。</td><td>墓守、書記、遺族、灯院補佐</td></tr></tbody>
+</table>
+</div>
+</section>
+<section class="section" id="landmarks">
+<h2>11. 地名・地形・ランドマーク索引</h2>
+<p class="lead">地図や会話に固有名が出るだけで、PCの出自と旅の手触りが出やすくなります。河川・山地・峠・橋・観測点は、卓で最も呼びやすいものから揃えています。</p>
+<div class="grid-2">
+<div class="card">
+<h3>河川・湿地・水辺</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>名称</th><th>扱い</th></tr></thead>
+<tbody><tr><td><strong>冠河</strong></td><td>王都河港からノールハーフェンへ下る大河。王都の河港実務と自由市の保険実務を一本で結ぶ。</td></tr><tr><td><strong>灰背川</strong></td><td>北辺を南へ流れ、グレイヴェルの段丘と灰砦方面の補給路を分ける冷たい川。</td></tr><tr><td><strong>誓輪川</strong></td><td>アルシェ橋塞市の大橋がまたぐ支流。橋を押さえる者が西門圏の通商へ噛める。</td></tr><tr><td><strong>聖泉川</strong></td><td>聖都ルーメンの段丘を洗う湧水系の川。施療と巡礼、そして水の正統性を象徴する。</td></tr><tr><td><strong>葦霧湿地</strong></td><td>ノールハーフェン手前の湿地帯。近道にも隠れ荷場にもなるが、霧と水盗賊が怖い。</td></tr></tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>山・丘・森・平野</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>名称</th><th>扱い</th></tr></thead>
+<tbody><tr><td><strong>西鉄嶺</strong></td><td>ドゥルガ鋼山盟約王国を抱える西の鉄山脈。工兵・冶金・深坑異常の震源。</td></tr><tr><td><strong>東白森</strong></td><td>シルヴァレル樹冠公議会の本拠たる白い森。道は地図より誓約で開く。</td></tr><tr><td><strong>白森縁</strong></td><td>人間圏と白森の呼吸がぶつかる境界帯。伐採、橋掛け、埋葬の作法が争点になる。</td></tr><tr><td><strong>黒月南縁</strong></td><td>北の不穏が常に意識される帯。狼門砦の向こうに広がる『王国北の喉元』。</td></tr><tr><td><strong>白麦平野</strong></td><td>王都の北と南侯圏へ開く穀倉の平地。税と兵糧の根がここにある。</td></tr><tr><td><strong>灰環丘陵</strong></td><td>王都北路の中盤から目立ちはじめる痩せた丘陵。宿駅が粗くなり、旅の空気が変わる。</td></tr><tr><td><strong>狼歯尾根</strong></td><td>灰砦以北で軍道の脇に走る尾根。早道にもなるが、吹雪の日は墓場に近い。</td></tr><tr><td><strong>墓白原</strong></td><td>聖都からモルディアへ向かう途中の白い原。石灰と埋葬の風景が続く。</td></tr><tr><td><strong>蹄渡台地</strong></td><td>ブレダン周辺の牧草台地。軍馬、鞍、徴発の匂いが強い。</td></tr></tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>街道・河路・峠</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>名称</th><th>扱い</th></tr></thead>
+<tbody><tr><td><strong>北星街道</strong></td><td>王都カレディアからグレイヴェルへ向かう北の幹線。宿駅は多いが北ほど質が落ちる。</td></tr><tr><td><strong>狼門軍道</strong></td><td>グレイヴェル、灰砦、狼門砦を結ぶ補給路。塩と矢と工兵部材の動脈。</td></tr><tr><td><strong>霜泊支路</strong></td><td>灰砦から霜泊村へ入る村道。正式な宿駅路ではなく、村会の顔で通る路。</td></tr><tr><td><strong>白冠巡礼道</strong></td><td>王都と聖都を結ぶ格式の高い路。巡礼宿組合と巡路会の帳面が旅程を支える。</td></tr><tr><td><strong>葬列路</strong></td><td>聖都からモルディア墓城へ至る死者の道。旅人でも葬列を優先する。</td></tr><tr><td><strong>南侯馬道</strong></td><td>王都とブレダン軍馬市を結ぶ路。馬の印と徴発が空気を決める。</td></tr><tr><td><strong>鐘薬道</strong></td><td>ブレダン、ラーケン、聖都を繋ぐ薬と病人の路。</td></tr><tr><td><strong>書記東道</strong></td><td>王都からセラト学匠市へ文書と学徒を運ぶ路。</td></tr><tr><td><strong>白樺路</strong></td><td>セラト学匠市から白樺関へ続く東境の路。</td></tr><tr><td><strong>森境観測路</strong></td><td>白樺関から境見の塔へ入る観測路。近いが作法しだいで遠い。</td></tr><tr><td><strong>誓橋街道</strong></td><td>王都からアルシェ橋塞市へ向かう西の幹線。</td></tr><tr><td><strong>鉄塩街道</strong></td><td>アルシェ橋塞市からヘルム坑へ向かう工兵と契約の路。</td></tr><tr><td><strong>炉煙峠越え</strong></td><td>ヘルム坑から西鉄嶺の盟約門前へ抜ける峠路。</td></tr><tr><td><strong>下り河堤道</strong></td><td>王都河港からノールハーフェンへ堤を伝う陸路。</td></tr><tr><td><strong>冠河下り</strong></td><td>同じ区間を川で下る便。速いが事故と密輸に敏感。</td></tr><tr><td><strong>河税荷道</strong></td><td>アルシェ橋塞市とノールハーフェンをつなぐ再積み路。</td></tr></tbody>
+</table>
+</div>
+</div>
+<div class="card">
+<h3>構造物・観測点</h3>
+<div class="table-wrap">
+<table>
+<thead><tr><th>名称</th><th>扱い</th></tr></thead>
+<tbody><tr><td><strong>誓橋大橋</strong></td><td>アルシェ橋塞市の象徴。橋脚の健全さがそのまま西門圏の政情を映す。</td></tr><tr><td><strong>灰鐘烽火列</strong></td><td>グレイヴェル以北の軍道沿いに並ぶ烽火台群。虚報ひとつで砦が騒ぐ。</td></tr><tr><td><strong>境見の塔</strong></td><td>白森縁を監る観測塔。記録官や星書生の探索拠点。</td></tr><tr><td><strong>王都河港館</strong></td><td>王都側の河運実務の要。下り河便と保険証文の起点。</td></tr><tr><td><strong>巡路会本庁</strong></td><td>聖都ルーメンにある巡路会の中枢。宿駅網と通行証の信用がここへ戻る。</td></tr></tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section class="section" id="index">
+<h2>12. 宿駅総索引</h2>
+<p class="lead">宿駅名から逆引きしたいときのための一覧です。セッション中に「その宿は何の路線だったか」をすぐ戻れます。</p>
+<div class="table-wrap">
+<table>
+<thead><tr><th>宿駅・中継</th><th>属する路線</th><th>位置</th><th>あるもの</th><th>揉めやすいこと</th></tr></thead>
+<tbody><tr><td><strong>アルシェ橋塞市</strong></td><td>誓橋街道</td><td>誓輪渡し宿から1日</td><td>北堡、橋上関所、工兵庭、宿屋通り</td><td>橋上事故も、橋上死者も、すぐ政治問題になる。</td></tr><tr><td><strong>グレイヴェル・狼泊大宿</strong></td><td>北星街道</td><td>凍見台宿から1日</td><td>隊商宿、北図の棚、荷役場、装備更新の店並み</td><td>街に入った途端に荷と人の値段が北辺相場へ変わる。</td></tr><tr><td><strong>サルウェ巡路市</strong></td><td>白冠巡礼道</td><td>セプティアから1日</td><td>宿場市、旅券照会所、馬替え場、伝令台</td><td>宿場の独立と巡路会の監督の綱引きが絶えない。</td></tr><tr><td><strong>セプティア</strong></td><td>白冠巡礼道</td><td>鐘雫宿から1日</td><td>巡礼宿組合の本宿、荷預り蔵、施し台所、小裁定室</td><td>表はまっとうな宿場町だが、裏路では灰売り市も立つ。</td></tr><tr><td><strong>セラト学匠市</strong></td><td>書記東道</td><td>羊皮紙宿から1日</td><td>法学院丘、写字市場、学徒宿区、星見塔</td><td>学説と法理の争いが、そのまま政治火種になる。</td></tr><tr><td><strong>ノールハーフェン</strong></td><td>冠河下り</td><td>葦霧北泊から1日下り</td><td>船渠区、穀物河岸、保険商館、税関</td><td>到着印が一刻遅れるだけで保険が割れる。</td></tr><tr><td><strong>ノールハーフェン</strong></td><td>河税荷道</td><td>湿芦渡しから1日</td><td>穀物河岸、税関、商館街</td><td>二重帳簿と関税対立がもっとも表面化する。</td></tr><tr><td><strong>ノールハーフェン・巡路大宿『潮灯館』</strong></td><td>下り河堤道</td><td>塩秤宿から1日</td><td>北税関区、穀物河岸、大宿院、保険商館</td><td>倉一つ燃えれば、翌日の相場と政治が変わる。</td></tr><tr><td><strong>ブレダン軍馬市</strong></td><td>南侯馬道</td><td>盾牧宿から1日</td><td>馬市広場、蹄鉄街、厩舎丘、練兵野</td><td>軍馬が私戦向けか辺境補給向けかで意味が変わる。</td></tr><tr><td><strong>ヘルム坑</strong></td><td>鉄塩街道</td><td>砕石宿から1日</td><td>坑口区、洗鉱区、精錬区、ドワーフ石宿</td><td>事故率と産出量のどちらを優先するかで空気が張る。</td></tr><tr><td><strong>モルディア墓城</strong></td><td>葬列路</td><td>白灰宿から1日</td><td>納骨路、記録院、石灰庭、境門砦</td><td>名と骨の照合、埋葬順、無名墓の扱いが政治になる。</td></tr><tr><td><strong>ラーケン修院市</strong></td><td>鐘薬道</td><td>鐘見野宿から1日</td><td>修院本堂、写本室、薬草園、病舎、客舎</td><td>記録と施療のどちらを優先するかで軋む。</td></tr><tr><td><strong>三炬渡し</strong></td><td>北星街道</td><td>灰柳宿から1日</td><td>渡し場、番舎、路標灯、川霧鐘</td><td>増水期は渡し賃が跳ね上がり、偽通行証も出回る。</td></tr><tr><td><strong>凍河宿エッダ</strong></td><td>狼門軍道</td><td>灰尾宿から1日</td><td>宿、隔離井戸、煮沸場、小病舎、死者確認帳場</td><td>水源汚染、遺体確認、隔離命令の押し付け合いが起こる。</td></tr><tr><td><strong>凍見台宿</strong></td><td>北星街道</td><td>石柵宿から1日</td><td>風除け小屋、狼煙台、薪場、共同釜</td><td>冬は凍傷、秋は狼害、春は補給不足が問題になる。</td></tr><tr><td><strong>塩秤宿</strong></td><td>下り河堤道</td><td>河霧宿から1日</td><td>大秤、塩倉、帳場、河商会詰め所</td><td>秤の不正と荷印票の二重発行が多い。</td></tr><tr><td><strong>境見の塔</strong></td><td>森境観測路</td><td>白樺関から東へ1日</td><td>観測台、記録庫、風見柱、宿直室</td><td>案内拒否、記録非公開、道迷いがそのまま外交問題になる。</td></tr><tr><td><strong>墨樹宿</strong></td><td>書記東道</td><td>王都から東南東へ1日</td><td>代書机、封蝋棚、荷札所、小文庫</td><td>封蝋破れや証文の写し違いが一番多い。</td></tr><tr><td><strong>柳綱宿</strong></td><td>下り河堤道</td><td>王都河港から1日</td><td>曳舟索置場、馬替え場、倉壁宿</td><td>曳舟縄の切断と荷受け誤認が定番。</td></tr><tr><td><strong>河鎖宿</strong></td><td>河税荷道</td><td>アルシェから1日</td><td>荷改め柵、橋税帳場、馬車留め</td><td>橋と港のどちらで税を払うかで二重請求になりやすい。</td></tr><tr><td><strong>河霧宿</strong></td><td>下り河堤道</td><td>葦守宿から1日</td><td>霧鐘、船見台、泊まり船の縄杭</td><td>霧で荷が入れ替わり、誰が受領したか曖昧になる。</td></tr><tr><td><strong>湿芦渡し</strong></td><td>河税荷道</td><td>穀堤宿から1日</td><td>渡し場、湿地橋、川霧鐘</td><td>夜荷、荷崩れ、渡し賃の恣意運用が多い。</td></tr><tr><td><strong>灰尾宿</strong></td><td>狼門軍道</td><td>グレイヴェルから1日</td><td>荷馬囲い、乾草置場、馬鍛冶、夜番小屋</td><td>荷札の差し替えと夜間の盗み見が起きやすい。</td></tr><tr><td><strong>灰柳宿</strong></td><td>北星街道</td><td>白麦門宿から1日</td><td>井戸、荷車修理場、染め小屋、小礼拝堂</td><td>橋板の傷みと泥濘で荷車が滞りやすい。</td></tr><tr><td><strong>灰砦・木柵の宿『灰盃亭』</strong></td><td>狼門軍道</td><td>烽火台宿から1日</td><td>宿兼酒場、井戸広場、工兵倉、市、灯院</td><td>壁修繕、配給、相続、異種族折衝が同じ広場で揉める。</td></tr><tr><td><strong>炉煙峠番屋</strong></td><td>炉煙峠越え</td><td>ヘルム坑から1日</td><td>峠番舎、蓄火炉、吹雪避け石室</td><td>吹雪と計量誤魔化しが同時に来る。</td></tr><tr><td><strong>烽火台宿</strong></td><td>狼門軍道</td><td>凍河宿エッダから1日</td><td>烽火台、石灰穴、弩矢庫、風除け厩舎</td><td>虚偽の烽火報と配給の抜けがしばしば問題になる。</td></tr><tr><td><strong>狩人橋小屋</strong></td><td>霜泊支路</td><td>灰砦から半日</td><td>焚火床、橋番箱、獣除け柵</td><td>橋板の張り替えと誰を村へ通すかで揉める。</td></tr><tr><td><strong>狼門砦前・終矢宿</strong></td><td>狼門軍道</td><td>雪爪宿から1日</td><td>砦前宿、戦傷馬柵、聖別庫の外置場</td><td>徴発、通行停止、砦内持込の検分が最も厳しい。</td></tr><tr><td><strong>白樺関</strong></td><td>白樺路</td><td>誓筆宿から1日</td><td>荷改め広場、関税所、樹脂倉、関前宿</td><td>過重税、勝手検分、境界作法違反の告発が多い。</td></tr><tr><td><strong>白灰宿</strong></td><td>葬列路</td><td>聖都南門から1日</td><td>柩置き場、石灰窯、静祈室、湧水小屋</td><td>身元確認の齟齬、供物の抜き取り、粗悪石灰が問題になる。</td></tr><tr><td><strong>白麦門宿</strong></td><td>北星街道</td><td>王都から北へ1日</td><td>厩舎、穀秤、荷札所、農具屋</td><td>収穫期は徴税争いと荷印票の不備が頻発する。</td></tr><tr><td><strong>盟約門前宿</strong></td><td>炉煙峠越え</td><td>炉煙峠番屋から1日</td><td>受渡し小庭、計量所、契約卓、石宿</td><td>印ひとつで荷が丸ごと返されることがある。</td></tr><tr><td><strong>盾牧宿</strong></td><td>南侯馬道</td><td>麦綱宿から1日</td><td>放牧囲い、獣医小屋、蹄洗い場</td><td>焼印のすり替えと名馬盗難の噂が絶えない。</td></tr><tr><td><strong>矢継宿</strong></td><td>狼門軍道</td><td>灰砦から北へ1日</td><td>矢羽整え場、荷ぞり置場、材木柵</td><td>矢材の消失と木札未登録の荷がよく出る。</td></tr><tr><td><strong>石柵宿</strong></td><td>北星街道</td><td>三炬渡しから1日</td><td>木柵宿、蹄鉄場、塩倉、見張り台</td><td>ここから先は私兵の勝手検分が始まりやすい。</td></tr><tr><td><strong>石鎖宿</strong></td><td>誓橋街道</td><td>王都から西へ1日</td><td>石工庭、鎖修理場、荷馬場</td><td>橋鋲の盗難と石材の規格違いが争いになる。</td></tr><tr><td><strong>砕石宿</strong></td><td>鉄塩街道</td><td>鍛縄宿から1日</td><td>採石小屋、崩れ避けの壁、予備車輪倉</td><td>崩落、廃採石場の密掘り、怪我人の遅配が多い。</td></tr><tr><td><strong>穀堤宿</strong></td><td>河税荷道</td><td>河鎖宿から1日</td><td>穀袋蔵、堤上宿、秤台</td><td>濡れた穀袋の責任所在が争いになる。</td></tr><tr><td><strong>羊皮紙宿</strong></td><td>書記東道</td><td>墨樹宿から1日</td><td>羊皮紙乾棚、製本小屋、測量杭置場</td><td>学生同士の決闘まがいの口論と、写本盗難が起きやすい。</td></tr><tr><td><strong>聖都ルーメン</strong></td><td>鐘薬道</td><td>薬棚宿から1日</td><td>東施療区、癒灯大病舎、巡礼市</td><td>病舎の順番待ちと身元確認で時間を取られやすい。</td></tr><tr><td><strong>聖都ルーメン・旅灯宿サルウェ分館</strong></td><td>白冠巡礼道</td><td>サルウェ巡路市から1日</td><td>巡礼市の大宿、護符屋、浴場、施療案内</td><td>宿帳の照会、身元確認、寄進の扱いで列が長くなる。</td></tr><tr><td><strong>葦守宿</strong></td><td>下り河堤道</td><td>柳綱宿から1日</td><td>堤番小屋、井戸、穀袋乾し場</td><td>堤防補修の人足徴発で旅が止まりやすい。</td></tr><tr><td><strong>葦霧北泊</strong></td><td>冠河下り</td><td>誓輪合流泊から1日下り</td><td>湿地泊、浅瀬見張り、曳舟小屋</td><td>河霧、舟倉下水門へ繋がる裏荷、失踪荷の噂。</td></tr><tr><td><strong>薬棚宿</strong></td><td>鐘薬道</td><td>ラーケン修院市から1日</td><td>乾燥棚、香草庫、隔離寝台、井戸</td><td>検疫、偽薬、急患優先で宿帳が乱れやすい。</td></tr><tr><td><strong>誓筆宿</strong></td><td>白樺路</td><td>セラトから1日</td><td>誓約卓、小記録所、境界案内札の棚</td><td>通行文言の一字違いで丸一日足止めされることがある。</td></tr><tr><td><strong>誓輪合流泊</strong></td><td>冠河下り</td><td>王都河港から1日下り</td><td>合流泊地、夜泊縄杭、船見番所</td><td>荷受け証のすり替えと夜間出航の黙認が起こる。</td></tr><tr><td><strong>誓輪渡し宿</strong></td><td>誓橋街道</td><td>石鎖宿から1日</td><td>渡し場、誓いの小堂、橋台見張り</td><td>通行税の二重取りと渡し賃の勝手値上げが起きやすい。</td></tr><tr><td><strong>鍛縄宿</strong></td><td>鉄塩街道</td><td>アルシェから1日</td><td>索具場、仮鍛場、秤台、荷改め柵</td><td>契印の読み違いと納期詐称で口論が絶えない。</td></tr><tr><td><strong>鐘見野宿</strong></td><td>鐘薬道</td><td>ブレダンから1日</td><td>鐘楼、馬槽、簡易施療棚、旅祈り所</td><td>薬包の盗難と負傷馬の押し付けが起きる。</td></tr><tr><td><strong>鐘雫宿</strong></td><td>白冠巡礼道</td><td>王都から南東へ1日</td><td>湯屋、蝋燭棚、旅祈り所、共同厩舎</td><td>偽の巡礼札と遺物売りが紛れ込みやすい。</td></tr><tr><td><strong>雪爪宿</strong></td><td>狼門軍道</td><td>矢継宿から1日</td><td>雪囲い宿、そり場、路標灯芯庫、予備糧倉</td><td>吹雪で道標が消え、宿そのものが埋まることがある。</td></tr><tr><td><strong>霜泊村</strong></td><td>霜泊支路</td><td>狩人橋小屋から1日</td><td>村会長屋、共同穀倉、燻製小屋、見張り台、避難穴倉</td><td>共同備蓄と外部者の立入許可が常に争点になる。</td></tr><tr><td><strong>麦綱宿</strong></td><td>南侯馬道</td><td>王都から南へ1日</td><td>飼葉倉、荷縄工房、牛馬井戸</td><td>飼葉横流しと徴発前倒しが起こりやすい。</td></tr></tbody>
+</table>
+</div>
+</section>
+<div class="footer">イルセア西部・灰冠時代の旅路と宿駅を、季節・境界・遭遇まで含めて卓で動かしやすい運用粒度にまとめたHTMLです。</div>
+</main>
+</body>
+</html>
