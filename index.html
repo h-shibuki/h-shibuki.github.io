@@ -356,6 +356,17 @@
       gap: 10px;
     }
 
+    .card-version {
+      margin: -2px 0 2px;
+      color: var(--muted);
+      font-size: 0.82rem;
+      line-height: 1.45;
+    }
+
+    .card-version[hidden] {
+      display: none;
+    }
+
     .card-copy h3 {
       margin: 0;
       font-size: 1.08rem;
@@ -892,6 +903,10 @@
 
   <script>
     (() => {
+      const VERSION_MANIFEST_URL = './version-manifest.json';
+      const VERSION_SELECTOR = 'a.resource-card[href], a.world-card[href], a.plain-card[href]';
+      const SKIP_VERSION_HREFS = new Set(['#', './gm.html', 'gm.html']);
+
       const prepareFallback = (img) => {
         const src = img.getAttribute('src');
         const fallback = (img.dataset.fallbackSrcs || '')
@@ -908,7 +923,61 @@
         };
         img.addEventListener('error', advance);
       };
+
+      const normalizeHref = (href) => {
+        if (!href || /^(https?:|mailto:|javascript:)/.test(href)) return '';
+        const cleanHref = href.split('#')[0].split('?')[0];
+        if (!cleanHref) return '';
+        return cleanHref.startsWith('./') ? cleanHref : `./${cleanHref}`;
+      };
+
+      const ensureVersionStamp = (cardCopy) => {
+        let stamp = cardCopy.querySelector('.card-version');
+        if (!stamp) {
+          stamp = document.createElement('time');
+          stamp.className = 'card-version';
+          stamp.hidden = true;
+          const pill = cardCopy.querySelector('.pill');
+          if (pill) {
+            pill.before(stamp);
+          } else {
+            cardCopy.append(stamp);
+          }
+        }
+        return stamp;
+      };
+
+      const renderVersions = async () => {
+        try {
+          const response = await fetch(VERSION_MANIFEST_URL, { cache: 'no-store' });
+          if (!response.ok) return;
+
+          const manifest = await response.json();
+          const pages = manifest?.pages || {};
+
+          document.querySelectorAll(VERSION_SELECTOR).forEach((link) => {
+            const rawHref = link.getAttribute('href');
+            const href = normalizeHref(rawHref);
+            if (!href || SKIP_VERSION_HREFS.has(href)) return;
+
+            const entry = pages[href] || pages[href.replace(/^\.\//, '')];
+            if (!entry?.display) return;
+
+            const cardCopy = link.querySelector('.card-copy');
+            if (!cardCopy) return;
+
+            const stamp = ensureVersionStamp(cardCopy);
+            stamp.textContent = `更新: ${entry.display}`;
+            stamp.dateTime = entry.iso || '';
+            stamp.hidden = false;
+          });
+        } catch (error) {
+          console.warn('version-manifest.json could not be loaded.', error);
+        }
+      };
+
       document.querySelectorAll('img[data-fallback-srcs]').forEach(prepareFallback);
+      renderVersions();
     })();
   </script>
 </body>

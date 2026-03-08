@@ -1,0 +1,42 @@
+name: Update version manifest
+
+on:
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - version-manifest.json
+
+permissions:
+  contents: write
+
+jobs:
+  build-version-manifest:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Build version-manifest.json
+        run: python scripts/build_version_manifest.py
+
+      - name: Commit version-manifest.json
+        run: |
+          if [ -z "$(git status --porcelain -- version-manifest.json)" ]; then
+            echo "No changes detected."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add version-manifest.json
+          git commit -m "Update version manifest"
+          git push
