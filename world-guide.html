@@ -1,0 +1,482 @@
+---
+layout: null
+title: "Quick Build Saga 世界作成ガイド"
+card_title: "世界作成ガイド"
+description: "GM向けの世界作成ガイド。QBSの宣言、裁定、シナリオ設計、キャンペーン設計と整合する舞台の作り方、プレイヤーへ見せる情報、世界反応、Builds / Stories の足場を扱う。"
+badge: "For GMs"
+page_type: "設計ガイド"
+nav_order: 70
+featured: false
+listed: true
+card_tone: "violet"
+hero_label: "世界作成ガイドを見る"
+---
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Quick Build Saga 世界作成ガイド</title>
+<meta content="GM向けの世界作成ガイド。QBSの宣言、裁定、シナリオ設計、キャンペーン設計と整合する舞台の作り方、プレイヤーへ見せる情報、世界反応、Builds / Stories の足場を扱う。" name="description"/>
+<style>
+    :root{
+      --bg:#f7f8fb;--paper:#ffffff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --accent:#1d4ed8;--quote:#f8fafc;--code:#0f172a;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 220px);
+      color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI","YuGothic","Meiryo",sans-serif;
+      line-height:1.8;
+    }
+    .wrap{max-width:1120px; margin:0 auto; padding:32px 20px 64px; display:grid; grid-template-columns:280px minmax(0,1fr); gap:24px;}
+    .sidebar{position:sticky; top:20px; align-self:start; background:rgba(255,255,255,.9); backdrop-filter: blur(10px);
+      border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 12px 40px rgba(15,23,42,.06);}
+    .brand{font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--accent); text-transform:uppercase; margin-bottom:6px}
+    .title{font-size:1.4rem; font-weight:800; line-height:1.35; margin:0 0 8px}
+    .subtitle{font-size:.95rem; color:var(--muted); margin:0 0 18px}
+    .toc{font-size:.94rem; max-height:calc(100vh - 180px); overflow:auto; padding-right:4px}
+    .toc ul{list-style:none; padding-left:0; margin:.2rem 0}
+    .toc li{margin:.34rem 0}
+    .toc li.lv2{font-weight:650; margin-top:.55rem}
+    .toc li.lv3{padding-left:.85rem}
+    .toc li.lv4{padding-left:1.45rem; color:var(--muted)}
+    .toc a{color:var(--ink); text-decoration:none}
+    .toc a:hover{color:var(--accent)}
+    main{background:var(--paper); border:1px solid var(--line); border-radius:24px; padding:42px 48px; box-shadow:0 18px 60px rgba(15,23,42,.08);}
+    h1,h2,h3,h4{line-height:1.35; margin-top:1.7em; margin-bottom:.65em}
+    h1{margin-top:0; font-size:2.2rem; letter-spacing:-.01em}
+    h2{font-size:1.55rem; padding-top:.2rem}
+    h3{font-size:1.18rem}
+    h4{font-size:1rem}
+    p,ul,ol,blockquote,table,pre{margin:0 0 1rem}
+    ul,ol{padding-left:1.35rem}
+    li{margin:.2rem 0}
+    blockquote{
+      margin:1rem 0 1.25rem; padding:1rem 1.1rem; background:var(--quote);
+      border-left:4px solid var(--accent); color:#374151; border-radius:10px;
+    }
+    code{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      background:#f3f4f6; padding:.12rem .34rem; border-radius:6px; font-size:.92em;
+    }
+    pre{
+      background:var(--code); color:#f8fafc; padding:1rem 1.1rem; overflow:auto; border-radius:14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    pre code{background:transparent; padding:0; color:inherit}
+    table{
+      width:100%; border-collapse:collapse; font-size:.96rem; background:#fff;
+      border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    }
+    th,td{padding:.72rem .8rem; vertical-align:top; border-bottom:1px solid var(--line); text-align:left}
+    th{background:#f8fafc; font-weight:700}
+    tr:last-child td{border-bottom:none}
+    hr{border:none; border-top:1px solid var(--line); margin:2rem 0}
+    a{color:var(--accent)}
+    strong{font-weight:750}
+    @media (max-width: 920px){
+      .wrap{grid-template-columns:1fr}
+      .sidebar{position:relative; top:auto}
+      main{padding:32px 24px}
+      .toc{max-height:none}
+    }
+    .visually-hidden{
+      position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    .skip-link{
+      position:absolute; left:16px; top:8px; z-index:1000;
+      padding:.55rem .8rem; border-radius:10px; border:2px solid var(--accent);
+      background:#fff; color:var(--ink); text-decoration:none; transform:translateY(-160%);
+      transition:transform .15s ease;
+    }
+    .skip-link:focus{transform:translateY(0)}
+    main a{
+      text-decoration:underline;
+      text-decoration-thickness:.08em;
+      text-underline-offset:.16em;
+      text-decoration-skip-ink:auto;
+    }
+    .toc a{ text-decoration:none; }
+    a:focus-visible{
+      outline:3px solid var(--accent);
+      outline-offset:3px;
+      border-radius:6px;
+    }
+    h2:target,h3:target,h4:target{
+      scroll-margin-top:1rem;
+      outline:3px solid rgba(29,78,216,.22);
+      outline-offset:.18rem;
+      border-radius:8px;
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .skip-link{transition:none}
+    }
+</style>
+</head>
+<body><a class="skip-link" href="#main-content">本文へ移動</a>
+<div class="wrap">
+<aside aria-label="文書ナビゲーション" class="sidebar">
+<div class="brand">Quick Build Saga</div>
+<p class="title" id="doc-nav-title">Quick Build Saga 世界作成ガイド</p>
+<p class="subtitle">GM向け設計ガイド</p>
+<nav aria-label="目次" class="toc">
+<ul>
+<li class="lv2"><a href="#0-はじめに">0. はじめに</a></li>
+<li class="lv3"><a href="#この本で扱う範囲">この本で扱う範囲</a></li>
+<li class="lv3"><a href="#設計の基本線">設計の基本線</a></li>
+<li class="lv2"><a href="#1-このガイドで使う言葉">1. このガイドで使う言葉</a></li>
+<li class="lv2"><a href="#2-このガイドの使い方">2. このガイドの使い方</a></li>
+<li class="lv3"><a href="#world-order">設計の基本順</a></li>
+<li class="lv2"><a href="#3-世界作成の基本線">3. 世界作成の基本線</a></li>
+<li class="lv2"><a href="#4-まず固定する九点">4. まず固定する九点</a></li>
+<li class="lv3"><a href="#可動域">可動域</a></li>
+<li class="lv3"><a href="#例外の所在">例外の所在</a></li>
+<li class="lv3"><a href="#移動と通信">移動と通信</a></li>
+<li class="lv3"><a href="#権力と窓口">権力と窓口</a></li>
+<li class="lv3"><a href="#生活とscarcity">生活と scarcity</a></li>
+<li class="lv3"><a href="#脅威の主系統">脅威の主系統</a></li>
+<li class="lv3"><a href="#代償の主菜">代償の主菜</a></li>
+<li class="lv3"><a href="#builds-の供給線">Builds の供給線</a></li>
+<li class="lv3"><a href="#stories-の主菜">Stories の主菜</a></li>
+<li class="lv2"><a href="#5-プレイヤーに最初に見せるもの">5. プレイヤーに最初に見せるもの</a></li>
+<li class="lv2"><a href="#6-宣言を支える設定要素の書き方">6. 宣言を支える設定要素の書き方</a></li>
+<li class="lv3"><a href="#場所">場所</a></li>
+<li class="lv3"><a href="#制度窓口">制度窓口</a></li>
+<li class="lv3"><a href="#集団と共同体">集団と共同体</a></li>
+<li class="lv3"><a href="#異能と技術">異能と技術</a></li>
+<li class="lv3"><a href="#移動と通信-1">移動と通信</a></li>
+<li class="lv2"><a href="#7-quiddities-builds-stories-で世界を見る">7. Quiddities / Builds / Stories で世界を見る</a></li>
+<li class="lv3"><a href="#quiddities-としての世界">Quiddities としての世界</a></li>
+<li class="lv3"><a href="#builds-としての世界">Builds としての世界</a></li>
+<li class="lv3"><a href="#stories-としての世界">Stories としての世界</a></li>
+<li class="lv3"><a href="#世界課題タグ">世界課題タグ</a></li>
+<li class="lv2"><a href="#8-世界観に浸らせる見せ方">8. 世界観に浸らせる見せ方</a></li>
+<li class="lv3"><a href="#固有名詞の出しすぎに注意する">固有名詞の出しすぎに注意する</a></li>
+<li class="lv3"><a href="#秘密は辞典ではなく兆候で見せる">秘密は辞典ではなく兆候で見せる</a></li>
+<li class="lv2"><a href="#9-シナリオ設計-キャンペーン設計への接続">9. シナリオ設計・キャンペーン設計への接続</a></li>
+<li class="lv2"><a href="#10-よくある失敗">10. よくある失敗</a></li>
+<li class="lv2"><a href="#11-世界作成シート">11. 世界作成シート</a></li>
+<li class="lv3"><a href="#地域-拠点シート">地域 / 拠点シート</a></li>
+<li class="lv3"><a href="#制度窓口シート">制度窓口シート</a></li>
+<li class="lv2"><a href="#12-最後に">12. 最後に</a></li>
+</ul>
+</nav>
+</aside>
+<main aria-labelledby="doc-main-title" id="main-content" tabindex="-1">
+<h1 id="doc-main-title">Quick Build Saga 世界作成ガイド</h1>
+<blockquote><p>GM が舞台そのものを自作したいときのための本です。<br/>
+既存の世界設定を読む本ではなく、QBS の宣言、裁定、シナリオ設計、キャンペーン設計と噛み合う舞台をどう作るかを扱います。<br/>
+1本の事件の作り方は <a href="scenario-guide.html">シナリオ設計ガイド</a>、長い流れの組み方は <a href="campaign-guide.html">キャンペーン設計ガイド</a> に分け、本書はその前段で「そもそも、どんな世界なら QBS で遊びやすいか」を扱います。</p></blockquote>
+
+<h2 id="0-はじめに">0. はじめに</h2>
+<p>QBS で世界を作るとは、百科事典のような設定資料を厚くすることではありません。プレイヤーが「この PC なら今どう動くか」を自然に書けて、GM がその宣言に対して自然に世界を反応させられるよう、舞台の常識、通りやすい手段、起こりやすい代償、長く残る変化を先に答えられるようにすることです。</p>
+<p>このゲームは、与えられたコマンドの中から選ぶことを中心にしていません。だから世界設定も、「何の職業なら何の行動ができるか」というメニュー表ではなく、「この世界では、誰が、何を、どんな代価で、どこまでできるか」が読める形で作る必要があります。</p>
+<p>良い世界設定は、詳しい世界設定ではありません。<strong>読める、動ける、支払える、残せる</strong> 世界設定です。</p>
+<h3 id="この本で扱う範囲">この本で扱う範囲</h3>
+<p>この本で扱うのは、舞台の土台、世界常識、制度や共同体、移動と通信、異能や技術、代償の傾向、世界反応、Builds の供給線、Stories の主菜、公開情報と秘匿情報、そしてそれらをプレイヤーへどう見せるかです。</p>
+<p>逆に、今回の事件の問いや期限や主要局面そのものを書くことは <a href="scenario-guide.html">シナリオ設計ガイド</a>、長期の節目と本数や難度曲線を決めることは <a href="campaign-guide.html">キャンペーン設計ガイド</a> に分けます。本書は、<strong>どのシナリオを書いても土台として使える世界の骨格</strong> を作るための本です。</p>
+<h3 id="設計の基本線">設計の基本線</h3>
+<blockquote><p>世界は「読むもの」ではなく「宣言の足場」です。<br/>
+先に作るべきなのは歴史年表ではなく、<strong>PC が知っていてよい常識</strong>、<strong>通りやすい手段</strong>、<strong>起こりやすい代償</strong>、<strong>世界がどう反応するか</strong> の四つです。</p></blockquote>
+
+<h2 id="1-このガイドで使う言葉">1. このガイドで使う言葉</h2>
+<p>この章では、本書でとくに使う語をまとめます。ルール全体の基本用語は必要に応じて <a href="gm-guide.html">GMガイド</a> や各既存ガイドを参照してください。</p>
+<h3>世界常識</h3>
+<p>PC が初手から知っていてよいことです。歴史の全体像ではなく、「この町では夜警に逆らうとどうなるか」「この宗派の聖印はどこで効くか」「この港では何が禁制品か」のような、宣言に直結する常識を指します。</p>
+<h3>制度窓口</h3>
+<p>許可、紹介、認可、推薦、記録照会、取り調べ、検分、納品受理のように、<strong>社会の仕組みに触れる入口</strong> です。QBS の世界では、扉、鍵、怪物だけでなく、この制度窓口が宣言の値段を大きく変えます。</p>
+<h3>越境コスト</h3>
+<p>階級、地域、宗派、言語、組織、身分、文化圏をまたぐときに発生しやすい価格です。旅費や危険だけでなく、不信、悪評、監視、誤解、借り、儀礼違反もここに入ります。</p>
+<h3>世界反応線</h3>
+<p>PC の成功や失敗を受けて、<strong>世界のどこが進むか</strong> をまとめた線です。治安、世論、怪異汚染、監査、補給、市場、外交、祭儀進行などが代表例です。</p>
+<h3>公開情報 / 秘匿情報</h3>
+<p>プレイヤーに最初から見せる情報と、GM だけが持つ裏側です。ただし QBS では、秘匿情報も完全後出しにしてはいけません。兆候、痕跡、噂、資料、言い回し、制度の歪みとして、読める材料か取得可能な情報源を先に置きます。</p>
+<h3>情景アンカー</h3>
+<p>その世界らしさを一行で思い出させる小さな具体物です。食べ物、挨拶、街路の匂い、通貨の呼び名、祈りの文句、制服の傷み方、夜の騒音、記録媒体、見張りの笛などがこれにあたります。</p>
+
+<h2 id="2-このガイドの使い方">2. このガイドの使い方</h2>
+<p>この本は、次の三場面で使います。</p>
+<ol>
+<li>卓を始める前に、舞台そのものを立てるとき</li>
+<li>PC 作成前に、プレイヤーへ見せる共有情報を整えるとき</li>
+<li>シナリオやキャンペーンを書き始める前に、世界の供給線と反応線を確認するとき</li>
+</ol>
+<p id="world-order">設計の基本順は次の通りです。</p>
+<ol>
+<li>題材を <strong>舞台 / 行動 / 脅威 / 代償 / 終了</strong> の5枠へ落とす</li>
+<li>PC が最初に立つ位置を決める</li>
+<li>この世界で通りやすい手段と、高くつく行動を決める</li>
+<li>制度窓口、共同体、移動、通信を決める</li>
+<li>Builds の供給線と Stories の主菜を決める</li>
+<li>プレイヤーへ見せる世界常識を作る</li>
+<li>シナリオやキャンペーンへ渡す</li>
+</ol>
+
+<h2 id="3-世界作成の基本線">3. 世界作成の基本線</h2>
+<p>QBS の世界設定は、最低でも次の四問に答えられるようにしてください。</p>
+<ul>
+<li><strong>誰が何をできるか</strong></li>
+<li><strong>何が高くつくか</strong></li>
+<li><strong>何が難しい / 不可能か</strong></li>
+<li><strong>何がどう反応するか</strong></li>
+</ul>
+<p>どんなに美しい世界観でも、この四つに答えられないなら、QBS では宣言の足場になりません。逆に、この四つに答えられるなら、細部が未完成でも十分に遊べます。</p>
+<p>また、各設定要素は、最低でも次のどれか一つの役目を持つようにしてください。</p>
+<ul>
+<li>宣言を <strong>許可</strong> する</li>
+<li>宣言の値段を <strong>高く / 安く</strong> する</li>
+<li>ある方向を <strong>難しい / 不可能</strong> にする</li>
+<li>宣言のあとに <strong>反応</strong> を返す</li>
+</ul>
+<p>たとえば「王立図書院」は、蔵書の多い施設という説明だけでは弱いです。QBS 的には、紹介状があれば禁書閲覧を許す、無断閲覧は監査を強める、夜間侵入は物理条件が重い、書記官との関係が Builds になる、学徒や異端審問官との Stories が立つ、ところまで決まっていて、はじめて機能します。</p>
+
+<h2 id="4-まず固定する九点">4. まず固定する九点</h2>
+<h3 id="可動域">可動域</h3>
+<p>まず、世界全図ではなく <strong>PC が数回のシナリオで触れる範囲</strong> を決めてください。一地方、一都市、一学園、一艦、一国境地帯でも十分です。外側の大陸や遠国は、必要になってから足して構いません。</p>
+<h3 id="例外の所在">例外の所在</h3>
+<p>魔法、霊能、超技術、祝福、呪い、異種族特性など、常識を破るものがどこにあるかを決めます。大事なのは「何ができるか」より、「誰にとって例外なのか」「何を支払うと使えるのか」です。</p>
+<h3 id="移動と通信">移動と通信</h3>
+<p>QBS は PBM なので、<strong>時間経過と距離</strong> が特に重要です。徒歩、騎乗、列車、転移、通信塔、狼煙、使い魔、SNS、監査ログなど、移動と情報伝達の速さを先に決めておくと、期限や余波が自然になります。</p>
+<h3 id="権力と窓口">権力と窓口</h3>
+<p>誰が検分し、誰が許可し、誰が逮捕し、誰が見逃し、誰が証人になれるかを決めてください。国家、教会、学校、企業、ギルド、部族会議、自治会、船長会、AI 管制など、<strong>制度窓口の所在</strong> がない世界は、宣言が毎回ふわつきます。</p>
+<h3 id="生活とscarcity">生活と scarcity</h3>
+<p>食料、燃料、住居、衛生、学費、治療、仕事、埋葬、娯楽、通貨、贈答、身分証、ログ保全。世界に浸らせたいなら、大事件より先に <strong>日常の主菜</strong> を決めてください。人は世界観に、歴史年表よりも生活の手触りで入ります。</p>
+<h3 id="脅威の主系統">脅威の主系統</h3>
+<p>この世界で PC を止めるものは主に何かを決めます。武力、怪異、監査、階級、環境、露見、誤情報、資源枯渇、共同体圧、世論などです。脅威が曖昧だと、代償も余波も世界反応も曖昧になります。</p>
+<h3 id="代償の主菜">代償の主菜</h3>
+<p>この世界では、何を支払わせると「らしい」かを決めます。剣と馬の世界なら負傷・借り・悪評、学園なら噂・停学危機・関係悪化、SF なら酸素・ログ・汚染・受取不合格のように、題材と噛み合う価格を先に選びます。これは <a href="gm-guide.html">GMガイド</a> の「代償の傾向」を世界単位へ広げる作業です。</p>
+<h3 id="builds-の供給線">Builds の供給線</h3>
+<p>この世界では、装備以外に何が長期資産になりうるかを決めます。工房、紹介網、制度資格、手順書、儀式場所、村落共同体、航路、隠れ家、研究許可、祭祀の役目などです。QBS の Builds は装備だけでなく、長期資産ノードや Build 素片として残るので、世界側にもその種が必要です。</p>
+<h3 id="stories-の主菜">Stories の主菜</h3>
+<p>旅情、人情、激情、愛憎のどれを主菜にするかを決めます。世界そのものが、どの関係を壊しやすく、どの関係を深めやすいかです。同じ「王都」でも、旅情の王都と愛憎の王都では、見せる店、会話、夜景、噂、政治の切れ味が変わります。</p>
+
+<h2 id="5-プレイヤーに最初に見せるもの">5. プレイヤーに最初に見せるもの</h2>
+<p>世界観に浸らせたいなら、歴史を先に配るより、<strong>PC が最初から知っていてよいこと</strong> を先に渡してください。プレイヤーは、自分が何を知らないかより、<strong>自分の PC が何を知っていて、何を当然と思っていてよいか</strong> がわかったときに動きやすくなります。</p>
+<p>公開用の世界共有シートは、最低でも次を持つと扱いやすいです。</p>
+<pre><code>【世界共有シート】
+題材パック:
+一行要約:
+舞台の可動域:
+PCたちの立ち位置:
+雰囲気:
+物語傾向:
+
+【PCが知っていてよい常識 5〜10個】
+1.
+2.
+3.
+...
+
+【通りやすい手段】
+【起こりやすい代償】
+【起こりやすい余波】
+【難しい / 不可能なこと】
+【選びやすい立場例 3〜6個】
+【避けたいPC案】</code></pre>
+<p>ここで大切なのは、設定を減らすことではありません。<strong>最初に必要な設定を先に出す</strong> ことです。</p>
+<p>たとえば「この地方では夜の橋を一人で渡らない」「港の検分補佐資格は下層街では強いが上流区では弱い」「遺体を焼くか沈めるかで宗派が割れる」といった情報は、年表より先に役立ちます。</p>
+
+<h2 id="6-宣言を支える設定要素の書き方">6. 宣言を支える設定要素の書き方</h2>
+<p>世界の各要素は、次の書式で一度メモしておくと QBS と噛み合いやすくなります。</p>
+<pre><code>【設定要素メモ】
+名称:
+表の顔:
+何を許すか:
+何を高く請求するか:
+何が難しい / 不可能か:
+何が反応するか:
+PCが最初から知っていてよいこと:
+秘匿しておくこと:
+Builds の種:
+Stories の種:</code></pre>
+<h3 id="場所">場所</h3>
+<p>場所は、情景だけでなく <strong>できること / しにくいこと / 監視されること</strong> を持たせてください。「貧民街」なら、隠れるのは安いが公的手続きは弱い。「聖堂」なら、治療と保護は通りやすいが流血や窃盗は重く返る。そう書ける場所は、宣言の足場になります。</p>
+<h3 id="制度窓口">制度窓口</h3>
+<p>制度は、難しくするためだけに置かないでください。紹介、推薦、検分補佐、学籍、聴聞、戸籍照会、貨物受理、埋葬許可のように、<strong>通すための入口</strong> と <strong>失敗したときの反応</strong> を両方持たせます。</p>
+<h3 id="集団と共同体">集団と共同体</h3>
+<p>共同体は、単なる背景ではなく <strong>関係の価格表</strong> です。どの集団に属すると守られやすく、どの集団を怒らせると長く響くかを決めます。Builds なら紹介網、Stories なら恩義や偏見、Quiddities なら勢力図の変化になります。</p>
+<h3 id="異能と技術">異能と技術</h3>
+<p>魔法や超技術は、万能にしないでください。大事なのは派手さより、<strong>許可・制約・副作用・痕跡</strong> です。使えたあとに何が残るかが曖昧だと、世界が宣言に追いつきません。</p>
+<h3 id="移動と通信-1">移動と通信</h3>
+<p>旅、護送、潜入、逃走、納品、救助を遊ぶなら、移動と通信は舞台装置ではなく中核です。どれくらいで人が来るか、どれくらいで噂が回るか、どれくらいで監査が届くかを決めてください。それだけで、期限と危険予告が自然になります。</p>
+
+<h2 id="7-quiddities-builds-stories-で世界を見る">7. Quiddities / Builds / Stories で世界を見る</h2>
+<p>世界設定は、三方向に返りが出るように作ると QBS と噛み合います。各シナリオでそうしているなら、世界作成はその「母体」を作る作業であるべきです。</p>
+<h3 id="quiddities-としての世界">Quiddities としての世界</h3>
+<p>勢力図、階級、宗派、法、季節、怪異汚染、開拓、物流、継承、戦線、外交。これらは「舞台説明」ではなく、<strong>宣言によって前進しうる世界状態</strong> です。世界作成では、「何が変わると、この世界の答えが変わった感じになるか」を先に選んでください。</p>
+<h3 id="builds-としての世界">Builds としての世界</h3>
+<p>長期資産ノードは、武器と道具だけではありません。制度資格、共同体の信頼、工房、航路、研究手順、祈祷の型、検分補佐権、隠し倉庫、伝令網も Builds です。世界がそれを供給できないと、PC の成長が装備一辺倒になります。</p>
+<h3 id="stories-としての世界">Stories としての世界</h3>
+<p>家族、恩義、同門、偏見、婚約、破門、借り、贖罪、執着、土地への帰属。これらは個人設定ではなく、<strong>世界が強くしてくる関係</strong> です。どんな世界なら義理が効き、どんな世界なら裏切りが重く、どんな世界なら和解が起きやすいかを決めてください。</p>
+<h3 id="世界課題タグ">世界課題タグ</h3>
+<p>世界課題タグは、「ちょっとした雑事」ではありません。Builds の足場を増やし、Stories の関係を動かし、Quiddities の世界状態を小刻みに前進させる供給線です。世界作成の時点で、1つの地域に 1〜4 本くらい、見える世界課題タグの候補を置いておくとシナリオが立ちやすくなります。</p>
+
+<h2 id="8-世界観に浸らせる見せ方">8. 世界観に浸らせる見せ方</h2>
+<p>PBM では、設定をどれだけ作ったかより、<strong>1投稿でどれだけその世界の空気を思い出させられるか</strong> のほうが重要です。世界の現在状態を毎回再掲しやすい形で作らせたほうが安定します。</p>
+<p>1投稿に置く情景アンカーは、次の五つくらいで十分です。</p>
+<ul>
+<li>その場らしい <strong>具体物</strong></li>
+<li>その世界らしい <strong>言い回しや習俗</strong></li>
+<li>いま効いている <strong>制度や身分の圧</strong></li>
+<li>放っておくと困る <strong>代償の匂い</strong></li>
+<li>PC が見て取れる <strong>世界の動き</strong></li>
+</ul>
+<p>たとえば「王都の西門」なら、ただ石壁と衛兵を書くのではなく、砂糖菓子を売る露店が検分列の外へ追いやられている、通行札の色で身分が見える、夜警の槍先より書記官の帳面のほうが怖い、噂は靴屋から兵舎へ流れる、雨で封蝋がにじんでいる、といった具体へ落とすと、世界設定が宣言の足場になります。</p>
+<h3 id="固有名詞の出しすぎに注意する">固有名詞の出しすぎに注意する</h3>
+<p>世界に浸らせたいときほど、固有名詞を増やしすぎないでください。一度の投稿で出す新語は少なめにして、<strong>役目のある名前だけを出す</strong> ほうが覚えられます。覚えられない固有名詞は、世界観ではなくノイズになりやすいです。</p>
+<h3 id="秘密は辞典ではなく兆候で見せる">秘密は辞典ではなく兆候で見せる</h3>
+<p>「この世界には実はこういう真相がある」と辞典で抱え込むより、見張りの配置、伝承の穴、帳簿の抜け、祈りの言い淀み、遺体処理の不自然さのような、<strong>プレイヤーが宣言で触れられる形</strong> で置いてください。</p>
+
+<h2 id="9-シナリオ設計-キャンペーン設計への接続">9. シナリオ設計・キャンペーン設計への接続</h2>
+<p>世界作成が終わったら、次はその世界から <strong>どんな事件が自然に生えるか</strong> を見ます。シナリオは世界の外から落ちてくるものではなく、世界の緊張、制度の歪み、共同体の欲望、異能の副作用、物流や季節の詰まりから切り出されるべきです。</p>
+<p>世界からシナリオへ渡す最小メモは、次の形で十分です。</p>
+<pre><code>【世界 → シナリオ切り出しメモ】
+今回よく効く制度窓口:
+今回よく効く共同体:
+今回の脅威主菜:
+今回らしい代償:
+今回らしい余波:
+今回使える Build 素片候補:
+今回動かしたい世界反応線:
+今回深めたい関係 / 感情:</code></pre>
+<p>キャンペーンへ渡すときは、さらに次を持たせます。</p>
+<pre><code>【世界進行メモ】
+長期で動く勢力:
+長期で残る課題:
+長期で伸びる Builds 供給線:
+長期で壊れやすい関係:
+節目で変わる常識:
+次に重くなる地域 / 季節 / 制度:</code></pre>
+<p><a href="campaign-guide.html">キャンペーン設計ガイド</a> が前進する回 / 回収する回 / 回復する回 / 反転する回 / 決着する回を分けるなら、世界作成の段階でも「この世界のどこが回復に向き、どこが反転を起こしやすいか」を持っておくと長編が自然になります。</p>
+
+<h2 id="10-よくある失敗">10. よくある失敗</h2>
+<h3>1) 世界が百科事典になる</h3>
+<p>詳しいが、宣言に必要な情報が見えません。まず可動域と PC 常識を削り出してください。</p>
+<h3>2) 世界がメニュー表になる</h3>
+<p>「この階級はこれだけ」「この職業はこの三択だけ」と決めすぎると、QBS の自由宣言とぶつかります。制限するなら、行動の種類ではなく <strong>価格と反応</strong> で制限してください。</p>
+<h3>3) 制度窓口がない</h3>
+<p>誰が許し、誰が止め、誰が受け取り、誰が記録するかが曖昧だと、社会的な宣言が毎回 GM の気分に見えます。入口と反応を先に置いてください。</p>
+<h3>4) 不可能ラインが後出しになる</h3>
+<p>「実はその魔法は効きません」「実は平民は一切入れません」が後から出ると、世界が閉じます。難しい / 不可能なことは、最初の公開情報に含めてください。</p>
+<h3>5) Builds が装備だけになる</h3>
+<p>長期資産ノードが武器と道具しかないと、関係や制度や共同体が世界から切れます。資格、工房、手順、紹介網、拠点を足してください。</p>
+<h3>6) 世界が反応しない</h3>
+<p>成功しても失敗しても景色だけが変わらない世界は、QBS では止まって見えます。最低でも一つ、世界反応線を前進させてください。</p>
+<h3>7) どこへ行っても同じ手触りになる</h3>
+<p>街も寺も学園も艦内も、通る手段・払う代償・返る余波が同じだと没入が薄れます。場所ごとに「安いこと」「高いこと」「怒るもの」を変えてください。</p>
+
+<h2 id="11-世界作成シート">11. 世界作成シート</h2>
+<pre><code>【世界作成シート】
+世界名:
+一行要約:
+題材パック:
+
+【題材変換】
+舞台フレーム:
+行動フレーム:
+脅威フレーム:
+代償フレーム:
+終了フレーム:
+
+【可動域】
+最初に遊ぶ範囲:
+外側の世界の扱い:
+越境が起こる線:
+
+【世界の土台】
+技術 / 異能:
+移動速度:
+通信速度:
+季節 / 時間感覚:
+生活の主菜:
+貨幣 / 交換:
+埋葬 / 治療 / 教育 / 記録の扱い:
+
+【権力と制度窓口】
+主要な権力主体:
+主要な制度窓口:
+公的に強い立場:
+非公的に強い立場:
+監査 / 受理 / 取締の流れ:
+
+【脅威と価格】
+主な脅威:
+起こりやすい代償:
+起こりやすい余波:
+難しいこと:
+不可能なこと:
+生還や後始末で別工程になりやすいこと:
+
+【Builds の供給線】
+長期資産ノードの種:
+Build 素片の種:
+制度ノード候補:
+共同体ノード候補:
+手順ノード候補:
+拠点 / 工房 / 航路候補:
+
+【Stories の主菜】
+物語傾向:
+壊れやすい関係:
+深まりやすい関係:
+よく起きる感情:
+よく起きる板挟み:
+秘密の主系統:
+
+【プレイヤー公開情報】
+PCが知っていてよい常識 5〜10個:
+通りやすい手段:
+起こりやすい代償:
+起こりやすい余波:
+難しい / 不可能なこと:
+選びやすい立場例 3〜6個:
+避けたいPC案:
+
+【GM用の裏側】
+秘匿している真相:
+痕跡:
+情報源:
+世界反応線:
+今後重くなる制度 / 地域 / 季節:
+世界課題タグ候補 1〜4本:
+最初のシナリオ候補 2〜4本:</code></pre>
+
+<h3 id="地域-拠点シート">地域 / 拠点シート</h3>
+<pre><code>【地域 / 拠点シート】
+名称:
+表の顔:
+裏の顔:
+生活の主菜:
+ここで安い行動:
+ここで高い行動:
+ここで難しい / 不可能な行動:
+よく反応する主体:
+情景アンカー:
+PCフック:
+Builds の種:
+Stories の種:</code></pre>
+
+<h3 id="制度窓口シート">制度窓口シート</h3>
+<pre><code>【制度窓口シート】
+名称:
+何を扱う窓口か:
+通すのに要るもの:
+通ると何が得られるか:
+失敗すると何が残るか:
+どんな記録が残るか:
+裏口はあるか:
+Builds の種:
+Stories の種:</code></pre>
+
+<h2 id="12-最後に">12. 最後に</h2>
+<p>世界を大きく作りすぎる必要はありません。QBS で本当に必要なのは、<strong>プレイヤーが自然に宣言できるだけの世界</strong> と、<strong>GM が自然に反応を返せるだけの世界</strong> です。</p>
+<p>その世界で何を失い、何を守り、何を持ち帰れるのか。それが見えるなら、世界はもう十分に生きています。</p>
+</main>
+</div>
+</body>
+</html>
