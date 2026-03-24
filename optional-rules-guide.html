@@ -1,0 +1,668 @@
+---
+layout: null
+title: "QBS 選択ルール集"
+card_title: "選択ルール集"
+description: "QBSの各モード（オプションルール）を、プレイヤー向け・GM向け・キャンペーン向けの観点から一か所にまとめた別冊。"
+badge: "Optional Rules"
+page_type: "選択ルール"
+nav_order: 25
+featured: true
+listed: true
+card_tone: "blue"
+hero_label: "選択ルール集を見る"
+---
+
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>QBS 選択ルール集</title>
+<meta content="QBSの各モード（オプションルール）を、プレイヤー向け・GM向け・キャンペーン向けの観点から一か所にまとめた別冊です。" name="description"/>
+<style>
+
+    :root{
+      --bg:#f7f8fb;--paper:#ffffff;--ink:#1f2937;--muted:#6b7280;--line:#e5e7eb;
+      --accent:#1d4ed8;--quote:#f8fafc;--code:#0f172a;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; background:linear-gradient(180deg,#eef2ff 0%, var(--bg) 220px);
+      color:var(--ink); font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Hiragino Sans","Yu Gothic UI","YuGothic","Meiryo",sans-serif;
+      line-height:1.8;
+    }
+    .wrap{max-width:1120px; margin:0 auto; padding:32px 20px 64px; display:grid; grid-template-columns:280px minmax(0,1fr); gap:24px;}
+    .sidebar{position:sticky; top:20px; align-self:start; background:rgba(255,255,255,.9); backdrop-filter: blur(10px);
+      border:1px solid var(--line); border-radius:18px; padding:20px; box-shadow:0 12px 40px rgba(15,23,42,.06);}
+    .brand{font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--accent); text-transform:uppercase; margin-bottom:6px}
+    .title{font-size:1.4rem; font-weight:800; line-height:1.35; margin:0 0 8px}
+    .subtitle{font-size:.95rem; color:var(--muted); margin:0 0 18px}
+    .toc{font-size:.94rem; max-height:calc(100vh - 180px); overflow:auto; padding-right:4px}
+    .toc ul{list-style:none; padding-left:0; margin:.2rem 0}
+    .toc li{margin:.34rem 0}
+    .toc li.lv2{font-weight:650; margin-top:.55rem}
+    .toc li.lv3{padding-left:.85rem}
+    .toc li.lv4{padding-left:1.45rem; color:var(--muted)}
+    .toc a{color:var(--ink); text-decoration:none}
+    .toc a:hover{color:var(--accent)}
+    main{background:var(--paper); border:1px solid var(--line); border-radius:24px; padding:42px 48px; box-shadow:0 18px 60px rgba(15,23,42,.08);}
+    h1,h2,h3,h4{line-height:1.35; margin-top:1.7em; margin-bottom:.65em}
+    h1{margin-top:0; font-size:2.2rem; letter-spacing:-.01em}
+    h2{font-size:1.55rem; padding-top:.2rem}
+    h3{font-size:1.18rem}
+    h4{font-size:1rem}
+    p,ul,ol,blockquote,table,pre{margin:0 0 1rem}
+    ul,ol{padding-left:1.35rem}
+    li{margin:.2rem 0}
+    blockquote{
+      margin:1rem 0 1.25rem; padding:1rem 1.1rem; background:var(--quote);
+      border-left:4px solid var(--accent); color:#374151; border-radius:10px;
+    }
+    code{
+      font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+      background:#f3f4f6; padding:.12rem .34rem; border-radius:6px; font-size:.92em;
+    }
+    pre{
+      background:var(--code); color:#f8fafc; padding:1rem 1.1rem; overflow:auto; border-radius:14px;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.06);
+    }
+    pre code{background:transparent; padding:0; color:inherit}
+    table{
+      width:100%; border-collapse:collapse; font-size:.96rem; background:#fff;
+      border:1px solid var(--line); border-radius:14px; overflow:hidden;
+    }
+    th,td{padding:.72rem .8rem; vertical-align:top; border-bottom:1px solid var(--line); text-align:left}
+    th{background:#f8fafc; font-weight:700}
+    tr:last-child td{border-bottom:none}
+    hr{border:none; border-top:1px solid var(--line); margin:2rem 0}
+    a{color:var(--accent)}
+    strong{font-weight:750}
+    @media (max-width: 920px){
+      .wrap{grid-template-columns:1fr}
+      .sidebar{position:relative; top:auto}
+      main{padding:32px 24px}
+      .toc{max-height:none}
+    }
+    
+
+
+    .visually-hidden{
+      position:absolute !important; width:1px; height:1px; padding:0; margin:-1px;
+      overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+    }
+    .skip-link{
+      position:absolute; left:16px; top:8px; z-index:1000;
+      padding:.55rem .8rem; border-radius:10px; border:2px solid var(--accent);
+      background:#fff; color:var(--ink); text-decoration:none; transform:translateY(-160%);
+      transition:transform .15s ease;
+    }
+    .skip-link:focus{transform:translateY(0)}
+    main a{
+      text-decoration:underline;
+      text-decoration-thickness:.08em;
+      text-underline-offset:.16em;
+      text-decoration-skip-ink:auto;
+    }
+    .toc a{ text-decoration:none; }
+    .term-link{
+      text-decoration-style:dotted;
+      text-underline-offset:.18em;
+    }
+    a:focus-visible{
+      outline:3px solid var(--accent);
+      outline-offset:3px;
+      border-radius:6px;
+    }
+    h2:target,h3:target,h4:target{
+      scroll-margin-top:1rem;
+      outline:3px solid rgba(29,78,216,.22);
+      outline-offset:.18rem;
+      border-radius:8px;
+    }
+    @media (prefers-reduced-motion: reduce){
+      html{scroll-behavior:auto}
+      .skip-link{transition:none}
+    }
+    </style>
+</head>
+<body><a class="skip-link" href="#main-content">本文へ移動</a>
+<div class="wrap">
+<aside aria-label="文書ナビゲーション" class="sidebar">
+<div class="brand">QBS</div>
+<p class="title" id="doc-nav-title">QBS 選択ルール集</p>
+<p class="subtitle">選択ルール</p>
+<nav aria-label="目次" class="toc"><ul><li class="lv2"><a href="#opt-about">1. この本の使い方</a></li><li class="lv2"><a href="#opt-common">2. 採用時の共通確認</a></li><li class="lv2"><a href="#mode-observer">3. オブザーバー・モード</a></li><li class="lv2"><a href="#mode-probability">4. プロバビリティ・モード</a></li><li class="lv2"><a href="#mode-quantity">5. クオンティティ・モード</a></li><li class="lv2"><a href="#mode-relax">6. リラックス・モード</a></li><li class="lv2"><a href="#mode-social">7. ソーシャル・モード</a></li><li class="lv2"><a href="#mode-tactical">8. タクティカル・モード</a></li><li class="lv2"><a href="#mode-unlock">9. アンロック・モード</a></li><li class="lv2"><a href="#mode-versus">10. バーサス・モード</a></li><li class="lv2"><a href="#mode-whisper">11. ウィスパー・モード</a></li><li class="lv2"><a href="#mode-xenos">12. ゼノス・モード</a></li><li class="lv2"><a href="#opt-order">13. 併用時の順番</a></li><li class="lv2"><a href="#opt-end">14. 最後に</a></li></ul></nav>
+</aside>
+<main aria-labelledby="doc-main-title" id="main-content" tabindex="-1">
+<h1 id="doc-main-title">QBS 選択ルール集</h1>
+<blockquote><p>この別冊は、QBS の各モード（選択ルール）を一か所にまとめたものです。<br/>プレイヤーは <strong>「プレイヤーが読むところ」</strong> を、GM は <strong>「GMの運用」</strong> を、キャンペーン設計者は <strong>「キャンペーンでの置き方」</strong> を見れば、必要な情報に最短で届くようにしています。</p></blockquote>
+<h2 id="opt-about">1. この本の使い方</h2>
+<p>モードは、自由宣言をやめるための別ゲームではありません。<strong>いつ宣言するか / 何が見えるか / 何で補うか / どこで揺らぐか / 長い進行をどう呼吸させるか</strong> を調整するための選択ルールです。</p>
+<ul>
+<li><strong>プレイヤー</strong> は、採用されているモードの「プレイヤーが読むところ」だけ読めば十分です。</li>
+<li><strong>GM</strong> は、公開情報の出し方、内部処理、採用基準を「GMの運用」で確認します。</li>
+<li><strong>キャンペーン設計</strong> では、常時採用か、特定回だけか、どの長期線へ返りを積むかを「キャンペーンでの置き方」で決めます。</li>
+</ul>
+<p>より細かい書式例や運用の手触りまで見たいときは、各モードの <strong>実戦補足</strong> を参照してください。</p>
+<h2 id="opt-common">2. 採用時の共通確認</h2>
+<p>卓の開始時に、まず次の三点をそろえます。</p>
+<ul>
+<li><strong>採用有無:</strong> 今回どのモードを使うか。</li>
+<li><strong>何が変わるか:</strong> 宣言タイミング、追加公開情報、運の揺らぎ、能力値の補助、競合、秘匿、長期進行の呼吸のどこが変わるか。</li>
+<li><strong>読む場所:</strong> プレイヤーは必要部分だけ、GM は内部処理まで読むこと。</li>
+</ul>
+<table><thead><tr><th>モード</th><th>ひとことで言うと</th><th>主に変わるところ</th></tr></thead><tbody><tr><td><a href="#mode-observer"><strong>オブザーバー・モード</strong></a></td><td>宣言のタイミングを前倒しし、局面ごとの細かな入力よりも、PCの行動原理で進める選択ルールです。</td><td>宣言のタイミング / 判定の揺らぎ / 能力値の補助</td></tr><tr><td><a href="#mode-probability"><strong>プロバビリティ・モード</strong></a></td><td>宣言読解に 2d6 の揺らぎを足し、運の要素を少しだけ入れる選択ルールです。</td><td>宣言のタイミング / 判定の揺らぎ / 能力値の補助</td></tr><tr><td><a href="#mode-quantity"><strong>クオンティティ・モード</strong></a></td><td>文章とタグを主にしたまま、能力値を補助線として足す選択ルールです。</td><td>宣言のタイミング / 判定の揺らぎ / 能力値の補助</td></tr><tr><td><a href="#mode-relax"><strong>リラックス・モード</strong></a></td><td>各シナリオの区切りは保ったまま、キャンペーン全体の終点だけを急がない選択ルールです。</td><td>キャンペーンの呼吸 / 旅と発見の重み</td></tr><tr><td><a href="#mode-social"><strong>ソーシャル・モード</strong></a></td><td>本心当てではなく、見えているサインから非開示情報や協力可能線を読む選択ルールです。</td><td>局面で見える情報と読みどころ</td></tr><tr><td><a href="#mode-tactical"><strong>タクティカル・モード</strong></a></td><td>位置取り、共有圧、敵や環境の次の手を見える化して、自由宣言のまま連携しやすくする選択ルールです。</td><td>局面で見える情報と読みどころ</td></tr><tr><td><a href="#mode-unlock"><strong>アンロック・モード</strong></a></td><td>鍵、封印、機械、手順など、構造そのものを読む局面を扱う選択ルールです。</td><td>局面で見える情報と読みどころ</td></tr><tr><td><a href="#mode-versus"><strong>バーサス・モード</strong></a></td><td>排他的な最終状態を、自由宣言のまま競合処理する選択ルールです。</td><td>競合処理 / 秘匿情報 / 個人別利益</td></tr><tr><td><a href="#mode-whisper"><strong>ウィスパー・モード</strong></a></td><td>秘匿情報と個人別利益を持つ、半協力卓向けの選択ルールです。</td><td>競合処理 / 秘匿情報 / 個人別利益</td></tr><tr><td><a href="#mode-xenos"><strong>ゼノス・モード</strong></a></td><td>未知の土地、異文化、驚き、持ち帰りを主軸にした旅向けの選択ルールです。</td><td>キャンペーンの呼吸 / 旅と発見の重み</td></tr></tbody></table>
+<h2 id="mode-observer">3. オブザーバー・モード</h2>
+<p>宣言のタイミングを前倒しし、局面ごとの細かな入力よりも、PCの行動原理で進める選択ルールです。</p>
+<h3 id="mode-observer-player">プレイヤーが読むところ</h3>
+<p>プレイヤーは局面ごとに長文を書く代わりに、シナリオ開始時に「このPCが何を優先して動くか」を観測方針として出します。意識するべきなのは、最優先・危機時の第一手・捨ててもよいもの・禁止事項をはっきり書くことです。</p>
+<h3 id="mode-observer-gm">GMの運用</h3>
+<p>GMは未取得情報で最適化せず、観測方針・既知情報・履歴に沿って行動を決めます。</p>
+<p>オブザーバー・モードでは、プレイヤーは局面ごとの宣言を出さず、シナリオ開始時に <strong>観測方針</strong> を提出します。GM は、その方針・既存タグ・履歴・関係・世界状態から、局面ごとの <strong>既定宣言</strong> を作ります。</p><pre><code>【観測方針】
+最優先:
+取りにいくもの:
+平時の第一手:
+危機時の第一手:
+捨ててもよいもの:
+禁止事項:
+退路基準:</code></pre><p>GM がしてはいけないのは、<strong>未取得情報で最適化すること</strong> です。既定宣言の質は、観測方針だけなら原則 <strong>妥当</strong>、既出の準備や手札タグが噛み合えば <strong>周到</strong>、事前明文化された長期仕込みが強く噛み合ったときだけ <strong>卓越</strong> としてください。</p><p>結果返答では、<strong>今回 PC が取った行動 / その根拠になった観測方針・タグ・履歴 / 生じた結果と変化</strong> を明記すると、プレイヤーが次の更新判断をしやすくなります。</p>
+<h3 id="mode-observer-detail">実戦補足</h3>
+<p>オブザーバー・モードでは、プレイヤーは <strong>局面ごとの宣言を行いません。</strong> 代わりに、PC作成後またはシナリオ開始時に、その PC がどういう人物として動くかをまとめた <strong>観測方針</strong> を提出します。以後、GM はその観測方針・既存タグ・履歴・関係・世界状態に従って、その局面の <strong>既定宣言</strong> を作って裁定します。</p><p>これは自由宣言の放棄ではありません。<strong>「その場で宣言する」代わりに「どういう人物として動くかを先に宣言しておく」</strong> モードです。</p><h4 id="advanced-observer-policy">観測方針</h4><p>観測者 PC は、通常の PC 記入欄に加えて、次を持ちます。</p><pre><code>【観測方針】
+最優先:
+取りにいくもの:
+平時の第一手:
+危機時の第一手:
+捨ててもよいもの:
+禁止事項:
+退路基準:</code></pre><ul>
+<li><strong>最優先:</strong> 最後まで守ろうとするもの。1〜2個。</li>
+<li><strong>取りにいくもの:</strong> 積極的に得ようとするもの。1〜2個。</li>
+<li><strong>平時の第一手:</strong> 情報不足のとき、まず何をするか。</li>
+<li><strong>危機時の第一手:</strong> 危険が見えたとき、まず何をするか。</li>
+<li><strong>捨ててもよいもの:</strong> 代償にしてよいもの。1〜2個。</li>
+<li><strong>禁止事項:</strong> どれだけ得でもしないこと。1個。</li>
+<li><strong>退路基準:</strong> どの線を越えたら撤退・離脱・見切りを選ぶか。</li>
+</ul><h4 id="advanced-observer-flow">基本処理</h4><ol>
+<li>GM は局面文を通常どおり提示します。</li>
+<li>観測者 PC のプレイヤーは、局面ごとの宣言を返しません。</li>
+<li>GM は、観測方針・既存タグ・履歴・関係・現在の世界状態から、その局面でもっとも自然な <strong>既定宣言</strong> を1つ作ります。</li>
+<li>既定宣言は、内部的には通常の宣言と同じく、<strong>主目的 / 最低限ライン / 手段 / 守りたいもの / 捨ててもよいもの</strong> を持つものとして扱います。</li>
+<li>GM はその既定宣言を裁定し、結果を返します。</li>
+</ol><h4 id="advanced-observer-result">GM の結果で見るところ</h4><p>観測者 PC への返答では、GM は結果の中に次の 3 点を明記します。</p><pre><code>1. 今回 PC が取った行動
+2. その根拠になった観測方針・タグ・履歴
+3. 生じた結果、タグ、履歴、関係の変化</code></pre><p>プレイヤーが見るべきなのは、<strong>自分の PC がどう動いたか</strong> と、<strong>次に方針を書き換えるべき変化が起きたか</strong> の二つです。</p><h4 id="advanced-observer-dont-optimize">GM がしてはいけないこと</h4><p>GM は、その PC がまだ得ていない情報を使って <strong>最適化</strong> してはいけません。行動選択に使ってよいのは、<strong>その PC が知っていること / 持っているもの / 観測方針に書かれていること</strong> だけです。</p><p>複数の行動が同程度に自然なら、<strong>禁止事項に触れない → 退路基準を守る → 最優先を守る → 平時 / 危機時の第一手に従う → 不可逆損失がより小さい</strong> の順で選びます。</p><h4 id="advanced-observer-strength">既定宣言の強さ</h4><ul>
+<li><strong>観測方針だけ</strong> から生じた既定宣言は、原則として <strong>妥当</strong> までです。</li>
+<li>既出の準備、退路、支援、証拠確保、手札タグがそのまま噛み合うなら、<strong>周到</strong> まで上げて構いません。</li>
+<li><strong>卓越</strong> は、事前に明文化された長期仕込みや準備が現在局面に強く噛み合ったときだけです。</li>
+</ul><h4 id="advanced-observer-update">観測更新</h4><p>観測方針は、原則として <strong>シナリオ開始時と終了時</strong> にだけ書き換えてよいものとします。長期キャンペーンでは、各シナリオの合間に更新して構いません。観測者でも、命運点、履歴、手札タグ、関係・通信タグ、失ったものは通常どおり変化します。</p><pre><code>【オブザーバー quick ref】
+観測方針を書き、局面ごとの宣言は GM が既定宣言化する
+GM は未取得情報で最適化しない
+既定宣言の質は 原則: 妥当 / 噛み合いで: 周到 / 長期仕込みで: 卓越
+観測更新は シナリオ開始時・終了時（長期では幕間も可）</code></pre>
+<h3 id="mode-observer-campaign">キャンペーンでの置き方</h3>
+<p>長編では、観測方針の更新窓と、観測者だけが不利にならない情報配置を先に決めておくと安定します。</p>
+<p>オブザーバー・モードは、<strong>各局面のひらめき</strong> より <strong>PC の一貫した行動原理</strong> を見たい長編と相性が良いです。使うなら、<strong>どの PC が観測者か</strong> を最初に決め、観測方針の更新窓を <strong>各シナリオの開始時と終了時</strong> に置いてください。</p><p>キャンペーン側で大事なのは、観測者 PC だけが不利になるような「未取得情報がなければ選べない正解一手」に寄せすぎないことです。必要な読み筋は、既知情報、痕跡、取得可能な資料として出しておくと、長編でも破綻しにくくなります。</p>
+<h2 id="mode-probability">4. プロバビリティ・モード</h2>
+<p>宣言読解に 2d6 の揺らぎを足し、運の要素を少しだけ入れる選択ルールです。</p>
+<h3 id="mode-probability-player">プレイヤーが読むところ</h3>
+<p>プレイヤー側で大切なのは、出目任せにせず、主目的・手段・備えを言葉で示すことです。深い宣言ほど結果が安定し、薄い宣言ほど出目だけでは伸びません。</p>
+<h3 id="mode-probability-gm">GMの運用</h3>
+<p>GMは先に宣言の質を読み、その後で 2d6 を振ります。出目だけで全部を決めないことがこのモードの核です。</p>
+<p>プロバビリティ・モードでは、まず宣言品質を読み、そのあとで 2d6 を振ります。振るのは、<strong>主目的が局面の中心問題へ触れていて、偶然・競合・不確実性があるとき</strong> だけです。1宣言につき1回を原則にしてください。</p><table>
+<thead><tr><th>難度</th><th>目標値</th></tr></thead>
+<tbody><tr><td>容易</td><td>4</td></tr><tr><td>普通</td><td>6</td></tr><tr><td>困難</td><td>8</td></tr><tr><td>過酷</td><td>10</td></tr><tr><td>絶望</td><td>12</td></tr></tbody>
+</table><p>品質修正は <strong>無策-1 / 妥当0 / 周到+1 / 卓越+2</strong>、タグ修正は <strong>有利+1ずつ（最大+2） / 不利-1ずつ（最大-2）</strong> が基本です。<strong>無策の上限は成功</strong>、<strong>周到・卓越の下限は失敗</strong> とし、出目だけで全部を決めないでください。</p>
+<h3 id="mode-probability-detail">実戦補足</h3>
+<p>このモードでは、自由宣言の読み取りに加えて、<strong>運の揺らぎ</strong> を判定に入れます。QBS の基本はあくまで宣言読解です。したがって、出目が良くても薄い宣言は伸びにくく、出目が悪くても深い宣言は壊れにくくします。</p><h4 id="advanced-probability-when">いつ振るか</h4><p><strong>主目的が局面の中心問題に触れていて</strong>、かつ <strong>偶然・競合・不確実性</strong> があるなら振ります。既知確認、自明な移動、安全な準備だけの行動、成否より記述だけが重要な小動作は、振らなくて構いません。原則は <strong>1宣言につき1回</strong> です。</p><h4 id="advanced-probability-target">目標値</h4><table>
+<thead><tr><th>難度</th><th>目標値</th></tr></thead>
+<tbody>
+<tr><td>容易</td><td>4</td></tr>
+<tr><td>普通</td><td>6</td></tr>
+<tr><td>困難</td><td>8</td></tr>
+<tr><td>過酷</td><td>10</td></tr>
+<tr><td>絶望</td><td>12</td></tr>
+</tbody>
+</table><h4 id="advanced-probability-formula">達成値</h4><pre><code>達成値 = 2d6 + 宣言品質修正 + タグ修正 + その他修正</code></pre><p>GM は、<strong>出目を見る前に</strong> 宣言品質を決めます。</p><table>
+<thead><tr><th>品質</th><th>修正</th><th>見るところ</th></tr></thead>
+<tbody>
+<tr><td>無策</td><td>-1</td><td>局面の問いに浅くしか触れていない / 行き当たりばったり / 守るものや代償や退路の見積もりがない</td></tr>
+<tr><td>妥当</td><td>0</td><td>主目的と手段が噛み合い、今回やろうとしていることがはっきりしている</td></tr>
+<tr><td>周到</td><td>+1</td><td>既出情報の利用、退路、証拠、味方、段取り、代償への備えのうち1つ以上が明確</td></tr>
+<tr><td>卓越</td><td>+2</td><td>既出情報活用 / 根本条件への接触 / 退路や支援の先確保 / 予想代償への備えのうち2つ以上が明確で、局面の骨組みに触れている</td></tr>
+</tbody>
+</table><h4 id="advanced-probability-tags">タグ修正</h4><p>宣言に <strong>直接刺さるタグ</strong> だけを数えます。こじつけでは修正しません。</p><pre><code>有利な手札タグ・恒久タグ・準備・装備: 1つにつき +1（最大 +2）
+不利な課題タグ・致死級タグ・立場・傷・妨害: 1つにつき -1（最大 -2）</code></pre><h4 id="advanced-probability-bands">結果帯</h4><table>
+<thead><tr><th>差分</th><th>結果</th><th>扱い</th></tr></thead>
+<tbody>
+<tr><td>目標値より 3 以上低い</td><td>破綻失敗</td><td>主目的未達。最低限ラインも未達でよい。重い代償タグまたは余波タグを2つまで置いてよい。</td></tr>
+<tr><td>目標値より 1〜2 低い</td><td>失敗</td><td>主目的未達。ただし、情報・位置・素材・関係・履歴の何か1つは残してよい。</td></tr>
+<tr><td>同値〜+1</td><td>捩れ成功</td><td>主目的は達成してよいが、守りたいものの一部を守れない、別利益を失う、露見する、期限が進むなどの捩れが付く。</td></tr>
+<tr><td>+2〜+4</td><td>成功</td><td>主目的達成。守りたいものを1つまで守りやすく、追加利益を1つまで返してよい。</td></tr>
+<tr><td>+5 以上</td><td>鮮烈成功</td><td>主目的達成。追加利益1つに加えて、有利な履歴・手札タグ・関係変化のいずれか1つを返してよい。</td></tr>
+</tbody>
+</table><h4 id="advanced-probability-limits">品質による上限と下限</h4><ul>
+<li><strong>無策</strong> の宣言は、どれだけ出目が良くても、結果の上限を <strong>成功</strong> とします。鮮烈成功にはなりません。</li>
+<li><strong>周到</strong> または <strong>卓越</strong> の宣言は、どれだけ出目が悪くても、結果の下限を <strong>失敗</strong> とします。破綻失敗にはしません。</li>
+</ul><h4 id="advanced-probability-return">返りの原則</h4><p>どの結果でも、GM はできるだけ <strong>Quiddities / Builds / Stories</strong> の三方向のうち、どこに何が残るかを返します。失敗でも何も残らない処理にはしません。成功でも何も変わらない強成功を続けません。</p><pre><code>【プロバビリティ quick ref】
+目標値: 容易4 / 普通6 / 困難8 / 過酷10 / 絶望12
+品質修正: 無策-1 / 妥当0 / 周到+1 / 卓越+2
+タグ修正: 有利+1ずつ（最大+2） / 不利-1ずつ（最大-2）
+結果帯: -3以下 破綻失敗 / -2~-1 失敗 / 0~+1 捩れ成功 / +2~+4 成功 / +5以上 鮮烈成功
+上限下限: 無策の上限 = 成功 / 周到・卓越の下限 = 失敗</code></pre>
+<h3 id="mode-probability-campaign">キャンペーンでの置き方</h3>
+<p>長編では「どの局面で振るか」を揃え、失敗でも Quiddities / Builds / Stories のどこかに返りが残るようにします。</p>
+<p>プロバビリティ・モードは、長編全体へ入れても、<strong>特定のアークだけ</strong> に入れても構いません。重要なのは、<strong>どの局面で運の揺らぎを使うのか</strong> を揃えることです。おすすめは、偶然・競合・不確実性が前面に出る回だけへ入れるやり方です。</p><p>難度は既存どおり <strong>容易4 / 普通6 / 困難8 / 過酷10 / 絶望12</strong> へ読み替えます。長編では、出目が悪かった回でも何かが残るよう、<strong>失敗の返り先</strong> を Quiddities / Builds / Stories の三面で散らしてください。</p>
+<h2 id="mode-quantity">5. クオンティティ・モード</h2>
+<p>文章とタグを主にしたまま、能力値を補助線として足す選択ルールです。</p>
+<h3 id="mode-quantity-player">プレイヤーが読むところ</h3>
+<p>数値は便利ですが主役ではありません。文章で何をしたいかを書き、そのうえで能力値が補助する、と考えると読みやすくなります。</p>
+<h3 id="mode-quantity-gm">GMの運用</h3>
+<p>GMはタグ・履歴・関係・準備で読めることを先に確定し、能力値は足りない余白を補うために使います。</p>
+<p>クオンティティ・モードでは、PC に <strong>筋力 / 器用 / 知力 / 魅力 / 意志</strong> の能力値を持たせます。初期配分は <strong>4,3,3,2,2</strong> です。ただし、優先順位は常に <strong>タグ &gt; 履歴・関係・準備・世界状態 &gt; 能力値</strong> としてください。</p><p>このモードだけを使うなら、主能力4で難度1段階軽減、主能力2で1段階増加を目安にします。プロバビリティと併用するなら、<strong>能力修正 = 能力値 - 3</strong> として達成値へ加えます。</p>
+<h3 id="mode-quantity-detail">実戦補足</h3>
+<p>このモードでは、自然言語で書かれた PC 記述に加えて、一般的な RPG 風の <strong>能力値</strong> を持たせます。ただし、能力値は主役ではありません。<strong>タグ、履歴、関係、準備、世界状態で直接読めることを、能力値で上書きしてはいけません。</strong></p><h4 id="advanced-quantity-stats">標準能力値</h4><p>標準能力値は <strong>筋力 / 器用 / 知力 / 魅力 / 意志</strong> です。世界観に合わせて、<strong>体 / 技 / 知 / 社 / 志</strong> へ言い換えて構いません。</p><ul>
+<li><strong>筋力:</strong> 力、耐久、踏ん張り、重作業、肉体的強行</li>
+<li><strong>器用:</strong> 速さ、精密さ、潜入、操作、身のこなし</li>
+<li><strong>知力:</strong> 分析、記憶、知識、工作、読解</li>
+<li><strong>魅力:</strong> 説得、交渉、演技、信用、場の支配</li>
+<li><strong>意志:</strong> 勇気、集中、信念、平静、誘惑や恐怖への抵抗</li>
+</ul><h4 id="advanced-quantity-setup">初期値</h4><p>PC を通常どおり作成したあと、5 つの能力値に <strong>4, 3, 3, 2, 2</strong> を 1つずつ割り振ります。<strong>4</strong> は明確な得意分野、<strong>2</strong> は明確な不得意分野です。4 と 2 には、それぞれ根拠になる一文を添えます。</p><pre><code>器用4: 屋根伝いの移動と潜入に慣れている
+意志2: 仲間を切る判断が遅れる</code></pre><h4 id="advanced-quantity-use">基本処理</h4><ol>
+<li>まず <strong>タグ / 履歴 / 関係 / 準備 / 世界状態</strong> を読みます。</li>
+<li>それだけで結果が十分に読めるなら、能力値は使いません。</li>
+<li>まだ余白があるときだけ、<strong>主能力を1つ</strong>決めて参照します。</li>
+</ol><p>プレイヤーは宣言末尾に <code>主能力: 器用</code> のように添えて構いません。ただし、それだけで有利になることはなく、最終的に何を参照するかは GM が決めます。</p><h4 id="advanced-quantity-only">クオンティティだけを使うとき</h4><ul>
+<li><strong>主能力が 4</strong> なら、難度を <strong>1段階軽く</strong> してよい</li>
+<li><strong>主能力が 2</strong> なら、難度を <strong>1段階重く</strong> してよい</li>
+<li><strong>主能力が 3</strong> なら、変化なし</li>
+</ul><p>この補正は、<strong>タグや準備で直接読める部分には使いません。</strong> あくまで GM がまだ迷う余白だけに使います。</p><h4 id="advanced-quantity-with-probability">プロバビリティと併用するとき</h4><p>プロバビリティと併用するなら、能力値は達成値修正に読み替えます。</p><pre><code>能力修正 = 能力値 - 3
+4 → +1 / 3 → 0 / 2 → -1</code></pre><h4 id="advanced-quantity-priority">優先順位</h4><pre><code>文章で書かれたタグ
+&gt; 履歴・関係・準備・世界状態
+&gt; 能力値</code></pre><p>能力値だけで不可能を可能にはしません。逆に、能力値が低くても、十分な準備と筋の通った宣言があるなら通します。</p><h4 id="advanced-quantity-change">能力値の変化</h4><p>能力値は原則として <strong>固定</strong> です。QBS における成長の主役は、あくまでタグ、履歴、関係、拠点、仲間です。ただし、<strong>再訓練 / 長期療養や後遺症 / 身体改造 / 身分や立場の大きな変化 / 信念や覚悟の決定的変化</strong> があったときは、シナリオ終了時に 1 点だけ入れ替えて構いません。</p><pre><code>【クオンティティ quick ref】
+能力値: 筋力 / 器用 / 知力 / 魅力 / 意志
+初期値: 4,3,3,2,2 を1つずつ配る
+単独運用: 4なら難度1段階軽減 / 2なら1段階増加 / 3なら変化なし
+プロバビリティ併用: 4なら+1 / 3なら0 / 2なら-1
+優先順位: タグ &gt; 履歴・関係・準備 &gt; 能力値</code></pre>
+<h3 id="mode-quantity-campaign">キャンペーンでの置き方</h3>
+<p>長編では数値成長の配分が Build の成長線を食わないよう、恒久タグや素材の返り先と並べて管理します。</p>
+<p>クオンティティ・モードは、<strong>キャラクターシートの手触り</strong> を強めたい長編で使います。能力値の基本形は <strong>4,3,3,2,2</strong> を維持し、成長の主役はあくまでタグ、履歴、関係、拠点、仲間に残してください。</p><p>長編で運用するなら、<strong>能力値は原則固定</strong> とし、再訓練、後遺症、身体改造、身分変化、信念変化のように <strong>PC の基礎そのものが変わったときだけ</strong>、シナリオ終了時に 1 点入れ替える窓を用意すると安定します。</p>
+<h2 id="mode-relax">6. リラックス・モード</h2>
+<p>各シナリオの区切りは保ったまま、キャンペーン全体の終点だけを急がない選択ルールです。</p>
+<h3 id="mode-relax-player">プレイヤーが読むところ</h3>
+<p>旅、後始末、取材、補給、関係修復のような回を無理なく重ねたいときに向きます。だらだら引き延ばすためではなく、小さな完結を重ねるためのモードです。</p>
+<h3 id="mode-relax-gm">GMの運用</h3>
+<p>GMは「各シナリオの問いは毎回きちんと終える」ことを守りつつ、次回候補の出し方と見直し間隔を整えます。</p>
+<h4 id="gm-endless-core">何を緩め、何を守るか</h4><p>このモードで緩めるのは、<strong>キャンペーン全体を最終局面へ一直線に押す圧</strong> だけです。逆に、GM は次のものを緩めません。</p><ul>
+<li><strong>今回の問い</strong></li>
+<li><strong>クリア条件 / 失敗条件</strong></li>
+<li><strong>期限</strong></li>
+<li><strong>答えが出たら終了する</strong> という原則</li>
+</ul><p>QBS は、自由宣言の結果が世界に残ることで締まります。ここを失わないため、<strong>一つの問題をだらだら続ける</strong> 運用にはしません。毎回の小さな終わりを保ったまま、キャンペーン全体の終点だけを急がないでください。</p><h4 id="gm-endless-candidates">次回候補の出し方</h4><p>シナリオ終了ごとに、GM は次回候補を <strong>2〜4本</strong> 出します。役目の違う候補を混ぜると、プレイヤーの自発性が出やすくなります。</p><table>
+<thead><tr><th>候補の役目</th><th>何を扱う回か</th><th>短い例</th></tr></thead>
+<tbody>
+<tr><td><strong>主野望寄り</strong></td><td>大きな目標や敵対勢力へ一歩近づく</td><td>「王都の書庫で禁書の出所を探る」</td></tr>
+<tr><td><strong>回復兼仕込み</strong></td><td>休息、補給、拠点、協力者、退路づくり</td><td>「港町で補給線と船医を確保する」</td></tr>
+<tr><td><strong>後始末 / 修復</strong></td><td>余波、誤解、借り、破損、人間関係を整える</td><td>「疑われた衛兵隊に弁明し信用を戻す」</td></tr>
+<tr><td><strong>横道の発見</strong></td><td>世界課題、別利益、再登場線、秘密開示</td><td>「古い観測所で消えた地図師の記録を追う」</td></tr>
+</tbody>
+</table><p>候補文は <strong>選択肢例</strong> です。プレイヤーが「この勢力と和解したい」「今のうちに工房を整えたい」と別案を出したなら、同じ重さの候補として採用してかまいません。</p><h4 id="gm-endless-growth">野望度・成長点・命運点の扱い</h4><p>リラックス・モードでは、<strong>普段の回では野望度を原則動かさない</strong> でください。野望度を動かすのは、立場の更新、価値選択、大きな勝利や敗北など、人生の節目だと感じる回だけで十分です。</p><p>日常の達成感は、<strong>成長点</strong>、<strong>世界課題タグの回収</strong>、<strong>Build 素片</strong>、<strong>長期資産ノード</strong>、<strong>絆や秘密の進展</strong> で返します。小さな依頼、補給、工作、交渉、和解、後始末にも、正規の返り先を用意してください。</p><p><strong>命運点の回復を、このモードだけで自動的に厚くしてはいけません。</strong> 穏やかな長編にしたいときも、命運点は既存の回復原則に従って扱い、無料の全快装置にしないでください。緊張を薄めるなら、命運点そのものではなく、<strong>危険度の低い候補や仕込み回</strong> を増やして調整します。</p><h4 id="gm-endless-prune">回復回とタグ整理</h4><p>回復回は、ただ休ませる回ではありません。<strong>休息・再配置・関係修復・次の仕込み</strong> のいずれかを必ず含めます。休んだ結果として、次の宣言が少し通しやすくなるものを一つ残してください。</p><ul>
+<li>隠れ家、連絡網、航路、紹介状の確保</li>
+<li>工房、宿、診療所、祈祷所の足場づくり</li>
+<li>誤解の解消、謝罪、和解、同行の約束</li>
+<li>後で使える証拠、部材、情報の整理</li>
+</ul><p>また、長く続く卓では <strong>タグを増やすこと</strong> より <strong>統合して閉じること</strong> が重要です。終了ごとに、少なくとも次の三択で整理してください。</p><ul>
+<li><strong>残す:</strong> まだ次の判断を変える</li>
+<li><strong>閉じる:</strong> 役目を終えたので消す</li>
+<li><strong>履歴へ送る:</strong> 事実としては重要だが、いまは手札ではない</li>
+</ul><p>似た向きの長期タグが増えたら、一枚に圧縮してかまいません。リラックス・モード運用では、この整理を怠ると管理がすぐ破綻します。</p><h4 id="gm-endless-return">通常キャンペーンへ戻す / 締める</h4><p>このモードは、キャンペーンの終点を消すものではありません。<strong>急がない</strong> だけです。大きな敵や価値選択が見えてきたら、「ここからは通常どおり終点へ向かう」と宣言して戻して構いません。</p><p>逆に、プレイヤーが「ここで満足した」と感じたなら、その節目で静かなエピローグへ入って終了してもかまいません。重要なのは、<strong>いつ終えるかをプレイヤーと共有すること</strong> であり、最終決戦を義務にしないことです。</p>
+<h3 id="mode-relax-detail">実戦補足</h3>
+<h4 id="advanced-endless-what">何をするモードか</h4><p>標準のキャンペーンでは、シナリオの積み重ねが最終的に野望の終点や最終局面へ向かいます。リラックス・モードでは、その直線を弱めます。<strong>今回の事件を解き、今回の問いに答え、次はどこへ行くかをそのつど選ぶ</strong> 運用に寄せます。</p><ul>
+<li><strong>残すもの:</strong> シナリオの問い / クリア条件 / 失敗条件 / 期限 / 終了処理</li>
+<li><strong>弱めるもの:</strong> 毎回野望度を動かす圧、最終決着へ一直線に進む圧</li>
+<li><strong>増やすもの:</strong> 次回候補の選択、休養や仕込みの回、世界課題タグの細かな回収</li>
+</ul><p>「終わらない一つの問題」をだらだら引き延ばすのではありません。<strong>終わる単位を小さく保ったまま、次の行き先をプレイヤーが選び続ける</strong> のが核心です。</p><h4 id="advanced-endless-declare">次回候補へどう希望を出すか</h4><p>シナリオ終了時には、GM が次回候補を <strong>2〜4本</strong> 出すのが基本です。あなたはその中から選んでもよいですし、<strong>同じ重さの別案</strong> を提案してもかまいません。</p><p>このときは、次の三つを書くと希望が通りやすくなります。</p><ul>
+<li><strong>今いちばん触りたいこと:</strong> 人、場所、問題、勢力、後始末</li>
+<li><strong>次に仕込みたいもの:</strong> 協力者、退路、補給線、工房、証拠、関係修復</li>
+<li><strong>今回は避けたい重さ:</strong> 連戦、怨情の激化、致死級危険、政治抗争など</li>
+</ul><p>候補を「正解当てクイズ」と思う必要はありません。<strong>このPCなら今どこへ向かいたいか</strong> を短く出せば十分です。</p><div class="codehilite"><pre><code>次に行きたい方向:
+- 触りたいもの:
+- 仕込みたいもの:
+- 今回は避けたい重さ:
+- もし候補外なら、やってみたい別案:</code></pre></div><h4 id="advanced-endless-growth">野望度が動かない回の読み方</h4><p>このモードでは、<strong>野望度が動かない回 = 無意味な回</strong> ではありません。野望度は人生の節目に使い、日常の充実や小さな達成は別の場所で受け取ります。</p><table>
+<thead><tr><th>その回で主に進むもの</th><th>よくある内容</th><th>主な返り</th></tr></thead>
+<tbody>
+<tr><td><strong>Quiddities（局面と世界の変化）</strong></td><td>聞き込み、調査、後始末、土地勘づくり、世界課題の回収</td><td>成長点、世界状態の改善、秘密段階の前進</td></tr>
+<tr><td><strong>Builds（長期資産の構築）</strong></td><td>補給、工作、工房整備、拠点開設、協力者の固定</td><td>素材、Build 素片、長期資産ノード</td></tr>
+<tr><td><strong>Stories（関係とドラマ）</strong></td><td>和解、謝罪、再会、里帰り、同行、看病、祭礼</td><td>絆の進展、感情の変質、ドラマフラグ、再登場線</td></tr>
+</tbody>
+</table><p><strong>成長点は地道な研鑽</strong>、<strong>野望度は人生の到達度</strong> と切り分けて読むと、このモードでも停滞しません。</p><h4 id="advanced-endless-recovery">回復回でも何かを残す</h4><p>休む回、遊ぶ回、取材する回、里帰りする回でも、<strong>次の宣言が少し楽になるもの</strong> を一つ残すと、リラックス・モード運用が締まります。</p><ul>
+<li>安全な宿や隠れ家を押さえる</li>
+<li>道案内や仲介役を得る</li>
+<li>補給線や連絡網を整える</li>
+<li>謝罪や対話で絆の壊れ方を変える</li>
+<li>あとで使える小さな証拠や素材を持ち帰る</li>
+</ul><p>逆に、<strong>何も変えずに全快だけする</strong> 回を続けると、QBS らしい「宣言が残る」感触が薄くなります。穏やかな回でも、何が残ったかは一行でよいので意識してください。</p>
+<h3 id="mode-relax-campaign">キャンペーンでの置き方</h3>
+<p>長編では本数ではなく見直し間隔を決め、野望度・成長点・命運点の回り方を通常キャンペーンと切り分けておくと扱いやすくなります。</p>
+<h4 id="campaign-endless-core">基本原則</h4><p>リラックス・モードでは、<strong>キャンペーン全体の最終決着を必須にしません。</strong> ただし、<strong>各シナリオの問い、クリア条件、失敗条件、期限、終了処理</strong> は通常どおり持ちます。</p><p>つまり、<strong>シナリオは終わる / キャンペーンは急がなくてよい</strong>、が原則です。QBS の自由宣言は「今回の答え」を変えることで強く働くため、各話の切れ目は残します。</p><h4 id="campaign-endless-default">既定値と採用基準</h4><p><strong>既定は 初級ではあり、中級・上級・熟練ではなし</strong> とします。ただし、これは機械的な強制ではありません。旅情、人情、日常、後始末、補給、調査、共同体の運営を重く見るキャンペーンでは、どの段階でも採用して構いません。</p><p>逆に、短本数で鋭く終点へ向かう設計、毎回大きな敗着線が動く設計、最終局面の圧を主軸にする設計では、切るほうが向きます。</p><h4 id="campaign-endless-loop">進行の基本ループ</h4><ol>
+<li><strong>各シナリオで今回の問いに答えを出す</strong></li>
+<li><strong>終了処理でタグ整理と成長処理を行う</strong></li>
+<li><strong>GM が次回候補を 2〜4 本出す</strong></li>
+<li><strong>プレイヤーが候補を選ぶか、同等の別案を出す</strong></li>
+</ol><p>候補の役目は分けると安定します。<strong>主野望を押す回 / 回復兼仕込み回 / 後始末や修復の回 / 横道の発見回</strong> を混ぜると、自由宣言の方向が生まれます。</p><h4 id="campaign-endless-growth">野望度・成長点・命運点</h4><p>このモードでは、<strong>普段の回では野望度を原則変動させません。</strong> 野望度が動くのは、立場の更新、大きな勝利や敗北、価値選択の固定など、人生の節目だと感じる回だけで十分です。</p><p>通常の達成感は、<strong>成長点</strong>、<strong>世界課題タグの解決</strong>、<strong>Build 素片</strong>、<strong>長期資産ノード</strong>、<strong>絆・感情・秘密の進展</strong> で返します。これにより、「終わりを急がない」ことと「何も進まない」ことを切り分けられます。</p><p><strong>命運点の回復を、このモードだけで厚くしてはいけません。</strong> 穏やかさを作りたいときは、命運点を無料で戻すのではなく、危険の薄い候補や回復兼仕込み回を増やして調整します。</p><h4 id="campaign-endless-tags">回復回と長期タグの整理</h4><p>回復回は、<strong>全快だけして元に戻る回</strong> にしません。少なくとも一つは、次の宣言が軽くなるものを残します。隠れ家、航路、紹介状、工房、協力者、謝罪、信用回復、記録整理のような軽い足場が向きます。</p><p>また、長く続くほど <strong>長期タグの増えすぎ</strong> が最大の敵になります。終了ごとに、<strong>残す / 閉じる / 履歴へ送る</strong> の三択で整理し、似た向きのものは一枚へ圧縮してください。</p><h4 id="campaign-endless-return">通常キャンペーンへ戻す / ここで締める</h4><p>リラックス・モードは、最終局面を禁止するものではありません。大きな敵や終わりの問いが見えてきたら、<strong>通常のキャンペーン進行へ戻して終点へ向かってよい</strong> です。</p><p>逆に、プレイヤーが「この辺りで十分満足した」と感じたなら、その節目で静かなエピローグへ入って終えてもかまいません。<strong>終点を必須にしない</strong> ことが、このモードの核です。</p><p>キャンペーン級の対立を扱うなら、<strong>誰が誰と敵対するか</strong> だけでなく、<strong>何を取り合うときにバーサスへ入るか</strong> を先に決めておくと、長編でも対立が濃くなりすぎません。</p><pre><code>【バーサス・モードの既定】
+- 使う / 使わない:
+- 既定値: 初級 / 中級ではなし、上級 / 熟練ではあり
+- シナリオ / プレイヤー希望による例外:
+- 主に置く回:
+- 同時提出方式:
+- 致死 / 恒久喪失 / 心情直接確定の扱い:
+- 外部圧の基本線:
+- 中間臨界状態の既定:</code></pre>
+<h2 id="mode-social">7. ソーシャル・モード</h2>
+<p>本心当てではなく、見えているサインから非開示情報や協力可能線を読む選択ルールです。</p>
+<h3 id="mode-social-player">プレイヤーが読むところ</h3>
+<p>相手の心を言い当てる必要はありません。表層サイン、共有圧、次に守ろうとしていることから、「どこなら話が通りそうか」を読むのが中心です。</p>
+<h3 id="mode-social-gm">GMの運用</h3>
+<p>GMは内面そのものを確定せず、読むための材料を出します。成果は情報開示、虚偽の揺らぎ、条件付き協力として返します。</p>
+<p>ソーシャル・モードで大事なのは、<strong>内面そのものを確定させない</strong> ことです。局面では、心理の代わりに <strong>表層サイン / 共有圧 / 次防御予告 / 残っている共有状態</strong> を出してください。</p><pre><code>【表層サイン】言い淀み / 話題回避 / 過剰反応 / 矛盾 / 強調しすぎる点 / 誰の前では言い方が変わるか
+【共有圧】放置すると黙秘が固まる / 面子コストが上がる / 口裏合わせが進む / 退席や通報が近づく / 第三者が来る
+【次防御予告】論点ずらし / 虚偽の補強 / 逆質問 / 退席 / 第三者を盾にする / 条件闘争へ持ち込む
+【残っている共有状態】二人きり / 安全保証 / 面子の退路 / 証拠突合せ / 第三者退席 / 限定協力の土台</code></pre><p>GM メモ側では、<strong>真の心理ボトルネック / 非開示情報 / 開示や協力の最低条件 / 虚偽継続時の次防御</strong> を事前固定します。返りは、<strong>情報開示 / 虚偽の揺らぎ / 条件付き協力 / 判断保留 / 一時的譲歩 / 関係タグや感情タグの変化</strong> として返してください。</p>
+<h3 id="mode-social-detail">実戦補足</h3>
+<p>ソーシャル・モードは、<strong>相手の内面を当てるゲーム</strong> ではありません。<strong>表層サインから、非開示情報と協力可能線を推論する</strong> モードです。QBS では、他 PC の内面を直接決めることはできませんし、「本音そのもの」を事実確認で聞くこともできません。したがって、このモードの成果は、<strong>情報開示 / 虚偽の揺らぎ / 条件付き協力 / 判断保留 / 一時的譲歩 / 関係タグや感情タグの変化</strong> として返します。</p><h4 id="advanced-social-public">局面で公開される情報</h4><pre><code>【局面主目的】
+
+【表層サイン】
+- 言い淀み
+- 話題回避
+- 過剰反応
+- 矛盾
+- 強調しすぎる点
+- 誰の前では言い方が変わるか
+
+【共有圧】
+- 放置すると黙秘が固まる
+- 面子コストが上がる
+- 口裏合わせが進む
+- 退席や通報が近づく
+- 第三者が来る
+
+【次防御予告】
+- 論点ずらし
+- 虚偽の補強
+- 逆質問
+- 退席
+- 第三者を盾にする
+- 条件闘争へ持ち込む
+
+【残っている共有状態】
+- 二人きり
+- 安全保証
+- 面子の退路
+- 証拠突合せ
+- 第三者退席
+- 限定協力の土台</code></pre><p>タクティカル・モードでの「誰がどこにいるか」に相当するのが、ソーシャル・モードでは <strong>表層サイン</strong> です。心理そのものは見えないので、ここを出さないとプレイヤーが読む材料がありません。</p><h4 id="advanced-social-declare">宣言補足の型</h4><p>既存の <strong>「今回動かしたい相手 / どう感じてほしいか・どう決めてほしいか / 見せるもの / 守りたい関係 / 壊れてもよいもの」</strong> を、そのまま社会局面用に使えます。ソーシャル・モードでは、次の形にすると読みやすくなります。</p><pre><code>【ソーシャル補足】
+今回動かしたい相手:
+引き出したい非開示情報 / 変えたい判断:
+そのために見せるもの・差し出すもの:
+どの共有圧を引き受けるか:
+目指す落としどころ:</code></pre><h4 id="advanced-social-returns">返りとして狙うもの</h4><ul>
+<li><strong>情報の開示:</strong> 全面自白ではなくても、輪郭や条件や当事者性が見える</li>
+<li><strong>虚偽の揺らぎ:</strong> 嘘の補強に無理が出る、言い分が変わる、次防御が一段重くなる</li>
+<li><strong>条件付き協力:</strong> 全面協力ではなくても、その場限りの提案が届く</li>
+<li><strong>判断の保留 / 一時的譲歩:</strong> 即時拒否が消え、別条件の交渉窓が生える</li>
+<li><strong>関係変化:</strong> 絆タグ / 感情タグ / ドラマフラグが動く</li>
+</ul><p>つまり、このモードで狙うのは「改心させる」ではなく、<strong>言い分を変えざるを得ない状態を作る</strong>、<strong>この場ではこちらに乗る理由を作る</strong>、<strong>本心を隠しきれない圧を作る</strong> です。</p><h4 id="advanced-social-gimmicks">読みやすい共有状態の例</h4><pre><code>【二人きり｜許可: 建前処理と本音探りを一宣言で扱える / 露見すると【密談疑惑】】
+【面子の退路｜値引き: 相手が前言撤回・方針転換するときの支払いを1段軽くする】
+【証拠突合せ｜保険: 虚偽の補強や口裏合わせの顕在化を1段遅らせる】
+【限定協力案｜変換: 全面自白を〔条件付き開示〕〔一時協力〕〔沈黙の合意〕へ変換できる】
+【安全保証｜許可: 告白後の報復不安を抱えた相手にも、限定開示の提案が届く】</code></pre><h4 id="advanced-social-donts">やってはいけないこと</h4><p><strong>内面そのものを確定させない</strong> のが、このモードの一番大事な制限です。「改心した」「恐怖した」「罪悪感に屈した」のような断定を主目的にしないでください。QBS らしい強さは、内面断定ではなく <strong>共有状態を変えること</strong> にあります。</p>
+<h3 id="mode-social-campaign">キャンペーンでの置き方</h3>
+<p>長編ではレギュラーNPCの防御線や協力条件をアーク単位で持っておくと、交渉の積み重ねがきれいに残ります。</p>
+<p>ソーシャル・モードは、尋問、密談、交渉、審問、評議、派閥調整のように、<strong>表層サインと共有圧が主軸</strong> の回へ置きます。毎回入れるより、<strong>人間関係の節目</strong>、<strong>情報開示の節目</strong>、<strong>立場が動く節目</strong> に置くほうが呼吸が良くなります。</p><p>長編では、ソーシャルの成果を <strong>情報開示 / 条件付き協力 / 関係タグや感情タグの変化</strong> として持ち越すと、Stories 線が太くなります。本心の断定より、<strong>次の局面で何が言えるようになったか</strong> を残してください。</p>
+<h2 id="mode-tactical">8. タクティカル・モード</h2>
+<p>位置取り、共有圧、敵や環境の次の手を見える化して、自由宣言のまま連携しやすくする選択ルールです。</p>
+<h3 id="mode-tactical-player">プレイヤーが読むところ</h3>
+<p>コマンド選択のゲームに戻るわけではありません。誰がどこにいて、何を止めると楽になるかを読んで、自由宣言で役割分担しやすくするための補助線です。</p>
+<h3 id="mode-tactical-gm">GMの運用</h3>
+<p>GMは位置関係と圧力を公開して連携の芯を示しますが、固定コマンドへ落とし込みすぎないようにします。</p>
+<p>タクティカル・モードは、戦闘や難所にだけ <strong>位置取り</strong>、<strong>共有圧</strong>、<strong>敵や環境の次の手</strong> を足す任意追加です。自由宣言をやめるためではなく、<strong>共有ボトルネックを読ませる</strong> ために使います。</p><h4 id="gm-tactical-option-when">いつ使うか</h4><p>毎戦闘に付ける必要はありません。<strong>位置関係</strong>、<strong>退路</strong>、<strong>役割分担</strong> が主軸になる局面だけに付けると、PBM でも読みやすくなります。</p><h4 id="gm-tactical-option-show">局面で見せること</h4><ul>
+<li><strong>誰がどこにいるか</strong></li>
+<li><strong>いま放置すると重くなる共有圧</strong></li>
+<li><strong>敵や環境が次に何をしようとしているか</strong></li>
+<li><strong>誰かが作ると味方も使える共有状態</strong></li>
+</ul><p>見せるのは <strong>読む材料</strong> であって、行動メニューではありません。</p><h4 id="gm-tactical-option-dont">やってはいけないこと</h4><p>タクティカル・モードを入れたからといって、自由宣言を「移動 / 攻撃 / 防御」のような固定コマンドへ戻してはいけません。プレイヤーは引き続き、<strong>何をどうしたいか</strong> を文章で宣言します。</p>
+<h3 id="mode-tactical-detail">実戦補足</h3>
+<p>タクティカル・モードは、戦闘や難所にだけ <strong>位置取り</strong>、<strong>共有ボトルネック</strong>、<strong>ラウンド圧</strong>、<strong>敵や環境の次の手</strong> を見える化する追加です。自由宣言をコマンド選択へ戻すためのルールではありません。</p><h4 id="advanced-tactical-what">何が増えるか</h4><ul>
+<li><strong>位置関係:</strong> 誰がどこにいて、どこへ行けるか</li>
+<li><strong>共有圧:</strong> 放置すると全員のどこかへしわ寄せが出る問題</li>
+<li><strong>敵意図 / 環境意図:</strong> 次に何が起こりそうか</li>
+<li><strong>共有状態:</strong> 退路、遮蔽、時間稼ぎ、搬送線など、誰かが作ると味方も使える足場</li>
+</ul><p>増えるのは <strong>読む材料</strong> であって、選べる行動が固定されるわけではありません。</p><h4 id="advanced-tactical-read">まず何を読むか</h4><p>最初に読むべきなのは、<strong>どの圧を誰が受け持つか</strong> です。個人最適だけでなく、<strong>誰が共有ボトルネックを押さえると他PCが楽になるか</strong> を見ると、自由宣言の質が一段上がります。</p><p>次に、<strong>敵や環境が次に何をしようとしているか</strong> を見ます。勝つことそのものより、<strong>いま止めるべきものを止める</strong> ほうが強い局面が多いです。</p><h4 id="advanced-tactical-declare">宣言に一行添える</h4><p>タクティカル・モードが有効な局面では、いつもの宣言に次の一行を足すだけでも十分です。</p><pre><code>戦術補足:
+- どの共有圧を受け持つか
+- 誰の退路や生還線を支えるか
+- 何を次ラウンドへ残したいか</code></pre><p>これは書式の強制ではありません。<strong>連携の芯</strong> を明文化するための補助です。</p>
+<h3 id="mode-tactical-campaign">キャンペーンでの置き方</h3>
+<p>長編では、護送・脱出・防衛・追跡など、戦闘以外の難所にもどこまで使うかを先に決めておくとぶれません。</p>
+<p>タクティカル・モードは、戦闘や難所にだけ <strong>位置</strong>、<strong>共有圧</strong>、<strong>敵意図</strong> を足す任意追加です。既定は <strong>初級 / 中級ではなし</strong>、<strong>上級 / 熟練ではあり</strong> ですが、これは出発点にすぎません。<strong>シナリオの性質</strong> と <strong>プレイヤーの希望</strong> を優先してください。</p><p>キャンペーンでは、毎回付けるよりも、<strong>アークの山場</strong>、<strong>役割分担が主軸の救出</strong>、<strong>退路が主題の脱出</strong> のような回だけへ置くほうが呼吸が良くなります。自由宣言を細切れにするためではなく、<strong>ここだけは位置と圧を読ませたい</strong> 回へ置いてください。</p>
+<h2 id="mode-unlock">9. アンロック・モード</h2>
+<p>鍵、封印、機械、手順など、構造そのものを読む局面を扱う選択ルールです。</p>
+<h3 id="mode-unlock-player">プレイヤーが読むところ</h3>
+<p>「正解を当てる」よりも、「何を見てそう判断したか」を書くことが重要です。今の状態、つながっている先、固定された条件を確かめると読みやすくなります。</p>
+<h3 id="mode-unlock-gm">GMの運用</h3>
+<p>GMは可視構成要素・物理条件・構造圧・共有安全状態を公開し、設計メモ側では真のボトルネックと返り先を固定します。</p>
+<p>アンロック・モードは、鍵、封印、爆弾、隔離工程、再起動手順のように、<strong>構造の読解</strong> が主軸の局面で使います。公開するのは <strong>可視構成要素 / 既知の物理条件 / 構造圧 / 次の構造反応 / 残っている共有安全状態</strong> です。</p><p>GM メモでは、<strong>核心障害 / 真のボトルネック / 第1構造カウンター C1 / 必要なら第2構造カウンター C2 / 最速敗着線 / 痕跡 / 情報源 / 仕込み窓 / 抜き筋</strong> を固定してください。読み違えたが前進はした、を C1/C2 で返し、触ってはいけない失着を最速敗着線で返す二層処理が基本です。</p><p>このモードだけは、宣言前確認を少し厚くして構いません。<strong>同一工程・同一対象</strong> に限り、1回の確認で <strong>現状態 / 連動先 / 既知の物理固定条件</strong> のような原子的事実を束ねて返してよいです。ただし、<strong>どの順が正解か / 何を先にすべきか / これで安全に生還できるか</strong> は返しません。</p>
+<h3 id="mode-unlock-detail">実戦補足</h3>
+<p>アンロック・モードは、<strong>高難度シナリオ設計の縮図を、1局面サイズへ圧縮したもの</strong> です。鍵開けに限らず、儀式停止、隔離解除、爆発物処理、手順解体、医療工程、設備再起動のように、<strong>構造そのもの</strong> を読む場面で使います。</p><p>このモードでは、「正解そのもの」を言い当てるより、<strong>何を根拠にその読みを採ったか</strong> が大事です。QBS の自由宣言を崩さずに、<strong>構造読解</strong> を前面へ出すためのモードだと考えてください。</p><h4 id="advanced-unlock-public">局面で公開される情報</h4><pre><code>【局面主目的】
+
+【可視構成要素 / 現在状態】
+- 触れられる部位
+- 見えている接続
+- 現在の作動状態
+- 露出した層
+- 欠けている情報
+
+【既知の物理条件】
+- これを動かすと何が連動するか
+- これは外せるか据置か
+- 何が可逆で何が不可逆か
+- 時間 / 熱 / 圧 / 通電 / 封印状態
+
+【構造圧】
+- 放置で進行するもの
+- 誤操作蓄積
+- 加熱
+- 再封印
+- 起爆猶予減少
+- 汚染進行
+
+【次の構造反応】
+- 再ロック
+- 別系統の起動
+- 隔壁閉鎖
+- 警報
+- 連動先への波及
+- 即死級工程の露出
+
+【残っている共有安全状態】
+- 仮固定
+- 一時停止
+- 隔離
+- 試験端子確保
+- 別系統遮断
+- 緊急排出路</code></pre><h4 id="advanced-unlock-declare">宣言補足の型</h4><pre><code>【アンロック補足】
+今回触る工程:
+その判断根拠にした観測事実:
+読みの前提:
+先に作る安全状態:
+切ってよいもの / 捨てる別利益:</code></pre><p>「正解そのもの」ではなく、<strong>何を観測したのでそう読んだか</strong> を書くと、構造読解として筋が通ります。</p><h4 id="advanced-unlock-confirm">宣言前確認の例外</h4><p>アンロック・モードだけは、宣言前確認を少し厚くして構いません。ただし、それでも <strong>答え合わせ</strong> や <strong>値引き制度</strong> ではなく、あくまで <strong>観測</strong> です。</p><p>したがって、このモードでは <strong>同一工程・同一対象</strong> に限り、<strong>1回の宣言前確認で複数の原子的事実を束ねて聞いてよい</strong> とします。目安は <strong>現状態 / 連動先 / 既知の物理固定条件</strong> の 3 点までです。</p><p>ただし、次のことは引き続き聞けません。</p><ul>
+<li><strong>どの順が正解か</strong></li>
+<li><strong>何を先にすべきか</strong></li>
+<li><strong>これで安全に生還できるか</strong></li>
+</ul><h4 id="advanced-unlock-returns">結果の見方</h4><p>アンロック・モードでは、<strong>読み違えたが前進はした</strong> を構造カウンターで返し、<strong>触ってはいけない失着を踏んだ</strong> を最速敗着線で返します。したがって、同じ「うまくいかなかった」でも、<strong>後から返るのか / その場で崩れるのか</strong> を見分けるのが重要です。</p><h4 id="advanced-unlock-gimmicks">見やすい共有安全状態の例</h4><pre><code>【試験端子｜許可: 観測と仮説検証を一宣言で扱える / 誤接続で【構造圧+1】】
+【仮固定具｜保険: 誤操作の即時致命化を1段遅らせる】
+【対応表の断片｜値引き: 手順特定のための追加支払いを1段軽くする】
+【バイパス回路｜変換: 完全解除を〔一時停止〕〔隔離〕〔手動安全化〕へ変換できる】
+【爆風隔壁｜保険: 失着を即死から【局面崩壊】や【証拠損壊】へずらす】</code></pre>
+<h3 id="mode-unlock-campaign">キャンペーンでの置き方</h3>
+<p>長編では、一つのアンロック局面が別アークの鍵になるように置くと、Quiddities 線と Builds 線の両方を伸ばしやすくなります。</p>
+<p>アンロック・モードは、爆弾処理、封印解除、機械再起動、隔離工程、儀式停止、医療工程のように、<strong>構造の読解そのもの</strong> を主軸にする回へ置きます。長編では、<strong>一つのアンロック局面が別アークの鍵</strong> になるように置くと、Quiddities 線と Builds 線の両方が立ちやすくなります。</p><p>置く回を決めたら、<strong>可視構成要素 / 既知の物理条件 / 構造圧 / 次の構造反応 / 共有安全状態</strong> の公開欄と、<strong>核心障害 / 真のボトルネック / C1 / C2 / 最速敗着線</strong> の作者メモを1セットで持ってください。ここを分けて管理すると、即死級処理が GM の気分になりにくくなります。</p>
+<h2 id="mode-versus">10. バーサス・モード</h2>
+<p>排他的な最終状態を、自由宣言のまま競合処理する選択ルールです。</p>
+<h3 id="mode-versus-player">プレイヤーが読むところ</h3>
+<p>相手に勝つための専用コマンドではありません。同じ対象を「捕らえる / 逃がす」のように取り合うとき、何を争っているのかを一段だけ細かく書くモードです。</p>
+<h3 id="mode-versus-gm">GMの運用</h3>
+<p>GMは競合する層、同時提出の方式、致死や恒久喪失の扱いを先に合わせ、両立部分があるならまずそこを残します。</p>
+<p>バーサス・モードは、PCどうしや陣営どうしが、<strong>同じ対象の同じ層の最終状態</strong> を排他的に奪い合う局面で使います。QBS の自由宣言をやめるためではなく、<strong>自由宣言どうしの競合を整列し、共有世界の結果を一つへ畳む</strong>ための任意ルールです。</p><h4 id="gm-versus-when">いつ使うか</h4><p>次の三条件がそろうときに使うと、過不足が出にくくなります。</p><ul>
+<li><strong>排他的な最終状態</strong> がある — 片方が拘束すれば、片方の離脱成功は同じ瞬間には立たない</li>
+<li><strong>対象が共有世界で一つ</strong> しかない — 同じ証拠、同じ窓口、同じ退路、同じ役職、同じ当事者</li>
+<li><strong>競合それ自体が卓の主軸</strong> である — 学園抗争、派閥選挙、証拠争奪、護送妨害、離脱阻止など</li>
+</ul><p>逆に、同じ方向へ動いている複数PC卓では、まず普通の複数PC処理を優先してください。バーサスは、<strong>排他的な最終状態だけ</strong> を扱う追加です。</p><h4 id="gm-versus-post">局面で見せること</h4><p>バーサス局面では、通常の局面欄に加えて、次を明示するとぶれにくくなります。</p><pre><code>【バーサス状態 / 共通部分】(任意)
+- 競合ラウンド:
+- 今回主に競合しうる対象:
+- 今回争われやすい層:
+- 同時提出方式:
+- 先に確保済みの共有状態:
+- 競合候補になりやすい一回性機会:
+- 今回効きやすいタグ / 資産 / 位置取り:
+- 能動的外部主体:
+- 放置時に自然進行する第三の悪化:
+- 同数時に置きやすい中間状態候補:</code></pre><p>ここで重要なのは、<strong>投稿順を優先順位にしない</strong> ことです。PBM では、先に書いた人が先手になると卓の納得感が壊れやすいので、原則は <strong>同時提出</strong> を既定にしてください。</p><h4 id="gm-versus-declare">プレイヤーに出してもらう宣言</h4><p>プレイヤーには、ふだんの宣言を大きく崩さず、次の形だけを足してもらうと扱いやすくなります。</p><pre><code>【バーサス宣言】
+主目的:
+対象:
+争う層: 身体 / 位置 / 物品 / 社会 から1つ
+手段:
+守りたいもの:
+捨ててもよいもの:
+別利益(任意):
+今回あえて取らないもの(任意):
+使うタグ / 資産 / 共有状態(任意):
+いまは伏せる補足(任意):</code></pre><p>強く争う層は <strong>1 宣言につき 1 つ</strong> を既定にしてください。ほかの層へ触れる内容は、別利益、演出、余波、次局面の争点へ落とします。</p><h4 id="gm-versus-donts">やってはいけないこと</h4><ul>
+<li><strong>他PCの内面を直接確定させる</strong> — 恐怖、改心、恋愛感情、忠誠の書き換えを、一宣言で通さない</li>
+<li><strong>いきなり恒久喪失へ飛ばす</strong> — 致死、大切なものの喪失、関係の破局は卓宣誓の範囲で段階的に扱う</li>
+<li><strong>世界を止める</strong> — 競合処理のたびに、外部主体、制度、世論、締切のどれかを最低 1 つは進める</li>
+<li><strong>勝者を無傷にする</strong> — 勝者にも露出、消耗、監視、悪評、後始末を残す</li>
+</ul><p>競合そのものの処理手順と中間臨界状態表は、27章の複数PC処理で使います。ここでは、<strong>どういう局面でバーサスを宣言し、何を見せるか</strong> を先に固めてください。</p>
+<h3 id="mode-versus-detail">実戦補足</h3>
+<h4 id="advanced-versus-what">何をするモードか</h4><p>バーサス・モードは、<strong>同じ対象の同じ層の最終状態</strong>を、PCどうしや陣営どうしで奪い合うときに使います。たとえば、同じNPCを「捕まえたい / 逃がしたい」、同じ証拠を「確保したい / 隠したい」、同じ退路を「押さえたい / 通したい」といった場面です。</p><p>大事なのは、ここでもなお <strong>自由宣言のゲームである</strong> ことです。コマンドを選ぶのではなく、<strong>主目的</strong> と <strong>手段</strong> を文章で書き、その結果をGMが一つの共有世界へ畳みます。詳しい競合解決手順や中間臨界状態表は、GM側の運用として <a href="gm-guide.html#同一対象競合と多数決">GMガイド</a> にまとめられています。プレイヤーとしては、<strong>今回どの層を争うか</strong>、<strong>何を守り、何を捨てるか</strong> を明確に書ければ十分です。</p><h4 id="advanced-versus-layers">主に争う層は四つに分ける</h4><table>
+<thead><tr><th>層</th><th>何を争うか</th><th>置きやすい中間状態</th></tr></thead>
+<tbody>
+<tr><td><strong>身体</strong></td><td>拘束、負傷、行動不能、とどめ</td><td>体勢不利 / 拘束 / 行動不能 / 瀕死</td></tr>
+<tr><td><strong>位置</strong></td><td>接敵、遮断、離脱、包囲、退路確保</td><td>捕捉 / 退路半壊 / 遮断 / 包囲</td></tr>
+<tr><td><strong>物品</strong></td><td>奪取、保持、破損、証拠確保</td><td>所在露見 / 争奪中 / 破損 / 機能停止</td></tr>
+<tr><td><strong>社会</strong></td><td>疑惑、失脚、支持、評判、審問停止</td><td>注目 / 疑惑 / 審問停止 / 失脚寸前</td></tr>
+</tbody>
+</table><p>バーサスでは、<strong>強く争う層を1宣言につき1つだけ</strong>に絞ると安定します。ほかの層に触れる内容は、演出、別利益、余波、次局面の争点へ回します。</p><h4 id="advanced-versus-declare">宣言では何を書くか</h4><p><strong>主目的は1つ</strong>、<strong>強く争う層も1つ</strong>が基本です。たとえば「相手を拘束しつつ、証拠を奪い、世論も落とす」は一文では書けても、標準価格では全部は通りません。</p><pre><code>【バーサス宣言】
+主目的:
+対象:
+争う層: 身体 / 位置 / 物品 / 社会 から1つ
+手段:
+守りたいもの:
+捨ててもよいもの:
+別利益(任意):
+今回あえて取らないもの(任意):
+使うタグ / 資産 / 共有状態(任意):</code></pre><p>バーサス局面では、ふだんの宣言に <strong>対象</strong> と <strong>争う層</strong> を明示すると読みやすくなります。とくにPBMでは、<strong>同時提出</strong> を前提にしたほうが投稿順の有利不利が減ります。</p><h4 id="advanced-versus-results">GM返答は三段で読む</h4><p>GMの返答では、まず <strong>共通成果</strong> を見ます。追い詰めた、退路候補を一つ潰した、証拠の所在を露見させた、疑惑を公にした、といった部分です。ここは、競り負けても残ることがあります。</p><p>次に <strong>排他的な最終状態</strong> を見ます。拘束されたのか、離脱を許したのか、証拠を持ち去ったのか、失脚させたのか、という一つしか立たない結果です。</p><p>最後に、決着が持ち越されたなら <strong>中間臨界状態</strong> を見ます。ここが次局面の争点です。QBSのバーサスは、即断の勝敗よりも、<strong>まだどちらにも転びうる臨界点</strong> を作ったほうが面白くなりやすいです。</p><h4 id="advanced-versus-guards">やってはいけない書き方</h4><ul>
+<li><strong>他PCの内面を直接確定する</strong> — 「恐怖した」「改心した」「恋に落ちた」は、宣言だけでは決まりません。</li>
+<li><strong>合意のない恒久喪失へ一気に飛ぶ</strong> — 致死や大切なものの喪失は、卓宣誓で許可された範囲で扱います。</li>
+<li><strong>一宣言で複数層を強く取り切る</strong> — 身体 / 位置 / 物品 / 社会 の全部を一気に主処理へ入れないでください。</li>
+<li><strong>勝ったら無傷だと思う</strong> — 勝者にも、注目、悪評、消耗、監視、後始末は残ります。</li>
+</ul>
+<h3 id="mode-versus-campaign">キャンペーンでの置き方</h3>
+<p>長編では、どの回に置くかと、対立が終わったあとの関係の残し方を先に決めておくと後腐れが少なくなります。</p>
+<h4 id="campaign-versus-template">キャンペーン設計書への追記欄</h4><p>重要なのは、バーサスを置いても <strong>世界反応を止めない</strong> ことです。教師、制度、警察、世論、怪異、締切のどれかを毎ラウンド最低 1 つは進め、PC同士だけで世界を閉じさせないでください。</p><ul>
+<li><strong>中盤の反転回</strong> — 味方だったはずの派閥が別利益を優先する</li>
+<li><strong>学園 / 都市の対立回</strong> — 役職、証拠、世論、放送、後援を取り合う</li>
+<li><strong>終盤前の離脱 / 護送回</strong> — 同じ当事者や同じ退路の最終状態を奪い合う</li>
+</ul><h4 id="campaign-versus-where">どの回に置くか</h4><p>既定は <strong>初級 / 中級ではなし</strong>、<strong>上級 / 熟練ではあり</strong> です。ただし、<strong>シナリオの性質</strong> と <strong>プレイヤーの希望</strong> を優先してください。長編で常時バーサスにすると、関係管理と情報管理が遊びを食いやすいので、<strong>使う回を選ぶ</strong> ほうが安定します。</p><h4 id="campaign-versus-defaults">既定と卓宣誓</h4><p>キャンペーンでバーサス・モードを使うときは、<strong>毎回入れる</strong> よりも、<strong>派閥対立が主軸の回</strong>、<strong>証拠や窓口を取り合う回</strong>、<strong>離脱や護送の成否を奪い合う回</strong> に絞るほうが呼吸が良くなります。QBS のバーサスは、対立を別ゲームへ切り離すためではなく、<strong>自由宣言どうしの競合を整列する</strong>ためのモードです。</p>
+<h2 id="mode-whisper">11. ウィスパー・モード</h2>
+<p>秘匿情報と個人別利益を持つ、半協力卓向けの選択ルールです。</p>
+<h3 id="mode-whisper-player">プレイヤーが読むところ</h3>
+<p>秘密を毎回全部明かす必要はありません。守りたいもの、捨ててもよいもの、どこまで共有済みかを意識して書けば十分です。</p>
+<h3 id="mode-whisper-gm">GMの運用</h3>
+<p>GMは共有主目的と個人別利益を両立しやすい形で配置し、秘密が露見したときの関係・タグへの反映先を決めておきます。</p>
+<p>ウィスパー・モードは、複数PC卓に <strong>秘匿情報</strong> と <strong>個人別利益</strong> を足す任意追加です。完全対立ではなく、<strong>共有主目的は同じだが、望む着地点が少しずつ違う</strong> 卓を作るために使います。</p><h4 id="gm-handout-option-principle">基本原則</h4><ul>
+<li><strong>共有主目的は一つ</strong> に固定する</li>
+<li><strong>個人別利益</strong> は主目的ではなく別利益として置く</li>
+<li><strong>直接妨害</strong> は卓宣誓で許可されていない限り行わせない</li>
+<li>核心情報を一人だけへ閉じ込めるなら、<strong>共有経路</strong> を必ず置く</li>
+</ul><p>個人別利益に向いているのは、NPC の扱い、証拠の扱い、引き渡し方、匿名性、持ち帰り品、後始末の方向です。<strong>シナリオ失敗そのものが勝ち</strong> になる設計は、半協力ではなく対立卓です。</p><h4 id="gm-handout-option-sheet">配るウィスパーの型</h4><pre><code>【秘匿ウィスパー】
+PC:
+秘匿事実:
+個人別利益:
+この秘密ゆえに守りたいもの:
+この秘密ゆえに捨ててもよいもの:
+露見しうる経路:
+公開化したときの更新候補:
+達成時の返り:</code></pre><p>ウィスパーは行動指示書ではなく、<strong>優先順位カード</strong> として書いてください。</p><h4 id="gm-handout-option-judge">競合の扱い</h4><p>相談していないこと自体を理由に、妨害や失敗へ読み替えてはいけません。ただし、<strong>同じ対象の排他的な終着点</strong> を複数PCが同時に押したときは、明示的な敵対宣言がなくても競合します。</p><p>たとえば「同じNPCを捕縛したい / 逃がしたい」「同じ証拠を提出したい / 隠したい」は競合です。この場合は、<strong>共有成果</strong> を先に確定し、そのあとで <strong>排他的な終着点だけ</strong> を競合処理します。</p><h4 id="gm-handout-option-open">露見と公開化</h4><p>秘密が表に出たら、その事実をただ驚きで終わらせず、必ず <strong>関係</strong>、<strong>世界課題タグ</strong>、<strong>世界手札タグ</strong>、<strong>履歴</strong>、<strong>秘密開示段階</strong> のどれかへ変換してください。</p><pre><code>【秘密露見時の更新】
+露見した事実:
+共通化された範囲:
+更新した関係:
+更新したタグ:
+追加した履歴:
+進んだ秘密開示段階:</code></pre><h4 id="gm-handout-option-end">終了時の追加整理</h4><p>ウィスパー・モードを使う卓では、シナリオ終了時に <strong>共有主目的の達成</strong> と <strong>個人別利益の達成</strong> を分けて記録してください。共有主目的を達成したうえで個人別利益まで通したPCには、既存の <strong>追加で +1（最大2回まで）</strong> の中で成長点を返して構いません。</p><pre><code>【秘匿情報卓の追加処理】
+PC:
+- 共有主目的の達成: 達成 / 未達
+- 個人別利益の達成: 達成 / 未達
+- 追加成長点候補: 0 / +1
+- 露見した秘密:
+- 公開化した関係 / タグ / 履歴:</code></pre>
+<h3 id="mode-whisper-detail">実戦補足</h3>
+<p>ウィスパー・モードは、複数PC卓に <strong>秘匿情報</strong> と <strong>個人別利益</strong> を足す追加です。完全対立ではなく、<strong>共有主目的は同じだが、望む着地点が少しずつ違う</strong> 卓を作るために使います。</p><h4 id="advanced-handout-what">何をするモードか</h4><p>このモードでずらすのは、<strong>何を守りやすいか</strong> と <strong>何を捨ててもよいと思いやすいか</strong> です。行動メニューを配るのではありません。</p><p>既定は <strong>初級 / 中級ではなし</strong>、<strong>上級 / 熟練ではあり</strong> です。ただし、シナリオの難しさよりも <strong>参加者が遊びたい形</strong> を優先してください。半協力をしたくない卓に無理に入れる必要はありません。</p><h4 id="advanced-handout-sheet">ウィスパー・シートは「優先順位カード」として読む</h4><p>良いウィスパー・シートは、「Aをしろ / Bをしろ」と命令しません。代わりに、次の形で <strong>そのPCが動きやすい方向</strong> を渡します。</p><pre><code>【秘匿ウィスパー】
+秘匿事実:
+個人別利益:
+この秘密ゆえに守りたいもの:
+この秘密ゆえに捨ててもよいもの:
+伏せたままでもよい線:
+露見しうる経路:
+公開化したときの更新候補:</code></pre><p><strong>個人別利益</strong> は、共有主目的の代わりではありません。たとえば「次の被害を止める」は共有主目的で、「あのNPCだけは生かしたい」「証拠の出し方は自分の陣営に寄せたい」が個人別利益です。</p><h4 id="advanced-handout-declare">宣言では何を書くか</h4><p>秘匿があっても、宣言の骨格は変わりません。</p><pre><code>主目的:
+手段:
+守りたいもの:
+捨ててもよいもの:
+いまは伏せる補足(任意):</code></pre><p>秘密の中身を全部明かさなくても、<strong>守りたいもの / 捨ててもよいもの</strong> を書けば、かなりの情報が伝わります。ウィスパー・シートは、宣言そのものよりも <strong>支払いの向き</strong> を変えるものだと考えると扱いやすいです。</p><h4 id="advanced-handout-open">秘密はいつ共有するか</h4><p>個別情報は、<strong>合流 / 通信確立 / 公開描写 / 共有宣言</strong> のどれかがあるまで、他PCの宣言根拠にはできません。逆に、まだ共有していないこと自体を理由に、GM が勝手に妨害や失敗へ読み替えることもありません。</p><p>秘密が露見したら、その事実は共通世界へ上がります。以後は他PCもその情報を使えますし、<strong>関係</strong>、<strong>世界課題タグ</strong>、<strong>履歴</strong> のどれかへ変換されることが多いです。</p><h4 id="advanced-handout-conflict">競合はどこで起きるか</h4><p>半協力卓で本当に競合になるのは、<strong>同じ対象の排他的な終着点</strong> を取り合ったときです。たとえば「同じNPCを捕縛したい / 逃がしたい」「同じ証拠を提出したい / 隠したい」のような場合です。</p><p>相談していないこと、動機が少しずれていることだけでは競合になりません。QBS の基本どおり、GM はまず <strong>両立する部分</strong> を優先して裁定します。</p><h4 id="advanced-handout-reward">成長点の返り</h4><p>ウィスパー・モードでは、<strong>共有主目的を達成したうえで</strong> 個人別利益まで通したPCに、追加の <strong>+1 候補</strong> がつくことがあります。ただしこれは新しい別通貨ではなく、既存の <strong>追加で +1（最大2回まで）</strong> の中に入ります。</p><p>共有主目的が失敗した場合、個人別利益だけを通しても成長点ボーナスにはなりません。その代わり、<strong>関係の進展</strong>、<strong>感情の変質</strong>、<strong>秘密開示段階の前進</strong> として返ることがあります。</p>
+<h3 id="mode-whisper-campaign">キャンペーンでの置き方</h3>
+<p>長編では秘密の露見タイミングと、共有主目的を失わないための基準を長期的に管理します。</p>
+<p>ウィスパー・モードは、複数PCキャンペーンへ <strong>秘匿情報</strong> と <strong>個人別利益</strong> を足す任意追加です。既定は <strong>初級 / 中級ではなし</strong>、<strong>上級 / 熟練ではあり</strong> ですが、半協力をしたくない卓へ無理に入れる必要はありません。</p><h4 id="campaign-handout-option-where">どの回に置くか</h4><p>毎回入れるよりも、<strong>中盤の反転回</strong>、<strong>関係が揺れる回</strong>、<strong>最終局面の着地点が割れる回</strong> に絞るほうが扱いやすくなります。長編で常時秘匿にすると、情報管理が遊びを食いやすいからです。</p><h4 id="campaign-handout-option-balance">長編で崩さないための基準</h4><ul>
+<li><strong>共有主目的は一つ</strong> に固定する</li>
+<li><strong>個人別利益</strong> は別利益として置く</li>
+<li>主進行でないPCにも、<strong>Builds か Stories の進展</strong> を必ず返す</li>
+<li>露見した秘密は、<strong>長期タグ / 関係 / 履歴 / 世界課題タグ</strong> へ変換する</li>
+</ul><p>秘密が回をまたいで残るなら、<strong>誰が知っていて、どの回で共通情報へ上がるか</strong> をキャンペーン側で先に持っておくと、長編でも散りにくくなります。</p><h4 id="campaign-handout-option-reward">成長点の返り</h4><p>個人別利益の達成は、既存の <strong>追加で +1（最大2回まで）</strong> の中へ吸収します。条件は、<strong>共有主目的が達成されていること</strong> と <strong>そのPCの個人別利益が達成されていること</strong> です。共有主目的が未達なら、関係進展や秘密開示段階の前進で返すとぶれません。</p>
+<h2 id="mode-xenos">12. ゼノス・モード</h2>
+<p>未知の土地、異文化、驚き、持ち帰りを主軸にした旅向けの選択ルールです。</p>
+<h3 id="mode-xenos-player">プレイヤーが読むところ</h3>
+<p>大きな野望がまだ言葉になっていなくても始められます。何を攻略したかより、何に出会い、何を持ち帰ったかが重くなります。</p>
+<h3 id="mode-xenos-gm">GMの運用</h3>
+<p>GMは失敗をただの停滞で終わらせず、別の案内人、寄り道、新しい驚きへ変換しやすくします。</p>
+<h4 id="gm-xenos-core">何を見せるか</h4><p>ゼノス・モードでは、<strong>未知の土地へ行く理由</strong>、<strong>文化差や通行差</strong>、<strong>偶発の種</strong>、<strong>回復点か畏敬点</strong>、<strong>持ち帰り候補</strong> を毎回のシナリオに最低ひとつずつ置くと安定します。安全ルート / 近道 / 地元ルートの差が見えていると、旅の宣言が自然に立ちます。</p><h4 id="gm-xenos-failure">失敗の返し方</h4><p>このモードでは、交流失敗、作法違い、祭りへの遅刻、珍品の買い損ねを、そのままシナリオ失敗へ落とさないでください。<strong>誤解、借り、別の案内人、思わぬ招待、新しい寄り道</strong> に変換し、旅の枝として返すほうが合います。重く扱う失敗条件は、<strong>生還不能 / 帰路断絶 / 通行不能 / 関係破綻 / 補給崩壊</strong> のような <strong>旅の継続不能</strong> です。</p><h4 id="gm-xenos-end">終了時に残すもの</h4><p>終了投稿では、<strong>今回の収穫</strong> を一行で明文化してください。新しい事実、関係、手札、余韻のどれでも構いません。野望度が動かない回でも、<strong>何が残ったか</strong> が見えていれば、プレイヤーは「この旅は自分の物語だった」と受け取りやすくなります。</p>
+<h3 id="mode-xenos-detail">実戦補足</h3>
+<h4 id="advanced-xenos-what">何をするモードか</h4><p>ゼノス・モードでは、<strong>大きな野望の達成や差し迫った任務の成功よりも、未知の土地、異文化、奇習、祭り、風景、驚きに触れる旅</strong> を前面へ出します。QBS の基本は変わらず、宣言は局面単位で行い、世界は反応し、代償や余波も起きます。ただし、重く見るのは <strong>何を攻略したか</strong> より <strong>何に出会い、誰と交流し、何を持ち帰ったか</strong> です。</p><h4 id="advanced-xenos-diff">リラックスとの違い</h4><p><strong>リラックス・モード</strong> は、野望は残したまま歩幅をゆるめるモードです。<strong>ゼノス・モード</strong> は、野望そのものが薄くても、異境への引力で旅を続けられるモードです。回復や後始末が中心ならリラックス、驚きや越境や交流が中心ならゼノス、と考えると読み分けやすくなります。</p><p>このモードでは、交流失敗、作法違い、祭りへの遅刻、珍品の買い損ねをそのままシナリオ失敗へ直結させません。<strong>誤解、借り、別の案内人、思わぬ招待、新しい寄り道</strong> へ枝分かれさせるほうが、QBS らしい旅の感触が残ります。</p><h4 id="advanced-xenos-returns">旅の収穫の読み方</h4><p>このモードでの収穫は、<strong>新事実 / 新しい縁 / 新しい手札 / 新しい余韻</strong> のどれかです。野望度が毎回動かなくても、<strong>回復点 / 畏敬点 / Build 素片 / 関係の変化 / 持ち帰り品 / 世界の見え方の変化</strong> が残るなら、その回は十分に前進しています。</p><p>野望も「成り上がり」だけではありません。<strong>世界のさまざまな場所を見て回る</strong>、<strong>平穏な日常を守る</strong>、<strong>困っている人々を助ける</strong> のようなものでも構いません。ゼノス・モードでは、<strong>まだ何者になりたいか決めきれていないが、まず世界を歩いて確かめたい</strong> という薄い野望から始めてもよいです。</p>
+<h3 id="mode-xenos-campaign">キャンペーンでの置き方</h3>
+<p>長編では旅路そのものが収穫になる回を候補として並べ、成長と持ち帰りの返り先を先に置いておくと機能します。</p>
+<h4 id="campaign-xenos-default">既定値と採用基準</h4><p><strong>既定は なし</strong> とします。ただし、これは出発点にすぎません。<strong>旅・発見・異文化交流・偶発</strong> を主軸にしたい長編なら、どの段階でも採用して構いません。<strong>リラックス・モード</strong> が「野望は残したまま歩幅をゆるめる」配置なら、<strong>ゼノス・モード</strong> は「野望そのものが薄くても、異境への引力で回を選べる」配置です。</p><h4 id="campaign-xenos-candidates">候補として並べたい回の型</h4><p>ゼノス・モードでは、候補の役目を次のように分けると選ぶ意味が立ちます。</p><table>
+<thead><tr><th>候補の型</th><th>プレイヤーが得やすいもの</th><th>放置したとき進みやすいもの</th></tr></thead>
+<tbody>
+<tr><td><strong>発見回</strong></td><td>新事実、地図、噂、記録、景観</td><td>見逃した情報、世界の見え方の固定</td></tr>
+<tr><td><strong>交流回</strong></td><td>新しい縁、協力者、紹介、理解</td><td>誤解、借り、関係のすれ違い</td></tr>
+<tr><td><strong>越境回</strong></td><td>通行資格、航路、近道、移動の足場</td><td>季節、検問、隊商、時間差</td></tr>
+<tr><td><strong>奇習回</strong></td><td>作法理解、受理条件、共同体の承認</td><td>誤礼、排斥、通行不能、受理拒否</td></tr>
+<tr><td><strong>回復兼仕込み回</strong></td><td>補給、拠点、回復点、次の足場</td><td>消耗、補給崩れ、旅の不便</td></tr>
+</tbody>
+</table><h4 id="campaign-xenos-growth">野望度と収穫</h4><p>このモードでは、野望度が毎回動かなくても構いません。<strong>薄い野望が言葉になる</strong>、<strong>旅の動機が深まる</strong>、<strong>持ち帰りが次の旅を呼ぶ</strong> といった変化を前進として扱えます。終了ログには、<strong>今回の収穫</strong> を一行で残してください。</p>
+<h2 id="opt-order">13. 併用時の順番</h2>
+<p>複数モードを併用するなら、基本順は次のとおりです。</p>
+<pre><code>ウィスパー配布 / 観測方針の確定
+→ 局面ごとの可視情報（ソーシャル / タクティカル / アンロック / バーサス）
+→ 宣言
+→ タグ / 履歴 / 関係 / 準備で読む
+→ クオンティティで補う
+→ プロバビリティで揺らぐ
+→ Quiddities / Builds / Stories へ返す</code></pre>
+<p><strong>リラックス・モード</strong> と <strong>ゼノス・モード</strong> は、この流れの外側で、シナリオの切れ目やキャンペーン全体の呼吸に効きます。</p>
+<h2 id="opt-end">14. 最後に</h2>
+<p>この別冊で各モードの役割を一か所に集約しました。プレイヤー向けの基本は <a href="basic-player-guide.html">プレイヤー基本ルール</a>、実戦寄りの宣言は <a href="advanced-player-guide.html">プレイヤー実戦ガイド</a>、GM の裁定全般は <a href="gm-guide.html">GMガイド</a>、単発設計は <a href="scenario-guide.html">シナリオ設計ガイド</a>、長編設計は <a href="campaign-guide.html">キャンペーン設計ガイド</a> を参照してください。</p>
+</main>
+</div>
+</body>
+</html>
