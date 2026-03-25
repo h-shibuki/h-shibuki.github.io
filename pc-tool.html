@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Quick Build Saga PC作成補助ツール</title>
-  <meta name="description" content="Quick Build Saga の PC 作成を、最新版プレイヤーズガイド準拠でそのまま GM に渡せるテキストへ整えるブラウザ用エディタです。">
+  <title>Quick Build Saga PCテンプレート編集ツール</title>
+  <meta name="description" content="Quick Build Saga の PC 作成を、最新版プレイヤー向けルール準拠で、自然言語の案から自分で正式テンプレートへ落とし切るためのブラウザ用エディタです。">
   <style>
     :root {
       --bg: #f7f7f5;
@@ -488,12 +488,12 @@
   <header class="page-header">
     <div class="container">
       <p class="eyebrow">Quick Build Saga</p>
-      <h1>PC作成補助ツール</h1>
-      <p class="lead">最新版プレイヤーズガイドの PC 作成ルールに合わせて、<strong>この画面だけ見ながら</strong> PC の下書きから GM に渡す本文まで整えるための補助ツールです。単発向けの終点 2、標準キャンペーン向けの終点 5、半完成キャラ枠、自由記述の出し方も画面内にまとめています。</p>
+      <h1>PCテンプレート編集ツール</h1>
+      <p class="lead">自然言語で考えた PC 案を、<strong>自分で現行の正式テンプレートへ落とし切る</strong> ための編集ツールです。7項目の基本入力に加え、<strong>得意な行動 / 初期恒久タグ / 絆タグ</strong> まで自分で確定できるので、GM / AI の解釈に委ねたくない上級者・熟練者向けに使えます。</p>
       <nav class="nav-links" aria-label="関連ページ">
         <a href="./">トップ</a>
-        <a href="./player-guide.html">プレイヤーズガイド</a>
-        <a href="./play-tool.html">宣言補助ツール</a>
+        <a href="./basic-player-guide.html">プレイヤー基本ルール</a><a href="./advanced-player-guide.html">プレイヤー実戦ガイド</a>
+        <a href="./play-tool.html">宣言テンプレート編集ツール</a>
         <a href="./gm-guide.html">GMガイド</a>
       </nav>
     </div>
@@ -503,14 +503,14 @@
     <section class="panel">
       <div class="hero-grid">
         <div>
-          <p class="kicker">このページでできること</p>
+          <p class="kicker">このページの位置づけ</p>
           <div class="stack">
             <p>1. <strong>名前・立場・野望・大切なもの・得意なやり方・命運点・野望度</strong> を、最新の 7 項目に沿って下書きできます。</p>
             <p>2. <strong>単発（終点 2）</strong> と <strong>標準キャンペーン（終点 5）</strong> の目安を切り替えながら埋められます。</p>
-            <p>3. <strong>半完成キャラ枠</strong> から叩き台を入れたり、<strong>自由記述で提出してよい</strong> 形式へ切り替えたりできます。</p>
+            <p>3. <strong>半完成キャラ枠</strong> から叩き台を入れたり、<strong>得意な行動 / 初期恒久タグ / 絆タグ</strong> まで自分で埋めたりできます。</p>
             <p>4. 完成した本文は <strong>.txt で保存</strong> でき、そのまま PBM の開始時共有や GM への提出に使えます。</p>
           </div>
-          <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。同じブラウザなら、宣言補助ツールからこの PC 情報を任意で読み込めます。</p>
+          <p class="inline-note">このページはブラウザ内だけで動作します。入力は外部へ送信せず、下書きはこのブラウザの <span class="mono">localStorage</span> に保存します。同じブラウザなら、宣言テンプレート編集ツールからこの PC 情報を任意で読み込めます。<strong>自動で意味解釈して整形するのではなく、自分で正式書式を確定する</strong> 前提です。</p>
         </div>
         <aside class="reference-stack">
           <article class="reference-card">
@@ -525,7 +525,7 @@
             </table>
           </article>
           <article class="reference-card">
-            <h3>自由記述で出すなら</h3>
+            <h3>自由記述から厳密入力へ戻すなら</h3>
             <ul>
               <li>何者か</li>
               <li>なぜ今回動くか</li>
@@ -543,12 +543,12 @@
     <section class="panel" aria-labelledby="editor-panel-title">
       <div class="editor-grid">
         <div>
-          <h2 id="editor-panel-title">1. PC の下書きを作る</h2>
+          <h2 id="editor-panel-title">1. 自分で PC の正式テンプレートへ落とす</h2>
           <div class="tab-row" role="tablist" aria-label="入力モード">
-            <button type="button" class="tab-button" id="tabTemplate" data-mode="template" role="tab" aria-selected="true" aria-controls="panelTemplate">テンプレート</button>
+            <button type="button" class="tab-button" id="tabTemplate" data-mode="template" role="tab" aria-selected="true" aria-controls="panelTemplate">正式テンプレート</button>
             <button type="button" class="tab-button" id="tabFree" data-mode="free" role="tab" aria-selected="false" aria-controls="panelFree">自由記述</button>
           </div>
-          <p id="modeHelp" class="small">プレイヤーズガイドの 7 項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。</p>
+          <p id="modeHelp" class="small">プレイヤー向けルールの正式書式へ、自分で厳密に落とす入力モードです。必要なところだけ埋め、空欄は残しても構いません。</p>
 
           <section id="panelTemplate" class="mode-panel" role="tabpanel" aria-labelledby="tabTemplate">
             <div class="scale-panel">
@@ -609,6 +609,20 @@
                 <label for="methods">得意なやり方</label>
                 <input type="text" id="methods" placeholder="調査と準備 / 交渉と根回し / 力仕事と現場指揮 / 祈りと供養 / 嘘と変装">
                 <p class="field-help">その PC がよく使う方法や発想です。宣言時の手段につながる言葉にすると使いやすくなります。</p>
+              </div>
+              <div>
+                <label for="action">得意な行動</label>
+                <input type="text" id="action" placeholder="先見 / 守勢 / 調査 / 交渉 / 逃走 など">
+                <p class="field-help">GM / AI の仮置きに委ねたくないなら、自分で先に確定しておけます。</p>
+              </div>
+              <div>
+                <label for="permanentTag">初期恒久タグ</label>
+                <textarea id="permanentTag" placeholder="例: 〔下調べの手順｜長期: 調査・根回し・退路確保を一宣言で扱いやすい / 何の資料もない荒事では鈍る〕"></textarea>
+              </div>
+              <div class="field-span-2">
+                <label for="bondTag">絆タグ</label>
+                <textarea id="bondTag" placeholder="例: 〔叔父の航海日誌｜長期: 海図・港・古記録にまつわる宣言で背中を押す / 焼失・盗難・改竄で変質〕"></textarea>
+                <p class="field-help">得意な行動 / 初期恒久タグ / 絆タグ まで埋めると、開始時の解釈余地を大きく減らせます。</p>
               </div>
               <div class="helper-card field-span-2">
                 <h3>数値まわりの目安</h3>
@@ -726,7 +740,7 @@
           <li>必要なら半完成キャラ枠を入れる</li>
           <li>7 項目を埋める</li>
           <li>TXT 保存して GM へ渡す</li>
-          <li>同じブラウザなら、宣言補助ツールでこの PC を参照する</li>
+          <li>同じブラウザなら、宣言テンプレート編集ツールでこの PC を参照する</li>
         </ol>
       </details>
       <details>
@@ -737,6 +751,9 @@
 大切なもの:
 - 叔父の航海日誌（自分が海へ出る理由そのもの）
 得意なやり方: 調査と準備
+得意な行動: 先見
+初期恒久タグ: 〔下調べの手順｜長期: 調査・根回し・退路確保を一宣言で扱いやすい / 何の資料もない荒事では鈍る〕
+絆タグ: 〔叔父の航海日誌｜長期: 海図・港・古記録にまつわる宣言で背中を押す / 焼失・盗難・改竄で変質〕
 命運点: 2/2
 野望度: 1/5</pre>
       </details>
@@ -753,9 +770,10 @@
 
   <script>
     (() => {
-      const STORAGE_KEY = "qbs-pc-tool-v1";
+      const STORAGE_KEY = "qbs-pc-tool-v2";
+      const LEGACY_STORAGE_KEY = "qbs-pc-tool-v1";
       const MODE_HELP = {
-        template: "プレイヤーズガイドの 7 項目に沿った入力モードです。必要なところだけ埋め、空欄は残しても構いません。",
+        template: "プレイヤー向けルールの正式書式へ、自分で厳密に落とす入力モードです。必要なところだけ埋め、空欄は残しても構いません。",
         free: "本文を自由に編集できます。見出しを増やしたり、テンプレートを崩したりしたいときに使います。"
       };
 
@@ -767,6 +785,9 @@
         "- ",
         "- ",
         "得意なやり方:",
+        "得意な行動:",
+        "初期恒久タグ:",
+        "絆タグ:",
         "命運点:",
         "野望度:",
         "補足 (任意):"
@@ -777,7 +798,10 @@
         "どんな人物か:",
         "なぜ今回動くのか:",
         "何が得意か:",
-        "何を失いたくないか:"
+        "何を失いたくないか:",
+        "得意な行動:",
+        "初期恒久タグ:",
+        "絆タグ:"
       ].join("\n");
 
       const PRESETS = {
@@ -785,6 +809,9 @@
           name: "盗賊 / 隠密役",
           role: "貧民街育ちの盗賊",
           methods: "隠密と偵察 / 罠外しと逃走",
+          action: "先見",
+          permanentTag: "〔逃げ足の癖｜長期: 退路確保・潜入離脱を一宣言で扱いやすい / 包囲・密室・地形不明では鈍る〕",
+          bondTag: "〔街の仲間｜長期: 裏路地・隠れ家・口利きにまつわる宣言を強くできる / 裏切り・摘発・離散で変質〕",
           important1: "街の仲間（見捨てたくない居場所）",
           ambitionCampaign: "街の裏を仕切れる大物になる",
           ambitionOneshot: "財宝を持ち帰る / 仲間全員で生還する",
@@ -794,15 +821,21 @@
           name: "戦士 / 前線役",
           role: "流れ者の護衛",
           methods: "力仕事と現場指揮 / 防御と時間稼ぎ",
+          action: "守勢",
+          permanentTag: "〔前線維持の型｜長期: 防御・時間稼ぎ・護衛を一宣言で扱いやすい / 孤立・包囲・無援では鈍る〕",
+          bondTag: "〔雇い主への義理｜長期: 依頼人保護・庇護・責任に関わる宣言を強くできる / 裏切り・破約・見捨てで変質〕",
           important1: "雇い主への義理（見捨てたくない責任）",
           ambitionCampaign: "守るべき相手を選べる身分になる",
           ambitionOneshot: "依頼人を守り抜く / 退路を確保する",
-          summary: "前線で受け止める役。守るものと退路を決めると、そのまま宣言ツールへつながります。"
+          summary: "前線で受け止める役。守るものと退路を決めると、そのまま宣言テンプレート編集ツールへつながります。"
         },
         scholar: {
           name: "学者 / 調査役",
           role: "書庫の下級書記",
           methods: "調査と準備 / 記録と推理",
+          action: "先見",
+          permanentTag: "〔記録照合の手順｜長期: 調査・文書照合・矛盾発見を一宣言で扱いやすい / 資料皆無の現場では鈍る〕",
+          bondTag: "〔恩師の研究ノート｜長期: 学問・記録・由来に関わる宣言で背中を押す / 焼失・改竄・封印で変質〕",
           important1: "恩師の研究ノート（学びの支え）",
           ambitionCampaign: "真実を残せる学者になる",
           ambitionOneshot: "真相を持ち帰る / 原因を突き止める",
@@ -812,6 +845,9 @@
           name: "祓い手 / 対怪異役",
           role: "山寺育ちの祓い手",
           methods: "祈りと供養 / 結界と鎮静",
+          action: "守勢",
+          permanentTag: "〔鎮静の段取り｜長期: 供養・結界・鎮めの宣言を一宣言で扱いやすい / 媒体不足・禁域では鈍る〕",
+          bondTag: "〔護符袋｜長期: 信仰・祈り・供養にまつわる宣言で背中を押す / 焼失・穢れ・破損で変質〕",
           important1: "護符袋（信仰の手応え）",
           ambitionCampaign: "怪異を鎮める術を各地に残す",
           ambitionOneshot: "怪異を鎮めて生還する",
@@ -821,6 +857,9 @@
           name: "生存者 / 逃走役",
           role: "遭難から生き延びた漂流者",
           methods: "我慢と逃走 / 応急処置と確保",
+          action: "守勢",
+          permanentTag: "〔応急確保の癖｜長期: 応急処置・避難・物資確保を一宣言で扱いやすい / 完全孤立・資材枯渇では鈍る〕",
+          bondTag: "〔帰る場所｜長期: 生還・帰路・居場所に関わる宣言で背中を押す / 焼失・喪失・断絶で変質〕",
           important1: "帰る場所（戻りたい居場所）",
           ambitionCampaign: "安心して帰れる場所を取り戻す",
           ambitionOneshot: "全員で脱出する / 夜明けまで持ちこたえる",
@@ -840,6 +879,9 @@
           ambition: "",
           important: ["", ""],
           methods: "",
+          action: "",
+          permanentTag: "",
+          bondTag: "",
           fateCurrent: "",
           fateMax: "",
           ambitionCurrent: "1",
@@ -866,6 +908,9 @@
         important1: document.getElementById("important1"),
         important2: document.getElementById("important2"),
         methods: document.getElementById("methods"),
+        action: document.getElementById("action"),
+        permanentTag: document.getElementById("permanentTag"),
+        bondTag: document.getElementById("bondTag"),
         autoFateFromImportant: document.getElementById("autoFateFromImportant"),
         fateCurrent: document.getElementById("fateCurrent"),
         fateMax: document.getElementById("fateMax"),
@@ -918,6 +963,9 @@
         bindField(els.important1, (value) => state.character.important[0] = value);
         bindField(els.important2, (value) => state.character.important[1] = value);
         bindField(els.methods, (value) => state.character.methods = value);
+        bindField(els.action, (value) => state.character.action = value);
+        bindField(els.permanentTag, (value) => state.character.permanentTag = value);
+        bindField(els.bondTag, (value) => state.character.bondTag = value);
         bindField(els.fateCurrent, (value) => state.character.fateCurrent = value);
         bindField(els.fateMax, (value) => state.character.fateMax = value);
         bindField(els.ambitionCurrent, (value) => state.character.ambitionCurrent = value);
@@ -1079,7 +1127,7 @@
       function loadState() {
         const base = defaultState();
         try {
-          const raw = localStorage.getItem(STORAGE_KEY);
+          const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
           if (!raw) {
             return base;
           }
@@ -1142,6 +1190,9 @@
         els.important1.value = state.character.important[0];
         els.important2.value = state.character.important[1];
         els.methods.value = state.character.methods;
+        els.action.value = state.character.action || "";
+        els.permanentTag.value = state.character.permanentTag || "";
+        els.bondTag.value = state.character.bondTag || "";
         els.autoFateFromImportant.checked = state.autoFateFromImportant;
         els.fateCurrent.value = state.character.fateCurrent;
         els.fateMax.value = state.character.fateMax;
@@ -1258,6 +1309,9 @@
         state.presetKey = key;
         state.character.role = preset.role;
         state.character.methods = preset.methods;
+        state.character.action = preset.action || state.character.action;
+        state.character.permanentTag = preset.permanentTag || state.character.permanentTag;
+        state.character.bondTag = preset.bondTag || state.character.bondTag;
         state.character.important[0] = preset.important1;
         if (!state.character.name.trim()) {
           state.character.name = "";
@@ -1295,6 +1349,9 @@
         }
 
         pushLine(lines, "得意なやり方", character.methods, keepBlank);
+        pushLine(lines, "得意な行動", character.action, keepBlank);
+        pushLine(lines, "初期恒久タグ", character.permanentTag, keepBlank);
+        pushLine(lines, "絆タグ", character.bondTag, keepBlank);
         pushLine(lines, "命運点", formatFateValue(character), keepBlank);
         pushLine(lines, "野望度", formatAmbitionValue(character), keepBlank);
         pushLine(lines, "補足 (任意)", character.note, keepBlank);
@@ -1386,6 +1443,9 @@
           if (!state.character.methods.trim()) {
             items.push({ level: "info", text: "得意なやり方 が空です。宣言時の手段にもつながるので、1 つ決めておくと便利です。" });
           }
+          if (!state.character.action.trim() || !state.character.permanentTag.trim() || !state.character.bondTag.trim()) {
+            items.push({ level: "info", text: "GM / AI の解釈余地を減らしたいなら、得意な行動 / 初期恒久タグ / 絆タグ まで埋めると開始時の揺れが少なくなります。" });
+          }
           if (!state.autoFateFromImportant && !state.character.fateCurrent.trim() && !state.character.fateMax.trim()) {
             items.push({ level: "info", text: "命運点 が空です。自動計算を切っているなら、現在値や最大値を書いておくと扱いやすくなります。" });
           }
@@ -1441,6 +1501,9 @@
           ambition: "",
           important: ["", ""],
           methods: "",
+          action: "",
+          permanentTag: "",
+          bondTag: "",
           fateCurrent: "",
           fateMax: "",
           ambitionCurrent: "",
@@ -1455,7 +1518,7 @@
 
         for (const rawLine of lines) {
           const line = rawLine.trimEnd();
-          const match = line.match(/^\s*(名前|立場|どんな人物か|野望|なぜ今回動くのか|大切なもの(?:\s*[12])?|何を失いたくないか|得意なやり方|何が得意か|命運点|野望度|補足(?:\s*[（(]任意[)）])?)\s*[:：]\s*(.*)$/);
+          const match = line.match(/^\s*(名前|立場|どんな人物か|野望|なぜ今回動くのか|大切なもの(?:\s*[12])?|何を失いたくないか|得意なやり方|何が得意か|得意な行動|初期恒久タグ|絆タグ|命運点|野望度|補足(?:\s*[（(]任意[)）])?)\s*[:：]\s*(.*)$/);
           if (match) {
             currentKey = normalizeLabel(match[1]);
             const value = match[2].trim();
@@ -1528,6 +1591,9 @@
           "なぜ今回動くのか": "ambition",
           "得意なやり方": "methods",
           "何が得意か": "methods",
+          "得意な行動": "action",
+          "初期恒久タグ": "permanentTag",
+          "絆タグ": "bondTag",
           "命運点": "fate",
           "野望度": "ambitionLevel",
           "補足": "note"
