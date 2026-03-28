@@ -1,0 +1,1070 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>QBS単発シナリオ『怪盗サックと無銘街の夜鐘』</title>
+<meta name="description" content="Quick Build Saga用の単発シナリオ。3PC、中世ヨーロッパ風ファンタジーのシティアドベンチャー。適正・啓示・人情・極、ゼノス・ヨーク・ゼロット採用。同行者NPCは怪盗サック・ライル。"/>
+<style>
+  :root{
+    --bg:#10131b;
+    --panel:#171c26;
+    --panel-2:#202735;
+    --paper:#f6f0e3;
+    --ink:#2b241d;
+    --text:#eef1f7;
+    --muted:#b9c2d3;
+    --line:#323a4c;
+    --gold:#d9b56d;
+    --gold-2:#f0d9a6;
+    --blue:#8db4ff;
+    --teal:#87d7cf;
+    --red:#f2a1a1;
+    --green:#9ed6a2;
+    --shadow:0 18px 50px rgba(0,0,0,.28);
+    --radius:22px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    color:var(--text);
+    background:
+      radial-gradient(circle at top right, rgba(141,180,255,.12), transparent 28%),
+      radial-gradient(circle at top left, rgba(217,181,109,.10), transparent 22%),
+      linear-gradient(180deg, #111622 0%, #0f131b 100%);
+    font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", "Hiragino Sans", "Yu Gothic UI", "Yu Gothic", "Noto Sans JP", sans-serif;
+    line-height:1.8;
+  }
+  a{color:var(--blue); text-decoration:none}
+  a:hover{text-decoration:underline}
+  .skip-link{
+    position:absolute;
+    left:-9999px; top:auto;
+  }
+  .skip-link:focus{
+    left:16px; top:16px; z-index:1000;
+    background:#fff; color:#000;
+    padding:10px 14px; border-radius:10px;
+  }
+  .wrap{
+    width:min(1360px, calc(100% - 32px));
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:320px minmax(0, 1fr);
+    gap:24px;
+    padding:24px 0 56px;
+  }
+  .sidebar{
+    position:sticky;
+    top:16px;
+    align-self:start;
+    background:rgba(23,28,38,.92);
+    border:1px solid var(--line);
+    border-radius:26px;
+    padding:22px 20px;
+    box-shadow:var(--shadow);
+    backdrop-filter:blur(10px);
+    max-height:calc(100vh - 32px);
+    overflow:auto;
+  }
+  .brand{
+    font-size:12px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--gold);
+    font-weight:800;
+    margin-bottom:8px;
+  }
+  .doc-title{
+    margin:0 0 8px;
+    font-size:1.28rem;
+    line-height:1.45;
+    font-weight:800;
+  }
+  .doc-sub{
+    margin:0 0 14px;
+    color:var(--muted);
+    font-size:.96rem;
+  }
+  .badge-stack{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:16px;
+  }
+  .badge{
+    border:1px solid var(--line);
+    background:var(--panel-2);
+    border-radius:999px;
+    padding:6px 10px;
+    font-size:12px;
+    color:var(--muted);
+  }
+  .toc{
+    margin:0;
+    padding:0;
+    list-style:none;
+  }
+  .toc li{margin:8px 0}
+  .toc a{
+    display:block;
+    padding:7px 10px;
+    border-radius:12px;
+    color:var(--text);
+    font-size:14px;
+  }
+  .toc a:hover{
+    background:rgba(255,255,255,.04);
+    color:var(--gold-2);
+    text-decoration:none;
+  }
+  main{min-width:0}
+  .hero{
+    background:
+      linear-gradient(135deg, rgba(217,181,109,.18), rgba(141,180,255,.08)),
+      var(--panel);
+    border:1px solid var(--line);
+    border-radius:30px;
+    padding:32px 30px 26px;
+    box-shadow:var(--shadow);
+    margin-bottom:24px;
+  }
+  .eyebrow{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:7px 12px;
+    border-radius:999px;
+    background:rgba(217,181,109,.14);
+    color:var(--gold);
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    margin-bottom:14px;
+  }
+  h1{
+    margin:0 0 12px;
+    font-size:clamp(32px, 4vw, 48px);
+    line-height:1.16;
+  }
+  .lead{
+    margin:0 0 14px;
+    font-size:18px;
+    color:var(--text);
+  }
+  .sublead{
+    margin:0;
+    color:var(--muted);
+  }
+  .hero-badges{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:18px;
+  }
+  .hero-badges span{
+    border:1px solid var(--line);
+    background:rgba(255,255,255,.03);
+    border-radius:999px;
+    padding:8px 12px;
+    font-size:13px;
+    color:var(--muted);
+  }
+  .card{
+    background:var(--panel);
+    border:1px solid var(--line);
+    border-radius:28px;
+    padding:26px 24px;
+    margin-bottom:22px;
+    box-shadow:var(--shadow);
+  }
+  h2{
+    margin:0 0 14px;
+    font-size:30px;
+    line-height:1.22;
+  }
+  h3{
+    margin:24px 0 10px;
+    font-size:21px;
+    line-height:1.35;
+  }
+  h4{
+    margin:18px 0 8px;
+    font-size:16px;
+    line-height:1.45;
+  }
+  p{margin:0 0 12px}
+  ul,ol{margin:10px 0 14px 1.3em}
+  li{margin:6px 0}
+  table{
+    width:100%;
+    border-collapse:collapse;
+    margin:14px 0 16px;
+    font-size:14px;
+  }
+  th, td{
+    border:1px solid var(--line);
+    padding:10px 12px;
+    vertical-align:top;
+  }
+  th{
+    background:var(--panel-2);
+    text-align:left;
+  }
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(2, minmax(0, 1fr));
+    gap:16px;
+  }
+  .grid-3{
+    display:grid;
+    grid-template-columns:repeat(3, minmax(0, 1fr));
+    gap:16px;
+  }
+  .mini{
+    background:var(--panel-2);
+    border:1px solid var(--line);
+    border-radius:20px;
+    padding:16px;
+  }
+  .mini h3,.mini h4{margin-top:0}
+  .callout{
+    background:rgba(217,181,109,.09);
+    border:1px solid rgba(217,181,109,.24);
+    border-radius:18px;
+    padding:16px;
+    margin:12px 0 16px;
+  }
+  .callout.blue{
+    background:rgba(141,180,255,.08);
+    border-color:rgba(141,180,255,.24);
+  }
+  .callout.red{
+    background:rgba(242,161,161,.08);
+    border-color:rgba(242,161,161,.24);
+  }
+  .callout.green{
+    background:rgba(158,214,162,.08);
+    border-color:rgba(158,214,162,.24);
+  }
+  .quote{
+    border-left:4px solid var(--gold);
+    padding:8px 0 8px 14px;
+    color:var(--muted);
+    margin:10px 0 14px;
+  }
+  .scene{
+    border-top:1px solid var(--line);
+    padding-top:18px;
+    margin-top:18px;
+  }
+  .scene:first-of-type{
+    border-top:none;
+    padding-top:0;
+    margin-top:0;
+  }
+  .kicker{
+    margin-bottom:8px;
+    color:var(--gold);
+    font-size:13px;
+    font-weight:800;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  pre{
+    background:#0d1119;
+    color:#dde5f2;
+    border:1px solid var(--line);
+    border-radius:18px;
+    padding:16px;
+    overflow:auto;
+    white-space:pre-wrap;
+    margin:12px 0 16px;
+    font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+    font-size:13px;
+    line-height:1.7;
+  }
+  .small{font-size:13px; color:var(--muted)}
+  .footer-note{
+    margin-top:14px;
+    color:var(--muted);
+    font-size:13px;
+  }
+  @media (max-width: 980px){
+    .wrap{grid-template-columns:1fr}
+    .sidebar{position:relative; top:auto; max-height:none}
+    .grid,.grid-3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+<a class="skip-link" href="#main-content">本文へ移動</a>
+<div class="wrap">
+  <aside class="sidebar" aria-label="目次">
+    <div class="brand">Quick Build Saga</div>
+    <h2 class="doc-title">怪盗サックと無銘街の夜鐘</h2>
+    <p class="doc-sub">単発シナリオ / 3PC / 中世ヨーロッパ風ファンタジー / シティアドベンチャー</p>
+    <div class="badge-stack">
+      <span class="badge">卓等級: 中級</span>
+      <span class="badge">適正</span>
+      <span class="badge">啓示</span>
+      <span class="badge">人情</span>
+      <span class="badge">極</span>
+      <span class="badge">ゼノス</span>
+      <span class="badge">ヨーク</span>
+      <span class="badge">ゼロット</span>
+    </div>
+    <ul class="toc">
+      <li><a href="#summary">1. 概要</a></li>
+      <li><a href="#pitch">2. 一文ピッチと卓の基準</a></li>
+      <li><a href="#premise">3. 共通導入</a></li>
+      <li><a href="#knowledge">4. PCが知っていてよい常識</a></li>
+      <li><a href="#city">5. 舞台: 白鐘都ベルンハイム</a></li>
+      <li><a href="#npc">6. 同行者NPC: サック・ライル</a></li>
+      <li><a href="#modes">7. 採用モードの使い方</a></li>
+      <li><a href="#structure">8. シナリオ骨格</a></li>
+      <li><a href="#scenes">9. 主要局面</a></li>
+      <li><a href="#gm">10. GM用真相メモ</a></li>
+      <li><a href="#tags">11. 使いやすいタグ / 宣言例</a></li>
+      <li><a href="#ending">12. エンディング</a></li>
+      <li><a href="#hooks">13. 運用補助</a></li>
+    </ul>
+  </aside>
+
+  <main id="main-content" tabindex="-1">
+    <section class="hero">
+      <div class="eyebrow">QBS 単発シナリオ</div>
+      <h1>怪盗サックと無銘街の夜鐘</h1>
+      <p class="lead">怪盗サック・ライルが盗んだのは、ただの金目の印章ではなかった。夜明けの大鐘までに《無銘印》を返し、下町一角が「街から存在を見落とされる」呪いを止めなければ、貧民街は法にも祈りにも届かない無銘街へ堕ちる。</p>
+      <p class="sublead">王道ファンタジー寄りの城壁都市を舞台に、追跡・聞き込み・潜入・儀式・逃走を一晩で走り抜けるシティアドベンチャーです。同行者サックは有能ですが、詭弁家で利己的で、平気で人の肩を使います。守るべき相手ではある一方、面倒そのものでもあります。</p>
+      <div class="hero-badges">
+        <span>3PC向け</span>
+        <span>シティアドベンチャー</span>
+        <span>同行者NPCあり</span>
+        <span>取得と帰還は別工程</span>
+        <span>命は軽くないが、死ぬ時は死ぬ</span>
+      </div>
+    </section>
+
+    <section class="card" id="summary">
+      <h2>1. 概要</h2>
+      <div class="grid">
+        <article class="mini">
+          <h3>シナリオの問い</h3>
+          <p><strong>PCたちは、夜明けの大鐘までに《無銘印》を正しい場所へ返し、背煤区が無銘街へ落ちるのを防ぎ、できるだけ多くを持ち帰って生き延びられるか。</strong></p>
+        </article>
+        <article class="mini">
+          <h3>シナリオ核</h3>
+          <p><strong>主菜:</strong> 冒険核</p>
+          <p><strong>副菜:</strong> 絆核 / 物語核</p>
+          <p>都市を縫う一晩の冒険として進みますが、サックをどう扱うかで人情と後味が変わります。</p>
+        </article>
+        <article class="mini">
+          <h3>クリア条件</h3>
+          <ol>
+            <li>《無銘印》と返印式の条件を把握する。</li>
+            <li>返印式に必要な<strong>法・信・街</strong>の三承認を揃える、または代替手段を成立させる。</li>
+            <li>白鐘大聖堂の名簿塔で返印式を完了する。</li>
+            <li>少なくともPCたちが結果を確定できる形で生還する。</li>
+          </ol>
+        </article>
+        <article class="mini">
+          <h3>失敗条件</h3>
+          <ol>
+            <li>夜明けの大鐘までに返印式が完了しない。</li>
+            <li>《無銘印》を失う、または完全破損させる。</li>
+            <li>全滅、または名簿塔から脱出不能になる。</li>
+            <li>背煤区が無銘街へ落ち、以後の是正がこの一晩では不可能になる。</li>
+          </ol>
+        </article>
+      </div>
+
+      <div class="callout">
+        <strong>今回の大事な線引き:</strong> 《無銘印》を返すこと、返印式を成立させること、名簿塔から出ることは別工程です。最終局面で印章を置けても、そのまま囲まれて死ねば「生還」は取れていません。
+      </div>
+
+      <h3>別利益</h3>
+      <ul>
+        <li>サックを生かしたまま連れ帰る。</li>
+        <li>背煤区を守るだけでなく、黒幕の企みの証拠を押さえる。</li>
+        <li>大聖堂や市警との全面敵対を避ける。</li>
+        <li>背煤区の人々が「守られただけ」で終わらず、次回以降の足場を得る。</li>
+        <li>都市の隠れた通路、夜市、礼法など、持ち帰れる何かを残す。</li>
+      </ul>
+
+      <h3>想定プレイ時間</h3>
+      <p>オンラインのボイスセッションで4〜6時間程度。PBMなら4〜5主要局面でまとまりやすい長さです。</p>
+    </section>
+
+    <section class="card" id="pitch">
+      <h2>2. 一文ピッチと卓の基準</h2>
+      <p><strong>一文ピッチ:</strong> 「白鐘都の名簿塔から怪盗サック・ライルが盗み出したのは、下町一角の『名前そのもの』を街へ結びつける封印印章だった。夜明けまでに三つの承認を集めて返しに行かなければ、その区画は法と信仰の目から零れ落ちる。」</p>
+
+      <h3>最初に見せる賭け金</h3>
+      <ul>
+        <li><strong>個人的賭け金:</strong> サックの命、PCたちの生還、背負うことになる借り。</li>
+        <li><strong>共同体の賭け金:</strong> 背煤区の人々が「いても見えない」扱いに落ちること。</li>
+        <li><strong>都市の賭け金:</strong> 大聖堂と市政が貧民街を切り捨てる口実を得ること。</li>
+        <li><strong>感情の約束:</strong> 人情寄り。サックは善人にならないが、雑に捨てると苦いものが残る。</li>
+      </ul>
+
+      <h3>卓の基準</h3>
+      <table>
+        <thead>
+          <tr><th>項目</th><th>内容</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>卓等級</td><td><strong>中級</strong>。読める材料は出し、選択肢例も見せる。ただし未解決問題は複数並ぶ。</td></tr>
+          <tr><td>裁定傾向</td><td><strong>適正</strong>。甘くはないが、後出しの理不尽はしない。都市の仕組みに沿って価格を払わせる。</td></tr>
+          <tr><td>指針提示度</td><td><strong>啓示</strong>。危険、ルート差、礼法の方向は見せるが、正答一択にはしない。</td></tr>
+          <tr><td>劇的展開度</td><td><strong>人情</strong>。借り、義理、見捨てづらさ、共同体への目線が前に出る。</td></tr>
+          <tr><td>死亡許容度</td><td><strong>極</strong>。大鐘までの追い詰められ方、落下、捕縛、群衆事故、魔法的消失で普通に死ぬ。</td></tr>
+        </tbody>
+      </table>
+
+      <div class="callout red">
+        <strong>極の具体例:</strong> 屋根道での転落、運河への落下、群集に飲まれたままの拘束、名簿塔での封印逆流、紙鴉の追跡による逃走不能は、そのまま致命線に届きます。人情は「助けたい理由」を厚くするのであって、安全網ではありません。
+      </div>
+    </section>
+
+    <section class="card" id="premise">
+      <h2>3. 共通導入</h2>
+      <p>白鐘都ベルンハイムでは、区画ごとの名と権利を《名簿塔》が管理している。貴族街も、職人街も、川沿いの貧民街も、教会の祈りも、市兵の取り締まりも、すべては「その区画が都市に名を持つ」ことの上に成り立っている。</p>
+      <p>今夜は年に一度の《願訴夜》。市民が鐘の下で名前を呼ばれ、来年の保護と義務を更新する夜だ。そんな最中に、下町《背煤区》の名を結ぶ封印印章――《無銘印》が名簿塔から盗まれた。</p>
+      <p>盗んだのは、怪盗サック・ライル。本人は「金になる古印だと聞いた」「区画ひとつ消えるなんて先に言え」と詭弁を弄するが、事態が洒落になっていないことだけは理解している。すでに背煤区では、看板の字が薄れ、道案内が効かず、巡回兵が家々を見落とし始めている。</p>
+      <p>PCたちは依頼、借り、地元との縁、たまたま巻き込まれた事情などでサックと行動を共にする。目的は単純だ。<strong>夜明けの大鐘までに《無銘印》を返し、背煤区が無銘街へ落ちるのを止めること。</strong> ただし、そのためには印章を持って走るだけでは足りない。返印式には、都市からの三つの承認――<strong>法・信・街</strong> が要る。</p>
+
+      <h3>PCたちの共通目的</h3>
+      <p><strong>サックを連れたままでも、切り離してでもいい。とにかく《無銘印》を返し、背煤区とPCたち自身の明日を消さないこと。</strong></p>
+
+      <h3>共通ハンドアウトの言い方</h3>
+      <ul>
+        <li>「怪盗サックが盗んだ《無銘印》を夜明けまでに返せ。」</li>
+        <li>「背煤区を無銘街に落とすな。」</li>
+        <li>「取得と帰還は別工程だ。名簿塔に入れても、そこから出られなければ負ける。」</li>
+      </ul>
+
+      <div class="callout blue">
+        <strong>個別導入の例:</strong> 背煤区に家族や店がある / 市兵や書記局に勤める知人がいる / 願訴夜の護衛や手伝いをしていた / サックに盗まれた・助けられた・借りを作った、など。
+      </div>
+    </section>
+
+    <section class="card" id="knowledge">
+      <h2>4. PCが知っていてよい常識</h2>
+      <ol>
+        <li><strong>ベルンハイムの名は魔法で管理されている。</strong> 区画の名が正しく結ばれているからこそ、税も祈りも警邏も道案内も機能している。</li>
+        <li><strong>願訴夜に封印印章を抜くのは最悪に近い禁忌</strong> だ。更新の夜に名前の結び目を崩すと、区画ごと「見落とされやすく」なる。</li>
+        <li><strong>無銘街</strong> とは、地図や記録から完全に消えるわけではないが、「そこにいても目に留まりにくい」「守る制度が届きにくい」状態を指す。</li>
+        <li><strong>法・信・街</strong> はベルンハイムを支える三本柱だ。名簿塔の返印式は、どれかひとつだけでは安定しない。</li>
+        <li><strong>サック・ライル</strong> は有名どころの大怪盗ではなく、「危ない筋に手を出すくせに詰めが甘い」中堅未満の魔法盗賊として裏路地で知られている。</li>
+      </ol>
+
+      <h3>このシナリオで通りやすい方向</h3>
+      <ul>
+        <li>都市の仕組みを読む。誰がどの承認を握っているか見抜く。</li>
+        <li>礼法、手続き、言い分、目撃、借りを利用する。</li>
+        <li>ルート差を意識する。屋根、運河、行列、裏路地のどれを取るかで価格が変わる。</li>
+        <li>サックを「便利な道具」ではなく、嘘もつくが都市の裏を知る同行者として扱う。</li>
+      </ul>
+
+      <h3>高くつきやすい方向</h3>
+      <ul>
+        <li>派手な戦闘や破壊で名簿塔や市兵を全面敵対に回す。</li>
+        <li>サックの言葉を検証せず丸呑みする。</li>
+        <li>三承認のうち足りないものを「あとで何とかする」で済ませる。</li>
+        <li>背煤区の人々を無視し、都市の理屈だけで返印式を進める。</li>
+      </ul>
+
+      <h3>難しい / ほぼ不可能なこと</h3>
+      <ul>
+        <li>《無銘印》だけ戻せば全部終わる、という扱い。</li>
+        <li>願訴夜の大鐘が鳴ったあとで、同じ夜のうちに無傷で立て直すこと。</li>
+        <li>サックを善人として固定すること。彼は最後まで利己的で、詭弁家です。</li>
+      </ul>
+    </section>
+
+    <section class="card" id="city">
+      <h2>5. 舞台: 白鐘都ベルンハイム</h2>
+      <p>ベルンハイムは、白い石壁と無数の鐘楼を誇る城壁都市です。商業、信仰、書記魔術が同居し、昼は秩序正しく、夜は裏道と運河が別の顔を見せます。</p>
+
+      <div class="grid">
+        <article class="mini">
+          <h3>背煤区</h3>
+          <p>川霧と煤で黒ずむ貧民街。港夫、運河の荷運び、露天商、孤児、無許可の工房が密集している。今回の危機の中心。</p>
+        </article>
+        <article class="mini">
+          <h3>七灯運河</h3>
+          <p>願訴夜には灯籠舟が流れ、夜だけ現れる渡しも出る。水上の移動と噂集めに便利だが、逃げ場のない追跡にもなる。</p>
+        </article>
+        <article class="mini">
+          <h3>綴字路地</h3>
+          <p>書記魔術師の工房と看板職人が並ぶ小路。看板、地名、標識が魔法的な効力を持つため、言葉と札がそのまま都市魔法に触れる。</p>
+        </article>
+        <article class="mini">
+          <h3>白鐘大聖堂と名簿塔</h3>
+          <p>街の名と祈りを管理する中心施設。願訴夜はもっとも人が多く、もっとも誤魔化しが利きにくい。</p>
+        </article>
+      </div>
+
+      <h3>ゼノス向けの見どころ</h3>
+      <ul>
+        <li>鐘の音に合わせて光る運河の水面</li>
+        <li>夜だけ開く「失せ物夜市」。落とし物、忘れられた名前、期限切れの約束が売買される</li>
+        <li>地名札がひとりでに入れ替わる綴字路地</li>
+        <li>大聖堂回廊の白壁に映る、名を持つ者だけの影</li>
+      </ul>
+
+      <div class="quote">
+        このシナリオのゼノスは「遠い異国」ではなく、「いつもの都市の裏側が、今夜だけ異境に寄る」形で出します。見慣れた街が少しだけおかしく、美しく、よそよそしい。その感触を厚めに描くとよく噛みます。
+      </div>
+    </section>
+
+    <section class="card" id="npc">
+      <h2>6. 同行者NPC: サック・ライル</h2>
+      <div class="grid">
+        <article class="mini">
+          <h3>基本プロフィール</h3>
+          <ul>
+            <li><strong>立場:</strong> 怪盗（魔法盗賊）</li>
+            <li><strong>気質:</strong> 詭弁 / 利己主義 / フリーライダー / テイカー</li>
+            <li><strong>外見:</strong> 上等に見せかけた薄手の外套、夜色の手袋、盗んだ品を隠す細い札入れ</li>
+            <li><strong>第一印象:</strong> 口が達者で、いざとなると人の影に入る男</li>
+          </ul>
+        </article>
+        <article class="mini">
+          <h3>QBS上の役目</h3>
+          <ul>
+            <li><strong>同行者 / 共有ボトルネック</strong></li>
+            <li><strong>都市裏路地のガイド</strong></li>
+            <li><strong>面倒の発生源</strong></li>
+            <li><strong>人情の受け皿</strong> 兼 <strong>裏切り未満の身勝手さ</strong> の供給源</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3>サックができること</h3>
+      <ul>
+        <li><strong>札剥がし:</strong> 小さな封印札、通行札、名札を一時的に剥がして効力を弱められる。</li>
+        <li><strong>影越え:</strong> 人ひとりが屈めば通れる程度の狭い抜け道や屋根道を知っている。</li>
+        <li><strong>詭弁突破:</strong> 形式、名目、言い回しが効く都市魔法に対して、妙に通る理屈を捻り出せる。</li>
+        <li><strong>裏の相場勘:</strong> 夜市や盗品流しの相場、危ない仲介人の顔を知っている。</li>
+      </ul>
+
+      <h3>サックがやらかすこと</h3>
+      <ul>
+        <li>都合の悪い情報を小出しにする。</li>
+        <li>危なくなると「自分は被害者だ」と論点をずらす。</li>
+        <li>安全そうな場所があると当然のように先に入る。</li>
+        <li>誰かが助けてくれそうだと見ると、その善意を前提に計算する。</li>
+      </ul>
+
+      <h3>サックの本音</h3>
+      <p>彼の最優先は最後まで<strong>自分の生存と自由</strong>です。ただし、今回の一件で本当に困るのも彼です。背煤区が無銘街に落ちれば、彼自身の隠れ家も逃げ道も消えますし、裏社会は「大仕事をしくじった役立たず」として彼を切り捨てます。</p>
+      <p>つまりサックは、PCたちに協力するのではなく、<strong>PCたちを自分が生き残るための最高の手段として使おうとする</strong> のが基本です。そのうえで、PCたちが貸しを作り、命を拾い、しがらみを結ぶほど、彼の利己心は「見捨てるのが損」へ寄っていきます。</p>
+
+      <h3>口調の見本</h3>
+      <pre>「盗みじゃない、借り受けだよ。返す先が面倒なだけで。」
+「いや、そこは君たちが前に出る場面だろう？　僕は貴重な案内人だ。」
+「善意ってものは、使われるためにあるんじゃないかな。」
+「……背煤区が消えるのは困る。僕の酒場も、寝床も、貸しも全部そっちにある。」</pre>
+
+      <div class="callout green">
+        <strong>GM向けの芯:</strong> サックは善人に改造しないでください。最後まで、便利なら人を使い、危なくなると逃げ腰になります。ですが、PCが積んだ借り・義理・関係があるなら、「その場で見捨てる方が自分の損」と判断して、結果的に肩を入れることがあります。人情はそこから返すときれいです。
+      </div>
+    </section>
+
+    <section class="card" id="modes">
+      <h2>7. 採用モードの使い方</h2>
+
+      <h3>ゼノス・モード</h3>
+      <p>このシナリオでは、都市を「ただの依頼現場」ではなく、<strong>今夜だけ異境へ寄ったベルンハイム</strong> として見せます。失せ物夜市、綴字路地、運河の渡し、名を持つ影の礼拝回廊など、攻略と無関係ではないが、攻略だけに還元できない光景を置いてください。</p>
+      <ul>
+        <li><strong>新奇・偶発:</strong> 夜市、灯籠舟、消えかけの地名、裏の祝詞</li>
+        <li><strong>文化差:</strong> 都市が名前を祈りと行政で管理していること</li>
+        <li><strong>畏敬・審美:</strong> 名簿塔の白壁、鐘の光、影だけが列をなす回廊</li>
+        <li><strong>持ち帰り:</strong> 裏路地の札、返印の聖句、背煤区への貸し、夜市の品</li>
+      </ul>
+
+      <h3>ヨーク・モード</h3>
+      <p>このシナリオの連帯は「仲良し」でなく、<strong>肩代わり、同行、同時作業、帰着確認</strong> で出します。PC同士はもちろん、サックを含めた四人での分担が見えるようにしてあります。</p>
+      <ul>
+        <li>サックを見張る / 使う / 背負う / 逃がさない</li>
+        <li>三承認を別々に取るか、一手に束ねるかの判断</li>
+        <li>屋根道・運河・行列のどのルートを誰が支えるか</li>
+        <li>名簿塔で「返印を行う者」「場を守る者」「追手を止める者」を分ける</li>
+      </ul>
+
+      <h3>ゼロット・モード</h3>
+      <p>ベルンハイムの都市魔法は、<strong>札・言い分・形式・見届け</strong> に弱いです。だからこそ、このシナリオでは<strong>「良いナンセンス」</strong> に強い窓があります。</p>
+      <div class="grid">
+        <article class="mini">
+          <h4>窓 1: 詭弁が形式へ噛む</h4>
+          <p>都市魔法が「名目」を重んじるため、筋が通っていて見届けがいるなら、やや無茶な理屈でも一時的に通る。</p>
+        </article>
+        <article class="mini">
+          <h4>窓 2: 盗人の流儀が礼法と噛む</h4>
+          <p>貧民街の謝り芸、盗品返還の口上、裏路地の印が、奇妙に返印の礼法と合う。</p>
+        </article>
+        <article class="mini">
+          <h4>窓 3: 街路そのものを言いくるめる</h4>
+          <p>標識や看板や道の名を一時的にすり替え、追手や警戒を別区画の問題にできる。</p>
+        </article>
+      </div>
+
+      <div class="callout red">
+        <strong>壊してはいけない一貫性:</strong> 大鐘までの期限、三承認の必要性、無銘街化の進行、サックの利己性は消えません。面白い理屈が出ても、そこを無料で飛ばすのは不可です。
+      </div>
+    </section>
+
+    <section class="card" id="structure">
+      <h2>8. シナリオ骨格</h2>
+      <div class="grid">
+        <article class="mini">
+          <h3>ハイコンセプト</h3>
+          <p><strong>もしも、ひと晩で一つの街区の「名前」が盗まれたら。</strong></p>
+          <p>脅かされるのは、サック個人の命よりも、背煤区という共同体そのものです。</p>
+        </article>
+        <article class="mini">
+          <h3>今回残したいもの</h3>
+          <ul>
+            <li>ベルンハイムの都市魔法と夜の異境感</li>
+            <li>サックとの貸し借り、信用、見捨てづらさ</li>
+            <li>「法・信・街」のどれをどう使って都市を動かしたか</li>
+            <li>背煤区に何を持ち帰れたか</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3>返印式の条件</h3>
+      <p>《無銘印》を抜かれた区画は、ただ印章を戻すだけでは安定しません。名簿塔で返印式を行う際、次の三承認が必要です。</p>
+      <table>
+        <thead>
+          <tr><th>承認</th><th>代表的な取り方</th><th>雑に取った場合の価格</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><strong>法</strong></td><td>市兵の署名札、正規の捜査協力、書記局の承認写し</td><td>偽造や窃取だと、返印後に追及されやすい</td></tr>
+          <tr><td><strong>信</strong></td><td>大聖堂の祈灯、正式な聖句、司祭見届け</td><td>盗品や代用品だと、返印は通っても聖堂と敵対しやすい</td></tr>
+          <tr><td><strong>街</strong></td><td>背煤区の代表の証言、街角の見届け、裏路地の共認印</td><td>サックの一存や脅しで済ませると、区画に禍根が残る</td></tr>
+        </tbody>
+      </table>
+
+      <h3>時間制限</h3>
+      <p>開始時点で<strong>八鐘</strong>。主要局面ごとに一鐘進み、大きな悪化や派手な失策ではさらに一鐘進めます。<strong>十二鐘到達で失敗条件接触</strong>。夜明けの大鐘が鳴った時点で、背煤区の無銘街化はほぼ確定します。</p>
+
+      <h3>3PC卓として見えている未解決問題</h3>
+      <ol>
+        <li>《無銘印》そのものの管理</li>
+        <li>三承認の確保</li>
+        <li>サックの扱い</li>
+        <li>黒幕と追手への対処</li>
+        <li>名簿塔へのルート選択</li>
+        <li>返印後の生還</li>
+      </ol>
+      <p>3PCなら「ひとり一問題」で処理したくなりますが、途中からは互いに干渉します。誰かが法を取りに行けば、別の誰かはサックと印章の管理を引き受ける必要があります。</p>
+
+      <h3>名場面予約</h3>
+      <table>
+        <thead><tr><th>役割</th><th>今回の想定</th></tr></thead>
+        <tbody>
+          <tr><td>開く瞬間</td><td>失せ物夜市に背煤区の「消えかけた看板」まで並んでいると知る場面</td></tr>
+          <tr><td>ひっくり返る瞬間</td><td>《無銘印》はただの盗品ではなく、区画ひとつの生存権だと分かる場面</td></tr>
+          <tr><td>押し切る瞬間</td><td>名簿塔で返印を行いながら、追手と封印逆流を同時にさばく場面</td></tr>
+          <tr><td>深まる関係</td><td>サックを見捨てれば楽だが、見捨てない選択の価格を払う場面</td></tr>
+          <tr><td>旅履歴の要約語</td><td>鐘 / 名 / 札 / 無銘</td></tr>
+        </tbody>
+      </table>
+
+      <h3>構造難度の目安</h3>
+      <table>
+        <thead><tr><th>軸</th><th>目安</th><th>理由</th></tr></thead>
+        <tbody>
+          <tr><td>読解</td><td>1</td><td>材料は出るが、サックの嘘と都市の建前を読み分ける必要がある。</td></tr>
+          <tr><td>先回り</td><td>1</td><td>三承認を後回しにすると苦しくなるが、完全な手遅れにはしない。</td></tr>
+          <tr><td>取捨選択</td><td>2</td><td>法・信・街の取り方、黒幕証拠、サック生存、静かな後始末が競合する。</td></tr>
+          <tr><td>文脈補完</td><td>1</td><td>都市の仕組みを理屈で補いながら進む。</td></tr>
+          <tr><td>複数PCの噛み合わせ</td><td>2</td><td>同行者管理、ルート分担、最終局面の同時作業が重要。</td></tr>
+          <tr><td>世界の広がり</td><td>2</td><td>市兵、大聖堂、背煤区、夜市、黒幕がそれぞれ動く。</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="scenes">
+      <h2>9. 主要局面</h2>
+
+      <div class="scene">
+        <div class="kicker">局面1</div>
+        <h3>鐘呼び坂の追走</h3>
+        <p><strong>現在の状況:</strong> 願訴夜の行列が行き交う石段で、サックが《無銘印》を抱えてPCたちの前へ転がり込む。後ろからは市兵の巡回、さらに紙鴉と呼ばれる追跡魔法の鳥が迫る。</p>
+        <p><strong>局面の問い:</strong> サックと印章をどう確保し、最初の追跡をどう切るか。</p>
+        <h4>見えている材料</h4>
+        <ul>
+          <li>サックは「後で話す」と言いながら、明らかに嘘をついている。</li>
+          <li>紙鴉は印章の名を追っており、ただ走るだけでは切りづらい。</li>
+          <li>願訴の行列は混雑しているが、うまく使えば遮蔽や偽装になる。</li>
+        </ul>
+        <h4>通りやすい方向</h4>
+        <ul>
+          <li>行列、旗、灯籠を利用して追跡線を切る。</li>
+          <li>サックの持つ札剥がしを使い、一時的に印章の名を隠す。</li>
+          <li>サックを拘束・監視しつつ同行を受け入れる。</li>
+        </ul>
+        <h4>価格の例</h4>
+        <ul>
+          <li>【市兵に顔を見られた】</li>
+          <li>【紙鴉に目を付けられた】</li>
+          <li>【サックに貸しを作る】 or 【サックを縄付きで連れる】</li>
+          <li>一鐘進む</li>
+        </ul>
+        <p><strong>ヨークの芯:</strong> サックを自由にし過ぎれば逃げます。拘束し過ぎれば札剥がしが使いにくい。最初から共同作業の管理が必要です。</p>
+      </div>
+
+      <div class="scene">
+        <div class="kicker">局面2</div>
+        <h3>背煤区の消えかけた夜</h3>
+        <p><strong>現在の状況:</strong> 背煤区では、家の看板の文字が薄れ、巡回兵が通っても目を留めず、露天の売り子が「さっきまで並んでいた店の位置」を言えなくなっている。サックの嘘もこのあたりで剥がれます。</p>
+        <p><strong>局面の問い:</strong> 何が起きているかを正しく掴み、返印式に必要な条件と最初の味方を得られるか。</p>
+        <h4>この局面で得たいこと</h4>
+        <ul>
+          <li>《無銘印》の正体</li>
+          <li>返印式に<strong>法・信・街</strong>の三承認が必要であること</li>
+          <li>黒幕が「背煤区の消失」を利益に変えようとしていることの匂い</li>
+        </ul>
+        <h4>接触候補</h4>
+        <ul>
+          <li><strong>灯番尼ミレア:</strong> 背煤区の小聖堂にいる若い修道女。信の取り口になりやすい。</li>
+          <li><strong>板車の婆トルダ:</strong> 露天のまとめ役。街の承認や背煤区の怒りを代表する。</li>
+          <li><strong>南門詰めの副長エルザ:</strong> 法の取り口になりうる現実派の市兵。</li>
+        </ul>
+        <p><strong>人情の芯:</strong> 背煤区の人々は、サックをかばうためではなく、自分たちの街を守るために動きます。サックがここで土下座しても、すぐ許されはしません。</p>
+        <div class="callout">
+          <strong>GMの返し方:</strong> この局面は説明回ではなく、「街が本当に消えかけている」現実をPCに触らせる場です。子どもが家へ帰れなくなる、巡回兵が怪我人を見落とす、祈りが宙へ滑る、など具体で返してください。
+        </div>
+      </div>
+
+      <div class="scene">
+        <div class="kicker">局面3</div>
+        <h3>失せ物夜市と三つの承認</h3>
+        <p><strong>現在の状況:</strong> 願訴夜の深まりとともに、七灯運河の裏側に《失せ物夜市》が開く。ここでは落とし物だけでなく、忘れられた肩書き、期限切れの誓い、名簿から零れた断片まで売買される。三承認のうち不足分を埋めるための近道にも、罠にもなる。</p>
+        <p><strong>局面の問い:</strong> 三承認をどの順で、どの方法で揃えるか。</p>
+
+        <table>
+          <thead>
+            <tr><th>承認</th><th>正攻法</th><th>裏道</th><th>裏道の主な価格</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>法</strong></td>
+              <td>副長エルザへ事情を通し、臨時の捜査協力札を得る</td>
+              <td>市兵詰所から巡回札を盗む / 偽造する</td>
+              <td>返印後に【公文偽造】や【市兵敵対】が残りやすい</td>
+            </tr>
+            <tr>
+              <td><strong>信</strong></td>
+              <td>灯番尼ミレアから願訴夜の祈灯と聖句を受ける</td>
+              <td>夜市で流れた祈灯を買う / 奪う</td>
+              <td>聖堂との禍根、封印逆流の危険</td>
+            </tr>
+            <tr>
+              <td><strong>街</strong></td>
+              <td>板車の婆トルダや背煤区の見届けを得る</td>
+              <td>サックの盗賊ネットワークの共認印で代用する</td>
+              <td>区画は救えても、背煤区の信頼は薄いまま</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h4>ゼノスの見どころ</h4>
+        <ul>
+          <li>屋台に並ぶ「失われた住所札」</li>
+          <li>代筆屋が売る「一晩だけ別人になれる名乗り」</li>
+          <li>水面の上にだけ立つ渡し板</li>
+        </ul>
+
+        <h4>ゼロットの窓</h4>
+        <ul>
+          <li>サックの詭弁やPCの大げさな口上が、夜市の売人には真っ当な交渉として通る</li>
+          <li>「盗まれた名前を盗み返す」という理屈が一部の商品に刺さる</li>
+          <li>街路標識そのものを買い取り、追手の進路をずらす</li>
+        </ul>
+      </div>
+
+      <div class="scene">
+        <div class="kicker">局面4</div>
+        <h3>綴字橋の屋根道</h3>
+        <p><strong>現在の状況:</strong> 三承認を揃えた、あるいは代替でごまかしたPCたちは、白鐘大聖堂へ向かう。だが時間はなく、黒幕側の手勢、紙鴉、市兵の検問がベルンハイム全体を狭めてくる。</p>
+        <p><strong>局面の問い:</strong> どのルートで名簿塔へ入り、何を切り捨て、何を守るか。</p>
+
+        <table>
+          <thead><tr><th>ルート</th><th>長所</th><th>短所</th></tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>屋根道</strong></td>
+              <td>最速。サックの本領。追手をまける可能性がある。</td>
+              <td>転落、分断、極の致命線に触れやすい。</td>
+            </tr>
+            <tr>
+              <td><strong>運河舟</strong></td>
+              <td>荷物と負傷者に強い。追跡を切りやすい。</td>
+              <td>検問と水上封鎖。鐘が進みやすい。</td>
+            </tr>
+            <tr>
+              <td><strong>願訴の行列</strong></td>
+              <td>法と信の承認があるなら自然に混ざれる。</td>
+              <td>嘘が破れた時の反動が大きい。サックが目立つ。</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>ヨークの芯:</strong> ここは「誰がサックを連れて」「誰が承認や印章を持ち」「誰が前を開くか」を明確にするとよく噛みます。肩代わりや持ち回りが見える場面です。</p>
+        <p><strong>悪化の例:</strong> 【転落寸前】 【承認が濡れた / 千切れた】 【サックが足を止める】 【紙鴉に塔への侵入を読まれた】</p>
+      </div>
+
+      <div class="scene">
+        <div class="kicker">局面5</div>
+        <h3>名簿塔の返印式</h3>
+        <p><strong>現在の状況:</strong> 白鐘大聖堂の裏手に立つ名簿塔は、白壁と青銅の鐘骨でできた細長い塔だ。最上層の返印盤へ《無銘印》を戻し、法・信・街の承認を噛ませれば背煤区の名は戻る。だが、ここで黒幕ユリウス・ヴァイル、紙鴉、市兵、あるいは大聖堂側の隠蔽意思が最後にぶつかる。</p>
+        <p><strong>局面の問い:</strong> 何を優先して返印式を通すか。サック、証拠、静かな後始末、生還のどれを守りにいくか。</p>
+
+        <h4>この場面で必要になりやすい役割</h4>
+        <ul>
+          <li>返印盤へ承認を正しい順で噛ませる者</li>
+          <li>《無銘印》を扱う者</li>
+          <li>追手や逆流する文字魔法を抑える者</li>
+          <li>サックを逃がす / 捕まえる / 働かせる者</li>
+        </ul>
+
+        <h4>典型的な両立しない利益</h4>
+        <ul>
+          <li>返印だけ急ぐ vs 黒幕の証拠まで押さえる</li>
+          <li>サックの生存 vs 静かな離脱</li>
+          <li>大聖堂と敵対しない vs 完全に背煤区側へ立つ</li>
+        </ul>
+
+        <div class="callout red">
+          <strong>最終局面の強調:</strong> 返印式が成功しても、その後に落ちる・捕まる・焼かれる・封印逆流へ呑まれるなら生還は別です。ここはQBSらしく、主目的の成立とその外側の価格を分けて返してください。
+        </div>
+      </div>
+    </section>
+
+    <section class="card" id="gm">
+      <h2>10. GM用真相メモ</h2>
+
+      <h3>真相</h3>
+      <ul>
+        <li>《無銘印》を盗ませた黒幕は、書記魔術師<strong>ユリウス・ヴァイル</strong>。運河沿い再開発を進める商家と組み、背煤区を「都市が見落とす」状態に落としてから切り取りたい。</li>
+        <li>サックは大仕事だとは知っていたが、「せいぜい誰かの借金や婚姻記録を消す類」だと思っていた。本当に区画が消えかねないとは把握していない。</li>
+        <li>大聖堂上層部の一部は、背煤区を守るより「願訴夜の失態が表に出ないこと」を優先する。返印そのものには協力しても、黒幕の証拠や市政との全面対立までは歓迎しない。</li>
+        <li>背煤区の代表たちはサックを庇わない。だが、PCたちが真っ当に動くなら、街の承認は出す。</li>
+      </ul>
+
+      <h3>サックの運用方針</h3>
+      <p>サックは最後まで<strong>利己的な同行者</strong>です。見栄も張るし、危なくなると逃げ腰にもなるし、PCへ面倒を載せるのも当然と思っています。けれど、PCがここまで自分のためにリスクを切ってきたなら、それもまた「返す価値のある投資」だと理解します。</p>
+      <p>つまりクライマックスで彼が踏みとどまるなら、それは「正義に目覚めた」からではなく、<strong>いまここでPCを切る方が自分の人生に高くつく</strong> と悟ったからです。この形なら、根本性格を変えずに人情の返りが出ます。</p>
+
+      <h3>構造カウンターの考え方</h3>
+      <table>
+        <thead><tr><th>読める勝ち筋</th><th>局地で通ること</th><th>その外側で返す価格</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>承認を盗み / 偽造で早く揃える</td>
+            <td>返印式自体は通る</td>
+            <td>返印後に公的追及や大聖堂敵対が残る</td>
+          </tr>
+          <tr>
+            <td>サックを切って静かに進む</td>
+            <td>一時的に動きやすくなる</td>
+            <td>街の承認や最後の裏路地支援が細る。後味も悪くなる</td>
+          </tr>
+          <tr>
+            <td>黒幕証拠まで取りに行く</td>
+            <td>中長期の勝ち筋が太くなる</td>
+            <td>鐘が進み、生還や静かな離脱が重くなる</td>
+          </tr>
+          <tr>
+            <td>正攻法だけで通す</td>
+            <td>敵対や禍根は薄い</td>
+            <td>時間が足りなくなりやすく、ルート管理が厳しくなる</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>主要な外部主体</h3>
+      <div class="grid">
+        <article class="mini">
+          <h4>ユリウス・ヴァイル</h4>
+          <p>黒幕。理屈と合法性の顔をしているが、背煤区を都市から外す計画の実務担当。返印を止めるより、返印後にPCたちを「盗賊の共犯」に仕立てるのが得意。</p>
+        </article>
+        <article class="mini">
+          <h4>副長エルザ</h4>
+          <p>法の窓口。筋が通っていれば話は聞く。だが部下と治安を危険に晒すなら普通に敵へ回る。</p>
+        </article>
+        <article class="mini">
+          <h4>灯番尼ミレア</h4>
+          <p>信の窓口。大聖堂上層部より背煤区寄り。だが嘘と冒涜には弱い。</p>
+        </article>
+        <article class="mini">
+          <h4>板車の婆トルダ</h4>
+          <p>街の窓口。背煤区の見届け役。情はあるが甘やかしはしない。</p>
+        </article>
+      </div>
+
+      <h3>今回持ち帰らせたい Q / B / S</h3>
+      <table>
+        <thead><tr><th>系統</th><th>残り方の例</th></tr></thead>
+        <tbody>
+          <tr>
+            <td><strong>Quiddities</strong></td>
+            <td>背煤区が無銘街化を免れた / 黒幕の利害が見えた / 大聖堂の本音が判明した</td>
+          </tr>
+          <tr>
+            <td><strong>Builds</strong></td>
+            <td>〔返印の聖句〕〔サックの裏路地札〕〔市兵協力札〕〔背煤区に貸し〕</td>
+          </tr>
+          <tr>
+            <td><strong>Stories</strong></td>
+            <td>サックとの不本意な縁 / 背煤区との結びつき / ユリウスとの敵対 / 大聖堂との微妙な借り</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="card" id="tags">
+      <h2>11. 使いやすいタグ / 宣言例</h2>
+
+      <h3>置きやすい手札・履歴・悪化タグ</h3>
+      <div class="grid-3">
+        <article class="mini">
+          <h4>有利側</h4>
+          <ul>
+            <li>〔返印の聖句〕</li>
+            <li>〔背煤区に貸し〕</li>
+            <li>〔市兵副長の黙認〕</li>
+            <li>〔サックの裏道札〕</li>
+            <li>〔夜市の相場勘〕</li>
+          </ul>
+        </article>
+        <article class="mini">
+          <h4>中立 / 履歴側</h4>
+          <ul>
+            <li>【サックと不本意に同行】</li>
+            <li>【願訴夜の騒動を見た】</li>
+            <li>【背煤区の名が薄れている】</li>
+            <li>【綴字路地の理屈を知る】</li>
+          </ul>
+        </article>
+        <article class="mini">
+          <h4>不利側</h4>
+          <ul>
+            <li>【紙鴉に目を付けられた】</li>
+            <li>【市兵に顔を見られた】</li>
+            <li>【承認が歪んでいる】</li>
+            <li>【大鐘が迫る】</li>
+            <li>【サックがまた何か隠している】</li>
+          </ul>
+        </article>
+      </div>
+
+      <h3>宣言例の方向</h3>
+      <table>
+        <thead><tr><th>局面</th><th>宣言例</th><th>拾いたいこと</th></tr></thead>
+        <tbody>
+          <tr>
+            <td>鐘呼び坂</td>
+            <td>「行列の誓願旗の裏にサックを押し込み、灯籠の流れへ紙鴉を誘導してから裏階段へ切る」</td>
+            <td>追跡切り / 群衆利用 / 同行者管理</td>
+          </tr>
+          <tr>
+            <td>背煤区</td>
+            <td>「看板の消え方を追って、どこから名が薄れているかを街の人の証言と照らす」</td>
+            <td>説明ではなく現象把握</td>
+          </tr>
+          <tr>
+            <td>夜市</td>
+            <td>「『盗んだ名前は盗人が返す』という理屈で、失せ物屋に聖句の半端と承認の代物を出させる」</td>
+            <td>ゼロット窓 / 詭弁 / 取引</td>
+          </tr>
+          <tr>
+            <td>綴字橋</td>
+            <td>「街路標識を剥がして追手の進路を一つずらし、その隙に屋根道で承認持ちを先に通す」</td>
+            <td>ルート差 / 同時作業</td>
+          </tr>
+          <tr>
+            <td>名簿塔</td>
+            <td>「ひとりが返印を行い、ひとりがサックを押さえ、ひとりがユリウスの口を封じる」</td>
+            <td>取得と生還の分離</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3>ゼロットで通しやすい“良いナンセンス”例</h3>
+      <ul>
+        <li>盗人の謝罪口上を、聖句の節回しで言い切る。</li>
+        <li>「この標識は今夜だけ背煤区のものだ」と見届け人付きで札を付け替える。</li>
+        <li>「臨時の善良な案内人」の名札をサックに貼り、警戒魔法へ一瞬だけ通す。</li>
+        <li>失せ物夜市で「失われる前の街路名」を買い戻し、追手の地図を狂わせる。</li>
+      </ul>
+    </section>
+
+    <section class="card" id="ending">
+      <h2>12. エンディング</h2>
+
+      <h3>大団円寄り</h3>
+      <p>背煤区は守られ、黒幕の証拠も押さえ、PCたちは生還し、サックも生き残る。サックは礼を言う代わりに「今回の借りは高い、だが返す価値はある」と言い、次回への面倒な縁になる。</p>
+
+      <h3>標準成功</h3>
+      <p>背煤区は守られ、PCたちは生還する。だが黒幕は逃げるか、証拠が足りない。サックは生き残るか、どさくさで消える。街は守れたが、気持ちよく終わらない余韻が残る。</p>
+
+      <h3>苦い成功</h3>
+      <p>返印式は通るが、サック、協力者、あるいはPCの誰かが大きな代償を払う。背煤区は助かっても、誰かの名や居場所が欠ける。人情の後味を前に出すならここが強い。</p>
+
+      <h3>失敗</h3>
+      <p>大鐘までに返印式が通らず、背煤区は無銘街へ落ちる。人々はすぐに消えるわけではないが、法も祈りも視線も届きにくくなり、都市の中の空白地帯になる。以後の是正は長い話になる。</p>
+
+      <h3>破局</h3>
+      <p>名簿塔で全滅、封印逆流、火災、落下などが起き、返印も生還も成立しない。極にふさわしい最悪線です。QBSとしては、その破局がどう世界へ残るかまで描いて終えると強いです。</p>
+    </section>
+
+    <section class="card" id="hooks">
+      <h2>13. 運用補助</h2>
+
+      <h3>開始前にGMが一言で伝えるとよいこと</h3>
+      <ul>
+        <li>「今夜は街ひとつの名前を返しに行く話です。」</li>
+        <li>「サックは役に立つが、善人ではありません。」</li>
+        <li>「承認を揃えること、返印すること、生きて帰ることは別です。」</li>
+        <li>「ゼノスは『夜の都市の異境感』、ヨークは『同行と肩代わり』、ゼロットは『理屈の通った変な突破』です。」</li>
+      </ul>
+
+      <h3>進行の目安</h3>
+      <ol>
+        <li><strong>導入 15〜30分:</strong> サック合流、追跡切り、同行の形を決める。</li>
+        <li><strong>状況把握 30〜45分:</strong> 背煤区で危機と返印条件を知る。</li>
+        <li><strong>都市行動 60〜120分:</strong> 三承認の取り方と黒幕対応を選ぶ。</li>
+        <li><strong>移動 30〜45分:</strong> 名簿塔へのルート選択。</li>
+        <li><strong>最終局面 45〜90分:</strong> 返印式と生還処理。</li>
+      </ol>
+
+      <h3>サックが動くトリガー</h3>
+      <table>
+        <thead><tr><th>状況</th><th>サックの反応</th></tr></thead>
+        <tbody>
+          <tr><td>PCが甘い</td><td>当然のように面倒を乗せる</td></tr>
+          <tr><td>PCが厳しいが筋が通る</td><td>文句は言うが従う</td></tr>
+          <tr><td>自分だけが得すると見た</td><td>抜け駆けを考える</td></tr>
+          <tr><td>PCが本気で命を張る</td><td>逃げると損だと判断して踏みとどまることがある</td></tr>
+        </tbody>
+      </table>
+
+      <h3>このシナリオの締め方</h3>
+      <p>返印が終わったら、背煤区の看板へ字が戻る、道案内が通る、子どもが家を指させる、聖堂の祈りがちゃんと届く、など<strong>「街がまた見えるようになる」描写</strong>で締めると綺麗です。そのうえでサックをどう処理したかで最後の色が決まります。</p>
+
+      <div class="footer-note">
+        このHTMLは、Quick Build Saga向けの単発シナリオとして、3PC・都市冒険・同行者NPCあり・適正 / 啓示 / 人情 / 極・ゼノス / ヨーク / ゼロット採用を前提にまとめたものです。
+      </div>
+    </section>
+  </main>
+</div>
+</body>
+</html>
