@@ -22,7 +22,7 @@
       <div class="panel">
         <h2>結果に出るもの</h2>
         <div class="tips">
-          <div class="tip"><strong>卓の欲求プロフィール:</strong> 何が主菜で、何が副菜になりやすいか</div>
+          <div class="tip"><strong>卓の欲求プロフィール:</strong> 何が主軸で、何が補助になりやすいか</div>
           <div class="tip"><strong>卓の基準:</strong> どれくらい手探りか、どれくらい痛い返りが似合うか</div>
           <div class="tip"><strong>QBS 変換:</strong> 中核 / 推奨 / 対応 / 条件付き対応 の形で組み方を提案</div>
         </div>
@@ -294,12 +294,13 @@
             <tr><th>指針提示度</th><td id="qbsGuide"></td></tr>
             <tr><th>劇的展開度</th><td id="qbsDrama"></td></tr>
             <tr><th>死亡許容度</th><td id="qbsDeath"></td></tr>
-            <tr><th>事前共有</th><td id="qbsPreface"></td></tr>
+            <tr><th>事前共有の粒度</th><td id="qbsPreface"></td></tr>
           </tbody>
         </table>
         <p class="footer" id="qbsExplain"></p>
       </div>
     </details>
+    <p class="footer" id="handoffNote">この結果の「主軸 / 補助」「避けたい返し方」「卓の基準」は、そのまま GM へ見せて構いません。まだ参加前なら <a href="./quickstart-guide.html">クイックスタート</a>、少し整理して伝えたいなら <a href="./basic-player-guide.html">プレイヤー基本ルール</a> を読むとつなげやすくなります。</p>
   </section>
 </div>
 <script>
@@ -330,7 +331,7 @@
   };
 
   const MODE_NATURAL = {
-    narrative: { title: '物語の主菜', desc: '見え方の変化、関係更新、余韻と次回への引きを主報酬にします。' },
+    narrative: { title: '物語の主軸', desc: '見え方の変化、関係更新、余韻と次回への引きを主報酬にします。' },
     observer: { title: '人物像先行', desc: 'その人らしい選び方や行動原理を前へ出しやすくします。' },
     probability: { title: '少しだけ運の揺れ', desc: '読める部分は読みつつ、わずかな不確実さをドラマに変えます。' },
     quantity: { title: '得意不得意の補助線', desc: '能力値や数字で「何が得意か」を見やすくします。' },
@@ -577,8 +578,8 @@
     const max = ranked[0][1];
     return ranked.map(([k, v], idx) => {
       let level = '薄め';
-      if (v >= Math.max(4, max - 1)) level = '主菜';
-      else if (v >= Math.max(2, max - 3)) level = '副菜';
+      if (v >= Math.max(4, max - 1)) level = '主軸';
+      else if (v >= Math.max(2, max - 3)) level = '補助';
       else if (v > 0) level = 'あると嬉しい';
       return { key:k, score:v, level };
     });
@@ -631,7 +632,7 @@
     const raw = scores.modeRaw;
     const adj = scores.modeAdj;
 
-    desireLevels.filter(x => x.level === '主菜').forEach(entry => {
+    desireLevels.filter(x => x.level === '主軸').forEach(entry => {
       const coreMode = {
         story: 'narrative',
         adventure: 'xenos',
@@ -672,16 +673,16 @@
   }
 
   function buildHeadline(desireLevels) {
-    const mains = desireLevels.filter(x => x.level === '主菜').map(x => DESIRE_LABELS[x.key]);
-    const sides = desireLevels.filter(x => x.level === '副菜').map(x => DESIRE_LABELS[x.key]).slice(0, 2);
+    const mains = desireLevels.filter(x => x.level === '主軸').map(x => DESIRE_LABELS[x.key]);
+    const sides = desireLevels.filter(x => x.level === '補助').map(x => DESIRE_LABELS[x.key]).slice(0, 2);
     const mainText = mains.length ? mains.join(' / ') : '広め';
-    const sideText = sides.length ? `　副菜は ${sides.join('・')}` : '';
-    return `主菜は ${mainText}${sideText}`;
+    const sideText = sides.length ? `　補助は ${sides.join('・')}` : '';
+    return `主軸は ${mainText}${sideText}`;
   }
 
   function buildSummary(desireLevels) {
-    const main = desireLevels.filter(x => x.level === '主菜').map(x => DESIRE_LABELS[x.key]);
-    const side = desireLevels.filter(x => x.level === '副菜').map(x => DESIRE_LABELS[x.key]).slice(0, 2);
+    const main = desireLevels.filter(x => x.level === '主軸').map(x => DESIRE_LABELS[x.key]);
+    const side = desireLevels.filter(x => x.level === '補助').map(x => DESIRE_LABELS[x.key]).slice(0, 2);
     const pieces = [];
     if (main.includes('物語')) pieces.push('見え方の変化や、この先どうなるかが引力になりやすそうです');
     if (main.includes('冒険')) pieces.push('未知の土地や持ち帰りが主報酬になりやすそうです');
@@ -690,20 +691,20 @@
     if (main.includes('癒し')) pieces.push('安心して戻れる場所や修復の手触りが大切になりやすそうです');
     if (main.includes('非常識')) pieces.push('逸脱や妙さの痕跡が記憶に残りやすそうです');
     if (!pieces.length) pieces.push('一つに絞るより、いくつかの快楽をバランスよく入れた卓が向いていそうです');
-    if (side.length) pieces.push(`副菜としては ${side.join('・')} もあるとうれしそうです`);
+    if (side.length) pieces.push(`補助としては ${side.join('・')} もあるとうれしそうです`);
     return pieces.join('。') + '。';
   }
 
   function buildEndings(desireLevels) {
-    return desireLevels.filter(x => x.level === '主菜' || x.level === '副菜').slice(0, 3).map(x => DESIRE_ENDINGS[x.key]);
+    return desireLevels.filter(x => x.level === '主軸' || x.level === '補助').slice(0, 3).map(x => DESIRE_ENDINGS[x.key]);
   }
 
   function buildLingers(desireLevels) {
-    return desireLevels.filter(x => x.level === '主菜' || x.level === '副菜').slice(0, 3).map(x => DESIRE_LINGERS[x.key]);
+    return desireLevels.filter(x => x.level === '主軸' || x.level === '補助').slice(0, 3).map(x => DESIRE_LINGERS[x.key]);
   }
 
   function buildFails(desireLevels) {
-    return desireLevels.filter(x => x.level === '主菜').slice(0, 2).map(x => DESIRE_FAILS[x.key]);
+    return desireLevels.filter(x => x.level === '主軸').slice(0, 2).map(x => DESIRE_FAILS[x.key]);
   }
 
   function axisDescription(name, pair, scores) {
@@ -766,7 +767,7 @@
 
   function buildGMBrief(desireLevels, axisPairs, modeGroups, scores) {
     const lines = [];
-    const mainDesires = desireLevels.filter(x => x.level === '主菜').map(x => x.key);
+    const mainDesires = desireLevels.filter(x => x.level === '主軸').map(x => x.key);
     if (mainDesires.includes('story')) lines.push('各回に「未解決の問い」「見え方が変わる点」「関係更新点」「感情回収点」「次回への引き」を最低 1 つずつ置く。');
     if (mainDesires.includes('adventure')) lines.push('各回に異境の魅力、文化差、偶発フック、回復点か畏敬点、持ち帰り候補を 1 つ以上置く。');
     if (mainDesires.includes('relax')) lines.push('安心して戻れる場所、小さな共同作業、穏やかな景色、修復課題を用意する。');
@@ -781,7 +782,7 @@
 
   function buildAvoid(scores, modeGroups) {
     const notes = Array.from(new Set(scores.notes));
-    if (scores.flags.secret) notes.push('秘密を入れるなら、共有目的を強くし、仲間内の疑心暗鬼は主菜にしない。');
+    if (scores.flags.secret) notes.push('秘密を入れるなら、共有目的を強くし、仲間内の疑心暗鬼は主軸にしない。');
     if (scores.flags.pvp) notes.push('排他的な勝ち筋や直接競合は避ける。');
     if (scores.flags.meta && modeGroups.conditional.includes('zealot')) notes.push('非常識は神秘・異常・夢理で返し、メタやナンセンスへ寄せない。');
     if (!notes.length) return '<div class="empty">大きな苦手は今のところ見えません。ふつうにトーンを合わせれば入りやすそうです。</div>';
@@ -842,15 +843,15 @@
 
     document.getElementById('headline').textContent = buildHeadline(desireLevels);
     document.getElementById('summary').textContent = buildSummary(desireLevels);
-    document.getElementById('mainProfile').innerHTML = desireLevels.filter(x => x.level === '主菜' || x.level === '副菜').map(x => `<span class="chip">${x.level}: ${DESIRE_LABELS[x.key]}</span>`).join('');
+    document.getElementById('mainProfile').innerHTML = desireLevels.filter(x => x.level === '主軸' || x.level === '補助').map(x => `<span class="chip">${x.level}: ${DESIRE_LABELS[x.key]}</span>`).join('');
 
     document.getElementById('desirePills').innerHTML = desireLevels.map(x => {
-      const cls = x.level === '主菜' ? 'good' : (x.level === '副菜' ? 'warn' : '');
+      const cls = x.level === '主軸' ? 'good' : (x.level === '補助' ? 'warn' : '');
       return `<span class="pill ${cls}">${DESIRE_LABELS[x.key]}: ${x.level}</span>`;
     }).join('');
-    const mainText = desireLevels.filter(x => x.level === '主菜').map(x => DESIRE_LABELS[x.key]).join(' / ');
-    const sideText = desireLevels.filter(x => x.level === '副菜').map(x => DESIRE_LABELS[x.key]).slice(0, 3).join('・');
-    document.getElementById('desireText').textContent = sideText ? `主菜は ${mainText}。副菜として ${sideText} もあるとうれしそうです。` : `主菜は ${mainText || '広め'}。`;
+    const mainText = desireLevels.filter(x => x.level === '主軸').map(x => DESIRE_LABELS[x.key]).join(' / ');
+    const sideText = desireLevels.filter(x => x.level === '補助').map(x => DESIRE_LABELS[x.key]).slice(0, 3).join('・');
+    document.getElementById('desireText').textContent = sideText ? `主軸は ${mainText}。補助として ${sideText} もあるとうれしそうです。` : `主軸は ${mainText || '広め'}。`;
 
     document.getElementById('endText').textContent = 'この卓は、次のどれかが起きると気持ちよく閉じやすそうです。';
     document.getElementById('endPills').innerHTML = endings.map(x => `<span class="pill good">${x}</span>`).join('');
@@ -895,7 +896,7 @@
     document.getElementById('qbsPreface').textContent = `${AXIS_LABELS.preface[prefacePair[0]]} / ${AXIS_LABELS.preface[prefacePair[1]]}`;
 
     const explainBits = [];
-    explainBits.push(`主菜は ${desireLevels.filter(x => x.level === '主菜').map(x => DESIRE_LABELS[x.key]).join(' / ') || '広め'}。`);
+    explainBits.push(`主軸は ${desireLevels.filter(x => x.level === '主軸').map(x => DESIRE_LABELS[x.key]).join(' / ') || '広め'}。`);
     if (failReturns.length) explainBits.push(`うれしい失敗は「${failReturns.join(' / ')}」寄り。`);
     explainBits.push(`事前共有は ${AXIS_LABELS.preface[prefacePair[0]]} 寄り、遊び中の指針は ${AXIS_LABELS.guidance[axisPairs.guidance[0]]} 寄り。`);
     document.getElementById('qbsExplain').textContent = explainBits.join(' ');
