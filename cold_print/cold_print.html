@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="参考小説をジャンルから探し、そのまま読める静的ライブラリ"
+    />
+    <meta name="theme-color" content="#edf1ef" />
+    <title>Cold Print | 参考小説ライブラリ</title>
+    <link rel="stylesheet" href="./cold_print.css" />
+    <script src="./cold_print.js" defer></script>
+  </head>
+  <body data-view="portal">
+    <a class="skip-link" href="#main-content">本文へ移動</a>
+
+    <header class="site-header">
+      <div class="site-header__inner">
+        <div class="wordmark" aria-label="Cold Print">
+          <span class="wordmark__symbol" aria-hidden="true">CP</span>
+          <span class="wordmark__text">Cold Print</span>
+        </div>
+        <p class="site-header__note">Reference novel archive</p>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <section
+        id="portal-view"
+        class="view portal-view"
+        aria-labelledby="portal-title"
+      >
+        <div class="portal-hero">
+          <div class="portal-hero__copy">
+            <p class="eyebrow">Reference novel archive</p>
+            <h1 id="portal-title" tabindex="-1">物語を選んで、読む。</h1>
+            <p class="portal-hero__description">
+              ジャンルを手掛かりに、参考小説を探せる読書棚です。気になる一冊を選ぶと、そのまま本文を読めます。
+            </p>
+          </div>
+
+          <dl class="archive-summary" aria-label="収録情報">
+            <div>
+              <dt>収録作品</dt>
+              <dd><span id="novel-total">--</span><small>作品</small></dd>
+            </div>
+            <div>
+              <dt>ジャンル</dt>
+              <dd><span id="genre-total">--</span><small>種類</small></dd>
+            </div>
+          </dl>
+        </div>
+
+        <section class="catalog" aria-labelledby="catalog-title">
+          <div class="catalog__heading">
+            <div>
+              <p class="eyebrow">Library</p>
+              <h2 id="catalog-title">作品一覧</h2>
+            </div>
+
+            <label class="search-field" for="title-search">
+              <span class="search-field__label">タイトルを検索</span>
+              <span class="search-field__control">
+                <svg aria-hidden="true" viewBox="0 0 24 24">
+                  <path
+                    d="m20 20-4.6-4.6m2.5-5.15a7.65 7.65 0 1 1-15.3 0 7.65 7.65 0 0 1 15.3 0Z"
+                  />
+                </svg>
+                <input
+                  id="title-search"
+                  type="search"
+                  placeholder="作品名を入力"
+                  autocomplete="off"
+                />
+              </span>
+            </label>
+          </div>
+
+          <details class="genre-filter">
+            <summary>
+              <span>ジャンルで絞り込む</span>
+              <span id="selected-genre-count" class="filter-count">未選択</span>
+            </summary>
+            <div class="genre-filter__body">
+              <p>複数選択すると、すべてのジャンルに一致する作品を表示します。</p>
+              <div
+                id="genre-filter-list"
+                class="genre-filter__list"
+                role="group"
+                aria-label="ジャンル"
+              ></div>
+            </div>
+          </details>
+
+          <div class="catalog__result-bar">
+            <p id="catalog-status" class="catalog-status" aria-live="polite">
+              作品情報を読み込んでいます…
+            </p>
+            <button id="clear-filters" class="text-button" type="button" hidden>
+              絞り込みを解除
+            </button>
+          </div>
+
+          <div id="novel-list" class="novel-grid" role="list"></div>
+
+          <div id="catalog-empty" class="empty-state" hidden>
+            <p class="empty-state__title">該当する作品がありません</p>
+            <p>検索語や選択中のジャンルを変えてみてください。</p>
+            <button class="secondary-button" type="button" data-action="clear-filters">
+              すべての作品を表示
+            </button>
+          </div>
+        </section>
+      </section>
+
+      <section
+        id="reader-view"
+        class="view reader-view"
+        aria-labelledby="reader-title"
+        hidden
+      >
+        <nav class="reader-nav" aria-label="読書画面の操作">
+          <button class="back-button" type="button" data-action="back-to-portal">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m14.5 5-7 7 7 7" />
+            </svg>
+            作品一覧へ
+          </button>
+          <span class="reader-nav__label">Cold Print</span>
+        </nav>
+
+        <article id="reader-article" class="reader-article" aria-busy="false">
+          <header class="reader-header">
+            <p class="eyebrow">Now reading</p>
+            <h1 id="reader-title" tabindex="-1">作品を読み込んでいます</h1>
+            <div id="reader-tags" class="tag-list" aria-label="ジャンル"></div>
+          </header>
+
+          <div id="reader-status" class="reader-status" role="status" aria-live="polite">
+            本文を読み込んでいます…
+          </div>
+          <div id="reader-body" class="novel-body" hidden></div>
+        </article>
+
+        <footer id="reader-footer" class="reader-footer" hidden>
+          <span class="reader-footer__rule" aria-hidden="true"></span>
+          <p class="eyebrow">End of story</p>
+          <p class="reader-footer__message">最後までお読みいただき、ありがとうございました。</p>
+          <button class="primary-button" type="button" data-action="back-to-portal">
+            作品一覧へ戻る
+          </button>
+        </footer>
+      </section>
+    </main>
+
+    <div id="reading-progress" class="reading-progress" aria-hidden="true">
+      <span id="reading-progress-bar"></span>
+    </div>
+
+    <noscript>
+      <p class="noscript-message">
+        このページで作品一覧と本文を表示するには、JavaScriptを有効にしてください。
+      </p>
+    </noscript>
+  </body>
+</html>
