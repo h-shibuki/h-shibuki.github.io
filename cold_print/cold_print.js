@@ -13,8 +13,19 @@
   const ONE_SHOT_DIRECTORY_URL = new URL("./novels/", document.baseURI);
   const SERIAL_DIRECTORY_URL = new URL("./novels/serials/", document.baseURI);
 
-  const ONE_SHOT_META_COLUMNS = ["ファイル名", "タイトル", "重複元ファイル"];
-  const SERIAL_META_COLUMNS = ["連載ID", "タイトル", "連載状態"];
+  const VOTE_COLUMNS = ["Good数", "Bad数"];
+  const ONE_SHOT_META_COLUMNS = [
+    "ファイル名",
+    "タイトル",
+    "重複元ファイル",
+    ...VOTE_COLUMNS,
+  ];
+  const SERIAL_META_COLUMNS = [
+    "連載ID",
+    "タイトル",
+    "連載状態",
+    ...VOTE_COLUMNS,
+  ];
   const EPISODE_COLUMNS = [
     "エピソードID",
     "表示順",
@@ -27,6 +38,13 @@
   const EPISODE_ID_PATTERN = /^ep-[0-9]{3,}$/;
   const CATALOG_TYPES = ["one-shot", "serial"];
   const HISTORY_SNAPSHOT_INTERVAL = 200;
+  const LEGACY_VOTE_STORAGE_KEY = "cold-print-votes-v1";
+  const VOTE_STORAGE_PREFIX = "cold-print-vote-v1:";
+  const MAX_BASE_VOTE_COUNT = Number.MAX_SAFE_INTEGER - 1;
+  const TITLE_COLLATOR = new Intl.Collator("ja", {
+    numeric: true,
+    sensitivity: "variant",
+  });
 
   const elements = {
     body: document.body,
@@ -45,6 +63,8 @@
     selectedGenreCount: document.querySelector("#selected-genre-count"),
     clearFilters: document.querySelector("#clear-filters"),
     catalogStatus: document.querySelector("#catalog-status"),
+    voteStatus: document.querySelector("#vote-status"),
+    voteNote: document.querySelector("#vote-note"),
     workList: document.querySelector("#work-list"),
     catalogEmpty: document.querySelector("#catalog-empty"),
     catalogEmptyTitle: document.querySelector("#catalog-empty-title"),
@@ -81,6 +101,7 @@
     readingProgressBar: document.querySelector("#reading-progress-bar"),
   };
 
+  const initialVoteState = loadVotes();
   const state = {
     catalogsLoaded: false,
     catalogs: {
@@ -93,6 +114,8 @@
       "one-shot": createFilterState(),
       serial: createFilterState(),
     },
+    votes: initialVoteState.votes,
+    voteStorageAvailable: initialVoteState.storageAvailable,
     seriesCache: new Map(),
     textCache: new Map(),
     currentReading: null,
@@ -111,6 +134,7 @@
     history.scrollRestoration = "manual";
   }
   bindEvents();
+  updateVoteStorageNote();
   prepareInitialHistoryState();
   prepareInitialView();
   loadCatalogs();
@@ -177,7 +201,7 @@
       }
     });
 
-    elements.workList.addEventListener("click", handleWorkLinkClick);
+    elements.workList.addEventListener("click", handleWorkListClick);
     elements.seriesView.addEventListener("click", handleSeriesViewClick);
     elements.readerView.addEventListener("click", handleReaderViewClick);
     document
@@ -186,6 +210,7 @@
     elements.readerBack.addEventListener("click", handleReaderBack);
 
     window.addEventListener("popstate", routeToCurrentLocation);
+    window.addEventListener("storage", handleVoteStorageChange);
     window.addEventListener("scroll", handleWindowScroll, { passive: true });
     window.addEventListener("scrollend", flushHistorySnapshot, { passive: true });
     window.addEventListener("resize", requestProgressUpdate);
@@ -344,8 +369,9 @@
         throw new Error(`読み切りCSVに同じファイル名があります: ${filename}`);
       }
 
+      const voteCounts = readVoteCounts(row, rowIndex + 2, "読み切りCSV");
       const genres = readGenreValues(row, genreNames, rowIndex + 2, "読み切りCSV");
-      const item = { filename, title, duplicateOf, genres };
+      const item = { filename, title, duplicateOf, genres, ...voteCounts };
       allItems.push(item);
       itemMap.set(filename, item);
     });
@@ -356,9 +382,7 @@
       }
     });
 
-    const items = allItems
-      .filter((item) => !item.duplicateOf)
-      .map((item, index) => ({ ...item, displayNumber: index + 1 }));
+    const items = allItems.filter((item) => !item.duplicateOf);
     return { items, allItems, itemMap, genreNames };
   }
 
@@ -398,13 +422,14 @@
         throw new Error(`連載CSVに同じ連載IDがあります: ${seriesId}`);
       }
 
+      const voteCounts = readVoteCounts(row, rowIndex + 2, "連載CSV");
       const genres = readGenreValues(row, genreNames, rowIndex + 2, "連載CSV");
       const item = {
         seriesId,
         title,
         serialState,
         genres,
-        displayNumber: rowIndex + 1,
+        ...voteCounts,
       };
       items.push(item);
       itemMap.set(seriesId, item);
@@ -496,6 +521,24 @@
     );
   }
 
+  function readVoteCounts(row, lineNumber, label) {
+    const counts = {};
+    VOTE_COLUMNS.forEach((column) => {
+      const value = row[column];
+      if (!/^(0|[1-9][0-9]*)$/.test(value)) {
+        throw new Error(
+          `${label} ${lineNumber}行目の「${column}」は0以上の整数ではありません。`,
+        );
+      }
+      const count = Number(value);
+      if (!Number.isSafeInteger(count) || count > MAX_BASE_VOTE_COUNT) {
+        throw new Error(`${label} ${lineNumber}行目の「${column}」が大きすぎます。`);
+      }
+      counts[column === "Good数" ? "baseGood" : "baseBad"] = count;
+    });
+    return counts;
+  }
+
   function readGenreValues(row, genreNames, lineNumber, label) {
     const invalidGenre = genreNames.find(
       (genre) => row[genre] !== "0" && row[genre] !== "1",
@@ -576,12 +619,17 @@
         historyData.lastFocusedWork.startsWith(focusPrefix)
         ? historyData.lastFocusedWork
         : null;
+      const lastFocusedControl = lastFocusedWork &&
+        typeof historyData.lastFocusedControl === "string"
+        ? historyData.lastFocusedControl
+        : null;
       history.replaceState(
         {
           ...historyData,
           view: "portal",
           catalogType: normalizedType,
           lastFocusedWork,
+          lastFocusedControl,
         },
         "",
         location.href,
@@ -640,7 +688,7 @@
     elements.genreFilterList.replaceChildren(fragment);
   }
 
-  function renderCatalog() {
+  function renderCatalog(options = {}) {
     if (!state.catalogsLoaded) {
       setCatalogLoading();
       return;
@@ -655,7 +703,11 @@
 
     const filter = getActiveFilter();
     const query = normalizeForSearch(filter.query);
-    const matchingItems = catalog.items.filter((item) => {
+    const rankedItems = catalog.items
+      .map((item) => addEffectiveVotes(item, state.activeCatalogType))
+      .sort(compareRankedItems)
+      .map((item, index) => ({ ...item, displayNumber: index + 1 }));
+    const matchingItems = rankedItems.filter((item) => {
       const searchableId = state.activeCatalogType === "serial"
         ? item.seriesId
         : item.filename;
@@ -682,7 +734,9 @@
     elements.catalogEmpty.hidden = matchingItems.length !== 0;
 
     updateCatalogEmpty(catalog.items.length, matchingItems.length);
-    updateCatalogStatus(matchingItems.length, catalog.items.length);
+    if (options.updateStatus !== false) {
+      updateCatalogStatus(matchingItems.length, catalog.items.length);
+    }
     updateFilterControls();
   }
 
@@ -710,6 +764,35 @@
     elements.workList.replaceChildren(errorBox);
   }
 
+  function addEffectiveVotes(item, catalogType) {
+    const workKey = getWorkKey(item, catalogType);
+    const selectedVote = state.votes.get(workKey) || null;
+    return {
+      ...item,
+      workKey,
+      selectedVote,
+      goodCount: item.baseGood + (selectedVote === "good" ? 1 : 0),
+      badCount: item.baseBad + (selectedVote === "bad" ? 1 : 0),
+    };
+  }
+
+  function compareRankedItems(left, right) {
+    if (left.goodCount !== right.goodCount) {
+      return left.goodCount > right.goodCount ? -1 : 1;
+    }
+    if (left.badCount !== right.badCount) {
+      return left.badCount < right.badCount ? -1 : 1;
+    }
+    const titleOrder = TITLE_COLLATOR.compare(left.title, right.title);
+    return titleOrder || TITLE_COLLATOR.compare(left.workKey, right.workKey);
+  }
+
+  function getWorkKey(item, catalogType) {
+    return catalogType === "serial"
+      ? `serial:${item.seriesId}`
+      : `one-shot:${item.filename}`;
+  }
+
   function createOneShotCard(item) {
     const link = createWorkCardShell(
       `No. ${String(item.displayNumber).padStart(3, "0")}`,
@@ -718,8 +801,8 @@
     );
     link.setAttribute("href", buildOneShotHash(item.filename));
     link.dataset.filename = item.filename;
-    link.dataset.focusKey = `one-shot:${item.filename}`;
-    return wrapListItem(link);
+    link.dataset.focusKey = item.workKey;
+    return wrapListItem(link, item);
   }
 
   function createSeriesCard(item) {
@@ -727,7 +810,7 @@
     link.className = "novel-card";
     link.setAttribute("href", buildSeriesHash(item.seriesId));
     link.dataset.seriesId = item.seriesId;
-    link.dataset.focusKey = `serial:${item.seriesId}`;
+    link.dataset.focusKey = item.workKey;
 
     const meta = document.createElement("span");
     meta.className = "novel-card__meta";
@@ -747,7 +830,7 @@
     callToAction.className = "novel-card__cta";
     callToAction.textContent = "目次を開く";
     link.append(meta, title, createTagList(item.genres), callToAction);
-    return wrapListItem(link);
+    return wrapListItem(link, item);
   }
 
   function createWorkCardShell(numberText, titleText, genres) {
@@ -764,12 +847,49 @@
     return link;
   }
 
-  function wrapListItem(content) {
+  function wrapListItem(content, itemData) {
     const item = document.createElement("div");
     item.className = "novel-card-item";
     item.setAttribute("role", "listitem");
-    item.append(content);
+    item.append(content, createVoteControls(itemData));
     return item;
+  }
+
+  function createVoteControls(item) {
+    const controls = document.createElement("div");
+    controls.className = "vote-controls";
+    controls.setAttribute("role", "group");
+    controls.setAttribute("aria-label", `「${item.title}」の評価`);
+    controls.append(
+      createVoteButton(item, "good", "Good", item.goodCount),
+      createVoteButton(item, "bad", "Bad", item.badCount),
+    );
+    return controls;
+  }
+
+  function createVoteButton(item, voteKind, labelText, count) {
+    const selected = item.selectedVote === voteKind;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = `vote-button vote-button--${voteKind}`;
+    button.dataset.voteKind = voteKind;
+    button.dataset.workKey = item.workKey;
+    button.setAttribute("aria-pressed", String(selected));
+    button.setAttribute(
+      "aria-label",
+      selected
+        ? `「${item.title}」の${labelText}評価を取り消す。現在${count}件`
+        : `「${item.title}」を${labelText}評価する。現在${count}件`,
+    );
+
+    const label = document.createElement("span");
+    label.className = "vote-button__label";
+    label.textContent = labelText;
+    const countText = document.createElement("span");
+    countText.className = "vote-button__count";
+    countText.textContent = String(count);
+    button.append(label, countText);
+    return button;
   }
 
   function createTagList(genres) {
@@ -833,6 +953,77 @@
     elements.titleSearch.focus();
   }
 
+  function handleWorkListClick(event) {
+    const voteButton = event.target.closest("button[data-vote-kind][data-work-key]");
+    if (voteButton) {
+      handleVote(voteButton);
+      return;
+    }
+    handleWorkLinkClick(event);
+  }
+
+  function handleVote(button) {
+    const workKey = button.dataset.workKey;
+    const voteKind = button.dataset.voteKind;
+    if (!workKey || (voteKind !== "good" && voteKind !== "bad")) {
+      return;
+    }
+
+    const item = findItemByWorkKey(workKey);
+    if (!item) {
+      return;
+    }
+    const previousVote = state.votes.get(workKey) || null;
+    const nextVote = previousVote === voteKind ? null : voteKind;
+    const sessionVotes = new Map(state.votes);
+    if (nextVote) {
+      sessionVotes.set(workKey, nextVote);
+    } else {
+      sessionVotes.delete(workKey);
+    }
+    const saveResult = saveVote(workKey, nextVote, sessionVotes);
+    state.votes = saveResult.votes;
+    state.voteStorageAvailable = saveResult.saved;
+    updateVoteStorageNote();
+    savePortalHistory(workKey, `vote:${voteKind}`);
+    renderCatalog({ updateStatus: false });
+
+    const catalogType = workKey.startsWith("serial:") ? "serial" : "one-shot";
+    const updatedItem = addEffectiveVotes(item, catalogType);
+    const action = nextVote === null
+      ? `${voteKind === "good" ? "Good" : "Bad"}評価を取り消しました`
+      : nextVote === voteKind && previousVote && previousVote !== voteKind
+        ? `${previousVote === "good" ? "Good" : "Bad"}から${voteKind === "good" ? "Good" : "Bad"}へ変更しました`
+        : `${voteKind === "good" ? "Good" : "Bad"}評価を付けました`;
+    elements.voteStatus.textContent = "";
+    requestAnimationFrame(() => {
+      const replacement = [...elements.workList.querySelectorAll("button[data-work-key]")]
+        .find((candidate) =>
+          candidate.dataset.workKey === workKey &&
+          candidate.dataset.voteKind === voteKind,
+        );
+      replacement?.focus({ preventScroll: true });
+      replacement?.scrollIntoView({ block: "nearest", inline: "nearest" });
+      const storageMessage = saveResult.saved
+        ? ""
+        : " この投票は、このページを閉じるまでのみ有効です。";
+      elements.voteStatus.textContent =
+        `「${item.title}」の${action}。Good ${updatedItem.goodCount}件、Bad ${updatedItem.badCount}件です。${storageMessage}`;
+    });
+  }
+
+  function findItemByWorkKey(workKey) {
+    for (const catalogType of CATALOG_TYPES) {
+      const item = state.catalogs[catalogType].items.find(
+        (candidate) => getWorkKey(candidate, catalogType) === workKey,
+      );
+      if (item) {
+        return item;
+      }
+    }
+    return null;
+  }
+
   function handleWorkLinkClick(event) {
     const link = event.target.closest("a[data-filename], a[data-series-id]");
     if (!link || !shouldHandleLinkClick(event)) {
@@ -840,7 +1031,7 @@
     }
 
     event.preventDefault();
-    savePortalHistory(link.dataset.focusKey);
+    savePortalHistory(link.dataset.focusKey, "link");
     if (link.dataset.seriesId) {
       history.pushState(
         {
@@ -869,7 +1060,7 @@
     routeToCurrentLocation();
   }
 
-  function savePortalHistory(focusKey) {
+  function savePortalHistory(focusKey, focusControl = "link") {
     const historyData = isPlainObject(history.state) ? history.state : {};
     history.replaceState(
       {
@@ -878,6 +1069,7 @@
         catalogType: state.activeCatalogType,
         portalScrollY: window.scrollY,
         lastFocusedWork: focusKey,
+        lastFocusedControl: focusControl,
       },
       "",
       location.href,
@@ -973,9 +1165,21 @@
     completeScrollRestore(scrollY, () => {
       let restoredWorkFocus = false;
       if (historyData.lastFocusedWork) {
-        const card = [...elements.workList.querySelectorAll("a[data-focus-key]")].find(
-          (candidate) => candidate.dataset.focusKey === historyData.lastFocusedWork,
-        );
+        const voteKind = typeof historyData.lastFocusedControl === "string" &&
+          historyData.lastFocusedControl.startsWith("vote:")
+          ? historyData.lastFocusedControl.slice("vote:".length)
+          : null;
+        const voteButton = voteKind === "good" || voteKind === "bad"
+          ? [...elements.workList.querySelectorAll("button[data-work-key]")].find(
+            (candidate) =>
+              candidate.dataset.workKey === historyData.lastFocusedWork &&
+              candidate.dataset.voteKind === voteKind,
+          )
+          : null;
+        const card = voteButton ||
+          [...elements.workList.querySelectorAll("a[data-focus-key]")].find(
+            (candidate) => candidate.dataset.focusKey === historyData.lastFocusedWork,
+          );
         if (card) {
           card.focus({ preventScroll: true });
           restoredWorkFocus = true;
@@ -1948,6 +2152,135 @@
 
   function isPlainObject(value) {
     return value !== null && typeof value === "object" && !Array.isArray(value);
+  }
+
+  function isValidVoteWorkKey(workKey) {
+    return /^(one-shot|serial):[^\r\n]{1,500}$/.test(workKey);
+  }
+
+  function parseStoredVotes(stored) {
+    if (!stored) {
+      return new Map();
+    }
+    let parsed;
+    try {
+      parsed = JSON.parse(stored);
+    } catch {
+      return new Map();
+    }
+    if (!isPlainObject(parsed)) {
+      return new Map();
+    }
+    return new Map(
+      Object.entries(parsed)
+        .slice(0, 1000)
+        .filter(([workKey, voteKind]) =>
+          isValidVoteWorkKey(workKey) &&
+          (voteKind === "good" || voteKind === "bad"),
+        ),
+    );
+  }
+
+  function loadVotes() {
+    try {
+      const votes = parseStoredVotes(
+        localStorage.getItem(LEGACY_VOTE_STORAGE_KEY),
+      );
+      let storedVoteCount = 0;
+      for (let index = 0; index < localStorage.length; index += 1) {
+        const storageKey = localStorage.key(index);
+        if (!storageKey?.startsWith(VOTE_STORAGE_PREFIX)) {
+          continue;
+        }
+        storedVoteCount += 1;
+        if (storedVoteCount > 1000) {
+          break;
+        }
+        let workKey;
+        try {
+          workKey = decodeURIComponent(storageKey.slice(VOTE_STORAGE_PREFIX.length));
+        } catch {
+          continue;
+        }
+        if (!isValidVoteWorkKey(workKey)) {
+          continue;
+        }
+        const voteKind = localStorage.getItem(storageKey);
+        if (voteKind === "good" || voteKind === "bad") {
+          votes.set(workKey, voteKind);
+        } else if (voteKind === "none") {
+          votes.delete(workKey);
+        }
+      }
+      return {
+        votes,
+        storageAvailable: true,
+      };
+    } catch {
+      return { votes: new Map(), storageAvailable: false };
+    }
+  }
+
+  function saveVote(workKey, nextVote, sessionVotes) {
+    try {
+      localStorage.setItem(
+        `${VOTE_STORAGE_PREFIX}${encodeURIComponent(workKey)}`,
+        nextVote || "none",
+      );
+      return { votes: sessionVotes, saved: true };
+    } catch {
+      return { votes: sessionVotes, saved: false };
+    }
+  }
+
+  function handleVoteStorageChange(event) {
+    if (
+      event.key !== null &&
+      event.key !== LEGACY_VOTE_STORAGE_KEY &&
+      !event.key.startsWith(VOTE_STORAGE_PREFIX)
+    ) {
+      return;
+    }
+
+    const voteState = loadVotes();
+    state.votes = voteState.votes;
+    state.voteStorageAvailable = voteState.storageAvailable;
+    updateVoteStorageNote();
+    if (!state.catalogsLoaded) {
+      return;
+    }
+
+    const focusedElement = elements.workList.contains(document.activeElement)
+      ? document.activeElement
+      : null;
+    const focusedWorkKey = focusedElement?.dataset.workKey ||
+      focusedElement?.dataset.focusKey || null;
+    const focusedVoteKind = focusedElement?.dataset.voteKind || null;
+    renderCatalog({ updateStatus: false });
+
+    if (focusedWorkKey) {
+      requestAnimationFrame(() => {
+        const selector = focusedVoteKind
+          ? "button[data-work-key]"
+          : "a[data-focus-key]";
+        const replacement = [...elements.workList.querySelectorAll(selector)].find(
+          (candidate) =>
+            (candidate.dataset.workKey || candidate.dataset.focusKey) === focusedWorkKey &&
+            (!focusedVoteKind || candidate.dataset.voteKind === focusedVoteKind),
+        );
+        replacement?.focus({ preventScroll: true });
+      });
+    }
+  }
+
+  function updateVoteStorageNote() {
+    elements.voteNote.textContent = state.voteStorageAvailable
+      ? "Good・Badの選択は、このブラウザに保存されます。"
+      : "Good・Badの選択は、このページを閉じるまで有効です（ブラウザへ保存できません）。";
+    elements.voteNote.classList.toggle(
+      "vote-note--warning",
+      !state.voteStorageAvailable,
+    );
   }
 
   function parseCsv(source) {
