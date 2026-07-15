@@ -2,68 +2,155 @@
   "use strict";
 
   const BASE_TITLE = "Cold Print | 参考小説ライブラリ";
-  const CATALOG_URL = new URL(
+  const ONE_SHOT_CATALOG_URL = new URL(
     "./novel-sample-genre-inventory.csv",
     document.baseURI,
   );
-  const NOVEL_DIRECTORY_URL = new URL("./novels/", document.baseURI);
-  const META_COLUMNS = ["ファイル名", "タイトル", "重複元ファイル"];
+  const SERIAL_CATALOG_URL = new URL(
+    "./serial-novel-inventory.csv",
+    document.baseURI,
+  );
+  const ONE_SHOT_DIRECTORY_URL = new URL("./novels/", document.baseURI);
+  const SERIAL_DIRECTORY_URL = new URL("./novels/serials/", document.baseURI);
+
+  const ONE_SHOT_META_COLUMNS = ["ファイル名", "タイトル", "重複元ファイル"];
+  const SERIAL_META_COLUMNS = ["連載ID", "タイトル", "連載状態"];
+  const EPISODE_COLUMNS = [
+    "エピソードID",
+    "表示順",
+    "話数表示",
+    "各話タイトル",
+    "ファイル名",
+  ];
+  const SERIAL_STATES = new Set(["連載中", "完結", "休載"]);
+  const SERIAL_ID_PATTERN = /^serial-[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$/;
+  const EPISODE_ID_PATTERN = /^ep-[0-9]{3,}$/;
+  const CATALOG_TYPES = ["one-shot", "serial"];
+  const HISTORY_SNAPSHOT_INTERVAL = 200;
 
   const elements = {
     body: document.body,
     skipLink: document.querySelector(".skip-link"),
     portalView: document.querySelector("#portal-view"),
     portalTitle: document.querySelector("#portal-title"),
-    novelTotal: document.querySelector("#novel-total"),
+    workTotal: document.querySelector("#work-total"),
     genreTotal: document.querySelector("#genre-total"),
+    catalogTabs: document.querySelector(".catalog-tabs"),
+    catalogPanel: document.querySelector("#catalog-panel"),
+    oneShotCount: document.querySelector("#one-shot-count"),
+    serialCount: document.querySelector("#serial-count"),
+    catalogTitle: document.querySelector("#catalog-title"),
     titleSearch: document.querySelector("#title-search"),
     genreFilterList: document.querySelector("#genre-filter-list"),
     selectedGenreCount: document.querySelector("#selected-genre-count"),
     clearFilters: document.querySelector("#clear-filters"),
     catalogStatus: document.querySelector("#catalog-status"),
-    novelList: document.querySelector("#novel-list"),
+    workList: document.querySelector("#work-list"),
     catalogEmpty: document.querySelector("#catalog-empty"),
+    catalogEmptyTitle: document.querySelector("#catalog-empty-title"),
+    catalogEmptyMessage: document.querySelector("#catalog-empty-message"),
+    catalogEmptyButton: document.querySelector(
+      '#catalog-empty [data-action="clear-filters"]',
+    ),
+    seriesView: document.querySelector("#series-view"),
+    seriesTitle: document.querySelector("#series-title"),
+    seriesState: document.querySelector("#series-state"),
+    seriesTags: document.querySelector("#series-tags"),
+    seriesSummary: document.querySelector("#series-summary"),
+    seriesActions: document.querySelector("#series-actions"),
+    firstEpisodeLink: document.querySelector("#first-episode-link"),
+    latestEpisodeLink: document.querySelector("#latest-episode-link"),
+    episodeCount: document.querySelector("#episode-count"),
+    seriesStatus: document.querySelector("#series-status"),
+    episodeList: document.querySelector("#episode-list"),
     readerView: document.querySelector("#reader-view"),
+    readerBack: document.querySelector("#reader-back"),
+    readerBackLabel: document.querySelector("#reader-back-label"),
+    readerNavLabel: document.querySelector("#reader-nav-label"),
     readerArticle: document.querySelector("#reader-article"),
+    readerKicker: document.querySelector("#reader-kicker"),
+    readerSeriesTitle: document.querySelector("#reader-series-title"),
     readerTitle: document.querySelector("#reader-title"),
     readerTags: document.querySelector("#reader-tags"),
     readerStatus: document.querySelector("#reader-status"),
     readerBody: document.querySelector("#reader-body"),
     readerFooter: document.querySelector("#reader-footer"),
+    oneShotFooterActions: document.querySelector("#one-shot-footer-actions"),
+    episodeNavigationTop: document.querySelector("#episode-navigation-top"),
+    episodeNavigationBottom: document.querySelector("#episode-navigation-bottom"),
     readingProgressBar: document.querySelector("#reading-progress-bar"),
   };
 
   const state = {
-    catalogReady: false,
-    novels: [],
-    displayNovels: [],
-    novelsByFilename: new Map(),
+    catalogsLoaded: false,
+    catalogs: {
+      "one-shot": createCatalogState(),
+      serial: createCatalogState(),
+    },
     genreNames: [],
-    activeGenres: new Set(),
-    query: "",
+    activeCatalogType: "one-shot",
+    filters: {
+      "one-shot": createFilterState(),
+      serial: createFilterState(),
+    },
+    seriesCache: new Map(),
     textCache: new Map(),
-    currentFilename: null,
+    currentReading: null,
+    currentRouteKey: null,
     requestController: null,
     routeToken: 0,
     scrollFrame: null,
+    suppressScrollSnapshot: false,
+    scrollRestoreToken: 0,
+    pendingSeriesFocus: null,
+    historySnapshotTimer: null,
+    lastHistorySnapshotTime: 0,
   };
 
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
   bindEvents();
   prepareInitialHistoryState();
   prepareInitialView();
-  loadCatalog();
+  loadCatalogs();
+
+  function createCatalogState() {
+    return {
+      ready: false,
+      error: null,
+      items: [],
+      allItems: [],
+      itemMap: new Map(),
+      genreNames: [],
+    };
+  }
+
+  function createFilterState() {
+    return { query: "", activeGenres: new Set() };
+  }
 
   function bindEvents() {
     elements.skipLink.addEventListener("click", (event) => {
       event.preventDefault();
       const heading = elements.body.dataset.view === "reader"
         ? elements.readerTitle
-        : elements.portalTitle;
+        : elements.body.dataset.view === "series"
+          ? elements.seriesTitle
+          : elements.portalTitle;
       heading.focus({ preventScroll: false });
     });
 
+    elements.catalogTabs.addEventListener("click", (event) => {
+      const tab = event.target.closest("button[data-catalog-type]");
+      if (tab) {
+        switchCatalog(tab.dataset.catalogType, { focusTab: true });
+      }
+    });
+    elements.catalogTabs.addEventListener("keydown", handleCatalogTabKeydown);
+
     elements.titleSearch.addEventListener("input", (event) => {
-      state.query = event.currentTarget.value;
+      getActiveFilter().query = event.currentTarget.value;
       renderCatalog();
     });
 
@@ -73,11 +160,12 @@
         return;
       }
 
+      const activeGenres = getActiveFilter().activeGenres;
       const genre = button.dataset.genre;
-      if (state.activeGenres.has(genre)) {
-        state.activeGenres.delete(genre);
+      if (activeGenres.has(genre)) {
+        activeGenres.delete(genre);
       } else {
-        state.activeGenres.add(genre);
+        activeGenres.add(genre);
       }
       renderCatalog();
     });
@@ -89,25 +177,38 @@
       }
     });
 
-    elements.novelList.addEventListener("click", handleNovelLinkClick);
-
-    document.querySelectorAll('[data-action="back-to-portal"]').forEach((button) => {
-      button.addEventListener("click", returnToPortal);
-    });
+    elements.workList.addEventListener("click", handleWorkLinkClick);
+    elements.seriesView.addEventListener("click", handleSeriesViewClick);
+    elements.readerView.addEventListener("click", handleReaderViewClick);
+    document
+      .querySelector('[data-action="series-to-portal"]')
+      .addEventListener("click", returnFromSeriesToPortal);
+    elements.readerBack.addEventListener("click", handleReaderBack);
 
     window.addEventListener("popstate", routeToCurrentLocation);
-    window.addEventListener("scroll", requestProgressUpdate, { passive: true });
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+    window.addEventListener("scrollend", flushHistorySnapshot, { passive: true });
     window.addEventListener("resize", requestProgressUpdate);
   }
 
   function prepareInitialHistoryState() {
     const existingState = isPlainObject(history.state) ? history.state : {};
     const route = readRoute();
+    const view = route.type === "series"
+      ? "series"
+      : route.type === "one-shot" || route.type === "episode"
+        ? "reader"
+        : "portal";
+    const catalogType = route.type === "series" || route.type === "episode"
+      ? "serial"
+      : existingState.catalogType || "one-shot";
+
     history.replaceState(
       {
         ...existingState,
-        view: route.type === "novel" ? "reader" : "portal",
-        directEntry: route.type === "novel" && !existingState.fromPortal,
+        view,
+        catalogType,
+        directEntry: view !== "portal" && !existingState.fromPortal,
       },
       "",
       location.href,
@@ -115,323 +216,676 @@
   }
 
   function prepareInitialView() {
-    if (readRoute().type !== "novel") {
+    const route = readRoute();
+    if (route.type === "series") {
+      elements.portalView.hidden = true;
+      elements.seriesView.hidden = false;
+      elements.readerView.hidden = true;
+      elements.body.dataset.view = "series";
       return;
     }
 
-    elements.portalView.hidden = true;
-    elements.readerView.hidden = false;
-    elements.body.dataset.view = "reader";
-    elements.readerTitle.textContent = "作品情報を読み込んでいます";
-    elements.readerStatus.textContent = "作品情報を読み込んでいます…";
-    elements.readerBody.hidden = true;
-    elements.readerFooter.hidden = true;
+    if (route.type === "one-shot" || route.type === "episode") {
+      elements.portalView.hidden = true;
+      elements.seriesView.hidden = true;
+      elements.readerView.hidden = false;
+      elements.body.dataset.view = "reader";
+      elements.readerTitle.textContent = "作品情報を読み込んでいます";
+      elements.readerStatus.textContent = "作品情報を読み込んでいます…";
+      elements.readerBody.hidden = true;
+      elements.readerFooter.hidden = true;
+    }
   }
 
-  async function loadCatalog() {
+  async function loadCatalogs() {
+    state.catalogsLoaded = false;
+    state.catalogs["one-shot"] = createCatalogState();
+    state.catalogs.serial = createCatalogState();
     setCatalogLoading();
 
-    try {
-      const response = await fetch(CATALOG_URL);
-      if (!response.ok) {
-        throw new Error(`作品一覧を取得できませんでした（HTTP ${response.status}）`);
+    const [oneShotResult, serialResult] = await Promise.allSettled([
+      fetchText(ONE_SHOT_CATALOG_URL, "読み切り作品一覧"),
+      fetchText(SERIAL_CATALOG_URL, "連載作品一覧"),
+    ]);
+
+    if (oneShotResult.status === "fulfilled") {
+      try {
+        state.catalogs["one-shot"] = {
+          ...buildOneShotCatalog(oneShotResult.value),
+          ready: true,
+          error: null,
+        };
+      } catch (error) {
+        state.catalogs["one-shot"].error = error;
       }
-
-      const csvText = await response.text();
-      const catalog = buildCatalog(csvText);
-      state.novels = catalog.novels;
-      state.displayNovels = catalog.displayNovels;
-      state.novelsByFilename = catalog.novelsByFilename;
-      state.genreNames = catalog.genreNames;
-      state.catalogReady = true;
-
-      elements.novelTotal.textContent = String(state.displayNovels.length);
-      elements.genreTotal.textContent = String(state.genreNames.length);
-      renderGenreFilters();
-      renderCatalog();
-      routeToCurrentLocation();
-    } catch (error) {
-      state.catalogReady = false;
-      showCatalogError(error);
+    } else {
+      state.catalogs["one-shot"].error = oneShotResult.reason;
     }
+
+    const expectedGenres = state.catalogs["one-shot"].ready
+      ? state.catalogs["one-shot"].genreNames
+      : null;
+    if (serialResult.status === "fulfilled") {
+      try {
+        state.catalogs.serial = {
+          ...buildSerialCatalog(serialResult.value, expectedGenres),
+          ready: true,
+          error: null,
+        };
+      } catch (error) {
+        state.catalogs.serial.error = error;
+      }
+    } else {
+      state.catalogs.serial.error = serialResult.reason;
+    }
+
+    state.genreNames = state.catalogs["one-shot"].ready
+      ? state.catalogs["one-shot"].genreNames
+      : state.catalogs.serial.ready
+        ? state.catalogs.serial.genreNames
+        : [];
+    state.catalogsLoaded = true;
+
+    updateArchiveCounts();
+    const route = readRoute();
+    const initialCatalogType = route.type === "series" || route.type === "episode"
+      ? "serial"
+      : normalizeCatalogType(history.state?.catalogType);
+    switchCatalog(initialCatalogType, {
+      updateHistory: false,
+      focusTab: false,
+    });
+    routeToCurrentLocation();
+  }
+
+  async function fetchText(url, label, options = {}) {
+    const response = await fetch(url, options);
+    if (!response.ok) {
+      throw new Error(`${label}を取得できませんでした（HTTP ${response.status}）`);
+    }
+    return response.text();
   }
 
   function setCatalogLoading() {
     elements.catalogStatus.className = "catalog-status";
     elements.catalogStatus.textContent = "作品情報を読み込んでいます…";
-    elements.novelList.replaceChildren();
+    elements.workList.hidden = false;
+    elements.workList.replaceChildren();
     elements.catalogEmpty.hidden = true;
   }
 
-  function showCatalogError(error) {
-    showPortal({ focusPortalTitle: false, restorePosition: false });
-    elements.catalogStatus.className = "catalog-status catalog-status--error";
-    elements.catalogStatus.textContent = "作品情報を読み込めませんでした。";
-    elements.novelList.hidden = false;
-    elements.catalogEmpty.hidden = true;
-
-    const errorBox = document.createElement("div");
-    errorBox.className = "empty-state";
-
-    const title = document.createElement("p");
-    title.className = "empty-state__title";
-    title.textContent = "作品棚を開けませんでした";
-
-    const detail = document.createElement("p");
-    detail.textContent = readableErrorMessage(error);
-
-    const retryButton = document.createElement("button");
-    retryButton.type = "button";
-    retryButton.className = "secondary-button";
-    retryButton.textContent = "もう一度読み込む";
-    retryButton.addEventListener("click", loadCatalog, { once: true });
-
-    errorBox.append(title, detail, retryButton);
-    elements.novelList.replaceChildren(errorBox);
-  }
-
-  function buildCatalog(csvText) {
+  function buildOneShotCatalog(csvText) {
     const table = parseCsv(csvText);
     if (table.length < 2) {
-      throw new Error("CSVに作品情報がありません。");
+      throw new Error("読み切りCSVに作品情報がありません。");
     }
 
-    const headers = table[0].map((header) => header.trim());
-    const missingColumns = META_COLUMNS.filter((column) => !headers.includes(column));
-    if (missingColumns.length > 0) {
-      throw new Error(`CSVの必須列がありません: ${missingColumns.join("、")}`);
-    }
-
-    if (new Set(headers).size !== headers.length) {
-      throw new Error("CSVに同じ名前の列が複数あります。");
-    }
-
-    const genreNames = headers.filter((header) => !META_COLUMNS.includes(header));
+    const headers = validateHeaders(table[0], ONE_SHOT_META_COLUMNS, "読み切りCSV");
+    const genreNames = headers.slice(ONE_SHOT_META_COLUMNS.length);
     if (genreNames.length === 0) {
-      throw new Error("CSVにジャンル列がありません。");
+      throw new Error("読み切りCSVにジャンル列がありません。");
     }
 
-    const novels = [];
-    const novelsByFilename = new Map();
-
+    const allItems = [];
+    const itemMap = new Map();
     table.slice(1).forEach((fields, rowIndex) => {
-      if (fields.length !== headers.length) {
-        throw new Error(
-          `CSV ${rowIndex + 2}行目の列数が正しくありません（${fields.length}列）。`,
-        );
-      }
-
-      const row = Object.fromEntries(
-        headers.map((header, index) => [header, fields[index].trim()]),
-      );
+      const row = makeRow(headers, fields, rowIndex + 2, "読み切りCSV");
       const filename = row["ファイル名"];
       const title = row["タイトル"];
       const duplicateOf = row["重複元ファイル"];
 
       if (!filename || !title) {
-        throw new Error(`CSV ${rowIndex + 2}行目のファイル名またはタイトルが空です。`);
-      }
-      if (novelsByFilename.has(filename)) {
-        throw new Error(`CSVに同じファイル名が複数あります: ${filename}`);
-      }
-
-      const invalidGenre = genreNames.find(
-        (genre) => row[genre] !== "0" && row[genre] !== "1",
-      );
-      if (invalidGenre) {
         throw new Error(
-          `CSV ${rowIndex + 2}行目の「${invalidGenre}」は0または1ではありません。`,
+          `読み切りCSV ${rowIndex + 2}行目のファイル名またはタイトルが空です。`,
         );
       }
+      validateTextFilename(filename, `読み切りCSV ${rowIndex + 2}行目`);
+      if (itemMap.has(filename)) {
+        throw new Error(`読み切りCSVに同じファイル名があります: ${filename}`);
+      }
 
-      const novel = {
-        filename,
+      const genres = readGenreValues(row, genreNames, rowIndex + 2, "読み切りCSV");
+      const item = { filename, title, duplicateOf, genres };
+      allItems.push(item);
+      itemMap.set(filename, item);
+    });
+
+    allItems.forEach((item) => {
+      if (item.duplicateOf && !itemMap.has(item.duplicateOf)) {
+        throw new Error(`重複元ファイルが作品一覧にありません: ${item.duplicateOf}`);
+      }
+    });
+
+    const items = allItems
+      .filter((item) => !item.duplicateOf)
+      .map((item, index) => ({ ...item, displayNumber: index + 1 }));
+    return { items, allItems, itemMap, genreNames };
+  }
+
+  function buildSerialCatalog(csvText, expectedGenres) {
+    const table = parseCsv(csvText);
+    if (table.length === 0) {
+      throw new Error("連載CSVにヘッダーがありません。");
+    }
+
+    const headers = validateHeaders(table[0], SERIAL_META_COLUMNS, "連載CSV");
+    const genreNames = headers.slice(SERIAL_META_COLUMNS.length);
+    if (genreNames.length === 0) {
+      throw new Error("連載CSVにジャンル列がありません。");
+    }
+    if (expectedGenres && !sameStringArray(genreNames, expectedGenres)) {
+      throw new Error("連載CSVのジャンル列が読み切りCSVと一致しません。");
+    }
+
+    const items = [];
+    const itemMap = new Map();
+    table.slice(1).forEach((fields, rowIndex) => {
+      const row = makeRow(headers, fields, rowIndex + 2, "連載CSV");
+      const seriesId = row["連載ID"];
+      const title = row["タイトル"];
+      const serialState = row["連載状態"];
+
+      if (!SERIAL_ID_PATTERN.test(seriesId)) {
+        throw new Error(`連載CSV ${rowIndex + 2}行目の連載IDが不正です。`);
+      }
+      if (!title) {
+        throw new Error(`連載CSV ${rowIndex + 2}行目のタイトルが空です。`);
+      }
+      if (!SERIAL_STATES.has(serialState)) {
+        throw new Error(`連載CSV ${rowIndex + 2}行目の連載状態が不正です。`);
+      }
+      if (itemMap.has(seriesId)) {
+        throw new Error(`連載CSVに同じ連載IDがあります: ${seriesId}`);
+      }
+
+      const genres = readGenreValues(row, genreNames, rowIndex + 2, "連載CSV");
+      const item = {
+        seriesId,
         title,
-        duplicateOf,
-        genres: genreNames.filter((genre) => row[genre] === "1"),
+        serialState,
+        genres,
+        displayNumber: rowIndex + 1,
       };
-      novels.push(novel);
-      novelsByFilename.set(filename, novel);
+      items.push(item);
+      itemMap.set(seriesId, item);
     });
 
-    novels.forEach((novel) => {
-      if (novel.duplicateOf && !novelsByFilename.has(novel.duplicateOf)) {
+    return { items, allItems: items, itemMap, genreNames };
+  }
+
+  function buildEpisodeCatalog(csvText, series) {
+    const table = parseCsv(csvText);
+    if (table.length < 2) {
+      throw new Error(`「${series.title}」に各話情報がありません。`);
+    }
+
+    const headers = table[0].map((header) => header.trim());
+    if (!sameStringArray(headers, EPISODE_COLUMNS)) {
+      throw new Error("episodes.csvの列が規定と一致しません。");
+    }
+
+    const episodes = [];
+    const episodeMap = new Map();
+    const orderValues = new Set();
+    const filenames = new Set();
+    table.slice(1).forEach((fields, rowIndex) => {
+      const row = makeRow(headers, fields, rowIndex + 2, "episodes.csv");
+      const episodeId = row["エピソードID"];
+      const orderText = row["表示順"];
+      const label = row["話数表示"];
+      const title = row["各話タイトル"];
+      const filename = row["ファイル名"];
+
+      if (!EPISODE_ID_PATTERN.test(episodeId)) {
+        throw new Error(`episodes.csv ${rowIndex + 2}行目のIDが不正です。`);
+      }
+      if (!/^(0|[1-9][0-9]*)$/.test(orderText)) {
+        throw new Error(`episodes.csv ${rowIndex + 2}行目の表示順が不正です。`);
+      }
+      const displayOrder = Number(orderText);
+      if (!Number.isSafeInteger(displayOrder)) {
+        throw new Error(`episodes.csv ${rowIndex + 2}行目の表示順が大きすぎます。`);
+      }
+      if (!label) {
+        throw new Error(`episodes.csv ${rowIndex + 2}行目の話数表示が空です。`);
+      }
+      validateTextFilename(filename, `episodes.csv ${rowIndex + 2}行目`);
+      if (filename !== `${episodeId}.txt`) {
         throw new Error(
-          `重複元ファイルが作品一覧にありません: ${novel.duplicateOf}`,
+          `episodes.csv ${rowIndex + 2}行目のファイル名は${episodeId}.txtにしてください。`,
         );
       }
+      if (episodeMap.has(episodeId)) {
+        throw new Error(`episodes.csvに同じエピソードIDがあります: ${episodeId}`);
+      }
+      if (orderValues.has(displayOrder)) {
+        throw new Error(`episodes.csvに同じ表示順があります: ${displayOrder}`);
+      }
+      if (filenames.has(filename)) {
+        throw new Error(`episodes.csvに同じファイル名があります: ${filename}`);
+      }
+
+      const episode = { episodeId, displayOrder, label, title, filename };
+      episodes.push(episode);
+      episodeMap.set(episodeId, episode);
+      orderValues.add(displayOrder);
+      filenames.add(filename);
     });
 
-    const displayNovels = novels
-      .filter((novel) => !novel.duplicateOf)
-      .map((novel, index) => ({ ...novel, displayNumber: index + 1 }));
+    episodes.sort((left, right) => left.displayOrder - right.displayOrder);
+    return { episodes, episodeMap };
+  }
 
-    return { novels, displayNovels, novelsByFilename, genreNames };
+  function validateHeaders(rawHeaders, metaColumns, label) {
+    const headers = rawHeaders.map((header) => header.trim());
+    if (new Set(headers).size !== headers.length) {
+      throw new Error(`${label}に同じ名前の列が複数あります。`);
+    }
+    if (!sameStringArray(headers.slice(0, metaColumns.length), metaColumns)) {
+      throw new Error(`${label}の先頭列が規定と一致しません。`);
+    }
+    return headers;
+  }
+
+  function makeRow(headers, fields, lineNumber, label) {
+    if (fields.length !== headers.length) {
+      throw new Error(`${label} ${lineNumber}行目の列数が正しくありません。`);
+    }
+    return Object.fromEntries(
+      headers.map((header, index) => [header, fields[index].trim()]),
+    );
+  }
+
+  function readGenreValues(row, genreNames, lineNumber, label) {
+    const invalidGenre = genreNames.find(
+      (genre) => row[genre] !== "0" && row[genre] !== "1",
+    );
+    if (invalidGenre) {
+      throw new Error(
+        `${label} ${lineNumber}行目の「${invalidGenre}」は0または1ではありません。`,
+      );
+    }
+    const genres = genreNames.filter((genre) => row[genre] === "1");
+    if (genres.length === 0) {
+      throw new Error(`${label} ${lineNumber}行目にジャンルが設定されていません。`);
+    }
+    return genres;
+  }
+
+  function validateTextFilename(filename, label) {
+    if (
+      !filename ||
+      !filename.endsWith(".txt") ||
+      filename === ".txt" ||
+      filename.includes("/") ||
+      filename.includes("\\") ||
+      filename.includes("%") ||
+      filename === "." ||
+      filename === ".."
+    ) {
+      throw new Error(`${label}の本文ファイル名が不正です。`);
+    }
+  }
+
+  function updateArchiveCounts() {
+    const oneShotCatalog = state.catalogs["one-shot"];
+    const serialCatalog = state.catalogs.serial;
+    const oneShotCount = oneShotCatalog.ready ? oneShotCatalog.items.length : null;
+    const serialCount = serialCatalog.ready ? serialCatalog.items.length : null;
+    const total = (oneShotCount || 0) + (serialCount || 0);
+
+    elements.oneShotCount.textContent = oneShotCount === null ? "!" : String(oneShotCount);
+    elements.serialCount.textContent = serialCount === null ? "!" : String(serialCount);
+    elements.workTotal.textContent = oneShotCount === null && serialCount === null
+      ? "--"
+      : String(total);
+    elements.genreTotal.textContent = state.genreNames.length
+      ? String(state.genreNames.length)
+      : "--";
+  }
+
+  function switchCatalog(catalogType, options = {}) {
+    const normalizedType = normalizeCatalogType(catalogType);
+    state.activeCatalogType = normalizedType;
+    const filter = getActiveFilter();
+    elements.titleSearch.value = filter.query;
+    elements.titleSearch.placeholder = normalizedType === "serial"
+      ? "連載作品名を入力"
+      : "読み切りの作品名を入力";
+    elements.catalogTitle.textContent = normalizedType === "serial"
+      ? "連載作品"
+      : "読み切り作品";
+
+    elements.catalogTabs.querySelectorAll('[role="tab"]').forEach((tab) => {
+      const selected = tab.dataset.catalogType === normalizedType;
+      tab.setAttribute("aria-selected", String(selected));
+      tab.tabIndex = selected ? 0 : -1;
+    });
+    const selectedTab = elements.catalogTabs.querySelector(
+      `[data-catalog-type="${normalizedType}"]`,
+    );
+    elements.catalogPanel.setAttribute("aria-labelledby", selectedTab.id);
+
+    renderGenreFilters();
+    renderCatalog();
+
+    if (options.updateHistory !== false && elements.body.dataset.view === "portal") {
+      const historyData = isPlainObject(history.state) ? history.state : {};
+      const focusPrefix = normalizedType === "serial" ? "serial:" : "one-shot:";
+      const lastFocusedWork = typeof historyData.lastFocusedWork === "string" &&
+        historyData.lastFocusedWork.startsWith(focusPrefix)
+        ? historyData.lastFocusedWork
+        : null;
+      history.replaceState(
+        {
+          ...historyData,
+          view: "portal",
+          catalogType: normalizedType,
+          lastFocusedWork,
+        },
+        "",
+        location.href,
+      );
+    }
+    if (options.focusTab) {
+      selectedTab.focus();
+    }
+  }
+
+  function handleCatalogTabKeydown(event) {
+    const currentTab = event.target.closest('button[role="tab"]');
+    if (!currentTab) {
+      return;
+    }
+
+    const currentIndex = CATALOG_TYPES.indexOf(currentTab.dataset.catalogType);
+    let nextIndex = null;
+    if (event.key === "ArrowRight") {
+      nextIndex = (currentIndex + 1) % CATALOG_TYPES.length;
+    } else if (event.key === "ArrowLeft") {
+      nextIndex = (currentIndex - 1 + CATALOG_TYPES.length) % CATALOG_TYPES.length;
+    } else if (event.key === "Home") {
+      nextIndex = 0;
+    } else if (event.key === "End") {
+      nextIndex = CATALOG_TYPES.length - 1;
+    }
+    if (nextIndex === null) {
+      return;
+    }
+
+    event.preventDefault();
+    switchCatalog(CATALOG_TYPES[nextIndex], { focusTab: true });
   }
 
   function renderGenreFilters() {
-    const genreCounts = new Map(
-      state.genreNames.map((genre) => [
-        genre,
-        state.displayNovels.filter((novel) => novel.genres.includes(genre)).length,
-      ]),
-    );
+    const catalog = getActiveCatalog();
+    const items = catalog.ready ? catalog.items : [];
+    const activeGenres = getActiveFilter().activeGenres;
     const fragment = document.createDocumentFragment();
 
     state.genreNames.forEach((genre) => {
+      const countValue = items.filter((item) => item.genres.includes(genre)).length;
       const button = document.createElement("button");
       button.type = "button";
       button.dataset.genre = genre;
-      button.setAttribute("aria-pressed", "false");
+      button.setAttribute("aria-pressed", String(activeGenres.has(genre)));
       button.append(document.createTextNode(genre));
 
       const count = document.createElement("span");
-      count.textContent = String(genreCounts.get(genre));
-      count.setAttribute("aria-label", `${genreCounts.get(genre)}作品`);
+      count.textContent = String(countValue);
+      count.setAttribute("aria-label", `${countValue}作品`);
       button.append(count);
       fragment.append(button);
     });
-
     elements.genreFilterList.replaceChildren(fragment);
   }
 
   function renderCatalog() {
-    if (!state.catalogReady) {
+    if (!state.catalogsLoaded) {
+      setCatalogLoading();
       return;
     }
 
-    const query = normalizeForSearch(state.query);
-    const matchingNovels = state.displayNovels.filter((novel) => {
+    const catalog = getActiveCatalog();
+    if (!catalog.ready) {
+      renderCatalogError(catalog.error);
+      updateFilterControls();
+      return;
+    }
+
+    const filter = getActiveFilter();
+    const query = normalizeForSearch(filter.query);
+    const matchingItems = catalog.items.filter((item) => {
+      const searchableId = state.activeCatalogType === "serial"
+        ? item.seriesId
+        : item.filename;
       const matchesQuery =
         !query ||
-        normalizeForSearch(novel.title).includes(query) ||
-        normalizeForSearch(novel.filename).includes(query);
-      const matchesGenres = [...state.activeGenres].every((genre) =>
-        novel.genres.includes(genre),
+        normalizeForSearch(item.title).includes(query) ||
+        normalizeForSearch(searchableId).includes(query);
+      const matchesGenres = [...filter.activeGenres].every((genre) =>
+        item.genres.includes(genre),
       );
       return matchesQuery && matchesGenres;
     });
 
     const fragment = document.createDocumentFragment();
-    matchingNovels.forEach((novel) => fragment.append(createNovelCard(novel)));
-    elements.novelList.replaceChildren(fragment);
-    elements.novelList.hidden = matchingNovels.length === 0;
-    elements.catalogEmpty.hidden = matchingNovels.length !== 0;
+    matchingItems.forEach((item) => {
+      fragment.append(
+        state.activeCatalogType === "serial"
+          ? createSeriesCard(item)
+          : createOneShotCard(item),
+      );
+    });
+    elements.workList.replaceChildren(fragment);
+    elements.workList.hidden = matchingItems.length === 0;
+    elements.catalogEmpty.hidden = matchingItems.length !== 0;
 
-    updateCatalogStatus(matchingNovels.length);
+    updateCatalogEmpty(catalog.items.length, matchingItems.length);
+    updateCatalogStatus(matchingItems.length, catalog.items.length);
     updateFilterControls();
   }
 
-  function createNovelCard(novel) {
-    const item = document.createElement("div");
-    item.className = "novel-card-item";
-    item.setAttribute("role", "listitem");
+  function renderCatalogError(error) {
+    elements.catalogStatus.className = "catalog-status catalog-status--error";
+    elements.catalogStatus.textContent = state.activeCatalogType === "serial"
+      ? "連載作品情報を読み込めませんでした。"
+      : "読み切り作品情報を読み込めませんでした。";
+    elements.catalogEmpty.hidden = true;
+    elements.workList.hidden = false;
 
+    const errorBox = document.createElement("div");
+    errorBox.className = "empty-state";
+    const title = document.createElement("p");
+    title.className = "empty-state__title";
+    title.textContent = "作品棚を開けませんでした";
+    const detail = document.createElement("p");
+    detail.textContent = readableErrorMessage(error);
+    const retryButton = document.createElement("button");
+    retryButton.type = "button";
+    retryButton.className = "secondary-button";
+    retryButton.textContent = "もう一度読み込む";
+    retryButton.addEventListener("click", loadCatalogs, { once: true });
+    errorBox.append(title, detail, retryButton);
+    elements.workList.replaceChildren(errorBox);
+  }
+
+  function createOneShotCard(item) {
+    const link = createWorkCardShell(
+      `No. ${String(item.displayNumber).padStart(3, "0")}`,
+      item.title,
+      item.genres,
+    );
+    link.setAttribute("href", buildOneShotHash(item.filename));
+    link.dataset.filename = item.filename;
+    link.dataset.focusKey = `one-shot:${item.filename}`;
+    return wrapListItem(link);
+  }
+
+  function createSeriesCard(item) {
     const link = document.createElement("a");
     link.className = "novel-card";
-    link.setAttribute("href", buildNovelHash(novel.filename));
-    link.dataset.filename = novel.filename;
+    link.setAttribute("href", buildSeriesHash(item.seriesId));
+    link.dataset.seriesId = item.seriesId;
+    link.dataset.focusKey = `serial:${item.seriesId}`;
 
+    const meta = document.createElement("span");
+    meta.className = "novel-card__meta";
     const number = document.createElement("span");
     number.className = "novel-card__number";
     number.setAttribute("aria-hidden", "true");
-    number.textContent = `No. ${String(novel.displayNumber).padStart(3, "0")}`;
+    number.textContent = `Serial ${String(item.displayNumber).padStart(3, "0")}`;
+    const serialState = document.createElement("span");
+    serialState.className = "series-state";
+    serialState.textContent = item.serialState;
+    meta.append(number, serialState);
 
     const title = document.createElement("span");
     title.className = "novel-card__title";
-    title.textContent = novel.title;
+    title.textContent = item.title;
+    const callToAction = document.createElement("span");
+    callToAction.className = "novel-card__cta";
+    callToAction.textContent = "目次を開く";
+    link.append(meta, title, createTagList(item.genres), callToAction);
+    return wrapListItem(link);
+  }
 
-    link.append(number, title, createTagList(novel.genres));
-    item.append(link);
+  function createWorkCardShell(numberText, titleText, genres) {
+    const link = document.createElement("a");
+    link.className = "novel-card";
+    const number = document.createElement("span");
+    number.className = "novel-card__number";
+    number.setAttribute("aria-hidden", "true");
+    number.textContent = numberText;
+    const title = document.createElement("span");
+    title.className = "novel-card__title";
+    title.textContent = titleText;
+    link.append(number, title, createTagList(genres));
+    return link;
+  }
+
+  function wrapListItem(content) {
+    const item = document.createElement("div");
+    item.className = "novel-card-item";
+    item.setAttribute("role", "listitem");
+    item.append(content);
     return item;
   }
 
   function createTagList(genres) {
     const list = document.createElement("span");
     list.className = "tag-list";
-
-    genres.forEach((genre) => {
-      const tag = document.createElement("span");
-      tag.className = "genre-tag";
-      tag.textContent = genre;
-      list.append(tag);
-    });
+    list.append(...createGenreTags(genres));
     return list;
   }
 
-  function updateCatalogStatus(matchingCount) {
-    const hasFilters = Boolean(state.query.trim()) || state.activeGenres.size > 0;
+  function updateCatalogEmpty(totalCount, matchingCount) {
+    const filter = getActiveFilter();
+    const hasFilters = Boolean(filter.query.trim()) || filter.activeGenres.size > 0;
+    if (state.activeCatalogType === "serial" && totalCount === 0 && !hasFilters) {
+      elements.catalogEmptyTitle.textContent = "連載作品はまだありません";
+      elements.catalogEmptyMessage.textContent =
+        "連載作品を追加すると、シリーズごとにこの棚へ表示されます。";
+      elements.catalogEmptyButton.hidden = true;
+      return;
+    }
+
+    elements.catalogEmptyTitle.textContent = matchingCount === 0
+      ? "該当する作品がありません"
+      : "";
+    elements.catalogEmptyMessage.textContent =
+      "検索語や選択中のジャンルを変えてみてください。";
+    elements.catalogEmptyButton.hidden = !hasFilters;
+  }
+
+  function updateCatalogStatus(matchingCount, totalCount) {
+    const filter = getActiveFilter();
+    const hasFilters = Boolean(filter.query.trim()) || filter.activeGenres.size > 0;
     const count = document.createElement("strong");
     count.textContent = String(matchingCount);
-
-    const suffix = hasFilters
-      ? ` / ${state.displayNovels.length}作品を表示`
-      : `作品を収録（重複${state.novels.length - state.displayNovels.length}件を除外）`;
+    const suffix = hasFilters ? ` / ${totalCount}作品を表示` : "作品を収録";
     elements.catalogStatus.className = "catalog-status";
     elements.catalogStatus.replaceChildren(count, document.createTextNode(suffix));
   }
 
   function updateFilterControls() {
+    const activeGenres = getActiveFilter().activeGenres;
     elements.genreFilterList.querySelectorAll("button[data-genre]").forEach((button) => {
       button.setAttribute(
         "aria-pressed",
-        String(state.activeGenres.has(button.dataset.genre)),
+        String(activeGenres.has(button.dataset.genre)),
       );
     });
-
-    const selectedCount = state.activeGenres.size;
+    const selectedCount = activeGenres.size;
     elements.selectedGenreCount.textContent = selectedCount
       ? `${selectedCount}件を選択`
       : "未選択";
-    elements.clearFilters.hidden = !state.query.trim() && selectedCount === 0;
+    elements.clearFilters.hidden =
+      !getActiveFilter().query.trim() && selectedCount === 0;
   }
 
   function clearAllFilters() {
-    state.query = "";
-    state.activeGenres.clear();
+    const filter = getActiveFilter();
+    filter.query = "";
+    filter.activeGenres.clear();
     elements.titleSearch.value = "";
     renderCatalog();
     elements.titleSearch.focus();
   }
 
-  function handleNovelLinkClick(event) {
-    const link = event.target.closest("a[data-filename]");
-    if (!link || event.defaultPrevented) {
-      return;
-    }
-    if (
-      event.button !== 0 ||
-      event.metaKey ||
-      event.ctrlKey ||
-      event.shiftKey ||
-      event.altKey
-    ) {
+  function handleWorkLinkClick(event) {
+    const link = event.target.closest("a[data-filename], a[data-series-id]");
+    if (!link || !shouldHandleLinkClick(event)) {
       return;
     }
 
     event.preventDefault();
-    const filename = link.dataset.filename;
-    const currentState = isPlainObject(history.state) ? history.state : {};
+    savePortalHistory(link.dataset.focusKey);
+    if (link.dataset.seriesId) {
+      history.pushState(
+        {
+          view: "series",
+          catalogType: "serial",
+          fromPortal: true,
+          seriesFromPortal: true,
+          seriesId: link.dataset.seriesId,
+        },
+        "",
+        buildSeriesHash(link.dataset.seriesId),
+      );
+    } else {
+      history.pushState(
+        {
+          view: "reader",
+          readerKind: "one-shot",
+          catalogType: "one-shot",
+          fromPortal: true,
+          filename: link.dataset.filename,
+        },
+        "",
+        buildOneShotHash(link.dataset.filename),
+      );
+    }
+    routeToCurrentLocation();
+  }
+
+  function savePortalHistory(focusKey) {
+    const historyData = isPlainObject(history.state) ? history.state : {};
     history.replaceState(
       {
-        ...currentState,
+        ...historyData,
         view: "portal",
+        catalogType: state.activeCatalogType,
         portalScrollY: window.scrollY,
-        lastFocusedFilename: filename,
+        lastFocusedWork: focusKey,
       },
       "",
       location.href,
     );
-    history.pushState(
-      { view: "reader", fromPortal: true, filename },
-      "",
-      buildNovelHash(filename),
-    );
-    routeToCurrentLocation();
   }
 
   function routeToCurrentLocation() {
-    if (!state.catalogReady) {
+    if (!state.catalogsLoaded) {
       return;
     }
 
@@ -441,103 +895,143 @@
       return;
     }
     if (route.type === "invalid") {
-      showMissingNovel("URLの作品名を読み取れませんでした。");
+      showMissingContent(
+        "URLの作品情報を読み取れませんでした。",
+        route.catalogType || "one-shot",
+      );
+      return;
+    }
+    if (route.type === "one-shot") {
+      const catalog = state.catalogs["one-shot"];
+      if (!catalog.ready) {
+        showCatalogRouteError("one-shot", catalog.error);
+        return;
+      }
+      const item = catalog.itemMap.get(route.filename);
+      if (!item) {
+        showMissingContent(
+          "指定された読み切り作品は、この作品棚に登録されていません。",
+          "one-shot",
+        );
+        return;
+      }
+      showOneShot(item);
       return;
     }
 
-    const novel = state.novelsByFilename.get(route.filename);
-    if (!novel) {
-      showMissingNovel("指定された作品は、この作品棚に登録されていません。");
+    const catalog = state.catalogs.serial;
+    if (!catalog.ready) {
+      showCatalogRouteError("serial", catalog.error);
       return;
     }
-
-    showNovel(novel);
+    const series = catalog.itemMap.get(route.seriesId);
+    if (!series) {
+      showMissingContent(
+        "指定された連載作品は、この作品棚に登録されていません。",
+        "serial",
+      );
+      return;
+    }
+    if (route.type === "series") {
+      showSeries(series);
+    } else {
+      showEpisode(series, route.episodeId);
+    }
   }
 
   function showPortal(options = {}) {
     cancelCurrentRequest();
-    state.currentFilename = null;
+    beginScrollRestore();
+    const returningToPortal = elements.body.dataset.view !== "portal";
+    state.currentReading = null;
+    state.currentRouteKey = null;
     elements.readerView.hidden = true;
+    elements.seriesView.hidden = true;
     elements.portalView.hidden = false;
     elements.body.dataset.view = "portal";
     elements.readingProgressBar.style.width = "0%";
     document.title = BASE_TITLE;
 
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    const catalogType = normalizeCatalogType(
+      options.catalogType || historyData.catalogType || state.activeCatalogType,
+    );
+    switchCatalog(catalogType, { updateHistory: false, focusTab: false });
+
     if (options.restorePosition === false) {
-      window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-      if (options.focusPortalTitle) {
-        requestAnimationFrame(() => elements.portalTitle.focus({ preventScroll: true }));
-      }
+      completeScrollRestore(0, () => {
+        if (options.focusPortalTitle) {
+          elements.portalTitle.focus({ preventScroll: true });
+        }
+      });
       return;
     }
 
-    const historyData = isPlainObject(history.state) ? history.state : {};
     const scrollY = Number.isFinite(historyData.portalScrollY)
       ? historyData.portalScrollY
       : 0;
-    requestAnimationFrame(() => {
-      window.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
-      if (historyData.lastFocusedFilename) {
-        const card = [...elements.novelList.querySelectorAll("a[data-filename]")].find(
-          (candidate) =>
-            candidate.dataset.filename === historyData.lastFocusedFilename,
+    completeScrollRestore(scrollY, () => {
+      let restoredWorkFocus = false;
+      if (historyData.lastFocusedWork) {
+        const card = [...elements.workList.querySelectorAll("a[data-focus-key]")].find(
+          (candidate) => candidate.dataset.focusKey === historyData.lastFocusedWork,
         );
-        card?.focus({ preventScroll: true });
+        if (card) {
+          card.focus({ preventScroll: true });
+          restoredWorkFocus = true;
+        }
+      }
+      if (!restoredWorkFocus && returningToPortal) {
+        elements.catalogTabs.querySelector(
+          `[data-catalog-type="${catalogType}"]`,
+        )?.focus({ preventScroll: true });
       }
     });
   }
 
-  async function showNovel(novel, options = {}) {
+  async function showSeries(series, options = {}) {
     cancelCurrentRequest();
+    beginScrollRestore();
     const routeToken = ++state.routeToken;
-    state.currentFilename = novel.filename;
+    state.currentRouteKey = `series:${series.seriesId}`;
+    state.currentReading = null;
+    state.activeCatalogType = "serial";
 
     elements.portalView.hidden = true;
-    elements.readerView.hidden = false;
-    elements.body.dataset.view = "reader";
-    elements.readerTitle.textContent = novel.title;
-    elements.readerTags.replaceChildren(...createGenreTags(novel.genres));
-    elements.readerBody.hidden = true;
-    elements.readerBody.textContent = "";
-    elements.readerFooter.hidden = true;
-    elements.readerStatus.hidden = false;
-    elements.readerStatus.className = "reader-status";
-    elements.readerStatus.textContent = "本文を読み込んでいます…";
-    elements.readerArticle.setAttribute("aria-busy", "true");
-    document.title = `${novel.title} | Cold Print`;
+    elements.readerView.hidden = true;
+    elements.seriesView.hidden = false;
+    elements.body.dataset.view = "series";
+    elements.seriesTitle.textContent = series.title;
+    elements.seriesState.textContent = series.serialState;
+    elements.seriesTags.replaceChildren(...createGenreTags(series.genres));
+    elements.seriesSummary.hidden = true;
+    elements.seriesActions.hidden = true;
+    elements.episodeCount.textContent = "";
+    elements.episodeList.hidden = true;
+    elements.episodeList.replaceChildren();
+    setSeriesLoading();
+    document.title = `${series.title} | Cold Print`;
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    requestAnimationFrame(() => elements.readerTitle.focus({ preventScroll: true }));
-    requestProgressUpdate();
-
-    if (!options.forceReload && state.textCache.has(novel.filename)) {
-      renderNovelText(state.textCache.get(novel.filename));
-      return;
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    if (!Number.isFinite(historyData.seriesScrollY)) {
+      requestAnimationFrame(() => elements.seriesTitle.focus({ preventScroll: true }));
     }
 
     const controller = new AbortController();
     state.requestController = controller;
-
     try {
-      const novelUrl = new URL(encodeURIComponent(novel.filename), NOVEL_DIRECTORY_URL);
-      const response = await fetch(novelUrl, { signal: controller.signal });
-      if (!response.ok) {
-        throw new Error(`本文を取得できませんでした（HTTP ${response.status}）`);
-      }
-
-      const rawText = await response.text();
-      const novelText = rawText.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
-      if (routeToken !== state.routeToken || state.currentFilename !== novel.filename) {
+      const manifest = await loadSeriesManifest(series, {
+        signal: controller.signal,
+        forceReload: options.forceReload,
+      });
+      if (routeToken !== state.routeToken || state.currentRouteKey !== `series:${series.seriesId}`) {
         return;
       }
-
-      state.textCache.set(novel.filename, novelText);
-      renderNovelText(novelText);
+      renderSeriesEpisodes(series, manifest);
+      restoreSeriesPosition(series);
     } catch (error) {
-      if (error.name === "AbortError") {
-        return;
-      }
-      if (routeToken === state.routeToken && state.currentFilename === novel.filename) {
-        showReaderError(novel, error);
+      if (error.name !== "AbortError" && routeToken === state.routeToken) {
+        showSeriesError(series, error);
       }
     } finally {
       if (state.requestController === controller) {
@@ -546,94 +1040,673 @@
     }
   }
 
-  function renderNovelText(text) {
-    elements.readerBody.textContent = text;
-    elements.readerBody.hidden = false;
-    elements.readerStatus.hidden = true;
-    elements.readerFooter.hidden = false;
-    elements.readerArticle.setAttribute("aria-busy", "false");
-    requestProgressUpdate();
+  function setSeriesLoading() {
+    elements.seriesStatus.hidden = false;
+    elements.seriesStatus.className = "reader-status";
+    elements.seriesStatus.textContent = "各話情報を読み込んでいます…";
   }
 
-  function showReaderError(novel, error) {
-    elements.readerBody.hidden = true;
-    elements.readerFooter.hidden = true;
-    elements.readerArticle.setAttribute("aria-busy", "false");
-    elements.readerStatus.hidden = false;
-    elements.readerStatus.className = "reader-status reader-status--error";
+  async function loadSeriesManifest(series, options = {}) {
+    if (!options.forceReload && state.seriesCache.has(series.seriesId)) {
+      return state.seriesCache.get(series.seriesId);
+    }
 
+    const seriesDirectory = new URL(
+      `${encodeURIComponent(series.seriesId)}/`,
+      SERIAL_DIRECTORY_URL,
+    );
+    const episodesUrl = new URL("./episodes.csv", seriesDirectory);
+    const csvText = await fetchText(episodesUrl, "各話一覧", {
+      signal: options.signal,
+    });
+    const manifest = buildEpisodeCatalog(csvText, series);
+    state.seriesCache.set(series.seriesId, manifest);
+    return manifest;
+  }
+
+  function renderSeriesEpisodes(series, manifest) {
+    const fragment = document.createDocumentFragment();
+    manifest.episodes.forEach((episode) => {
+      const item = document.createElement("div");
+      item.className = "episode-list-item";
+      item.setAttribute("role", "listitem");
+      const link = document.createElement("a");
+      link.className = "episode-link";
+      link.href = buildEpisodeHash(series.seriesId, episode.episodeId);
+      link.dataset.seriesId = series.seriesId;
+      link.dataset.episodeId = episode.episodeId;
+      link.dataset.seriesFocusKey = `list:${episode.episodeId}`;
+
+      const number = document.createElement("span");
+      number.className = "episode-link__number";
+      number.textContent = episode.label;
+      const title = document.createElement("span");
+      title.className = "episode-link__title";
+      title.textContent = episode.title || "本文を読む";
+      const arrow = document.createElement("span");
+      arrow.className = "episode-link__arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "→";
+      link.append(number, title, arrow);
+      item.append(link);
+      fragment.append(item);
+    });
+
+    const firstEpisode = manifest.episodes[0];
+    const latestEpisode = manifest.episodes.at(-1);
+    configureEpisodeLink(elements.firstEpisodeLink, series, firstEpisode);
+    configureEpisodeLink(elements.latestEpisodeLink, series, latestEpisode);
+    elements.latestEpisodeLink.hidden = firstEpisode === latestEpisode;
+    elements.seriesSummary.textContent = `${manifest.episodes.length}話を収録・${series.serialState}`;
+    elements.seriesSummary.hidden = false;
+    elements.seriesActions.hidden = false;
+    elements.episodeCount.textContent = `全${manifest.episodes.length}話`;
+    elements.seriesStatus.hidden = true;
+    elements.episodeList.replaceChildren(fragment);
+    elements.episodeList.hidden = false;
+  }
+
+  function configureEpisodeLink(link, series, episode) {
+    link.href = buildEpisodeHash(series.seriesId, episode.episodeId);
+    link.dataset.seriesId = series.seriesId;
+    link.dataset.episodeId = episode.episodeId;
+  }
+
+  function restoreSeriesPosition(series) {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    const pendingFocus = state.pendingSeriesFocus;
+    const hasPendingFocus = pendingFocus?.seriesId === series.seriesId;
+    const focusKey = hasPendingFocus
+      ? `list:${pendingFocus.episodeId}`
+      : historyData.seriesFocusKey;
+    const fallbackEpisodeId = hasPendingFocus
+      ? pendingFocus.episodeId
+      : historyData.lastFocusedEpisode;
+    state.pendingSeriesFocus = null;
+    const hasSavedPosition =
+      historyData.view === "series" && Number.isFinite(historyData.seriesScrollY);
+    completeScrollRestore(hasSavedPosition ? historyData.seriesScrollY : 0, () => {
+      if (focusKey || fallbackEpisodeId) {
+        const controls = [
+          ...elements.seriesView.querySelectorAll("[data-series-focus-key]"),
+        ];
+        const link = controls.find(
+          (candidate) => candidate.dataset.seriesFocusKey === focusKey,
+        ) || controls.find(
+          (candidate) => candidate.dataset.episodeId === fallbackEpisodeId,
+        );
+        if (link) {
+          link.focus({ preventScroll: true });
+          if (hasPendingFocus) {
+            link.scrollIntoView({ block: "nearest", inline: "nearest" });
+          }
+        } else if (hasSavedPosition) {
+          elements.seriesTitle.focus({ preventScroll: true });
+        }
+      } else if (hasSavedPosition) {
+        elements.seriesTitle.focus({ preventScroll: true });
+      }
+    });
+  }
+
+  function showSeriesError(series, error) {
+    elements.seriesStatus.hidden = false;
+    elements.seriesStatus.className = "reader-status reader-status--error";
     const title = document.createElement("p");
     title.className = "reader-status__title";
-    title.textContent = "本文を開けませんでした";
-
+    title.textContent = "目次を開けませんでした";
     const detail = document.createElement("p");
     detail.className = "reader-status__detail";
     detail.textContent = readableErrorMessage(error);
-
     const retryButton = document.createElement("button");
     retryButton.type = "button";
     retryButton.className = "secondary-button";
     retryButton.textContent = "もう一度読み込む";
     retryButton.addEventListener(
       "click",
-      () => showNovel(novel, { forceReload: true }),
+      () => showSeries(series, { forceReload: true }),
       { once: true },
     );
-
-    elements.readerStatus.replaceChildren(title, detail, retryButton);
+    elements.seriesStatus.replaceChildren(title, detail, retryButton);
+    completeScrollRestore(0, () => retryButton.focus({ preventScroll: true }));
   }
 
-  function showMissingNovel(message) {
+  function handleSeriesViewClick(event) {
+    const link = event.target.closest("a[data-series-id][data-episode-id]");
+    if (!link || !shouldHandleLinkClick(event)) {
+      return;
+    }
+    event.preventDefault();
+    navigateToEpisode(link.dataset.seriesId, link.dataset.episodeId, {
+      source: "series",
+      seriesFocusKey: link.dataset.seriesFocusKey,
+    });
+  }
+
+  function navigateToEpisode(seriesId, episodeId, options = {}) {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    let seriesReturnDepth = 0;
+    if (options.source === "series") {
+      seriesReturnDepth = 1;
+      history.replaceState(
+        {
+          ...historyData,
+          view: "series",
+          catalogType: "serial",
+          seriesId,
+          seriesScrollY: window.scrollY,
+          lastFocusedEpisode: episodeId,
+          seriesFocusKey: options.seriesFocusKey,
+        },
+        "",
+        location.href,
+      );
+    } else if (options.source === "reader") {
+      if (Number.isSafeInteger(historyData.seriesReturnDepth)) {
+        seriesReturnDepth = historyData.seriesReturnDepth + 1;
+      }
+      history.replaceState(
+        {
+          ...historyData,
+          readerScrollY: window.scrollY,
+          readerFocusKey: options.returnFocusKey || historyData.readerFocusKey,
+        },
+        "",
+        location.href,
+      );
+    }
+
+    history.pushState(
+      {
+        view: "reader",
+        readerKind: "episode",
+        catalogType: "serial",
+        fromPortal: Boolean(historyData.fromPortal),
+        seriesId,
+        episodeId,
+        ...(seriesReturnDepth > 0 ? { seriesReturnDepth } : {}),
+      },
+      "",
+      buildEpisodeHash(seriesId, episodeId),
+    );
+    routeToCurrentLocation();
+  }
+
+  function returnFromSeriesToPortal() {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    if (historyData.view === "series" && historyData.seriesFromPortal) {
+      flushHistorySnapshot();
+      history.back();
+      return;
+    }
+    replaceWithPortal("serial");
+  }
+
+  async function showOneShot(item, options = {}) {
     cancelCurrentRequest();
-    state.currentFilename = null;
+    const routeToken = ++state.routeToken;
+    const routeKey = `one-shot:${item.filename}`;
+    state.currentRouteKey = routeKey;
+    state.currentReading = { kind: "one-shot", item };
+    prepareReader({
+      title: item.title,
+      kicker: "Now reading",
+      seriesTitle: "",
+      genres: item.genres,
+      backLabel: "作品一覧へ",
+      navLabel: "Cold Print",
+      documentTitle: `${item.title} | Cold Print`,
+      episodeMode: false,
+    });
+
+    const cacheKey = routeKey;
+    if (!options.forceReload && state.textCache.has(cacheKey)) {
+      renderReaderText(state.textCache.get(cacheKey), { episodeMode: false });
+      restoreReaderPosition();
+      return;
+    }
+
+    const controller = new AbortController();
+    state.requestController = controller;
+    try {
+      const novelUrl = new URL(encodeURIComponent(item.filename), ONE_SHOT_DIRECTORY_URL);
+      const rawText = await fetchText(novelUrl, "本文", { signal: controller.signal });
+      if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+        return;
+      }
+      const text = normalizeNovelText(rawText);
+      state.textCache.set(cacheKey, text);
+      renderReaderText(text, { episodeMode: false });
+      restoreReaderPosition();
+    } catch (error) {
+      if (error.name !== "AbortError" && routeToken === state.routeToken) {
+        showReaderError(error, () => showOneShot(item, { forceReload: true }));
+      }
+    } finally {
+      if (state.requestController === controller) {
+        state.requestController = null;
+      }
+    }
+  }
+
+  async function showEpisode(series, episodeId, options = {}) {
+    cancelCurrentRequest();
+    const routeToken = ++state.routeToken;
+    const routeKey = `episode:${series.seriesId}:${episodeId}`;
+    state.currentRouteKey = routeKey;
+    state.currentReading = { kind: "episode", series, episodeId };
+    prepareReader({
+      title: "各話情報を読み込んでいます",
+      kicker: "Serial episode",
+      seriesTitle: series.title,
+      genres: series.genres,
+      backLabel: "目次へ",
+      navLabel: series.title,
+      documentTitle: `${series.title} | Cold Print`,
+      episodeMode: true,
+    });
+
+    const controller = new AbortController();
+    state.requestController = controller;
+    try {
+      const manifest = await loadSeriesManifest(series, {
+        signal: controller.signal,
+        forceReload: options.forceManifest,
+      });
+      if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+        return;
+      }
+
+      const episode = manifest.episodeMap.get(episodeId);
+      if (!episode) {
+        showMissingContent(
+          "指定された話は、この連載作品に登録されていません。",
+          "serial",
+        );
+        return;
+      }
+      state.currentReading = { kind: "episode", series, episode, manifest };
+      updateEpisodeReaderHeader(series, episode, manifest);
+
+      const cacheKey = routeKey;
+      if (!options.forceText && state.textCache.has(cacheKey)) {
+        renderReaderText(state.textCache.get(cacheKey), { episodeMode: true });
+        restoreReaderPosition();
+        return;
+      }
+
+      const seriesDirectory = new URL(
+        `${encodeURIComponent(series.seriesId)}/`,
+        SERIAL_DIRECTORY_URL,
+      );
+      const episodeDirectory = new URL("./episodes/", seriesDirectory);
+      const episodeUrl = new URL(encodeURIComponent(episode.filename), episodeDirectory);
+      const rawText = await fetchText(episodeUrl, "本文", { signal: controller.signal });
+      if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+        return;
+      }
+      const text = normalizeNovelText(rawText);
+      state.textCache.set(cacheKey, text);
+      renderReaderText(text, { episodeMode: true });
+      restoreReaderPosition();
+    } catch (error) {
+      if (error.name !== "AbortError" && routeToken === state.routeToken) {
+        showReaderError(error, () =>
+          showEpisode(series, episodeId, {
+            forceManifest: !state.seriesCache.has(series.seriesId),
+            forceText: true,
+          }),
+        );
+      }
+    } finally {
+      if (state.requestController === controller) {
+        state.requestController = null;
+      }
+    }
+  }
+
+  function prepareReader(options) {
+    beginScrollRestore();
     elements.portalView.hidden = true;
+    elements.seriesView.hidden = true;
     elements.readerView.hidden = false;
     elements.body.dataset.view = "reader";
-    elements.readerTitle.textContent = "作品が見つかりません";
-    elements.readerTags.replaceChildren();
+    elements.readerKicker.textContent = options.kicker;
+    elements.readerSeriesTitle.textContent = options.seriesTitle;
+    elements.readerSeriesTitle.hidden = !options.seriesTitle;
+    elements.readerTitle.textContent = options.title;
+    elements.readerTags.replaceChildren(...createGenreTags(options.genres));
+    elements.readerBackLabel.textContent = options.backLabel;
+    elements.readerNavLabel.textContent = options.navLabel;
+    elements.readerBody.hidden = true;
+    elements.readerBody.textContent = "";
+    elements.readerFooter.hidden = true;
+    elements.oneShotFooterActions.hidden = options.episodeMode;
+    elements.episodeNavigationTop.hidden = true;
+    elements.episodeNavigationBottom.hidden = true;
+    elements.readerStatus.hidden = false;
+    elements.readerStatus.className = "reader-status";
+    elements.readerStatus.textContent = "本文を読み込んでいます…";
+    elements.readerArticle.setAttribute("aria-busy", "true");
+    document.title = options.documentTitle;
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    if (!Number.isFinite(historyData.readerScrollY)) {
+      requestAnimationFrame(() => elements.readerTitle.focus({ preventScroll: true }));
+    }
+    requestProgressUpdate();
+  }
+
+  function updateEpisodeReaderHeader(series, episode, manifest) {
+    const heading = formatEpisodeTitle(episode);
+    elements.readerTitle.textContent = heading;
+    elements.readerSeriesTitle.textContent = series.title;
+    elements.readerSeriesTitle.hidden = false;
+    document.title = `${heading} | ${series.title} | Cold Print`;
+    renderEpisodeNavigation(elements.episodeNavigationTop, series, episode, manifest);
+    renderEpisodeNavigation(elements.episodeNavigationBottom, series, episode, manifest);
+    elements.episodeNavigationTop.hidden = false;
+  }
+
+  function renderEpisodeNavigation(container, series, episode, manifest) {
+    const index = manifest.episodes.findIndex(
+      (candidate) => candidate.episodeId === episode.episodeId,
+    );
+    const previousEpisode = index > 0 ? manifest.episodes[index - 1] : null;
+    const nextEpisode = index < manifest.episodes.length - 1
+      ? manifest.episodes[index + 1]
+      : null;
+    container.replaceChildren(
+      previousEpisode
+        ? createEpisodeNavigationLink(
+          series,
+          previousEpisode,
+          "previous",
+          `${container.id}:previous`,
+        )
+        : createEpisodeNavigationPlaceholder("最初の話です"),
+      createTableOfContentsButton(series.seriesId, `${container.id}:contents`),
+      nextEpisode
+        ? createEpisodeNavigationLink(
+          series,
+          nextEpisode,
+          "next",
+          `${container.id}:next`,
+        )
+        : createEpisodeNavigationPlaceholder("最新の話です"),
+    );
+  }
+
+  function createEpisodeNavigationLink(series, episode, direction, focusKey) {
+    const link = document.createElement("a");
+    link.className = `episode-navigation__link episode-navigation__link--${direction}`;
+    link.href = buildEpisodeHash(series.seriesId, episode.episodeId);
+    link.dataset.seriesId = series.seriesId;
+    link.dataset.episodeId = episode.episodeId;
+    link.dataset.episodeNavigation = direction;
+    link.dataset.readerFocusKey = focusKey;
+    const directionText = document.createElement("span");
+    directionText.className = "episode-navigation__direction";
+    directionText.textContent = direction === "previous" ? "← 前の話" : "次の話 →";
+    const title = document.createElement("span");
+    title.className = "episode-navigation__title";
+    title.textContent = formatEpisodeTitle(episode);
+    link.append(directionText, title);
+    return link;
+  }
+
+  function createEpisodeNavigationPlaceholder(message) {
+    const placeholder = document.createElement("span");
+    placeholder.className = "episode-navigation__placeholder";
+    placeholder.setAttribute("aria-disabled", "true");
+    placeholder.textContent = message;
+    return placeholder;
+  }
+
+  function createTableOfContentsButton(seriesId, focusKey) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "episode-navigation__toc";
+    button.dataset.action = "series-contents";
+    button.dataset.seriesId = seriesId;
+    button.dataset.readerFocusKey = focusKey;
+    button.textContent = "目次へ";
+    return button;
+  }
+
+  function renderReaderText(text, options) {
+    elements.readerBody.textContent = text;
+    elements.readerBody.hidden = false;
+    elements.readerStatus.hidden = true;
+    elements.readerFooter.hidden = false;
+    elements.oneShotFooterActions.hidden = options.episodeMode;
+    elements.episodeNavigationBottom.hidden = !options.episodeMode;
+    elements.readerArticle.setAttribute("aria-busy", "false");
+    requestProgressUpdate();
+  }
+
+  function restoreReaderPosition() {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    const hasSavedPosition =
+      historyData.view === "reader" && Number.isFinite(historyData.readerScrollY);
+    completeScrollRestore(hasSavedPosition ? historyData.readerScrollY : 0, () => {
+      if (!historyData.readerFocusKey) {
+        if (hasSavedPosition) {
+          elements.readerTitle.focus({ preventScroll: true });
+        }
+        return;
+      }
+      const control = [
+        ...elements.readerView.querySelectorAll("[data-reader-focus-key]"),
+      ].find(
+        (candidate) => candidate.dataset.readerFocusKey === historyData.readerFocusKey,
+      );
+      (control || elements.readerTitle).focus({ preventScroll: true });
+    });
+  }
+
+  function showReaderError(error, retry) {
     elements.readerBody.hidden = true;
     elements.readerFooter.hidden = true;
     elements.readerArticle.setAttribute("aria-busy", "false");
     elements.readerStatus.hidden = false;
     elements.readerStatus.className = "reader-status reader-status--error";
+    const title = document.createElement("p");
+    title.className = "reader-status__title";
+    title.textContent = "本文を開けませんでした";
+    const detail = document.createElement("p");
+    detail.className = "reader-status__detail";
+    detail.textContent = readableErrorMessage(error);
+    const retryButton = document.createElement("button");
+    retryButton.type = "button";
+    retryButton.className = "secondary-button";
+    retryButton.textContent = "もう一度読み込む";
+    retryButton.addEventListener("click", retry, { once: true });
+    elements.readerStatus.replaceChildren(title, detail, retryButton);
+    completeScrollRestore(0, () => retryButton.focus({ preventScroll: true }));
+  }
 
+  function showCatalogRouteError(catalogType, error) {
+    cancelCurrentRequest();
+    state.currentRouteKey = null;
+    state.currentReading = { kind: "catalog-error", catalogType };
+    prepareReader({
+      title: "作品棚を開けませんでした",
+      kicker: "Catalog error",
+      seriesTitle: "",
+      genres: [],
+      backLabel: catalogType === "serial" ? "連載一覧へ" : "作品一覧へ",
+      navLabel: "Cold Print",
+      documentTitle: "作品棚を開けませんでした | Cold Print",
+      episodeMode: false,
+    });
+    elements.readerArticle.setAttribute("aria-busy", "false");
+    elements.readerStatus.hidden = false;
+    elements.readerStatus.className = "reader-status reader-status--error";
+    const title = document.createElement("p");
+    title.className = "reader-status__title";
+    title.textContent = catalogType === "serial"
+      ? "連載作品情報を読み込めませんでした"
+      : "読み切り作品情報を読み込めませんでした";
+    const detail = document.createElement("p");
+    detail.className = "reader-status__detail";
+    detail.textContent = readableErrorMessage(error);
+    const retryButton = document.createElement("button");
+    retryButton.type = "button";
+    retryButton.className = "secondary-button";
+    retryButton.textContent = "もう一度読み込む";
+    retryButton.addEventListener("click", loadCatalogs, { once: true });
+    elements.readerStatus.replaceChildren(title, detail, retryButton);
+    completeScrollRestore(0, () => retryButton.focus({ preventScroll: true }));
+  }
+
+  function showMissingContent(message, catalogType) {
+    cancelCurrentRequest();
+    state.currentRouteKey = null;
+    state.currentReading = { kind: "missing", catalogType };
+    prepareReader({
+      title: "作品が見つかりません",
+      kicker: "Not found",
+      seriesTitle: "",
+      genres: [],
+      backLabel: catalogType === "serial" ? "連載一覧へ" : "作品一覧へ",
+      navLabel: "Cold Print",
+      documentTitle: "作品が見つかりません | Cold Print",
+      episodeMode: false,
+    });
+    elements.readerArticle.setAttribute("aria-busy", "false");
+    elements.readerStatus.hidden = false;
+    elements.readerStatus.className = "reader-status reader-status--error";
     const title = document.createElement("p");
     title.className = "reader-status__title";
     title.textContent = "この作品は表示できません";
-
     const detail = document.createElement("p");
     detail.className = "reader-status__detail";
     detail.textContent = message;
     elements.readerStatus.replaceChildren(title, detail);
-    document.title = "作品が見つかりません | Cold Print";
-    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-    requestAnimationFrame(() => elements.readerTitle.focus({ preventScroll: true }));
+    completeScrollRestore(0);
   }
 
-  function createGenreTags(genres) {
-    return genres.map((genre) => {
-      const tag = document.createElement("span");
-      tag.className = "genre-tag";
-      tag.textContent = genre;
-      return tag;
-    });
-  }
-
-  function returnToPortal() {
-    const historyData = isPlainObject(history.state) ? history.state : {};
-    if (historyData.view === "reader" && historyData.fromPortal) {
-      history.back();
+  function handleReaderViewClick(event) {
+    const episodeLink = event.target.closest(
+      "a[data-series-id][data-episode-id]",
+    );
+    if (episodeLink && shouldHandleLinkClick(event)) {
+      event.preventDefault();
+      navigateToEpisode(episodeLink.dataset.seriesId, episodeLink.dataset.episodeId, {
+        source: "reader",
+        returnFocusKey: episodeLink.dataset.readerFocusKey,
+      });
       return;
     }
 
+    const contentsButton = event.target.closest('[data-action="series-contents"]');
+    if (contentsButton) {
+      navigateToSeries(contentsButton.dataset.seriesId, {
+        returnFocusKey: contentsButton.dataset.readerFocusKey,
+      });
+      return;
+    }
+
+    if (event.target.closest('[data-action="one-shot-to-portal"]')) {
+      const button = event.target.closest('[data-action="one-shot-to-portal"]');
+      returnFromOneShotToPortal(button.dataset.readerFocusKey);
+    }
+  }
+
+  function handleReaderBack() {
+    if (state.currentReading?.kind === "episode") {
+      navigateToSeries(state.currentReading.series.seriesId, {
+        returnFocusKey: elements.readerBack.dataset.readerFocusKey,
+      });
+    } else if (state.currentReading?.kind === "one-shot") {
+      returnFromOneShotToPortal(elements.readerBack.dataset.readerFocusKey);
+    } else {
+      replaceWithPortal(state.currentReading?.catalogType || "one-shot");
+    }
+  }
+
+  function navigateToSeries(seriesId, options = {}) {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    const returnDepth = Number.isSafeInteger(historyData.seriesReturnDepth)
+      ? historyData.seriesReturnDepth
+      : 0;
+    if (historyData.view === "reader" && returnDepth > 0) {
+      state.pendingSeriesFocus = returnDepth > 1
+        ? { seriesId, episodeId: historyData.episodeId }
+        : null;
+      history.replaceState(
+        {
+          ...historyData,
+          readerScrollY: window.scrollY,
+          readerFocusKey: options.returnFocusKey || historyData.readerFocusKey,
+        },
+        "",
+        location.href,
+      );
+      history.go(-returnDepth);
+      return;
+    }
+    if (historyData.view === "reader") {
+      history.replaceState(
+        {
+          ...historyData,
+          readerScrollY: window.scrollY,
+          readerFocusKey: options.returnFocusKey || historyData.readerFocusKey,
+        },
+        "",
+        location.href,
+      );
+    }
+    history.pushState(
+      {
+        view: "series",
+        catalogType: "serial",
+        fromPortal: Boolean(historyData.fromPortal),
+        seriesFromPortal: false,
+        seriesId,
+      },
+      "",
+      buildSeriesHash(seriesId),
+    );
+    routeToCurrentLocation();
+  }
+
+  function returnFromOneShotToPortal(returnFocusKey) {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    if (
+      historyData.view === "reader" &&
+      historyData.readerKind === "one-shot" &&
+      historyData.fromPortal
+    ) {
+      history.replaceState(
+        {
+          ...historyData,
+          readerScrollY: window.scrollY,
+          readerFocusKey: returnFocusKey || historyData.readerFocusKey,
+        },
+        "",
+        location.href,
+      );
+      history.back();
+      return;
+    }
+    replaceWithPortal("one-shot");
+  }
+
+  function replaceWithPortal(catalogType) {
     const portalUrl = new URL(location.href);
     portalUrl.hash = "";
     history.replaceState(
-      { view: "portal", portalScrollY: 0 },
+      { view: "portal", catalogType, portalScrollY: 0 },
       "",
       `${portalUrl.pathname}${portalUrl.search}`,
     );
-    showPortal({ focusPortalTitle: true, restorePosition: false });
+    showPortal({
+      catalogType,
+      focusPortalTitle: true,
+      restorePosition: false,
+    });
   }
 
   function cancelCurrentRequest() {
@@ -645,24 +1718,90 @@
   }
 
   function readRoute() {
-    if (!location.hash.startsWith("#novel=")) {
+    if (!location.hash) {
+      return { type: "portal" };
+    }
+    if (location.hash.startsWith("#novel=")) {
+      const encodedFilename = location.hash.slice("#novel=".length);
+      if (!encodedFilename) {
+        return { type: "invalid", catalogType: "one-shot" };
+      }
+      try {
+        return { type: "one-shot", filename: decodeURIComponent(encodedFilename) };
+      } catch {
+        return { type: "invalid", catalogType: "one-shot" };
+      }
+    }
+    if (!location.hash.startsWith("#series=")) {
       return { type: "portal" };
     }
 
-    const encodedFilename = location.hash.slice("#novel=".length);
-    if (!encodedFilename) {
-      return { type: "invalid" };
+    const params = new URLSearchParams(location.hash.slice(1));
+    const allowedKeys = new Set(["series", "episode"]);
+    if (
+      [...params.keys()].some((key) => !allowedKeys.has(key)) ||
+      params.getAll("series").length !== 1 ||
+      params.getAll("episode").length > 1
+    ) {
+      return { type: "invalid", catalogType: "serial" };
     }
+    const seriesId = params.get("series") || "";
+    const episodeId = params.get("episode");
+    if (!SERIAL_ID_PATTERN.test(seriesId)) {
+      return { type: "invalid", catalogType: "serial" };
+    }
+    if (episodeId === null) {
+      return { type: "series", seriesId };
+    }
+    if (!EPISODE_ID_PATTERN.test(episodeId)) {
+      return { type: "invalid", catalogType: "serial" };
+    }
+    return { type: "episode", seriesId, episodeId };
+  }
 
-    try {
-      return { type: "novel", filename: decodeURIComponent(encodedFilename) };
-    } catch {
-      return { type: "invalid" };
+  function buildOneShotHash(filename) {
+    return `#novel=${encodeURIComponent(filename)}`;
+  }
+
+  function buildSeriesHash(seriesId) {
+    return `#series=${encodeURIComponent(seriesId)}`;
+  }
+
+  function buildEpisodeHash(seriesId, episodeId) {
+    return `${buildSeriesHash(seriesId)}&episode=${encodeURIComponent(episodeId)}`;
+  }
+
+  function beginScrollRestore() {
+    state.scrollRestoreToken += 1;
+    state.suppressScrollSnapshot = true;
+    if (state.historySnapshotTimer !== null) {
+      clearTimeout(state.historySnapshotTimer);
+      state.historySnapshotTimer = null;
     }
   }
 
-  function buildNovelHash(filename) {
-    return `#novel=${encodeURIComponent(filename)}`;
+  function completeScrollRestore(scrollY, restoreFocus) {
+    const token = state.scrollRestoreToken;
+    requestAnimationFrame(() => {
+      if (token !== state.scrollRestoreToken) {
+        return;
+      }
+      window.scrollTo({ top: Math.max(0, scrollY), left: 0, behavior: "auto" });
+      restoreFocus?.();
+      requestAnimationFrame(() => {
+        if (token !== state.scrollRestoreToken) {
+          return;
+        }
+        state.suppressScrollSnapshot = false;
+        requestProgressUpdate();
+        flushHistorySnapshot();
+      });
+    });
+  }
+
+  function handleWindowScroll() {
+    requestProgressUpdate();
+    requestHistorySnapshot();
   }
 
   function requestProgressUpdate() {
@@ -675,21 +1814,115 @@
     });
   }
 
+  function requestHistorySnapshot() {
+    if (state.suppressScrollSnapshot || state.historySnapshotTimer !== null) {
+      return;
+    }
+    const elapsed = performance.now() - state.lastHistorySnapshotTime;
+    if (elapsed >= HISTORY_SNAPSHOT_INTERVAL) {
+      snapshotCurrentScrollPosition();
+      state.lastHistorySnapshotTime = performance.now();
+      return;
+    }
+    state.historySnapshotTimer = window.setTimeout(() => {
+      state.historySnapshotTimer = null;
+      if (!state.suppressScrollSnapshot) {
+        snapshotCurrentScrollPosition();
+        state.lastHistorySnapshotTime = performance.now();
+      }
+    }, HISTORY_SNAPSHOT_INTERVAL - elapsed);
+  }
+
+  function flushHistorySnapshot() {
+    if (state.historySnapshotTimer !== null) {
+      clearTimeout(state.historySnapshotTimer);
+      state.historySnapshotTimer = null;
+    }
+    if (state.suppressScrollSnapshot) {
+      return;
+    }
+    snapshotCurrentScrollPosition();
+    state.lastHistorySnapshotTime = performance.now();
+  }
+
+  function snapshotCurrentScrollPosition() {
+    if (state.suppressScrollSnapshot) {
+      return;
+    }
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    const view = elements.body.dataset.view;
+    if (historyData.view !== view) {
+      return;
+    }
+    const property = view === "portal"
+      ? "portalScrollY"
+      : view === "series"
+        ? "seriesScrollY"
+        : view === "reader"
+          ? "readerScrollY"
+          : null;
+    if (!property) {
+      return;
+    }
+    const scrollY = Math.max(0, window.scrollY);
+    if (historyData[property] === scrollY) {
+      return;
+    }
+    try {
+      history.replaceState(
+        { ...historyData, [property]: scrollY },
+        "",
+        location.href,
+      );
+    } catch (error) {
+      if (!(error instanceof DOMException && error.name === "SecurityError")) {
+        throw error;
+      }
+    }
+  }
+
   function updateReadingProgress() {
     if (elements.body.dataset.view !== "reader") {
       elements.readingProgressBar.style.width = "0%";
       return;
     }
-
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
     const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
     const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
-    const boundedProgress = Math.min(100, Math.max(0, progress));
-    elements.readingProgressBar.style.width = `${boundedProgress}%`;
+    elements.readingProgressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+  }
+
+  function getActiveCatalog() {
+    return state.catalogs[state.activeCatalogType];
+  }
+
+  function getActiveFilter() {
+    return state.filters[state.activeCatalogType];
+  }
+
+  function normalizeCatalogType(value) {
+    return value === "serial" ? "serial" : "one-shot";
   }
 
   function normalizeForSearch(value) {
     return value.normalize("NFKC").toLocaleLowerCase("ja-JP");
+  }
+
+  function normalizeNovelText(text) {
+    return text.replace(/^\uFEFF/, "").replace(/\r\n?/g, "\n");
+  }
+
+  function formatEpisodeTitle(episode) {
+    return episode.title ? `${episode.label}　${episode.title}` : episode.label;
+  }
+
+  function createGenreTags(genres) {
+    return genres.map((genre) => {
+      const tag = document.createElement("span");
+      tag.className = "genre-tag";
+      tag.textContent = genre;
+      return tag;
+    });
   }
 
   function readableErrorMessage(error) {
@@ -697,6 +1930,20 @@
       return error.message;
     }
     return "通信状態とファイルの配置を確認して、もう一度お試しください。";
+  }
+
+  function shouldHandleLinkClick(event) {
+    return !event.defaultPrevented &&
+      event.button === 0 &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.shiftKey &&
+      !event.altKey;
+  }
+
+  function sameStringArray(left, right) {
+    return left.length === right.length &&
+      left.every((value, index) => value === right[index]);
   }
 
   function isPlainObject(value) {
@@ -721,7 +1968,6 @@
 
     for (let index = 0; index < text.length; index += 1) {
       const character = text[index];
-
       if (character === '"') {
         if (inQuotes && text[index + 1] === '"') {
           field += '"';

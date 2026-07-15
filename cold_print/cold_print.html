@@ -43,7 +43,7 @@
           <dl class="archive-summary" aria-label="収録情報">
             <div>
               <dt>収録作品</dt>
-              <dd><span id="novel-total">--</span><small>作品</small></dd>
+              <dd><span id="work-total">--</span><small>作品</small></dd>
             </div>
             <div>
               <dt>ジャンル</dt>
@@ -53,64 +53,149 @@
         </div>
 
         <section class="catalog" aria-labelledby="catalog-title">
-          <div class="catalog__heading">
-            <div>
-              <p class="eyebrow">Library</p>
-              <h2 id="catalog-title">作品一覧</h2>
-            </div>
+          <div class="catalog-tabs" role="tablist" aria-label="作品種別">
+            <button
+              id="one-shot-tab"
+              type="button"
+              role="tab"
+              aria-selected="true"
+              aria-controls="catalog-panel"
+              data-catalog-type="one-shot"
+            >
+              <span>読み切り</span>
+              <span id="one-shot-count" class="catalog-tabs__count">--</span>
+            </button>
+            <button
+              id="serial-tab"
+              type="button"
+              role="tab"
+              aria-selected="false"
+              aria-controls="catalog-panel"
+              tabindex="-1"
+              data-catalog-type="serial"
+            >
+              <span>連載</span>
+              <span id="serial-count" class="catalog-tabs__count">--</span>
+            </button>
+          </div>
 
-            <label class="search-field" for="title-search">
-              <span class="search-field__label">タイトルを検索</span>
-              <span class="search-field__control">
-                <svg aria-hidden="true" viewBox="0 0 24 24">
-                  <path
-                    d="m20 20-4.6-4.6m2.5-5.15a7.65 7.65 0 1 1-15.3 0 7.65 7.65 0 0 1 15.3 0Z"
+          <div id="catalog-panel" role="tabpanel" aria-labelledby="one-shot-tab">
+            <div class="catalog__heading">
+              <div>
+                <p class="eyebrow">Library</p>
+                <h2 id="catalog-title">読み切り作品</h2>
+              </div>
+
+              <label class="search-field" for="title-search">
+                <span class="search-field__label">タイトルを検索</span>
+                <span class="search-field__control">
+                  <svg aria-hidden="true" viewBox="0 0 24 24">
+                    <path
+                      d="m20 20-4.6-4.6m2.5-5.15a7.65 7.65 0 1 1-15.3 0 7.65 7.65 0 0 1 15.3 0Z"
+                    />
+                  </svg>
+                  <input
+                    id="title-search"
+                    type="search"
+                    placeholder="読み切りの作品名を入力"
+                    autocomplete="off"
                   />
-                </svg>
-                <input
-                  id="title-search"
-                  type="search"
-                  placeholder="作品名を入力"
-                  autocomplete="off"
-                />
-              </span>
-            </label>
-          </div>
-
-          <details class="genre-filter">
-            <summary>
-              <span>ジャンルで絞り込む</span>
-              <span id="selected-genre-count" class="filter-count">未選択</span>
-            </summary>
-            <div class="genre-filter__body">
-              <p>複数選択すると、すべてのジャンルに一致する作品を表示します。</p>
-              <div
-                id="genre-filter-list"
-                class="genre-filter__list"
-                role="group"
-                aria-label="ジャンル"
-              ></div>
+                </span>
+              </label>
             </div>
-          </details>
 
-          <div class="catalog__result-bar">
-            <p id="catalog-status" class="catalog-status" aria-live="polite">
-              作品情報を読み込んでいます…
-            </p>
-            <button id="clear-filters" class="text-button" type="button" hidden>
-              絞り込みを解除
-            </button>
+            <details class="genre-filter">
+              <summary>
+                <span>ジャンルで絞り込む</span>
+                <span id="selected-genre-count" class="filter-count">未選択</span>
+              </summary>
+              <div class="genre-filter__body">
+                <p>複数選択すると、すべてのジャンルに一致する作品を表示します。</p>
+                <div
+                  id="genre-filter-list"
+                  class="genre-filter__list"
+                  role="group"
+                  aria-label="ジャンル"
+                ></div>
+              </div>
+            </details>
+
+            <div class="catalog__result-bar">
+              <p id="catalog-status" class="catalog-status" aria-live="polite">
+                作品情報を読み込んでいます…
+              </p>
+              <button id="clear-filters" class="text-button" type="button" hidden>
+                絞り込みを解除
+              </button>
+            </div>
+
+            <div id="work-list" class="novel-grid" role="list"></div>
+
+            <div id="catalog-empty" class="empty-state" hidden>
+              <p id="catalog-empty-title" class="empty-state__title">
+                該当する作品がありません
+              </p>
+              <p id="catalog-empty-message">
+                検索語や選択中のジャンルを変えてみてください。
+              </p>
+              <button class="secondary-button" type="button" data-action="clear-filters">
+                すべての作品を表示
+              </button>
+            </div>
           </div>
+        </section>
+      </section>
 
-          <div id="novel-list" class="novel-grid" role="list"></div>
+      <section
+        id="series-view"
+        class="view series-view"
+        aria-labelledby="series-title"
+        hidden
+      >
+        <nav class="detail-nav" aria-label="連載作品の操作">
+          <button class="back-button" type="button" data-action="series-to-portal">
+            <svg aria-hidden="true" viewBox="0 0 24 24">
+              <path d="m14.5 5-7 7 7 7" />
+            </svg>
+            連載一覧へ
+          </button>
+        </nav>
 
-          <div id="catalog-empty" class="empty-state" hidden>
-            <p class="empty-state__title">該当する作品がありません</p>
-            <p>検索語や選択中のジャンルを変えてみてください。</p>
-            <button class="secondary-button" type="button" data-action="clear-filters">
-              すべての作品を表示
-            </button>
+        <header class="series-header">
+          <div class="series-header__meta">
+            <p class="eyebrow">Serial novel</p>
+            <span id="series-state" class="series-state"></span>
           </div>
+          <h1 id="series-title" tabindex="-1">連載作品を読み込んでいます</h1>
+          <div id="series-tags" class="tag-list" aria-label="ジャンル"></div>
+          <p id="series-summary" class="series-summary" hidden></p>
+          <div id="series-actions" class="series-actions" hidden>
+            <a id="first-episode-link" class="primary-button" href="#" data-series-focus-key="header:first">
+              第1話から読む
+            </a>
+            <a id="latest-episode-link" class="secondary-button" href="#" data-series-focus-key="header:latest">
+              最新話を読む
+            </a>
+          </div>
+        </header>
+
+        <section class="episode-catalog" aria-labelledby="episode-catalog-title">
+          <div class="episode-catalog__heading">
+            <div>
+              <p class="eyebrow">Contents</p>
+              <h2 id="episode-catalog-title">目次</h2>
+            </div>
+            <p id="episode-count" class="episode-count"></p>
+          </div>
+          <div
+            id="series-status"
+            class="reader-status"
+            role="status"
+            aria-live="polite"
+          >
+            各話情報を読み込んでいます…
+          </div>
+          <div id="episode-list" class="episode-list" role="list" hidden></div>
         </section>
       </section>
 
@@ -121,21 +206,29 @@
         hidden
       >
         <nav class="reader-nav" aria-label="読書画面の操作">
-          <button class="back-button" type="button" data-action="back-to-portal">
+          <button id="reader-back" class="back-button" type="button" data-reader-focus-key="reader-back">
             <svg aria-hidden="true" viewBox="0 0 24 24">
               <path d="m14.5 5-7 7 7 7" />
             </svg>
-            作品一覧へ
+            <span id="reader-back-label">作品一覧へ</span>
           </button>
-          <span class="reader-nav__label">Cold Print</span>
+          <span id="reader-nav-label" class="reader-nav__label">Cold Print</span>
         </nav>
 
         <article id="reader-article" class="reader-article" aria-busy="false">
           <header class="reader-header">
-            <p class="eyebrow">Now reading</p>
+            <p id="reader-kicker" class="eyebrow">Now reading</p>
+            <p id="reader-series-title" class="reader-series-title" hidden></p>
             <h1 id="reader-title" tabindex="-1">作品を読み込んでいます</h1>
             <div id="reader-tags" class="tag-list" aria-label="ジャンル"></div>
           </header>
+
+          <nav
+            id="episode-navigation-top"
+            class="episode-navigation episode-navigation--top"
+            aria-label="各話の移動"
+            hidden
+          ></nav>
 
           <div id="reader-status" class="reader-status" role="status" aria-live="polite">
             本文を読み込んでいます…
@@ -147,9 +240,17 @@
           <span class="reader-footer__rule" aria-hidden="true"></span>
           <p class="eyebrow">End of story</p>
           <p class="reader-footer__message">最後までお読みいただき、ありがとうございました。</p>
-          <button class="primary-button" type="button" data-action="back-to-portal">
-            作品一覧へ戻る
-          </button>
+          <div id="one-shot-footer-actions">
+            <button class="primary-button" type="button" data-action="one-shot-to-portal" data-reader-focus-key="one-shot-footer">
+              作品一覧へ戻る
+            </button>
+          </div>
+          <nav
+            id="episode-navigation-bottom"
+            class="episode-navigation"
+            aria-label="各話の移動"
+            hidden
+          ></nav>
         </footer>
       </section>
     </main>
