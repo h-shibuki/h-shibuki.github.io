@@ -33,9 +33,19 @@
     "各話タイトル",
     "ファイル名",
   ];
+  const VOLUME_EPISODE_COLUMNS = [
+    ...EPISODE_COLUMNS,
+    "巻ID",
+    "章ID",
+    "章数表示",
+    "節表示",
+  ];
+  const VOLUME_COLUMNS = ["巻ID", "表示順", "巻数表示", "巻タイトル"];
   const SERIAL_STATES = new Set(["連載中", "完結", "休載"]);
   const SERIAL_ID_PATTERN = /^serial-[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$/;
   const EPISODE_ID_PATTERN = /^ep-[0-9]{3,}$/;
+  const VOLUME_ID_PATTERN = /^v[0-9]{2}$/;
+  const CHAPTER_ID_PATTERN = /^c[0-9]{2}$/;
   const CATALOG_TYPES = ["one-shot", "serial"];
   const HISTORY_SNAPSHOT_INTERVAL = 200;
   const LEGACY_VOTE_STORAGE_KEY = "cold-print-votes-v1";
@@ -80,6 +90,7 @@
     seriesActions: document.querySelector("#series-actions"),
     firstEpisodeLink: document.querySelector("#first-episode-link"),
     latestEpisodeLink: document.querySelector("#latest-episode-link"),
+    episodeCatalogTitle: document.querySelector("#episode-catalog-title"),
     episodeCount: document.querySelector("#episode-count"),
     seriesStatus: document.querySelector("#series-status"),
     episodeList: document.querySelector("#episode-list"),
@@ -445,7 +456,8 @@
     }
 
     const headers = table[0].map((header) => header.trim());
-    if (!sameStringArray(headers, EPISODE_COLUMNS)) {
+    const volumeMode = sameStringArray(headers, VOLUME_EPISODE_COLUMNS);
+    if (!volumeMode && !sameStringArray(headers, EPISODE_COLUMNS)) {
       throw new Error("episodes.csvの列が規定と一致しません。");
     }
 
@@ -453,6 +465,7 @@
     const episodeMap = new Map();
     const orderValues = new Set();
     const filenames = new Set();
+    const chapterGroups = new Map();
     table.slice(1).forEach((fields, rowIndex) => {
       const row = makeRow(headers, fields, rowIndex + 2, "episodes.csv");
       const episodeId = row["エピソードID"];
@@ -491,6 +504,45 @@
       }
 
       const episode = { episodeId, displayOrder, label, title, filename };
+      if (volumeMode) {
+        const volumeId = row["巻ID"];
+        const chapterId = row["章ID"];
+        const chapterLabel = row["章数表示"];
+        const partLabel = row["節表示"];
+        if (!VOLUME_ID_PATTERN.test(volumeId)) {
+          throw new Error(`episodes.csv ${rowIndex + 2}行目の巻IDが不正です。`);
+        }
+        if (!CHAPTER_ID_PATTERN.test(chapterId)) {
+          throw new Error(`episodes.csv ${rowIndex + 2}行目の章IDが不正です。`);
+        }
+        if (!chapterLabel || !title) {
+          throw new Error(`episodes.csv ${rowIndex + 2}行目の章情報が空です。`);
+        }
+        if (partLabel !== "前編" && partLabel !== "後編") {
+          throw new Error(`episodes.csv ${rowIndex + 2}行目の節表示が不正です。`);
+        }
+        Object.assign(episode, {
+          volumeId,
+          chapterId,
+          chapterLabel,
+          partLabel,
+        });
+
+        const chapterKey = `${volumeId}:${chapterId}`;
+        const chapter = chapterGroups.get(chapterKey);
+        if (chapter && (chapter.label !== chapterLabel || chapter.title !== title)) {
+          throw new Error(`episodes.csvの${chapterKey}で章情報が一致しません。`);
+        }
+        if (chapter) {
+          chapter.episodes.push(episode);
+        } else {
+          chapterGroups.set(chapterKey, {
+            label: chapterLabel,
+            title,
+            episodes: [episode],
+          });
+        }
+      }
       episodes.push(episode);
       episodeMap.set(episodeId, episode);
       orderValues.add(displayOrder);
@@ -498,7 +550,117 @@
     });
 
     episodes.sort((left, right) => left.displayOrder - right.displayOrder);
-    return { episodes, episodeMap };
+    if (volumeMode) {
+      chapterGroups.forEach((chapter, chapterKey) => {
+        chapter.episodes.sort((left, right) => left.displayOrder - right.displayOrder);
+        if (
+          chapter.episodes.length !== 2 ||
+          chapter.episodes[0].partLabel !== "前編" ||
+          chapter.episodes[1].partLabel !== "後編"
+        ) {
+          throw new Error(`episodes.csvの${chapterKey}は前編・後編の2話にしてください。`);
+        }
+      });
+    }
+    return { episodes, episodeMap, volumeMode };
+  }
+
+  function buildVolumeCatalog(csvText, series, episodeCatalog) {
+    const table = parseCsv(csvText);
+    if (table.length < 2) {
+      throw new Error(`「${series.title}」に巻情報がありません。`);
+    }
+    const headers = table[0].map((header) => header.trim());
+    if (!sameStringArray(headers, VOLUME_COLUMNS)) {
+      throw new Error("volumes.csvの列が規定と一致しません。");
+    }
+
+    const volumes = [];
+    const volumeMap = new Map();
+    const orderValues = new Set();
+    table.slice(1).forEach((fields, rowIndex) => {
+      const row = makeRow(headers, fields, rowIndex + 2, "volumes.csv");
+      const volumeId = row["巻ID"];
+      const orderText = row["表示順"];
+      const label = row["巻数表示"];
+      const title = row["巻タイトル"];
+      if (!VOLUME_ID_PATTERN.test(volumeId)) {
+        throw new Error(`volumes.csv ${rowIndex + 2}行目の巻IDが不正です。`);
+      }
+      if (!/^(0|[1-9][0-9]*)$/.test(orderText)) {
+        throw new Error(`volumes.csv ${rowIndex + 2}行目の表示順が不正です。`);
+      }
+      const displayOrder = Number(orderText);
+      if (!Number.isSafeInteger(displayOrder)) {
+        throw new Error(`volumes.csv ${rowIndex + 2}行目の表示順が大きすぎます。`);
+      }
+      if (!label || !title) {
+        throw new Error(`volumes.csv ${rowIndex + 2}行目の巻情報が空です。`);
+      }
+      if (volumeMap.has(volumeId)) {
+        throw new Error(`volumes.csvに同じ巻IDがあります: ${volumeId}`);
+      }
+      if (orderValues.has(displayOrder)) {
+        throw new Error(`volumes.csvに同じ表示順があります: ${displayOrder}`);
+      }
+      const volume = {
+        volumeId,
+        displayOrder,
+        label,
+        title,
+        episodes: [],
+        chapters: [],
+      };
+      volumes.push(volume);
+      volumeMap.set(volumeId, volume);
+      orderValues.add(displayOrder);
+    });
+    volumes.sort((left, right) => left.displayOrder - right.displayOrder);
+
+    episodeCatalog.episodes.forEach((episode) => {
+      const volume = volumeMap.get(episode.volumeId);
+      if (!volume) {
+        throw new Error(`episodes.csvの巻IDがvolumes.csvにありません: ${episode.volumeId}`);
+      }
+      episode.volumeLabel = volume.label;
+      episode.volumeTitle = volume.title;
+      volume.episodes.push(episode);
+    });
+    volumes.forEach((volume) => {
+      if (volume.episodes.length === 0) {
+        throw new Error(`volumes.csvの${volume.volumeId}にWeb話がありません。`);
+      }
+      const chapterMap = new Map();
+      volume.episodes.forEach((episode) => {
+        let chapter = chapterMap.get(episode.chapterId);
+        if (!chapter) {
+          chapter = {
+            chapterId: episode.chapterId,
+            label: episode.chapterLabel,
+            title: episode.title,
+            episodes: [],
+          };
+          chapterMap.set(episode.chapterId, chapter);
+          volume.chapters.push(chapter);
+        }
+        chapter.episodes.push(episode);
+      });
+    });
+
+    const episodeVolumeOrder = [];
+    episodeCatalog.episodes.forEach((episode) => {
+      if (episodeVolumeOrder.at(-1) !== episode.volumeId) {
+        episodeVolumeOrder.push(episode.volumeId);
+      }
+    });
+    if (!sameStringArray(episodeVolumeOrder, volumes.map((volume) => volume.volumeId))) {
+      throw new Error("volumes.csvとepisodes.csvの巻順が一致しません。");
+    }
+    return {
+      ...episodeCatalog,
+      volumes,
+      volumeMap,
+    };
   }
 
   function validateHeaders(rawHeaders, metaColumns, label) {
@@ -1210,6 +1372,7 @@
     elements.seriesTags.replaceChildren(...createGenreTags(series.genres));
     elements.seriesSummary.hidden = true;
     elements.seriesActions.hidden = true;
+    elements.episodeCatalogTitle.textContent = "目次";
     elements.episodeCount.textContent = "";
     elements.episodeList.hidden = true;
     elements.episodeList.replaceChildren();
@@ -1263,51 +1426,214 @@
     const csvText = await fetchText(episodesUrl, "各話一覧", {
       signal: options.signal,
     });
-    const manifest = buildEpisodeCatalog(csvText, series);
+    let manifest = buildEpisodeCatalog(csvText, series);
+    if (manifest.volumeMode) {
+      const volumesUrl = new URL("./volumes.csv", seriesDirectory);
+      const volumesText = await fetchText(volumesUrl, "巻一覧", {
+        signal: options.signal,
+      });
+      manifest = buildVolumeCatalog(volumesText, series, manifest);
+    }
     state.seriesCache.set(series.seriesId, manifest);
     return manifest;
   }
 
   function renderSeriesEpisodes(series, manifest) {
     const fragment = document.createDocumentFragment();
-    manifest.episodes.forEach((episode) => {
-      const item = document.createElement("div");
-      item.className = "episode-list-item";
-      item.setAttribute("role", "listitem");
-      const link = document.createElement("a");
-      link.className = "episode-link";
-      link.href = buildEpisodeHash(series.seriesId, episode.episodeId);
-      link.dataset.seriesId = series.seriesId;
-      link.dataset.episodeId = episode.episodeId;
-      link.dataset.seriesFocusKey = `list:${episode.episodeId}`;
-
-      const number = document.createElement("span");
-      number.className = "episode-link__number";
-      number.textContent = episode.label;
-      const title = document.createElement("span");
-      title.className = "episode-link__title";
-      title.textContent = episode.title || "本文を読む";
-      const arrow = document.createElement("span");
-      arrow.className = "episode-link__arrow";
-      arrow.setAttribute("aria-hidden", "true");
-      arrow.textContent = "→";
-      link.append(number, title, arrow);
-      item.append(link);
-      fragment.append(item);
-    });
+    if (manifest.volumeMode) {
+      manifest.volumes.forEach((volume) => {
+        fragment.append(createVolumeContents(series, volume));
+      });
+    } else {
+      manifest.episodes.forEach((episode) => {
+        fragment.append(createEpisodeListItem(series, episode));
+      });
+    }
 
     const firstEpisode = manifest.episodes[0];
     const latestEpisode = manifest.episodes.at(-1);
     configureEpisodeLink(elements.firstEpisodeLink, series, firstEpisode);
     configureEpisodeLink(elements.latestEpisodeLink, series, latestEpisode);
+    elements.firstEpisodeLink.textContent = manifest.volumeMode
+      ? "最初から読む"
+      : "第1話から読む";
+    elements.latestEpisodeLink.textContent = manifest.volumeMode
+      ? "最終Web話を読む"
+      : "最新話を読む";
     elements.latestEpisodeLink.hidden = firstEpisode === latestEpisode;
-    elements.seriesSummary.textContent = `${manifest.episodes.length}話を収録・${series.serialState}`;
+    elements.episodeCatalogTitle.textContent = manifest.volumeMode
+      ? "巻・Web話目次"
+      : "目次";
+    elements.seriesSummary.textContent = manifest.volumeMode
+      ? `${manifest.volumes.length}巻・全${manifest.episodes.length}Web話を収録・${series.serialState}`
+      : `${manifest.episodes.length}話を収録・${series.serialState}`;
     elements.seriesSummary.hidden = false;
     elements.seriesActions.hidden = false;
-    elements.episodeCount.textContent = `全${manifest.episodes.length}話`;
+    elements.episodeCount.textContent = manifest.volumeMode
+      ? `全${manifest.volumes.length}巻・${manifest.episodes.length}Web話`
+      : `全${manifest.episodes.length}話`;
     elements.seriesStatus.hidden = true;
     elements.episodeList.replaceChildren(fragment);
     elements.episodeList.hidden = false;
+  }
+
+  function createVolumeContents(series, volume) {
+    const item = document.createElement("div");
+    item.className = "volume-list-item";
+    item.setAttribute("role", "listitem");
+    const details = document.createElement("details");
+    details.className = "volume-details";
+    details.dataset.volumeId = volume.volumeId;
+    details.addEventListener("toggle", handleVolumeToggle);
+
+    const summary = document.createElement("summary");
+    summary.className = "volume-summary";
+    summary.dataset.seriesFocusKey = `volume:${volume.volumeId}`;
+    summary.addEventListener("click", handleVolumeSummaryClick);
+    const number = document.createElement("span");
+    number.className = "volume-summary__number";
+    number.textContent = volume.label;
+    const title = document.createElement("span");
+    title.className = "volume-summary__title";
+    title.textContent = volume.title;
+    const count = document.createElement("span");
+    count.className = "volume-summary__count";
+    count.textContent = `${volume.chapters.length}章・${volume.episodes.length}Web話`;
+    const marker = document.createElement("span");
+    marker.className = "volume-summary__marker";
+    marker.setAttribute("aria-hidden", "true");
+    summary.append(number, title, count, marker);
+
+    const body = document.createElement("div");
+    body.className = "volume-details__body";
+    volume.chapters.forEach((chapter) => {
+      const section = document.createElement("section");
+      section.className = "chapter-group";
+      const headingId = `chapter-${volume.volumeId}-${chapter.chapterId}`;
+      const heading = document.createElement("h3");
+      heading.id = headingId;
+      heading.className = "chapter-group__heading";
+      const chapterNumber = document.createElement("span");
+      chapterNumber.className = "chapter-group__number";
+      chapterNumber.textContent = chapter.label;
+      const chapterTitle = document.createElement("span");
+      chapterTitle.className = "chapter-group__title";
+      chapterTitle.textContent = chapter.title;
+      heading.append(chapterNumber, chapterTitle);
+
+      const episodeList = document.createElement("div");
+      episodeList.className = "chapter-episode-list";
+      episodeList.setAttribute("role", "list");
+      episodeList.setAttribute(
+        "aria-label",
+        `${volume.label} ${chapter.label}「${chapter.title}」`,
+      );
+      chapter.episodes.forEach((episode) => {
+        episodeList.append(createEpisodeListItem(series, episode, { compact: true }));
+      });
+      section.append(heading, episodeList);
+      body.append(section);
+    });
+    details.append(summary, body);
+    item.append(details);
+    return item;
+  }
+
+  function handleVolumeToggle(event) {
+    const details = event.currentTarget;
+    if (details.open) {
+      elements.episodeList
+        .querySelectorAll("details.volume-details[open]")
+        .forEach((candidate) => {
+          if (candidate !== details) {
+            candidate.open = false;
+          }
+        });
+    }
+    if (state.suppressScrollSnapshot) {
+      return;
+    }
+    requestAnimationFrame(snapshotOpenVolume);
+  }
+
+  function handleVolumeSummaryClick(event) {
+    if (state.suppressScrollSnapshot) {
+      return;
+    }
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    if (historyData.view !== "series") {
+      return;
+    }
+    history.replaceState(
+      {
+        ...historyData,
+        seriesFocusKey: event.currentTarget.dataset.seriesFocusKey,
+        lastFocusedEpisode: null,
+      },
+      "",
+      location.href,
+    );
+  }
+
+  function snapshotOpenVolume() {
+    if (elements.body.dataset.view !== "series") {
+      return;
+    }
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    if (historyData.view !== "series") {
+      return;
+    }
+    const openVolume = elements.episodeList.querySelector(
+      "details.volume-details[open]",
+    );
+    const seriesOpenVolumeId = openVolume?.dataset.volumeId || null;
+    if (historyData.seriesOpenVolumeId === seriesOpenVolumeId) {
+      return;
+    }
+    history.replaceState(
+      {
+        ...historyData,
+        seriesOpenVolumeId,
+      },
+      "",
+      location.href,
+    );
+  }
+
+  function createEpisodeListItem(series, episode, options = {}) {
+    const item = document.createElement("div");
+    item.className = options.compact
+      ? "episode-list-item episode-list-item--part"
+      : "episode-list-item";
+    item.setAttribute("role", "listitem");
+    const link = document.createElement("a");
+    link.className = "episode-link";
+    link.href = buildEpisodeHash(series.seriesId, episode.episodeId);
+    link.dataset.seriesId = series.seriesId;
+    link.dataset.episodeId = episode.episodeId;
+    link.dataset.seriesFocusKey = `list:${episode.episodeId}`;
+    if (episode.volumeId) {
+      link.setAttribute(
+        "aria-label",
+        `${episode.label}、${episode.volumeLabel}、${episode.chapterLabel}「${episode.title}」${episode.partLabel}`,
+      );
+    }
+
+    const number = document.createElement("span");
+    number.className = "episode-link__number";
+    number.textContent = episode.label;
+    const title = document.createElement("span");
+    title.className = "episode-link__title";
+    title.textContent = options.compact
+      ? episode.partLabel
+      : episode.title || "本文を読む";
+    const arrow = document.createElement("span");
+    arrow.className = "episode-link__arrow";
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+    link.append(number, title, arrow);
+    item.append(link);
+    return item;
   }
 
   function configureEpisodeLink(link, series, episode) {
@@ -1317,7 +1643,7 @@
   }
 
   function restoreSeriesPosition(series) {
-    const historyData = isPlainObject(history.state) ? history.state : {};
+    let historyData = isPlainObject(history.state) ? history.state : {};
     const pendingFocus = state.pendingSeriesFocus;
     const hasPendingFocus = pendingFocus?.seriesId === series.seriesId;
     const focusKey = hasPendingFocus
@@ -1329,16 +1655,43 @@
     state.pendingSeriesFocus = null;
     const hasSavedPosition =
       historyData.view === "series" && Number.isFinite(historyData.seriesScrollY);
+    const controls = [
+      ...elements.seriesView.querySelectorAll("[data-series-focus-key]"),
+    ];
+    const link = focusKey || fallbackEpisodeId
+      ? controls.find(
+        (candidate) => candidate.dataset.seriesFocusKey === focusKey,
+      ) || controls.find(
+        (candidate) => candidate.dataset.episodeId === fallbackEpisodeId,
+      )
+      : null;
+    const episodeVolume = link?.dataset.seriesFocusKey?.startsWith("list:")
+      ? link.closest("details.volume-details")
+      : null;
+    const volumeDetails = [
+      ...elements.episodeList.querySelectorAll("details.volume-details"),
+    ];
+    const savedVolume = historyData.seriesOpenVolumeId
+      ? volumeDetails.find(
+        (candidate) =>
+          candidate.dataset.volumeId === historyData.seriesOpenVolumeId,
+      )
+      : null;
+    const volumeToOpen = episodeVolume || savedVolume;
+    volumeDetails.forEach((candidate) => {
+      candidate.open = candidate === volumeToOpen;
+    });
+    if (hasPendingFocus && historyData.view === "series") {
+      historyData = {
+        ...historyData,
+        lastFocusedEpisode: pendingFocus.episodeId,
+        seriesFocusKey: `list:${pendingFocus.episodeId}`,
+        seriesOpenVolumeId: episodeVolume?.dataset.volumeId || null,
+      };
+      history.replaceState(historyData, "", location.href);
+    }
     completeScrollRestore(hasSavedPosition ? historyData.seriesScrollY : 0, () => {
       if (focusKey || fallbackEpisodeId) {
-        const controls = [
-          ...elements.seriesView.querySelectorAll("[data-series-focus-key]"),
-        ];
-        const link = controls.find(
-          (candidate) => candidate.dataset.seriesFocusKey === focusKey,
-        ) || controls.find(
-          (candidate) => candidate.dataset.episodeId === fallbackEpisodeId,
-        );
         if (link) {
           link.focus({ preventScroll: true });
           if (hasPendingFocus) {
@@ -1401,6 +1754,9 @@
           seriesScrollY: window.scrollY,
           lastFocusedEpisode: episodeId,
           seriesFocusKey: options.seriesFocusKey,
+          seriesOpenVolumeId: elements.episodeList.querySelector(
+            "details.volume-details[open]",
+          )?.dataset.volumeId || null,
         },
         "",
         location.href,
@@ -1604,8 +1960,13 @@
   function updateEpisodeReaderHeader(series, episode, manifest) {
     const heading = formatEpisodeTitle(episode);
     elements.readerTitle.textContent = heading;
-    elements.readerSeriesTitle.textContent = series.title;
+    elements.readerSeriesTitle.textContent = episode.volumeId
+      ? `${series.title}　/　${episode.volumeLabel}「${episode.volumeTitle}」`
+      : series.title;
     elements.readerSeriesTitle.hidden = false;
+    elements.readerBackLabel.textContent = episode.volumeId
+      ? `${episode.volumeLabel}の目次へ`
+      : "目次へ";
     document.title = `${heading} | ${series.title} | Cold Print`;
     renderEpisodeNavigation(elements.episodeNavigationTop, series, episode, manifest);
     renderEpisodeNavigation(elements.episodeNavigationBottom, series, episode, manifest);
@@ -1835,10 +2196,16 @@
     const returnDepth = Number.isSafeInteger(historyData.seriesReturnDepth)
       ? historyData.seriesReturnDepth
       : 0;
+    const returnEpisodeId = historyData.view === "reader"
+      ? historyData.episodeId
+      : null;
+    if (returnEpisodeId) {
+      state.pendingSeriesFocus = {
+        seriesId,
+        episodeId: returnEpisodeId,
+      };
+    }
     if (historyData.view === "reader" && returnDepth > 0) {
-      state.pendingSeriesFocus = returnDepth > 1
-        ? { seriesId, episodeId: historyData.episodeId }
-        : null;
       history.replaceState(
         {
           ...historyData,
@@ -1869,6 +2236,12 @@
         fromPortal: Boolean(historyData.fromPortal),
         seriesFromPortal: false,
         seriesId,
+        ...(returnEpisodeId
+          ? {
+            lastFocusedEpisode: returnEpisodeId,
+            seriesFocusKey: `list:${returnEpisodeId}`,
+          }
+          : {}),
       },
       "",
       buildSeriesHash(seriesId),
@@ -2117,6 +2490,9 @@
   }
 
   function formatEpisodeTitle(episode) {
+    if (episode.volumeId) {
+      return `${episode.label}　${episode.volumeLabel}・${episode.chapterLabel}「${episode.title}」${episode.partLabel}`;
+    }
     return episode.title ? `${episode.label}　${episode.title}` : episode.label;
   }
 
