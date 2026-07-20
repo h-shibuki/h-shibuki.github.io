@@ -1,0 +1,917 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="昼休みの獄楽ヶ丘高校で、一日三個だけの〈極上トリプル焼きそばパン〉を手にした者は「パン長」と呼ばれる。平穏第一の日暮マコトは、番長・鬼瓦ゴウの妹の誕生日願いをかなえるため、千二百人が殺到する購買部へ突入する。だが行く手を阻むのは、通行整理、釣り銭、試食、袋詰めを極めた購買部四天王――全員おばちゃん。赤旗は手裏剣となり、算数と味覚の難問が襲い、人間まで紙袋へ詰められる。残り時間はわずか、パンはあと一個。ツッコミと友情だけを武器に、史上最も騒がしいおつかいを完遂できるのか。">
+<title>購買部四天王、全員おばちゃん｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="購買部四天王_全員おばちゃん" data-novel-id="購買部四天王_全員おばちゃん" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示" selected>学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ジュブナイル</p>
+  <p><strong>補助ジャンル：</strong>学園・ギャグ</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ジュブナイル、学園、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示</p>
+  <h3>意味色</h3><p>赤＝気合、青＝戦術、金＝信頼、紫＝迷い、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：456行／章：0／役割・強度タグ：520</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="購買部四天王、全員おばちゃん 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『購買部四天王、全員おばちゃん』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="5">　私立・獄楽ヶ丘高校には、三つの名物がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　一つ。校門よりデカい校長の銅像。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　二つ。なぜか校歌の二番だけがデスメタル。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　そして三つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　昼休みの購買部は、戦場である。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　チャイムが鳴った瞬間、全校生徒千二百人が一斉に廊下へ飛び出す。目当ては一日限定三個、購買部名物「極上トリプル焼きそばパン」。太麺、細麺、輪ゴムくらい太い麺を一本のコッペパンに挟んだ、炭水化物の三段ロケットだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="15">　それを買った者はその日一日、校内で「パン長」と呼ばれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　呼ばれるだけで、特に権限はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="19">「そんなもんに命かける奴、どうかしてるだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　一年二組、昼休み五秒前。</p>
+<p class="source-line role-narration gap-0" data-source-line="22">　窓際の席で頬杖をつきながら、日暮マコトは心底あきれた声を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　小柄。平凡。成績は中の中。運動神経は下の上。特技は、先生に指されそうな気配を察知して絶妙に視線をそらすこと。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　人生の目標は「なるべく騒動に巻き込まれず、十七時には帰宅する」だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">「マコト」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　隣の席から、地鳴りみたいな声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　振り向くと、二メートル近い巨体が机をきしませていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　鬼瓦ゴウ。一年二組の番長。入学初日に三年生十人を倒したという噂がある。実際は、廊下で倒れたドミノ十枚を起こしただけなのだが、本人がいかつすぎて誰も訂正できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　ゴウは震える手で、一枚のメモを差し出した。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-1" data-source-line="37">『兄ちゃんへ</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-0" data-source-line="38">　きょう、たんじょうびだから、やきそばパンたべてみたいです</p>
+<p class="source-line role-narration gap-0" data-source-line="39">　ミナ』</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　丸っこい字だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「妹からのお願いか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「うむ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="47">「コンビニで買えば？」</p>
+<p class="source-line role-dialogue fx-whisper tone-4 gap-1" data-source-line="49">「コンビニのは一麺流だ。あいつが望んでいるのは、三麺流の極み……極上トリプル焼きそばパンだ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="51">「妹さん、食文化にうるさいな」</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　ゴウは両手を机につき、深く頭を下げた。机が床に五センチめり込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「頼む、マコト。俺と共に来てくれ」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="57">「なんで俺が」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「俺は購買部に出入り禁止なのだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「何したんだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「去年、焼きそばパンをつかんだら、パンだけが消えた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="65">「握力の問題じゃねえか」</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　その瞬間、時計の秒針が十二を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　キーン、コーン――</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　最初の一音で、教室のドアが内側から吹き飛んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="73">「購買部だァァァァ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="74">「限定三個を確保しろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="75">「一年は階段使うな！　窓から行け窓から！」</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　生徒たちが津波のように流れ出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="78">　机が舞い、椅子が回り、担任が黒板に「廊下を走らない」と書き終える前に教室が無人になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　ゴウがマコトを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="81">　メモの「たんじょうび」が、やけにまぶしく見えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="83">「……一個だけだからな」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="85">「恩に着る！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="87">「あと走るとき俺を小脇に抱えるな。去年それで三人酔ったらしいぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　ゴウは返事の代わりにマコトを小脇に抱えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="91">「聞けよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　こうして、平凡を愛する少年の日常は、チャイム一発で終わった。</p>
+<div class="source-line scene-break gap-1" data-source-line="95" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="97">　購買部は本校舎一階の最奥にある。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　通常なら教室から徒歩三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="100">　昼休みなら、生還率七割。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　廊下を埋め尽くす生徒の群れを、ゴウはブルドーザーのように進んだ。ただし誰にもぶつからない。巨体に似合わず、横向き、爪先立ち、時には反復横跳びを駆使して隙間を縫う。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="104">「動きが気持ち悪いほど繊細！」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="106">「母から『人様に迷惑をかけるな』と教わった」</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="108">「いいお母さんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　二人が階段を下りようとした、そのとき。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　踊り場に一本の白線が引かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="113">　その前に、エプロン姿のおばちゃんが立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　丸眼鏡。小柄。手には赤い旗。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「止まりな」</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　たった一言で、先頭集団が急停止した。</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　後続が次々に衝突し、生徒の山ができる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="122">「出たぞ……購買部四天王の一人！」</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　誰かが青ざめて叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="126">「第一関門、“通行整理のタエさん”だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　タエさんは赤い旗を一振りした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「右、三年。左、二年。真ん中、一年。靴ひもほどけてる子は端。昨日プリント出してない子は職員室」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="132">「購買と関係ない情報まで把握してる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　生徒たちは逆らえない。</p>
+<p class="source-line role-narration gap-0" data-source-line="135">　なぜならタエさんの誘導は完璧だからだ。赤旗が動くたびに人波が分かれ、合流し、なぜか一部は図書室へ吸い込まれていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　マコトとゴウの番が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　タエさんの眼鏡が光る。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="141">「鬼瓦ゴウ。昨年、パン三個圧縮の罪により出入り禁止。そっちの小さい子は……日暮マコト。遅刻二回、忘れ物四回、保健室で昼寝一回」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「保健室のは頭痛です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「寝言で『宿題は犬がやりました』って言ってたよ」</p>
+<p class="source-line role-dialogue role-command fx-beat tone-2 gap-1" data-source-line="147">「俺の深層心理まで記録するな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　タエさんが旗を横にした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「通すわけにはいかないね」</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　ゴウが一歩前へ出る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「俺は入らん。買うのはマコトだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「共同購入も同罪さ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="159">「そこを何とか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　ゴウが頭を下げる。勢いで踊り場のタイルが一枚割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　タエさんは眉ひとつ動かさない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「購買部の掟は絶対。通りたければ、このタエを倒して――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「タエさーん！　向こうの列、横入りしてます！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="169">「何だって!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　タエさんが振り返った瞬間、ゴウはマコトを抱えたまま白線をまたいだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="173">「今だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「正々堂々っぽい顔でめちゃくちゃ卑怯！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「人様に迷惑はかけていない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「タエさんにはかけてる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="181">「戻りな小僧どもーっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　赤旗が手裏剣のように飛んできた。</p>
+<p class="source-line role-narration gap-0" data-source-line="184">　ゴウは首を傾けてかわす。旗は壁に突き刺さり、「走るな」のポスターだけが静かに落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　マコトは思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　この学校、教育委員会に一回怒られたほうがいい。</p>
+<div class="source-line scene-break gap-1" data-source-line="189" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="191">　第二関門は渡り廊下だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　そこには長机が置かれ、硬貨が山積みになっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="194">　椅子に座るのは、白髪をきっちり結ったおばちゃん。指には十個の指サック。胸の名札には「フミ」。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「購買部四天王、“釣り銭のフミさん”……！」</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　ゴウがうめいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　フミさんは目を閉じたまま言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「極上トリプル焼きそばパン、税込み二百八十円。ここを通る者は、釣り銭なく払ってもらうよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「ちょうど二百八十円ならある」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　マコトは財布を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　百円玉二枚。五十円玉一枚。十円玉三枚。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「はい、ぴったり」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="212">「甘いね」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　フミさんの両手が残像になった。</p>
+<p class="source-line role-narration gap-0" data-source-line="215">　硬貨が空中を舞い、マコトの手の上に着地する。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　百円玉一枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="218">　五十円玉三枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="219">　十円玉二枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="220">　五円玉一枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="221">　一円玉五枚。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「合計は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「えっ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="227">「三秒」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「ちょ、勝手に崩しておいて――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「二秒」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="233">「百、二百五十、二百七十、二百七十五、二百八十！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「正解」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="237">「ただの算数テストじゃねえか！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="239">「だが次はそうはいかないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　フミさんの指が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　どこからともなくレジスターが三台せり上がる。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="244">「第一問。二百八十円のパンを二割引きで買い、千円札を出したときの釣り銭！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「七百七十六円！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「第二問。消費税率が突然三百パーセントになった場合！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「政治を止めろ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「第三問。パン屋の店主が時速四キロで東へ進み、焼きそばが時速六十キロで西へ飛んだ場合、二人が再会するのは何分後！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「二度と会わねえよ！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="256">　フミさんの眼鏡が光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「正解」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="260">「正解なの!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　道が開いた。</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="264">　マコトがぽかんとしていると、フミさんは小さく笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「金額だけ見て、人の話を聞かない子が多くてね。あんたはちゃんとツッコんだ。商売は会話だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「急にいいこと言う！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「ただし、一円足りない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「え？」</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　見ると、さっきまで五枚あった一円玉が四枚になっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　フミさんの指先で一円玉が回っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「授業料さ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「購買部より先にカツアゲされた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　背後からタエさんの怒声が近づいてくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「止まれーっ！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="286">「行くぞマコト！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「俺の一円ー！」</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　二人は第二関門を突破した。</p>
+<div class="source-line scene-break gap-1" data-source-line="292" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="294">　購買部まで、あと五十メートル。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　だが廊下の中央に、巨大な給食ワゴンが横たわっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="297">　その上に、割烹着姿のおばちゃんが仁王立ちしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　身長百八十センチ。肩幅も百八十センチ。</p>
+<p class="source-line role-narration gap-0" data-source-line="300">　お玉を一本、竹刀のように構えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「第三関門、“試食のキヨさん”……！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="304">「試食でその体格になる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="306">「一口を積み重ねた結果だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">「夢のない努力だな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　キヨさんはワゴンのふたを開けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　中には小さな紙コップがずらりと並んでいる。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="313">「ここを通りたきゃ、新商品の味見をしていきな」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="315">「味見なら平和じゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　マコトが一つ手に取る。</p>
+<p class="source-line role-narration gap-0" data-source-line="318">　中身は薄い紫色のペーストだった。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="320">「何味です？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="322">「当てな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「クイズ形式かよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　恐る恐る口に入れる。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="328">　甘い。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　しょっぱい。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　酸っぱい。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="331">　辛い。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="332">　そして、遠くで誰かが謝っているような味がする。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="334">「……失敗した肉じゃが？」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　キヨさんの眉が動く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「正解」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「当たったのが悲しい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「新商品、“肉じゃがジャム”だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「新しくする前に会議しろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　キヨさんが二つ目を差し出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　今度は鮮やかな緑色。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「これは？」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="351">「匂いがすでに理科室！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="353">「飲め」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="355">「命令形！」</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　背後ではタエさんが迫り、前方では昼休みの残り時間が減っていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="358">　マコトは覚悟を決め、一気に飲んだ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="360">　舌がしびれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　頭の中で校歌の二番が流れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="362">　なぜか小学校時代の黒歴史をすべて思い出した。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="364">「青汁……に、炭酸と、わさびと……初恋？」</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　キヨさんが大きくうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「“青春ソーダ”だ」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="370">「初恋の成分、わさびだったの!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　最後の紙コップが差し出される。</p>
+<p class="source-line role-narration gap-0" data-source-line="373">　透明な液体だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「これは簡単さ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="377">　マコトは匂いを嗅いだ。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="378">　何の匂いもしない。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　一口飲む。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="381">　味もしない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「水」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「不正解」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="387">「なんでだよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「白湯だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「冷めてる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="393">「人生も白湯も、冷めたからって水には戻れないんだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="395">「何その妙に刺さる格言！」</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　キヨさんはお玉を下ろさない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="399">「不正解者は通せないね」</p>
+<p class="source-line role-narration gap-1" data-source-line="401">　ゴウがマコトを床に下ろし、自分が前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「ならば俺が飲む」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="405">「ゴウ、お前は購買部出入り禁止だろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「ここはまだ購買部ではない。購買部まで残り五十メートルの廊下だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">「校則の穴を突く番長！」</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　キヨさんが巨大なボウルを出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="412">　中には肉じゃがジャム、青春ソーダ、冷めた白湯、さらに正体不明の茶色い何かが全部混ざっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「飲めるかい？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="416">「妹のためなら」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　ゴウはボウルを持ち上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　液体が口へ流れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　廊下の窓が一斉に開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="422">　風もないのにカーテンがはためいた。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="423">　遠くの音楽室で、誰も触れていないシンバルが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　ゴウは一滴残らず飲み干した。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="427">「味は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　キヨさんが問う。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　ゴウは静かに答えた。</p>
+<p class="source-line role-dialogue role-sensory fx-whisper tone-3 gap-1" data-source-line="433">「母の……味だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="435">「お前んち何食ってんだよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　キヨさんの目から、太い涙がこぼれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">「通りな」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="441">「感動する要素あった!?」</p>
+<p class="source-line role-dialogue role-command tone-3 gap-1" data-source-line="443">「さあ行け！　そして母ちゃんに料理教室を紹介してやれ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「余計なお世話だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　第三関門突破。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　残るは、購買部そのもの。</p>
+<div class="source-line scene-break gap-1" data-source-line="450" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="452">　ついに二人はたどり着いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　購買部前には、すでに百人を超える生徒が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="455">　いや、並んでいるというより、巨大な団子になっている。先頭がどこか誰にも分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　カウンターの奥には、最後のおばちゃんがいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　小柄で、にこにこしている。</p>
+<p class="source-line role-narration gap-0" data-source-line="460">　頭には三角巾。</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　胸の名札には「サチ」。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="463">「第四関門、“袋詰めのサチさん”……四天王最強だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　ゴウの声が震える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「袋詰めでどう最強になるんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　直後、カウンターから紙袋が飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　パァン！</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　横入りしようとした三年生の頭に、紙袋がすっぽりかぶさる。続けて食パン二斤、牛乳パック、メロンパンが袋の中へ高速で収納され、取っ手が蝶結びになった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「お買い上げ、ありがとうございます」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="477">　サチさんは笑顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　三年生は一言も発せず、袋のまま運ばれていった。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="481">「人も詰めるの!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">「サチさんの前では、万物が商品になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「怖すぎる接客！」</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　そして、カウンターの上。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　金色のトレーに載せられた極上トリプル焼きそばパンが、ちょうど一個だけ残っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「残り一個だァーッ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　生徒たちの目が血走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　団子が爆発し、百人が一斉に手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　その瞬間。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「どけいッ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　天井を突き破って、一人の男が降ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　リーゼント。</p>
+<p class="source-line role-narration gap-0" data-source-line="503">　学ラン。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="504">　背中には「パン」と刺繍されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　三年生の購買部王、早乙女バゲット。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　昨年度、極上トリプル焼きそばパンを二百日連続で購入した伝説の男だ。夏休み中も校門前に並び、守衛から「学校やってないよ」と言われたことで連続記録は途絶えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「その一個は、この早乙女バゲット様がいただく！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「名字からやり直せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　バゲットは生徒たちの肩を飛び石のように駆け、カウンターへ迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　マコトも走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「うおおおお！」</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　だが遅い。</p>
+<p class="source-line role-narration gap-0" data-source-line="520">　普通の高校生の全力疾走だ。しかも途中で上履きが片方脱げた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="522">　バゲットの手がパンへ届く。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　そのとき、ゴウが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="526">「マコト！」</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　ゴウは床に両手を組み、踏み台を作った。</p>
+<p class="source-line role-narration gap-0" data-source-line="529">　マコトは反射的にそこへ足を置く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="531">「飛べ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「俺を何だと思って――うわあああああ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　ゴウの腕が跳ね上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　マコトの体は弾丸のように宙を飛ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　バゲットとマコト。</p>
+<p class="source-line role-narration gap-0" data-source-line="539">　二人の手が、同時に焼きそばパンをつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「離せ一年！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="542">「そっちが離せ三年！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">「俺は二百日、こいつと昼を共にした！　もはや家族だ！」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="545">「家族を食うな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　引っ張り合いでコッペパンが伸びる。</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　中の三種の麺が、ゴムのようにびよーんと伸びる。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="550">　サチさんは笑顔のまま言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="552">「パンを粗末にする子には、売れないねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　二人の動きが止まった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="556">　サチさんの笑顔は変わらない。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　ただし、背後で紙袋が百枚、羽のように浮いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「すみませんでした！」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　二人は同時に手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　伸びきったパンは反動で元に戻る。</p>
+<p class="source-line role-narration gap-0" data-source-line="564">　勢い余ってカウンターを飛び越え、廊下へ向かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「パンが逃げたァ！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="568">　極上トリプル焼きそばパンは空中を回転しながら、開いた窓へ一直線に飛ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　このままでは校庭へ落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="571">　いや、校庭ならまだいい。</p>
+<p class="source-line role-narration gap-0" data-source-line="572">　窓の外には、ちょうど校長の銅像が口を開けて立っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「校長に食われる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「銅像だよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　ゴウが跳んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="579">　だが、でかすぎて窓枠に肩が挟まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「ぬおおお！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「そういうとこだけサイズ通り！」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　マコトは床を蹴った。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="586">　伸ばした指先が、紙袋の端に触れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　届かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　あと五センチ。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　そのとき、背中を赤い旗が押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="594">「行きな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　タエさんだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="597">　さらに、足元へ硬貨が滑り込む。マコトはそれを踏んで、わずかに高く跳ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">「授業料は返したよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　フミさんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="602">　そしてキヨさんのお玉が、マコトの腰をすくい上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="604">「仕上げは任せな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="606">「この連携、普段から練習してるだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　マコトの手が紙袋をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　だが勢いは止まらない。</p>
+<p class="source-line role-narration gap-0" data-source-line="611">　そのまま窓の外へ飛び出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="613">「マコトーッ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　ゴウが窓枠ごと前へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="616">　片手でマコトの足首をつかむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　二人は校舎の外にぶら下がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　下では全校生徒が見上げている。</p>
+<p class="source-line role-narration gap-0" data-source-line="621">　上ではサチさんが笑っている。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="622">　紙袋の中では、焼きそばパンが無事だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="624">「取ったぞ、ゴウ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="626">「よくやった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　その瞬間、パンの重みで紙袋の底が抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="630">「あ」</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　極上トリプル焼きそばパンは、ゆっくり落ちていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　校長の銅像の口へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　スポッ。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　完璧なホールインワンだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　全校生徒が沈黙した。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　校歌の二番だけが、どこからともなく流れ始めた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="644">「……終わった」</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　ゴウの声がかすれた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="648">　妹の誕生日。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　たった一つのお願い。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　命がけで駆け抜けた昼休み。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　そのすべてが、銅像の口に収まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　マコトはぶら下がったまま拳を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「まだだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="658">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「銅像の口から取ればいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「あれは高さ十八メートルだぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「お前なら登れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="666">「校長に登るのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="668">「銅像だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　二人が地面へ下りた、そのとき。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　購買部の奥から、サチさんが声をかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="674">「はい、次の人」</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　カウンターに、金色のトレーが置かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　その上には。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　極上トリプル焼きそばパンが、あと二個あった。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="682">「…………」</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　マコトは固まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="685">　ゴウも固まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="686">　全校生徒も固まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　サチさんは首を傾げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「限定三個だからねえ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="692">「最初から残り三個だったの!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「誰よ！　残り一個って叫んだの！」</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　全員の視線が、一人の生徒へ集まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="697">　最初に叫んだ二年生が、そっと目をそらす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「だ、だって盛り上がるかなって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「昼休み返せーッ！」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="703">　購買部前に、今日一番の怒号が響いた。</p>
+<div class="source-line scene-break gap-1" data-source-line="705" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="707">　結局、マコトは極上トリプル焼きそばパンを買うことができた。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　ゴウは購買部出入り禁止なので、校門の外で待っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="710">　マコトが紙袋を渡すと、巨体の番長は何度も頭を下げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「ありがとう、マコト。この恩は一生忘れん」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="714">「いいって。俺も、まあ……ちょっとだけ面白かったし」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="716">「友よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="718">「重い。言葉も肩に置いた手も重い」</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　放課後、二人はゴウの家へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　妹のミナは小学一年生で、兄とは似ても似つかないほど小さく、ふわふわした髪をしていた。紙袋を見ると、目を輝かせる。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="724">「やきそばパン！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="726">「誕生日おめでとう、ミナ」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　ゴウが優しく言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　マコトは少し離れた場所で、その光景を見守った。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　タエさんの赤旗。</p>
+<p class="source-line role-narration gap-0" data-source-line="732">　フミさんの釣り銭。</p>
+<p class="source-line role-narration gap-0" data-source-line="733">　キヨさんの地獄の試食。</p>
+<p class="source-line role-narration gap-0" data-source-line="734">　サチさんの人間袋詰め。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="735">　バゲットとの死闘。</p>
+<p class="source-line role-narration gap-0" data-source-line="736">　校長の口に吸い込まれた一個。</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　全部、この笑顔のためだったと思えば悪くない。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　ミナは袋からパンを出し、じっと見つめた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="742">「お兄ちゃん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">「何だ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="746">「わたし、やきそばパン、食べたいって書いてないよ」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="748">「……何？」</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　ゴウがメモを取り出す。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-1" data-source-line="752">『兄ちゃんへ</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-0" data-source-line="753">　きょう、たんじょうびだから、やきそばパンたべてみたいです</p>
+<p class="source-line role-narration gap-0" data-source-line="754">　ミナ』</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　ミナは首を振った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="758">「それ、“やきそばパンつくってみたいです”って書いたの。『つくって』のところ、お兄ちゃんの指で消えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　ゴウの親指を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="761">　朝に墨汁でも触ったのか、真っ黒だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　メモには確かに、「やきそばパン」の後に、うっすら『つくって』の跡がある。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="765">「つまり……」</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　マコトはこめかみを押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">「買う必要、なかった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「うむ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="773">「今日一日、全部？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="775">「うむ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="777">「俺の一円も？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="779">「うむ」</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　沈黙。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　ミナがにっこり笑う。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="785">「だから、お兄ちゃん。いっしょにつくろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　ゴウは巨大な手で顔を覆った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="789">「もちろんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　その声は少し泣いていた。</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="793">　マコトはため息をつき、笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="795">「じゃあ、その買ってきたやつを見本に――」</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　ゴウがパンを持ち上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　力加減を間違えた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="801">　パンは一瞬で、直径三センチの球になった。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="803">「…………」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="805">「…………」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="807">「兄ちゃん、それ、たこやき？」</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　ミナの無邪気な一言が、とどめだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「ゴウゥゥゥゥゥ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　マコトの叫びが町内に響く。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　翌日。</p>
+<p class="source-line role-narration gap-0" data-source-line="816">　購買部では新商品「一口サイズ・極上トリプル焼きそば玉」が発売された。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　考案者、鬼瓦ゴウ。</p>
+<p class="source-line role-narration gap-0" data-source-line="819">　一日限定三百個。</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　昼休み開始十秒で完売した。</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　そしてゴウの出入り禁止期間は、さらに一年延びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　　　　　　　　　　　　　　　　　　　　　　　　　　　　<span class="term term-world">〈了〉</span></p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

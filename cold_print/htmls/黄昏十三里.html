@@ -1,0 +1,986 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="現代から古代王朝へ落ちた歴史学者・高瀬透は、翌朝の落日関で三万人が死ぬと知っている。内通の証拠を持つ女騎兵、破戒僧、盲目の少年と警告を届ける途中、四人は地図にない〈無影里〉へ迷い込む。影を持たない村人、沈まない夕日、土の下の鐘。十三度目が鳴ると一行は村の手前へ戻され、記憶まで失う。印璽に残った百を超える傷だけが、失敗を告げていた。史書どおりなら彼らの旅は届かない。歴史を変えれば、透の未来そのものが消えるかもしれない。それでも十三里先で待つ命へ、道をつなげられるのか。">
+<title>黄昏十三里｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="黄昏十三里" data-novel-id="黄昏十三里" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>歴史・奇妙な味・伝奇</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ホラー、歴史、奇妙な味、伝奇、タイムトラベル、知識チート</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：525行／章：0／役割・強度タグ：582</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="黄昏十三里 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">黄昏十三里</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　鐘は十二までだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="4">　十三度目を聞いたなら、振り向いてはいけない。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　振り向いた者は、自分が来た道に立っている。</p>
+<div class="source-line scene-break gap-1" data-source-line="7" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="9">「あと十三里だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　高瀬透は、ひびの入った腕時計を見て言った。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="12">　液晶には、八か月前から変わらない数字が浮かんでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　十八時十三分。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　発掘現場で青銅の円盤に触れた瞬間、この時代へ落ちてきた時刻だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「その板切れ、道の長さまで教えるのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　戒旺が、鉄の錫杖を肩に担いだ。旅僧を名乗ってはいるが、戒律を守っているところを透は一度も見たことがない。黒衣は砂埃で灰色になり、首に巻いた数珠には酒壺の栓まで通してある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「教えない。地図と歩幅から計算した」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="23">「なら最初からそう言え。未来の宝具みたいに見せびらかすな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="24">「見せびらかしてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="25">「二人とも、口を動かすなら足も動かせ」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="27">　先を行く翠蘭が振り返った。砂色の外套の下に、細身の湾刀を二本差している。かつて落日関の騎兵隊を率いていた女だ。今は、味方の将を斬った罪で追われている。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　斬られた将が敵に門を売った男だったことを、朝廷は知らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="30">　少なくとも、明日の朝までは。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　翠蘭の胸元には、その男から奪った黒玉の印璽がある。内通の証拠だった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="34">　明日の夜明け、落日関では内側から水門が開かれる。</p>
+<p class="source-line role-narration gap-0" data-source-line="35">　砂漠の地下水が城壁の基礎を崩し、待ち伏せていた北軍が雪崩れ込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="36">　史書はそれを「三万骨の朝」と記す。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="38">　死者、三万一千四百余。</p>
+<p class="source-line role-narration gap-0" data-source-line="39">　生存者、百十九。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="41">　透はその数字を、大学院の閲覧室で何度も読んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　紙の上ではわずか一行だった。だが、この時代に来てから、数字には顔があると知った。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　落日関の門番は、娘のために木馬を削っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　炊事場の老婆は、戒旺に塩を盗まれて本気で追い回した。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="46">　若い兵士は、翠蘭が死んだという噂を信じず、毎晩ひそかに彼女の馬具を磨いていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="48">　彼らが明日、数字になる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「間に合う」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　透は自分に言い聞かせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="54">「日が落ちる前に宿を見つけられればな」と戒旺が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="55">「宿などない。この街道は落日関まで無人だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="56">「お前の史書には、だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　戒旺が顎で前方を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　砂丘の向こうに、黒い瓦屋根が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　透は足を止めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="63">　地図にはない村だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　低い土塀。細い見張り台。風に鳴る白い小鐘。</p>
+<p class="source-line role-narration gap-0" data-source-line="66">　家々の窓には明かりがあるのに、煙突から煙が出ていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="67">　門の額には、古びた文字でこう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　無影里。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="71">「影のない里」</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　透が読んだ時、最後尾を歩いていた阿瑠が顔を上げた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="75">　十二、三歳ほどの盲目の少年だった。両目を白布で覆い、杖の先に三つの銅鈴を結んでいる。乾いた川底で倒れていたところを拾って以来、彼は一行についてきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="77">「鐘がある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="78">「見れば分かる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="79">「見えてる鐘じゃないよ、戒旺」</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　阿瑠は耳を澄ませた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「土の下で鳴ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　その言葉に応えるように、村の奥から鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　ごうん、と腹の底を撫でる音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　門の内側で、すべての窓が同時に開いた。</p>
+<div class="source-line scene-break gap-1" data-source-line="93" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="95">　村人たちは、四人を待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　驚きもせず、笑いもせず、道の両側に立って頭を下げた。老人も子供も、まるで葬列を迎えるように白い服を着ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　彼らの足元に、影はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　夕日はまだ西に残っている。透たちの影だけが、長く東へ伸びていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">「気に食わねえな」</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　戒旺が小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">「お前は、気に入ったもののほうが少ないだろう」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="108">「酒と昼寝と、金を払う奴は好きだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="109">「最後のは初耳だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　二度目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　村の中央には、三階建ての宿があった。軒に吊るされた看板には「帰来」とある。</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　引き戸を開ける前に、中から声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「百一度目のご到着でございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　白髪の女主人が、四つの椀を並べていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　いや、五つだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　四人分の湯気立つ粥の隣に、誰も座っていない席が一つある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「誰と間違えている」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　翠蘭の手が刀の柄にかかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="129">「間違えてなどおりません、翠蘭さま」</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　女主人は彼女を見ずに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「戒旺さまは、また酒蔵を探すでしょう。透さまは、北の道を試す。阿瑠さまは、十二度目の鐘で泣く。そして皆さま、十三度目にお戻りになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　透の喉が乾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「俺たちを知っているのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「存じておりますとも」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　女主人は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「百回、お泊めいたしましたから」</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　三度目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　戒旺は無言で踵を返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「宿代を踏み倒すなら今だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　四人は村を飛び出した。</p>
+<div class="source-line scene-break gap-1" data-source-line="152" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="154">　北の道を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　砂丘を越え、枯れた柳を三本抜け、二股を右へ曲がった。透は足跡を数えた。千二百歩を超えた頃、遠くに土塀が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　無影里の南門だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　門前に、彼ら自身の足跡が続いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「輪になっているはずがない」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　翠蘭が地面に膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「ずっと北へ進んだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="167">「砂漠で方角を失っただけじゃねえのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「夕日が左にあった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="169">「空のほうが回ったのかもしれん」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="171">　戒旺の冗談に、誰も笑わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　四度目、五度目、六度目。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　鐘が鳴るたび、夕日は少しも沈まないのに、空だけが暗くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　東の道は西門へ戻った。</p>
+<p class="source-line role-narration gap-0" data-source-line="178">　塀を乗り越えると、宿の台所へ落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="179">　井戸に石を落とすと、背後の空から同じ石が降ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　九度目の鐘が鳴る頃には、村人たちの顔から目鼻が消えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="182">　白い卵のような顔が、四人の動きを追っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　十度目。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　家々の壁から、墨で描いた獣が這い出した。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="187">　狼にも猿にも見える黒い影だった。牙は文字でできていた。噛みつかれた翠蘭の外套から、布ではなく、彼女の名前の一画が千切れた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="189">「こいつら、斬ると増えるぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　翠蘭の双刀が黒い獣を裂くたび、二つの染みになって立ち上がった。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="193">「なら潰す！」</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　戒旺の錫杖が地面を砕いた。鉄輪が鳴り、墨獣が紙のようにひしゃげる。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="197">　阿瑠が杖の鈴を振った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="199">「右、三歩。次は低い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　透は腰の松明を抜き、墨獣へ投げつけた。火は獣を焼かず、そこに書かれていた文字だけを赤く浮かび上がらせた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="203">　死。</p>
+<p class="source-line role-narration gap-0" data-source-line="204">　敗。</p>
+<p class="source-line role-narration gap-0" data-source-line="205">　無名。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　不達。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　すべて、史書の語だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　十一度目。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　村人たちが一斉に口を開いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="214">「警告は届かなかった」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="215">「落日関は陥ちた」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-0" data-source-line="216">「死者三万一千四百余」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="217">「生存者百十九」</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="219">　透が知っている一節を、何百もの声が唱えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="221">「黙れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　透は叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　十二度目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　阿瑠が泣いた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="229">　涙は白布の下から流れたのではない。杖の三つの鈴から、透明な雫が落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「来るよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「何がだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="233">「僕たち」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　地面から四つの影が立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　透の影。</p>
+<p class="source-line role-narration gap-0" data-source-line="238">　戒旺の影。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　翠蘭の影。</p>
+<p class="source-line role-narration gap-0" data-source-line="240">　阿瑠の影。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　それぞれが持ち主と同じ姿になり、同じ武器を構えた。ただし顔には、女主人と同じ静かな微笑みがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　影の透が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「間に合わない」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="248">　その声を聞いた瞬間、透の胸に、落日関の死体の山が流れ込んだ。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="249">　見たことのない記憶だった。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="250">　門番の木馬が血に浮かび、炊事場の老婆が鍋を抱えたまま倒れ、若い兵士の指が翠蘭の馬具を握っている。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="252">　これは未来だった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="253">　いや、史書に固定された過去だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　透は膝をついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　影が彼の額へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　十三度目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　世界が裏返った。</p>
+<div class="source-line scene-break gap-1" data-source-line="263" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="265">「あと十三里だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　透は、自分の声で目を覚ました。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　砂丘の向こうに無影里がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="270">　夕日は西に止まり、腕時計は十八時十三分を示している。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　戒旺が鉄の錫杖を担いでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　翠蘭が先を歩いていた。</p>
+<p class="source-line role-narration role-ritual gap-0" data-source-line="274">　阿瑠の鈴が鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　誰も、先ほどの出来事を覚えていない顔をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　だが透の掌には、焼け焦げた文字が残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　不達。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="282">「止まれ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　三人が振り向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　透は翠蘭の胸元から印璽を借り、縁を調べた。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　黒玉の側面に、細い傷が百一本ついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　一つ一つ、同じ深さだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">「女主人は本当のことを言っていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　透は印璽の縁へ、短剣で新しい傷を刻んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　百二本目。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「俺たちは、もう百一回ここへ来た」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　戒旺はしばらく黙り、それから盛大にため息をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「百回も泊まって、一度も酒にありつけてねえのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　翠蘭が彼の脛を蹴った。</p>
+<div class="source-line scene-break gap-1" data-source-line="305" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="307">　記憶を保てたのは、四人が同時に印璽へ触れたからだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　二度目の百二回目――戒旺がそう呼んだ――から、彼らは鐘の合間を数え、村を調べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　門を壊した。</p>
+<p class="source-line role-narration gap-0" data-source-line="312">　井戸を干した。</p>
+<p class="source-line role-narration gap-0" data-source-line="313">　宿を燃やした。</p>
+<p class="source-line role-narration gap-0" data-source-line="314">　女主人を縛った。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　何をしても、十三度目には砂丘の手前へ戻った。</p>
+<p class="source-line role-narration gap-0" data-source-line="317">　宿は元に戻り、女主人は同じ粥をよそっていた。縛った縄だけが透の手首に巻きついていたこともあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　百五回目、翠蘭が鐘楼へ登った。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　屋根の上から見た無影里は、村ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　巨大な円盤だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　十二本の道が放射状に伸び、家々は刻み目のように並んでいる。中央の鐘楼が軸で、夕日から落ちる四人の影が、盤上の針になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　百七回目、戒旺が地下の酒蔵を見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　酒はなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　代わりに、壁一面へ人の名前が彫られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　落日関で死ぬ兵士たちの名だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　透が史書で見たことのない名が、三万以上並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　百十回目、阿瑠が村外れの廟を見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　中には、四つの位牌があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　戒旺。</p>
+<p class="source-line role-narration gap-0" data-source-line="341">　翠蘭。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　阿瑠。</p>
+<p class="source-line role-narration gap-0" data-source-line="343">　高瀬透。</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　透の名だけが、この時代にはない字体で刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　命日は明日。</p>
+<p class="source-line role-narration gap-0" data-source-line="348">　場所は落日関。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="350">「やはり、私たちは死ぬのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　翠蘭は位牌を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「史書には、翠蘭という将の名はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　透は言いにくいことを言った。</p>
+<p class="source-line role-dialogue fx-whisper tone-2 gap-1" data-source-line="358">「戒旺も、阿瑠も。落日関へ警告を届けた一行の記録はない。つまり……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="359">「全滅したか、記録する価値もなかったか」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　戒旺が位牌を逆さにした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「どっちでも同じだ。墓に入った後の評判で、腹は膨れん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「でも、俺が歴史を変えれば、俺の時代が消えるかもしれない」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="366">　透は初めて、その恐怖を口にした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「落日関の陥落は、大曜王朝が崩れるきっかけになった。戦乱は続いた。でも、その後に新しい国ができた。俺の生まれた時代へ、長い道がつながった。ここを救えば、その道そのものがなくなるかもしれない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="370">「では見殺しにするのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　翠蘭の声は静かだった。</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="374">「未来にとって都合がいいから、明日死ぬ者に黙っていろと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="375">「そうじゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="376">「同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　彼女は位牌を抜き、床へ投げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「私は歴史を救いに行くのではない。門の上で震えている新兵を救いに行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　戒旺が鼻で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「歴史ってのは墓石に似てる。読める字より、削れた名のほうが多い。お前は石の字を守りたいのか、まだ息をしてる奴を守りたいのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　阿瑠は自分の位牌に耳を当てていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「この中、空っぽだよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="389">「何がだ」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="390">「死んだ音がしない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="392">　少年は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「まだ、決まってない」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　その時、廟の床下から鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　十三番目の鐘だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　まだ、地上の鐘は一度も鳴っていなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="402" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="404">　床を剥がすと、下へ続く石段が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　四人は百十三本目の傷を印璽へ刻み、地下へ降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　石段の先には、円い部屋があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="409">　天井から十二の小鐘が吊られ、中央に青銅の円盤が浮いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　透が発掘現場で触れたものと、同じ円盤だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　星座と方位、十二支、知らない文字。</p>
+<p class="source-line role-narration gap-0" data-source-line="414">　中心には、針のない小さな穴がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　その前に、宿の女主人が立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「ようやく、ここまでお越しになりましたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「お前は何者だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　翠蘭が刀を抜いた。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="424">「曲玉と申します。かつて大曜の校史官を務めておりました」</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="425">「かつて？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「景和二十七年、落日関で死にました」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　曲玉は、自分の胸を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="429">　そこには黒い矢尻が刺さっていた。今まで白い衣に隠れていた傷だった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="431">「私は陥落の記録を残すため、この定史盤を動かしました。三万の死を、誰にも改ざんさせぬために」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　透は円盤を見上げた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="435">「歴史を保存する装置……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「いいえ。歴史を、一つにする装置です」</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　曲玉の背後で、十二の鐘がかすかに揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「出来事には無数の枝がございます。警告が届く枝。届かない枝。将が信じる枝。疑う枝。門が開く枝。閉じる枝。人は後から、そのうち一本だけを『必然』と呼ぶ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「この村は、枝分かれを閉じ込めているのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「あなたが来たためです、透さま」</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　曲玉は悲しそうに言った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="449">「あなたは、落日関が陥ちた未来から来た。そして落日関を救おうとしている。救えば、あなたをこの時代へ導いた未来が消える。救わなければ、あなたがここへ来た意味が消える。二つの因果が互いの首を絞め、時は先へ進めなくなりました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="451">「だから、十三度目に戻す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「十二の結果を試し、十三で初めへ返す。それが定史盤の働きです」</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　曲玉は、部屋の隅にある小卓を示した。</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　五つ目の椀が置かれている。</p>
+<p class="source-line role-narration gap-0" data-source-line="457">　中には、白い灰が満ちていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="459">「印璽をその椀へ。警告を手放しなさい。そうすれば史書どおり、落日関は陥ちます。あなたは元の時代へ帰り、三人はここへ来なかったことになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「それが、五人目の客か」</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　阿瑠が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「僕たちが捨てる、明日」</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　曲玉は答えなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="469">「もう一つの道は？」と透は聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「盤を壊すこと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「簡単じゃねえか」</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　戒旺が錫杖を構えた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="477">「ただし、歴史は定まらなくなります。あなたの未来が残る保証はありません。救った王朝が、より多くを殺すかもしれない。三万を生かし、三百万を苦しめるかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　透の胸に、閲覧室の白い光がよみがえった。</p>
+<p class="source-line role-narration gap-0" data-source-line="480">　コーヒーの染みがついた論文。</p>
+<p class="source-line role-narration gap-0" data-source-line="481">　窓の外を走る電車。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="482">　母から届いた、帰省の日を尋ねる短いメッセージ。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　すべてが消えるかもしれない。</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="486">「未来は、善いものだったのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　曲玉が尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　透は答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　戦争も、飢えも、虐殺もあった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="493">　だが、笑う人も、愛する人もいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　善いか悪いかを、一語で言えるほど単純な時代ではない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「分からない」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　透は正直に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「だから、決めるのが怖い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="502">「怖いままで決めろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　翠蘭が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「怖くない者に、明日を選ばせるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　戒旺が錫杖を回した。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="510">「明日が悪くなるかもしれんから今日死ね、なんて説法は、破戒僧でも口にしねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　阿瑠は中央の円盤へ耳を向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「鐘が怖がってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="516">「鐘が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「うん。壊されるのをじゃない。分からない明日を」</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　透は黒玉の印璽を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="522">「なら、同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　定史盤の中心へ歩み寄る。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="526">「俺たちも怖い。盤だけ、安全な過去に隠れるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　十二の鐘が一斉に鳴った。</p>
+<div class="source-line scene-break gap-1" data-source-line="530" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="532">　壁から墨が噴き出した。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="534">　何千、何万という文字が絡み合い、巨大な竜の形を作った。角は年号、鱗は死者の名、牙は数字でできている。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　墨竜が口を開く。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="538">「警告は届かなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　部屋が震えた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="542">「落日関は陥ちた」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　戒旺が先に飛び込んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="546">「うるせえ。百回聞いた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　錫杖が墨竜の顎を打ち上げる。鉄輪から火花が散り、年号の角が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　翠蘭の双刀が鱗の隙間へ走る。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="551">　斬られた名前が悲鳴を上げ、黒い紙片になって舞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　墨竜の尾が彼女を薙いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　翠蘭は壁へ叩きつけられた。立ち上がろうとして、動きを止める。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="557">「私は……誰だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　尾に触れた肩から、彼女の名が消えかけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　透は叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="563">「翠蘭！　落日関の騎兵隊長だ！　双刀で、口が悪くて、馬にはやさしい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「最後は余計だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　翠蘭の目に光が戻った。</p>
+<p class="source-line role-narration gap-0" data-source-line="568">　彼女は自分の腕へ刀で名を刻み、再び駆けた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="570">　阿瑠が鈴を振る。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="572">「戒旺、伏せて！　透、左の鐘を二つ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　透は吊り縄へ飛びついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="575">　二つの鐘がぶつかり、濁った音を立てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　墨竜の胴が歪んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="579">「こいつは音で形を保ってる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「十二の鐘じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　阿瑠が床へ杖を突き立てた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="585">「十三番目が、この円盤そのものなんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　透は定史盤を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="588">　中心の穴は、印璽と同じ形をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　これは鍵ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="591">　撞木だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　墨竜が透へ襲いかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　戒旺が尾を数珠で巻き、両足を踏ん張る。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="597">「さっさと鳴らせ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="599">「鳴らしたら、全部変わる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="601">「旅なんざ、角を一つ曲がるたび全部変わる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　翠蘭が墨竜の首へ刀を交差させた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="605">「透！」</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="607">　阿瑠の鈴が、澄んだ一音を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「まだ決まってない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　透は印璽を中心の穴へ叩き込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　定史盤が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　それは鐘の音ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　生まれなかった子供の産声。</p>
+<p class="source-line role-narration gap-0" data-source-line="618">　届かなかった手紙を読む声。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="619">　戦場から帰った兵士の笑い。</p>
+<p class="source-line role-narration gap-0" data-source-line="620">　王にならなかった男の寝息。</p>
+<p class="source-line role-narration gap-0" data-source-line="621">　名を残さなかった無数の人々の、あり得た明日。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　十三番目の音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　墨竜の全身から文字が剥がれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="627">「警告は――」</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　声が途切れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　透は印璽をさらに押し込んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="633">「今、届ける！」</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　円盤に亀裂が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　夕日が沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　無影里に、初めて夜が来た。</p>
+<div class="source-line scene-break gap-1" data-source-line="641" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="643">　気づくと、四人は落日関の東門前に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　空には星があり、風は先へ流れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="646">　背後に村はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　城壁の上から誰何の声が飛ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="650">「開けろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　翠蘭が黒玉の印璽を掲げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="654">「水門を閉じろ！　内通者がいる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　門はすぐには開かなかった。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="657">　死んだはずの元隊長が夜中に現れたのだ。疑うのが当然だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　その時、城内で火の手が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　歴史どおり、内通者たちが動き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「北の貯水塔だ！」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="665">　透は史書の図版を思い出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「地下の亀裂渠から水門へ行ける。武器庫の床下だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　戒旺が門扉を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">「開けないなら、壊すか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="672">「味方の門だぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="673">「明日には敵の門になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　錫杖が閂の位置へ突き刺さった。</p>
+<p class="source-line role-narration gap-0" data-source-line="676">　翠蘭の刀が木材の継ぎ目を断つ。</p>
+<p class="source-line role-narration role-ritual role-horror gap-0" data-source-line="677">　阿瑠の鈴が、城内を走る兵の足音を拾う。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　門が開いた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="681">　それからの一刻を、透は生涯忘れなかった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="683">　亀裂渠を走り、内通者と斬り結び、水門の歯車へ鎖を巻いた。北軍の先鋒が地下道から現れた時、戒旺が一人で橋を落とした。翠蘭は古い部下たちの前で印璽を掲げ、裏切り者の名を叫んだ。阿瑠は暗闇の中で矢の音を聞き分け、何十人もの兵を伏せさせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　透は未来の知識を使った。</p>
+<p class="source-line role-narration gap-0" data-source-line="686">　崩れる壁を知っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="687">　伏兵の位置を知っていた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="688">　誰がどこで死んだかを知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　史書の一行一行が、今度は人を生かすための地図になった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="692">　夜明け前、水門は閉じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="693">　北軍は退いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　朝日が城壁を照らした時、門番は木馬を抱えて泣いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="696">　炊事場の老婆は、戒旺の頭を鍋で殴った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="697">　若い兵士は翠蘭の前で膝をつき、それから子供のように笑った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="699">　三万一千四百余の死者は、そこにはいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　生きている人間が、三万以上いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　透の腕時計が動き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　十八時十四分。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　たった一分、進んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="709">「帰るのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　翠蘭が尋ねた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="713">　透の足元から、白い光が立ち上っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「たぶん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「向こうの史書に、私をどう書く」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="718">「落日関を救った将軍」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="719">「美人だったと付け加えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　戒旺が酒壺を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="723">「俺は聖人にするな。税を取られそうだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="724">「じゃあ破戒僧」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="725">「ありのまますぎる」</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　阿瑠が透の袖をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="729">「音を忘れないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="730">「何の音？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="731">「まだ決まってない明日の音」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="733">　白い光が視界を覆った。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　透は三人の名を叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　今度こそ、記録から消えないように。</p>
+<div class="source-line scene-break gap-1" data-source-line="739" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="741">　目を開けると、透は白い床に倒れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　空調の音がする。</p>
+<p class="source-line role-narration gap-0" data-source-line="744">　天井には照明が並び、壁は透明な硝子でできている。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　そう思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　だが、発掘現場ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　広大な博物館だった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="754">　透の前に、壊したはずの定史盤が展示されている。傷一つなく、青銅の表面を青い光が走っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　展示台の銘板を読んで、透は息を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="758">『落日関の奇跡</p>
+<p class="source-line role-narration gap-0" data-source-line="759">　景和二十七年、虚史鬼による王朝転覆を、三聖が阻止した事件。</p>
+<p class="source-line role-narration gap-0" data-source-line="760">　これにより大曜皇統は永続し、現在の世界統一へ至る。</p>
+<p class="source-line role-narration gap-0" data-source-line="761">　統一暦二四一七年、皇史院蔵』</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　三聖の肖像が壁いっぱいに描かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　鉄の錫杖を持つ戒旺。</p>
+<p class="source-line role-narration gap-0" data-source-line="766">　双刀を掲げる翠蘭。</p>
+<p class="source-line role-narration gap-0" data-source-line="767">　白布で目を覆った阿瑠。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="769">　その足元で、黒い影の怪物が踏みつけられている。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="770">　怪物の顔は、透だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="772">「展示物から離れなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　背後で声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　黒い制服を着た係官が二人立っている。胸には同じ番号札があり、名前はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　周囲の見学者たちも、全員が番号札を付けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="779">　誰も私語をせず、同じ歩幅で展示を巡っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　窓の外には、見知らぬ都市が広がっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="782">　尖塔の群れ。空を横切る銀色の車。すべての屋上に、大曜の金色の旗が翻っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　街頭の巨大な画面で、白い仮面の皇帝が演説していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="786">『私名は争いを生む。異史は反逆を生む。唯一の歴史に、唯一の民を』</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　見学者たちが一斉に頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　透は動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　落日関は救われた。</p>
+<p class="source-line role-narration gap-0" data-source-line="793">　王朝は倒れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　倒れなかったまま、二千年以上、世界を覆った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="797">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　透は呟いた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="801">「こんな未来を選んだんじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="803">「未来を選ぶ者は、いつもそう申します」</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　係官の一人が答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　その声は、宿の女主人、曲玉の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　透が顔を上げると、係官の顔から目鼻が消えていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="811">　白い卵のような顔が、静かに笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　博物館の時計が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　一度。</p>
+<p class="source-line role-narration gap-0" data-source-line="816">　二度。</p>
+<p class="source-line role-narration gap-0" data-source-line="817">　三度。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　見学者たちの影が、床から立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　四度。</p>
+<p class="source-line role-narration gap-0" data-source-line="822">　五度。</p>
+<p class="source-line role-narration gap-0" data-source-line="823">　六度。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　都市の尖塔が、巨大な円盤の刻み目へ変わっていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="826">　道路が十二方向へ伸び、銀色の車が針のように回る。</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　七度。</p>
+<p class="source-line role-narration gap-0" data-source-line="829">　八度。</p>
+<p class="source-line role-narration gap-0" data-source-line="830">　九度。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　透は展示台の裏に、小さな人影を見つけた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="834">　白布で目を覆った少年が、三つの鈴を結んだ杖を持っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="836">「阿瑠」</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　少年は首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="840">「その名前、まだ覚えてたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　十度。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="844">「ここは未来じゃないのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="846">「未来だよ。選ばれなかった未来」</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　十一度。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="850">「無影里は壊した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="852">「村はね」</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　阿瑠は、窓の外の都市を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="856">「でも、盤はもっと大きな里を作った」</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　十二度。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="860">「外はどこだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　少年は少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「鐘の外へ出た人は、まだいないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="866">「何回目なんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「今ので、百十三回目」</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="870">　阿瑠の鈴から、透明な涙が落ちた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="872">「三万を見殺しにする未来。三万を救って世界を閉じる未来。どちらを選んでも、透は違うって言う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="874">「どちらも間違っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「うん」</p>
+<p class="source-line role-narration gap-1" data-source-line="878">　少年は嬉しそうに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="880">「だから、また十三里歩くんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　十三度目の鐘が鳴った。</p>
+<div class="source-line scene-break gap-1" data-source-line="884" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="886">「あと十三里だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　透は、ひびの入った腕時計を見て言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　液晶には十八時十三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="891">　砂丘の向こうには、まだ何もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="893">　戒旺が鉄の錫杖を肩に担いでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="894">　翠蘭が先を歩いている。</p>
+<p class="source-line role-narration role-ritual gap-0" data-source-line="895">　阿瑠の鈴が、夕風の中でかすかに鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="897">「どうした、透」</p>
+<p class="source-line role-narration gap-1" data-source-line="899">　翠蘭が振り返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="901">　透は三人の顔を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="902">　門番の木馬を思った。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="903">　番号で呼ばれる未来の人々を思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="904">　史書に残らない、無数の道を思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　正しい答えは、まだなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　だが、同じ問いを同じように解く必要もない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="910">「今度は、村へ入る前に話がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="912">「今度？」</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　戒旺が眉を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　透は黒玉の印璽を手に取り、その縁へ刻まれた百十三本の傷を見せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　遠く、土の下で鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　一度目だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="922">　夕日は沈まなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="923">　それでも四人は、今までとは違う場所に影を落としていた。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

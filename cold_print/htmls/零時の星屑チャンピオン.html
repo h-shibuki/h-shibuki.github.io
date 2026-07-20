@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="家賃滞納中の夜間相談屋・狩谷ジンに、天文学者の娘ミラが持ち込んだ依頼は、今夜零時まで一つの鍵を守ること。地下格闘大会が闘士と観客の闘争心を集め、古代構造体〈星冠炉〉を起動しようとしていた。暴走すれば環都は重力崩壊に呑まれる。炉を止めるには、ミラを連れて決勝まで勝ち上がるしかない。人を撃たない衝撃銃使いジンと、筋肉で壁から入ってくる元王者ゴウは、正反対の即席タッグを結成する。星の力を宿す怪物たちのリングで、逃亡者の過去と十二年前の約束が火花を散らす。">
+<title>零時の星屑チャンピオン｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="零時の星屑チャンピオン" data-novel-id="零時の星屑チャンピオン" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="satirical-sf">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用" selected>風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・ヒーロー・アクション</p>
+  <p><strong>補助ジャンル：</strong>バトル・SF・ギャグ</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、ヒーロー、アクション、バトル、SF、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">風刺SF・日常コメディー</span></p>
+  <p id="currentPresetDescription">親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用</p>
+  <h3>意味色</h3><p>橙＝生活、灰＝企業、赤＝異常、青＝技術、紫＝主題</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：508行／章：0／役割・強度タグ：550</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="零時の星屑チャンピオン 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『零時の星屑チャンピオン』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-0" data-source-line="2">――完全オリジナル読み切り小説――</p>
+<p class="source-line role-narration gap-2" data-source-line="5">　雨は、環都カグラの夜景を安物の宝石みたいに滲ませていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　百二十階建ての摩天楼、その谷間に挟まれた築六十年の雑居ビル。三階の曇った窓には、青いネオンでこう書かれている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="9"><span class="term term-world">〈狩谷夜間相談所――護衛、捜索、揉め事の仲裁。恋愛相談は要予約〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="11">「最後の一行、今すぐ消しなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　大家の千草マコが、入口に立ったまま言った。片手には家賃の請求書、もう片手には業務用の消火器がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　古い革張りの椅子に足を投げ出していた狩谷ジンは、新聞から目だけを上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="17">「集客に必要なんだよ。都会の孤独ってやつには、深夜営業の窓口が要る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="18">「三か月分の家賃を払ってから都会を語りなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「金で解決できる問題は、問題じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「払えない人間が言うと、ただの開き直りよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　そのとき、ドアベルが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　雨の匂いと一緒に、一人の若い女が入ってきた。銀灰色のコート。濡れた黒髪。二十歳を少し越えたくらいだろう。胸元には、小さな六角形のペンダントが光っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　ジンは新聞を畳み、三秒で姿勢を正した。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="28">「ようこそ。護衛なら命懸け、食事なら割り勘、恋愛相談なら今夜だけ初回無料だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="29">「この人、信用できますか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="30">「腕だけはね」</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　マコは消火器を床に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「それ以外は領収書にも書けないわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　女は笑わなかった。窓の外を振り返り、追手がいないことを確かめてから、机の上に古い写真を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　写真には三人が写っていた。白衣の男。十歳ほどの少女。そして、制服姿の若いジン。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　ジンの表情から、軽さが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「月城博士の娘か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「月城ミラです」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　女は言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="48">「父の遺したものを、今夜零時まで守ってください。零時を過ぎたら、この街は消えます」</p>
+<div class="source-line scene-break gap-2" data-source-line="51" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="54">　説明は短かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　十二年前、天文学者の月城レン博士は、環都地下で発見された隕石質の巨大構造体<span class="term term-world">〈星冠炉〉</span>を研究していた。星冠炉は、人間の感情、とりわけ闘争心を未知のエネルギーへ変換する。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　軍は兵器化を望んだ。博士は拒んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　その後、研究施設で爆発が起き、博士は死亡。星冠炉は封鎖された――はずだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「三か月前から、地下格闘組織<span class="term term-world">〈黒曜宮〉</span>が、旧環状競技場で超人格闘大会を開いています」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="64">　ミラは端末に映像を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　鋼鉄のリング。仮面をかぶった巨漢。皮膚から火花を飛ばす女。観客席を埋め尽くす富豪たち。常識外れの肉体を持つ闘士たちが、壁を砕き、床を割り、歓声の中で戦っている。</p>
+<p class="source-line role-dialogue role-system tone-5 gap-1" data-source-line="68">「大会そのものが、星冠炉を動かすための発電装置です。決勝が終わる零時、集めた闘争心で炉が完全起動する。父の計算では、暴走した場合、半径二十キロが重力崩壊に巻き込まれます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="70">「警察には？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">「黒曜宮は議員も警察幹部も買収しています。それに、炉を止める鍵は私の生体波形だけ。公にすれば、先に私が捕まる」</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　ジンは、ミラのペンダントを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="76">「それが制御鍵か」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="77">「ええ。父は最期に、あなたを頼れと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="78">「最期に？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「録音が残っていました。『狩谷ジンを探せ。あいつは最低だが、最後の一線だけは越えない』と」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="82">　マコが吹き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「博士、人物評が正確ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「褒め言葉だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="86">「後半だけよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　次の瞬間、窓ガラスが内側へ爆ぜた。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　黒い雨合羽の男が三人、ワイヤーで飛び込んでくる。全員、顔に金属製の動物面をつけていた。狼、鷹、犀。腕や肩が不自然に膨らみ、皮膚の下で青白い筋が脈打っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「月城ミラを引き渡せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　狼面が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「断ったら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「建物ごと潰す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「大家さん。それ、敷金で足ります？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="99">「足りるわけないでしょう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　犀面が踏み込んだ。床板が波打つ。巨体から繰り出された拳は、机を粉々にする威力だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　だが、拳が届くより先に、ジンの右手が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　革のホルスターから抜かれたのは、拳銃に似た黒い器具だった。火薬の代わりに圧縮磁場を撃ち出す、旧式の衝撃銃だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　乾いた音が三つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　一発目は天井の照明を落とし、二発目は落下した照明の鎖を切り、三発目は壁の非常ベルを撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　暗闇。金属音。けたたましい警報。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　犀面の足首に鎖が絡み、勢い余った巨体が狼面を巻き込んで倒れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="115">「弾は人に当てない主義でね」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="117">　ジンは言った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="119">　鷹面が暗闇を見通し、腕から刃を伸ばしてミラへ跳ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「ただし、例外はある」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　四発目。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　鷹面の刃の根元だけが砕けた。回転しながら床へ落ちた男の後頭部を、マコの消火器が正確に叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">「建物を壊す客は嫌いなの」</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　白煙が室内を満たした。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　狼面は煙の中から立ち上がると、窓の外へ飛び退いた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="133">「零時、旧環状競技場で待つ。来なければ、炉は起動する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「招待状にしては乱暴だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「黒曜宮の主、ヴァルド様がお前を覚えている。逃亡者、狩谷ジン」</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　男たちは雨の闇へ消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　静寂が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　ミラはジンを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「逃亡者？」</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　ジンは衝撃銃をホルスターへ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「昔のあだ名だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="150">「どんな昔です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="151">「人に話すと料金が発生する昔だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　そのとき、床がもう一度、大きく揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　壁が外側から破裂した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="157">　土煙の向こうに、山のような男が立っていた。身長は二メートルを優に越え、肩幅はドア二枚分。白い獣の角を模した仮面をつけ、赤いマントの下は、信じがたいほど盛り上がった筋肉で埋まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　男は両腕を組み、低い声で名乗った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「我が名は、白角のゴウ。月城ミラを迎えに来た」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　マコは無言で修繕費の請求書を一枚増やした。</p>
+<div class="source-line scene-break gap-2" data-source-line="166" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-beat gap-2" data-source-line="169">「誤解だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　五分後、白角のゴウは正座していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　巨体すぎて、座っていても目線がジンとほぼ同じ高さだった。割れた壁にはブルーシートが張られ、雨風がばたばたと鳴っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「入口が狭かったゆえ、壁から入った。それだけだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="176">「普通の人は狭かったら横を向くの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="177">「我が肩は、横を向くとさらに広い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「自慢するところじゃないわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　マコの指摘に、ゴウは深くうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「次から屋上を使おう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="183">「二度と来るなって意味よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　ミラは、獣角の仮面を見つめた。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="187">「あなた、父の大会映像にいた……十年前の<span class="term term-world">〈天蓋杯〉</span>王者」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="188">「覚えていたか」</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　ゴウは仮面を外した。厳つい顔に、一本だけ曲がった鼻。だが目は妙に穏やかだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「月城博士には命を救われた。筋肉増強処置の副作用で心臓を壊した俺に、博士は人工星脈を埋め込んだ。代わりに約束した。娘が助けを求める日には、何を捨てても駆けつけると」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「十二年も経ってる」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="195">「約束は腐らん。鍛えれば太くなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「約束って筋肉なのか」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="198">「お前の約束は細そうだな、狩谷ジン」</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　空気が変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　ゴウはジンをまっすぐ見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「博士が死んだ夜、お前は現場にいた。なのに博士を置いて逃げた」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　ミラが息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　ジンは答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「俺は臆病者にミラを預けん。護衛は俺がする」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="212">「好きにしろ、と言いたいところだが」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　ジンはミラのペンダントを指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「黒曜宮は彼女の顔も生体波形も把握している。正面から競技場へ行けば、入口で終わりだ。内部へ入るには、大会の参加者になるしかない」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　ゴウの目が輝いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">「つまり、戦えばよいのだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="221">「嬉しそうだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「俺は話し合いが苦手だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「見ればわかる」</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　ジンは机の引き出しから二枚のカードを出した。偽造の選手登録証だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="227">「今夜の大会は二人一組の勝ち抜き戦。俺たちは出場者として地下へ入る。ミラはトレーナーに変装。決勝まで進んで中央制御室へ近づき、炉を止める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「お前と組むのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="230">「不満か？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="231">「細い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「機能美と言え」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="233">「胸板が足りん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="234">「都会じゃ胸板で家賃は払えないんだよ」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="235">「では、何で払う？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="236">「今そこを掘るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　マコが請求書を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「帰ってきたら払ってもらうからね。全員、生きて」</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　最後の三文字だけ、声が少し柔らかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　ジンはコートを羽織った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「了解、大家さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　ミラはペンダントを握りしめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　ゴウは仮面をかぶった。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　三人は雨の環都へ出た。</p>
+<div class="source-line scene-break gap-2" data-source-line="255" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="258">　旧環状競技場は、地上から見ると廃墟だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　しかし地下三百メートルには、別の都市が眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　金色の照明に照らされた巨大円形闘技場。観客席には、仮面をつけた政財界の人間たち。中央リングの周囲には十二本の黒い柱が立ち、戦う者たちの熱を吸うように脈動している。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　天井の巨大時計は、午後十時三十二分を示していた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="266">「紳士淑女、そして強さに飢えた怪物たちよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　司会者の声が響く。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="270">「今宵、<span class="term term-world">〈黒曜十二環戦〉</span>の新たな王が決まる！　優勝者には望むものすべてを！　富、名誉、寿命、復讐――星は、勝者にだけ微笑む！」</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　歓声が地下を揺らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　控室で、ミラは白衣と眼鏡に変装し、二人の腕に計測器を巻いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「このバンドは星冠炉の吸収を一部遮断します。でも長くは持ちません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="277">「決勝まで何試合だ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="278">「四試合」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="279">「一時間半で四試合か」</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　ジンはため息をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="283">「労働基準局に通報したい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="284">「優勝賞金は出るぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="285">「急にやる気が出た」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="286">「さっきまで街を救う顔をしていたのに」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="288">　第一試合の相手は、全身に電極を埋め込んだ双子<span class="term term-world">〈雷索兄弟〉</span>だった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="290">　開始の鐘と同時に、兄弟の間を青い電流が走った。リング全体が高圧電場となり、観客の髪が逆立つ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="292">「俺が受ける！」</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　ゴウが前へ出た。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="296">「待て、筋肉は電気をよく通す！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="298">「ならば、もっと強く締めればよい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　理屈になっていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　落雷がゴウを直撃した。爆煙が上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　観客が沸いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　煙の中で、ゴウはまだ立っていた。全身を焦がしながら笑っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">「良い刺激だ。肩こりが消えた」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="310">　雷索兄弟の顔が引きつった。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　ゴウは両腕で二人まとめて抱え上げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="314">「大地抱擁――山嵐落とし！」</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　投げ落とす寸前、ジンが叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="318">「床に叩きつけるな！　下に炉の導管がある！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="320">「では、どこへ投げる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="322">「互いに！」</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　ゴウは忠実に、兄弟を空中でぶつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　雷が弾け、二人は目を回して倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　第一試合、勝利。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　第二試合は、音波を操る女闘士<span class="term term-world">〈鐘楼のネネ〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　彼女が指を鳴らすたび、見えない衝撃が飛ぶ。ゴウの巨体は標的になりすぎた。ジンはリングを走りながら、天井の照明へ衝撃弾を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　落ちた破片が、音波の節で不自然に止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「そこか」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　ジンは空中の破片を狙って三発撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　弾は破片に当たり、角度を変え、さらに別の破片へ跳ねる。最後の一発が、ネネの背後にある音響増幅器だけを壊した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「人を撃たずに勝つなんて、気取ってるね」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="344">　ネネは膝をつきながら笑った。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="346">「顔が商売道具なんでね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="347">「あんたの顔じゃないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="348">「わかってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　第三試合は、全身を鉱物化する大男<span class="term term-world">〈玄武岩バサラ〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　拳と拳がぶつかるたび、リングが沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　ゴウは真っ向から力比べを挑み、ジンは外周を回って相手の足元を崩す。だがバサラの岩肌は衝撃弾を弾き、ゴウの腕に亀裂が走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「下がれ、ゴウ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="357">「まだだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="358">「腕が折れてる」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-1 gap-0" data-source-line="359">「骨は折れても、約束は折れん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　ゴウは踏み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　バサラの拳が迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　その瞬間、ジンはゴウの足元へ一発撃った。床がわずかに跳ね、ゴウの姿勢が低くなる。拳が頭上を通過した。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="367">「勝手に援護するな！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="368">「二人一組だ、諦めろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　低い姿勢から、ゴウはバサラの腰を抱えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「星脈全開！」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　胸の中央に埋め込まれた人工器官が、赤く輝く。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="376">　盛り上がった筋肉の上を、星座のような光の線が走った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="378">「天柱返し！」</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　数トンはある岩の巨体が、宙を舞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　だがゴウは投げ切らず、バサラを静かにリング外へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「なぜ止めた」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　バサラが問う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「お前は悪人の目をしていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="389">「試合中だぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="390">「戦いは、相手を壊すためだけにあるのではない」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="392">　バサラはしばらく黙り、それから大声で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「気に入った。行け、白角。あの黒い王座をぶち壊せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　観客席の一部から、拍手が起こった。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　他の敗退した闘士たちも立ち上がる。雷索兄弟が親指を上げ、ネネが口笛を吹いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　天井時計は、午後十一時四十三分。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　残るは決勝だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　そして決勝の相手は、誰もいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　中央リングが割れ、黒い階段がせり上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　階段の最上段に、一人の男が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　銀の髪。黒い礼服。胸には、日蝕を模した紋章。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「久しいな、狩谷ジン」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="414">　黒曜宮の主、ヴァルドは微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「十二年前、月城レンを見捨てた男よ」</p>
+<div class="source-line scene-break gap-2" data-source-line="419" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="422">　競技場の扉が一斉に閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　黒い柱から光の鎖が伸び、リング上のゴウを縛る。観客席にいた闘士たちも、腕や胸の星脈を吸われ、次々と倒れた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="426">「大会は罠だったのか！」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="428">　ミラが制御端末へ走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　だが床から現れた兵士たちが彼女を囲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　ヴァルドは指を鳴らす。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="434">　ミラのペンダントがひとりでに開き、光の欠片が空中へ引き寄せられた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「星冠炉の最後の鍵。ようやく帰ってきた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「返して！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「これは君の父が盗んだものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　ヴァルドの背後に、巨大な映像が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　十二年前の研究施設。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　若いジンが、警備隊の制服で走っている。警報。炎。隔壁の向こうに月城博士。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="448">『ジン、退け！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">『博士も一緒に！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="452">『炉心は私が封じる。君は地上へ戻れ！』</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　映像が乱れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　次に映ったのは、博士に背を向けて走るジンだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　ミラの顔から血の気が引いた。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="460">「本当に……父を置いて逃げたの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　ジンは黙って映像を見上げた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="464">「命令だった、とは言わないのですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　ヴァルドが愉快そうに言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="468">「彼には選択肢があった。英雄として死ぬか、臆病者として生きるか。彼は後者を選んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="470">「そうだ」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="472">　ジンは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「俺は逃げた」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="476">　ゴウの筋肉が膨れ、光の鎖が軋んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="478">「貴様――！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「怒るな、ゴウ。事実だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　ジンはミラを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「博士を連れ戻すと約束した。だが隔壁が閉じる直前、俺は一人で外へ出た。あの日から、約束は細いままだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　ミラの目に涙が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「だったら、なぜ今さら来たんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「今度こそ守れると思った、なんて言えば格好がつくが――違うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　ジンは自嘲した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="494">「十二年間、怖かった。博士の娘に会えば、自分が何をしたか認めることになる。だから逃げ続けた。今夜ここへ来たのも、たぶん償いじゃない。ただ、もう一度逃げたら、本当に俺は俺を撃ちたくなる。それだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　ヴァルドは肩をすくめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「美しい告白だ。だが遅い」</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　零時まで、あと十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　空中の鍵が回転した。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　地下深くで、星冠炉が目覚める。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="506">　黒い柱を結ぶ光が天井へ集まり、巨大な日蝕の輪を描いた。重力が歪み、観客席の椅子や瓦礫がゆっくり浮かび上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　ヴァルドは両腕を広げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「星冠炉は、闘争を純粋な力へ変える。人は争いをやめられない。ならば、その醜さで世界を照らせばいい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「照らす？」</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　ジンは周囲を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="516">「真っ暗じゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　ヴァルドの微笑みが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　ジンは袖口から小さな金属片を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　第二試合で壊した音響増幅器の部品。その表面に、衝撃弾が一発だけ仕込まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「俺が走り回っていたのを、逃げてるだけだと思ったか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　金属片が爆ぜた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　リングの下に隠されていた制御線が切れる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="530">　ゴウを縛る光の鎖が、一瞬だけ緩んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="532">「ぬうううううっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　ゴウが両腕を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　鎖が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　彼は跳び、ミラを囲む兵士たちの前へ着地する。床が陥没し、衝撃だけで兵士たちが吹き飛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「ミラに触れるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　ヴァルドは舌打ちし、右手を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　日蝕の輪から黒い光が降り、彼の全身を包む。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="546">　礼服が裂け、その下から漆黒の装甲が現れた。肩には刃のような環、胸には光を吸う穴。背後には六枚の影が翼のように広がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="548">「星殻装――<span class="term term-world">〈蝕王ノクス〉</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　重力が一気に増した。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　ゴウが片膝をつく。ジンの衝撃銃が床へ落ちた。ミラは息さえできず、倒れかける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「これが、人類の闘志を束ねた王の力だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　ヴァルドが一歩進むたび、リングが沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　ゴウは立ち上がろうとした。だが折れた腕と消耗した星脈が限界を告げている。</p>
+<p class="source-line role-dialogue fx-whisper tone-1 gap-1" data-source-line="560">「まだだ……約束は……」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="562">「やめて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　ミラが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「もう十分です。父との約束のために、死なないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　ゴウは顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　赤い星脈が、再び胸で灯る。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="574">「これは、今の俺が結び直した約束だ。お前を守りたいと、俺自身が決めた」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　光は腕へ、肩へ、全身へ広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　周囲に散らばった闘士たちの星脈が、それに呼応する。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="580">　雷索兄弟の青。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　ネネの金。</p>
+<p class="source-line role-narration gap-0" data-source-line="582">　バサラの橙。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="584">「持っていけ、白角！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「貸しだからね！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「王座ごと投げ飛ばせ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　光がゴウへ集まり、白銀の装甲を形作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　獣角の兜。</p>
+<p class="source-line role-narration gap-0" data-source-line="593">　城壁のような胸当て。</p>
+<p class="source-line role-narration gap-0" data-source-line="594">　両腕を覆う巨大な星鋼の籠手。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「星殻装――<span class="term term-world">〈白嶺獅子〉</span>！」</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　ゴウが立つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　重力が彼の足元で割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　ヴァルドの拳と、ゴウの拳が衝突する。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　音が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　一拍遅れて、衝撃波が競技場を一周した。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　互角――ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　漆黒の装甲が闘士たちから力を吸い続ける限り、ヴァルドは強くなる。ゴウの白銀の籠手に、少しずつ亀裂が入った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="612">「ジン！」</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　ミラが叫ぶ。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="616">「父のペンダントに、あなたの生体記録があります。星冠炉はあなたにも反応するはず！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「俺には星脈なんてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="619">「あります。十二年前、父があなたへ埋め込んだ。あなたを地上へ帰すために！」</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　ミラは空中の鍵へ手を伸ばした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="623">　ペンダントから、別の記録映像が開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　さきほど途切れた続きだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　隔壁の向こうの月城博士が、若いジンへ小さな光を撃ち込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="629">『君は逃げるんじゃない。届けるんだ』</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="631">『何を……』</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="633">『失敗した者にも、次があるという証拠を。娘に会ったら伝えてくれ。私は、星より人を信じたと』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="635">『自分で言ってください！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">『それができないから、君に頼む』</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　博士は笑っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">『走れ、野良星。誰の軌道にも従わず、必要な場所へ落ちろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　映像が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　ジンの胸の奥で、十二年間眠っていた熱が脈打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　逃げた夜。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　捨てた制服。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　救えなかった人々。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　それでも、深夜の相談所を閉めなかった理由。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　助けを求める声が来るたび、断れなかった理由。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「まったく」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="656">　ジンは笑った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="658">「死んだあとまで、人使いの荒い博士だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　胸から淡い光が溢れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　だが現れた装甲は、ゴウのように立派ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　古びた銀の胸当て。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　片方だけの肩装甲。</p>
+<p class="source-line role-narration gap-0" data-source-line="666">　星屑を縫い込んだような黒い外套。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="667">　そして右手には、落としたはずの衝撃銃が、長い光の銃身をまとって戻ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　兜すらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　ゴウがヴァルドと押し合いながら叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「お前の星殻、ずいぶん薄いぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「都会仕様だ。軽量化って言え！」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="677">　ミラの端末に名前が表示される。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　登録されていない星殻。</p>
+<p class="source-line role-narration gap-0" data-source-line="680">　既存の軌道を持たず、流れ続ける小さな星。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「星殻装――<span class="term term-world">〈迷い星ストレイ〉</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　ジンは光銃を構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　ヴァルドの装甲には十二の吸収点がある。黒い柱とつながり、闘士たちの力を奪う結節。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　一つでも外せば、力の流れが変わる。</p>
+<p class="source-line role-narration gap-0" data-source-line="689">　一つでも撃ち損じれば、全員が潰れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　距離、百二十メートル。</p>
+<p class="source-line role-narration gap-0" data-source-line="692">　障害物、浮遊する瓦礫が三百以上。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="693">　重力屈折で、光すら曲がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　ジンは目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「見ないのか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="699">　ゴウが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「見えるものばかり狙ってたから、十二年も外したんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　音を聞く。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　柱の振動。</p>
+<p class="source-line role-narration gap-0" data-source-line="705">　闘士たちの鼓動。</p>
+<p class="source-line role-narration gap-0" data-source-line="706">　ミラの呼吸。</p>
+<p class="source-line role-narration gap-0" data-source-line="707">　ゴウの足が床を踏む音。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　そして、重力に引かれて落ちる星屑の軌道。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　ジンは引き金を十二回引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　一発目が瓦礫に当たる。</p>
+<p class="source-line role-narration gap-0" data-source-line="714">　二発目がその破片を弾く。</p>
+<p class="source-line role-narration gap-0" data-source-line="715">　光弾は何度も角度を変え、競技場を駆け巡った。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="717">　一、二、三。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　ヴァルドの肩の結節が砕ける。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="721">　四、五、六。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　背後の影の翼が消える。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="725">　七、八、九。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　黒い柱が次々と沈黙する。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="729">　十、十一。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　胸の穴に亀裂が走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　最後の一発だけが、届かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　ヴァルドは左手で光弾を握り潰した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「見事だ。だが一つ残った」</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　最後の結節は、額。</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　そこから星冠炉の全出力が流れ込んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　ヴァルドはゴウを弾き飛ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　白銀の巨体が宙を舞い、リング端へ転がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　零時まで、十秒。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="749">　ヴァルドの胸に黒い光が集まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">「終わりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　ジンの光銃は弾切れだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　星殻も薄れ始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　その襟首を、後ろから巨大な手がつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「何を――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="761">「狩谷ジン！」</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　ゴウが立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　白銀の装甲は砕け、片腕は動かない。それでも残った腕で、ジンを投擲姿勢に構えている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="767">「お前は必要な場所へ落ちる星なのだろう！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">「人を砲弾みたいに言うな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「射程が足りぬなら――俺が投げる！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="773">　ヴァルドが黒い光を放つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　ゴウがジンを投げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="777">「双星墜とし――流星担ぎ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="779">「技名、今つけたなあああっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　ジンは黒い奔流の脇をすり抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　外套が焼け、肩装甲が砕ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　一直線に、ヴァルドへ飛ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　右手の光銃は空だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　だから、銃そのものを握りしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　最後の星脈を銃身へ込める。</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　それは弾丸ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="794">　逃げ続けた十二年。</p>
+<p class="source-line role-narration gap-0" data-source-line="795">　結び直した一夜。</p>
+<p class="source-line role-narration gap-0" data-source-line="796">　誰かに渡された、次の機会。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="798">「暁穿ち！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="800">　光銃の先端が、ヴァルドの額に触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　小さな光が、一点だけを貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　最後の結節が砕ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　零時。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　星冠炉の全出力が逆流した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="810">　ヴァルドの漆黒装甲が崩れ、黒い柱が白い光へ変わる。競技場を押し潰していた重力が消え、浮いていた瓦礫が雨のように落ち始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　ミラは制御盤へ鍵を差し込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="814">「炉心、封鎖します！」</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　光の輪が閉じていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　だが中央に、ヴァルドが落ちていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="820">　崩壊する星冠炉へ引かれ、体が宙に浮く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「放せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　ヴァルドは、腕をつかんだジンへ叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="826">「私は負けた！　敗者に価値などない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="828">「それ、今夜いちばん負けた奴らの前で言ってみろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　ジンのもう片方の腕を、ゴウがつかむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　さらにゴウの足を、バサラがつかんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="833">　バサラを雷索兄弟が。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="834">　兄弟をネネが。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　倒れていた闘士たちが次々とつながる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="837">「敗者をなめるなよ、王様！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「負けたから、次は勝てるのさ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="841">「勝者だけで世界が回るなら、観客席なんて要らないだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　何十本もの腕が、一つの鎖になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　ミラが最後の封鎖命令を実行する。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="847">　白い光が弾けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　星冠炉は、静かに眠りについた。</p>
+<div class="source-line scene-break gap-2" data-source-line="852" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="855">　朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　雨は上がり、環都カグラの高層建築に薄い陽が差していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　黒曜宮の幹部と買収されていた役人たちは、ミラが送信した記録によって一斉に逮捕された。旧環状競技場から救出された闘士たちは、全員生存。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　ヴァルドも重傷ではあったが、生きていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　狩谷夜間相談所では、マコが修繕費の見積書を読み上げていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="865">「窓三枚、壁二面、机一台、照明一式。合計――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="866">「待て。街を救った英雄割引は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="867">「ない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="868">「人情は？」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="869">「家賃と相殺」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="870">「相殺してこの額？」</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　ジンは机に突っ伏した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="874">　向かいでは、ゴウが小さなエプロンを無理やり身につけ、巨大な手で朝食を作っている。フライパンがままごと道具に見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「白角、なぜいる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="877">「新しい約束を結んだ。相談所の用心棒となる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="878">「給料は出ないぞ」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="879">「寝床と高蛋白の食事があればよい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="880">「それが一番高いんだよ」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="882">　ミラは窓辺で笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　昨夜のペンダントは、もう光っていない。ただの古い六角形の金属片になっていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="886">「父の伝言、受け取りました」</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　ジンは顔を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="890">「遅くなった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="891">「十二年も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="892">「ああ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="893">「利息が必要ですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="894">「金以外で頼む」</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　ミラは少し考え、彼の頬へ軽く口づけした。</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　ジンが固まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　ゴウの手からフライパンが落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="901">　マコの眉が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="903">　ミラは鞄を持つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="905">「前払いです。残りは、あなたが逃げずに生きていたら」</p>
+<p class="source-line role-narration gap-1" data-source-line="907">　ドアベルが鳴り、彼女は朝の街へ出ていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="909">　三秒の沈黙。</p>
+<p class="source-line role-narration gap-1" data-source-line="911">　ジンはゆっくり立ち上がり、コートの襟を直した。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="913">「大家さん。看板の恋愛相談、もっと大きく――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="914">「消す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="915">「なぜだ！　今、需要が証明された！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="916">「勤務中の私情だから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="917">「厳しすぎる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="919">　ゴウが真剣な顔で尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="921">「恋愛も筋肉で解決できるか？」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="922">「お前はまずフライパンを拾え」</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　朝日が、割れた窓から差し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="926">　古びた相談所の床に、小さな星の形が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="928">　誰かの軌道を外れた星は、もう迷ってはいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="930">　必要な夜が来れば、また落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="932">　誰かの「助けて」が、聞こえる場所へ。</p>
+<p class="source-line end-mark gap-2" data-source-line="935"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

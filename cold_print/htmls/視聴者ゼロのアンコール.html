@@ -1,0 +1,796 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="かつて絶頂期に姿を消したアイドルＳＡＹＡは、いま本名の真壁小夜子として、六十歳を前に古いテレビセンターの床を磨いている。そこでは彼女の失踪を題材にした配信ドラマが撮影中だった。正体を知りながら何も求めない警備員・冬一は、三十八年前、小夜子がただ一通だけ手元に残した手紙の差出人でもある。過去を売る緊急生配信から逃れようとした二人の前で、電源のないモニターが〈人生再放送〉を開始する。若いスターとして永遠に再演するか、すべての記憶から消えるか。零時までの選択が、誰にも見せなかった人生を照らす。">
+<title>視聴者ゼロのアンコール｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="視聴者ゼロのアンコール" data-novel-id="視聴者ゼロのアンコール" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="music-lyrical">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる" selected>音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ロマンス・会話劇・奇妙な味</p>
+  <p><strong>補助ジャンル：</strong>日常・音楽</p>
+  <p><strong>CSVタグ：</strong>ロマンス、会話劇、奇妙な味、日常、音楽</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">音楽・抒情</span></p>
+  <p id="currentPresetDescription">明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる</p>
+  <h3>意味色</h3><p>青＝静寂、紅＝感情、金＝旋律、紫＝残響、緑＝調和</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：335行／章：0／役割・強度タグ：372</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="視聴者ゼロのアンコール 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『視聴者ゼロのアンコール』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　午前零時十七分、湾岸第七码頭テレビセンターの自動販売機は、必ず一度だけ唸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　古い冷蔵庫が寝返りを打つような音だった。真壁小夜子は、その音を合図にモップを壁へ立てかけ、紙コップのボタンを押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="8">「今日もココアですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　背後から声がした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="12">　夜間警備員の久世冬一だった。六十二歳。背が高く、髪はほとんど白い。制服を着ると校長先生のように見え、笑うと急に少年の面影が出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="14">「コーヒーよ。砂糖とミルクを多めにしただけ」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="15">「それを世間ではコーヒー味のココアと言います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="16">「世間は夜中の零時に床を磨いてくれないでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　小夜子が紙コップを二つ取り出すと、冬一は片方を受け取った。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="20">　第七码頭テレビセンターは、かつて歌番組とドラマを週に何十本も撮った巨大施設だった。今では半分が倉庫、四分の一が配信会社のスタジオ、残りは取り壊しを待つ空洞になっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　その夜、第七スタジオでは配信ドラマ『星のない夏』の撮影が続いていた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="24">　三十八年前、絶頂期に突然姿を消したアイドル、ＳＡＹＡ。その失踪の真相を描く、という触れ込みだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　十七歳の人気アイドル、椎名つむぎがＳＡＹＡを演じている。スタジオの廊下には、銀色の衣装を着たつむぎの巨大ポスターが並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　コピーはこうだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　――彼女は、なぜファンを捨てたのか。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「ひどい言い方ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　初めてそのポスターを見た夜、小夜子はつぶやいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　冬一は隣で、少しだけ間を置いて答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="38">「捨てられたことにしたほうが、残った人は楽なんでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　その答えを聞いて、小夜子はこの男が自分の正体を知っているのだと悟った。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　けれど、彼は何も聞かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　ＳＡＹＡの本名は、真壁小夜子。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　十九歳のときにデビューし、二十一歳の夏、全国生放送の歌番組から消えた。その後は芸能界と縁を切り、地方のホテルで働き、結婚し、離婚し、母を看取り、いくつかの町を転々とした。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="48">　六十歳を目前にした今、かつて自分が歌っていたスタジオで、清掃員をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　運命と呼ぶほど美しくもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　求人票に「深夜手当あり」と書いてあっただけだ。</p>
+<div class="source-line scene-break gap-2" data-source-line="55" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-2" data-source-line="58">「日曜日、屋上に上がりませんか」</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　冬一が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「警備員がそんなことを勧めていいの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="63">「警備員同伴です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="64">「何があるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="65">「流星群。午前二時ごろが見頃らしいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　小夜子はカップの縁を指でなぞった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">「星は、もう十分見たわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="70">「本物は別でしょう」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="72">　廊下のポスターでは、十七歳のつむぎが作り物の星を背負って笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　小夜子は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　代わりに、冬一の胸ポケットからのぞいている古い布切れを見た。青地に銀色の星。三十八年前のＳＡＹＡ公式ファンクラブ、その会員章だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「それ、まだ持っているのね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="79">「ばれていましたか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="80">「そんなものを胸に差している警備員、ほかにいないもの」</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　冬一は会員章を取り出し、掌に載せた。端が擦り切れ、星の刺繍は半分ほど解けている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「二十四歳のとき、あなたの歌を聴きました」</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="85">「やめて。昔の歌を褒められると、腰まで痛くなる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="86">「歌の話ではありません」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="88">　彼は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「あなたが消えた夜、僕は手紙を出しました。返事はいらないから、生きていてください、と」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　小夜子の指が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　何万通も届いた手紙の中で、たった一通だけ、今も引き出しにしまってある。</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　便箋は安物で、字は不器用だった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="98">　あなたが歌わなくても、笑わなくても、こちらを見なくても、生きていてください。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　ファンでいることを、あなたの仕事にしないでください。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="102">「久世冬一……」</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　小夜子が名前を呼ぶと、彼は目を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">「覚えていましたか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="107">「手紙だけね。顔は今日まで知らなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="108">「それで十分です」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　小夜子は紙コップを捨てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「日曜日、晴れたらね」</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　冬一が顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「流星群」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="117">「警備員同伴で」</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　そのとき第七スタジオから、何かが倒れる音がした。</p>
+<div class="source-line scene-break gap-2" data-source-line="122" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="125">　床に落ちていたのは、銀色のマイクだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　セットの中央で、椎名つむぎが泣いていた。</p>
+<p class="source-line role-narration role-command tone-4 gap-1" data-source-line="129">　スタッフは全員、食事休憩に出ている。残っていたのは、若いマネージャーと、モニター越しに指示を出すプロデューサーの榊だけだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">『もう一回。泣くなら、カメラを見て泣いて』</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="133">　天井のスピーカーから榊の声が響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「できません」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　つむぎは俯いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">『できるよ。明日の謝罪配信の練習だと思えばいい』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="140">「だって、私、誰とも付き合ってません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="141">『知ってる。だから安心して泣けるだろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　小夜子は足を止めた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="145">　つむぎのマネージャーが、困ったように笑った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="147">「来週、ドラマの中盤で数字を上げたいんです。軽い熱愛記事を出して、本人が謝罪。その直後にＳＡＹＡ役の覚醒回を配信する。全部、宣伝の一環です」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="149">「本人には今、初めて説明したの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「サプライズのほうが、表情が本物になりますから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">『清掃の人、そこ映り込んでる。出てって』</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　小夜子は動かなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="157">　つむぎの頬には涙が流れていた。完璧な形の涙だった。照明を受け、顎の先で一度だけ光って落ちる。若いころの小夜子も、同じ角度で泣くよう教えられた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="159">「その涙は、あなたのものよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　小夜子は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　つむぎが顔を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「勝手に商品にさせちゃだめ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">『誰だ、あんた』</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="169">　小夜子はセットへ入り、落ちたマイクを拾った。銀色の塗装は軽く、昔使っていたものよりずっと安っぽかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　舞台の奥には、ドラマ用に再現されたＳＡＹＡの引退前ラストステージがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　白い階段。銀の月。星を模した豆電球。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　何もかも、少しずつ間違っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「振り付けも違うわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　小夜子はマイクを持ったまま、最初の八小節を踊った。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　右へ二歩。左肩を引く。指先で夜空を切り、振り返る。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="183">　身体は重かった。膝も昔のようには曲がらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　それでも、三十八年という時間を飛び越えて、筋肉が次の動きを覚えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　モニターの向こうで、榊が黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　つむぎが、息を呑んだ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="191">「もしかして……」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　小夜子は踊るのをやめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　遅かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　天井の収録ランプが赤く点いていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="200" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="203">　翌日の昼、小夜子の顔はインターネット中に広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　――伝説の失踪アイドル、清掃員として発見。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　――三十八年ぶり、奇跡の復活か。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　――ＳＡＹＡ、なぜファンを裏切った？</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　撮影現場の映像は、誰かが偶然録画したことになっていた。もちろん偶然ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　榊は満面の笑みで契約書を持ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「真壁さん。いや、ＳＡＹＡさん。今度こそ、あなた自身の言葉で真実を語りましょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「私自身の言葉を、あなたが編集するのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「編集は嘘ではありません。伝わりやすくする作業です」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="221">「昔も、そう言われたわ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="223">　三十八年前、同じグループで歌っていた梨花が急死した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="225">　事務所は小夜子に、全国生放送で追悼文を読ませようとした。梨花とは永遠の親友だった。最後まで互いを支え合っていた。天国でも笑っているはずだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　用意された原稿には、そう書かれていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="229">　けれど二人は、死ぬ前の晩に激しく喧嘩をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　小夜子は梨花の才能を妬んでいた。梨花も小夜子を憎んでいた。仲直りできないまま、梨花は帰らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　悲しかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　同じくらい、腹が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　許してほしかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　許したくもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　そのどれもが本当だったのに、事務所は「美しい友情」だけを選び、残りを切り捨てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　生放送で原稿を渡された小夜子は、一行目を読んだところで黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　そしてカメラに背を向け、スタジオを出た。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="247">　世間は彼女を「仲間の死にも涙を見せない冷たいアイドル」と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　小夜子は反論しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　反論すれば、梨花との喧嘩まで商品になると知っていたからだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="253">「今なら名誉を取り戻せます」</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　榊は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">「ＳＡＹＡは被害者だった。そういう物語に変えられる」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="259">「今度は聖女にするの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="261">「悪女よりはいいでしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="263">「どちらも私じゃないわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　榊は契約書を机に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="267">「今夜零時、緊急生配信をします。椎名つむぎとの対談です。出るだけで構いません。話したくないことは話さなくていい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="269">「話さない私を、どう編集するの」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="271">「沈黙には、何より強い意味があります」</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　その言い方を、小夜子は知っていた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="275">　沈黙に意味をつけるのは、いつだって沈黙していない側だ。</p>
+<div class="source-line scene-break gap-2" data-source-line="278" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="281">　午後十一時五十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　小夜子は第七スタジオの裏口から逃げようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　しかし廊下の先に、冬一が立っていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="287">「止めるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">「警備員ですから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">「そう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="293">「正面玄関は記者でいっぱいです。逃げるなら、旧中央調整室を抜けたほうがいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　冬一は鍵束を持ち上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　二人は、使用禁止と書かれた鉄扉を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　旧中央調整室には、埃をかぶった機材が並んでいた。ブラウン管のモニターが二十台。映像卓。電話機。灰色の椅子。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　電源は何年も前に切られているはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　それなのに、一番奥のモニターだけが青白く光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　砂嵐の中から、拍手が聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">『皆さま、こんばんは』</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　男とも女ともつかない声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　画面には、顔のない司会者が立っていた。黒いスーツ。白い手袋。頭部は照明に塗り潰され、輪郭しか見えない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">『今夜の「人生再放送」、出演者は真壁小夜子さん。芸名、ＳＡＹＡ』</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　小夜子と冬一は、同時にモニターを見た。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="317">『あなたは現在、三百八十四万二千百十六人の記憶に保存されています。歌声、笑顔、失踪、憶測。断片の総再生時間は、一万九千八百六十二年』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="319">「何の番組？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">『あなたが選ばなかった人生を、選び直す番組です』</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　画面が切り替わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　二十歳のＳＡＹＡが、満員のドームで歌っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　顔も声も、若い日の小夜子そのものだった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="329">　観客が泣き、名前を叫び、手を伸ばしている。数十年後も彼女は老いず、毎晩、新しい歌を歌う。広告になり、映像になり、人工の声になり、永遠に愛され続ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">『第一の選択。再演』</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　司会者が白い手を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="335">『あなたは二十歳の姿で復帰します。失踪以後の人生は消去され、ＳＡＹＡとして永久に保存されます』</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　次の映像が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　がらんとしたスタジオ。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　ポスターから顔が消え、音源から歌声が消え、雑誌の記事は白紙になっている。誰もＳＡＹＡという名を知らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">『第二の選択。終演』</p>
+<p class="source-line role-dialogue role-memory tone-2 gap-1" data-source-line="345">『すべての記録と、あなたをスターとして愛した者の記憶から、ＳＡＹＡを消去します。あなたは真壁小夜子として残ります。ただし、消去による人間関係の変化は保証されません』</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="347">　小夜子は冬一を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　彼の胸ポケットには、青い会員章があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「あなたの手紙も消えるのね」</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　冬一は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　画面の中で時計が動き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　零時まで、あと六分。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">『選択がない場合、視聴率の高い人生を自動採用します』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="361">「ずいぶん親切な地獄ね」</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-1" data-source-line="363">　小夜子は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　だが、目の前に映る二十歳の自分から目を離せなかった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="367">　肌は輝き、髪は風に揺れ、声はどこまでも伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　もう一度だけ、あの身体で歌えたなら。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　もう一度だけ、梨花の名前を正しく呼べたなら。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　もう一度だけ、カメラに背を向けず、すべてを話せたなら。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　そんな考えが胸をよぎった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="377">「戻りたいですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　冬一が訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「少しね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「僕なら戻るかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「あなたが正直で助かったわ」</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="387">「妻が死ぬ前に、もっと話せたことがあった。息子と喧嘩した日に、違う言葉を選べたかもしれない。人間は、過去に入口があると聞けば、用事もないのに覗きます」</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　小夜子は、画面の若い自分を見つめた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="391">「あなたは、あの子が好きだったのよね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="393">「好きでした」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="395">「今も？」</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　冬一は胸の会員章を外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　長いあいだ指で挟み、それから映像卓の上に置いた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="401">「ＳＡＹＡは、僕の返事を必要としませんでした。何を言っても笑ってくれた。何歳にもならなかった。だから、好きでいるのは簡単でした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「私は面倒よ」</p>
+<p class="source-line role-dialogue role-memory role-sensory gap-1" data-source-line="405">「知っています。甘いコーヒーしか飲めないのに、ブラックを頼んだふりをする。腰が痛い日はモップを右手だけで持つ。腹が立つと丁寧語になる。昔の話になると、急に早口になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「よく見てるのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">「ファンをやめたからです」</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　時計は、あと三分を示していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「ファンをやめると、人が見えるんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　小夜子は目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　第七スタジオでは今ごろ、榊が彼女の不在さえ演出に変えているだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　つむぎはカメラの前で泣かされているかもしれない。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="421">　ＳＡＹＡという物語が残れば、次の誰かがその役を演じる。傷も、沈黙も、後悔も、見やすい長さに切られ、再生され、数字になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　消すことが正しいとは思わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　けれど、残すことが正しいとも思えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　小夜子はモニターに向かって言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="429">「終演を選ぶわ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">『確認します。ＳＡＹＡを消去しますか』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">「ええ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="435">『あなたをスターとして愛した者の記憶からも』</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="437">　小夜子は冬一を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　彼は何も言わず、ただ頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「消して」</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　残り一分。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">『最後に、視聴者へ一言』</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-1" data-source-line="447">　小夜子は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　三十八年前、言えなかった言葉があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　ファンにも、事務所にも、梨花にも、自分にも。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「私の人生を見てくれて、ありがとう」</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　一度、息を吸った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="457">「でも、ここから先は見ないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　時計が零時になった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="461">　すべてのモニターが白く光った。</p>
+<div class="source-line scene-break gap-2" data-source-line="464" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="467">　朝六時。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　第七スタジオでは、歯磨き粉のコマーシャルが撮影されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　白い階段も、銀の月も、ＳＡＹＡのポスターもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　榊は小夜子を見ても、眉一つ動かさなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「清掃は収録後にお願いします」</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　それだけ言い、忙しそうに去っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　携帯電話で検索しても、ＳＡＹＡというアイドルは出てこなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　三十八年前の歌番組には、別の歌手が映っていた。梨花はソロでデビューし、二十一歳で活動を休止している。記事には「理由は公表されず」とだけあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　椎名つむぎは、コマーシャルの後ろで踊る六人のうちの一人になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　休憩中、彼女は小夜子のところへ来た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="487">「あの、変なこと言っていいですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「どうぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「昨日、夢を見たんです。知らない女の人に、泣くなら自分のために泣けって言われて」</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　つむぎは照れくさそうに笑った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="495">「だから、さっきマネージャーに言いました。嘘の熱愛記事を出すなら辞めるって。そんな企画、最初からなかったらしいんですけど」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「そう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「でも、言えてよかったです」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　つむぎは頭を下げ、呼ばれて走っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　小夜子は、その背中がセットの向こうへ消えるまで見送った。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　背後で、靴音がした。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="507">「真壁さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　冬一だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　小夜子は振り返れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　もし彼の中からすべてが消えていたら。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="515">　自動販売機の前で交わした言葉も、手紙のことも、日曜日の約束も。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　それでも、仕方がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　自分で選んだことだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「清掃用具、旧中央調整室に置きっぱなしでしたよ」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="523">「……ごめんなさい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「それから」</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　冬一は、小夜子の前へ回った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「日曜の屋上、午前二時でいいですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　小夜子は顔を上げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="533">「覚えているの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「何をです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「ＳＡＹＡを」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　冬一は首を傾げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　その目には、嘘をついている気配がなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「それは誰ですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　胸ポケットに会員章はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　小夜子の中で、細い糸が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　悲しいのか、ほっとしたのか、自分でも分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　冬一は続けた。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="553">「ただ、あなたが昔、何か面倒な仕事をしていたことは覚えています。僕が手紙を書いたことも。その内容も」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「矛盾してるわ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「人生なんて、だいたいそうでしょう」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="559">「私のファンだったことは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　冬一は少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「覚えていません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「そう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">「たぶん、もう対象外だったんじゃないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「何の？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「さあ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="573">　彼は、あの少年のような笑い方をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="575">「少なくとも今は、ファンではありません。日曜に星を見たあと、あなたと朝ごはんを食べたいと思っている男です」</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　小夜子は泣きそうになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　つむぎの涙はつむぎのものだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　ならば、この涙は自分のために流していい。</p>
+<div class="source-line scene-break gap-2" data-source-line="584" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="587">　日曜の午前二時、二人はテレビセンターの屋上にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　雲はなく、街の明かりの上に、かすかな星が見えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="591">「本当に流れるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="593">「予報では」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="594">「テレビの予告より信用できる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="595">「同じくらいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　冬一がそう言った直後、夜空の端を細い光が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　一瞬だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　願い事を考える暇もない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「何か願いましたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="605">「いいえ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「僕もです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「大人になると、願い事まで反応が遅くなるのね」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　もう一つ、星が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　小夜子は空を見上げたまま、冬一の手を握った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="615">　恋と呼ぶには静かすぎ、友情と呼ぶには少し熱かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　黄昏のあとに来るのは夜だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　けれど夜には、昼間には見えないものがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　屋上を下り、二人は朝食を食べに歩いた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="623">　駅前の電器店を通り過ぎたとき、ショーウインドーの奥で、一台だけ古いテレビが点いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　砂嵐が晴れ、若い女が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　二十歳のＳＡＹＡだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　観客のいないスタジオで、誰にも聞こえない歌を歌っている。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="631">　画面の隅には、白い数字が出ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　視聴者数　０</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　歌い終えた彼女は、カメラではなく、舞台袖の誰かに向かって微笑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　そして深く頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　小夜子も、ガラス越しに小さく頭を下げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">「どうしました？」</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　先を歩いていた冬一が振り返る。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="645">「昔の知り合いに、お別れを」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　テレビは砂嵐に戻った。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="649">　午前五時の街に、始発電車の音が響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="651">「朝ごはん、何にしますか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「コーヒー」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="655">「砂糖とミルクは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「多めに」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「やっぱりココアじゃないですか」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="661">　二人は笑いながら、明るくなり始めた道を歩いていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　もう、どこにもカメラはなかった。</p>
+<p class="source-line end-mark gap-2" data-source-line="666"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

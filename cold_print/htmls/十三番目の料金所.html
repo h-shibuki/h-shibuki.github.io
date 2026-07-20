@@ -1,0 +1,808 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="借金を取り立てる乾壮一郎のもとへ、若い整備士・秋津奈央が黒い通行券を持ち込む。午前零時、債務者が運転し債権者が同乗して十三の料金所を抜ければ、借金は消えるという。券の裏にあったのは、二十七年前に失踪した乾の父の署名。走り出した旧道では、料金所を越すたび元金が減る一方、利息は秒単位で膨らみ、黒い回収車が二人を狙う。父たちが残した数字の罠を暴き、正当な額だけを払い切れるか。午前零時十三分までの、命を担保にした清算ドライブ。">
+<title>十三番目の料金所｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="十三番目の料金所" data-novel-id="十三番目の料金所" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="adventure-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む" selected>冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・サスペンス・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>家族ドラマ・タイムトラベル</p>
+  <p><strong>CSVタグ：</strong>アクション、サスペンス、ファンタジー、家族ドラマ、タイムトラベル</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">冒険・アクション</span></p>
+  <p id="currentPresetDescription">疾走する本文に、号令・衝突音・決断を太い書体で刻む</p>
+  <h3>意味色</h3><p>青＝旅路、赤＝戦い、金＝決断、紫＝傷、緑＝仲間</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：347行／章：0／役割・強度タグ：385</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="十三番目の料金所 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">十三番目の料金所</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　雨は、南栄のネオンを路面に溶かしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　午後十一時三分。乾宗一は、半分閉まったシャッターをくぐり、秋津モータースの作業場へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　天井から吊られた裸電球の下で、銀色の古い二ドア車が腹を見せている。その下から、油に汚れた女の手が伸びた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="10">「そこ、踏まんといて。工具あるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　乾は足を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="14">「借金取りに注意する前に、自分の足元を気にしたほうがええ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="16">　車の下から、秋津ナオが滑り出てきた。二十六歳。夜間の医療便を請け負い、山向こうの検査施設まで血液や薬品を運んでいる。父親が遺した工場と、この二十年落ちの車を守るために働いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　乾は折り畳み傘を閉じ、黒い鞄から一枚の計算書を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="20">「元金、六百二十万。そこへ延滞分と諸費用が乗って、今日現在の残りが千八百九十万。明日の正午を越えたら、工場の権利は契約どおり移る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「元は六百二十万やろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="24">「借金は車と違う。止めてても距離が伸びる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="26">「車のほうが、まだ正直やな」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　ナオは立ち上がり、手を布で拭った。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　乾は怒らなかった。怒鳴るのは、言葉に値段をつけられない人間のすることだと思っていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="32">　彼は銀行でも、消費者金融でもない。焦げついた債権を安く買い、払える者からは取り、払えない者とは担保を組み替える。法の明るい場所と暗い場所の境目で、二十年以上、数字だけを信じて生きてきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「明日の正午や。そこまでは待つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「待たんでええ」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　ナオは作業台の引き出しから、黒い紙片を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　切符ほどの大きさだった。表面には、銀色の文字が浮かんでいる。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="42">　――第十三清算路。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="43">　――走者、債務者。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="44">　――同乗者、債権者。</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　――午前零時より十三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="46">　――完走時、債務一件を全額清算する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「午前零時十三分には、残りはゼロになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「どこの詐欺師にもろた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「親父の工具箱に入ってた。昨日までは、ただの黒い紙やった。今夜、字が出た」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="54">　乾は鼻で笑い、紙片を受け取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　裏返した瞬間、笑いが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　そこには青いインクで、ひとことだけ書いてあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　――債権者は必ず同乗のこと。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　署名は、乾哲郎。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="64">　二十七年前、白瀬峠で失踪した父親の名だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　車も遺体も見つからなかった。山中の旧料金所に、空の鞄だけが残されていた。鞄の底には、穴の開いた借用書と、止まった腕時計があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　乾は紙片を鞄に戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="70">「峠まで、何分や」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">「この雨なら二十五分」</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="74">「二十分で行け」</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　ナオは、初めて少し笑った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="78">「同乗する気になったん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「紙切れ一枚で千八百九十万が消えるなら、見届ける価値はある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「怖いんや」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「債権者は、確認を怠らんだけや」</p>
+<div class="source-line scene-break gap-2" data-source-line="87" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="90">　銀色の車は、濡れた幹線道路を抜け、山へ向かった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="92">　車内は狭く、古い布と油の匂いがした。派手な計器も、大きな羽根もついていない。エンジン音は低く、余計な振動がなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「速い車には見えんな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「速くなくてええ。遅くならんかったら」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　ナオは前を見たまま答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　街灯が減り、民家が途切れた。白瀬峠の入口には、通行止めの柵が置かれている。旧道は十年以上前に閉鎖されたはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　ナオが減速すると、黒い紙片が乾の鞄の中で震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　柵の向こうに、一つ、また一つと橙色の灯がともった。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　ありえないはずの料金所が、雨の中に姿を現した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="108">　屋根は錆び、窓ガラスは曇っている。だが、料金所の中には灰色の制服を着た老婆が座っていた。顔は皺だらけなのに、爪だけが新しい硬貨のように光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　ナオが窓を開ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「清算ですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　老婆が訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「そうや」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「原本を」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　乾は借用書を出した。東成クレジットから三百十万円で買い取った、秋津家の債権原本だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　老婆は紙を確かめ、十三個の丸い穴が並ぶ金属板にはさんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「走者は債務者。同乗者は債権者。追突された時点で担保を回収。路外逸脱は期限の利益を喪失。途中下車は同乗者による代位弁済となります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="126">「担保は工場やな」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　乾が訊くと、老婆は首を横に振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「今後お持ちになる時間です」</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　料金所の先で、黒い大型車の尾灯が二つ、赤くともった。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　ナンバーはない。排気音もない。ただ、濡れた路面に影だけを落としている。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　車内の時計が、午前零時を示した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="138">「発車してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　遮断棒が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　ナオはクラッチをつなぎ、銀色の車を闇へ放った。</p>
+<div class="source-line scene-break gap-2" data-source-line="145" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="148">　最初の直線で、黒い車は見えなくなった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="150">　乾はダッシュボードに浮かんだ数字を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　18,900,000。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　見覚えのある残高だった。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="156">「趣味の悪い仕掛けや」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「つかまって」</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　右の急カーブが迫る。ナオはかなり手前でブレーキを踏み、前輪へ重さを移した。車体が沈み、ハンドルを切ると同時に、後ろがわずかに外へ出る。アクセルを開けた瞬間、車は出口へ向かって真っすぐ押し出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　速さを見せる走りではなかった。速度を捨てない走りだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　第一料金所が現れる。遮断棒は上がっていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="166">　通過した瞬間、金属板の穴が一つ、赤く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　ダッシュボードの数字が一気に減る。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　17,900,000。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「一か所で百万か」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="174">　乾が言った直後、数字が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　17,907,000。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　17,914,000。</p>
+<p class="source-line role-narration gap-0" data-source-line="178">　17,921,000。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「増えとるぞ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="182">「利息？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「一秒で七千。十三か所抜けても、追いつかん計算や」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="186">　後ろから、白い光が車内を塗りつぶした。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　黒い車が来ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　音もなく、坂道を滑るように迫ってくる。距離が十メートルを切ると、乾の胸ポケットに入れた財布の中で、硬貨が一斉に鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「右、次の次がきつい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「知ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「知ってる道に、知らん料金所が立ってるんや。今までと同じと思うな」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="198">　ナオは舌打ちしたが、ブレーキの位置を一台分だけ早めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　次の曲がり角の先で、ガードレールが途切れていた。いつものラインを通っていれば、そのまま谷へ落ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　ナオは車を内側へ寄せ、崖すれすれを抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　黒い車は同じ穴へ落ちることなく、霧の中を平然と曲がってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「なんや、あれ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「集金人やろ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="210">「知り合い？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「知り合いやったら、なお悪い」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　第二、第三の料金所を通過するたび、残高は百万ずつ減った。だが、その間にも数字は脈を打つように増え続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　第四料金所の手前で、車載ラジオが勝手についた。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　ざらついた雑音の向こうから、男の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">『宗一』</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　乾の指が、膝の上で止まった。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-1" data-source-line="224">　幼いころ、借金の取り立てから帰った父親は、いつも煙草と雨の匂いがした。その声を、乾は忘れたつもりでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">『よう来たな』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「乾哲郎か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">『親に向かって、ずいぶんな呼び方や』</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　黒い車が右側へ並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　窓の向こうに、運転席の男が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　失踪した夜と同じ、四十四歳の乾哲郎だった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="238">　髪も、頬の傷も、写真のままだった。ただし、目だけは長いあいだ光のない場所に置かれた金属のように濁っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　ナオが息をのむ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="242">「あの男……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「見るな。前や」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">『その娘の親父を追って、この道へ入った。二十七年前にな』</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　ラジオの声が続いた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="250">『あの男は逃げた。車も命も持って帰った。代わりに、未来を置いていった。わしは債権を手放さんかった。せやから、ここで集金人になった』</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　ナオの握るハンドルが震えた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="254">「親父は、この峠を走ったあと、急に老けた。四十二やったのに、病院では七十過ぎに見えた。三年後に死んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">『時間は回収した。せやけど、残高が足らんかった。借りは娘へ移った』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="258">「ふざけるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　ナオが叫び、アクセルを踏み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　銀色の車が黒い車の前へ出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　だが、怒りはタイヤの限界を広げない。次の左カーブで車体が外へ流れ、後輪が白線を越えた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="266">「踏むな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　乾が低く叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　ナオは反射的にアクセルを戻した。車が一度沈み、前輪が路面をつかみ直す。ガードレールまで、指一本ほどの隙間だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「怒るんは後にせえ。入口で無理した分は、出口で払うことになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="274">「説教してる場合？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「金も車も同じや。払う場所を間違えたら、全部持っていかれる」</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　第五料金所を抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　残高は十四百万台へ下がり、すぐまた増え始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　黒い車は、ぴたりと後ろについた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">『宗一。娘を渡せ』</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　父の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">『回収が済めば、わしは降りられる。お前は工場を取れる。誰も損せん』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">「二十七年もおって、まだその勘定か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">『貸したもんは返してもらう。それだけや』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">「貸したんは六百二十万や。二十七年やない」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="296">『数字を決めるんは、貸す側や』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「違うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　乾は鞄を開き、書類を膝の上へ広げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「数字を決めるんは、最後まで計算した側や」</p>
+<div class="source-line scene-break gap-2" data-source-line="305" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="308">　雨脚が強くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　ナオは第六料金所を抜け、古い石垣の間へ車を滑り込ませる。乾は車内灯をつけ、借用書の裏面を追った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="312">　秋津家の父親が借りた元金は六百二十万。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　その後、債権は三つの会社を渡り歩いている。更新料、調査料、保全費用、特別管理費。名前を変えた利息が、元金の上へ何層も塗られていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="316">「グローブボックスに、親父の領収書がある言うてたな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「ある。母親が捨てずに置いてた」</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　乾は箱を開けた。古い車検証、割れたサングラス、その下に、輪ゴムで束ねた領収書があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　車が揺れるたび、紙が膝から落ちそうになる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="324">「運転中に数えるつもり？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「お前は道を数えろ。俺は金を数える」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　第七料金所。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　残り六分二十二秒。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="332">　黒い車が後ろから銀色の車へ触れかけた。ナオはブレーキを一瞬だけ踏み、相手がぶつかる寸前に加速する。黒い車の鼻先が空を切った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="334">「一枚目、二万。次、三万。五万。二万……」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　乾は領収書の日付と金額を足していく。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="338">　ナオの父親が払った分。</p>
+<p class="source-line role-narration gap-0" data-source-line="339">　母親が払った分。</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　ナオ自身が十九歳から払った分。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　合計は、七百三十二万円。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「元金は、とっくに超えとる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「でも、利息が」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="348">「払った時間まで利息に入れる気はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　第八料金所の手前で、道路が二つに分かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　左は、ナオが知る本来の峠道。</p>
+<p class="source-line role-narration gap-0" data-source-line="353">　右には、白い看板が立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　――近道。追加費用一千万円。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「左や」</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　乾が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="361">「右のほうが短い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「短い道ほど、値札が見えにくい」</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　ナオは左へ切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　黒い車は右へ入った。次の瞬間、山の上から回り込み、はるか前方に現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="369">「ほら、抜かれた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「抜かせとけ。あれは先の距離を借りてるだけや」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="373">「そんな理屈で追いつける？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「借りた距離は、どっかで返す」</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　左の道は狭く、荒れていた。だが、ナオは路面の継ぎ目を読み、車を跳ねさせずに進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　前方で、黒い車の尾灯が急に近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　近道の出口に、閉じた遮断棒があったのだ。黒い車は止まれず、棒をすり抜けたものの、その速度を失っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　ナオは横を抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「ほんまに返した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「借りたもんはな」</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　第九料金所を通過。</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　残り四分十一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　乾は借用書の余白に、油性ペンで文字を書き始めた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="395">　父の声が鋭くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="397">『何を書いとる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="399">「債権放棄」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="401">『やめろ！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「本債権を、元金、利息、費用その他名目を問わず、全額免除する」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="405">『お前は三百十万で買うたんやぞ！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「せやな」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="409">『三百十万、丸損や！』</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="411">　乾は署名し、鞄から会社印を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「損が金で済むうちに、損しとく」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="415">『きれい事で商売ができるか！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「二十七年も帰ってこん男に、商売を教わる気はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　印を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　その瞬間、ダッシュボードの残高が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　13,480,000。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　数字が一度明滅し、ゼロになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　黒い車の塗装に、ひびが走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　ラジオから、老婆の声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">『債権消滅を確認しました。清算手数料を申し受けます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">「手数料？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="435">『十三年』</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　車内の時計が、午前零時九分を示した。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　山全体が鳴った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="441">　後ろの道路から、料金所が一つずつ消え始めた。照明が落ち、路面が闇へほどけていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">『午前零時十三分までに退出できない場合、債務者および債権者は当路の管理資産となります』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="445">「先に言え！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">『契約書に記載しております』</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　黒い紙片の裏に、針ほど細い文字が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　乾は読まずに丸めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「あと四分。残り四つや」</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　ナオは答えず、ギアを一段落とした。</p>
+<div class="source-line scene-break gap-2" data-source-line="458" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="461">　第十料金所を抜けたところで、黒い車が再び追いついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　車体はひび割れ、窓の向こうの父親も老い始めている。頬が落ち、髪が白くなり、それでもハンドルから手を離さない。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="465">『宗一。止まれ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「もう回収する債権はない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">『債権がなくなったら、わしもなくなる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「最初から、そうするべきやった」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="473">『お前に何が分かる！　借金取りが一度でも情を見せたら、次から誰も払わん！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「払わせるんと、人生ごと取るんは別や」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="477">『同じや！』</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　黒い車が横から押してきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　銀色の車のドアがきしみ、タイヤが路肩の水を跳ね上げる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="483">「振り切れん！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「振り切るな。先に行かせろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="487">「また？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="489">「借りた距離は返す。親父に教えたる」</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　次の右カーブは、入口が広く、途中から急に曲がり込む。追い越すなら内側へ入るのが普通だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　ナオはわざと早めに内側へ寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　黒い車も、さらに内側へ鼻をねじ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　曲がり始める直前、ナオはブレーキを残したまま外へ車を逃がした。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="499">　黒い車は内側へ入りすぎた。出口がない。速度を殺しきれず、壁のような岩肌へ向かう。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　その一瞬、父親と乾の目が合った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="503">　父親は驚いた顔をしたあと、ほんの少し笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　そして、自分からハンドルをさらに切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　黒い車は岩へぶつからなかった。影のように岩の中へ沈み、尾灯だけが二度点滅した。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　ラジオから、かすれた声が聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">『利息は、長かったな』</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　それきり、雑音も消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　第十一料金所。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　残り一分四十八秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　第十二料金所。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　残り四十一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　最後の直線の先に、第十三料金所が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　だが、道路の中央が崩れ、片側一車線ほどしか残っていない。雨水が川のように流れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="527">「行けるか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「行けるかどうかやない」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　ナオはハンドルを握り直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「行ったあと、戻せるかや」</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　彼女は速度を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　乾が見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「遅いやろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「遅くならん走りをするんや」</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　ナオは崩れた手前で車を真っすぐにし、必要な分だけ加速した。タイヤは水を切り、細い路面を外さない。派手な横滑りも、耳を裂くような加速もなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　銀色の車は、一本の針のように第十三料金所を通り抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　時計は、午前零時十二分五十九秒で止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　背後で、山が闇へ沈んだ。</p>
+<div class="source-line scene-break gap-2" data-source-line="552" role="separator">＊</div>
+<p class="source-line role-narration tone-1 gap-2" data-source-line="555">　乾が目を覚ますと、朝日がフロントガラスに差していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　銀色の車は、白瀬峠の旧道入口に止まっている。料金所も、黒い車もない。通行止めの柵だけが、錆びたまま朝露に濡れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　ナオは運転席で眠っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="561">「起きろ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="563">「……何時？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「七時過ぎや」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　ナオは安堵し、エンジンをかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　ラジオが自動で入る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">『七月十二日、火曜日。今朝のニュースです――』</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　続いた年号を聞いて、二人とも動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　もう一度、時報が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　西暦二〇三九年。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="579">　ナオは笑おうとした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「ラジオ、壊れたんかな」</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　乾は自分の携帯電話を見た。圏外。画面の日付も、二〇三九年七月十二日になっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　ふもとの町へ下りると、知らない建物が増えていた。コンビニの看板が変わり、空き地には集合住宅が建ち、交差点の形まで違っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　銀色の車だけが、昨夜のままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　秋津モータースの看板は残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　ただし、文字は日に焼け、シャッターの塗装は剥がれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　ナオが車を降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　隣のクリーニング店から、杖をついた老婆が出てきた。ナオを見た途端、持っていた洗濯物を落とした。</p>
+<p class="source-line role-dialogue role-name fx-whisper gap-1" data-source-line="597">「ナオちゃん……？」</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　ナオの唇が動いた。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="601">「米田のおばちゃん？」</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　老婆は泣きながら、何度も頷いた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="605">　ナオの母親は、昨年の冬に亡くなっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　借金の免除通知は、ナオが消えた翌朝、乾の会社印つきで届いたという。工場は取られずに済んだ。母親は十三年間、一日も看板を下ろさなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「帰ってくるかもしれんから、って」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　老婆は、工場の鍵と木箱を渡した。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　箱の中には、十三通の封筒が入っていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="615">　毎年、ナオの誕生日に、母親が一通ずつ書いた手紙だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　一通目には、こうあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　――借金は消えた。あんたまで消える必要はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　十三通目には、こうあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　――今年も帰ってこんかった。帰ってきたら、遅かったと言ってやる。せやけど、帰ってきたら、まずご飯を食べさせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　ナオは作業場の床に座り込み、声を出さずに泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　乾は何も言えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　清算手数料、十三年。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　取られたのは、二人の寿命ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　二人を待った人間の時間だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="636" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="639">　乾の事務所は、十三年前に閉鎖されていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="641">　机も帳簿も、買い集めた債権も残っていない。失踪者になった男の会社は整理され、取引先も、部下も、それぞれ別の人生へ進んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　乾の手元に残ったのは、古い会社印と、父親の腕時計だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　時計は白瀬峠を出た朝から、再び動いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　それから三か月後。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　秋津モータースのシャッターには、新しい文字が加わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　――秋津モータース／乾生活整理相談。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　ナオは車を直し、乾は人の話を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　払える金と、払えない金。</p>
+<p class="source-line role-narration gap-0" data-source-line="656">　返すべき金と、返さなくていい金。</p>
+<p class="source-line role-narration gap-0" data-source-line="657">　契約に書かれた負債と、誰かを待たせた時間。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　以前の乾なら、すべて同じ列に並べた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="661">　今は、数字を出す前に、必ず相手の時計を見るようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　ある雨の夜、閉店間際の工場へ、若い男が入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　濡れた手に、黒い紙片を握っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「相談、ええですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　乾は紙片を受け取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　表面に銀色の文字が浮かんでいた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="673">　――第十三清算路。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="674">　――走者、債務者。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="675">　――同乗者、債権者。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　壁の時計は、午後十一時四十七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　ナオが奥から出てきて、黒い紙片を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「車、出す？」</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　乾は首を横に振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="685">「今度は走らん」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="687">　彼は会社印を机に置き、若い男の向かいに座った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="689">「午前零時まで十三分ある。まず、元金から聞こか」</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　工場の外で、雨が強くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　遠い山の中腹に、あるはずのない橙色の灯が一つ、ともった。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="通販会社の経理・青木麻冬と、無口な同僚の里見朔。社内では距離を置く二人だが、実は打ち切りSFアニメを愛する創作者と考察ブログ主という秘密を共有している。ある日、麻冬の母が三百円で買った謎の写真立てに、里見を加えた未来の家族写真が映った。四人家族なのに表示は「現在五名」。母が新規登録を押すと、定員超過による入替のカウントダウンが始まり、写真から消えた家族は現実でも少しずつ意識されなくなる。最初からいた五人目とは誰か。家族に入る者と、押し出される者を決めるのは何なのか。">
+<title>家族枠は、あと一名｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="家族枠は、あと一名" data-novel-id="家族枠は、あと一名" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ホラー・ラブコメ・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味・ギャグ・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ホラー、ラブコメ、ファンタジー、奇妙な味、ギャグ、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：493行／章：0／役割・強度タグ：559</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="家族枠は、あと一名 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">家族枠は、あと一名</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="5">　会社では、私は彼を「里見さん」と呼ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="6">　自分の部屋では、「月面印鑑さん」と呼ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　もちろん本人のいないところでだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　里見朔、三十一歳。社内システム部。いつも無地のシャツを着て、会議では必要なことしか話さず、給湯室で誰かと鉢合わせると、会釈だけして静かに消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　そんな彼が、二十年前に打ち切られたＳＦアニメ『銀河配達局オービター』の考察ブログを十二年も続けている人物だと、社内の誰が想像するだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　私以外は。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　私、青木麻冬、二十九歳。通販会社の経理部。趣味は同じく『オービター』で、二次創作小説を書いている。投稿名は「凍結みかん」。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　半年前、作品の上映会で最後の限定アクリルスタンドを同時につかんだ相手が月面印鑑さんであり、それが里見さんだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「あ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「あ」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　私たちはアクリルスタンドを挟んで五秒ほど見つめ合い、その後、示し合わせたように同時に手を離した。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="23">「会社では」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="24">「知らないことに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="25">「しましょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="26">「賛成です」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　成人オタクの社会生活は、停戦協定の上に成り立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　ただし停戦後、私たちは少しだけ話すようになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="31">　業務用チャットで、「月末処理の資料です」に混じって「第九話の船長は本当に本人だと思いますか」と送ったり、昼休みのエレベーターで「例の復刻版、予約開始しましたね」と囁いたりした。</p>
+<p class="source-line role-narration gap-0" data-source-line="32">　恋愛かと聞かれれば、私は即座に否定しただろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　だが、復刻版の予約開始時刻を共有する相手は、世間一般ではかなり特別な部類に入るのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　そんな金曜日、母が家に妙なものを持ち込んだ。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="37">「家族写真立て、三百円！」</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　玄関を開けた瞬間、母の春江が、戦利品を掲げていた。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="40">　木枠の中に黒い画面がはめ込まれた、古いデジタルフォトフレームらしい。電源コードもメーカー名もない。裏には銀色の文字で、こう刻まれていた。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="42">　<span class="term term-proper">《あなたに最適な家族写真を》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「電気、どうするの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="45">「知らない。でも三百円」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="46">「動かない物に三百円払ったの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="47">「額縁だけでも三百円するでしょ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="48">「額縁としては画面が黒すぎるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　居間では、父の正志が新聞から目を上げずに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「黒は何色にも合う」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="53">「お父さん、今は味方しなくていいから」</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　ソファに寝転がっていた弟の直人が、フレームの裏側をのぞき込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="57">「充電端子もない。母さん、これ、ただの板じゃない？」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="58">「失礼ね。商店街のリサイクル市で、いちばん人が集まってた店のよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="59">「いちばん人が集まってたのは、隣の焼きそば」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="60">「細かい男はモテないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="61">「姉ちゃんに言って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="62">「なぜ私に流れ弾が来るの」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　そのときだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　真っ黒だった画面に、白い文字が浮かんだ。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="68">　<span class="term term-proper">《おかえりなさい、麻冬》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="70">　全員が黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　父だけが新聞をめくった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="74">「音声認識だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="75">「電源ないけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「最近のは進んでる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="77">「進み方が怖いんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　画面がふっと明るくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　そこに映っていたのは、うちの食卓だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="82">　母が鍋を運び、父が箸を持ち、直人がスマートフォンを見ている。私は台所に背を向けて座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="83">　そして私の隣に、見覚えのある無地のシャツの男がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　里見さんだった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="87">「彼氏？」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="89">　母の反応は、フレームより速かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="91">「違う」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="92">「婚約者？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="93">「違う」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「宅配便？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="95">「だいぶ離れたね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="96">「じゃあ誰」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「会社の人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「会社の人が、なんでうちで鍋を食べてるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="99">「私が聞きたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　画面の下に、小さな文字が現れた。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="103">　<span class="term term-proper">《現在の家族数：五名》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="104">　<span class="term term-proper">《新規候補を検出しました》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="106">　うちは父、母、私、直人の四人家族だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「五人目、誰だろうね」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="110">　母が楽しそうに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「怖がって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="113">「おばあちゃんじゃない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「おばあちゃんは千葉で元気に卓球してる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「じゃあ冷蔵庫」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="116">「家電を家族に数える思想、嫌いじゃないけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="117">「納豆かもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="118">「直人、それはもう食べ物だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　父がようやく新聞を畳んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「犬だろう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="123">「飼ってないよ」</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="124">「昔、飼いたかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="125">「希望まで数えるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　その夜、私はフレームをコンセントのない棚へ伏せて置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　ただの悪質な玩具だ。そう思うことにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　翌日、里見さんが本当にうちで鍋を食べることになるまでは。</p>
+<div class="source-line scene-break gap-1" data-source-line="132" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="134">　土曜の午後、私は駅前で里見さんと会っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="135">　目的は恋愛ではない。限定上映会の物販で、私が間違えて持ち帰った彼のトートバッグを返すためだ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="136">　黒地に銀河配達局の紋章が入ったバッグは、一般人から見れば会社説明会でもらった袋にしか見えない。だが分かる人には分かる。分かる人同士でしか分からない物を持ち歩くことに、オタクは妙な安らぎを覚える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="138">「中身、見てませんから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="139">「ありがとうございます。僕も青木さんのは見てません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="140">「本当に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="141">「本当に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="142">「新刊が入ってたんですけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="143">「見てません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="144">「感想を言われたら会社を辞めます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="145">「見てません。ただ、表紙の紙が良かったです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="146">「見てるじゃないですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　里見さんが、ほんの少し笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="149">　会社で彼が笑うところを、私は一度も見たことがなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　その直後、空が壊れたような雨が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　駅の庇の下へ逃げ込んだものの、強風で横から雨が吹き込み、電車は運転見合わせになった。タクシー乗り場には長い列ができた。</p>
+<p class="source-line role-narration gap-0" data-source-line="154">　うちは駅から徒歩七分。私は迷った末に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「雨が弱くなるまで、うちに来ます？」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="157">「ご家族が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="158">「います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="159">「それは、僕には難易度が高いです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="160">「私にも高いです。でも、このままだと限定パンフレットが湿気ます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="161">「行きましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　判断基準が同じなのは、楽だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　玄関を開けると、母が待ち構えていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="167">「写真の人！」</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　里見さんは一歩下がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">「帰ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="172">「雨ですよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="173">「雨のほうがまだ説明可能です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="174">「もう見つかってます」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　母は里見さんから濡れた傘を奪い、タオルを渡し、三十秒後には居間へ座らせていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　直人が、珍しい昆虫を見る目で彼を眺めた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="179">「姉ちゃんの彼氏？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「違います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「即答」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="182">「会社の同僚です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="183">「姉ちゃんに会社の同僚なんていたんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="184">「会社なんだからいるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「人間関係の意味で」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="186">「あとで覚えてろ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="188">　父は里見さんに会釈し、テレビの野球中継を指した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="190">「野球、見る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="191">「詳しくはありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="192">「俺も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="193">「なんでつけてるの、お父さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="194">「雨だから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「天気と野球中継の関係を説明して」</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　母はすでに鍋の準備を始めていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="198">　うちでは来客があると、母は必ず鍋にする。人数の増減に強い料理だからだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="199">　ただし母は、鍋に何でも入れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「今日の隠し味、コーヒーゼリー」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="202">「隠しておいて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="203">「コクが出るんだって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="204">「どこの情報？」</p>
+<p class="source-line role-dialogue role-name gap-0" data-source-line="205">「八百屋の奥さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="206">「八百屋はコーヒーゼリーの専門家じゃないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　里見さんは困ったように私を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="209">　私は小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「食べられないものは、早めに申告してください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="212">「コーヒーゼリー入りの鍋は、食べたことがないので判断できません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="213">「私も毎回そうです」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　棚の上で、伏せてあったフレームが勝手に起き上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　画面には、昨夜と同じ食卓が映っていた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="218">　鍋の位置も、母のエプロンも、父の箸も同じだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="219">　そして写真の中の里見さんは、今まさに本人が座っている椅子にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　ただ、一つ違った。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　写真の中の私は、里見さんの肩にもたれて眠っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「まあ」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　母が両手を打った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="229">「違うから！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="230">「まだ何も言ってない」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="231">「顔が言ってる！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「将来性のある顔をしてるだけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="233">「どういう顔なの、それ」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　里見さんは耳まで赤くしながら、フレームへ近づいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="237">「これ、写真データはどこから？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="238">「知らない。母が三百円で」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="239">「三百円は重要じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="240">「重要よ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="241">「お母さんは黙ってて」</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　彼がフレームを持ち上げた瞬間、画面が切り替わった。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="245">　<span class="term term-proper">《新しい家族を検出しました》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="246">　<span class="term term-proper">《登録しますか？》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="248">　下に、丸い「はい」と「いいえ」が現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「押さないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　私と里見さんが同時に言った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="254">　母はすでに「はい」を押していた。</p>
+<p class="source-line role-dialogue role-name fx-beat tone-3 gap-1" data-source-line="256">「お母さん！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「だって、機械は返事しないと先に進まないでしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　画面が暗転した。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　数秒後、白い文字が一行ずつ浮かび上がった。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="263">　<span class="term term-proper">《現在の登録数：五名》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="264">　<span class="term term-proper">《新規登録により定員を超過します》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="265">　<span class="term term-proper">《入替対象を選択しています》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="267">　直人が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="269">「家族、定員制なんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="270">「笑い事じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="271">「でも、四人しかいないじゃん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="272">「だから怖いんだって」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="274">　父が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「俺が抜けようか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="277">「町内会みたいに言わないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　里見さんはフレームの裏蓋を外そうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="280">　だが、継ぎ目がない。木枠も画面も一枚の塊のようだった。振っても音はしない。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="282">「青木さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="283">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="284">「これは機械じゃないかもしれません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="285">「じゃあ何ですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="286">「機械のふりをした、ルールです」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　いかにも『オービター』を十二年考察してきた人らしい答えだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="289">　普通なら笑うところなのに、そのときの私は笑えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　写真が、また変わっていたからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　食卓には、里見さんを含めて五人が座っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　父だけが、いなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="297" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="299">　最初の異変は、翌朝だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　母が味噌汁をよそい、私と直人がパンを食べていると、空の椅子が一つあった。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="303">「お父さん、まだ寝てるの？」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="305">　私が聞くと、母は首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「お父さんって？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="308">「え」</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　廊下から、父が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　パジャマ姿で、いつものように無表情だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「ここにいる」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="314">「うわっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　母が本気で驚き、味噌汁をこぼした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「いつからいたの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="319">「昨日から」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="320">「そういう意味じゃない！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="322">　数秒後、母は何事もなかったように父の茶碗を出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="323">　本人も、私も、妙な冗談だったのだと思おうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　フレームには、今度は直人のいない写真が映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　その日の夕方、私たちは直人を忘れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　夕食を三人で食べ、風呂の順番を決め、母が「今日は静かね」と言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　夜十時過ぎ、玄関の鍵が開いて直人が入ってきたとき、全員が息をのんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「何、その顔」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="333">「どちらさま、って言いそうになった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="334">「やめてよ、姉ちゃん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="335">「どこ行ってたの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="336">「友達んち。昼に言ったじゃん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="337">「聞いてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「聞いたよ。母さん、千円貸してくれたし」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="339">「私が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="340">「財布から出したでしょ」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="341">「……そうだっけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　直人の部屋はちゃんとあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="344">　洗濯物も、ゲーム機も、床に脱ぎ捨てた靴下もある。</p>
+<p class="source-line role-narration gap-0" data-source-line="345">　それなのに昼から夜まで、私たちの意識には、直人の形をした穴が開いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　フレームが一枚の写真を選ぶたび、写真から消えた人間は、現実でも見えにくくなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="348">　姿が透明になるわけではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="349">　もっと日常的で、もっと救いのない消え方だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　気に留められなくなるのだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="353">　月曜日は母だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　私はスーパーのレジ前で、すぐ隣から「麻冬」と三度呼ばれても気づかなかった。肩をつかまれ、初めてそこに母がいると分かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「ずっと呼んでたのよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="357">「ごめん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="358">「私、声小さかった？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="359">「お母さんの声が小さかったこと、一度もないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　火曜日は父だった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="362">　父が会社から帰宅しても誰も「おかえり」と言わず、父は十五分ほど玄関に立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　あとで理由を聞くと、「この家に入っていいか、自信がなくなった」と言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　父がそんなことを言うのを、私は初めて聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　水曜日の夜、フレームは私のいない写真を映した。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　私の椅子には、里見さんが座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="370">　母が鍋をよそい、父が無言でビールを飲み、直人が笑っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="371">　それはあまりに自然な家族写真だった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="373">　写真の隅に、数字が出ていた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="375">　<span class="term term-proper">《確定まで　25:13:42》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="377">　カウントダウンは、一秒ずつ減っていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="379" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="381">　私は里見さんに、フレームの写真を送った。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　返信は十秒で来た。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="385">　<span class="term term-proper">《今から行きます》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="387">　平日の夜十一時、里見さんは工具箱と『銀河配達局オービター』全話収録ディスクを持って現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「なぜディスクを」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="390">「異常現象に遭遇した場合、作中では過去の類似事例が解決の手掛かりになります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="391">「現実とアニメを混ぜないでください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="392">「青木さんは、今、三百円の写真立てに存在を消されかけています」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="393">「確かに、現実側がだいぶ寄ってきてますね」</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　里見さんはフレームを調べた。</p>
+<p class="source-line role-narration gap-0" data-source-line="396">　温度、重さ、磁気、無線。どれも異常なし。</p>
+<p class="source-line role-narration gap-0" data-source-line="397">　画面には電気が流れている気配さえなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="399">「壊せますか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="400">「壊す前に確認したいことがあります。表示上の家族数が五名なのは、最初からですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="401">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="402">「ご家族は四名」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="403">「はい」</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="404">「昔、同居していた人は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="405">「祖父母は別です。ペットもいません」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="406">「亡くなった兄弟姉妹は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="407">「いません。私は長女で、直人と二人きょうだいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　そこまで言って、私はふと台所を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　食器棚のいちばん上に、誰も使わない黄色い子ども用のコップがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="412">　星のシールが貼ってある。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="413">　いつからあるのか、思い出せない。</p>
+<p class="source-line role-dialogue role-name fx-climax role-motif gap-1" data-source-line="415">「青木さん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「いえ。何でもないです」</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　何でもないことにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="420">　家の中には、由来の分からない物がいくらでもある。母は捨てることが苦手で、父は拾ったねじまで保管する人だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　私たちは居間へ戻った。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="423">　フレームのカウントダウンは、<span class="term term-proper">《00:17:08》</span>になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　家族全員を起こした。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　母は最初、「明日も早いんだけど」と怒った。だが画面に私のいない写真を見ると、黙って私の腕をつかんだ。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="428">　父は倉庫から金づちを持ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="429">　直人は「先にバックアップ取ったほうがよくない？」と言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">「人間をどうやってバックアップするの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="432">「姉ちゃんの動画、撮っとく？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="433">「遺言みたいで嫌」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="434">「じゃあ変顔」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="435">「もっと嫌」</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　残り五分。</p>
+<p class="source-line role-narration gap-0" data-source-line="438">　父がフレームを床に置き、金づちを振り下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　甲高い音がして、金づちの柄が折れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="441">　フレームには傷一つつかなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「ホームセンターでいちばん高いやつだった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="444">「今、そこを悔しがる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　母が濡れ布巾をかぶせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　画面は布の上に浮かび上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　直人が窓から外へ投げようとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="450">　窓を開けて投げたはずなのに、フレームは背後の棚へ戻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　里見さんが玄関から持ち出そうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　ドアを出た彼は、なぜか台所の勝手口から戻ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「廊下を走ったはずなんですが」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="456">「うちの間取り、そんなに複雑じゃないですよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="457">「知っています」</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　残り一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　画面に文字が出た。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="463">　<span class="term term-proper">《入替対象を確定します》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="464">　<span class="term term-proper">《青木麻冬　→　里見朔》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「勝手に将来を決めないでください」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　里見さんが低い声で言った。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="470">　<span class="term term-proper">《将来の食卓参加率：87％》</span></p>
+<p class="source-line role-narration role-magic tone-3 gap-0" data-source-line="471">　<span class="term term-proper">《家族適合度：良好》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="473">　直人が、こんなときなのに「高っ」と言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　母は「やっぱり」と言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="475">　私は二人をにらんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　残り十秒。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="479">　母の手が、私の腕から滑り落ちた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="481">「……どなた？」</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　冗談ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　父が私を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="486">　その目から、私を知っている人の色が消えていった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「里見君の知り合いか」</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　直人は露骨に身を引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="492">「なんで知らない人が、うちのパジャマ着てるの」</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　私は自分の手を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="495">　消えてはいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　声も出る。</p>
+<p class="source-line role-narration gap-0" data-source-line="497">　けれど家族の視線が、私の表面を滑っていく。ポスターやカーテンを見るときと同じ目だった。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="499">「お母さん、私だよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「ごめんなさい。どこかで会った？」</p>
+<p class="source-line role-dialogue role-name fx-key role-motif tone-3 gap-0" data-source-line="501">「お父さん」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="502">「……すまない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="503">「直人。私のプリン、勝手に食べて怒られたでしょ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="504">「プリンはよく食べるけど」</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　カウントダウンが、ゼロになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　フレームの中で、私の姿が薄くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　そのとき、里見さんが私の手を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「僕は覚えています」</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　指先が冷たかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="515">　彼も怖いのだ。それでも、離さなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「青木麻冬さん。経理部。請求書のファイル名に全角のかっこを使う。コーヒーは砂糖を二本。『オービター』第九話の船長は偽物だと主張している。投稿名は凍結みかん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「最後のは家族の前で言わないでほしかったです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="520">「覚えていることを、全部言います」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="522">　里見さんは母へ向き直った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="524">「この人の好物は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="525">「知らないわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="526">「冷蔵庫の二段目に、名前を書いたプリンがあります」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="527">「……また直人に食べられないように」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="528">「母さん、何でそれ知ってるの」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="529">「知らない。でも、書くときは赤い油性ペンで……」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　母の顔が歪んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「麻冬？」</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　私の名前が戻ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　里見さんは父の工具箱を開けた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="539">「このラベルを書いたのは？」</p>
+<p class="source-line role-narration gap-0" data-source-line="540">　ドライバー、ペンチ、六角レンチ。</p>
+<p class="source-line role-narration gap-0" data-source-line="541">　一つ一つに、私の字で名前が書いてあった。父が工具を元の場所へ戻さないので、高校生の私が貼ったものだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="543">　父はラベルを指でなぞった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「字が右上がりだ」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="546">「お父さん、私の字、そう言うよね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="547">「麻冬の字だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　父の目が私に合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　直人には、ゲーム機のセーブデータを見せた。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="552">　子どものころ、二人で遊んだ冒険ゲーム。直人の主人公の隣に、私が作った魔法使いがいた。名前は「ミカン」。装備は初期のままなのに、プレイ時間だけが百二十時間を超えている。</p>
+<p class="source-line role-dialogue role-name tone-5 gap-1" data-source-line="554">「姉ちゃん、弱い装備にこだわって、ずっと死んでた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="555">「見た目が一番かわいかったから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="556">「覚えてる。何回も回復させた。めちゃくちゃ面倒だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　直人が泣きながら笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　フレームの画面が激しく明滅した。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="562">　<span class="term term-proper">《家族境界を整理してください》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="563">　<span class="term term-proper">《登録可能数を超過しています》</span></p>
+<p class="source-line role-narration role-magic fx-key role-motif gap-0" data-source-line="564">　<span class="term term-proper">《一名を除外してください》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「お断り」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　母が即答した。</p>
+<p class="source-line role-narration role-magic fx-key role-motif gap-1" data-source-line="570">　<span class="term term-proper">《一名を除外してください》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「うちはね、鍋だって水を足せば増えるのよ」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="573">「母さん、今いいこと言ってるけど、鍋にコーヒーゼリー入れる人だから説得力が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="574">「直人は黙ってなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="575">「はい」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="577">　父は折れた金づちを置き、物置から折り畳み椅子を持ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　食卓の端へ広げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="580">「一人増えたら、椅子を出す」</p>
+<p class="source-line role-dialogue role-name fx-key role-motif tone-3 gap-0" data-source-line="581">「お父さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="582">「耐荷重、八十キロ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="583">「里見さんを座らせる前提なんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　里見さんが、握った手に少し力を込めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「僕は、青木さんと入れ替わるために来たんじゃありません」</p>
+<p class="source-line role-narration gap-0" data-source-line="588">　彼はフレームへ言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="589">「隣に座りたいだけです」</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　こんな状況でなければ、一生覚えておきたい告白だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="592">　こんな状況だったので、やはり一生忘れないと思う。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　私はフレームを食卓の正面に置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="595">　父、母、直人、私、里見さん。</p>
+<p class="source-line role-narration gap-0" data-source-line="596">　五人で並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　画面の中では、何度も誰かが消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="599">　父が消え、母が消え、直人が消え、私が消え、里見さんが消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="600">　それでも現実の私たちは、互いの名前を呼び続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="602">「正志」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="603">「春江」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="604">「直人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="605">「麻冬」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="606">「里見、朔です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="607">「そこだけ自己紹介なのね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="608">「まだ家族ではないので」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="609">「候補なんでしょ？」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="610">「お母さん、今は黙って」</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　写真がぶれた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="613">　輪郭が重なり、五人の顔が一つの光の塊になった。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="615">　<span class="term term-proper">《分類できません》</span></p>
+<p class="source-line role-narration role-magic tone-2 gap-0" data-source-line="616">　<span class="term term-proper">《全員が互いの記録を保持しています》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="617">　<span class="term term-proper">《境界が不明です》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「それでいいのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　母が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="623">「家族なんて、だいたい境界が不明なの」</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　画面に大きな亀裂が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　一瞬だけ、別の写真が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　今の五人の後ろに、もう一人いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　中学生くらいの女の子。星形の髪留めをつけ、母の肩へ手を置いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="631">　私とよく似た目をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　そして最後の文字が浮かんだ。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="635">　<span class="term term-proper">《警告》</span></p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="636">　<span class="term term-proper">《登録済み五名のうち、一名が未表示です》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="638">　フレームは真っ黒になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　今度こそ、何をしても二度と点かなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="642" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="644">　翌朝、家族は全員、私を覚えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　母はフレームを燃えないごみの袋へ入れながら、「三百円損した」と言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="647">　父は折れた金づちの保証書を探した。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　直人は私のプリンを食べた。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　家族が正常に戻った証拠として、これ以上のものはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　里見さんは、朝まで居間にいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="652">　始発が動くころ、玄関で靴を履きながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「昨日のことですが」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="655">「どの部分ですか。投稿名を暴露したことなら、許してません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="656">「隣に座りたいと言った部分です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="657">「ああ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="658">「あれは、異常現象に対応するための方便ではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="659">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="660">「将来の食卓参加率を、上げたいと思っています」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="661">「機械の数値を信じるんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="662">「機械ではなく、機械のふりをしたルールです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="663">「もっと悪いですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　私は少し考えてから、彼のコートの袖をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「まずは食卓じゃなくて、映画館からにしませんか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="668">「上映予定は調べてあります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="669">「早い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="670">「復刻版の特別上映が来週です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="671">「それ、デートというより通常運転では」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="672">「通常運転を、一緒に増やしたいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　成人オタクの恋愛は、派手ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="675">　ただ、予約開始時刻を共有する相手が、少しずつ人生の予定表に増えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　私は「はい」と答えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="678">　今度は、勝手な写真立てに押される前に。</p>
+<div class="source-line scene-break gap-1" data-source-line="680" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="682">　二か月後、里見さんはまた、うちで鍋を食べていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　母は彼を「朔くん」と呼び、父は無言でビールを勧め、直人は『オービター』を第一話から見始めていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="685">　鍋には、コーヒーゼリーの代わりに焼き芋が入っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="687">「甘い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="688">「秋だから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="689">「理由になってないよ、お母さん」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="691">　母が食器棚から取り皿を並べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　一、二、三、四、五、六。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="695">「一枚多いよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　私が言うと、母は不思議そうにこちらを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「何言ってるの。いつも六枚でしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　部屋が、しんとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　父が、誰も座っていない折り畳み椅子を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　直人が、廊下の先を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　玄関で、鍵の回る音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　扉が開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="710">「ただいま。遅くなってごめん」</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　制服姿の女の子が入ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="713">　星形の髪留め。</p>
+<p class="source-line role-narration gap-0" data-source-line="714">　写真の中にいた子だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　母は何のためらいもなく、「おかえり、結衣」と答えた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="717">　父も直人も、ずっと待っていた人を見る顔をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　里見さんだけが、食卓の下で私の手を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　結衣と呼ばれた女の子は、まっすぐ私の前へ来た。</p>
+<p class="source-line role-narration gap-0" data-source-line="722">　私と同じ目で、うれしそうに笑った。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="724">「お姉ちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　彼女は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">「今度は、忘れないでね」</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

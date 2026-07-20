@@ -1,0 +1,905 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="午後三時、校舎裏で空腹のあまり倒れていたのは、角に半額シールを貼った魔王見習い・宵町ねねだった。蜂蜜パンを分けた柚木ましろと、フィンランドからの留学生アイノは、その場で世界征服計画の幹部に任命される。ねねの一族に残された古い喫茶店と魔窯を守るには、三日以内に百人分の「満ち足りた吐息」が必要だ。料理が壊滅的な魔王に代わり、三人は商店街の星待ち祭りで鮭と味噌のスープを売ることに。遠い故郷、冷えた一人分の食卓、寂れた店――それぞれの空腹を、ひと椀の星屑で温められるか。">
+<title>星屑スープと午後三時の魔王｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="星屑スープと午後三時の魔王" data-novel-id="星屑スープと午後三時の魔王" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示" selected>学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ジュブナイル・ファンタジー・日常</p>
+  <p><strong>補助ジャンル：</strong>学園・ギャグ・料理</p>
+  <p><strong>CSVタグ：</strong>ジュブナイル、ファンタジー、日常、学園、ギャグ、料理、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示</p>
+  <h3>意味色</h3><p>赤＝気合、青＝戦術、金＝信頼、紫＝迷い、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：444行／章：0／役割・強度タグ：516</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="星屑スープと午後三時の魔王 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『星屑スープと午後三時の魔王』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　午後三時十七分、柚木ましろは校舎裏で魔王を拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　正確には、植え込みから突き出していた二本の黒い角を見つけ、その根元にいた少女を引っぱり出した。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="8">「うう……世界が白い……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="10">「しっかりして。保健室、行ける？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="12">「保健室では駄目だ。あそこには体温計しかない。いま我に必要なのは、糖と脂と、できれば出汁だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　少女は同じ一年生の宵町ねねだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　小柄で、黒髪は肩のあたりでふわふわ跳ねている。普段は目立たない子なのだが、今日は額から子ヤギのような角が生えていた。しかも角の先に、購買の半額シールが一枚ずつ貼りついている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「魔王って、おなかが空くと倒れるんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="20">「魔王ではない。次期・宵闇大公である。まだ見習いだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「じゃあ、見習いがおなか空くと倒れるんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="24">「言い直しても威厳は戻らぬぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　ましろは鞄から、小さな包みを取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　今朝焼いた、蜂蜜入りの丸パンだった。昼休みに食べそびれた最後の一個で、表面には白ごまが散っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="30">「これ、食べる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「毒見は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「私が半分食べようか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「いや、民の善意を疑うのは支配者としてよくない。いただこう」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　ねねは両手でパンを受け取ると、ほとんど祈るような顔をしてかぶりついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　ふかり、とパンがつぶれる。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="42">　焼いた蜂蜜の香りが、梅雨明け前の湿った風に混じった。ねねは三回噛み、目を閉じ、細い肩から長い息を吐いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="44">「はぁぁ……」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="46">　その吐息が、淡い紫色の光になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　光はくるくると渦を巻き、ねねの角へ吸い込まれる。すると角の根元に、小さな星形の印がひとつ灯った。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　ましろが瞬きをしていると、背後から明るい声がした。</p>
+<p class="source-line role-dialogue role-sensory tone-4 gap-1" data-source-line="52">「マシロ。そのパン、犯罪的にいい匂いです」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　振り向くと、アイノ・ラウタが立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　フィンランドから来た留学生で、ましろの隣の席。背が高く、灰色がかった金髪をいつも一本の三つ編みにしている。日本語は上手なのに、ときどき単語の選び方が物騒だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="58">「犯罪じゃないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「では合法的に一口ください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「もうない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="64">「悲しい法律です」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　アイノは残念そうに眉を下げ、それからねねの角を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="68">「ネネ。頭にヤギが途中まで生えています」</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="70">「これは高貴なる血統の証だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">「半額シールも？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="74">「これは事故だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　ねねは勢いよく立ち上がった。立ちくらみで少し揺れたが、何事もなかったように胸を張る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「よくぞ聞いた、異国の勇者よ。柚木ましろ、およびアイノ・ラウタ。汝らを我が世界征服計画の幹部に任命する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「私はパンを一個あげただけなんだけど」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「私はまだ何ももらっていません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「そこは誇るところではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　ねねは角の星印を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「我が一族は代々、人々の“満ち足りた吐息”を集め、夜の魔力へ変えてきた。しかし祖母の代で商売に失敗し、先祖伝来の魔窯と領地を失った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「領地？」と、ましろ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「駅前商店街の外れにある、元喫茶店だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「ずいぶん具体的な領地ですね」と、アイノ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「笑うな。固定資産税がかかる立派な領地だ。今月中に百個の満ち足りた吐息を集めなければ、魔窯は永久にただの寸胴鍋となり、我が家の闇の血は絶える」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　ましろは、角に灯った星を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="100">「さっきので、一個？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「うむ。残り九十九」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「今月って、あと三日です」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　アイノがスマートフォンの画面を見せる。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　六月二十七日、木曜日。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　ねねは空を仰いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「だから校舎裏で倒れていたのだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「計画性がなくて？」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="116">「空腹で！」</p>
+<div class="source-line scene-break gap-2" data-source-line="119" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="122">　駅前の月舟商店街は、海からの風がよく通る。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　昔は漁港帰りの人で夜までにぎわったそうだが、今は半分ほどの店が早く閉まる。アーケードの屋根には塩気で白くなった風鈴が並び、風が吹くたび、少し眠そうな音を立てていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　ねねの“領地”は、そのいちばん奥にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　木枠のガラス戸。褪せた紺色のひさし。看板には『喫茶　よいまち』とある。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　中には丸いテーブルが四つと、赤いビニール張りの椅子。壁の時計は二時四十八分で止まり、カウンターの奥には、普通の寸胴鍋より一回り大きな黒い鍋が鎮座していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　鍋の側面には、月と星と、泣いている玉ねぎの模様が彫られている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「これが魔窯？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「正式名称は『百夜満腹天蓋窯』だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="138">「寸胴鍋に見えます」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　アイノが蓋を持ち上げる。中から、ふわっと埃が舞った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「咳をする寸胴鍋です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「長く眠っておったからな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「最後に使ったの、いつ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「十年前。祖母が腰を痛めて店を閉めた日だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　ねねの声が少しだけ小さくなる。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="152">　ましろはカウンターを指でなぞった。埃の下から、よく磨かれた木目が現れた。店は古いけれど、乱雑ではない。壁には常連客らしい人々の写真が何枚も飾られている。コーヒーカップを掲げる魚屋のおじさん。制服姿の高校生。赤ん坊を抱く若い夫婦。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　中央の写真には、今よりずっと幼いねねがいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　ねねを抱いている白髪の女性は、額に立派な角を生やし、エプロン姿で笑っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「おばあちゃん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「うむ。先代・宵闇大公にして、この店の店主だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「強そうです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「プリンを一日二個食べる者には容赦がなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「そこだけ聞くと健康に厳しい人だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　ねねは黒い鍋を撫でた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「祖母は言っていた。腹の底から出る、安心した息ほど良質な魔力はない、と。だが我には料理の才がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「どれくらい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「目玉焼きを作ろうとして、フライパンから雛が生まれた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「魔法としてはすごいです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「朝から育児になった」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="180">　ましろは思わず笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　それから、店の奥の小さな台所を見た。古いが大きなガス台、深い流し、吊り下げられた銅鍋。棚には欠けた皿が整然と重ねられている。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　そこに立った瞬間、胸の奥が、ほんの少しだけ温かくなった。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-1" data-source-line="186">　ましろの母は料理人で、今は遠くの街のホテルで働いている。小学生のころまでは、よく二人で台所に立った。玉ねぎを切る係、味見をする係、焦げそうな鍋を見張る係。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　母が家を出てから、ましろは一人で料理を作るようになった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="190">　一人分の味噌汁は、すぐ冷める。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　だから誰かに食べてもらうのは、嫌いではなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「百個、集められるかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　ましろが言うと、ねねとアイノが同時に振り向いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「明後日、商店街の星待ち祭りだよね。空き店舗で一日だけ店を出せるって、学校の掲示板に書いてあった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="200">「しかし、我には料理の才が」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「私が作るよ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="204">「マシロ、料理できますか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「普通くらい」</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　アイノは真顔で首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「うそです。マシロの卵焼きは、私の人生の上位五位です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「人生まだ十六年でしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="214">「だから競争が激しいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　ねねの角に灯った星が、ぴかりと明るくなった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="218">「では決まりだ。我ら三人で祭りの夜、九十九人を屈服させる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">「満足させる、じゃない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「結果として膝をつけば同じだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「食後すぐ膝をつく人は、たぶん具合が悪いです」</p>
+<div class="source-line scene-break gap-2" data-source-line="227" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="230">　翌日の放課後、三人は試作を始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　献立はスープにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　祭りの日は夕方から雨になる予報で、商店街には年配の客も多い。片手で持てる紙カップに、温かいものを入れれば食べてもらいやすい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「問題は、何のスープにするかだね」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　ましろがノートを開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「世界征服にふさわしい、漆黒の液体がよい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「イカ墨？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「歯が黒くなります。初対面の人に笑われます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「では血のように赤いものを」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「トマト？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「急に健康的だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　アイノは店の冷蔵庫に持ち込んだ食材を並べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　鮭、じゃがいも、玉ねぎ、にんじん、牛乳。小さな瓶に入ったディル。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「私の家では、寒い日に鮭のスープを食べます。白くて、やさしくて、でも、ちゃんとおなかに残ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「作ったことある？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「食べたことは百回あります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="262">「作ったことは？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="264">「母の背中を百回見ました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「つまり？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「自信は霧の中です」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　それでも三人で作ってみることにした。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="272">　玉ねぎを薄く切り、鍋にバターを落とす。火が入ると、乳の甘い匂いが立ち上がった。玉ねぎは最初、しゃりしゃりと抵抗したが、木べらで混ぜるうちに透き通り、角が丸くなっていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　じゃがいもとにんじんを加え、水を注ぐ。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　煮立つまでのあいだ、ねねは魔窯の前に立ち、両手を広げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="278">「目覚めよ、百夜満腹天蓋窯！　我が命に従い、煮えよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　ごぼっ。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　鍋から大きな泡がひとつ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「返事しました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">「まだ普通に沸騰しただけだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「魔法には雰囲気も大切なのだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　鮭を入れ、牛乳を加える。白い液面に桃色の身と緑のディルが浮き、雪の野原に小さな花が咲いたようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　ましろは塩を少しずつ入れた。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="294">「アイノ、味見して」</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　アイノは匙を受け取り、息を吹きかけてから口に含んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　しばらく黙っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「どう？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「おいしいです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="304">「でも、って顔だね」</p>
+<p class="source-line role-dialogue role-sensory fx-whisper gap-1" data-source-line="306">「……家の味とは違います」</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　その言葉が落ちると、古い店の中が、急に広くなったように感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　アイノは慌てて続ける。</p>
+<p class="source-line role-dialogue role-sensory tone-3 gap-1" data-source-line="312">「悪い意味ではありません。マシロの味です。やわらかくて、きれいです。でも私の家のは、もっと胡椒が強くて、じゃがいもが少し崩れて、父が毎回パンを落として、母が怒ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「お父さん、毎回落とすの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「毎回です。たぶん家族行事です」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="318">　アイノは笑ったが、その笑顔は端のほうが薄かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　ましろは、彼女がフィンランドの話をするとき、いつも天気から話し始めることを思い出した。雪の色。湖の氷。夜の長さ。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　人の話は、いちばん言いたいことを避けるとき、遠くから始まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「寂しい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　ましろが訊くと、アイノは匙を鍋へ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「留学したいと言ったのは私です。日本に来られて、毎日おもしろいです。寂しいと言ったら、欲張りになります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">「両方でいいんじゃないかな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「両方？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「ここが楽しくて、家にも帰りたい。おなかがいっぱいで、デザートも食べたい。そういうの、普通だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　ねねが深くうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「うむ。善と悪も腹八分目と満腹も、共存しうる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「ねねはたぶん食べすぎ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「魔族の胃を人間の基準で測るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　アイノは、ほんの少し肩の力を抜いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「では私は、欲張りになります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="348">「うん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「家のスープも、マシロのスープも、おかわりします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「それは材料と相談してね」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="354">　ましろはもう一度、鍋の味を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　おいしい。けれど、祭りで売るには何か足りない。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　この街で食べる理由が、まだなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　棚を探していたねねが、小さな缶を見つけた。蓋には祖母の字で『星塩』と書いてある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「先代の秘薬だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　開けると、中身は大粒の塩だった。ところどころ、雲母のようにきらきら光っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「海水を満月の夜に干し、流れ星が見えた回数だけ混ぜる。この街の古い塩だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「食べられる？」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="370">「賞味期限は魔界暦で書いてあるゆえ、判読不能だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「やめよう」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　三人は声を揃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　結局、向かいの乾物屋で売っていた新しい海塩を買い、ほんの少し加えた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="378">　さらに、ましろは地元の甘い麦味噌を小さじ一杯だけ溶いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　白いスープの輪郭が、ふっと深くなった。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="382">　鮭の脂、牛乳の丸み、味噌の香ばしさ。最後にディルが鼻へ抜ける。遠い国の冬と、海辺の商店街の夕方が、ひとつの匙の上で隣り合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　アイノは目を見開いた。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="386">「知っている味と、知らない味がします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「変かな」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="390">「いいえ。新しい家の味みたいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　その瞬間、アイノの口から白金色の吐息がこぼれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　魔窯が低く鳴り、ねねの角に二つ目の星が灯る。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="396">「二個目！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「九十九人ではなく、あと九十八人です」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="400">「先は長いな……」</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　三人は鍋を囲み、試作のスープをお椀によそった。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　ねねは一口飲み、椅子の背にもたれた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="406">「はぁぁぁ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　三つ目の星が灯った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「身内でも数えるんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「魔法は公平なのだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　ましろも飲んだ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="416">　温かさが舌から喉へ、胸へ、胃へ落ちていく。自分で作った味なのに、一人で食べるときとは違った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="418">　向かいに誰かがいて、同じ湯気の向こうで笑っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　それだけで、料理は少しだけ別のものになる。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="422">「はぁ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　四つ目の星が灯った。</p>
+<div class="source-line scene-break gap-2" data-source-line="427" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="430">　星待ち祭りの土曜日。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　夕方から、商店街には青と銀の短冊が飾られた。アーケードの天井には紙の星が吊られ、魚屋は星形のはんぺんを売り、文房具屋はなぜか光る消しゴムを売っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　喫茶よいまちの前には、三人で書いた看板を立てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">『一夜かぎり　星屑スープ</p>
+<p class="source-line role-narration gap-0" data-source-line="437">　――遠い冬と、この町の海を一杯に。』</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　その下に、ねねが勝手に書き足している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">『飲め。さもなくば世界征服。』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「脅迫になってるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「宣伝には強い言葉が必要だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「では“おかわり歓迎”にしましょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">「それも強い言葉です」</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　アイノが書き直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　ましろは白いエプロン、アイノは青いエプロン。ねねは祖母の黒いエプロンをつけ、頭の角には紙の星飾りを巻いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　午後五時、最初の客が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　向かいの乾物屋のおばあさんだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="459">「ねねちゃんが店を開けるっていうから、幽霊でも出るのかと思ったよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「幽霊より恐ろしい次期大公である」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「はいはい。じゃあ一杯ちょうだい」</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　紙カップにスープを注ぐ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="467">　白い湯気が立ち、鮭とじゃがいもがごろりと顔を出す。最後に刻んだ青ねぎを少し散らした。ディルだけでは苦手な人もいるため、この町の香りを足したのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　おばあさんは店先の椅子に座り、ゆっくり飲んだ。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="471">「へえ。変わった味だねえ。でも、落ち着く」</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　はぁ、と吐いた息が黄色い光になり、ねねの角へ飛ぶ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="475">「五個目！」</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　ねねが叫んだので、おばあさんは目を丸くした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">「ポイントカードかい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">「似たようなものだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">「百個で何がもらえるの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「一族の存続」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="487">「景品が重いねえ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="489">　おばあさんは笑い、乾物屋へ戻ると、隣近所に声をかけてくれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　そこから客が少しずつ増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　部活帰りの中学生。浴衣姿の親子。仕事を終えた魚屋。毎朝同じベンチに座る犬連れの男性。スープを飲むたび、人々の息は赤や青や金色の小さな光になり、ねねの角へ吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　二十。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　三十五。</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　五十一。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　ねねの角には、夜空のように星が増えていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="503">「順調だね」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="505">「このままなら日没前に世界は我が手に！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「閉店は八時です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「営業時間内に収めるのが現代の魔王です」</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　アイノは手際よくパンを切り分け、ましろは鍋を混ぜ続けた。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="513">　スープは煮込むほどじゃがいもの角が溶け、少しずつとろみを増す。鮭の身は匙で触れるだけでほぐれ、白い汁に桃色の筋を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　六時半、客は八十人を超えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　だがそのころ、空が急に暗くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　遠くで雷が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　予報より早く、海から黒い雲が押し寄せてきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「雨、来ます」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　アイノが言った直後、アーケードの屋根を大粒の雨が叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　祭りの人々が一斉に走り出す。店先の商品にはビニールがかけられ、紙の星は風に煽られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　そして雷が、白く瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　商店街の明かりが全部消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　冷蔵庫の音も、祭りの音楽も止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　暗闇の中で、誰かの子どもが泣き出した。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="537">「停電……」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　ましろはガス台を確認した。安全装置が働いたのか、火が消えている。再点火を試しても反応がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　鍋には、あと二十杯分ほどのスープが残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　ねねの角の星は八十七。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「十三、足りない」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　外では雨脚が強くなっている。客は帰れず、暗いアーケードの下で不安そうに立ち尽くしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　ねねが魔窯の前に膝をついた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="551">「魔窯は火がなければ動かぬ。電気が戻るまで待つしか……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="553">「冷めちゃう」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="555">　ましろは鍋の側面に触れた。まだ熱いが、この雨と風ではすぐ温度が下がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　アイノが静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「ネネ。あなたは魔王です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="561">「見習いだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「闇を使えませんか」</p>
+<p class="source-line role-dialogue role-sensory tone-5 gap-1" data-source-line="565">「闇は冷たい。火の代わりにはならぬ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">「でも、ねねのおばあちゃんは、この鍋で人の吐息を魔力にしていたんだよね」</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　ましろは角の星を見た。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="571">「八十七人分の、安心した気持ちがある。冷たいだけじゃないと思う」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="573">「しかし我には、祖母のような力は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="575">「目玉焼きから雛を生めるじゃん」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="577">「それは失敗だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="579">「失敗でも、何かを温めて生まれさせたんでしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　ねねは黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　暗闇の中で、角の星だけが明滅している。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　店の外から、乾物屋のおばあさんの声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「ねねちゃん、何か手伝えるかい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　魚屋のおじさんも続ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="591">「ランタンならあるぞ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="593">「うち、紙コップ追加で持ってくる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「子どもたち、店の中に入れていい？」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="597">　雨音の向こうから、いくつもの声が届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　ねねは立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　黒いエプロンの裾を払い、魔窯の前で両手を広げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「よかろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　いつもの大げさな声だったが、ほんの少し震えていた。</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="607">「我が民よ、恐れるな。今宵、この宵町ねねが、闇に温もりを命ずる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="609">「民になった覚えはないけど、がんばれ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　魚屋のおじさんが笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　ねねは目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　角の星が一斉に輝いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　紫、金、青、白。八十七個の光がほどけ、細い糸になって鍋へ流れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　魔窯の月の模様が淡く浮かび上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　ごう、と音がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　炎ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　鍋の下から、黒い影が立ちのぼった。夜そのものを薄い布にして重ねたような影。その中に、星の粒が散っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　影は冷たく見えたのに、近づくと、日向に置いた毛布のように温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　スープが再び、ことこと鳴り始める。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="631">「成功です！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="633">「まだだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　ねねは歯を食いしばった。角の星が一つずつ消え、そのたびに影の火が揺らぐ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「魔力が足りぬ。八十七では、長くもたない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「じゃあ、残りの人に今すぐ飲んでもらおう」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　ましろとアイノはスープをよそった。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　ランタンが持ち込まれ、店内に人が集まる。暗い外から入ってきた客たちは、両手で温かいカップを包んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　九十。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　九十三。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　九十六。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="651">　吐息が光になり、消えかけた影の火へ戻っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　最後の鍋底をさらうと、残ったのは一杯分だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　ねねの角の星は九十九。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「あと一つ」</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　ましろは最後のカップを見た。</p>
+<p class="source-line role-narration role-command gap-1" data-source-line="661">　客はもう全員、受け取っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　ねねは魔法を維持するので精一杯。ましろとアイノは忙しくて、まだ何も食べていなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="665">「二人で飲んで」と、ましろはカップを差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「マシロも食べていません」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="669">「私は味見したから」</p>
+<p class="source-line role-dialogue role-sensory tone-5 gap-1" data-source-line="671">「味見は食事ではありません。料理する人がよく使う危険な言い訳です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「でも、ねねも限界だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「我は魔王だ。空腹程度で――」</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　ねねの腹が、立派な低音で鳴った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="679">「……これは遠雷だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「店内です」</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　三人は最後の一杯を囲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　カップ一つ。匙は三本。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　ましろが鮭を一切れすくって、ねねの口元へ運ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="689">「魔王から」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="691">「見習いだが、いただこう」</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　ねねは食べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　アイノがじゃがいもをすくい、ましろへ差し出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「料理人は最後に食べる権利があります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「ありがとう」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="701">　ましろは、やわらかく崩れたじゃがいもを食べた。味噌と牛乳を吸って、舌の上でほどける。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　最後に残った一匙を、ねねとましろがアイノへ譲った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="705">「私は大きいから、二人より我慢できます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「背の高さと空腹は関係ないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="709">「異国の勇者よ。ここは受け取れ。臣下を飢えさせぬのが支配者の務めだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　アイノは二人の顔を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　それから、匙を口へ運んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　ゆっくり噛み、飲み込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　暗い店の中で、ランタンの光が彼女の瞳に揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="719">「家のスープではありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　アイノが言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="723">「うん」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="725">「でも、家で食べたい味です」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="727">　彼女は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="729">「私、来年の春に帰るのが、少し怖いです。ここを好きになりすぎました」</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　ましろの胸が、きゅっと縮んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　留学には終わりがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　知っていたのに、日々が楽しくなるほど、知らないふりをしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「帰っても、なくならないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「何がですか」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="741">「ここで食べた味も、話したことも。あと、帰る場所って、一個じゃなくていいと思う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="743">「欲張りで？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="745">「うん。欲張りで」</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　ねねが、かすれた声で宣言した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="749">「我が領地は、異国からの帰還者を拒まぬ。入国審査は、手土産の菓子で簡略化される」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">「賄賂です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="753">「外交だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　アイノは笑いながら、長く息を吐いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="757">「はぁぁ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　白金色の光が生まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　それは今までのどの吐息よりも大きく、丸く、柔らかかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="763">　光がねねの角へ吸い込まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　百個目の星が灯った。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　次の瞬間、魔窯が鐘のような音を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　黒い影の火が天井まで舞い上がり、無数の小さな星となって店の外へ飛び出していく。</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　星々はアーケードの下を泳ぎ、停電した電灯の代わりに淡く輝いた。紙の飾りも、濡れた石畳も、驚いて空を見上げる人々の顔も、夜色の光に照らされる。</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="773">　泣いていた子どもが、笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　雨はまだ降っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　けれど商店街の中だけ、星空が逆さまに降りてきたようだった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="779">「ねね、成功だよ！」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="781">「当然だ……我を誰だと……」</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　ねねは言い終える前に、ましろの肩へ倒れ込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="785">「ねね？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="787">「空腹だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="789">「魔力じゃなくて？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="791">「両方だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　アイノが空になった鍋をのぞく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="795">「緊急事態です。食べ物がありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　すると店の外から声が上がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="799">「うちのコロッケ持ってこい！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="801">「焼きそば余ってるよ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="803">「おにぎりもある！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="805">「プリンなら冷蔵庫が止まる前に食べたほうがいい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　五分後、喫茶よいまちのテーブルは、商店街じゅうの食べ物でいっぱいになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　コロッケ、焼きそば、塩むすび、星形はんぺん、きゅうりの一本漬け、少し溶けかけたプリン。</p>
+<p class="source-line role-narration gap-1" data-source-line="811">　ねねはコロッケを両手で持ち、涙ぐんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="813">「世界征服とは、かくも温かいものだったのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「たぶん違うよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="817">「でも、悪くないです」</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　三人は笑い、同じテーブルで遅い夕食を食べた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="821">　外の雨音は、いつの間にか小さくなっていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="824" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="827">　翌朝、停電は復旧した。</p>
+<p class="source-line role-narration gap-1" data-source-line="829">　魔窯はただの寸胴鍋にはならず、側面の月と星が、洗っても消えない銀色に輝くようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="831">　ねねの角は引っ込んだが、午後三時を過ぎて空腹になると、今でも少しだけ先端が出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　祭りから一週間後。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　喫茶よいまちのガラス戸には、新しい紙が貼られた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="837">『毎週日曜日だけ営業</p>
+<p class="source-line role-narration gap-0" data-source-line="838">　星月キッチン</p>
+<p class="source-line role-narration gap-0" data-source-line="839">　店主見習い三名』</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　その下に、小さく注意書きがある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="843">『満足すると、光る吐息が出る場合があります。健康上の問題はありません。』</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="845">　最初の日曜日、ましろは台所でパンを焼き、アイノは故郷の菓子の作り方を母から教わり、ねねはレジの前で仁王立ちしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="847">「客よ、よく来たな。代金を置き、好きな席へつくがよい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="849">「接客を柔らかくして」と、ましろ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="851">「いらっしゃいませ。代金を捧げよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="853">「後半が同じです」と、アイノ。</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　店の扉が開き、海風と一緒に最初の客が入ってくる。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-1" data-source-line="857">　黒い鍋の中では、鮭とじゃがいもの白いスープが静かに煮えていた。今日は味噌の代わりに、少しだけ醤油を使っている。来週はトマト、その次は豆と鶏肉。そのうち、アイノの母から届いたレシピで菓子も焼くつもりだ。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="859">　同じ味を守ることもできる。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="861">　違う味を足して、新しい味にすることもできる。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　どちらも、帰る場所を作る方法なのだと、ましろは思う。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="865">「三人とも、味見する？」</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　ましろが小さなカップを並べる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="869">「当然だ。支配者には毒見の義務がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="871">「私は合法的に二杯ほしいです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="873">「一杯ずつだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="875">　三人は湯気の向こうで顔を見合わせ、同時にスープを飲んだ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="877">　やさしい塩気と、鮭のうまみ。とろりとしたじゃがいも。最後に、海辺の朝のような青ねぎの香り。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="879">「はぁ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="881">　三つの吐息が重なって、小さな星になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="883">　星は店の天井を一周し、止まった時計の針を、こつんと押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　二時四十八分で眠っていた針が動き出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　かちり。</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　かちり。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="891">　新しい時間を刻む音が、温かな店の中に響いた。</p>
+<p class="source-line end-mark gap-2" data-source-line="894"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

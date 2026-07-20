@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="毒霧を防ぐ鐘壁都市ラグナへ、死者を育む白い森が年々迫っている。残響を喰う葬具ヴァルを振るう少女カヤは、森の母虫を討てば、病に眠る弟の薬を渡すと評議会から命じられる。案内役は、毒の中で生きる森の少年セム。人間だった頃の声を宿すヴァルも、あと一つ強い残響を喰えば元に戻れるという。だが都市では鐘の音だけが正義とされ、森では死者の声が風に混じる。母を門外へ置き去りにした記憶を抱え、カヤは「怪物」と呼ばれた森の奥へ進む。弟を救う薬、相棒を戻す最後の声、評議会が急がせる討伐――三つの願いは、同じ刃でかなえられるのか。">
+<title>風葬の鐘喰い｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="風葬の鐘喰い" data-novel-id="風葬の鐘喰い" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>ホラー・ファンタジー・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、バトル、ホラー、ファンタジー、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：627行／章：0／役割・強度タグ：683</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="風葬の鐘喰い 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">風葬の鐘喰い</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration role-horror tone-5 gap-2" data-source-line="4">　死者の声は、土へ還れなかったとき、金属を食う。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　それが鐘壁都市ラグナで最初に教わることだった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="8">　だから人が死ぬと、舌の下へ白い砂を詰め、名を三度呼び、夜明けまでに骨を焼く。残った声が釘や刃に宿れば、やがて鉄は内側から泣き出し、持ち主の夢を食い破るからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　けれど、土そのものが死んでしまった世界では、声の行き先など、とうに残っていなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="12" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="14">　カヤが風骸樹の根元で見つけた犬は、頭が六つあった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="16">　正確には、犬の死骸ひとつに、六人分の顔が咲いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　灰色の毛皮を突き破って、老人、兵士、赤子、片目の女、歯のない男、そしてカヤと同じ年頃の少女の顔が、蕾のように並んでいる。六つの口はばらばらに動き、同じ言葉を繰り返していた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="20">「門を開けて」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="21">「門を開けて」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="22">「門を開けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　頭上では、風骸樹の白い枝が空を覆っていた。樹皮は乾いた骨に似て、枝先から透きとおった袋が無数に垂れている。袋は風を吸うたび膨らみ、黒鉛霧を呑み込み、代わりに薄青い息を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　人間はその森を、墓荒らしの森と呼んだ。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="28">　森の生き物は、人間の捨てた毒と死者を餌にして育つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="30">「六人前か」</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　カヤは背中の葬具を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　刃渡りは彼女の身長ほど。剣というには幅がありすぎ、斧というには薄すぎる。黒い刀身の根元に青銅の鐘が埋め込まれ、その鐘には、人間の歯を思わせる白い突起がぐるりと生えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">『朝飯には重いな』</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　鐘の奥から男の声がした。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="40">「夜明けは三時間前よ、ヴァル」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">『俺に太陽は見えん』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「目もないものね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">『おまえの背中の汗ならよく見える』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「斬るわよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">『俺で？』</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　六つ頭の犬が跳んだ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="54">　カヤは一歩踏み込み、葬具ヴァルを横薙ぎに振った。刃は肉ではなく、犬の周りにまとわりつく薄い膜を裂いた。耳には聞こえない悲鳴が、骨の裏側を震わせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　犬の顔がいっせいに口を開いた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="58">　老人は火を恐れ、兵士は命令を呪い、赤子は母を探し、女は水を欲し、男は謝罪を拒み、少女は門を叩き続けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　残響。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="62">　死に際の感情が毒霧と混じり、生き物へ寄生したものだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="64">「名を言え！」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　カヤは叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　六つの口が歪み、六つの名を吐き出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　ヴァルの鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　音は低く、飢えた獣の喉に似ていた。名を得た残響が刃へ吸い込まれ、白い歯のひとつひとつが淡く光る。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　犬は崩れた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="76">　ただの痩せた獣の死骸へ戻り、灰の上に横たわった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">『まずい』</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="80">　ヴァルが言った。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="82">「死者に味を求めないで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">『後悔ばかりだ。塩気が足りん』</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　カヤは刃についた黒い露を布で拭った。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　六つの名のうち、少女の名だけが耳に残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　リネ。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　十年前、鐘壁都市の南門が閉ざされた夜、門外に取り残された避難民の名簿にあった名だ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="94">　当時、森の拡大を恐れた評議会は、三千人を壁の外へ置き去りにした。カヤの母も、その一人だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">『また、その顔だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「どの顔」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="100">『自分だけが生き残ったことを、誰かに謝りたがってる顔』</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　カヤはヴァルを背へ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「武器のくせに、よく喋る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">『人間だったころ、黙りすぎた反動だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　白い枝の向こうで、ラグナの大鐘が三度鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　召集の音だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="112" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="114">　鐘壁都市ラグナは、十二の塔と十二の門を持つ円形都市だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　壁には大小四千の鐘が埋め込まれ、黒鉛霧が近づくと、自動的に鳴って空気を震わせる。その振動が毒を外へ押し返し、壁の内側だけに人間の肺で吸える空を作っていた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="118">　かつては十万人が暮らしたという。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　今は、三万人。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　風骸樹の森は毎年、壁へ二百歩ずつ近づいている。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　中央塔の最上階で、カヤは評議長オルドと向かい合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　オルドは老いていたが、皮膚だけは蝋のように滑らかだった。肺を銀の袋に置き換え、血を濾過する虫を胸骨の中で飼っていると噂されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　彼の後ろには巨大な都市模型があり、白い根が南壁へ食い込む様子が、細い骨細工で再現されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「猶予は七日だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　オルドは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「第九根脈が壁の基礎へ達する。放置すれば、南半分が崩れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「焼けばいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　カヤは答えた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="140">「焼いた。三度な。火は根の奥へ届かず、煙で百二十人が死んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「なら毒を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「森は毒を食う」</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　オルドは模型の中心を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　森の奥深く、白い針のような山が立っている。その頂に、翼を広げた虫の模型が置かれていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="150">「白翅の母だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　風骸樹の種を運ぶ巨大生物。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　百年に一度、森が新たな土地へ移るとき現れるという。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="156">「母虫が根へ命令している。殺せば森の進行は止まる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「誰が確かめたの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「学匠院だ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="162">「森へ入れない学者たちが？」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　オルドの目がわずかに細くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「だから、おまえを行かせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　卓上へ、小さなガラス瓶が置かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　中には金色の液体が一滴だけ揺れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「陽肺液。黒鉛病の末期にも効く」</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　カヤの指が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　西区の療養院で、弟のトトは一年近く眠っている。肺の半分が石のように固まり、医師は次の冬を越せないと言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「核を持ち帰れば、これを渡す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">『ずいぶん親切だな』</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　背中のヴァルが呟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　オルドの護衛たちが一斉に剣へ手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　カヤは肩をすくめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「この葬具は独り言が多いの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「武器に喋らせるな。声は使うものだ。従うものではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　オルドの声には、嫌悪があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　ヴァルはそれ以上喋らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「案内役をつける」</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　扉が開き、細身の少年が連れてこられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　年は十五、六。髪は白く、首から頬へ青い鱗が散っている。胸元の皮膚は薄く透け、その下で小さな翅を持つ虫が何匹も鼓動していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「森棲みか」</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　カヤは眉を寄せた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="206">　少年は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「壁棲みは、初対面でいつもそれを言う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「名は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「セム」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="214">「罪状は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「呼吸」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　護衛が少年の後頭部を殴った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="220">　セムは床へ膝をついたが、笑みを消さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　オルドは淡々と言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「森の民は毒霧の中でも生きる。白翅の母の巣までの道を知っている。任務を終えれば、彼も解放する」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="226">『約束が二つ。どちらも安い音がする』</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　ヴァルの囁きは、今度はカヤにしか聞こえなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="230" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="232">　その夜、カヤは療養院へ行った。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　トトは硝子の覆いの中で眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　十三歳になったはずだが、身体は十歳のころからほとんど育っていない。唇は青く、呼吸のたび、胸の奥で砂を擦るような音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　カヤは硝子へ額を当てた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="240">「母さんを置いてきたのは、私よ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="242">　眠る弟へ、何度も言った言葉を繰り返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「おまえじゃない。だから、もう少し待って」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">『あいつは、おまえを責めてない』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="248">「聞いたの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">『寝言をな』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「武器が病室に入るのは禁止よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">『俺はおまえの背骨扱いだろう。門番がそう言ってた』</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　カヤは少しだけ笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　ヴァルは三年前まで、人間だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　本名はヴァレン。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="262">　南区の鐘鋳師で、カヤより五つ年上。母を失った後、路地で飢えていた姉弟へ、焦げたパンを半分ずつ分けた男だった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="264">　黒鉛病に侵され、死を待つだけになったとき、彼は自分の声と骨を葬具へ変える契約を結んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　百の残響を食えば、人へ戻れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　鋳師たちはそう約束した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="270">　今、ヴァルの歯は九十九本、光っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　あとひとつ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="274">　白翅の母ほど強い残響なら、十分すぎるはずだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「帰ったら」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="278">　カヤは硝子の向こうの弟へ言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「三人で、壁の外へ行こう。毒のない土地を探す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="282">『俺を人数に入れるなら、酒も一人分だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「人に戻ってから言って」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">『戻ったら最初に何を食うかな』</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="288">「死者以外なら何でもいいでしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">『梨だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　ヴァルは即答した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">『黄色くて、柔らかいやつ』</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　ラグナに梨はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　最後の果樹園は、カヤが生まれる前に枯れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「見つかるわよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　カヤは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="304">「世界のどこかには」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　その嘘を、ヴァルは指摘しなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="308" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="310">　翌朝、カヤとセムは南門を出た。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="312">　門が閉じる瞬間、カヤは十年前の音を思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　鉄鎖が巻き上がる音。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　母の手が離れた感触。</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　門の向こうから響く、三千人の拳。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　開けて。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="322">　門を開けて。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「震えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　セムが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「寒いだけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">「今日は二十八度ある」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="332">「森の民は温度まで嫌味なの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「壁の民は嘘が下手だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　カヤは少年の縄を切った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「逃げたら斬る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「縛られたままだと案内できない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「だから切ったの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「逃げないよ。森は僕を逃げたとは思わない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「どういう意味」</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　セムは答えず、白い木々の間へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　森の内側は、外から見るより明るかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="352">　風骸樹の袋が毒を吸うたび、青白い光を放つ。地面には硝子質の苔が広がり、踏むと遠くの苔まで波のように明滅した。羽根の代わりに薄い葉を持つ虫が群れ、枝から枝へ風を運んでいる。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="354">　死んだ森ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　異なる仕方で、生きすぎている森だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="358">「木に触らないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　セムが言った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="362">「毒がある？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="364">「記憶がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　彼は根元に手を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　胸の虫が一斉に翅を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　風骸樹の袋が鳴り、かすかな声が降ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　水を。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　母さん。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="376">　まだ死にたくない。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　帰りたい。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　カヤは反射的にヴァルへ手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">『抜くな』</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="384">　ヴァルが言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="386">『敵じゃない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「残響よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">『違う。これは食われてない。ただ、預けられてる』</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　セムは木から手を離した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「風骸樹は、土へ帰れない声を根に集める。そして毒と一緒に、長い時間をかけてほどく」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「そんな話、聞いたことがない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「壁は森の話を聞かない。森も壁の鐘がうるさくて、壁の話を聞けない」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　カヤは白い枝を見上げた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="402">　そこには、母の声もあるのだろうか。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　考える前に、地面が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　苔の光が一斉に消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　前方の木々が倒れ、黒い甲殻の獣が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　馬ほどの体。脚は八本。頭には人間の仮面に似た白い殻をつけ、口から錆びた鎖を垂らしている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="412">「伏せろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　カヤはヴァルを抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　獣が鎖を吐く。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　刃で弾くと、火花ではなく声が散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　助けて。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　寒い。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="424">　殺せ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="426">『こいつは残響だ！』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="428">「見れば分かる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　カヤは鎖を踏み、獣の懐へ走った。仮面の額に刃を突き立てる。鐘が鳴り、白い殻へ亀裂が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　中から、人間の腕が何十本も伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　カヤの手首、首、腰を掴む。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　すべて左手だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　腕には同じ焼印がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　ラグナ鉱務院。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="442">「待って！」</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　セムが叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="446">「それは森の生き物じゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　獣の腹が裂け、黒い石炭の塊がこぼれた。塊には鉄管が刺さり、ラグナの工房印が刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　廃棄された鉱炉心。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="452">　都市が森へ捨てた毒を食べ、死者の声を吸って怪物になったものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　獣がカヤを押し潰そうと身を起こす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">『右へ三歩』</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="458">　ヴァルが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　カヤは従った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">『振り返るな。刃を逆手。俺を落とせ』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="464">「落とす？」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="466">『信じろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　手を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　ヴァルは地へ落ち、鐘の重みで刃先が跳ねた。跳ね上がった刃が獣の腹を下から割り、炉心を真っ二つにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　声の腕がほどけて、空へ昇った。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　獣は静かに伏した。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　ヴァルの百本目の歯が、薄く光り始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　カヤの胸が高鳴った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="480">「今ので、百……？」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="482">　光はすぐ消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">『足りん』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「強い残響だった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">『数じゃないらしい』</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　ヴァルの声には、本人も隠しきれない失望があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　セムが割れた炉心を調べている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="494">「これ、最近捨てられたものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　黒い塊の奥はまだ熱かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「鉱務院は十年前に閉鎖された」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「印を変えただけだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　セムは指についた黒い粉を嗅いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「この毒が地下水へ入り、風骸樹が集まってきた。森が都市を襲ってるんじゃない。都市が流した傷口を、森が塞ごうとしてる」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="506">「壁が壊れれば三万人が死ぬ」</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="508">「だから森を殺す？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「三万人を生かす」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「同じ言葉に聞こえる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　カヤは答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　十年前、門を閉じた兵士たちも、同じことを言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　三千人を捨て、七万人を生かす。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　正しい数を選んだのだ、と。</p>
+<div class="source-line scene-break gap-1" data-source-line="522" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="524">　二日目の夜、二人は巨大な肋骨の下で休んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　それは獣の骨ではなく、旧世界の飛行船の骨組みだった。森は金属を覆い、白い樹皮へ変えつつある。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　セムは火を使わず、硝子苔を丸めて灯りにした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="530">「どうして捕まったの」</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　カヤが尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="534">「壁の鐘を止めようとした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="536">「死刑にならなかったのが不思議ね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「三つ止めたところで殴られた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「鐘がなければ毒霧が入る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">「鐘があるから、風が止まる」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　セムは地面へ円を描いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="546">「森は毒を吸い、清い風を吐く。でもラグナの鐘壁は、外から来る風を全部押し返す。清い風もね。行き場を失った風が根の下へ潜り、根を都市へ押し上げている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="548">「鐘を止めれば解決する？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「一度に止めれば、溜まった毒も入る。だから門を開けて、風の道を作る。森と都市の呼吸を合わせる」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="552">　カヤは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「評議会が門を開けると思う？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">「思わない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="558">「市民が賛成すると？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「思わない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="562">「じゃあ無理よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　セムは青い鱗のある頬を掻いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「君たち壁の民は、できない理由を数えるのが上手だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="568">「森の民は？」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="570">「死ぬ理由を数えない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「それは賢いとは言わない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「生き残った者が決めればいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　沈黙の後、ヴァルが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="578">『セム。葬具のことを知ってるか』</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　少年は黒い刃を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「少し」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">『百の残響を食えば、人へ戻れるという話は』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「壁の鋳師がそう言った？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">『ああ』</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　セムはすぐに答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　胸の虫が、不安げに翅を震わせる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="594">「風骸樹は、声をほどく。葬具は、声を縛る。百を縛れば……人に戻るんじゃなく、百人分の未練を持つ別の何かになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　カヤは立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="598">「嘘」</p>
+<p class="source-line role-dialogue role-memory role-horror gap-1" data-source-line="600">「森では、昔そういう武器を見た。大きな口だけの怪物になって、最後は自分の名前まで食べた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="602">「ヴァルは違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="604">「そうだといい」</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　カヤはヴァルを掴んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="608">「何か感じる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="610">『腹は減る』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="612">「それ以外」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="614">『おまえの手が冷たい』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">「真面目に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">『怖いよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　初めて、ヴァルはそう言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="622">『人へ戻れないことより、おまえが俺を戻すために、何を食わせるかが怖い』</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　カヤの指から力が抜けた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="626">　白翅の母を殺せば、弟を救える。</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　ヴァルも戻るかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　森は止まり、都市も残る。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　正しい数だけを見れば、迷う理由などなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　正しい数は、いつも門を閉じる側にある。</p>
+<div class="source-line scene-break gap-1" data-source-line="636" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="638">　三日目、森の中心で、空は地上に落ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　巨大な窪地を埋め尽くす青い霧。その下に、旧世界の都市が沈んでいる。塔の先端だけが水没船の帆柱のように突き出し、すべて風骸樹の根で包まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　窪地の中央に、白翅の母はいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　山ほどの虫ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　山そのものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　幾重にも折りたたまれた白い翼が谷を覆い、翼の表面には無数の目玉模様が浮かぶ。長い頭部は鹿の頭骨に似て、その口元から透明な糸が地下へ伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　糸の一本一本を、風骸樹の根が握っている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="652">　母虫は眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　呼吸するたび、森全体が波打った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="656">『音が……』</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　ヴァルが呟く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">『何万人分もいる』</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　カヤにも聞こえ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　声。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="668">　都市模型のように積み重なる、膨大な死者の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　けれど、叫びではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　歌に近い。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="674">　名を失った声たちが互いを支え、長くひとつの音を保っている。白翅の母はそれを食べているのではない。抱いて、森へ渡している。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　セムが膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="678">「母は根を進めてるんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　透明な糸の先を指す。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="682">　地下深く、赤い光が脈打っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「押さえてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　大地が裂けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　熱風が噴き上がり、青い霧が吹き飛ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　窪地の底に、巨大な炉が見えた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="692">　旧世界の戦争炉。</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　地中の鉱脈を燃やし、黒鉛霧を生み続ける機械。何百年も前に止まったはずのそれが、再び動いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　炉には新しい管が接続され、北へ伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　ラグナの方向へ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="700">「都市が掘り当てたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　セムの声が震える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="704">「燃料を取るために」</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　そのとき、空の高みで鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　音はラグナから届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　二度。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="714">　白翅の母の翼が痙攣する。</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　三度。</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　森中の袋が破裂した。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="720">『伏せろ！』</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　ヴァルが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　世界から音が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　風も、地響きも、カヤ自身の心臓も聞こえない。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="728">　ラグナの十二塔が、無音鐘を鳴らしたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　音を打ち消す音。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　残響を消し、森の生き物の感覚を奪う、戦時代の兵器。</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　白翅の母の翼が裂けた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="736">　抱かれていた死者の声が、支えを失う。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="738">　何万もの声が谷へ落ち、戦争炉の赤い光へ吸い込まれていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　炉が、目を開けた。</p>
+<div class="source-line scene-break gap-1" data-source-line="742" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="744">　最初に生えたのは、鐘だった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="746">　地中から、塔ほど巨大な青銅鐘が押し上がる。その表面に人間の口が無数に浮かび、音のない悲鳴を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　次に腕が生えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　鉄骨と根と骨で編まれた腕が、窪地の縁を掴む。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　最後に、頭が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　顔はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　口だけがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　都市ひとつを呑み込めるほどの、暗い口。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">『鐘喰いだ』</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　ヴァルの声だけが、カヤの骨の中で聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　無音鐘に奪われない、葬具の声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">『逃げろ、カヤ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="768">「逃げたら、あれはどこへ行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="770">『ラグナだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="772">「なら逃げない」</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　カヤはヴァルを構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　鐘喰いの腕が振り下ろされる。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　地面が割れ、カヤとセムは別々の方向へ吹き飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　セムの胸から青い虫が散る。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　彼は倒れたまま動かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　カヤは立ち上がり、鐘喰いの腕へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　刃を叩きつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　硬い。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　もう一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　歯が一本、砕けた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="794">『やめろ！　俺が先に折れる！』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="796">「折れる前に斬る！」</p>
+<p class="source-line role-dialogue fx-shout tone-5 gap-1" data-source-line="798">『こいつは敵じゃない！』</p>
+<p class="source-line role-dialogue fx-shout tone-5 gap-1" data-source-line="800">「人を殺す！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="802">『声だ！　置き去りにされた声の塊だ！』</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　鐘喰いの口から、音が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　門を開けて。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　門を開けて。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　三千人の声。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="812">　その中に、カヤは母の声を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　カヤ。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　走って。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　振り返らないで。</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　十年前、門が閉じる寸前、母が言った最後の言葉。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　カヤは動けなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　巨大な腕が迫る。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="826">『カヤ！』</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="828">　ヴァルが自ら鐘を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　衝撃がカヤの身体を横へ飛ばし、腕はすぐ脇を叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　黒い刃に亀裂が走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="834">「ヴァル」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="836">『聞け』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="838">「ひびが」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="840">『いいから聞け！』</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　彼の声は怒っていた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="844">『百を食えば戻れる。そんな話、最初から信じてなかった』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="846">「嘘」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="848">『俺は鐘鋳師だぞ。声を鉄へ入れたら、元の喉へ戻せないことくらい知ってた』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="850">「じゃあ、どうして」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="852">『おまえに持たせるためだ』</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="854">　カヤは息を忘れた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="856">『おまえは、母親を置いてきた自分を罰するために、いつか死ぬつもりだった。だから俺は、背中で喋り続けるものになった。飯の文句を言って、汗を笑って、眠るなと怒鳴るために』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="858">「勝手なことを」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="860">『お互いさまだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="862">「人に戻るって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">『梨を探すって？　あれは本気だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　鐘喰いが身を起こした。</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　向きを変える。</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　北。</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　ラグナへ。</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　セムが咳き込みながら立ち上がった。胸の虫は半分ほどしか戻っていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「母の糸を、もう一度つなげれば」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="878">　彼は白翅の母を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="880">　翼は裂け、頭部は動かない。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="882">「無理だ。母は死にかけてる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="884">「ほかに方法は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「声を森へ渡す大きな響きがあれば。でも無音鐘が風を止めてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　カヤはラグナの十二塔を思い浮かべた。</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　十二の門。</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　十二の鐘。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="894">「門を開ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「ここからじゃ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="898">「無音鐘は中央塔で鳴らす。止めるには評議長の鍵がいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　セムは首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="902">「鐘喰いのほうが先に着く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="904">『俺を使え』</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="906">　ヴァルが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　カヤには意味が分かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="910">「嫌」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="912">『まだ何も言ってない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="914">「分かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　葬具は声を縛る器。</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　逆に砕けば、中の声を一度に解き放てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　九十九の残響と、ヴァル自身の声。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="922">　それだけの響きがあれば、死者を森へ渡す道を作れるかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　ただし、ヴァルは消える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="926">『人へ戻れないなら、せめて人の役に立つ終わり方を』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="928">「黙れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="930">『それが俺の』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="932">「黙れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="934">　カヤは刃を抱きしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="936">　黒い金属は冷たく、どこにも人の体温はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="938">「私を生かすために、勝手に武器になって。今度はみんなを生かすために、勝手に消えるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="940">『そういう性格なんだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="942">「大嫌い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="944">『知ってる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="946">「梨を食べるんでしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="948">『おまえが食え。味を教えてくれ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="950">「どうやって」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="952">『死者の声は、風に残る』</p>
+<p class="source-line role-narration gap-1" data-source-line="954">　鐘喰いが北へ歩き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="956">　一歩ごとに森が潰れ、戦争炉から黒い霧が噴き上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="958">　カヤは目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="960">　正しい数は、いつも何かを捨てろと言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="962">　三千人か、七万人か。</p>
+<p class="source-line role-narration gap-1" data-source-line="964">　森か、都市か。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="966">　弟か、ヴァルか。</p>
+<p class="source-line role-narration gap-1" data-source-line="968">　だが数は、捨てられる側の名を呼ばない。</p>
+<p class="source-line role-narration gap-1" data-source-line="970">　カヤは目を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="972">「両方やる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">『何？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="976">「あなたを砕く。でも、消さない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">『どうやって』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="980">「声は使うものじゃない。従うものでもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="982">　オルドの言葉を裏返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="984">「聞くものよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="986">　カヤはセムへ向いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="988">「森中の風骸樹を鳴らせる？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="990">「母の糸が一本でも残っていれば」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="992">「残ってる」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="994">　白翅の母の口元から伸びた透明な糸。そのうち一本だけが、切れずに戦争炉の縁へ垂れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="996">　カヤは走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="998">　炉の熱で髪が焼け、皮膚が裂ける。鐘喰いの背へ飛び乗り、鉄骨の隙間を登った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1000">　無数の口が腕を伸ばし、彼女を掴もうとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　知っている顔があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1004">　門外で泣いていた男。</p>
+<p class="source-line role-narration gap-1" data-source-line="1006">　母の友人。</p>
+<p class="source-line role-narration gap-1" data-source-line="1008">　名簿で見た少女、リネ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1010">「待たせた」</p>
+<p class="source-line role-narration gap-1" data-source-line="1012">　カヤは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1014">「今、開ける」</p>
+<p class="source-line role-narration gap-1" data-source-line="1016">　鐘喰いの頭頂へ辿り着く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1018">　そこには青銅鐘の裂け目があり、すべての声が渦を巻いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1020">　カヤはヴァルを逆手に持ち、裂け目へ突き立てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1022">『カヤ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1024">「なに」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="1026">『焦げてないパンも食いたかった』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1028">「欲張り」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1030">『酒は二人分』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1032">「一人分」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1034">『けち』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1036">「さよならは言わない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1038">『ああ』</p>
+<p class="source-line role-narration gap-1" data-source-line="1040">　カヤは柄から手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1042">　そして拳で、ヴァルの鐘を殴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1044">　一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="1046">　ひびが広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1048">　二度。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1050">　九十九本の歯が光る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1052">　三度。</p>
+<p class="source-line role-narration gap-1" data-source-line="1054">　ヴァルが笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1056">『門を開けろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="1058">　葬具は砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1060">　世界が、鳴った。</p>
+<div class="source-line scene-break gap-1" data-source-line="1062" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1064">　九十九の残響が、光る鳥となって飛び立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1066">　老人、兵士、赤子、片目の女、歯のない男、少女リネ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1068">　名を持つ声が、森の枝へ降りる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1070">　最後にヴァルの声が、鐘喰いの奥へ潜った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1072">　食うためではなく、呼ぶために。</p>
+<p class="source-line role-narration gap-1" data-source-line="1074">　ひとりずつ。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="1076">　死者の名を。</p>
+<p class="source-line role-narration gap-1" data-source-line="1078">　鐘喰いの口が閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1080">　無数の腕が、掴むことをやめる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1082">　カヤの母の声が、風の中で言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1084">　もう走らなくていい。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1086">　白翅の母に残った一本の糸が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1088">　セムの胸の虫が、同じ音で翅を鳴らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="1090">　響きは風骸樹から風骸樹へ渡り、白い袋を膨らませた。森全体が巨大な肺となって息を吸う。</p>
+<p class="source-line role-narration gap-1" data-source-line="1092">　戦争炉の黒鉛霧。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="1094">　鐘喰いに縛られた死者の毒。</p>
+<p class="source-line role-narration gap-1" data-source-line="1096">　ラグナの壁に溜まった古い空気。</p>
+<p class="source-line role-narration gap-1" data-source-line="1098">　すべてを吸い込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="1100">　そして森は、北へ向かって息を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1102">　青い風が走った。</p>
+<div class="source-line scene-break gap-1" data-source-line="1104" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="1106">　ラグナでは、オルドが中央塔から鐘喰いを見ていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1108">　それが森を踏み潰し、都市の敵をすべて消すと信じていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1110">　だが、青い風が壁へ届くと、四千の鐘がいっせいに逆向きへ鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1112">　無音鐘の調律が崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1114">　塔の硝子が砕け、評議員たちは床へ倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1116">　十二の門にかかった錠が、内側から外れた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1118">　市民は恐怖して逃げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1120">　門番たちは命令を待った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1122">　そのとき、西区療養院で、眠っていた少年が目を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1124">　トトは硝子の覆いを叩き割り、裸足で南門へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1126">　病人たちも後へ続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1128">　青い風を吸うと、石のようだった肺が、少しずつ柔らかくなった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1130">「門を開けろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1132">　トトが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1134">　十年前とは逆に、壁の内側から拳が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1136">「開けろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1137">「風を入れろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1138">「門を開けろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1140">　門番の一人が、槍を捨てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1142">　鎖を切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1144">　別の門番も続く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1146">　南門が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1148">　次に西門。</p>
+<p class="source-line role-narration gap-1" data-source-line="1150">　東門。</p>
+<p class="source-line role-narration gap-1" data-source-line="1152">　北門。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1154">　十二の門が、夜明けの花弁のように開いていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1156">　森の青い風が都市を通り抜ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="1158">　黒鉛霧は鐘に弾かれず、風骸樹の種を抱いて流れ、鉱炉の煙突へ入り、毒を薄い硝子の粒へ変えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1160">　壁の基礎へ食い込んでいた根は、風の道を得ると進行を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1162">　そして、ゆっくりと都市を避けるように曲がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1164">　オルドは中央塔で、最後まで門を閉じろと命じ続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1166">　だが鐘が止まった都市で、誰も彼の声を遠くへ運ばなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="1168" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="1170">　三か月後。</p>
+<p class="source-line role-narration gap-1" data-source-line="1172">　ラグナの壁には、十二の大きな穴が開いたままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1174">　鐘は半分が外され、溶かされ、農具や水管へ作り替えられた。残り半分は、風向きを知らせるために残された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1176">　森の民と壁の民は、まだ互いを信用していない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1178">　市場では毎週喧嘩が起きた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="1180">　青い鱗を気味悪がる者もいれば、鐘を鳴らすなと怒鳴る者もいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1182">　それでも、門は閉じられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1184">　トトは歩けるまでに回復した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1186">　陽肺液は必要なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1188">　評議長の倉から見つかった瓶の中身は、ただの着色した油だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1190">　カヤはその瓶を、オルドの裁判で証拠として提出したあと、中央広場の石へ投げつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1192">　砕ける音は、妙に小さかった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1194">　白翅の母は森の中心で死んだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1196">　けれど、その翼の下から無数の小さな幼虫が生まれた。セムによれば、次の母が育つまで百年かかるらしい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1198">「それまで森はどうするの」</p>
+<p class="source-line role-narration gap-1" data-source-line="1200">　カヤが尋ねると、セムは答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1202">「自分で考える。森は母の命令だけで生きてたわけじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1204">「人間みたいね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1206">「人間より少し賢い」</p>
+<p class="source-line role-narration gap-1" data-source-line="1208">　殴ろうとしたら逃げられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1210">　秋の初め、カヤはラグナを出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1212">　背中に大きな刃はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1214">　腰には、ヴァルの鐘から残った小さな青銅片を下げている。風が吹くと、かすかな音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1216">　それがヴァルの声なのか、ただの金属音なのか、カヤには分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1218">　分からないまま聞くことにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1220">　トトとセムも一緒だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1222">　三人は、毒のない土地を探して西へ向かう。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="1224">　昔の地図には、黄色い果実のなる谷が記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1226">　地図が正しい保証はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1228">　谷が残っている保証もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1230">　それでも、世界のどこかにはあると、今度は嘘ではなく思えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1232">　夕暮れ、風骸樹の枝を抜けた風が、カヤの腰の鐘片を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1234">　ちりん。</p>
+<p class="source-line role-narration gap-1" data-source-line="1236">　とても小さな音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1238">　その直後、誰かが耳元で言った気がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1240">『梨は二人分だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="1242">　カヤは振り返らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1244">「一人分よ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1246">　そう答えて、笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1248">　開かれた門の向こうで、白い森がゆっくりと呼吸していた。</p>
+<p class="source-line end-mark gap-2" data-source-line="1251"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,955 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="コロッケの記憶、月額九百八十円｜拡張フォントいじり検証版">
+<title>コロッケの記憶、月額九百八十円｜拡張フォントいじり版</title>
+<!--
+主ジャンル：食文化SF・風刺コメディー
+副ジャンル：記憶の商品化／商店街人情／静かな依存ホラー
+推奨ジャンル書体：風刺SF・日常コメディー
+演出エンジン：食感描写を温かな明朝、企業UIを均質な角ゴと等幅、ツッコミを丸ゴ、偽の懐かしさを筆記系へ切り替える
+意味色：橙＝食べ物と現在、灰青＝企業とクラウド、赤＝偽記憶と赤い傘、緑＝商店街の笑い、紫＝個人の記憶と選択
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 1.90em;
+  --climax-max: 1.60em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #a76624;
+  --tone-2: #596873;
+  --tone-3: #a33e3b;
+  --tone-4: #43735f;
+  --tone-5: #6e557f;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #e0a65f;
+  --tone-2: #abb8c0;
+  --tone-3: #ef827d;
+  --tone-4: #7cc19e;
+  --tone-5: #b99bd0;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="paper" data-effects="full" data-fontmode="full" data-genre="satirical-sf">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅">軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離">論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立">学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離">Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に">制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用" selected>風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden>
+  <h2>目次</h2>
+  <ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li><li><a href="#chapter-7">七</a></li><li><a href="#chapter-8">八</a></li><li><a href="#chapter-9">九</a></li></ol>
+</nav>
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>食文化SF・風刺コメディー</p>
+  <p><strong>副ジャンル：</strong>記憶の商品化／商店街人情／静かな依存ホラー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">風刺SF・日常コメディー</span></p>
+  <p id="currentPresetDescription">親しみやすい本文と企業UI、食感、ツッコミの書体差を活用</p>
+  <h3>意味色</h3><p>橙＝食べ物と現在、灰青＝企業とクラウド、赤＝偽記憶と赤い傘、緑＝商店街の笑い、紫＝個人の記憶と選択</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：403行／章：9／役割・強度タグ：517</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="コロッケの記憶、月額九百八十円 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1"><span class="term term-food tone-1">コロッケ</span>の記憶、月額<span class="term term-code tone-2">九百八十円</span></h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4">一</h2>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-1" data-source-line="6">「<span class="term term-food tone-1">コロッケ</span>を盗まれました」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="8">　夕凪銀座交番の朝は、その一言から始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　机の向こうで、巡査部長の宮前鉄蔵は、商店街でもらった試食のさきいかを噛んでいた。五十手前、腹まわりは立派、財布の中身はいつも軽い。隣では、新人巡査の七瀬まどかが、拾得物の傘を色別に並べている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="12">「何個です？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="13">「一個も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="14">「では、盗まれていない」</p>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-0" data-source-line="15">「味だけ盗まれたんです」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="17">　揚げ物店「あげたて磯部」の店主、磯部ハナは、白い紙袋を机に置いた。七十九歳。小柄だが、眉毛だけは交番の誰よりも威厳がある。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="19">　紙袋から、まだ温かい<span class="term term-food tone-1">コロッケ</span>が三つ出てきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="21">「証拠品なら、まず現物確認だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　宮前が一つつかむと、七瀬が手首を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「鑑識に回します」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="26">「<span class="term term-food tone-1">コロッケ</span>をか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="27">「少なくとも、被害届を書く前に巡査部長の胃へ回す理由はありません」</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-0" data-source-line="28">「毒見という重要任務がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　宮前は押し切って、かぶりついた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="32">　衣は軽く割れ、湯気が立った。じゃがいもはほくほくしている。炒めた玉ねぎの甘さも、ひき肉の脂も、塩も胡椒も、舌では分かる。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="34">　なのに、うまくない。</p>
+<p class="source-line role-narration role-sound fx-beat gap-1" data-source-line="36">　まずくもない。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="38">　温かくした段ボールに、食品らしい香りをつけたような味だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　宮前は二口目を急いだ。三口目はもっと真剣に噛んだ。しかし、感想は変わらない。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="42">「これは……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="43">「まずいなら、まずいとはっきりお言い」</p>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-0" data-source-line="44">「いや、まずいという元気すらない。<span class="term term-food tone-1">コロッケ</span>の形をした説明書だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　ハナは肩を落とした。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="48">「昨日から、みんなそう言うんです。四十年、同じ作り方ですよ。芋も油も悪くない。なのに、お客さんが一口食べて、首をかしげて帰っていく」</p>
+<p class="source-line role-narration gap-0" data-source-line="49">「集団食中毒の前触れでしょうか」と七瀬。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="50">「食中毒なら、宮前さんは年中かかってるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「私は胃腸が丈夫なだけだ」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="53">　宮前は残りの二つを、念のため証拠保全と称して自分の引き出しにしまった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="56">二</h2>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="58">　異変は、<span class="term term-food tone-1">コロッケ</span>店だけではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　向かいの「福々ラーメン」では、店主が寸胴の前で泣いていた。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="62">「鶏ガラを八時間煮たスープと、水道水の違いが分からねえんです。ただ、こっちは熱い」</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="64">　老舗甘味処では、あんこが「黒くて甘い何か」と評され、焼き鳥屋ではタレと塩の論争が消滅していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">「長年の争いが一日で終わったな」と宮前。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="67">「文明の進歩みたいに言わないでください」</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　七瀬は、聞き取りの結果を手帳にまとめた。異変が始まったのは、ほぼ全員が同じものを使い始めた翌日だった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="71">　商店街振興会が無料配布した、銀色のスマート箸――商品名「<span class="term term-system tone-2">おもいで箸</span>」。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　食事をすると箸先のセンサーが塩分、糖分、香りを測り、健康助言を出す。さらに、食事の感想を提供すると「<span class="term term-system tone-2">アジポ</span>」が貯まり、買い物に使える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="75">「巡査部長、この箸の紹介者欄、全部あなたの番号になっています」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「地域のデジタル化を支援した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="77">「紹介特典で何をもらいました？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="78">「住民との信頼」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="79">「交番の奥にある巨大なマッサージ椅子は？」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="80">「信頼の副産物だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="82">　交番の休憩室には、黒革の高級マッサージ椅子が鎮座していた。宮前は紹介件数三百件を達成し、特典カタログの最上位商品を受け取っていたのである。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「それだけじゃありませんね」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="86">　七瀬は椅子の裏から、束ねられた百本近い「<span class="term term-system tone-2">おもいで箸</span>」を引っぱり出した。配線は古いラジカセと炊飯器につながっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「これは何です？」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="89">「<span class="term term-system tone-2">アジポ</span>自動収穫装置」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="90">「自白が早い」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="92">　宮前は、箸先を調味液に順番に浸し、食事をしたように誤認させる機械を作っていた。マッサージを受けながらポイントが増える、夢の装置だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「昨夜から動かなくなってな。ポイントどころか、肩もみまで弱くなった」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="95">「押収します」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="96">「ここは交番だ。どこへ押収する」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「少なくとも、あなたの背中からは引き離します」</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　そのとき、入口から女の声がした。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="101">「その箸、味を記録しているだけではありません。味と記憶の結びつきを、外へ送っています」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="103">　細身の女が立っていた。神楽坂澄子。食文化誌の記者で、大学では感覚科学を研究していたという。ハナから連絡を受け、取材に来たのだった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="105">　澄子は、宮前と七瀬を椅子に座らせ、目隠しをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　小皿に、砂糖水、塩水、昆布だし、薄い酢を並べる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="109">　二人は甘味、塩味、うま味、酸味を正しく当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　次に澄子は、小さく切った苺を口へ入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">「甘い。少し酸っぱい。種がある」と七瀬。</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="114">「何の食べ物です？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「分かりません」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="117">　宮前も答えられなかった。匂いを嗅げば苺だと分かる。目で見ればなおさらだ。だが、口の中の感覚だけでは、それが何であり、いつ食べ、誰と笑った味なのかが、霧の向こうへ消えている。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-1 gap-1" data-source-line="119">「舌は壊れていません」と澄子は言った。「味を、記憶の棚へ戻す道が切られているんです。甘い、しょっぱいまでは分かる。でも、『おいしい』まで届かない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="120">「おいしいは舌で決めるんじゃないのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="121">「舌は入口です。続きは鼻と脳と、これまで生きた時間が決めます」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="123">　宮前は引き出しの<span class="term term-food tone-1">コロッケ</span>を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　さっきまで単なる証拠品だったものが、急に、誰かの消えた人生のように見えた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="128">三</h2>
+<p class="source-line role-narration gap-1" data-source-line="130">　同日午後、商店街会館で説明会が開かれた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="132">　壇上には、「<span class="term term-name tone-2">パレット・コモンズ</span>株式会社」の代表、錦戸静が立っていた。灰色のスーツ、灰色のネクタイ、よく磨かれた灰色の靴。笑顔まで均等に整っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　背後のスクリーンには、大きな文字が映っていた。</p>
+<p class="source-line role-narration role-system role-document tone-1 gap-1" data-source-line="136">　――味覚格差のない社会へ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="138">「皆さまの味覚は盗まれていません」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　錦戸は穏やかに言った。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="142">「<span class="term term-system tone-2">おもいで箸</span>の利用規約に基づき、使用頻度の低い食味記憶をクラウドへお預かりしています。人は一生のうち、膨大な味を記憶します。しかし、その多くは再利用されません。冷蔵庫の奥で腐らせるより、社会で共有するほうが有益ではありませんか」</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　会場がざわついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「記憶を預けるなんて聞いてないぞ」</p>
+<p class="source-line role-dialogue role-system tone-2 gap-0" data-source-line="147">「規約の第八十七条です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="148">「誰がそこまで読むんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="149">「お読みいただける設計にはしてあります。文字は小さいですが」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　錦戸は、掌ほどの灰色の立方体を掲げた。</p>
+<p class="source-line role-dialogue role-system tone-1 gap-1" data-source-line="153">「皆さまからお預かりした記憶を統合し、もっとも多くの人が<span class="term term-motif tone-5">幸福</span>を感じる味を作りました。商品名は『<span class="term term-product tone-2">コモン・バイト</span>』。脂質、糖質、塩分を抑えながら、満足感は従来食の三倍です」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　試食が配られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　見た目は湿った消しゴムだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　宮前は警戒しつつ、ひとかけら口へ入れた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="161">　次の瞬間、雨音が聞こえた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="163">　<span class="term term-memory tone-3">赤い傘</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　小さな手を握る、女の手。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="167">　紙袋の底にたまった油。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="169">　揚げたての<span class="term term-food tone-1">コロッケ</span>を半分に割ると、湯気が頬にかかる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">『鉄蔵、熱いから気をつけて』</p>
+<p class="source-line role-narration role-memory fx-whisper tone-3 gap-1" data-source-line="173">　知らない声なのに、懐かしい。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="175">　胸の奥が痛いほど懐かしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　宮前は目を開けた。頬に涙が流れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　周りでも、商店街の人々が泣いていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="181">「母ちゃんの味だ」</p>
+<p class="source-line role-dialogue role-memory tone-1 gap-0" data-source-line="182">「子どものころ、雨の日に食べた」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="183">「<span class="term term-memory tone-3">赤い傘</span>だった」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="185">　拍手が起きた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="187">　宮前は拍手できなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="189">　彼の母は、宮前が一歳になる前に亡くなっている。母に手を引かれ、<span class="term term-food tone-1">コロッケ</span>を食べた記憶など、あるはずがない。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　隣で澄子が、灰色の立方体を皿へ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">「これは料理ではありません」</p>
+<p class="source-line role-narration gap-0" data-source-line="194">「では何でしょう」と錦戸。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-0" data-source-line="195">「<span class="term term-motif tone-5">幸福</span>のボタンです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="196">「押して<span class="term term-motif tone-5">幸福</span>になれるなら、立派な道具では？」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="197">「料理は、こちらの都合どおりに<span class="term term-motif tone-5">幸福</span>にしてくれません。焦げる。冷める。好みが分かれる。だから人は、作った相手や食べた時間ごと覚えるんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="198">「不便ですね」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-5 gap-0" data-source-line="199">「その不便を、文化と呼びます」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　錦戸は笑った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="203">「文化は、ときに人を傷つけます。母の味を知らない人もいる。高級料理を食べられない人もいる。味覚の鋭い人だけが正しさを語る。私たちは、<span class="term term-motif tone-5">幸福</span>を民主化したのです」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="205">　会場の拍手は、今度はさらに大きかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　ハナだけが、腕を組んだまま壇上をにらんでいた。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-1" data-source-line="209">「みんなが同じ味で泣くなんて、気味が悪いよ」</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="210">「しかし、磯部さんの<span class="term term-food tone-1">コロッケ</span>は、今は誰も喜ばせられない」と錦戸。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="211">「だったら勝負しな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="212">「勝負？」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="213">「その灰色の消しゴムと、あたしの<span class="term term-food tone-1">コロッケ</span>。どっちが本当にうまいか」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="215">　宮前は椅子から立ち上がった。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="217">「よし。交番主催、第一回・夕凪銀座<span class="term term-food tone-1">コロッケ</span>決戦だ」</p>
+<p class="source-line role-narration gap-0" data-source-line="218">「勝手に主催しないでください」と七瀬。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="219">「では地域安全協力行事だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="220">「安全要素は？」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="221">「揚げ油の温度管理」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「弱いです」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="225">四</h2>
+<p class="source-line role-narration gap-1" data-source-line="227">　決戦は三日後、商店街の夏祭りで行われることになった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="229">　<span class="term term-name tone-2">パレット・コモンズ</span>は、宣伝になると考えて快諾した。商店街振興会も、「味覚先進地区」の認定と補助金を期待して賛成した。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　七瀬は、その間に「<span class="term term-system tone-2">おもいで箸</span>」の通信経路を調べた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="233">「箸だけでは記憶を抑えられません。商店街のどこかに、強い送受信装置があります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="234">「電波なら屋上だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="235">「なぜ分かるんです？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="236">「昔、町内放送を勝手に競馬中継へ切り替えようとして、屋上という屋上を調べた」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="237">「余罪の告白が捜査に役立つ日が来るとは思いませんでした」</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　二人は商店街会館の時計塔へ上った。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="241">　時計の裏に、銀色の箱があった。箱から伸びるケーブルは、無料Wi-Fiの設備を装い、商店街全体へ広がっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　七瀬が型番を撮影した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="245">「医療機器としての表示がありません。しかも、同意した利用者だけでなく、周囲の人にも信号を送っています」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="246">「現行犯で止められるか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="247">「使用の実態と被害の因果関係が必要です」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="248">「だったら、祭りで味を盗む瞬間を捕まえる」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　宮前は悪い笑顔を浮かべた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「巡査部長。法律の範囲内でお願いします」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="253">「法律は線だ。踏まなければいい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="254">「あなたはいつも、助走をつけて越えます」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="256">　交番へ戻ると、宮前は押収されたマッサージ椅子を分解し始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「何をしているんです？」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="259">「この椅子は、百本の箸から同時に信号を送れる。逆向きにすれば、百本へ返せる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="260">「記憶を？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="261">「さあ。ポイントなら返せる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="262">「頼りない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="263">「世の中の大発明は、だいたい最初は用途を間違えている」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="265">　宮前は、椅子の振動モーター、古いカラオケアンプ、町内放送のマイク、炊飯器の温度センサーをつないだ。完成したものは、マッサージ椅子がラジオ塔を飲み込んだような姿になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　澄子は呆れながらも、配線図をのぞき込んだ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="269">「味の記憶を呼び戻すなら、鍵は匂いです。匂いは記憶へ近い」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="270">「では祭りで、商店街じゅうに<span class="term term-food tone-1">コロッケ</span>の匂いを流す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="271">「大量に揚げるだけでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="272">「難しい言葉にすると予算がつく。『嗅覚誘導型地域回想実験』だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="273">「予算は出ません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="274">「もう材料を町内会費で買った」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="275">「始末書を先に書いてください」</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="278">五</h2>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="280">　祭り前夜、ハナの店では、<span class="term term-food tone-1">コロッケ</span>の仕込みが続いていた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="282">　じゃがいもは皮つきのまま蒸す。茹でると水を吸いすぎる。熱いうちに皮をむき、木べらで粗くつぶす。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">「なめらかにしないんですか」と七瀬。</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="285">「しすぎると、芋が自分を忘れる」</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="287">　玉ねぎは、牛脂を少しだけ溶かした鍋で、色づく手前まで炒める。甘さを出しながら、香りを残す。ひき肉には、火を入れる直前に塩を振る。早すぎると締まり、遅すぎると味が浮く。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="289">　炒めた具を芋へ混ぜるときも、均等にはしない。肉の多い一口、玉ねぎの甘い一口、芋だけの一口が、同じ<span class="term term-food tone-1">コロッケ</span>の中に残る。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="291">「商品なら、どこを食べても同じ味のほうが正しいのでは？」と七瀬。</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="292">「工場ならね。でも、人が作ったものは、少しくらいむらがあるほうが、次の一口を食べたくなる」</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="294">　衣に使うパン粉は、近所のパン屋が前日に焼いた食パンを乾かし、粗く削ったものだった。油は新しい菜種油に、先代から続く牛脂を少し混ぜる。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　澄子が一つ一つ確かめ、うなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「特別な材料はありませんね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="299">「四十年やってるとね、特別じゃないことを毎日やるのが一番難しいんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　宮前は、成形前の種を指でつまみ食いした。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　ハナの木べらが、ぴしゃりと手の甲を打った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="305">「味が分からないのに食べるんじゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="306">「分からないから調べている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="307">「泥棒も、金の重さを調べてると言うよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　宮前は手をさすりながら笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　だが、ハナが背を向けたあと、その笑いは消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「神楽坂さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="314">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="315">「あの灰色のやつで見た記憶は、消せるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="316">「本物でないと分かっているなら、薄くはなるでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="317">「本物じゃないから、困るんだ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="319">　宮前は、蒸し上がった芋の匂いを吸い込んだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="321">「一度も会った覚えのない母親が、あの中では、俺の名前を呼んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　澄子はしばらく黙っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="325">「偽物の記憶でも、感じた寂しさまで偽物とは限りません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="326">「食い物より面倒だな、記憶は」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="327">「食べ物も、同じくらい面倒です」</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="330">六</h2>
+<p class="source-line role-narration gap-1" data-source-line="332">　祭り当日。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　商店街の中央には特設ステージが組まれ、左右に二つの調理台が置かれた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="336">　東側は<span class="term term-name tone-2">パレット・コモンズ</span>。白衣のスタッフが、灰色の「<span class="term term-product tone-2">コモン・バイト</span>」を銀の皿へ並べる。</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　西側は「あげたて磯部」。ハナが鍋の前に立ち、澄子と七瀬が補助につく。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="340">　宮前は警備腕章をつけ、ステージ下に例のマッサージ椅子を隠していた。上から祭りの紅白幕をかぶせたが、足もみ部分だけが露出している。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">「どう見ても怪しいですよ」と七瀬。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="343">「祭りとは、怪しさが許される日だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="344">「犯罪者の標語みたいです」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="346">　審査員は商店街の住民百人。食べ比べのあと、赤い札なら<span class="term term-food tone-1">コロッケ</span>、灰色の札なら<span class="term term-product tone-2">コモン・バイト</span>へ投票する。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　司会者の合図で、まず<span class="term term-product tone-2">コモン・バイト</span>が配られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　百人が、同時に口へ運ぶ。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="352">　雨音。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="354">　<span class="term term-memory tone-3">赤い傘</span>。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="356">　母の手。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="358">　紙袋の<span class="term term-food tone-1">コロッケ</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　会場のあちこちから、すすり泣きが聞こえた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="362">「懐かしい」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="363">「母ちゃんだ」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="364">「あの日の味だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　宮前の頭にも、同じ光景が戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">『鉄蔵、熱いから気をつけて』</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　胸の奥に、甘い痛みが広がる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="372">　次に、ハナの<span class="term term-food tone-1">コロッケ</span>が揚がった。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="374">　百七十五度の油へ入れた瞬間、粗いパン粉が泡をまとった。鍋の中で、きつね色が少しずつ深くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　ハナは時計を見ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　泡の細かさと、箸へ伝わる震えで引き上げる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="380">　網に置かれた<span class="term term-food tone-1">コロッケ</span>から、乾いた音がした。衣の中で、芋の水分がまだ動いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　揚げたてが百人へ配られた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="384">　人々は食べた。</p>
+<p class="source-line role-narration role-sensory role-sound gap-1" data-source-line="386">　さくり。</p>
+<p class="source-line role-narration role-sensory role-sound gap-1" data-source-line="388">　ほくり。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="390">　玉ねぎの甘さ、肉の脂、胡椒、焦げたパン粉。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　舌では分かる。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　しかし、その先に何もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　百人の顔から、さっきの涙が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　投票箱が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　灰色、九十九票。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="402">　赤、一票。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　司会者が叫んだ。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="406">「勝者、<span class="term term-name tone-2">パレット・コモンズ</span>！」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="408">　拍手が爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　赤い札を入れた宮前は、小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「一票くらい、警察が空気を読まないと不公平だからな」</p>
+<p class="source-line role-narration gap-0" data-source-line="413">「それは職権ではなく、ただの身内票です」と七瀬。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　錦戸が壇上へ上がった。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="417">「これが、新しいおいしさです。料理人の技量にも、家庭環境にも、所得にも左右されない。誰もが同じ<span class="term term-motif tone-5">幸福</span>を得られる味です」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="419">　ハナは、残った<span class="term term-food tone-1">コロッケ</span>を見つめていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　澄子は審査員席へ降り、一人の少年へ尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="423">「どんな記憶でした？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="424">「雨の日。お母さんと<span class="term term-food tone-1">コロッケ</span>」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「傘の色は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「赤」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="427">「いつ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="428">「六月十七日」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　次に、八十歳の豆腐店主へ聞いた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="432">「昭和五十六年六月十七日。<span class="term term-memory tone-3">赤い傘</span>だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　日本へ来て三年の留学生も、同じ日付を答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　まだ五歳の女の子まで、たどたどしく言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「しょうわ、ごじゅうろくねん。ろくがつ、じゅうしちにち」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="440">　会場の拍手が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　澄子がマイクを握った。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-3 gap-1" data-source-line="444">「これは皆さんの思い出ではありません。一つの記憶を、全員へ配っているだけです」</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　錦戸は表情を変えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「共有できるからこそ、<span class="term term-product tone-2">コモン・バイト</span>なのです」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-0" data-source-line="449">「共有ではない。上書きです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="450">「不幸な記憶を、<span class="term term-motif tone-5">幸福</span>な記憶へ置き換える。それの何が悪いのでしょう」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="451">「誰が<span class="term term-motif tone-5">幸福</span>を選ぶんです？」</p>
+<p class="source-line role-dialogue fx-beat tone-2 gap-0" data-source-line="452">「市場です」</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　宮前が壇上へ上がった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="456">「錦戸さん。あんた、俺の母親を勝手に作ったな」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="457">「宮前さんが必要としていた母親を、最適化して提供しました」</p>
+<p class="source-line role-dialogue role-system fx-key role-motif fx-climax fx-peak tone-2 gap-0" data-source-line="458">「顔も知らないがな、俺の母親は、<span class="term term-system tone-2">月額サービス</span>じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　錦戸が指を鳴らした。</p>
+<p class="source-line role-narration role-sound tone-2 gap-1" data-source-line="462">　時計塔の銀色の装置が低くうなり、会場にいた人々の目が一瞬、ぼんやりした。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　七瀬が叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「信号出力が上がっています！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="468">「不快な疑問を抑えただけです」と錦戸。「<span class="term term-motif tone-5">幸福</span>には、雑音が少ないほうがいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="470">「これで因果関係は十分だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　宮前は紅白幕を引きはがした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="474">　マッサージ椅子型の装置が現れた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="476">　会場の全員が、別の意味でざわついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">「何ですか、それは」と錦戸。</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="479">「地域の信頼だ」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="480">「違います」と七瀬。「押収物を無断改造した通信装置です」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="481">「説明を正確にしすぎるな」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="483">　宮前は椅子へ飛び乗り、足もみ部分に両足を入れた。百本の箸が一斉に点滅する。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="485">「ハナさん、揚げろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="486">「残り全部かい？」</p>
+<p class="source-line role-dialogue role-command tone-1 gap-0" data-source-line="487">「商店街じゅうを、<span class="term term-food tone-1">コロッケ</span>臭くしろ！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="489">　ハナは大鍋へ、<span class="term term-food tone-1">コロッケ</span>を次々と入れた。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="491">　油が鳴った。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="493">　玉ねぎ、牛脂、パン粉、じゃがいもの香りが、夏の熱気に乗って広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　澄子が炊飯器の温度センサーを鍋のそばへ近づける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「匂いの変化を信号へ乗せます！」</p>
+<p class="source-line role-dialogue role-command gap-0" data-source-line="498">「七瀬、町内放送！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="499">「許可は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「緊急避難！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="501">「あとで根拠を書面にしてください！」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　七瀬がマイクのスイッチを入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　商店街のスピーカーから、巨大な揚げ物の音が響いた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="507">　じゅわああああああ。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　錦戸が初めて顔色を変えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「止めなさい。記憶データが逆流する」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat fx-climax gap-1" data-source-line="513">「返すんだよ」と宮前。「持ち主へな」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="515">　マッサージ椅子が激しく振動した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「うおおおおお！　肩は気持ちいいが、歯が合わん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　百本の箸が白く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　時計塔の銀色の箱から、見えない何かが放たれた。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="524">七</h2>
+<p class="source-line role-narration gap-1" data-source-line="526">　最初に叫んだのは、ラーメン屋の店主だった。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="528">「親父のスープだ！」</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="530">　甘味処の女将が、あんこの鍋へ駆け寄った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="532">「甘いだけじゃない。小豆の皮が、少し渋い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　焼き鳥屋では、客同士が再びタレ派と塩派に分かれ、三十秒で口論を始めた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="536">　ある男は、妻の弁当を一口食べて泣いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「この卵焼き、毎日ちょっと焦げてた！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="539">「悪かったね！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="540">「そこが好きだったんだ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="541">「じゃあ泣くな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　商店街は、歓声と文句と笑い声でいっぱいになった。</p>
+<p class="source-line role-narration fx-key role-motif fx-beat tone-5 gap-1" data-source-line="545">　同じものを食べても、全員が違う顔をしている。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="547">　宮前の頭の中では、<span class="term term-memory tone-3">赤い傘</span>の記憶がほどけていった。</p>
+<p class="source-line role-narration role-memory tone-1 gap-1" data-source-line="549">　代わりに、施設の食堂で食べた薄いカレー、祭りでもらったぬるいラムネ、初任給の日に一人で食べた立ち食いそばが戻ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　どれも豪華ではない。</p>
+<p class="source-line role-narration fx-climax role-motif gap-1" data-source-line="553">　どれも完全ではない。</p>
+<p class="source-line role-narration fx-climax role-motif tone-5 gap-1" data-source-line="555">　だが、確かに自分のものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　時計塔から煙が上がった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="559">　銀色の箱が止まり、同時に、マッサージ椅子の背もたれが勢いよく倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　宮前は足を挟まれたまま、仰向けになった。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="563">「七瀬、逮捕だ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="564">「誰をです？」</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-0" data-source-line="565">「まず椅子から俺を救出しろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　七瀬は錦戸へ歩み寄った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「同意していない住民への信号照射、身体反応データの無断取得、設備の虚偽表示。詳しい容疑は署で整理します」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="570">「人は、いずれまた同じ味を求めますよ」と錦戸は言った。「違いは疲れる。思い出は痛い。選ばなくていい<span class="term term-motif tone-5">幸福</span>ほど、売れる商品はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　七瀬は手錠をかけた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="574">「売れることと、していいことは別です」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　錦戸は連行されながら、宮前を見た。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="578">「あなたは戻ってきます。あの母親に、もう一度会いたくなる」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　宮前は答えなかった。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="583">八</h2>
+<p class="source-line role-narration gap-1" data-source-line="585">　事件から一週間後。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="587">　<span class="term term-name tone-2">パレット・コモンズ</span>の装置は撤去され、「<span class="term term-system tone-2">おもいで箸</span>」は回収された。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="589">　商店街の食べ物は、再びばらばらの味になった。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-1" data-source-line="591">　福々ラーメンには「前より薄い」という客と、「前より濃い」という客が同時に現れた。甘味処では、あんこの甘さをめぐって常連が議論した。焼き鳥屋のタレ派と塩派は、仲直りする理由を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　そして「あげたて磯部」には、行列ができた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="595">　ハナは揚げたての<span class="term term-food tone-1">コロッケ</span>を、宮前と七瀬と澄子へ渡した。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　宮前は一口かじった。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　衣の一部が少し焦げていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="601">　芋の塊が、ひとつだけ大きすぎた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="603">　肉の多いところは胡椒が強く、端のほうは塩が薄い。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">「どうだい」とハナ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="606">「昨日のより、ちょっとしょっぱい」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="607">「昨日は食べてないだろ」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="608">「こういうのは勢いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　七瀬は笑い、澄子も笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　ハナだけは怒った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="614">　それぞれの反応が違うことを確認してから、宮前はもう一口食べた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="616">「うまい」</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　今度は、誰の記憶も見えなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="620">　ただ、この味を、この店先で、この三人と食べている今が、いつか記憶になるのだと思った。</p>
+</section>
+<section class="chapter" id="chapter-9">
+<h2 class="source-line chapter-heading gap-2" data-source-line="623">九</h2>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="625">　宮前は、紹介ポイントの不正取得と押収物の無断改造で、分厚い始末書を書くことになった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="627">　高級マッサージ椅子は証拠品倉庫へ運ばれた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="629">「せめて始末書を書き終えるまで、背中だけ揉ませてくれ」</p>
+<p class="source-line role-narration gap-0" data-source-line="630">「記憶を反省へ結びつけてください」と七瀬。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="632">　深夜、宮前が一人で交番を出ると、雨が降っていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="634">　商店街の外れ、閉鎖された<span class="term term-name tone-2">パレット・コモンズ</span>の臨時店舗の前を通る。</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　シャッターは下りている。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　その脇に、見覚えのない小さな自動販売機が光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　画面には、こう表示されていた。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="642">　――おもいで個人プラン</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="643">　――あなたに足りない懐かしさを、一食から。</p>
+<p class="source-line role-narration role-system role-document tone-2 gap-0" data-source-line="644">　――初月無料。翌月より<span class="term term-code tone-2">九百八十円</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　商品は三つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">「父に褒められたハンバーグ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="649">「初恋の人と飲んだクリームソーダ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="650">「母と雨の日に食べた<span class="term term-food tone-1">コロッケ</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　宮前は、三番目を見つめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　雨粒が画面を伝った。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　財布には、千円札が一枚。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="658">　錦戸の声を思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　あなたは戻ってきます。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「戻るんじゃない。捜査だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　誰にともなく言い訳し、宮前は千円札を入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　温かい紙袋が出てきた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="668">　中には、何の変哲もない<span class="term term-food tone-1">コロッケ</span>が一つ。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="670">　ひとかじりすると、雨音が遠くなった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="672">　<span class="term term-memory tone-3">赤い傘</span>が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　女の手が、小さな宮前の手を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">『鉄蔵、熱いから気をつけて』</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　宮前は、笑った。</p>
+<p class="source-line role-narration fx-whisper fx-beat gap-1" data-source-line="680">　偽物だと分かっていた。</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="682">　それでも、その手を振りほどけなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　自動販売機の画面に、小さな文字が流れた。</p>
+<p class="source-line role-narration role-system role-document tone-2 gap-1" data-source-line="686">　――無料期間を開始しました。</p>
+<p class="source-line role-narration role-system role-document tone-3 gap-0" data-source-line="687">　――解約手続きは、思い出の中でのみ受け付けます。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="689">　翌朝、七瀬が交番へ来ると、宮前は机で眠っていた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="691">　濡れた<span class="term term-memory tone-3">赤い傘</span>を、大事そうに抱えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　七瀬は不思議に思った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="695">　昨夜、夕凪銀座で<span class="term term-memory tone-3">赤い傘</span>を売っていた店は、一軒もなかった。</p>
+<p class="source-line end-mark gap-2" data-source-line="698"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "コロッケの記憶、月額九百八十円";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="胸に鐘を抱く巨人〈鳴骸〉が迫る城塞都市アマガネへ、遠雷と呼ばれる狙撃手・枯野迅が入る。依頼は深夜零時から数えて第十三鐘の瞬間、鐘守・九曜ユイナの左胸を一発だけ射抜くこと。殺せとは書かれていない。案内役の朱鷺トワは、ユイナが巨人を呼ぶという評議会の説明を疑いながらも、過去の恨みを捨てられない。鐘が一つ鳴るごとに外壁は破られ、人々は音を食われて怪物へ変わっていく。依頼人は誰か、なぜ時刻も弾数も厳密なのか。城が沈黙へ追い込まれる中、迅は「撃つべき標的」を自分の目で確かめに行く。">
+<title>無音城の第十三射｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="無音城の第十三射" data-novel-id="無音城の第十三射" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="adventure-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む" selected>冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>サスペンス・ファンタジー</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、バトル、サスペンス、ファンタジー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">冒険・アクション</span></p>
+  <p id="currentPresetDescription">疾走する本文に、号令・衝突音・決断を太い書体で刻む</p>
+  <h3>意味色</h3><p>青＝旅路、赤＝戦い、金＝決断、紫＝傷、緑＝仲間</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：448行／章：6／役割・強度タグ：500</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="無音城の第十三射 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『無音城の第十三射』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="3"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>一</h2>
+<p class="source-line role-narration gap-1" data-source-line="5">　最初の巨人には、胸骨のかわりに鐘があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　環城アマガネの西外壁から二千歩。暮れ残る荒野に膝をついたそれは、城壁の三倍ほどの高さがあり、皮膚は濡れた和紙のように半透明だった。肋骨の内側で、黒い鐘がゆっくり揺れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　ごうん、と鳴るたび、城壁の石灰が白い粉になって落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　砲台が火を噴いた。鉄弾は巨人の肩をえぐったが、肉は泥のように盛り上がって傷を塞いだ。鐘だけが無傷のまま、次の一打を待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　枯野迅は、閉ざされた城門の前で長い銃箱を下ろした。</p>
+<p class="source-line role-dialogue role-command fx-beat gap-1" data-source-line="14">「止まれ。城内は戒厳下だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　狭間から衛兵が怒鳴った。迅は返事のかわりに、黒い封蝋の押された通行証を掲げた。城の評議会しか使えない、九つの輪の紋章である。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「名は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「枯野」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「職は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="21">「依頼書にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　衛兵たちのざわめきが、石の向こうで一瞬止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　枯野迅。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="26">　戦場では<span class="term term-world">〈遠雷〉</span>と呼ばれる射手だった。合戦の最中、三里先の旗頭だけが倒れ、銃声はあとから届く。王の寝室に窓がなくても、彼に狙われた王は朝を迎えない。そんな噂が、本人より先に国境を越えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">「証明できるか」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　迅は城壁を見上げた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="31">「西の狭間、右から四つ目。半歩どけ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="33">「何を――」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　巨人の鐘が二度目の音を孕んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="36">　迅は箱を開いた。中に収まっていた長銃は、艶のない黒。銃床には一つの傷も、飾りもなかった。組み上げ、膝をつき、風を見た。荒野を渡る枯れ草の波。城壁を舐めて上がる粉塵。巨人の鐘は肋骨に隠れ、見えるのは揺れるたびに生じる指二本ぶんの隙間だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　迅が引き金を絞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　銃声は乾いていた。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="41">　二千歩先で、鐘の内側に吊られた舌が跳ねた。根元の金具だけが砕け、重い舌は巨人の腹へ落ちていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　巨人は口を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　声は出なかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　やがて、糸を切られた人形のように前へ倒れた。地面が揺れ、城壁の上から悲鳴が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　迅は空薬莢を拾い、懐へ入れた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="49">「門を開けろ。依頼の時刻が近い」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　厚い鉄門が、ためらうように軋み始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　彼の懐には、一枚の依頼書があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　――深夜零時より数えて第十三鐘。</p>
+<p class="source-line role-narration gap-0" data-source-line="56">　――天蓋塔の最上層に立つ鐘守、九曜ユイナ。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="57">　――その左胸を、一発で射抜け。</p>
+<p class="source-line role-narration gap-0" data-source-line="58">　――時刻の前後は認めない。二発目も認めない。</p>
+<p class="source-line role-narration gap-0" data-source-line="59">　――報酬は全額、前払い。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　依頼人の名はなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="62">　迅にとって、名のない依頼人は珍しくない。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="64">　珍しかったのは、殺せ、とはどこにも書かれていないことだった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="67"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>二</h2>
+<p class="source-line role-narration gap-1" data-source-line="69">　アマガネは、三重の円環壁に守られた城塞都市だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　外から順に、灰環、鉄環、金環。壁と壁のあいだに町が詰め込まれ、屋根は隣家の屋根と重なり、路地は人ひとりが肩を横にして通るほど狭い。最も内側の金環には評議殿と天蓋塔があり、その地下深くに城の炉がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　町には十三の鐘楼があった。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="74">　巨人――<span class="term term-world">〈鳴骸〉</span>が近づくと、一番外の鐘から順に警鐘が渡される。十三番目、天蓋塔の大鐘が鳴れば、全門を閉ざし、外に残った者を見捨てる決まりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　迅が入城したとき、五番鐘までが鳴っていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="78">「枯野迅だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　門の内側で待っていたのは、十七、八ほどの女だった。濃紺の短衣に革の胸当て。腰には反りの浅い片刃の刀を差している。刀身ではなく鞘に、びっしりと細い銀線が巻かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「断響衆、朱鷺トワ。あんたを天蓋塔の射線が取れる場所まで案内する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「護衛は頼んでいない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「案内だ。迷路みたいな町で、勝手に屋根を踏み抜かれちゃ困る」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　トワは迅の銃箱を見た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="88">「鐘守を撃つって、本当か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「依頼の内容は話さない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="91">「町じゅうが知ってる。評議会は、ユイナ様が鳴骸を呼んでいると言ってる。今夜、十三番鐘が鳴る前に処刑するって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="93">「なら、俺は要らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「公開処刑じゃ民衆が割れる。事故に見せたいんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　迅は答えず、歩き出した。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="97">　トワは舌打ちし、先に立った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="99">　大通りには荷車が横倒しになり、家財を抱えた人々が内壁へ押し寄せていた。誰もが声を潜めている。泣く子の口を母親が手で塞ぎ、鍛冶屋は鎚に布を巻いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「大きな音を立てるな」とトワが言った。「鳴骸は音を食う。響きの強い方へ集まる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="103">「鐘で警報を鳴らす町が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="104">「皮肉は昔からだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　六番鐘が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="107">　遠くで何かが崩れる音がした。人波が一斉に速くなる。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="109">　トワは大通りを避け、染物屋の裏口から細い通路へ入った。藍の匂いが残る暗がりで、迅が足を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「前に三人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="112">「見えるのか」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="113">「聞こえる」</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　ぺた、ぺた、と濡れた足音が近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　角から現れたのは、避難民に見えた。老女と、作業着の男と、片腕に赤子を抱いた若い母親。だが三人とも口を丸く開け、同じ言葉を同じ調子で繰り返していた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="119">「門を、開けて」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="120">「門を、開けて」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="121">「門を、開けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　老女の首が不自然に伸びた。耳の後ろから、透明な膜が鰓のように開く。六番鐘の余韻を吸い込み、腹が膨れた。</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="125">「<span class="term term-world">〈響き人〉</span>だ。下がれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　トワが鞘ごと刀を抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　老女が叫ぶより早く、トワは鞘の銀線を指で弾いた。澄んだ一音。三人の首にある透明な膜が同時に震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　その震えだけを追って、刀が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="131">　音を立てずに三つの膜が断たれた。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-1" data-source-line="133">　老女と男はその場に崩れた。若い母親だけが、赤子を抱いたままトワへ飛びかかった。赤子だと思われた包みの中で、鐘の舌に似た黒い肉がのたうっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　迅の短銃が一度鳴った。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="136">　弾は壁の釘を飛ばし、跳ね返って母親のこめかみへ入った。銃口は最初から彼女へ向いていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　トワは目を見開いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="139">「跳弾で？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="140">「正面から撃てば、包みの中身が破裂する」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="142">　黒い肉は母親の腕から落ち、床で干からびた。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　迅は短銃の空薬莢も拾った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「響き人は、鳴骸の音を浴びた人間だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="146">「ああ。最初は同じ言葉を繰り返す。次に骨が空洞になる。最後は壁の外へ走っていって、あれになる」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="148">　トワは倒れた母親の瞼を閉じた。</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="149">「だから鳴骸を斬るのは、化け物退治じゃない。手遅れになった人を、二度目に殺す仕事だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　迅は長銃を箱に戻した。</p>
+<p class="source-line role-dialogue role-command gap-0" data-source-line="152">「道を急げ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「何も思わないのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="155">「何か思えば、戻るのか」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="156">「……戻らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="157">「なら、今は歩け」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　トワは迅を睨んだが、反論しなかった。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="162"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>三</h2>
+<p class="source-line role-narration gap-1" data-source-line="164">　七番鐘が鳴る直前、灰環が破られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　最初に見えたのは指だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="167">　家並みの向こうから、塔ほどもある五本の指が灰環の縁にかかる。次いで、顔のない頭が持ち上がった。目も鼻もなく、口だけが縦に裂けている。その胸には大小七つの鐘が房のように埋まり、互いにぶつかりながら鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　七鐘持ち。</p>
+<p class="source-line role-narration gap-0" data-source-line="170">　鳴骸の中でも、城ひとつを滅ぼすといわれる個体だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　灰環の一角が内側へ倒れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="173">　石と人と屋根が、白い波になって押し寄せる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="175">「伏せろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　トワが迅を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="178">　迅は引かれながら、軒下にぶら下がる防火水槽の鎖を撃った。巨大な木槽が落ち、砕けた水が路地を横切る。舞い上がった石灰塵が水に吸われ、二人の前だけに呼吸できる空間が残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　倒壊が収まると、町の半分が消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　七鐘持ちが腕を入れ、瓦礫の中の音を探るように指を這わせる。潰れた家の下から、子どもの泣き声がした。巨人の指がそちらへ曲がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　迅は長銃を組んだ。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="186">「鐘の舌は七つだぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="187">「全部は撃たない」</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　狙ったのは巨人ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="190">　崩れかけた鐘楼の根元、一本だけ残った支柱だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　弾丸が支柱を抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="193">　鐘楼が傾き、巨人の手首へ倒れ込む。大鐘が鳴りながら肉へ食い込み、七鐘持ちは反射的に腕を引いた。巨体が自分の音を追って横を向く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「今だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　迅は瓦礫へ走った。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="198">　トワも続き、二人で梁を持ち上げた。下から煤だらけの少年が這い出す。胸に幼い妹を抱いていた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="200">「金環へ行け」とトワが言った。「振り返るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　少年は迅を見た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="203">「おじさんは、どこへ行くの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">「人を撃ちに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="206">「化け物じゃなくて？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="207">「人だ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="209">　少年は意味がわからない顔をした。トワが二人の背を押し、避難民の流れへ送り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「助けるんだな」と彼女が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="212">「射線上の騒音を減らしただけだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="213">「そういうことにしておく」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　八番鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　灰環の突破口から、小型の鳴骸が這い込んできた。人の二倍ほどの背丈。胸の鐘はまだ柔らかく、産声のような高音を撒き散らす。その音を浴びた避難民が次々と立ち止まり、同じ方向へ顔を向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　天蓋塔。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「ユイナ様を探してる」とトワが呟いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「なぜわかる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「響き人も鳴骸も、ずっとあの塔を見てる。あんたの標的は、本当にあいつらを呼んでるのかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　迅は塔を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　金環の中心に立つ黒い塔。その頂に、夜空を切り取ったような鐘楼がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「呼ぶ者と、呼ばれる者が敵とは限らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　トワが眉を寄せた。</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="232">「それ、どういう意味だ」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="233">「まだ意味はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　迅は風向きを確かめた。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="236">　外から吹き込む風に、鉄と雨の匂いが混じり始めていた。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="239"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>四</h2>
+<p class="source-line role-narration gap-1" data-source-line="241">　金環へ通じる跳ね橋は上げられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　橋の向こうには武装した衛兵が並び、その背後で守府長の伴堂左京が雨具の襟を正していた。痩せた男で、髪には白いものが多い。アマガネの防衛と戸籍と処刑を一手に握る人物だった。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="245">「枯野殿、ご足労だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　伴堂は声を張らずに言った。周囲の騒音の中でも、不思議によく通る声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="249">「予定が変わった。鐘守を今すぐ撃っていただきたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　迅は懐から依頼書を出した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="252">「時刻の前後は認めない、とある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「状況が変わったのだ。灰環は落ちた。十三番鐘を待てば、金環まで破られる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「条件を変えるなら、契約は無効だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「報酬を倍にする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="259">「金額の話ではない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="260">「三倍」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="261">「聞こえなかったか」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="263">　伴堂の目から、社交的な薄笑いが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「では、こちらにも考えがある。断響衆の娘。そいつを拘束しろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　橋上の衛兵が弓を構えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="268">　トワが刀へ手をかける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「私もか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="271">「鐘守への私怨を利用できると思ったが、役に立たなかったな。お前の第六班が灰環の外に取り残された夜、門を閉めたのは九曜ユイナだ。そう教えたはずだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「教えたのは、あんただ」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　トワの声が低くなった。</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="276">「記録を見せろ。ユイナ様の命令書を、一度も見せなかった」</p>
+<p class="source-line role-dialogue role-sensory tone-5 gap-1" data-source-line="278">「死人の記録に何の意味がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　九番鐘が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="281">　その振動で、橋の鎖が軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　迅は橋ではなく、左右の建物を見ていた。屋根から屋根へ、細い銅管が渡されている。火災時に水圧を送る古い設備だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="285">「トワ。三つ数えたら、右へ跳べ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="286">「橋はないぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="287">「三つ」</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　伴堂が手を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">「一」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　弓弦が引かれる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">「二」</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　迅の短銃が火を噴いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="298">　弾は頭上の銅管を撃ち抜いた。高圧の水が噴き、衛兵たちの視界を白く塗り潰す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「三」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　迅とトワは欄干から飛んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="303">　落下の途中、迅がもう一発撃つ。対岸の巻き上げ機から垂れた補助綱が切れ、跳ね橋が一気に落ちた。二人は傾斜した橋板へ叩きつけられ、そのまま金環側へ滑り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　トワは転がりながら抜刀し、迫る衛兵の槍を二本まとめて斬った。刃ではなく、柄頭で二人を昏倒させる。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="307">「殺さないのか」と迅。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="308">「こいつらは、まだ人だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　二人は水煙を抜け、天蓋塔へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　背後で伴堂が叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-5 gap-0" data-source-line="313">「鐘守を生かせば、城が死ぬぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　十番鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　天蓋塔の基部には、扉がなかった。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="318">　かわりに人ひとりが通れる亀裂が開き、地下へ向かう螺旋階段が続いていた。石壁の中を、血管のような銅線が何百本も走っている。下へ行くほど、足元から低い唸りが上がってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="320">「最上階へ行くんじゃないのか」とトワ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="321">「先に確かめる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="322">「何を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="323">「標的が本人かどうか」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="325">　迅は契約を受けると、必ず標的の顔と生存を自分で確認した。肖像や噂だけでは撃たない。それが彼の数少ない規則だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　階段の底に、円形の部屋があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　壁一面に、十三人の肖像画が並んでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　どれも若い男女で、時代も衣装も違う。だが全員、左胸から鎖骨にかけて同じ形の黒い傷があった。最後の一枚だけが未完成で、白い下絵の横に名が記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　九曜ユイナ。第十三代鐘守。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　部屋の中央に、その本人がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　白い祭服。短く切った黒髪。年は二十を越えたばかりに見える。左胸の布は開かれ、皮膚には肖像と同じ、枝分かれした黒い縫合痕が走っていた。その中心で、何か硬いものが心拍に合わせて皮膚を押し上げている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「遅かったですね、枯野迅」</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　ユイナは笑わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="341">　恐れてもいなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「俺を知っているな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="344">「私が呼びましたから」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　トワが刀を抜いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="347">「どういうことだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　ユイナは壁の肖像を見上げた。</p>
+<p class="source-line role-dialogue role-magic tone-3 gap-1" data-source-line="351">「アマガネの地下には、千年前に落ちた巨大な器官があります。鐘に似ているから、私たちは<span class="term term-world">〈母鐘〉</span>と呼んでいる。城の炉も、壁を固める振動も、すべて母鐘の力で動いています」</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　床の下で、どくん、と低い音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　迅の靴底に微かな震えが伝わる。</p>
+<p class="source-line role-dialogue role-magic tone-3 gap-1" data-source-line="356">「けれど母鐘は、十二年ごとに目覚める。その音を浴びた人は響き人になり、やがて鳴骸になる。評議会は目覚めを遅らせるため、選んだ人間の胸に<span class="term term-world">〈鎮め楔〉</span>を埋め込み、母鐘と繋いだ。それが鐘守です」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="358">「じゃあ、壁の外の鳴骸は……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="359">「かつてこの町にいた人たちです。効き目を失った鐘守。炉で働かされ、響きを浴びすぎた者。秘密を知った者。皆、外へ捨てられた」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　トワの指が震えた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="362">「第六班も？」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　ユイナは目を伏せた。</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="365">「あの夜、門を閉じたのは伴堂です。班の中に母鐘の真実を知った人がいた。私は開門を命じた。でも命令書は握り潰され、私の印だけが偽造された」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「なぜ黙ってた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="368">「公にすれば、伴堂は炉の出力を上げたでしょう。町全体を一晩で響き人にできる」</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　トワは刀を下ろせなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="371">　怒りを向ける先が消え、刃だけが空中に残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　迅はユイナの傷を見た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="374">「第十三鐘に何が起こる」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="376">「鎮め楔が完全に母鐘と同調します。評議会の予定では、その瞬間より前に私を殺し、楔ごと切り取って次の鐘守へ移す。そうすれば町は、また十二年延命できる」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="378">「予定では？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「私の予定は違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　ユイナは胸の黒い傷へ指を置いた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="384">「同調した瞬間、楔は母鐘と同じ硬さになります。その一瞬だけ、外からの衝撃を母鐘の中心まで伝える道になる。楔を正しい角度で砕けば、母鐘の振動は反転する。鳴骸を生む音そのものが消える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「刀では無理か」とトワ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="387">「刃が届く前に、私の心臓が止まる。火薬もだめ。衝撃が広がりすぎる。細く、速く、まっすぐな一撃が要る」</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　迅は依頼書を開いた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="391">　――その左胸を、一発で射抜け。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="393">「報酬は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="394">「歴代鐘守が隠してきた金を使いました。汚れた金です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="395">「依頼人の署名がない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="396">「書けば、あなたは受けなかったかもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="397">「相手が自分を撃たせる依頼は受けない、と？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="398">「違いますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　迅は紙を畳んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「依頼文に嘘はない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="403">「ええ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="404">「射線は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="405">「天蓋塔の西窓。第十三鐘の瞬間、私が立ちます。あなたの位置は西内壁の旧砲台。距離千八百四十二歩。射角、下から十一度。今の風なら可能なはずです」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="407">　彼女はすべて計算していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">「成功した場合、お前が生きる確率は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="410">「一割ほど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="411">「失敗した場合は」</p>
+<p class="source-line role-dialogue role-command tone-5 gap-0" data-source-line="412">「全員、死にます」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　迅はユイナの顔を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="415">　肖像と同一人物であること。呼吸があり、生きていること。左胸の楔の位置。すべてを確認した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「標的を確認した」</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　トワが振り向く。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="420">「おい。話を聞いて、それでもそんな呼び方をするのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「呼び方で弾道は変わらない」</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　十一番鐘が鳴った。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="427"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>五</h2>
+<p class="source-line role-narration gap-1" data-source-line="429">　伴堂左京は、天蓋塔の上から降りてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　衛兵を連れてはいなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　ひとりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　だが胸元の衣服が裂け、その下で青銅色の骨が波打っていた。喉から腹まで、いくつもの小さな鐘が脊椎のように並んでいる。鳴骸の器官を自分へ移植したのだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「炉の力を最も長く浴びた者が、最も長く生きる」</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　伴堂の声には二重の響きがあった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="439">「私は六十年前からこの城を守ってきた。鐘守を替え、不要な者を外へ出し、恐怖に秩序を与えた。真実で腹は満たせん。秘密で壁は守れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　トワが一歩前へ出た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="442">「第六班を外へ出したのも、あんたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「百二十七人で、十万人が静かに眠れた」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="446">「名前を覚えてるか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="447">「数で十分だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　トワの刀が、初めて音を立てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="450">　鞘の銀線が怒りに震え、甲高く鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　伴堂の胸の鐘が応じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　衝撃が部屋を走り、肖像画が一斉に裂けた。トワは壁へ叩きつけられる。迅は床に伏せながら長銃を組み、伴堂の胸の左右へ二発撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　弾は青銅の骨を掠めて火花を散らし、その背後を走る銅線を二本切った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「通常弾では私を抜けんよ、遠雷」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="459">「お前を狙っていない」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="461">　天井から束になった線が落ち、伴堂の身体へ絡みつく。母鐘と繋がった器官が、銅を通じて逆流する振動を受けた。伴堂が膝をつく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「トワ、三十息もたせろ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="465">「その後は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="466">「俺が撃つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="468">「誰をだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="469">「契約どおりだ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="471">　トワは口の端の血を拭い、笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="472">「気に入らない答えだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　それでも立ち上がり、刀を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　迅は地下室を出て螺旋階段を駆け上がった。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="477">　地上へ戻ると雨が降り始めていた。金環の街路では、伴堂の命令を失った衛兵と避難民が入り乱れている。小型の鳴骸が屋根を踏み潰し、その足元を響き人が群れになって走っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　十二番鐘まで、あとわずか。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　迅は西内壁へ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="482">　正面の道は塞がれていた。彼は市場の屋根へ上り、干し肉の綱を渡り、崩れた水路を滑った。途中、響き人が十人、二十人と追ってきた。銃声を使えば、さらに鳴骸を呼ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　迅は一度だけ振り返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="485">　市場の天井を支える要石を撃つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　石造りの屋根が落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="488">　響き人の群れと迅の間に、厚い壁ができた。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　西内壁へ着いたとき、十二番鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　町中の窓が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="493">　地面が持ち上がった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="495">　金環の中央で、天蓋塔の周囲に亀裂が走る。地下の母鐘が目覚め始めたのだ。灰環を破った七鐘持ちが両手で鉄環を引き裂き、無数の鳴骸がその隙間から流れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　そして荒野の向こうで、さらに大きな影が立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　肩が雲に届いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="500">　胸には鐘がない。かわりに胴そのものが空洞で、全身がひとつの巨大な鐘になっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　その巨体が一歩進むたび、アマガネの十三の鐘楼が勝手に鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　迅は旧砲台へ入り、射台に銃を据えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　距離、千八百四十二歩。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　高低差、三百一尺。</p>
+<p class="source-line role-narration gap-0" data-source-line="508">　雨、斜め右から。</p>
+<p class="source-line role-narration gap-0" data-source-line="509">　風は一息ごとに向きを変える。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="510">　天蓋塔は母鐘の鼓動で左右に揺れ、最上層の西窓は、振り子のように弧を描いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　通常なら撃たない条件だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="513">　通常の依頼ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　迅は銃箱の底から、一本だけ別に納められた弾薬を出した。</p>
+<p class="source-line role-narration role-magic tone-3 gap-0" data-source-line="516">　鈍い銀色の弾頭。母鐘の殻を削って作られた<span class="term term-world">〈空鉄弾〉</span>。契約書とともに届いた、二発目のない弾だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　装填する。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　銃架の脇に、古い伝声管があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　天蓋塔から伸びる銅管で、かつて砲撃の合図に使われたものだ。管の中で雑音が鳴り、やがてユイナの声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">『聞こえますか』</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="525">「聞こえる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="527">『伴堂は？』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="528">「トワが止めている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="529">『ひとりで？』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="530">「三十息の約束だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="531">『もう五十は経っています』</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　迅は照準器を覗いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="534">　遠い窓に、白い祭服が現れる。ユイナだった。風に髪が乱れ、左胸の黒い傷が雨に濡れている。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="536">『枯野さん』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="537">「なんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="538">『依頼を受けてくれて、ありがとう』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「礼は命中のあとで言え」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　伝声管の向こうで、彼女が小さく息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">『怖くないと言えば、嘘になります』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="545">「喋ると心拍が変わる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="546">『では、黙ります』</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　迅は照準を左胸へ置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　そのとき、天蓋塔の窓の背後に伴堂が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　半身が人ではなくなっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="553">　トワの刀が胸へ刺さったまま、青銅の骨が腕と顔を覆っている。その手には、気を失ったトワの襟が握られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　伴堂は彼女を窓際へ投げ捨てた。</p>
+<p class="source-line role-dialogue role-command fx-shout tone-5 gap-1" data-source-line="557">『撃て！』と伝声管で別の声が轟く。『今すぐ鐘守を殺せ！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「まだ十三番鐘ではない」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="561">『町が滅びるぞ！』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="562">「契約違反だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　伴堂がユイナの首を掴んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="565">　胸の小鐘が一斉に鳴り、塔の揺れが大きくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　巨大な鳴骸が鉄環を跨いだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="568">　その手が西内壁へ伸びる。迅の射台に影が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　十三番鐘の撞木が、ひとりでに引かれていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="571">　あと三呼吸。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　伴堂がユイナを窓から引き離そうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　倒れていたトワが手を伸ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="576">　胸に刺さった刀の柄から銀線を一本引き抜き、伴堂の喉へ巻きつける。全身の力で後ろへ引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　伴堂の動きが、一瞬止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　ユイナは自分から半歩前へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　窓の中央。</p>
+<p class="source-line role-narration gap-0" data-source-line="582">　伴堂の胸と、一直線に重なる位置。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　あと二呼吸。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="586">　西内壁へ巨人の指が触れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="587">　石が盛り上がり、射台が右へ傾く。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　迅は照準を外さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　風。</p>
+<p class="source-line role-narration gap-0" data-source-line="592">　雨粒。</p>
+<p class="source-line role-narration gap-0" data-source-line="593">　塔の揺れ。</p>
+<p class="source-line role-narration gap-0" data-source-line="594">　ユイナの心拍。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="595">　母鐘の鼓動。</p>
+<p class="source-line role-narration gap-0" data-source-line="596">　巨人の指が城壁を押す周期。</p>
+<p class="source-line role-narration gap-0" data-source-line="597">　十三番鐘の撞木が落ちる速度。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　すべてが別々の時間で動いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　迅は、その時間が一点で重なる場所を待った。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　あと一呼吸。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="605">『私を殺せば、城は十二年生き延びます』</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　ユイナの声が伝声管から聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">『私を撃てば、城は初めて生きられる』</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　十三番鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　同時に、迅は引き金を絞った。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="616"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>六</h2>
+<p class="source-line role-narration gap-1" data-source-line="618">　空鉄弾は、雨を裂いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　西内壁が崩れ始めるより速く、巨人の指の下を抜ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="621">　逆風に押され、わずかに左へ流れる。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="622">　母鐘の鼓動で天蓋塔が右へ振れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="623">　窓の中で、ユイナの身体が伴堂に引かれて半寸沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　それらすべてを越え、弾丸は彼女の左胸へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　皮膚の下の鎮め楔が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　弾は心臓の縁を掠め、背中から抜ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　そのまま後方の伴堂へ飛び込み、胸に並ぶ小鐘の中心を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　最初に消えたのは、音だった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="634">　雨音も、崩れる石も、人の叫びも、すべてが切り取られた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="636">　次に、光が走った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="638">　ユイナの胸から黒い枝のような線が広がり、天蓋塔の銅線を伝って地下へ潜る。母鐘の鼓動が一度だけ大きく膨らみ、反対向きに鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　聞こえない鐘の波が、アマガネを通り抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　響き人たちは走るのをやめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　耳の後ろの透明な膜が、朝露のように消えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　小型の鳴骸は胸を押さえ、膝をついた。鐘が内側から砕け、長い年月を巻き戻すように肉が灰へ変わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　七鐘持ちの七つの鐘にも亀裂が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　巨人は崩れた灰環へ手を伸ばし、誰かに帰ろうとするような仕草をした。次の瞬間、全身が白い砂になって風へ散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　城壁を掴んでいた巨大な鳴骸は、最後まで立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="651">　雲に届く頭が、ゆっくり天蓋塔を向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　顔のないはずの場所に、一瞬だけ、人間の男の横顔が浮かんだ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="654">　それは泣いているようにも、笑っているようにも見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　巨体に無数の亀裂が走る。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="657">　朝焼けほどの光が内側から溢れ、荒野へ静かに崩れ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　音が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　雨。</p>
+<p class="source-line role-narration gap-0" data-source-line="662">　瓦礫。</p>
+<p class="source-line role-narration gap-0" data-source-line="663">　咳。</p>
+<p class="source-line role-narration gap-0" data-source-line="664">　泣き声。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　そして、十三番鐘の余韻が途中で途切れる、かすかな金属音。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　伴堂は自分の胸を見下ろした。</p>
+<p class="source-line role-narration gap-0" data-source-line="668">　青銅の骨が粉になり、六十年ぶんの老いが一度に押し寄せる。皮膚が縮み、背が曲がり、最後には空の衣服だけが床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　トワは這ってユイナを抱き止めた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="671">　左胸から血が溢れている。だが、心臓は動いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「生きてる。おい、ユイナ様、生きてるぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　ユイナは薄く目を開けた。</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="676">「……一割、でしたね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="677">「十割にしろ。鐘守だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="678">「もう、鐘守ではありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　西内壁の旧砲台は崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　迅は長銃を抱え、落下する石の上を二歩走った。壁の外へ投げ出される寸前、切れ残った旗綱を掴む。肩が外れそうな衝撃を受けながら、半壊した見張り台へ振り子のように飛び移った。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　足元で、彼の撃った空鉄弾の銃声がようやく町へ届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　遠雷。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　その一発が、アマガネで最後に鳴った戦の音になった。</p>
+<p class="source-line end-mark gap-2" data-source-line="691"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　</span>終</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　三か月後、灰環の門は開かれたままになっていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="695">　鳴骸のいなくなった荒野へ、調査隊と農夫と墓を探す者たちが出ていく。崩れた壁の石は家を建て直すために運ばれ、母鐘の止まった地下炉には封印が施された。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　評議会は解体された。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="698">　地下室から見つかった記録には、外へ捨てられた者の名がすべて残っていた。数ではなく、ひとりずつの名で。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　朱鷺トワは断響衆を辞めなかった。</p>
+<p class="source-line role-narration role-magic tone-3 gap-0" data-source-line="701">　ただし組織の名を<span class="term term-world">〈帰音衆〉</span>へ変え、荒野に散った遺品を家族へ返す仕事を始めた。腰の刀からは銀線を外した。もう、斬るべき響きはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　九曜ユイナは生き残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　左胸には銃弾の痕が残り、長く歩くと息が切れた。医師は、弾道が心臓を三厘ほど避けていたと言った。偶然と呼ぶには近すぎ、狙ったと呼ぶには不可能な距離だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　ある朝、ユイナのもとへ封筒が届いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="708">　差出人の名はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　中には、あの依頼書と、一行だけの短い文が入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　――契約は左胸を射抜くこと。心臓を止めることではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　トワはそれを読んで、呆れたように笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="715">「礼を言う暇もくれなかったくせに」</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　ユイナは窓を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　町は騒がしかった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="720">　石工の槌。荷車の車輪。市場の呼び声。喧嘩する夫婦。泣く赤子。笑う子ども。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="722">　かつてなら、誰もが恐れて押し殺した音だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="723">　今は、その一つ一つが、生きている者の居場所を知らせていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　遠い街道を、ひとりの男が歩いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="726">　背には細長い銃箱。振り返らず、次の国境へ向かっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　アマガネでは正午を知らせるため、新しい小さな鐘が一度だけ鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　その音を恐れる者は、もう誰もいなかった。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

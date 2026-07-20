@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="三十三歳の戸籍係・直人は、ある朝、指先が枕から離れなくなった。皮膚には黒い鱗、手首からは白い糸。やがて床より天井が落ち着き、ビルの外壁を自在に歩ける身体へ変わっていく。偶然、転落した作業員を救った映像が拡散されると、世間は彼を正義の味方、害虫、研究対象と好き勝手に名づけ、市役所は「未同定生物」として通報を促す。言葉と人の姿を失う一方で、壁を伝う街の震えだけは鮮明になる直人。すべての助けを求める声には応えられない男が、名前を呼ばれるうちに書き残す、孤独な変身の記録。">
+<title>垂直生活者の手記｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="垂直生活者の手記" data-novel-id="垂直生活者の手記" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li><li><a href="#chapter-7">七</a></li><li><a href="#chapter-8">八</a></li><li><a href="#chapter-9">九</a></li><li><a href="#chapter-10">十</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ヒーロー・アクション・ホラー</p>
+  <p><strong>補助ジャンル：</strong>SF・奇妙な味</p>
+  <p><strong>CSVタグ：</strong>ヒーロー、アクション、ホラー、SF、奇妙な味</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：281行／章：10／役割・強度タグ：301</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="垂直生活者の手記 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『垂直生活者の手記』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="3">一</h2>
+<p class="source-line role-narration gap-1" data-source-line="5">七月二日。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">朝、右手を枕から引き離すのに二十七分かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">汗で貼りついたのではない。指先の皮膚が、布地の繊維を一本ずつ選び、親しいものを離すまいとするように吸いついていた。力をこめると、枕カバーのほうが裂けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">私は裂け目を見つめた。そこから白い綿が覗いていた。傷口から骨が見えるときも、こんなふうなのだろうと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">市役所の戸籍記録係へ、体調不良で遅れると電話した。係長は「発熱は」と訊き、ないと答えると、「では出勤できるのでは」と言った。指が寝具から離れない、と説明しかけたが、言葉にした途端、それは私自身の不始末のように聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="15">「医師の証明があれば病休扱いにします」</p>
+<p class="source-line role-narration gap-1" data-source-line="17">係長はそう言って切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">洗面所へ行こうとして、今度は足の裏が床に吸いついた。歩くたび、薄いゴムを剥がすような音がした。鏡のなかの私は、寝不足の三十三歳の男にしか見えなかった。だが、手首から肘にかけて、針の先ほどの黒い点が幾列も並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">母から留守番電話が入っていた。今夜は誕生日だから、姉も来る、好物の鯖寿司を買っておく、と言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">私は折り返さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">昼過ぎ、カーテンを閉めようとして転んだ。咄嗟に壁へ手をつくと、掌がそこへ固定された。外そうともがくうち、もう片方の手、両足も壁へ吸いついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">気づけば私は、畳から一メートルほど上の壁面に、四肢を広げて貼りついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">恐怖より先に、恥ずかしさが来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">誰にも見られていないのに、私は服の裾を直した。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="34">二</h2>
+<p class="source-line role-narration gap-1" data-source-line="36">七月三日。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">昨夜は天井で眠った。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">眠るつもりはなかった。壁から降りる練習をしているうち、天井の隅へ辿りつき、そこが不思議に落ち着いたのだ。部屋を上から見ると、机も椅子も冷蔵庫も、地上の重力を信じきっている者たちの家具に見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">人間は、床を疑わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">床が自分を支えること、椅子が自分の重さを引き受けること、階段が次の高さへ続いていることを、毎朝、祈りもせずに信じている。私はその信仰から外れてしまったらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">黒い点は昨日より大きくなった。小さな鱗のようでもあり、乾いた種のようでもある。爪は薄く尖り、指の関節が一つ増えた。痛みはない。痛みがないことが、もっとも恐ろしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">人は痛みによって、まだ自分の身体の内側にいると知るのではないか。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">冷蔵庫の牛乳は生臭く感じた。代わりに、窓辺に置いてあった熟れすぎた桃を皮ごと食べた。汁が顎を伝うと、舌の奥が歓んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="52">午後、係長からメールが届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="54"><span class="term term-world">〈無断欠勤二日目です。状況を報告してください。なお、戸籍附票の入力が滞っています〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="56">私は返信欄に、<span class="term term-world">〈私の身体が戸籍の記載と一致しなくなりました〉</span>と打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">送信する前に消した。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">戸籍には、名前、生年月日、父母、配偶者、死亡年月日が記される。皮膚の材質や、壁を歩けるかどうかを書く欄はない。人は書類の上では、驚くほど頑丈だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">夜、手首の内側が痒くなった。掻くと、白い細糸が一本、皮膚の裂け目から伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="64">糸は月明かりを受け、私の机から天井まで、一本の細い直線を作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">私はそれを切ろうとしたが、鋏では切れなかった。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="69">三</h2>
+<p class="source-line role-narration gap-1" data-source-line="71">七月四日。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">言葉を失う前に、書くことにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">人は顔より先に、文体を失うのかもしれない。朝の挨拶が短くなり、返事が遅れ、やがて誰かの名を呼ぶことさえ億劫になる。そのとき人は、まだ人間の顔をしている。だから私は、指が文字を押せるうちは記す。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">夜明け前、窓から外へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">七階の外壁に足を置くと、怖さはなかった。怖さは、落ちる可能性を前にして生まれる感情だ。今の私には、壁も地面と同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">街は裏返って見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="83">ベランダには、乾ききらないシャツ、吸い殻の入った缶、子どもの赤い靴があった。窓の向こうで、知らない老女が仏壇へ水を供え、若い男が流し台で泣き、乳児を抱いた女が暗い部屋を何度も往復していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">地上を歩いていたころ、私は建物を箱だと思っていた。だが外壁を這うと、箱には無数の薄い皮膚があり、その一枚ごとに、誰かの眠れない夜が貼りついていると知った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="87">交差点の信号が、誰もいない道路へ律儀に色を変えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">私は隣のビルまで糸を伸ばしてみた。手首の奥が熱くなり、白い線が闇を渡った。身体を預けると、糸は私の重さを受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">一瞬、空中にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">落ちているのでも、飛んでいるのでもない。二つの建物のあいだに、借りものの時間として吊られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">そのとき、遠くで金属の軋む音を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">音というより、足の裏へ届く震えだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">三棟先のビルで、窓清掃用のゴンドラが傾いていた。作業員が一人、手すりの外へ投げ出された。彼の安全帯は外れ、身体が暗がりへ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">考えるより先に、私は壁を蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">白い糸が手首から走り、男の腰へ絡みついた。衝撃で肩が抜けるように痛み、私は向かいの壁へ叩きつけられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">男は四階の窓の高さで揺れていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="107">助け上げると、彼は私の顔を見て悲鳴を呑みこんだ。私の頬にも、黒い鱗が広がっていたのだろう。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="109">「化け物」と言われる覚悟をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">だが男は息を整え、最初にこう言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="113">「会社には黙っててくれ。安全帯を掛け忘れたのがばれる」</p>
+<p class="source-line role-narration gap-1" data-source-line="115">私は笑った。笑ったつもりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">口から出たのは、紙をゆっくり裂くような音だった。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="120">四</h2>
+<p class="source-line role-narration gap-1" data-source-line="122">七月五日。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">昨日の救助を撮った映像が、インターネットに上がっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="126"><span class="term term-world">〈外壁を走る謎の生物〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="127"><span class="term term-world">〈新宿に巨大ヤモリ？〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="128"><span class="term term-world">〈ＣＧではない証拠〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="129"><span class="term term-world">〈自治体は事実確認中〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="131">再生回数は百八十万。私の命は、数字になってから初めて大勢に気づかれた。</p>
+<p class="source-line role-narration role-horror tone-4 gap-1" data-source-line="133">映像のなかの私は黒い影で、顔は見えない。糸で男を吊り上げたところだけが何度も繰り返され、音楽がつけられ、笑い声や拍手の記号が重ねられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">コメント欄には、正義の味方だ、害虫だ、捕まえて研究しろ、税金で駆除しろ、と書かれていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="137">正義と駆除は、画面の上では隣り合っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">市役所から一斉メールが届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="141"><span class="term term-world">〈市内で確認された未同定生物について、接触・撮影を避け、発見時は危機管理室へ通報してください〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="143">送信者は、私と同じ庁舎の三階にいる課だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">その後、係長から個別にメールが来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="147"><span class="term term-world">〈体調はいかがですか。復帰見込みだけでも回答ください〉</span></p>
+<p class="source-line role-narration role-system gap-1" data-source-line="149">私はしばらく画面を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="151"><span class="term term-world">〈復帰した場合、未同定生物として通報される可能性があります〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="153">そう打って、また消した。</p>
+<p class="source-line role-narration gap-1" data-source-line="155">夕方、母から荷物が届いた。鯖寿司、桃、替えの下着、薬局で買った風邪薬。小さな紙に、母の字で「無理をしないこと」とあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">私は鯖寿司を食べられなかった。桃だけを四つ食べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">夜、街へ出ると、私は昨日より速く動けた。壁を蹴り、糸を渡し、ビルの隙間を振り子のように進んだ。窓明かりが上下に流れ、風が鱗の隙間を冷やした。</p>
+<p class="source-line role-narration gap-1" data-source-line="161">力を得た、と思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">同時に、力に見つかった、と思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">力とは所有物ではない。こちらを使うために、身体のなかへ住みつく別の意志だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">地上から、誰かが私を指さした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="169">「いた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="171">歓声が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">私は逃げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">ヒーローと呼ばれるのが、化け物と呼ばれるより怖かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">化け物なら、何も期待されない。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="180">五</h2>
+<p class="source-line role-narration gap-1" data-source-line="182">七月六日。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">深夜二時、古い雑居ビルの屋上で、少年を見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">縁の外側に立っていた。学校の制服を着て、靴を揃えて脱いでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">足の裏から伝わる震えで、私は彼が泣いていると知った。涙そのものではなく、呼吸のたびにコンクリートへ落ちる小さな震えが、壁を通って私の掌へ届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">私は屋上の給水塔の陰から出た。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="192">少年は振り返り、悲鳴を上げる代わりに、目を細めた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="194">「動画のやつ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="196">私は頷いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="198">声を出すと、もう人間の言葉にならないことが増えていた。だから携帯電話の画面へ文字を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="200"><span class="term term-world">〈そこは危ない〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="202">少年は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「危ないから来たんだよ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="206"><span class="term term-world">〈死にたいのか〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="208">彼はしばらく答えなかった。街の光が、濡れた頬を青くした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「死にたいっていうより」</p>
+<p class="source-line role-narration gap-1" data-source-line="212">彼は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="214">「落ちたら、誰か来るのか知りたかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="216">私は彼の言葉を理解しすぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">人が助けを求めるとき、必ずしも助けそのものを望んでいるわけではない。自分の重さが、世界のどこかへ伝わるか確かめたいのだ。床が軋むように。壁が震えるように。</p>
+<p class="source-line role-narration gap-1" data-source-line="220">私は一歩近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">少年も一歩退いた。踵の半分が宙に出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="224"><span class="term term-world">〈名前は〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「柊」</p>
+<p class="source-line role-narration gap-1" data-source-line="228"><span class="term term-world">〈柊。こちらへ〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「そっち、化け物じゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="232"><span class="term term-world">〈そうかもしれない〉</span></p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="234">「怖くないの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="236">私は自分の手を見た。指は長くなり、関節は節くれだち、黒い鱗が月光を鈍く返していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="238"><span class="term term-world">〈怖い〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="240"><span class="term term-world">〈怖いから、落ちないようにしている〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="242">少年は泣きながら笑った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="244">その瞬間、屋上扉の向こうで足音がし、彼は驚いて踏み外した。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="246">私は糸を放った。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">細い身体が宙で止まった。彼は声も出せず、下を見た。十五階ぶんの夜が、口を開けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">引き上げたあと、柊は私の腕の鱗へ触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「痛い？」</p>
+<p class="source-line role-narration gap-1" data-source-line="254">私は首を振りかけ、やめた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="256"><span class="term term-world">〈わからない〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="258"><span class="term term-world">〈わからないのが、いちばん痛い〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="260">屋上扉が開き、警察官と、泣き崩れた女が駆けこんできた。女は柊を抱きしめた。警察官は私へ懐中電灯を向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">私は縁を越え、壁へ降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">背後で柊が叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="266">「ありがとう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">その言葉は、追ってくる光より速く、私の背中へ届いた。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="271">六</h2>
+<p class="source-line role-narration gap-1" data-source-line="273">七月七日。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">姉が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">合鍵で部屋へ入り、私がいないと思ったのだろう。私は天井の暗がりにいた。</p>
+<p class="source-line role-narration role-horror tone-3 gap-1" data-source-line="279">姉は腐った鯖寿司を捨て、窓を開け、床に散らばった桃の種を拾った。それから、壁に掛かったカレンダーが斜めになっているのを直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">私は子どものころから、傾いた額縁や時計を放っておけなかった。家族の誰も気にしない程度の角度でも、私だけは椅子へ上り、水平になるまで直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">姉が帰ろうとしたとき、私はカレンダーへ糸を伸ばし、ほんの少し右へ動かした。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">姉は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">ゆっくり天井を見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">私を見つけても、叫ばなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="291">「直人？」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">その名を聞いた途端、黒い殻の内側で、何かが崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">私は壁を伝って降りた。姉は二歩退いたが、逃げなかった。口元を押さえ、泣きながら、何度も私の名を呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">携帯電話に打った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="299"><span class="term term-world">〈母には言わないで〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「言えるわけないでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="303"><span class="term term-world">〈ごめん〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「何に謝ってるの」</p>
+<p class="source-line role-narration gap-1" data-source-line="307"><span class="term term-world">〈全部〉</span></p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="309">姉は怒った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">「そうやって、何でも自分の責任にするの、やめなよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="313">私は文字を打てなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="315">十年前、大学の友人だった修司から、夜中に三度電話があった。私は翌朝が早いという理由で、電源を切った。修司はその夜、歩道橋から落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">誰も私を責めなかった。だから私は、自分で責めるしかなかった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="319">助けられなかった者は、死者の代わりに裁判官を体内へ飼う。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">姉はそのことを知っていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="323">「今度は街じゅうの人を助けるつもり？」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="325"><span class="term term-world">〈わからない〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">「無理だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="329"><span class="term term-world">〈わかっている〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">「わかってない顔してる」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">私は笑おうとした。姉は泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">帰り際、姉は机の上に新しいノートを置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「せめて、どこにいるか書いて」</p>
+<p class="source-line role-narration gap-1" data-source-line="339">私はそのノートへ、最初の一行を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">——私はまだ、名前を呼ばれると振り向く。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="344">七</h2>
+<p class="source-line role-narration gap-1" data-source-line="346">七月八日。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">危機管理室は私を「垂直移動体」と呼ぶことにしたらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">テレビでは専門家が、未知の感染症、軍事技術、集団幻覚、宣伝企画の可能性を論じている。私の映像の横に、害虫駆除会社の広告が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">一方で、私の顔を模した仮面が売られ始めた。黒い目と尖った顎をつけた子ども用の玩具である。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">私は一夜のうちに、恐怖と商品になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">係長から最後のメールが来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="358"><span class="term term-world">〈連絡がないため、規定に基づき処分手続きを進めます。貸与品の職員証は返却してください〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="360">職員証には、変化する前の私の顔がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">昼休み、庁舎の外壁を登った。監視カメラを避け、三階の戸籍記録係の窓まで行った。ガラスの向こうで、同僚たちは弁当を食べていた。私の机には、別の職員が座っていた。引き出しの上に「要返却物」と書かれた箱があり、私の名前が貼られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">私は職員証を窓の隙間から投げ入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">それは床へ落ち、小さな音を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">誰も気づかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">帰り道、高架橋の継ぎ目から、異様な震えを感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">古い歩行者デッキ。駅と商業ビルを結び、朝夕には何千人も通る。支柱の一本が、内部で細かく裂けていた。目には見えない。だが掌を当てると、疲れた歯が軋むような振動がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">私は市役所へ電話した。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">声が人間の言葉にならず、電話口の職員は「いたずらはおやめください」と切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">メールも送った。写真を添え、場所を示した。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">自動返信が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="382"><span class="term term-world">〈お問い合わせを受け付けました。回答には二週間程度かかる場合があります〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="384">橋は、二週間も待てない。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">私は支柱の亀裂へ糸を巻きつけた。何重にも、何重にも。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">糸は強い。だが、街の重さは、それより強い。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="391">八</h2>
+<p class="source-line role-narration gap-1" data-source-line="393">七月九日。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">朝七時四十二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">橋が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">正確には、落ちはじめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="401">通勤者で満ちたデッキが、中央からゆっくり沈んだ。最初の一秒、人々は立ち止まり、何が起きたのか理解しなかった。次の一秒で床が傾き、鞄と傘と身体が低いほうへ滑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">私は橋の裏側にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">前夜から張っていた糸が一斉に伸び、手首の皮膚を裂いた。白い繊維が赤く染まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">両側のビルへ新しい糸を放った。一本、二本、十本。橋全体を空中へ縫いつけるように張った。</p>
+<p class="source-line role-narration gap-1" data-source-line="409">肩が外れ、背中の殻が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">上では、人々が叫んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">一人の男が手すりを越えた。私は足から糸を出し、彼を掴んだ。女の子が滑った。別の糸で鞄ごと吊った。ベビーカーが宙へ出た。母親の手と車輪を同時に絡めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">身体のどこから、これほどの糸が出るのかわからない。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">自分が空洞になっていく感覚だけがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">救助隊が到着するまでの七分間、私は橋の下で、街の重さを支えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">七分は短い。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">七分は、人が生まれ、名づけられ、老い、死ぬのに十分な長さでもある。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">最後に、杖をついた老女が滑った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="427">私は糸を放った。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">届かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">指先を掠め、老女は落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="433">その顔を、私は見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">驚きよりも、疲れたような表情だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="437">私は叫んだ。喉から出たのは、人間の声でも獣の声でもなく、橋の鉄骨が折れる音に似ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">救助隊が橋を固定し、人々を避難させた。歓声が起きた。何百台もの携帯電話が私へ向けられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="441">光のなかで、私は落ちた老女のことだけを考えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="443">救った人数は、救えなかった一人を薄めない。</p>
+<p class="source-line role-narration gap-1" data-source-line="445">一人の死は、百人の生で割り算できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="447">私は糸を切り、橋の裏から闇へ身を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">今度は落ちることが怖かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">それが少し嬉しかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">まだ恐怖がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">まだ身体の内側に、私がいる。</p>
+</section>
+<section class="chapter" id="chapter-9">
+<h2 class="source-line chapter-heading gap-2" data-source-line="458">九</h2>
+<p class="source-line role-narration gap-1" data-source-line="460">七月十一日。</p>
+<p class="source-line role-narration gap-1" data-source-line="462">二日間、古い教会の鐘楼に隠れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">背中の割れ目から、新しい殻が覗いている。口はほとんど動かない。右目は複数の像を映すようになり、一つの蝋燭が七つに見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">ニュースは、橋の事故を奇跡と呼んだ。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="468">死者一名、重傷者三名、軽傷者二十七名。専門家は、未知の繊維が崩落を一時的に食い止めたと説明した。市長は会見で「垂直移動体の行為には一定の評価があり得る」と述べたあと、「安全確保のため、発見時は近づかないでほしい」と付け加えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">私を讃える絵が、駅前に並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">落ちた老女の名前は、小さな字幕で一度だけ流れた。</p>
+<p class="source-line role-narration role-system tone-5 gap-1" data-source-line="474">戸籍の死亡欄には、やがてその名と日付が入力されるだろう。以前の私なら、書類の不備を確認し、漢字を照合し、端末の確定キーを押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">死は、役所では一つの処理になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">だが今、私は彼女の指先が空を掻いた角度を覚えている。杖が回転しながら落ちたことも、靴の片方が橋に残ったことも。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">記録とは、忘れるための制度なのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">すべてを覚えていては、生きられないから、人は紙へ移し、番号をつけ、棚へしまう。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">私は忘れられない。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="486">壁を伝う震えが、街の苦痛を運んでくる。水道管の破裂、夫婦喧嘩で倒れた椅子、夜中に床へ座りこんだ誰かの膝、屋上へ向かう足音。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">その全部に応えることはできない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="490">姉の言うとおりだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">責任とは、すべてを救えるという思い上がりではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">聞こえてしまった声に、聞こえなかったふりをしないことだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">そして、届かなかった手を、届いた手の数で消さないことだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">鐘楼の下で、誰かが私の名を呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">姉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">私は姿を見せなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">代わりに、糸でノートをゆっくり下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">姉はそれを抱きしめ、しばらく泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">それから、天井を見上げて言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「直人。帰れなくても、生きてて」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">私は鐘の裏側で、何度も頷いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">鐘は鳴らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">それでも震えは、掌へ伝わった。</p>
+</section>
+<section class="chapter" id="chapter-10">
+<h2 class="source-line chapter-heading gap-2" data-source-line="519">十</h2>
+<p class="source-line role-narration gap-1" data-source-line="521">七月十二日。</p>
+<p class="source-line role-narration gap-1" data-source-line="523">これが最後の記録になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">指先が、もう小さなキーを押せない。姉の置いた鉛筆を糸で巻き、どうにか書いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">夜明けの街を、高いところから見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">地上では、新聞配達の自転車が走り、パン屋が灯りをつけ、始発電車が鉄の川のように動き出す。人々は今日も床を信じ、階段を信じ、橋を信じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">その信仰は愚かではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">信じなければ、一歩も歩けない。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">私はもう、彼らと同じ道を歩けない。名前を呼ばれても、いつまで振り向けるかわからない。母の鯖寿司の味も、修司の声も、いずれ黒い殻の向こうへ薄れていくだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">だが、消えることと、無かったことは違う。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">人間であった私が消えても、誰かの重さを感じたことは、糸の一本として残る。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">鐘楼の外壁へ出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">風が強い。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="545">遠く、病院の屋上で金属の扉が開く震えがした。小さな足音が一つ、縁へ近づいている。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">間に合うかはわからない。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">助けられるかもわからない。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">私は万能ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">だから行く。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">壁を蹴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">糸が朝焼けの空へ伸びる。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">一瞬、私は街の上に吊られる。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">落ちる者でも、飛ぶ者でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">ただ、落下と地上のあいだに身を置く、名のない一つの結び目として。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">そして私は、次の壁へ手を伸ばす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">（了）</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

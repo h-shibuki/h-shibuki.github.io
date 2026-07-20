@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="希望退職という名で社員を切り続ける人事課長・新田一郎の複合機が、存在しない求人票を吐き出した。「電車で席を譲る人」に応募すれば十二秒だけ役割を得て、「抽選会の一等当選者」へ応募すれば本当に金色の玉が出る。だが採用されるたび、本来そこにいた誰かが席を失う。会社の地下に現れた人事部別室は、母親、親友、事故の目撃者、戦争を始めない人まで、人生の役割を最適配置していた。やがて求人は、新田が取り残してきた愛と家庭への未練に触れ始める。空席でない人生にも応募できるとき、人を減らしてきた男は何を選ぶのか。">
+<title>欠員｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="欠員" data-novel-id="欠員" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>サスペンス・ホラー・奇妙な味</p>
+  <p><strong>補助ジャンル：</strong>お仕事</p>
+  <p><strong>CSVタグ：</strong>サスペンス、ホラー、奇妙な味、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：384行／章：0／役割・強度タグ：430</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="欠員 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">欠員</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration tone-4 gap-1" data-source-line="3">　新田一郎は、人を減らす仕事をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　正式な肩書きは人事企画課長だったが、ここ半年で彼が企画したものといえば、早期退職者向けの説明会と、希望退職に「希望」という言葉を残すための言い回しくらいだった。</p>
+<p class="source-line role-dialogue fx-beat tone-4 gap-1" data-source-line="7">「会社としても苦渋の決断でして」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="8">「あなたの能力を否定するものではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="9">「次の環境でのご活躍を、心よりお祈りしております」</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　どれも嘘ではない。嘘ではないが、本当でもない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="12">　新田はその中間に、社員番号と年齢と扶養家族の数を並べ、上から引かれた赤線に沿って人を切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　その夜、最後の面談を終えたのは十一時を回ってからだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　退職を勧めた相手は、二十七年間、同じ工場の設備を見てきた男だった。男は封筒を受け取ると、怒りも泣きもせず、新田に一つだけ尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「俺がいなくなったあと、誰がやるんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="20">「業務は再編されます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「誰がやるんです」</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="24">　新田は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　誰かがやるのだ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="27">　会社とはそういうものだった。人が消えても、席と仕事は残る。残った人間が少しずつ引き受け、やがて最初からそうだった顔をする。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="29">　男が出ていったあと、新田は会議室に一人残り、面談記録をシュレッダーにかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　廊下の照明は半分落ちていた。執務室へ戻ると、複合機だけが目を覚ましていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　低い駆動音がして、白い紙が一枚、ゆっくり吐き出される。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　新田は立ち止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　夜間に印刷予約をした覚えはない。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　紙には、社内書式によく似た枠が印刷されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　　　　　　欠　員　補　充　票</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　募集職種：午前七時四十八分、中央線快速で席を譲る人</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　勤務地　：三鷹―新宿間</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　契約時間：約十二秒</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　報酬　　：なし</p>
+<p class="source-line role-narration gap-0" data-source-line="46">　応募資格：膝に痛みがなく、他人の視線を過度に気にしない方</p>
+<p class="source-line role-narration gap-0" data-source-line="47">　欠員理由：現任者の見て見ぬふりによる自動解任</p>
+<p class="source-line role-narration gap-0" data-source-line="48">　募集人数：一名</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="50">　最下部に、小さなＱＲコードがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="51">　その下にはこう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　――あなたにふさわしい人生をご紹介します。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　　　人事部　別室</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　新田は紙を丸めて捨てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　翌朝、七時四十八分。</p>
+<p class="source-line role-narration gap-0" data-source-line="59">　中央線快速の車内で、新田は昨夜の紙を思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　目の前に杖をついた老女が立っていた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="62">　優先席ではない。周囲の乗客はみなスマートフォンを見ている。新田も同じように画面へ目を落としたが、黒い画面に自分の顔が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　自動解任。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　馬鹿げた言葉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　新田は立ち上がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="70">「どうぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　老女は驚き、何度も頭を下げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="73">　新田がつり革につかまった瞬間、胸ポケットで携帯電話が震えた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="75">　見知らぬ通知が一件。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="77">　採用が決定しました。</p>
+<p class="source-line role-narration gap-0" data-source-line="78">　ご勤務ありがとうございました。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="80">　通知はすぐに消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　その日の昼、複合機はまた勝手に紙を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　　　　　　欠　員　補　充　票</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　募集職種：駅前商店街、歳末抽選会の一等当選者</p>
+<p class="source-line role-narration gap-0" data-source-line="87">　報酬　　：温泉旅行券二名分</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　応募資格：抽選券を三枚以上お持ちの方</p>
+<p class="source-line role-narration gap-0" data-source-line="89">　欠員理由：当選予定者が抽選開始前に帰宅</p>
+<p class="source-line role-narration gap-0" data-source-line="90">　募集人数：一名</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　新田の財布には、昨日の昼食でもらった抽選券が三枚あった。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　今度は紙を捨てなかった。</p>
+<p class="source-line role-narration role-system role-document tone-2 gap-1" data-source-line="96">　ＱＲコードを読み取ると、白い画面に「応募する」というボタンが一つだけ現れた。会社名も利用規約もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　新田は数秒迷い、ボタンを押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　面接も入力項目もなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　ただ、「あなたの経験を確認しています」という文字が三度点滅し、やがて表示が変わった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="103">　採用が決定しました。</p>
+<p class="source-line role-narration gap-0" data-source-line="104">　十二月二十四日、午後六時までに就業場所へお越しください。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　半信半疑のまま抽選会場へ行き、三回目に回したガラポンから、金色の玉が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　鐘が鳴り、係員が大声を上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　通行人が振り返り、拍手をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　新田は旅行券の入った封筒を受け取りながら、列の後ろにいた女を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　買い物袋を両手に下げた、五十代くらいの女だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="114">　女は抽選券を握りしめ、呆然と金色の玉を見ていた。足元には、小さな旅行鞄の広告チラシが落ちていた。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="116">「お母さん、早く」</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　女のそばで、中学生くらいの少女が袖を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　少女は毛糸の帽子をかぶっていた。眉が薄く、顔色が悪かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「温泉、行けると思ったのにな」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="123">　少女が笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="124">　女も笑い返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="126">「また今度ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　新田の封筒が、急に重くなった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="130">　その夜、ＱＲコードの画面に初めてメニューが増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　応募履歴。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　おすすめ求人。</p>
+<p class="source-line role-narration gap-0" data-source-line="134">　お問い合わせ。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　新田は「お問い合わせ」を押した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="138">　画面が暗転し、地図が表示された。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="139">　示された場所は、新田の会社の地下二階だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　地下二階にあるのは、資料倉庫と、十年以上使われていない印刷室だけのはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　エレベーターの表示にはＢ１までしかない。</p>
+<p class="source-line role-narration gap-0" data-source-line="144">　だが午前零時ちょうど、閉じかけた扉の横に「別室」というボタンが浮かび上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　押すと、エレベーターは音もなく下った。</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　扉の向こうは、小さな受付だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="149">　壁も床も灰色で、病院と役所を混ぜたような部屋だった。観葉植物は造花で、時計には針がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　カウンターの中に、濃紺のスーツを着た女が座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="152">　年齢は三十にも五十にも見えた。髪は一筋の乱れもなく、口元だけが職業的に微笑んでいる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="154">「人事部別室へようこそ、新田一郎様」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「あなたは、うちの社員ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「この建物には長くおります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「何の部署なんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「欠員の補充と、配置の最適化を担当しております」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　女は名刺を差し出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="165">　社名も氏名もない。中央に「担当者」とだけ印刷されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「さっきの抽選は、どういう仕組みです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="169">「適任者を、空いている役割に配置しただけです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">「当たるはずだった人がいた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="173">「当選予定者です。採用予定者と同じで、内定は権利ではありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「俺が応募しなければ、あの人が当たっていたんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「現任者が辞退しておりますので、確率の高い候補者へ再配分されたでしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「なら、あの親子が――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="181">「新田様」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="183">　女は笑みを崩さなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「誰かが席に座るとき、別の誰かが立つことは、電車でご経験済みかと存じます」</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　新田は返す言葉を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　受付の奥には、天井まで届く書類棚が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="190">　ラベルが見える。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="192">　母親。</p>
+<p class="source-line role-narration gap-0" data-source-line="193">　親友。</p>
+<p class="source-line role-narration gap-0" data-source-line="194">　事故の目撃者。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　告白を断る人。</p>
+<p class="source-line role-narration gap-0" data-source-line="196">　最期に手を握る人。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="197">　戦争を始めない人。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　そのどれにも、薄いファイルが何十冊も収められている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「人生は役割の集合です」と女は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="202">「人は自分を一つの存在だと思いたがりますが、実際には無数の職務を兼任している。誰かの息子であり、隣人であり、客であり、被害者であり、時には加害者でもある。役割には適性があり、空席があり、応募者がいる。私どもは、それを整理しているだけです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「現任者がいる役割にも応募できるんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「可能です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「空席じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「より適した方が採用されれば、空席になります」</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　新田は女を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="214">「それは、奪うってことじゃないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「人事では、配置転換と申します」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　女は初めて、少しだけ楽しそうに笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　翌日から、複合機が吐き出す求人票は増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　雨の日に最後の一本の傘を買う人。</p>
+<p class="source-line role-narration gap-0" data-source-line="223">　会議で部長の誤りを指摘する人。</p>
+<p class="source-line role-narration gap-0" data-source-line="224">　病院の待合室で財布を拾う人。</p>
+<p class="source-line role-narration gap-0" data-source-line="225">　遅刻した飛行機が墜落を免れる人。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　新田は応募しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　紙を破り、捨て、複合機の電源を抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="230">　それでも朝になると、排紙トレイに新しい求人票が積まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　ある金曜日、束のいちばん下に、その紙があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　　　　　　欠　員　補　充　票</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="236">　募集職種：佐伯美緒の夫</p>
+<p class="source-line role-narration gap-0" data-source-line="237">　勤務地　：杉並区内、分譲マンション</p>
+<p class="source-line role-narration gap-0" data-source-line="238">　契約期間：原則として終身</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="239">　待遇　　：食卓、寝室、家族旅行、共有名義の預金ほか</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="240">　応募資格：佐伯美緒を現在も愛している方</p>
+<p class="source-line role-narration gap-0" data-source-line="241">　欠員理由：現任者の共感性不足、および長期的な配置不良</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　募集人数：一名</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　新田は、紙を持ったまま動けなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="246">　佐伯美緒は、以前同じ会社にいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="247">　同期で、三年間、新田と付き合っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　別れた理由を、新田は「仕事が忙しかったから」と説明していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="250">　実際は、結婚の話を切り出した美緒に、もう少し待ってほしいと言い続けたからだった。課長になれば。住宅手当が増えれば。次の異動が決まれば。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　彼女は待つのをやめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　五年前に退職し、取引先の男と結婚した。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　年賀状には男と並んだ写真があった。二年前からは、男の腕に抱かれた幼い男の子も加わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　新田は年賀状を捨てられず、机のいちばん下の引き出しにしまっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　求人票を裏返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="260">　白紙だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　もう一度表を見る。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="264">　応募資格：佐伯美緒を現在も愛している方。</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　その日の午前零時、新田は別室にいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「現任者は、どうなるんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「配置を外れます」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="272">「死ぬんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="274">「役割から外れることと、生命活動の停止は同義ではありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「どうなるのかと聞いてるんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「その方から見た世界と、その方を見ていた世界の結びつきが解消されます。以後の配属は、ご本人の適性と空席状況によります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「子供は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="282">「『佐伯美緒の息子』という役割に変更はありません」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="284">「父親が変わって、平気なわけがない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">「記憶は職務に付随します。引き継ぎは円滑に行われます」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="288">　女は申請書を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　氏名欄には、すでに新田一郎と印字されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">「一点だけ、ご承知おきください。採用後も、より適した応募者が現れた場合は、契約を解除することがあります」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="294">「俺より、彼女を愛している人間はいない」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="296">「適性は愛情の量だけで決まりません」</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　女はペンを置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「よくお考えください」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　新田は考えた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="303">　美緒が笑った顔を思い出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="304">　大学通りの桜。安いワイン。二人で選んだ青いマグカップ。別れ際、泣かずに「待つ才能がなくて、ごめん」と言った声。</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　それから、写真の中の夫を思い出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="307">　名前も知らない男。</p>
+<p class="source-line role-narration gap-0" data-source-line="308">　美緒を待たせなかった男。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　新田は署名した。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　翌朝、目覚ましが鳴る前に、子供の声で起こされた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「パパ、朝だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　見知らぬ寝室だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　隣で美緒が眠っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　五年前より髪が短くなっていた。左手の薬指には、銀色の指輪がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　新田の左手にも、同じ指輪があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　ベッドの脇には、男の子が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="324">　年賀状で見た子だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「今日、サッカー見に来るって言ったじゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　新田は返事ができなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="330">　美緒が薄く目を開け、笑った。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="332">「一郎、聞いてる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　その呼び方は、五年前と同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　新田は男の子の試合を見に行った。</p>
+<p class="source-line role-narration gap-0" data-source-line="337">　夕方には三人でスーパーへ行き、夜は鍋を囲んだ。美緒は白菜を入れすぎる癖が治っていなかった。男の子は椎茸だけを器用によけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　家の中には新田の写真があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　結婚式で美緒の隣に立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="341">　産院で赤ん坊を抱いている。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="342">　海辺で三人、日に焼けて笑っている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="344">　新田には、どの場面の記憶もあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　記憶は頭の中へ、最初からそこにあったように収まっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　だが、よく見るとどの思い出にも、わずかな継ぎ目があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　結婚式で誓いの言葉を言った瞬間だけ、音がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　息子が初めて歩いた日の部屋だけ、匂いがない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="351">　家族旅行の帰り道だけ、助手席から見えるはずの景色が真っ暗だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　そこには誰かがいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　新田ではない誰かが。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　夜中、書斎の引き出しから一冊の手帳が出てきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="357">　表紙には「隆志」と名前がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　中身はほとんど白紙だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="360">　ただ、最後のページに、震えた字で一行だけ残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　俺がいなくなったあと、誰がやるんです。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　新田は手帳を閉じた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="366">　翌日、会社へ行くと、誰も新田が結婚したことを不思議がらなかった。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="367">　人事データの配偶者欄には佐伯美緒。五年前の慶弔申請には結婚祝い金の記録がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　世界は訂正されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　ただ一つ、複合機だけは訂正されていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　排紙トレイに、求人票が載っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　　　　　　欠　員　補　充　票</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="377">　募集職種：佐伯美緒の夫</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="378">　現任者　：新田一郎</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　応募者数：一名</p>
+<p class="source-line role-narration gap-0" data-source-line="380">　選考状況：書類審査中</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　新田は紙を破った。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　翌日は応募者数が三名になった。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　その翌日は八名。</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　一週間後には四十二名。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　求人票には、応募者の職歴が簡単に表示されるようになった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="390">　小学校教諭。三十六歳。家事分担実績あり。</p>
+<p class="source-line role-narration gap-0" data-source-line="391">　看護師。四十一歳。夜泣き対応経験あり。</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　現任者の元同級生。三十九歳。佐伯美緒との共通の趣味多数。</p>
+<p class="source-line role-narration gap-0" data-source-line="393">　匿名。年齢非公開。息子のサッカーチームでコーチ経験あり。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　どれも新田より、夫らしかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　新田は早く帰宅するようになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="398">　皿を洗い、洗濯物を畳み、息子の宿題を見た。美緒の話を遮らずに聞いた。結婚記念日を調べ、予約困難な店を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　応募者数は減らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　百二十名。</p>
+<p class="source-line role-narration gap-0" data-source-line="403">　三百六名。</p>
+<p class="source-line role-narration gap-0" data-source-line="404">　千八百四十一名。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　世界中に、佐伯美緒を知らない人間がそれほどいるはずはない。</p>
+<p class="source-line role-narration gap-0" data-source-line="407">　だが別室の女は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">「知ることは、採用後でも可能です。あなたも、息子さんの好物を配属後に知ったでしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「募集を止めろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「求人は役割そのものが行います。私どもは仲介にすぎません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「美緒が、俺を辞めさせたがってるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「必ずしも、現任者への不満だけが欠員を生むわけではありません。役割が安定し、待遇がよく見えるほど、応募は増えます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">「どうすれば、契約を守れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「適性を示し続けることです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="423">「いつまで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「原則として終身です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="427">　女は同情するように微笑んだ。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="429">「会社員でいらした新田様なら、終身という言葉の意味をご存じでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　その夜から、新田は眠れなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　美緒が携帯電話を見るたび、応募者と連絡を取っている気がした。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="434">　息子が学校の話をするたび、担任の名を疑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="435">　宅配便の男、マンションの管理人、テレビの中の俳優まで、自分の席を狙っているように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　家族を愛する時間より、家族を失わないための査定対策に費やす時間が増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　ある朝、美緒が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「一郎、最近、怖いよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「何が」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「ずっと誰かと比べてるみたい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「比べられてるんだ」</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="449">「誰に？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="451">「君には分からない」</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　美緒はしばらく黙り、それから静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「分からないままでいさせてるのは、あなたでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　その日の午後、複合機は一枚だけ紙を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　　　　　　契　約　更　新　通　知</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　職種　　：佐伯美緒の夫</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="462">　現任者　：新田一郎</p>
+<p class="source-line role-narration gap-0" data-source-line="463">　審査結果：更新見送り</p>
+<p class="source-line role-narration gap-0" data-source-line="464">　契約終了：本日二十三時五十九分</p>
+<p class="source-line role-narration gap-0" data-source-line="465">　理由　　：役割の維持を目的とした行動が、役割本来の目的を上回ったため</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　新田は紙を握りつぶし、地下へ走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「取り消せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　別室の女は、いつもの姿勢で座っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「決定事項です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「前の夫を戻せ。隆志を戻せばいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「当該者は現在、別の役割に配属されています」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">「どこに」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">「守秘義務がございます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">「だったら、俺を別の役割に移せ。何でもいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「おすすめをお出ししましょうか」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="487">　女が端末を操作すると、卓上プリンターから何枚もの紙が出た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="489">　深夜のコンビニで怒鳴られる店員。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="490">　火災報知器を最初に信じる住人。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="491">　病院で臓器提供に同意する兄。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="492">　踏切の向こうで手を振る幽霊。</p>
+<p class="source-line role-narration gap-0" data-source-line="493">　誰にも読まれない遺書を書く人。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「ふざけるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「いずれも、現在の新田様の適性に近い役割です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「俺の人生はどこにある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="501">「どの人生を指しておられますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　女は首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「独身の人事企画課長でしょうか。佐伯美緒の夫でしょうか。それとも、午前七時四十八分に席を譲った方でしょうか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「全部、俺だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「いいえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　女の声から、初めて接客の温度が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「すべて役割です」</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　時計のない壁に、赤い数字が浮かんだ。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="517">　２３：５７：０３</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　新田はカウンターを叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「応募を取り下げればよかった。最初から、こんなもの――」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="523">「最初から？」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　女は一枚の古い書類を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　黄ばんだ紙だった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="528">　新田の会社のものでも、現代のものですらない。毛筆のような文字で、しかし見慣れた書式が記されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　　　　　　欠　員　補　充　票</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　募集職種：新田家の長男</p>
+<p class="source-line role-narration gap-0" data-source-line="533">　勤務地　：東京都下</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="534">　契約期間：出生より死亡まで</p>
+<p class="source-line role-narration gap-0" data-source-line="535">　応募資格：なし</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　欠員理由：第一候補者の流産</p>
+<p class="source-line role-narration gap-0" data-source-line="537">　募集人数：一名</p>
+<p class="source-line role-narration gap-0" data-source-line="538">　採用者　：新田一郎</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　新田は、紙から目を離せなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">「あなたが最初に応募したのは、これではありません」と女は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="543">「応募したのは、あなたになる前の何かです。皆様そうです。空席に入り、役割を自分だと思い込み、やがて席を立つ」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="545">「じゃあ、俺は……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「採用された方です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「契約が終わったら、どうなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">「次の役割をご案内します」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="553">　赤い数字が進む。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="555">　２３：５８：４１</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「嫌だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「承知しました。辞退として処理いたします」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="561">　女は端末のキーを押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　新田は安堵しかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　だが女は続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">「ただし、役割を持たない方は、どなたからも認識されません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「待て」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「辞退を撤回なさいますか」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="573">　２３：５９：０２</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　新田は美緒の顔を思い浮かべた。</p>
+<p class="source-line role-narration gap-0" data-source-line="576">　息子が椎茸をよける指。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　眠る前に「おやすみ」と言う声。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　借り物の記憶でも、愛情まで偽物だとは思えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="580">　少なくとも、そう思いたかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「どうすれば残れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「欠員を埋めていただきます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「誰の」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　女は、受付の奥にある扉を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="589">　これまで気づかなかった扉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　曇りガラスに、黒い文字がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　　　　　　面　接　室</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「本日付で、面接官に欠員が出ております」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="597">「面接官になれば、家に帰れるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">「面接が終了すれば」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="601">「何人だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「一名です」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="605">　赤い数字は、２３：５９：４８。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　新田は扉を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　中には机が一つと、椅子が二脚あった。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="610">　片方の椅子に座ると、背後で鍵がかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　机の上に、一枚の履歴書が伏せてある。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　新田はそれをめくった。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　氏名欄は空白だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="617">　顔写真の場所には、鏡のような銀色の紙が貼られている。覗き込むと、新田の顔ではなく、暗い部屋で何かを読んでいる誰かの顔が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　男か女か、若いのか老いているのか、よく見えない。</p>
+<p class="source-line role-narration gap-0" data-source-line="620">　ただ、その人物の目が、文字を追ってゆっくり動いているのだけは分かった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="622">　机の端末が点灯した。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　新規応募者を確認しました。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　募集職種：この物語を最後まで読んだ人</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　主な業務：面接室の現任者と交代し、次の応募者を待つこと</p>
+<p class="source-line role-narration gap-0" data-source-line="628">　契約期間：次の採用が決定するまで</p>
+<p class="source-line role-narration gap-0" data-source-line="629">　報酬　　：元の生活への復帰</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　応募資格：結末を知りたい方</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="631">　欠員理由：現任者の帰宅希望</p>
+<p class="source-line role-narration gap-0" data-source-line="632">　募集人数：一名</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="634">　画面の下に、二つのボタンがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　採用する。</p>
+<p class="source-line role-narration gap-0" data-source-line="637">　不採用にする。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　新田は迷わず「採用する」を押した。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="641">　端末は短い電子音を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　選考中です。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　応募者が最後の一行を読み終えるまで、しばらくお待ちください。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　新田は銀色の紙を見つめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　そこに映った人物は、まだこちらを見ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　そして今、最後の一行を読み終えた。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

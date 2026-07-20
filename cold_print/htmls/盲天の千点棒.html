@@ -1,0 +1,1132 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="卒業を目前に、星陵学院が鉱業会社に山ごと奪われようとしていた。学校を守る条件は、麻雀の翻数に応じて相手を素手で攻撃できる危険な〈四家闘牌〉での勝利。代表に名乗り出た天文麻雀部の久世灯は、牌の音を聞き分ける耳と、失踪した兄に教わった三歩の護身術だけで地下競技場〈黒天井〉へ挑む。怪力の救助士、確率を読む雀士、正体不明の男。そして兄のノートに残された「十三枚目を揃えるな」という警告。黒い牌が描く星図の先で、卓上の勝負は世界の裏側へつながっていく。">
+<title>盲天の千点棒｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="盲天の千点棒" data-novel-id="盲天の千点棒" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>バトル・ホラー・ジュブナイル</p>
+  <p><strong>補助ジャンル：</strong>学園・頭脳戦</p>
+  <p><strong>CSVタグ：</strong>バトル、ホラー、ジュブナイル、学園、頭脳戦</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：671行／章：0／役割・強度タグ：800</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="盲天の千点棒 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『盲天の千点棒』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-0" data-source-line="2">――完全オリジナル読み切り小説――</p>
+<p class="source-line role-narration gap-2" data-source-line="5"><span class="term term-skill">【断章〇　星の裏】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="7">　星は光っているのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　夜という蓋に穿たれた穴から、向こう側の白さが漏れているのだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="10">　兄のノートは、その一文から始まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　次の頁には、十三種類の牌が描かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　一萬、九萬。一筒、九筒。一索、九索。東、南、西、北、白、發、中。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　その中央に、鉛筆を何度も突き立てた黒い点。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　最後の頁には、たった一行。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　――十三枚目を、揃えるな。</p>
+<p class="source-line role-narration gap-2" data-source-line="21"><span class="term term-skill">【断章一　屋上の配牌】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="23">　星陵学院の屋上には、もう星を見ない天文台があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　ドームの回転機構は錆び、望遠鏡の主鏡には薄く埃が積もっている。けれど放課後になると、丸卓を囲む牌の音だけは絶えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="27">「ロン。タンヤオ、赤一。二千点」</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　久世灯が牌を倒すと、向かいに座った七瀬ユイが机へ突っ伏した。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="31">「またそれ！　灯ってさ、宇宙とか運命とか語るくせに、和了りが安すぎない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「安くても和了りは和了りだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="35">「夢がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「夢は見るもの。点棒は取るもの」</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　灯は千点棒を二本、自分の箱へ移した。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　十八歳。星陵学院三年。天文麻雀部部長。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　身長は百五十八センチ。格闘技の大会歴なし。麻雀の全国大会歴もなし。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　ただし、牌を伏せたまま、その音を聞き分けることができた。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　萬子は低く、筒子は丸く、索子は細い。</p>
+<p class="source-line role-narration gap-0" data-source-line="47">　字牌には、それぞれ異なる風の音がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　もちろん本当に音が鳴っているわけではない。少なくとも、普通の牌なら。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　扉が開き、校長と、灰色のスーツを着た男が入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　男は机に黒い封筒を置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　封蝋には、拳と四枚の牌を組み合わせた紋章が押されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「企業代闘仲裁委員会からの召喚状です」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　ユイの顔から笑いが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　校長は、錆びたドームを見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「玄鉄鉱業が、この山ごと学院を買収する。地下の希少鉱床を採掘するためだ。理事会は売却を拒否したが、先方は旧契約の代闘条項を行使した」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="64">「まさか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="66">「四家闘牌です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="68">　勝てば、学校は残る。</p>
+<p class="source-line role-narration gap-0" data-source-line="69">　負ければ、卒業式を待たずに閉鎖される。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　校長は灯を見なかった。召喚状にも、彼女の名はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　学院側の代表には、卒業生のプロ雀士と総合格闘家を別々に立てる案が出ていた。だが四家闘牌では、牌を打つ者と拳を振るう者は同一でなければならない。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　灯は黒い封筒へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　触れる寸前、封筒の奥から笛の音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　一本ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="80">　何百本もの笛が、互いの調子を知らぬまま、暗い場所で吹かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　灯は手を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「この会場、どこですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　スーツの男が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「地下競技場<span class="term term-proper">《黒天井》</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　兄が三年前、姿を消した場所だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「私が出ます」</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　ユイが椅子を蹴って立った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="96">「待って。あれは麻雀大会じゃない。人が死ぬやつだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「知ってる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="100">「灯！」</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　灯は封筒を取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="103">　中で、見えない牌が十三枚、笑うように鳴った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="105">「だから行くんだよ。学校を取り返しに。それから――兄さんの負けを、確かめに」</p>
+<p class="source-line role-narration gap-2" data-source-line="108"><span class="term term-skill">【断章二　三秒の値段】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="110">　企業代闘仲裁法。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　巨大企業同士の紛争が、裁判だけでは終わらなくなった時代に作られた法律である。</p>
+<p class="source-line role-narration gap-0" data-source-line="113">　水源、採掘権、医薬特許、人工島、軌道エレベーターの使用枠。数千億円の権利を、選ばれた代闘士が奪い合う。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="115">　競技形式は契約書によって異なる。</p>
+<p class="source-line role-narration gap-0" data-source-line="116">　星陵学院の土地契約に記されていたのは、<span class="term term-proper">《四家闘牌》</span>だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　四人打ち半荘戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　和了った者には、翻数一つにつき三秒の<span class="term term-proper">《撃間》</span>が与えられる。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　ロンなら放銃者を。</p>
+<p class="source-line role-narration gap-0" data-source-line="122">　ツモなら任意の一人を。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　その時間だけ、素手で攻撃してよい。</p>
+<p class="source-line role-narration gap-0" data-source-line="125">　攻撃される側は、防御と回避のみ許される。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　意識を失えば失格。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　零点を割っても失格。</p>
+<p class="source-line role-narration gap-0" data-source-line="129">　最後まで立っていた者、または終局時に最も多く点を持つ者が、契約上の勝者となる。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　一翻、三秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="132">　満貫なら十二秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　役満なら三十九秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　三十九秒あれば、鍛えた人間は、鍛えていない人間を何度殺せるだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　灯は、その答えを考えないことにしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　兄の朔はよく言っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="141">「喧嘩で一番大事なのは、強い拳じゃない。終わる時刻を知っていることだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　朔は麻雀が弱かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="144">　その代わり、時間の使い方を知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　台所の狭い床で、灯に足運びを教えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="147">　一歩目で線を外れ、二歩目で相手の肩を見て、三歩目で出口へ向く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「倒そうとするな。三秒なら三秒、十二秒なら十二秒、生き残れ。鐘が鳴った瞬間、世界で一番強い奴だって殴れなくなる」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="151">　その兄は、<span class="term term-proper">《黒天井》</span>で鐘が鳴る前に消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　遺体は出なかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="154">　返されたのは、焦げた学生証と、十三枚の牌を描いたノートだけだった。</p>
+<p class="source-line role-narration gap-2" data-source-line="157"><span class="term term-skill">【断章三　黒天井】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="159">　競技場は、都心から地下二百四十メートルにあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　観客席は円形に積み上がり、中央に全自動卓と、直径十二メートルの闘技床が置かれている。天井は照明を吸うほど黒く、見上げても高さがわからない。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　入場時、ユイが防弾ガラス越しに拳を握った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="165">「無理だと思ったら、すぐ棄権して」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="167">「契約上、学校も一緒に棄権になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="169">「学校なんか建て直せる。灯は建て直せない」</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　灯は返事の代わりに、自分の胸を二度叩いた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="172">　兄と決めた合図だった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="174">　まだ立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　四方の扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　東家、玄鉄鉱業代表――大嶽玄道。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　二メートルを超える体が、入口を狭く見せた。鉱山事故の救助隊にいた男で、地下格闘では二十七戦無敗。拳は人間の頭より大きく、首には古い落盤事故の傷が走っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　南家、オラクル・レジャー代表――神代ミナセ。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　銀縁眼鏡の若い女だった。企業リーグ年間放銃率二・一パーセント。視線、呼吸、捨て牌の角度から相手の手牌を推定する<span class="term term-proper">《鏡面演算》</span>で知られている。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　西家、ノクス信託代表――薄羽ニル。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　年齢不詳。白いスーツ。痩せた指。</p>
+<p class="source-line role-narration gap-0" data-source-line="189">　入場曲も紹介映像もなく、気づけば席に座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　北家、星陵学院代表――久世灯。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　制服の上に薄い競技用ジャケットを着ただけの少女へ、観客席から失笑が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　大嶽が灯を見た。</p>
+<p class="source-line role-dialogue fx-beat tone-4 gap-1" data-source-line="197">「帰れ。ここは部活の卓じゃねえ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="199">「学校の卓も、点棒は同じです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「骨は違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「そこは気をつけます」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　ミナセが眼鏡を押し上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「あなたの牌譜は二百四十七局確認した。守備寄り。平均打点は低い。身体能力は一般女子高校生の範囲。合理的な勝率は〇・〇三パーセント未満」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「結構ありますね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「誤差よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　薄羽だけは、灯を見なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　彼は黒い天井へ耳を澄ませていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="217">「今夜は、よく鳴る」</p>
+<p class="source-line role-narration role-system role-clue gap-1" data-source-line="219">　審判が卓の起動鍵を回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　中央が開き、牌がせり上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　牌の背は黒かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="224">　樹脂ではない。微細な銀色の粒を含む、重い石。</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　灯の鼓膜の奥で、無数の笛が一斉に息を吸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　兄のノートと同じ音だった。</p>
+<p class="source-line role-narration gap-2" data-source-line="231"><span class="term term-skill">【断章四　東一局、六秒】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="233">　最初に仕掛けたのはミナセだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　六巡目、立直。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　捨て牌は整いすぎていた。迷いのない外切り。待ちは二択まで絞れる。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="238">　観客席の大型画面には、ミナセの和了率七十八パーセントと表示された。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　灯は手の中の四筒を撫でた。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　黒い牌は、一枚ごとに異なる音を含んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="243">　四筒の奥では、遠い潮が逆さに流れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　耳を澄ませば、山の次の牌も、その次の牌も聞こえそうだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　だが灯は聞かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　兄のノートには、もう一つ、何度も書き直された言葉がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　――向こうから聞かせてくる音を、情報だと思うな。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　灯は四筒を切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="253">　ミナセの眉が、髪一本分だけ動く。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　当たり牌ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　次巡、ミナセが六萬を捨てた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="259">「ロン」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　灯は手を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="263">「平和、ドラ一。二千点」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　場内が一瞬、静まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　年間放銃率二・一パーセントの女が、初見の高校生へ放銃した。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　撃間、六秒。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="269">　対象、神代ミナセ。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　椅子が床下へ沈み、卓の周囲が闘技床へ変わる。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="272">　赤い数字が頭上に灯った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="274">　6.00</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　ミナセは半身に構えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="277">　打撃を避けるより、急所を隠す構えだ。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="279">　5.21</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　灯は正面から踏み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　ミナセの視線が、灯の右肩、腰、前足を順に読む。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　予測に従い、左へ半歩ずれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　灯は殴らなかった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="288">　3.84</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　右手を引くふりをして、左手の指先でミナセの右前腕を打った。</p>
+<p class="source-line role-narration gap-0" data-source-line="291">　拳ではなく、尺骨神経の走る細い場所。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　ミナセの小指が跳ねた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="295">　2.90</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　灯はさらに一歩入り、同じ場所へ掌底を重ねた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="299">　1.41</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　三発目は打たず、距離を取った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="303">　0.00</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　鐘が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　ミナセは右手を握ろうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="308">　薬指と小指が、わずかに遅れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「骨を折るより、牌を一ミリ傾けるほうが安いので」</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　灯が席へ戻ると、大嶽が初めて笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「なるほど。喧嘩じゃなく、次局を殴ったか」</p>
+<p class="source-line role-narration gap-2" data-source-line="317"><span class="term term-skill">【断章五　東二局、十二秒】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="319">　大嶽玄道の麻雀は、巨体に似合わず静かだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　鳴かない。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　追わない。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="323">　危険牌を抱えたまま、山が自分の形になるまで待つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　十三巡目、ツモ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">「門前清自摸、三色同順、ドラ一。満貫」</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　撃間、十二秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　ツモ和了のため、対象は自由。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　大嶽は灯を指した。</p>
+<p class="source-line role-dialogue fx-beat tone-4 gap-1" data-source-line="334">「悪く思うな。仕事だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「こちらもです」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　椅子が沈む。</p>
+<p class="source-line role-narration role-system role-document fx-key role-motif gap-1" data-source-line="340">　12.00</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　大嶽が一歩踏み出しただけで、床が鳴った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="344">　10.92</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　右の直突き。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="348">　灯は兄に教わった一歩目で、拳の線を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="349">　風圧が頬を叩き、後ろの防護壁が低く震えた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="351">　9.63</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　大嶽は拳を戻さず、肘を横へ振った。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　灯は身を沈める。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　髪が数本、持っていかれた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="357">　8.10</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　前蹴り。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　避けきれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="362">　灯は両腕を重ね、正面ではなく斜めに受けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　衝撃が腕から肩へ、肩から肋骨へ抜けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="365">　体が二メートル滑る。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　肺から空気が消えた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="369">　6.44</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　大嶽が追う。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　灯は立てない。</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　床へ片手をつき、そのまま横へ転がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="375">　拳が、直前まで頭のあった場所を打つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　硬質床の表面が割れた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="379">　4.02</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　二歩目で肩を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="382">　兄の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　大嶽の左肩が落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　掴みだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　灯は自分から懐へ入り、伸びてきた腕の下をくぐった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="389">　2.17</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　三歩目で出口へ向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　だが出口はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="394">　あるのは卓だけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　灯は卓を背にして止まった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="398">　0.81</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　大嶽の拳が上がる。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="402">　0.00</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　鐘。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　拳は灯の額から一センチの場所で止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　大嶽の腕は、鋼鉄の柱のように微動だにしない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="410">「時間を見る目はある」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　灯は息を吸おうとして、脇腹に熱い痛みを覚えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「牌を見る目も、あります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「次は十二秒もいらん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「次は、あげません」</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　席へ戻るまで、灯は一度も脇腹を押さえなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="421">　防弾ガラスの向こうで、ユイが泣きそうな顔をしていたからだ。</p>
+<p class="source-line role-narration gap-2" data-source-line="424"><span class="term term-skill">【断章六　捨て牌で描く空】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="426">　東三局。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　薄羽ニルは、中張牌ばかりを捨て始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　二萬、五筒、六索、三萬。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　代わりに、么九牌と字牌を手の内へ残している。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="434">「国士狙い？」</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　ミナセが独り言のように言った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="438">　薄羽は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「国ではない。もっと大きなものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　黒い牌が打たれるたび、卓の下で低い音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　灯には、捨て牌の河が別の形に見え始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　四人の河を線で結ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　東西南北を角に置く。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　一と九を外周に並べる。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　それは麻雀の進行ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　星図だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　兄のノートに描かれた、名前のない星座。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　中央の黒い点だけが、まだ空いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　薄羽が白を切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　天井の闇が、一度だけ瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　誰も見上げなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="462">　灯以外は。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　そこに星はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　巨大な何かの瞼が、閉じたまま動いたように見えた。</p>
+<p class="source-line role-narration gap-2" data-source-line="469"><span class="term term-skill">【断章七　十八秒の指】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="471">　東四局。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　薄羽がミナセから和了った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「立直、一発、混一色、發、ドラ一。跳満」</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　撃間、十八秒。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="478">　対象、神代ミナセ。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　ミナセは右腕の痺れを隠し、両足を広げた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="482">「あなたの挙動データは存在しない。けれど人体の可動域には限界がある」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="484">「人体ならね」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="486">　数字が減り始めた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="488">　17.52</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　薄羽は歩かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　立っていた場所から、体だけが前へ滑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="493">　踵が床を離れず、膝も動いていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　ミナセの演算が止まる。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="497">　15.90</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　白い指が、彼女の額へ触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　打撃には見えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　だがミナセの頭が後方へ跳ね、眼鏡が宙を舞った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="505">　14.71</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　二本目の指が鎖骨の下へ沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　ミナセの右腕が垂れた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="511">　13.88</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　三本目が喉へ向かう。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　ミナセは床を蹴って後退した。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　それでも指先が皮膚をなぞる。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　声の代わりに、細い空気が漏れた。</p>
+<p class="source-line role-narration role-system role-document fx-key role-motif gap-1" data-source-line="520">　12.00</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　薄羽は追わなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="524">　残り十二秒を捨て、席へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　ミナセは膝をつき、左手で喉を押さえた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="528">「なぜ……止めたの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="530">「壊す必要がないからだ。あなたはもう、正しい確率を見られない」</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　ミナセの右目の瞳孔が、開いたまま戻らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　審判医が続行可能の旗を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　灯は薄羽の指を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　関節の数が、一本だけ多かった。</p>
+<p class="source-line role-narration gap-2" data-source-line="541"><span class="term term-skill">【断章八　中心にいるもの】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="543">　宇宙の中心には、王はいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　王という形をした空席があり、その空席が夢を見ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　夢の中では、星が生まれ、冷え、砕ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　文明が言葉を作り、神を作り、神を殺す。</p>
+<p class="source-line role-narration gap-0" data-source-line="549">　すべては、眠るものの寝返りにすぎない。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　眠るものには目がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="552">　耳もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="553">　心もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　だから、こちらを見る必要がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　人間のほうが、勝手に見られたと思うのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　黒い牌は、その夢からこぼれた歯だった。</p>
+<p class="source-line role-narration gap-2" data-source-line="562"><span class="term term-skill">【断章九　殴れない相手】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="564">　南一局。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　大嶽が薄羽から満貫を直撃した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="568">「タンヤオ、対々和、ドラ一」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　撃間、十二秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="571">　対象、薄羽ニル。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　大嶽は立ち上がる前に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="575">「お前、何者だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="577">「席だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="579">「何の」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「まだ座っていないものの」</p>
+<p class="source-line role-narration role-system role-document fx-key role-motif gap-1" data-source-line="583">　12.00</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　大嶽の右拳が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　薄羽の頭が、首から消えたように沈む。</p>
+<p class="source-line role-narration gap-0" data-source-line="588">　拳は空を切った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="590">　10.36</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　左の鉤突き。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　薄羽の胴が、紙を折るように背後へ曲がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="595">　踵も肩も床につかない。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="597">　8.72</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　大嶽は間合いを潰し、両腕で捕まえにいった。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　薄羽の胸郭が細く潰れ、腕の隙間を抜けた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="603">　観客席から悲鳴が上がった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="605">　6.01</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　大嶽は攻撃を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　残り時間を見ているのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="610">　薄羽の足元を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　白い靴の下に、影がない。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="614">　3.44</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="616">「久世！」</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　大嶽が突然叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="620">「こいつの河を見ろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　灯はすでに見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　薄羽の捨て牌。</p>
+<p class="source-line role-narration gap-0" data-source-line="625">　ミナセの捨て牌。</p>
+<p class="source-line role-narration gap-0" data-source-line="626">　大嶽の捨て牌。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　自分の捨て牌。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　四本の河が、十三の門を描いている。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="631">　0.00</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　その余韻に重なって、天井から笛が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　今度は、観客にも聞こえた。</p>
+<p class="source-line role-narration tone-3 gap-2" data-source-line="640"><span class="term term-skill">【断章十　兄の最後の局】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="642">　照明が一度、落ちた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="644">　暗闇の中で、灯は兄の声を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　――灯。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　振り返りそうになる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="650">　だが兄は、彼女を名前で呼ぶ時、いつも「あかり」と平仮名のように柔らかく発音した。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　今の声は、正確すぎた。</p>
+<p class="source-line role-narration gap-0" data-source-line="653">　人間の記憶を読んで、同じ音を再生しただけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　――次の牌がわかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　声は甘く言った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="659">　――全部わかる。誰が切るか。誰が殴るか。どこへ避ければいいか。学校も救える。朔も返せる。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　灯の目の前に、あり得ない光景が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　卒業式。</p>
+<p class="source-line role-narration gap-0" data-source-line="664">　満開の桜。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　屋上の天文台。</p>
+<p class="source-line role-narration gap-0" data-source-line="666">　錆びの取れたドームを、兄が笑いながら回している。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　灯は目を閉じた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="670">「兄さんは、麻雀が弱かった」</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　声が止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="674">「そんなに先の牌が見えるなら、兄さんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　照明が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　卓の向こうで、薄羽が初めて灯を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　その両目は閉じていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="681">　まぶたの下に、眼球の膨らみがなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「一度、ここへ来た男も同じことを言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　灯の指が止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="687">「久世朔は、最後まで安い手を作っていた。意味のない千点を何度も和了り、門を閉じた。実に不愉快だったよ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="689">「兄さんをどうした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="691">「席を温めてもらった」</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　薄羽の喉の奥で、笛が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　灯は立ち上がりかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　大嶽の声が飛ぶ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="699">「座れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　灯の膝が止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「撃間じゃねえ。今殴れば、お前の負けだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　薄羽は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　灯は座り直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　怒りで牌を切れば、相手の手になる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="711">　兄が最後に残したのは、復讐の方法ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="712">　和了らせない方法だ。</p>
+<p class="source-line role-narration gap-2" data-source-line="715"><span class="term term-skill">【断章十一　十三面】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="717">　南二局、十一巡目。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　灯の耳には、薄羽の手牌の奥で十二種類の么九牌が鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　一萬、九萬。</p>
+<p class="source-line role-narration gap-0" data-source-line="722">　一筒、九筒。</p>
+<p class="source-line role-narration gap-0" data-source-line="723">　一索。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　東、南、西、北、白、發、中。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　欠けているのは、九索。</p>
+<p class="source-line role-narration gap-0" data-source-line="727">　そこに、捨てるためだけの七萬が一枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　国士無双、十三面待ちへの一向聴。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　九索を引けば十三種類が揃い、七萬を捨てた瞬間、么九牌と字牌のどれでも和了れる形になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　灯には牌山の音が聞こえていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　残り山の中で、一萬が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="736">　九萬が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="737">　東が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="738">　白が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　十三種類すべてが、薄羽の次の巡目から順番を待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　偶然ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="743">　牌山そのものが、彼へ和了らせようとしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　役満、三十九秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　だが問題は殴打時間ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　十三面待ちの完成と同時に、四本の捨て牌の河が閉じる。</p>
+<p class="source-line role-narration gap-0" data-source-line="750">　卓の中央が、星図の中心になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　兄のノートに鉛筆で穿たれた、あの黒い点。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　灯の手は、すでに二度鳴いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　三四五筒を鳴き、六七八索を鳴いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="757">　手の内には二萬が三枚、五索の対子、五萬六萬。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　残る形は、四萬と七萬の両面待ち。</p>
+<p class="source-line role-narration gap-0" data-source-line="760">　タンヤオのみ。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　千点。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　薄羽が牌を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　九索。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　十三種類目。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　彼の手が完成する。</p>
+<p class="source-line role-narration gap-0" data-source-line="771">　まだ和了りではない。対子がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　薄羽は不要になった中張牌へ指をかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　七萬。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　灯の当たり牌。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　その瞬間、世界が二つに割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　一つの世界で、灯は黙っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　薄羽の次のツモは東。</p>
+<p class="source-line role-narration gap-0" data-source-line="784">　国士無双十三面。</p>
+<p class="source-line role-narration gap-0" data-source-line="785">　三十九秒の撃間。</p>
+<p class="source-line role-narration gap-0" data-source-line="786">　天井が開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="787">　星ではない白いものが、空の裏から降りる。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　もう一つの世界で、灯は声を出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　たった千点。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="792">　学校を守るには小さすぎる。</p>
+<p class="source-line role-narration gap-0" data-source-line="793">　兄を取り戻すには軽すぎる。</p>
+<p class="source-line role-narration gap-0" data-source-line="794">　宇宙を相手にするには、冗談のような点数。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　だから灯は、そちらを選んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="798">「ロン」</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　薄羽の指が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　灯は牌を倒す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="804">「タンヤオのみ。千点です」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="806">　巨大画面に、1000の数字が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　観客席の誰かが、場違いな笑いを漏らした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="810">　薄羽は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="812">「千点で、何を止めるつもりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　灯は立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="816">「あなたの次の一手」</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　撃間、三秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="819">　対象、薄羽ニル。</p>
+<p class="source-line role-narration gap-2" data-source-line="822"><span class="term term-skill">【断章十二　千点の拳】</span></p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="824">　3.00</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　灯は、薄羽の顔を狙わなかった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="828">　2.61</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　一歩で懐へ入る。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　薄羽の体が、また紙のように折れようとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　灯は追わない。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　鳩尾へ、拳一つ分だけ沈む短い掌底を打った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="837">　2.08</p>
+<p class="source-line role-narration gap-1" data-source-line="839">　薄羽の肺から空気が押し出される。</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　喉の奥で、笛が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　灯はその音を待っていた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="845">　1.54</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　薄羽の口から、黒く濡れた細いものが覗く。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　舌ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="850">　骨でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　何かの気管を削って作った、一本の笛だった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="854">　1.03</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　灯は左手で薄羽の顎を押し上げ、右の手刀を喉の脇へ落とした。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="858">　0.47</p>
+<p class="source-line role-narration gap-1" data-source-line="860">　笛が折れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　音が、裏返った。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="864">　0.00</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　鐘。</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　薄羽の体が床へ崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　同時に、全自動卓の中央が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　牌を吸い込む穴ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　円形の闇。</p>
+<p class="source-line role-narration gap-0" data-source-line="875">　底のない瞳孔。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　黒い天井が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　頭上には、星のない白い空があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="880">　白さの中で、都市より大きな何かが眠っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　形は見えない。</p>
+<p class="source-line role-narration gap-0" data-source-line="883">　見えないことだけが、輪郭になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　観客席の人々が一斉に立ち上がり、そして一斉に座った。</p>
+<p class="source-line role-narration gap-0" data-source-line="886">　誰も命じていないのに、全員が同じ角度で首を傾けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　薄羽の折れた笛が、床で鳴り続ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　大嶽が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　撃間は終わっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="893">　彼は卓へ飛びつき、開いた中央蓋を両腕で押さえた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="895">「久世！　何か噛ませろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　灯は点箱を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="899">　白い千点棒が一本、震えている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="901">　手に取ると、兄の体温がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="903">　錯覚だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="904">　そう決めて、灯は卓の隙間へ千点棒を差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　歯車が噛む。</p>
+<p class="source-line role-narration gap-0" data-source-line="907">　細い棒が折れそうにしなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="909">　ミナセが左手だけで非常停止盤を開いた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="911">「主電源を落とす！　三、二、一！」</p>
+<p class="source-line role-narration gap-1" data-source-line="913">　暗転。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　大嶽が吠える。</p>
+<p class="source-line role-narration gap-0" data-source-line="916">　灯は千点棒を押し込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="917">　ミナセがレバーを引く。</p>
+<p class="source-line role-narration gap-1" data-source-line="919">　最後に聞こえたのは、宇宙の声ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="921">　聞き慣れた、兄の舌打ちだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　――安すぎる手だな。</p>
+<p class="source-line role-narration gap-1" data-source-line="925">　灯は歯を食いしばった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="927">「和了れないより、ましでしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　卓の蓋が閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="931">　白い空が細い線になり、消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="933">　黒天井へ照明が戻る。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="935">　そこには最初から何もなかったように、平らな闇だけがあった。</p>
+<p class="source-line role-narration gap-2" data-source-line="938"><span class="term term-skill">【断章十三　契約に終末条項なし】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="940">　薄羽ニルは、担架の上で空の白い服だけになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="942">　正確には、誰も彼の体が消える瞬間を見ていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="943">　審判医が脈を確認しようと布をめくると、中には折れた黒い笛と、十三枚の么九牌しか残っていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　運営は試合を中止しようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　玄鉄鉱業の法務担当が拒否した。</p>
+<p class="source-line role-narration gap-0" data-source-line="948">　星陵学院の校長も拒否した。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="950">　契約書には、停電、地震、火災、テロ行為についての中断条項があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="951">　宇宙の裏側が開いた場合については、何も書かれていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　薄羽は資格詐称により失格。</p>
+<p class="source-line role-narration gap-0" data-source-line="954">　ノクス信託の権利請求も失効。</p>
+<p class="source-line role-narration gap-1" data-source-line="956">　ミナセは右半身の感覚障害により攻撃不能となったが、左手での競技続行を選んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="958">「ここまで来て観測をやめるほうが、非合理的よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="960">　大嶽は両手の皮が裂けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="961">　灯は肋骨を二本痛め、左足首が腫れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="963">　得点は、大嶽三万二千点。</p>
+<p class="source-line role-narration gap-0" data-source-line="964">　灯三万百点。</p>
+<p class="source-line role-narration gap-0" data-source-line="965">　ミナセ一万七千九百点。</p>
+<p class="source-line role-narration gap-1" data-source-line="967">　差は千九百。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="969">　残り一局。</p>
+<p class="source-line role-narration gap-1" data-source-line="971">　灯が大嶽から千点を直撃すれば、得点差は二千縮まり、百点上回る。</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　大嶽は席へ戻る前に、灯へ言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="975">「玄鉄が欲しがってたのは鉱石じゃねえ。あの卓の下にある何かだ。俺も今知った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="977">「それでも打つんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="979">「こっちには閉山予定の鉱区が六つある。六百人の仕事が、この土地の契約金にぶら下がってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="981">「こっちには生徒が百二十人います」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="983">「なら、譲れねえな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="985">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="987">　大嶽は血のついた拳を卓へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="989">「今度こそ、麻雀をしよう」</p>
+<p class="source-line role-narration gap-2" data-source-line="992"><span class="term term-skill">【断章十四　最終局】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="994">　配牌は悪かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="996">　役牌なし。</p>
+<p class="source-line role-narration gap-0" data-source-line="997">　対子なし。</p>
+<p class="source-line role-narration gap-0" data-source-line="998">　端牌が浮き、形も遠い。</p>
+<p class="source-line role-narration gap-1" data-source-line="1000">　灯は少し安心した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　完璧な配牌は、あの白い空を思い出させる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1003">　悪い配牌は人間のものだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1005">　大嶽は八巡目に立直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1007">　宣言牌は三筒。</p>
+<p class="source-line role-narration gap-0" data-source-line="1008">　迷いなし。</p>
+<p class="source-line role-narration gap-1" data-source-line="1010">　灯の手は、二度の鳴きでようやくタンヤオの形になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1012">　二三四萬を鳴き、四五六筒を鳴いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1013">　手の内には七索が三枚、五筒の対子、五萬六萬。</p>
+<p class="source-line role-narration gap-1" data-source-line="1015">　最後の形は、五萬六萬。</p>
+<p class="source-line role-narration gap-0" data-source-line="1016">　四萬と七萬の両面待ち。</p>
+<p class="source-line role-narration gap-1" data-source-line="1018">　また、千点。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1020">　大嶽の立直に対し、四萬も七萬も危険だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1021">　ミナセは完全に降りている。</p>
+<p class="source-line role-narration gap-0" data-source-line="1022">　自動代行となった西家は、機械的に現物を切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1024">　灯のツモ番。</p>
+<p class="source-line role-narration gap-1" data-source-line="1026">　引いたのは一索。</p>
+<p class="source-line role-narration gap-1" data-source-line="1028">　不要牌。</p>
+<p class="source-line role-narration gap-1" data-source-line="1030">　牌山の奥から、声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1032">　――次は七萬。</p>
+<p class="source-line role-narration gap-1" data-source-line="1034">　灯は聞かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1036">　一索を切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1038">　大嶽のツモ番。</p>
+<p class="source-line role-narration gap-1" data-source-line="1040">　彼の右肩が、わずかに下がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1042">　灯は牌を見ない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1043">　肩を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1045">　重い牌を引いた時、大嶽は右肩を下げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1046">　黒石牌の重さではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1047">　切るか抱えるか、一瞬迷った時の癖だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1049">　大嶽の河には五萬がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="1050">　四萬は筋に見える。</p>
+<p class="source-line role-narration gap-0" data-source-line="1051">　だが灯の待ちは四萬と七萬。</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　大嶽は牌を指で押し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1055">　四萬。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1057">「ロン」</p>
+<p class="source-line role-narration gap-1" data-source-line="1059">　灯は静かに手を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1061">「タンヤオのみ。千点」</p>
+<p class="source-line role-narration gap-1" data-source-line="1063">　三万一千百点。</p>
+<p class="source-line role-narration gap-0" data-source-line="1064">　大嶽、三万一千点。</p>
+<p class="source-line role-narration gap-1" data-source-line="1066">　百点差。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="1068">　場内の巨大画面が、何度も計算をやり直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1070">　100</p>
+<p class="source-line role-narration gap-1" data-source-line="1072">　星陵学院、暫定首位。</p>
+<p class="source-line role-narration gap-1" data-source-line="1074">　だが、まだ撃間が残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1076">　三秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="1078">　大嶽は闘技床の中央に立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1080">「来い。最後までが契約だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1082">　灯も立つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1084">　肋骨が痛む。</p>
+<p class="source-line role-narration gap-0" data-source-line="1085">　左足首は、踏み込むだけで熱を持つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1087">　正面から殴っても、大嶽は倒れない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1088">　急所へ届く前に、三秒が終わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1090">　だから灯は、倒そうとしなかった。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="1092">　3.00</p>
+<p class="source-line role-narration gap-1" data-source-line="1094">　大嶽が両腕を上げる。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="1096">　2.42</p>
+<p class="source-line role-narration gap-1" data-source-line="1098">　灯は右へ踏み込むふりをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1100">　大嶽の重心が、傷んだ左脚から右へ移る。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="1102">　1.83</p>
+<p class="source-line role-narration gap-1" data-source-line="1104">　灯は方向を変え、彼の左足の外へ自分の踵を置いた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="1106">　1.16</p>
+<p class="source-line role-narration gap-1" data-source-line="1108">　左手で大嶽の肘を引き、右肩を胸へ当てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1110">　力ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1111">　彼が自分で移した重心を、そのまま半歩先へ送る。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="1113">　0.51</p>
+<p class="source-line role-narration gap-1" data-source-line="1115">　大嶽の巨体が傾く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1117">　片膝が床についた。</p>
+<p class="source-line role-narration role-system role-document gap-1" data-source-line="1119">　0.00</p>
+<p class="source-line role-narration gap-1" data-source-line="1121">　鐘。</p>
+<p class="source-line role-narration gap-1" data-source-line="1123">　灯はすぐに手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1125">　大嶽は膝をついたまま、しばらく動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1127">　やがて、大きな声で笑った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="1129">「千点で空を閉じて、百点で会社を倒したか」</p>
+<p class="source-line role-narration gap-1" data-source-line="1131">　審判が旗を上げる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="1133">「終局！　勝者、星陵学院代表、久世灯！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1135">　観客の歓声は、遠い波のようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1137">　灯は防弾ガラスの向こうを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1139">　ユイが泣きながら、胸を二度叩いている。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="1141">　まだ立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1143">　灯も二度、胸を叩いた。</p>
+<p class="source-line role-narration gap-2" data-source-line="1146"><span class="term term-skill">【断章十五　星のある夜】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1148">　星陵学院の売却契約は無効となった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1150">　玄鉄鉱業とノクス信託に対する調査が始まったが、<span class="term term-proper">《黒天井》</span>で起きたことは、公式には変電設備の爆発と集団性失神で処理された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1152">　大嶽玄道は玄鉄鉱業を辞め、閉山地域の救助会社を立ち上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1153">　神代ミナセは右手のリハビリをしながら、確率モデルから「天井が消える場合」を除外しない新しい論文を書いた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1155">　薄羽ニルという人物は、出生記録にも企業登録にも存在しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1157">　黒い牌はすべて押収された。</p>
+<p class="source-line role-narration gap-0" data-source-line="1158">　ただし、卓の歯車に挟まっていた千点棒だけは見つからなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1160">　卒業式の前夜、灯とユイは屋上の天文台へ上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1162">　ドームの錆はそのまま。</p>
+<p class="source-line role-narration gap-0" data-source-line="1163">　望遠鏡も古いまま。</p>
+<p class="source-line role-narration gap-1" data-source-line="1165">　けれど空には星があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1167">「ねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1169">　ユイが望遠鏡を覗きながら言った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="1171">「あの時、何を見たの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1173">「星の裏側」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="1175">「何がいた？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1177">　灯は少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1179">「何も」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1181">「嘘」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1183">「うん。嘘」</p>
+<p class="source-line role-narration gap-1" data-source-line="1185">　二人は丸卓を出し、いつもの白い牌を混ぜた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1187">　ユイが山を積みながら、灯へ一本の千点棒を投げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1189">「貸し。黒天井でなくしたんでしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1191">「返せないかも」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1193">「千点くらいいいよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1195">「千点を笑うと、痛い目見るよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1197">　配牌を取る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1199">　灯の手はひどかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1200">　么九牌が散らばり、対子もなく、役の種もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1202">　十三枚目を取る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1204">　白。</p>
+<p class="source-line role-narration gap-1" data-source-line="1206">　普通の白い牌。</p>
+<p class="source-line role-narration gap-0" data-source-line="1207">　何の音もしない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1209">　灯は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1211">　悪い配牌だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1212">　誰かに用意された完璧な未来ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1214">　自分で切り、自分で拾い、自分で間違えられる手だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1216">　窓の外で、星が一つ瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1218">　灯は千点棒を卓の中央へ置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1220">　今夜、宇宙はそれ以上を要求しなかった。</p>
+<p class="source-line end-mark gap-2" data-source-line="1223"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

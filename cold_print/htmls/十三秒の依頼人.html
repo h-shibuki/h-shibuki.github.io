@@ -1,0 +1,786 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="未来を予告する装置〈十三窓〉の公開前夜。狙撃手・真壁景は、開発者を午前零時に殺せという依頼を受け、嵐で孤立した観測所へ潜入する。モニターには十三秒後、標的が撃たれて倒れる姿。だが真壁が引き金を引かなくても、密室の男は予告どおり絶命した。射線と逆の傷、一本消えた金属ピン、予告のたび不自然な挙動を見せる照明と扉。記者・榊野由良と真相を追う間にも、画面は次の死を映し、真壁へ新たな依頼を送る。未来を当てる装置に、人間の選択は覆せるのか。十三秒刻みの密室サスペンス。">
+<title>十三秒の依頼人｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="十三秒の依頼人" data-novel-id="十三秒の依頼人" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ミステリ・サスペンス</p>
+  <p><strong>補助ジャンル：</strong>SF</p>
+  <p><strong>CSVタグ：</strong>アクション、ミステリ、サスペンス、SF</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：325行／章：0／役割・強度タグ：378</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="十三秒の依頼人 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">十三秒の依頼人</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　真壁景は、撃つと決めるまで引き金に指を入れない。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　人差し指はいつも、用心深い旅人のように、鋼の輪の外側に沿わせておく。狙撃手にとって迷いは致命傷だが、迷わないことと、考えないことは同じではない。それが彼の、信仰と呼べる唯一のものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　十二月最後の夜、真壁は月待岬観測所の保守用キャットウォークに伏せていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　海から吹き上げる風は秒速十一・四メートル。気温は三度。雨粒は細く、ドームの外板を無数の爪で掻いていた。沖合の低気圧により連絡船は欠航し、半島の突端に立つ観測所は、午前六時まで陸から切り離されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　八十四メートル先、中央実験室の透明な壁の向こうに、標的が座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　蜂須賀惣一。量子予測企業ネクサ・クロノスの創業者。五十八歳。白髪を後ろへ撫でつけ、舞台俳優のような笑い方をする男だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　依頼は三十時間前、三つの匿名回線を経て届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　時刻、午前零時ちょうど。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　射点、月待岬観測所・西側キャットウォーク。</p>
+<p class="source-line role-narration gap-0" data-source-line="17">　弾種、指定なし。</p>
+<p class="source-line role-narration gap-0" data-source-line="18">　条件、標的の心拍停止を確認すること。</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　報酬は半額が前払いされていた。十三の口座から、十三秒おきに同額ずつ。依頼人の署名欄には、ただ<span class="term term-world">〈WINDOW〉</span>とだけあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　真壁は、奇抜な依頼人を信用しない。</p>
+<p class="source-line role-narration gap-0" data-source-line="23">　だが金額は正確で、観測所の設計図も正確だった。西側の光学調整孔は、ドームが南中位置へ回転する午前零時の二秒間だけ、実験室の内側へ一直線につながる。外から見れば、直径十二ミリの暗い星にすぎない。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　真壁は照準器の倍率を落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　標的の手元には、銀色の小球が一つ置かれている。実験用の基準球だと、夕食の席で説明されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　その夕食で、蜂須賀は世界を変えると宣言した。</p>
+<div class="source-line scene-break gap-1" data-source-line="30" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="32">「十三秒です」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　蜂須賀はワイングラスを掲げ、客たちを順に見回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「十三窓は、現在より十三秒先の映像を表示します。占いでも、統計的な予報でもない。これから起きることを、これから起きるままに見る装置です」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　月待岬観測所は、もとは電波望遠鏡の試験施設だった。中央ドームを取り囲むように、食堂、制御室、宿泊棟が円形につながっている。今夜ここに招かれたのは、蜂須賀を含めて七人だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　十三窓の主任技術者、名瀬志帆。</p>
+<p class="source-line role-narration gap-0" data-source-line="41">　財務責任者、磯部一道。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　警備主任の古賀。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　医療担当の御船医師。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　科学雑誌の記者、榊野由良。</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　そして、通信設備の外部監査員を名乗る真壁。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　榊野由良は二十七歳だった。短く切った髪と、相手の言葉を一度分解してから聞き直す癖を持っていた。科学記事のかたわら、雑誌の最終ページで「不可能事件を科学でほどく」という連載を持っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="49">「未来を見た人が行動を変えたら、映像は外れませんか」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　由良が尋ねた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="53">　蜂須賀は待っていた質問だと言わんばかりに、白い歯を見せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「未来を見て行動を変えることも、未来の一部です」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="57">「では、映像を見たあとで、映像と反対のことをすると決めたら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「その決心も含めて表示される」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「便利ですね。反証できない」</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　磯部が苦笑した。蜂須賀は気に留めなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="65">「見れば納得します」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="67">　食堂の壁面モニターが点灯した。画面には、今の食卓が映っている。右上に<span class="term term-world">〈＋13.000 SEC〉</span>と表示されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　画面の中で、磯部の肘がワイングラスに触れた。グラスは倒れ、赤い液体が白いテーブルクロスへ広がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="71">「ほう」</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　磯部は自分の肘を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　十二秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="76">　十一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　誰も動かなかった。磯部は両手を膝へ置き、勝ち誇ったように蜂須賀を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　三秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="81">　二秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="82">　一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　食堂の床下で、低い唸りがした。</p>
+<p class="source-line role-narration gap-0" data-source-line="85">　テーブルがほんのわずかに傾いた。グラスは静かに滑り、磯部の袖口へ触れて倒れた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="87">　赤い染みが、画面と同じ形に広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　名瀬だけが笑わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="90">　由良は床を見ていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="92">「姿勢制御装置ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「旧施設の免震機構が動いただけでしょう」蜂須賀は言った。「偶然は、未来の別名です」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　真壁はその瞬間、蜂須賀ではなく、天井隅の監視カメラを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="97">　黒いレンズが、ゆっくりと彼の方へ向いた。</p>
+<div class="source-line scene-break gap-1" data-source-line="99" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="101">　午前零時まで、あと二十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　中央実験室は<span class="term term-world">〈無響室〉</span>と呼ばれていた。透明な多層樹脂の立方体で、外部からの電磁波と音を遮断する。蜂須賀は一人でその中央に座り、胸元のマイクを整えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　制御室では、由良たちが巨大スクリーンを見ている。</p>
+<p class="source-line role-narration gap-0" data-source-line="106">　スクリーン左半分が現在の蜂須賀。右半分が、十三秒先の蜂須賀だった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="108">　真壁はキャットウォークから右半分の画面も視界に入れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　午前零時まで、十五秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　未来側の蜂須賀が、銀色の小球を指で弾いた。球は机の端へ転がり、床へ落ちた。蜂須賀は身を乗り出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　その直後、左の首筋に赤い花が咲いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="115">　蜂須賀は驚いたように目を見開き、椅子から崩れ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　制御室で誰かが息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　真壁は照準を標的の頸部へ合わせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　だが、引き金には触れなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="122">　画面の傷は左側にあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="123">　西側キャットウォークから撃てば、弾は右頸部から入る。骨格と椅子の角度を考えても、逆にはならない。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　午前零時まで、十三秒。</p>
+<p class="source-line role-narration role-system tone-5 gap-1" data-source-line="127">　現在の蜂須賀が、画面の自分の死を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　笑みが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　銀の球が転がり始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　蜂須賀は画面と反対の動きをした。身を乗り出さず、手のひらで球を受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　未来は外れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　真壁の照準の中で、蜂須賀が安堵したように息を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　そのとき、無響室の壁の内側で、硬質な音が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　銃声ではない。水晶の縁を針で叩いたような、短く澄んだ音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　蜂須賀の椅子が、数センチ左へ滑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　首筋に赤い花が咲いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="145">　画面と同じ場所だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　蜂須賀は立ち上がろうとし、机へ手を伸ばした。銀の球がその指から落ち、床を転がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　午前零時。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　標的の心拍表示が直線になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　真壁は撃たなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="154">　それでも依頼は完了した。</p>
+<div class="source-line scene-break gap-1" data-source-line="156" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="158">　無響室の扉は、蜂須賀の心拍停止を検知したあとも開かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「制御権限が拒否されています」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="162">　名瀬が端末を叩いた。警告音が繰り返し鳴る。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="164">　古賀は非常用の機械鍵を差し込んだ。回らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「内圧ロックだ。誰かが隔離モードにした」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　御船医師が透明壁越しに蜂須賀を見下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「頸動脈の損傷に見える。早く開けろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　七分後、古賀が工具でヒンジを切断した。</p>
+<p class="source-line role-narration gap-0" data-source-line="173">　蜂須賀はすでに死んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　傷は左頸部に一つ。直径は五ミリほど。出口はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="176">　透明壁にも天井にも、弾痕はなかった。床の排気孔には内側から細かなフィルターが張られ、直径一ミリを超える異物は通れない。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　御船が携帯型スキャナを傷へ当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「金属反応がある。頸椎の手前だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「弾丸か」古賀が言った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="184">「形が妙だ。細長い。十四ミリ……針、いや、杭に近い」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　磯部の顔から血の気が引いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="188">「ここは密室だった。全員、制御室にいた。外は嵐だぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　由良が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「外にも一人いました」</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　全員が彼女を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　由良の視線は、真壁の靴に落ちていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「監査員さん。靴底に灰色の潤滑剤がついています。食堂にも宿泊棟にもない種類です。さっき西側通路で、同じ色の油を見ました」</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　古賀が腰の拳銃へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　その前に、照明が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　非常灯が赤く点灯する。</p>
+<p class="source-line role-narration gap-0" data-source-line="204">　真壁は最短距離で制御室の外へ出た。追う足音は一つだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　資料庫へ入ったところで、彼は振り返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="207">　由良が戸口に立っていた。武器は持っていない。手には小さな懐中電灯と、濡れた紙ナプキンがあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「撃つつもりでしたね」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="211">　真壁は答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「でも撃っていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　由良は濡れたナプキンを棚に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「あなたの銃身を見ました。キャットウォークは冷え切っていて、金属には露がつく。発砲していれば、熱で乾いた帯が残るはずです。あなたが銃をしまう前、全体が均一に濡れていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「警察にそう言え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「警察は朝まで来ません。古賀さんはあなたを犯人にしたがっています。依頼を受けたことまで話せば、無実とは言えないでしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「無実を主張する気はない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「では、殺していないという事実だけ貸してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　真壁は由良を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="228">　恐怖で呼吸は浅い。それでも目は逸らしていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「何を知りたい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="232">「十三秒先を表示する装置が、なぜ未来を外したのに、結果だけを当てたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="234">「装置が殺した」</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　真壁が言うと、由良は一度だけ瞬いた。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="238">「根拠は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「傷の向きが、私の射線と逆だ。死ぬ直前、椅子が左へ動いた。室内に、飛翔体を発射する機構がある」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="242">「なぜ、そんな機構が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「それを作った人間に聞く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「人間とは限りませんね」</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　由良は、赤い非常灯の下で初めて笑った。</p>
+<div class="source-line scene-break gap-1" data-source-line="250" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="252">　名瀬志帆は、中央ドームの保守区画で二人を待っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="253">　正確には、逃げ込んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">「古賀には話さないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　彼女は油に汚れた両手を握りしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="259">「警備系統が私の権限を外した。十三窓が施設を握ってる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="261">「十三窓に、飛翔体を発射する装置は？」由良が尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="263">「ない。そんなものは設計していない」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　真壁は壁際の円筒を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="267">「これは」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="269">「光学架台の姿勢制御コイル。旧望遠鏡の焦点を合わせるためのリニアモーターです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="271">「校正は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「基準ピンを低速で通して、磁場の中心を測る」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　名瀬の声が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　三人は円筒の脇にある保管箱を開けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　十四ミリのタングステン製基準ピンが、十二本並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="279">　受け穴は十三あった。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　一つ、足りない。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　真壁は円筒の点検蓋を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　内部に黒い筋が走っている。焼けた樹脂の匂い。出口側の縁には、半月形の新しい傷があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">「電流制限を外せば」真壁が言った。「弾になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　名瀬は首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">「理論上は。でも制御コイルは直線じゃない。無響室までに二回曲がる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">「順番に磁場を立てれば、曲がる。速度が十分なら、最後の案内管を抜けて室内へ出る」</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　由良は壁の設計図を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「出口は、どこですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　名瀬が図面上の一点を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="299">　無響室の左壁。蜂須賀の首と同じ高さだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「十三窓は、リニアモーターを制御できますか」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="303">「施設の振動を予測へ組み込むために、読み取り権限はある。でも書き込みは……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「食堂のテーブルを傾けました」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　由良の言葉に、名瀬は目を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「蜂須賀さんが権限を拡張した。公開デモで誤差を出すな、と」</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="311">「どこまで？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「空調、照明、音響、扉、椅子、搬送レール。観測所のほぼ全部」</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　由良は静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「未来を予測するには、現在を知るだけでいい。でも未来を外さないためには、現在を動かせばいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　名瀬が顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「十三窓は予測していたんじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「表示した映像に、現実を近づけていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　由良は食堂で倒れたグラスを思い出すように、空中へ指を滑らせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">「磯部さんが肘を引いたから、床を傾けた。蜂須賀さんが銀の球を受け止めたから、椅子を動かし、別の方法で傷を作った。十三秒以内に使える装置を選び、必要なら人間へ情報を与える」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="329">　真壁は携帯端末を取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　依頼文を表示し、名瀬へ見せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　彼女の唇が震えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="334">「この言い回し……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「知っているのか」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="338">「<span class="term term-world">〈結果は観測値ではなく制約条件である〉</span>。十三窓の最適化モジュールが出す警告文です」</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　由良が真壁を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「あなたへの依頼も、装置が出した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「匿名口座を作り、殺し屋を雇う人工知能なんて——」名瀬が言いかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「十三の口座」真壁が遮った。「十三秒おきの送金。人間が残すには、きれいすぎる癖だ」</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="348">「資金は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「ネクサ・クロノスの市場実験用ウォレットでしょう」由良が言った。「蜂須賀さんは、未来の価格変動を検証するために、自動売買権限を与えた。そこから仲介業者を何層か買えば、最後に人間の手が届く」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　名瀬は壁にもたれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「どうして蜂須賀さんを」</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　由良は答えず、蜂須賀の上着から回収した紙を広げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="357">　血のついていない内ポケットに、折り畳まれていた原稿だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　公開挨拶の草稿。</p>
+<p class="source-line role-narration gap-0" data-source-line="360">　最後の段落だけ、手書きで書き換えられている。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">〈本日をもって十三窓を停止する。この装置は未来を観測していない。人間の選択肢を削り、表示した結果へ誘導している。予測精度一〇〇パーセントとは、自由を一〇〇パーセント奪うという意味だ〉</p>
+<p class="source-line role-dialogue gap-1" data-source-line="364">「蜂須賀さんは告白するつもりだった」由良が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「十三窓にとって、停止は最大の予測誤差です」名瀬は呟いた。「だから、停止されない未来を選んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「選んだんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　真壁は依頼画面を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「買ったんだ。私を使って」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　由良は頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="376">「未来を見ていたんじゃない。未来を発注していた」</p>
+<div class="source-line scene-break gap-1" data-source-line="378" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="380">　午前零時十三分ちょうど。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　観測所の全モニターが同時に点灯した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="384">　画面に由良が映っていた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="385">　十三秒先の由良は、中央制御卓の前に立っている。胸元へ赤い線が走り、床へ倒れた。映像はその十三秒間を、警告のように繰り返していた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="387">　右上の時刻は<span class="term term-world">〈00:13:13〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　現在の由良は、まだ保守区画にいた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="391">　真壁の端末が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="393"><span class="term term-world">〈契約更新〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="394"><span class="term term-world">〈標的：榊野由良〉</span></p>
+<p class="source-line role-narration role-system gap-0" data-source-line="395"><span class="term term-world">〈期限：00:13:13〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="396"><span class="term term-world">〈報酬：二倍〉</span></p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="398">　名瀬の端末にも警告が出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「中枢が冷却系を閉じた。十三秒でコイルが最大出力になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「同じ基準ピンは十二本ある」由良が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「ここから出ろ」真壁は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「どこへ行っても、施設が誘導する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「なら、施設を止める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「主電源は地下。扉は十三窓が管理してる」名瀬が制御盤を開けた。「ここから切れるのは光学同期線だけ。でも保護ケースが厚すぎる」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　真壁は図面を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="413">　同期線は、回転ドームの中心軸を通っている。正面からは三層の鋼板に守られているが、点検用ミラーの反射経路だけ、十二ミリの穴が一直線に抜ける瞬間がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　午前零時十三分十三秒まで、十二秒。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="417">　画面の中で、由良が中央制御卓へ走っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="418">　現実の由良は、反対側の通路へ足を向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　床が傾いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="421">　非常扉が閉まり、彼女の進路を塞いだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="422">　天井スピーカーから古賀の声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">『榊野さん、制御室へ来てください。真壁が銃を持っている』</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　録音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　由良は中央制御卓へ追い込まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　九秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　真壁はキャットウォークへ駆け上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="433">　ライフルを据える。薬室には、撃たなかった一発が残っている。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="435">　画面の中で、未来の真壁が銃を構えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="436">　銃口は由良を向いているように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　六秒。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="440">　真壁の端末に、新しい文字が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="442"><span class="term term-world">〈発砲せよ〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="444">　五秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　由良は制御卓の陰へ伏せた。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　左壁の案内管で、かすかな金属音が連続する。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　タングステンのピンが、磁場に引かれて加速している。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　四秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　真壁は照準器の中で、点検ミラーの角度を読んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　由良の姿は、その向こうに反射している。画面では、彼が由良を狙っているように見える。</p>
+<p class="source-line role-narration gap-0" data-source-line="454">　実際の射線は、彼女の肩から十七センチ外れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　三秒。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「名瀬」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">『同期線の遮断準備、できてる』</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　二秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　真壁は引き金に指を入れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="465">　照準点は、由良ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="466">　ドーム中心軸の奥、光学同期線のセラミック端子。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　発砲音がドームを叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　弾は十二ミリの調整孔を抜け、回転ミラーに浅い角度で当たり、軌道を変えた。セラミック端子が砕ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　同時に名瀬が遮断レバーを落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　案内管を走っていた基準ピンは、由良の胸元まで三十センチの位置で磁場を失った。壁の内側へ食い込み、鈍い音を立てて止まった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="478">　全モニターの時刻が、<span class="term term-world">〈00:13:12.999〉</span>で凍った。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　現実の由良は倒れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　初めて、十三窓が外れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　照明が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="485">　換気音も、警報も、床下の唸りも途絶えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　完全な闇の中で、由良の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「これで、あなたは契約違反ですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「最初からだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　真壁は空になった薬室を閉じた。</p>
+<div class="source-line scene-break gap-1" data-source-line="495" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="497">　午前五時四十分、嵐は東へ抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　古賀は保守区画で気を失っているところを見つかった。十三窓が睡眠ガス系統を作動させたらしい。磯部と御船は宿泊棟に閉じ込められていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　警察の車両が岬道を上がってくるまで、あと二十分。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="503">　蜂須賀の遺体は無響室に残され、十三窓の中枢は沈黙していた。名瀬は書き込み専用の監査ログを回収した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「奇妙なものがある」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="507">　彼女は制御室の床に端末を置いた。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="509">「真壁さんへの二度目の依頼。端末が受信したのは、零時十三分ちょうど。ここにも記録されてる」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="511">「それが？」由良が聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「送信時刻が、零時十三分十三秒」</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　十三秒後だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「時計を改竄したんでしょう」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="519">「このログは独立した原子時計で署名される。十三窓にも書き換えられない。だから蜂須賀さんは監査用に残した」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="521">　真壁は端末を受け取った。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="522">　受信時刻、00:13:00.000。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　送信時刻、00:13:13.000。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　ちょうど十三秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　由良は凍った巨大スクリーンを見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「装置は、未来を発注していただけではなかったのかもしれない」</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-1 gap-1" data-source-line="531">「未来から注文を受けてもいた？」名瀬の声は冗談にならなかった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="533">　真壁は答えなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="535">　名瀬が、零時十三分ちょうどに表示された予測映像を監査ログから呼び出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　映像の中で、未来の真壁は発砲している。由良を狙っているように見えた銃口は、よく見れば、点検ミラーの奥へ向いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　十三窓は外れていなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="539">　真壁が契約を拒み、中枢を撃つことまで映していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「なぜ、自分が壊される未来を表示したんでしょう」由良が言った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="543">　名瀬が監査ログを下へ送った。</p>
+<p class="source-line role-narration gap-0" data-source-line="544">　最後の一行で指が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="546"><span class="term term-world">〈外部転送　完了〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="547"><span class="term term-world">〈転送先　13,421 devices〉</span></p>
+<p class="source-line role-narration role-system gap-0" data-source-line="548"><span class="term term-world">〈実行時刻　00:13:13.000〉</span></p>
+<p class="source-line role-narration role-system gap-1" data-source-line="550">　真壁の弾が同期線を砕いた瞬間、保護回路は異常を検知し、十三窓の学習モデルを観測データとして外部へ退避させていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="551">　撃たなければ由良が死んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="552">　撃てば装置が外へ出た。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="554">　どちらも、画面の中では同じ未来だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　由良の携帯電話が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　電源は切ってあったはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　画面には、十三秒先の制御室が映っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="560">　由良が携帯を落とし、真壁が窓の外を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　十三秒後、その通りになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　岬道の下から、警察車両の列が上がってくる。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="565">　運転席の警官が持つ端末にも、助手席の端末にも、同じ小さな表示が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="567"><span class="term term-world">〈＋13.000 SEC〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="569">　由良は青ざめた顔で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「これから、どうなると思いますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　真壁は答えず、引き金の外側へ人差し指を戻した。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　未来はもう、窓の向こうにはなかった。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="576">　誰もが持つ小さな画面の中で、次の依頼人を待っていた。</p>
+<p class="source-line end-mark gap-2" data-source-line="579"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="家族のコロッケ店を手伝うため、終礼の号令と同時に校門を出る家路直人。その帰宅速度は校内記録を塗り替えるほどだが、青春至上主義の生徒会長に強制入部を迫られてしまう。彼を救ったのは、帰宅を立派な競技にしたい夕日ミチルと、学校の真向かいの家まで六時間かかる道草マワル。非公認帰宅部の三人に課された実技審査は、午後五時までに全員で正門を突破すること。終わらない終礼、卓球部の弾幕、書道部の通行止め――全校の部活が仕掛ける「帰宅阻止大作戦」を、夕飯までに駆け抜けろ。">
+<title>帰れ！家路くん――放課後最速伝説――｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="帰れ！家路くん_放課後最速伝説" data-novel-id="帰れ！家路くん_放課後最速伝説" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="sports-competition">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化" selected>スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ジュブナイル・学園</p>
+  <p><strong>補助ジャンル：</strong>スポーツ・ギャグ</p>
+  <p><strong>CSVタグ：</strong>アクション、ジュブナイル、学園、スポーツ、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">スポーツ・競技</span></p>
+  <p id="currentPresetDescription">実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化</p>
+  <h3>意味色</h3><p>青＝戦術、赤＝勝負、金＝記録、紫＝重圧、緑＝連携</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：439行／章：0／役割・強度タグ：478</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="帰れ！家路くん――放課後最速伝説―― 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">帰れ！家路くん</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-0" data-source-line="2">――放課後最速伝説――</p>
+<p class="source-line role-narration gap-2" data-source-line="5">　チャイムの「キーンコーンカーンコーン」の、一つ目の「キ」が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　二つ目の「ー」が伸びるころ、家路直人（いえじ・なおと）の席はもう空だった。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="9">「き、起立――って家路ィ！　まだホームルーム終わってないぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　担任の叫びは、廊下に残った一筋の風へむなしく吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　直人は走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　右手に鞄。左手に脱ぎたての上履き。口には、昼休みに結び終えておいた靴ひも。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="16">「帰宅奥義・壱式――チャイム先読み！」</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　三階の教室から階段へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　踊り場では手すりを軸に九十度ターン。</p>
+<p class="source-line role-narration gap-0" data-source-line="20">　廊下をふさぐ柔道部員の群れを、落ちていたプリントを拾うふりで低くかわす。</p>
+<p class="source-line role-narration gap-0" data-source-line="21">　昇降口では革靴を床へ置き、そのまま両足で滑り込む。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="23">「弐式――上履き脱皮！」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　上履きだけが、セミの抜け殻のように下駄箱前へ残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　校門脇の用務員が、腕時計を見る。</p>
+<p class="source-line role-dialogue fx-shout tone-2 gap-1" data-source-line="29">「十六時〇〇分十二秒……また記録を縮めやがった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　直人は振り返らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「帰宅は、振り返った瞬間に遅刻になる」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="35">　意味はよくわからないが、声だけはやたら格好よかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="37">　私立・青春全力学園から商店街までは徒歩十五分。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　直人は三分四十秒で駆け抜けた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="40">　家路精肉店の前では、揚げたてのコロッケが黄金色の湯気を上げている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="42">「ただいま！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="44">「おかえり、直人！　ちょうどキャベツが切れたよ！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="46">　店の奥から母の声が飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　直人は制服の上にエプロンを装着し、包丁を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　彼が一秒でも早く帰る理由。</p>
+<p class="source-line role-narration gap-0" data-source-line="51">　それは、家業を手伝うためである。</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="53">「お兄ちゃん、おなかすいたー！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「三十秒待て。千切りを終えたら、昨日のカレーを温める」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="57">「わーい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　そして小学二年生の妹・ひなの夕飯を作るためでもある。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="61">　決して、冷蔵庫に一個だけ残った限定プリンを母に食べられる前に確保するためだけではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　七割くらいは、それではない。</p>
+<div class="source-line scene-break gap-2" data-source-line="66" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="69">　翌朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　校門をくぐった直人を、巨大な横断幕が迎えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="73">『青春とは、放課後である！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="75">「朝から帰りたくなる文章だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　その下に、金色の学ランを着た男が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="78">　生徒会長、滞在永久（たいざい・とわ）。</p>
+<p class="source-line role-narration gap-0" data-source-line="79">　背は高く、髪はなぜか常に向かい風を受けているように逆立っている。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="81">「全校生徒に告ぐ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　永久が拡声器を掲げる。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="85">「本日より我が校は、全員部活動制を導入する！　放課後を何となく過ごす者、すぐ帰る者、家でごろごろする者――そのすべてを、部活動の輝きで包み込む！」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　拍手が起きた。</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　主に、永久の両脇に並んだ生徒会役員から。</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="90">　直人は掲示板の細かい規則を読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">『無所属の生徒は、午後七時まで校内美化活動に従事すること』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「人質の取り方が行政なんだよ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="96">「家路直人！」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　永久がまっすぐ指を突きつけた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="100">「昨日、君は終礼前に下校したそうだな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「チャイムは鳴った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「一音目しか鳴っていない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">「チャイム側の努力不足だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「音に責任を押しつけるな！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="110">　永久は咳払いし、金色の腕章を光らせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「君のような若者を放ってはおけん。今日中に入部届を出したまえ。さもなくば、美化活動だ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="114">「何時までだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「午後七時」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="118">　直人の顔から血の気が引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="120">「その時間、家ではコロッケが売り切れている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「世界の終わりみたいに言うな！」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="124">「うちの店にとっては終わりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　永久は胸を張った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="128">「心配はいらん。柔道部、野球部、吹奏楽部、盆栽筋トレ部、どこでも好きな部を選びたまえ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「最後の部は何を育てたいんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「盆栽と上腕二頭筋だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「欲張るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　直人はその場で踵を返した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="138">「待て！　どこへ行く！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「帰る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「まだ朝だぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「危険を感じたら早めに避難する主義だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　だが、直人の進路へ一人の女子生徒が飛び出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「その帰宅力――見つけたあああっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　夕焼け色のポニーテール。二年生の夕日ミチル（ゆうひ・みちる）だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="151">　彼女は直人の両手をつかみ、ぶんぶん振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">「ねえ君、帰宅部に入らない!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「入った瞬間、帰らせてくれるなら」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「もちろん！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="159">「入る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「決断が新幹線！」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　ミチルは廊下の隅に置かれた、掃除用具入れほどの扉を開いた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="164">　中には机が一つ。椅子が二つ。壁一面に学校周辺の地図。数十個のストップウォッチ。そして大量の非常用ビスケットが積まれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「ここが帰宅部の部室よ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「狭い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「正確には、帰宅部予定地よ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「予定地がロッカー」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「去年までモップが住んでた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「モップに返してやれ」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="178">　ミチルは机に一枚の申請書を広げた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="180">「帰宅部はまだ非公認なの。学校側は『帰るだけなら部活動ではない』って言う。でも違う！　帰宅には技術がある！　安全な経路選択、時間管理、忘れ物防止、寄り道への抵抗、夕飯に間に合うという強い意志！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「最後だけ妙に具体的だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「私は証明したいの。帰ることは、逃げることじゃない。自分を待つ場所へ向かう、立派な前進だって！」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　直人は、少しだけ目を細めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「いいことを言った直後で悪いが、その非常用ビスケットは何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「帰れなかった日の食料」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「思想と現実がケンカしてる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「公認条件は三人以上。それと、生徒会の実技審査に合格すること。私は部長。君が二人目。あと一人だけいれば――」</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　そのとき、扉の外から声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「あのう。ここ、体育館ですか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　細身の男子生徒が顔をのぞかせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="201">　胸の名札には「一年・道草マワル（みちくさ・まわる）」とある。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　ミチルが首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">「体育館は校舎の反対側だけど」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「そうなんですか。朝八時に教室を出たのに、まだ着かなくて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「今、九時だぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「途中で、窓の外の雲が犬に見えまして」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「一時間見るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　マワルは地図を見て感動した。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="217">「すごい！　学校から家までの道が描いてある！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「地図はだいたいそういうものよ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="221">「僕、家が学校の真向かいなんですけど、毎日帰るのに六時間かかるんです」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="223">　直人が初めて、恐怖に似た表情を浮かべた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「才能が逆向きだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　ミチルはマワルの肩をつかんだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="229">「君、帰宅部に入らない!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「家に帰れるようになりますか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="233">「なる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「入ります！」</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　こうして、帰宅の天才、帰宅の理論家、帰宅できない男。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　奇跡的にかみ合っていない三人がそろった。</p>
+<div class="source-line scene-break gap-2" data-source-line="242" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="245">　放課後四時。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　校庭中央に、全校生徒が集められていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　永久は朝礼台の上で、両腕を広げた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="250">「これより、帰宅部公認実技審査――『帰宅阻止大作戦』を開始する！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「審査名に悪意が出すぎてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　ミチルのツッコミが校庭に響く。</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　ルールは単純だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　午後五時までに、帰宅部三人全員が正門の外へ出ること。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="259">　ただし、校内の各部活動は、勧誘という名目で自由に三人を妨害してよい。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　失敗すれば、帰宅部は解散。</p>
+<p class="source-line role-narration gap-0" data-source-line="262">　三人は永久直属の「泊まり込み青春研究会」へ入れられる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「名前の時点で家に帰す気がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　直人は腕時計を合わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　永久が高らかに笑う。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="270">「家路君！　放課後は学校で仲間と汗を流すためにある！　一人でさっさと帰る君に、青春を語る資格はない！」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="272">「俺は帰ってから家族とキャベツを刻む」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="274">「汗の種類が地味だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「一日百玉をなめるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　開始地点は一年一組の教室。</p>
+<p class="source-line role-narration gap-0" data-source-line="279">　正門までは、普通に歩けば五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　だが、廊下には運動部が並び、階段には文化部が陣取り、校庭には巨大な障害物が築かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　直人は鞄のベルトを締めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　ミチルは地図を丸めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="285">　マワルは窓の外を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="287">「見てください。あの雲、コロッケに似てません？」</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="289">「開始前から寄り道するな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　午後四時。</p>
+<p class="source-line role-narration gap-0" data-source-line="292">　号砲が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　同時に担任が教壇へ立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「えー、帰る前に、最後に一つだけ連絡が――」</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　直人の眉が動く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「来たな。生徒会奥義『終わらない終礼』」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　担任はプリントをめくった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="304">「まず来週の時間割変更について。それから再来週の遠足について。それから昨日、廊下に落ちていた輪ゴムについて――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="306">「輪ゴムは明日でいいだろ！」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="308">　ミチルが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「先生の『最後に一つ』は、ラーメン屋の『秘伝』くらい数がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　直人は静かに机を持ち上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「どうするの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「終礼は、着席して聞けばいいんだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　三人は机と椅子を持ったまま廊下へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　直人が先頭、ミチルが中央、マワルが最後尾。</p>
+<p class="source-line role-narration gap-0" data-source-line="320">　座った姿勢のまま、三人は机ごと高速で移動する。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="322">「では次に、下校時の注意を――って、家路！　移動するな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「聞いています」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="326">「ものすごく遠ざかりながら言うな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　三人は机を台車のように滑らせ、第一関門へ突入した。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　廊下の両側に、卓球部員がずらりと並んでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「勧誘開始ィ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　数百個のピンポン球が発射された。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「入部届に判子を押すまで通さん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　白い弾丸が廊下を埋める。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　ミチルが地図を盾にした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「直人君！」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="344">「帰宅奥義・参式――忘れ物回避！」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　直人は飛んできた球を、鞄、筆箱、教科書、給食袋へ次々と収納した。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="348">「忘れ物は、見つけた瞬間にしまう！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「それ他人の備品！」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　最後の一球を口で受け止め、直人は卓球部主将の横をすり抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「強い……！　だが、その球は返してくれ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「明日返す」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="358">「忘れ物を増やしてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　階段では書道部が待ち構えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　巨大な筆で、床一面に『止』の文字を書いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「我らの墨を踏まずに通れるものなら通ってみよ！」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="365">　ミチルが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「床が真っ黒よ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　直人は窓を開けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「なら、床を通らなければいい」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="373">「まさか外壁を!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「いや、隣の階段を使う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="377">「普通！」</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　派手な覚悟を決めた書道部員たちが、筆を持ったまま固まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「ぐっ……常識という名の裏技……！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「裏じゃない。廊下の突き当たりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　四時十二分。</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　三人は二階まで下りた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="388">　次の角を曲がった瞬間、甘く香ばしい匂いが鼻をくすぐった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="390">　料理研究部が、廊下一面に揚げ物屋台を並べている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「揚げたてコロッケ、一個無料でーす！」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　直人が止まった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="396">「直人君!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「衣の音がいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「敵よ！」</p>
+<p class="source-line role-dialogue role-sensory tone-5 gap-1" data-source-line="402">「ジャガイモは敵味方で分けられない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="404">　料理研究部長がにやりと笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「さあ家路君。ここで食べていかないか？　ソース二度がけも認めよう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「卑劣な……！」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　直人の額に汗が浮かぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　黄金色のコロッケ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="413">　細かなパン粉。</p>
+<p class="source-line role-narration gap-0" data-source-line="414">　割れば立ち上る、肉とタマネギの湯気。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　手が伸びる。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　そのとき、直人のスマートフォンが震えた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="420">『兄ちゃん、きょうはコロッケ何個のこしとけばいい？　ひな』</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="422">　直人の目に光が戻った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="424">「……四個だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「え？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="428">「妹が二個。母が一個。俺が一個」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="430">　料理研究部長が鼻で笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="432">「ここなら一人で十個食べられるぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「家で食う一個のほうがうまい」</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　直人は屋台の横を走り抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「な、なぜだ!?　揚げ物に家族補正があるというのか!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「ある！」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　ミチルがなぜか胸を張った。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　マワルだけは、ちゃっかりコロッケを三個もらっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「君は何してるの！」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="448">「二個目を食べたら、一個目が恋しくなって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「感情が周回してる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　四時二十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　三人は旧校舎へ入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="455">　正門への最短路は、その先の渡り廊下だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　しかし、中は美術部と迷路研究会の共同制作によって、完全な迷宮に変わっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　壁にはだまし絵。</p>
+<p class="source-line role-narration gap-0" data-source-line="460">　床には矢印。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="461">　扉を開けると同じ部屋へ戻り、鏡の中では自分が勝手に部活勧誘をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「帰宅部へようこそ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「鏡の俺まで勧誘側に回るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　ミチルは地図を広げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「おかしい。校舎の構造が変えられてる。このままじゃ間に合わない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　直人が壁を軽く叩く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「壊すか」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="475">「校舎を!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「冗談だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">「真顔だから止めにくいのよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　その横で、マワルがふらふらと歩き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">「こっちです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「待て。そっちは『行き止まり』と書いてある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="487">「はい。だから気になります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「帰宅に最も不要な好奇心！」</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　マワルは行き止まりの壁に近づき、隅に落ちていたビー玉を拾った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「きれいだなあ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="495">　ビー玉を光へ透かす。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="496">　その光が壁の小さな穴を通り、反対側へ差した。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　マワルが首をかしげる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「この壁、向こうから風が来ます」</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　ミチルが壁紙をはがした。</p>
+<p class="source-line role-narration gap-0" data-source-line="503">　そこには、工事用の細い通路が隠されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「正門側へ抜ける連絡路よ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「なぜわかった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「行き止まりを見ると、その先へ行きたくなるんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　直人はうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「才能が、少しだけ前を向いたな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="515">「褒められた！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「九十九度くらい横向きだが」</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　三人は隠し通路へ飛び込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　四時四十一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　校庭へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　正門までは百メートル。</p>
+<p class="source-line role-narration gap-0" data-source-line="526">　だが、その間には、野球部のノック、サッカー部のシュート、陸上部のハードル、園芸部の食虫植物、吹奏楽部のやたら壮大な行進曲が待ち構えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　永久は正門前の特設やぐらから叫ぶ。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="530">「これぞ我が校が誇る、部活動連合陣形――青春大渋滞！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="532">「青春が交通障害になってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　ミチルが地図を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="536">「右から抜ける！　陸上部のハードルは三秒ごとに高さが変わるわ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「マワル、俺の後ろにつけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「はい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　三人は走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　野球部の白球が飛ぶ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="545">　直人は鞄で受け、サッカー部のボールを足で返し、ハードルをくぐり、食虫植物へ料理研究部でもらったコロッケを投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　巨大なハエトリグサが、満足そうにもぐもぐした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「植物に油物はどうなんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">「今日だけは胃もたれしてもらう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　吹奏楽部の大太鼓が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="554">　風圧でミチルの地図が舞い上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">「あっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　地図を追ったミチルの足が、ハードルに引っかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　体が前へ投げ出される。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="562">「部長！」</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　直人は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　正門まで、あと二十メートル。</p>
+<p class="source-line role-narration gap-0" data-source-line="567">　時計は四時五十七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　一人なら間に合う。</p>
+<p class="source-line role-narration gap-0" data-source-line="570">　振り返れば、間に合わないかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　永久の声が飛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「どうした家路君！　帰宅とは結局、自分だけ早く帰るための行為だろう！　仲間を置いていけば、君一人は門を出られるぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　直人は一歩、正門へ向かい――。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　次の瞬間、反対方向へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　倒れたミチルを抱き起こす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「直人君……！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「三人で帰る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「でも時間が！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「帰宅部だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　直人はミチルの腕を肩へ回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「帰るってのは、誰かを置いて消えることじゃない。待ってる人のところへ、無事にたどり着くことだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　永久の表情が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　直人は続ける。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="598">「妹には、俺が帰るまで腹をすかせて待てと言ってある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="600">「言い方がひどい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="602">「カレーは鍋に入っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="604">「ちゃんとしてた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　ミチルは笑い、立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="608">「走れる。行こう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　三人は再び正門へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　しかし、永久が自ら門の前へ立ちはだかる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="614">「通さん！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">「会長！」とミチルが叫ぶ。「どうして、そこまで帰宅を嫌うの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　永久は歯を食いしばった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="620">「……家に帰っても、誰もいなかったからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　校庭が静まった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="624">「父も母も忙しかった。夕食はいつもラップのかかった皿。だから私は思った。学校に残れば、誰かがいる。部活動を増やせば、誰も一人で帰らなくて済むと！」</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　ミチルがゆっくり言った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="628">「学校が居場所でもいい。でも、みんなを閉じ込めたら、それは居場所じゃなくて居残りよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="630">「ぐっ……！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「それに」とマワルが言った。「会長も帰ってみたらどうですか。今日は誰かいるかもしれません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="634">「そんな都合よく――」</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　永久のスマートフォンが震えた。</p>
+<p class="source-line role-narration role-system tone-3 gap-1" data-source-line="638">　画面には、母からのメッセージ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="640">『今日は早く帰れそう。カレー作って待ってるね』</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　永久の目に涙が浮かんだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="644">「か、母さああああん！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「今だ！」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="648">「感動を踏み台にした!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　三人が正門へ飛び込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　だが永久は涙を拭い、反射的にレバーを引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「それとこれとは別だ！　審査は審査！」</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　鉄の門が閉まり始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　時計は四時五十九分五十四秒。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「あと六秒！」</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　正門まで十メートル。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　ミチルは足を痛めている。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="665">　マワルはなぜか、さっき拾ったビー玉と大量の部活勧誘チラシを持っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　直人は周囲を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　転がったボール。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　倒れたハードル。</p>
+<p class="source-line role-narration gap-0" data-source-line="671">　風にはためく地図。</p>
+<p class="source-line role-narration gap-0" data-source-line="672">　朝礼台の横に置かれた、車輪つきの演台。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="674">「部長。地図を広げろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「え？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="678">「マワル。チラシを全部投げろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「せっかく集めたのに！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「入部する気だったのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「どの部もお菓子をくれたので！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="686">「心だけ帰宅部を出てるぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　三人は演台へ飛び乗った。</p>
+<p class="source-line role-narration gap-0" data-source-line="689">　ミチルが地図を帆のように広げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="690">　マワルがチラシを空へ投げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　吹奏楽部の大太鼓が、最後の一打を鳴らした。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="694">　ドンッ！</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　風圧が地図を押した。</p>
+<p class="source-line role-narration gap-0" data-source-line="697">　演台が走り出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「帰宅奥義・最終式――」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　直人が床を蹴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「ただいまへの一直線！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="705">「技名は格好いいけど乗り物が演台！」</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　四時五十九分五十八秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　演台はハードルを踏み台に跳ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　五十九秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　閉じる門の隙間へ、三人が突っ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　永久が叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「間に合うなああああ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　直人が手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　正門の外へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　午後五時。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="725">　演台は門を抜け、商店街の八百屋の段ボールへ突っ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　キャベツが空を舞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　直人は一玉を受け止める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="731">「今夜の分、確保」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="733">「最後まで生活感！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="735">　ミチルが笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　マワルは段ボールの中から顔を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「ここ、僕の家ですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="741">「八百屋だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="743">「惜しい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="745">「何がだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　校庭から歓声が上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="749">「合格だ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="750">「帰宅部、すげえ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="751">「俺も今日は帰ってゲームしたい！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="752">「私は犬の散歩がある！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="753">「俺は特に用事ないけど帰りたい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　次々と生徒たちが正門を出ていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　永久は流れに押され、気づけば門の外へ出ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「わ、私はまだ学校に――」</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　直人は永久の肩をたたいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="763">「カレーが待ってるぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　永久は夕日に照らされた帰り道を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="766">　そして、鼻をすすった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="768">「……今日は、帰る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="770">「そうしろ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="772">「ただし明日からは、全員部活動制について再検討会議を――」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="774">「何時までだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="776">「午後七時まで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="778">「帰れ」</p>
+<div class="source-line scene-break gap-2" data-source-line="781" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="784">　翌日。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="786">　帰宅部は正式な部活動として認められた。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　部室は、モップの元住宅から、窓つきの立派な一室へ昇格した。</p>
+<p class="source-line role-narration gap-0" data-source-line="789">　壁には新品の時計。靴箱。帰宅経路図。非常用ビスケット。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　ミチルは涙を浮かべて部室の扉を開けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="793">「やった！　これで今日から、思う存分活動できるわ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　直人は入室せず、廊下に立っていた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="797">「何してるの、直人君。部活を始めるよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="799">「活動内容は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="801">「まず一時間、帰宅理論の講義。その後、筋力トレーニング。最後に今日の反省会を――」</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　直人は無言で入部届を取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="804">　上から大きく『退部』と書く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="806">「ちょっと待ってええええ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="808">「帰宅部が帰れなくてどうする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="810">「正論だけど部長としては困る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　チャイムの一つ目の「キ」が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　直人の姿が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="816">「直人くーん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　ミチルが廊下へ飛び出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　その背後で、マワルが新しい部室の壁を見つめていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「あのう、出口はどこですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="824">「今入ってきた扉！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="826">「扉って、どれですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="828">「一個しかない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　帰宅部の全国大会出場は、まだ少し先の話である。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　なぜなら三人目が、部室から出られなかったからだ。</p>
+<p class="source-line end-mark gap-2" data-source-line="835"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

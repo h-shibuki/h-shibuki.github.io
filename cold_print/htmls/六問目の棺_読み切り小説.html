@@ -1,0 +1,1094 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="六問目の棺｜拡張フォントいじり検証版">
+<title>六問目の棺｜拡張フォントいじり版</title>
+<!--
+主ジャンル：論理ゲーム・心理ミステリー
+副ジャンル：企業犯罪／記憶と証言の法廷劇
+推奨ジャンル書体：論理ミステリー
+演出エンジン：質問と回答を対話書体、数列と判定を等幅、火災記憶を筆記系、論理の反転を硬質見出しで可視化
+意味色：青緑＝真実と復元、赤＝嘘と敗北、橙＝火災記憶、灰＝機械判定、金茶＝解錠と開放
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 1.82em;
+  --climax-max: 1.58em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #38666a;
+  --tone-2: #8b333b;
+  --tone-3: #a66d33;
+  --tone-4: #59616e;
+  --tone-5: #7d6d48;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #8fd1d0;
+  --tone-2: #ef7f88;
+  --tone-3: #e4a75e;
+  --tone-4: #aab6c8;
+  --tone-5: #d2bd79;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅">軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離" selected>論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立">学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離">Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に">制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用">風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden>
+  <h2>目次</h2>
+  <ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li></ol>
+</nav>
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>論理ゲーム・心理ミステリー</p>
+  <p><strong>副ジャンル：</strong>企業犯罪／記憶と証言の法廷劇</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、数列、判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実と復元、赤＝嘘と敗北、橙＝火災記憶、灰＝機械判定、金茶＝解錠と開放</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：548行／章：6／役割・強度タグ：742</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="六問目の棺 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1"><span class="term term-clue tone-2">六問目</span>の棺</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4"><span class="source-indent" aria-hidden="true">　　　　　　　　</span>一</h2>
+<p class="source-line role-narration fx-key role-motif tone-2 gap-1" data-source-line="6">　午前零時、嘘は一度だけ許された。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="8">　二度つけば、その場で敗北。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="9">　一度もつかなければ、それも敗北。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="11">　白い卓を挟んで向かい合う二人の背後には、それぞれ一通の<span class="term term-document tone-4">告白文</span>が収められていた。負けた者の<span class="term term-document tone-4">告白文</span>だけが、検察、報道機関、被害者遺族の代理人へ同時送信される。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="13">　真壁廉の<span class="term term-document tone-4">告白文</span>には、三年前、ノクス製薬の閉鎖サーバーへ不正侵入した事実が記されている。送信されれば、彼は再び被告席へ戻る。今度こそ執行猶予はつかない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="15">　向かいに座る御影朔の<span class="term term-document tone-4">告白文</span>には、第七码頭研究棟火災の避難記録を改竄した事実が記されている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="17">　二十三人が死んだ火災だった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="18">　その中に、廉の妹、澪もいた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="20">「まだ、その傷に触るんだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　御影が言った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="24">　廉の左手の親指には、三日月形の火傷痕がある。あの夜、研究棟の非常扉を素手でこじ開けようとしてできた傷だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　廉は手を卓上に伏せた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="28">「君は嘘をつく直前、その傷をなぞる」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="30">「三年前の聴聞会では、そういうことになった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「なった、ではない。私が見つけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　御影は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="35">　薄い唇だけが動き、目は笑わない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="37">　三年前、廉は火災が事故ではないと訴えた。だが、不正侵入によって得た資料を証拠として提出し、御影にその違法性を突かれた。さらに御影は、廉が質問をかわすたび、左手の傷へ触れる癖を指摘した。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="39">　その瞬間から、聴聞会は火災の真相を問う場ではなく、廉という証人の信用を解体する場になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　廉は職を失い、証拠は排除され、ノクス製薬は「原因不明の設備事故」という報告書を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　御影は会社を救った。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　二十三人の死体を、報告書の脚注へ押し込むことで。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">「今夜も、その指が君を裏切る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「そう思うなら、見ていろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　二人の横に立つ執行人、榛名志乃が透明な封筒を掲げた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="52">「故・真壁澪氏がエスクローへ預託した<span class="term term-object tone-5">原本</span>データ<span class="term term-object tone-1">《アイリス》</span>は、後方の耐火金庫にあります。中には火災発生前後七十二時間の操作記録、役員間通信、避難制御ログが保存されています」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="54">　背後の壁に、黒い金庫が埋め込まれていた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="55">　棺のように細長い扉には、数字キーが五つ並んでいる。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="57">「勝者は<span class="term term-object tone-5">原本</span>を取得します。敗者の<span class="term term-document tone-4">告白文</span>は送信されます。暴力、通信妨害、執行人への干渉は即時敗北。異議は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　廉と御影の声が重なった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="63">　榛名が卓上の端末へ指を置く。</p>
+<p class="source-line role-dialogue role-command tone-2 gap-1" data-source-line="65">「それでは、故人の指定した<span class="term term-system tone-4">《片嘘解錠》</span>を開始します」</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="68"><span class="source-indent" aria-hidden="true">　　　　　　　　</span>二</h2>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="70">　金庫の暗証番号は五桁。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　同じ数字は一度しか使われない。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="73">　二人には、それぞれ異なる五枚の手掛かり札が配られた。すべて真実だが、片方の札だけでは暗証番号は一つに定まらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　廉の札には、こうあった。</p>
+<p class="source-line role-narration role-document role-clue gap-1" data-source-line="77">　一、一桁目は奇数。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="78">　二、二桁目は一桁目より四小さい。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="79">　三、四桁目は五桁目の二倍。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="80">　四、五つの数字の合計は二十三。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="81">　五、三桁目はゼロではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　廉はメモ用紙へ数字を書き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　一桁目が五なら二桁目は一。</p>
+<p class="source-line role-narration gap-0" data-source-line="86">　一桁目が七なら二桁目は三。</p>
+<p class="source-line role-narration gap-0" data-source-line="87">　一桁目が九なら二桁目は五。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　四桁目と五桁目の組は、二倍の関係でなければならない。重複数字を除き、合計二十三、三桁目はゼロ以外。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="91">　三十秒後、廉の紙には四つの候補が並んだ。</p>
+<p class="source-line role-narration role-system role-clue gap-1" data-source-line="93">　51863</p>
+<p class="source-line role-narration role-system role-clue tone-1 gap-0" data-source-line="94">　<span class="term term-code tone-1">73184</span></p>
+<p class="source-line role-narration role-system role-clue gap-0" data-source-line="95">　95342</p>
+<p class="source-line role-narration role-system role-clue gap-0" data-source-line="96">　95621</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="98">　御影もまた、黒いガラス板へ四つの数字列を書き終えていた。ただし、互いの手掛かりも候補も見えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　榛名がルールを読み上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「各自、暗証番号について六つの質問を作成してください。答えが『はい』または『いいえ』で確定する質問に限ります。五桁の番号そのものを一度に尋ねること、同一命題を反復すること、ゲームの進行状態を質問することは禁止です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="104">　質問は先にすべて提出され、端末が適否を判定する。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　回答者の側には、遮光板の内側にだけ正しい答えが表示される。回答者はそれを見たうえで、「はい」か「いいえ」を口にする。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="108">　六回答のうち、必ず一つだけ嘘を混ぜなければならない。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="110">「二つ以上の虚偽回答をした時点で敗北。一つも虚偽回答をしないまま<span class="term term-clue tone-2">六問目</span>を終えた場合も敗北です。また、各問終了後、質問者には告発権が与えられます。暗証番号と、相手が嘘をついた回答番号を同時に宣言してください。両方正しければ即時勝利。一つでも誤れば即時敗北です」</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　廉が先問者だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　各回、まず廉が質問し、御影が答える。廉に告発権が与えられ、その後、御影が質問し、廉が答える。最後に御影へ告発権が与えられる。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　<span class="term term-clue tone-2">六問目</span>も同じ順序だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="117">　つまり六回目に入れば、廉は御影の最後の答えを聞いた直後、御影が自分の<span class="term term-clue tone-2">六問目</span>を尋ねるより先に告発できる。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="119">　小さな順序だった。</p>
+<p class="source-line role-narration fx-key role-motif fx-beat gap-0" data-source-line="120">　だが、この部屋では、順序が刃になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　廉は六つの質問を入力した。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="124">　一問目。一桁目は五か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="125">　二問目。一桁目は七か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="126">　三問目。一桁目は九か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="127">　四問目。三桁目は三か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="128">　五問目。三桁目は六か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="129">　<span class="term term-clue tone-2">六問目</span>。三桁目は四以上か。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　御影は表示された質問を見て、初めて声を上げて笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「六問の半分を、一桁目に使うのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「そうだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「君の妹は、もっと大胆だった。必要な情報を最短で奪った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「その結果を知っている人間が、効率を説くのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　笑いが止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　御影は廉の六問をもう一度見た。そして数秒後、その目から侮りが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「なるほど。情報を集める質問ではない」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="147">　廉の四候補に対し、六つの質問へすべて正直に答えた場合の並びは、こうなる。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="149">　51863　はい・いいえ・いいえ・いいえ・いいえ・はい</p>
+<p class="source-line role-narration role-clue tone-1 gap-0" data-source-line="150">　<span class="term term-code tone-1">73184</span>　いいえ・はい・いいえ・いいえ・いいえ・いいえ</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="151">　95342　いいえ・いいえ・はい・はい・いいえ・いいえ</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="152">　95621　いいえ・いいえ・はい・いいえ・はい・はい</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　どの二列を比べても、少なくとも三か所が異なる。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="156">　一つだけ答えを反転されても、観測された六回答に最も近い列は一つしか残らない。暗証番号だけでなく、反転した位置――嘘をついた回答番号まで特定できる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="158">　通信の世界では、雑音で壊れた一ビットを復元するために使われる考え方だ。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-1" data-source-line="160">「<span class="term term-clue tone-1">誤り訂正</span>か」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　御影が呟いた。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-2 gap-1" data-source-line="164">「相手が嘘をつくことを防げないなら、嘘を含んだまま復元すればいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「理屈は正しい。<span class="term term-clue tone-2">六問目</span>まで生きていればな」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　御影も六つの質問を提出した。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="170">　一問目。一桁目は七か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="171">　二問目。三桁目は奇数か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="172">　三問目。四桁目は八か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="173">　四問目。五桁目は偶数か。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="174">　五問目。四桁目は七より大きいか。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="175">　<span class="term term-clue tone-2">六問目</span>。五つの数字の合計は二十三か。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　廉は質問列を見た。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="179">　最初と四番目は、おそらく御影が自分の札だけで答えを知っている確認問題だ。嘘を見抜くため、廉の平常時の声、瞬き、呼吸を測る。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　三番目と五番目は似ているが、同一ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="182">　四桁目が八なら、七より大きい。</p>
+<p class="source-line role-narration gap-0" data-source-line="183">　しかし、七より大きい数が八とは限らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　御影は論理だけで解くつもりがない。</p>
+<p class="source-line role-narration gap-0" data-source-line="186">　同じ数字を別角度から二度刺し、廉の反応を比較するつもりだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「質問は確定しました」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="190">　榛名が二人の間へ細い銀色のベルを置いた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="192">「開始後、会話は質問文、回答、告発宣言に限ります。第一問をどうぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　室内の照明が落ちた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="196">　金庫の数字キーだけが、墓標のように白く浮かんだ。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="199"><span class="source-indent" aria-hidden="true">　　　　　　　　</span>三</h2>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「一桁目は五か」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　廉の第一問。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　御影の前で遮光板が淡く光る。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　正解を見た御影は、二秒置いて答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「いいえ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="210">　端末には回答だけが記録される。真偽はゲーム終了まで表示されない。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　51863なら、本当は「はい」。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="213">　残る三候補なら「いいえ」。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="215">　廉の候補は、まだ何も消えない。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="216">　御影が今、嘘を使った可能性があるからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　告発時間を示す三秒が減る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="220">　三。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="221">　二。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="222">　一。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="224">　廉はベルに触れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　今度は御影の第一問だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「一桁目は七か」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="230">　廉の遮光板に<span class="term term-proper">《TRUE》</span>が浮かぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="232">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　御影は廉の顔ではなく、左手を見ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="235">　親指は動かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　三秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="238">　御影も告発しない。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　第二問。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「一桁目は七か」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　廉が尋ねる。</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　御影の遮光板に、廉からは見えない答えが浮かぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="247">　御影は息を吸うこともなく言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="249">「いいえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　廉の目がわずかに細くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　第一問も、第二問も「いいえ」。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　一桁目が五でも七でもないとすれば九だ。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="256">　だが、どちらか一つが嘘なら、一桁目は五か七かもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　御影は、廉の六質問が作る構造を理解している。</p>
+<p class="source-line role-narration role-clue tone-2 gap-0" data-source-line="259">　理解したうえで、最も遅くまで候補が残るように嘘を配置するはずだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　廉は告発しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　御影の第二問。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「三桁目は奇数か」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="267">　正解は<span class="term term-proper">《TRUE》</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="269">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　廉は答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　御影の視線が、廉の喉、目尻、左手を順に走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　人を見る目ではなかった。計器盤を読む目だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　第三問。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「一桁目は九か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「いいえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　御影の回答は、また同じだった。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="284">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="285">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="286">　いいえ。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　三つの数字を一つずつ尋ね、そのすべてを否定した。</p>
+<p class="source-line role-narration gap-0" data-source-line="289">　暗証番号の一桁目は五、七、九のどれかである。それは廉の札から確定している。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="291">　したがって、三回答のうち少なくとも一つは嘘だ。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="292">　そして嘘は一つしか許されない。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="294">　残る三回答で御影は、必ず真実を言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　――そう見える。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="298">　だが、どの「いいえ」が嘘なのかは、まだ分からない。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="300">　51863なら第一問が嘘。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="301">　<span class="term term-code tone-1">73184</span>なら第二問が嘘。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="302">　95342か95621なら第三問が嘘。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="304">　御影は早くも嘘を使い切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="305">　あるいは、廉にそう確信させる形を選んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「面白い顔をするな」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　会話禁止の赤灯が点いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　御影は肩をすくめ、規定の質問へ移る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「四桁目は八か」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="314">　廉の遮光板に<span class="term term-proper">《TRUE》</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　廉は一度だけ瞬きをした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「いいえ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="320">　これが廉の嘘だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　声は平坦だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="323">　左の親指も動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　御影の瞳だけが、ほんの少し光を増した。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="327">　三年前の聴聞会で、廉は御影にこう言われた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="329">　――人間は、嘘そのものに反応するのではない。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="330">　――嘘によって失うものを想像した瞬間に反応する。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　当時の廉は、真相へ近づくほど焦った。</p>
+<p class="source-line role-narration gap-0" data-source-line="333">　質問に答えるたび、妹の名誉、遺族の期待、自分の職を同時に守ろうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　守ろうとするものが多すぎて、身体のどこかが必ず遅れた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="337">　御影はその遅れを「嘘」と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　第三問の告発時間が減る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="341">　三。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="342">　二。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="343">　一。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="345">　御影はベルを鳴らさなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「まだだと思ったか」</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　廉は胸の内でだけ言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　口には出さない。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="353"><span class="source-indent" aria-hidden="true">　　　　　　　　</span>四</h2>
+<p class="source-line role-narration gap-1" data-source-line="355">　第四問。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「三桁目は三か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">「いいえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　御影の四つ目の回答も否定だった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="363">　廉の四候補のうち、三桁目が三なのは95342だけ。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="364">　御影がすでに一桁目に関する三問のどこかで嘘を使ったなら、この「いいえ」は真実だ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="366">　しかし、ルール上、御影が二つ目の嘘を言った瞬間に敗北となる。何も起きていない以上、最初の三問に嘘が一つあることは確定していた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="368">　だから第四回答は真実。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　95342は消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　残るのは、</p>
+<p class="source-line role-narration role-system role-clue gap-0" data-source-line="373">　51863</p>
+<p class="source-line role-narration role-system role-clue tone-1 gap-0" data-source-line="374">　<span class="term term-code tone-1">73184</span></p>
+<p class="source-line role-narration role-system role-clue gap-0" data-source-line="375">　95621</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　ただし第五、第六の回答まで含めれば、どれか一つへ収束する。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　御影の第四問。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「五桁目は偶数か」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="383">　<span class="term term-proper">《TRUE》</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　廉は答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　御影は自分の爪先を一度見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="390">　それから廉の左手へ視線を戻す。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　第一問と第四問は、おそらく正解を知ったうえでの基準測定。</p>
+<p class="source-line role-narration gap-0" data-source-line="393">　廉はどちらにも「はい」と答え、身体反応にも差を出さなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="395">　御影の中で、廉の「真実の型」ができつつある。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　呼吸の間隔。</p>
+<p class="source-line role-narration gap-0" data-source-line="398">　声帯が開く速さ。</p>
+<p class="source-line role-narration gap-0" data-source-line="399">　語尾の落ち方。</p>
+<p class="source-line role-narration gap-0" data-source-line="400">　指の静止。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="402">　その型から外れた答えを、御影は嘘と判定する。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　廉はそれを知っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="405">　御影も、廉が知っていることを知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　だから単純な演技では足りない。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="409">　嘘を言うときに平静を装い、真実を言うときに震える。</p>
+<p class="source-line role-narration gap-0" data-source-line="410">　そんな一段目の逆転は、御影なら最初から疑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　必要なのは、演技ではない。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="414">　本物の反応を、別の原因で起こすことだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　第五問へ入る前、榛名が残り時間を告げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「先問者、五問目」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「三桁目は六か」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　御影は遮光板を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「いいえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　五つの回答が並んだ。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="428">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="429">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="430">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="431">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="432">　いいえ。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="434">　完全なゼロの列。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　廉は頭の中で距離を測る。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="438">　51863の正直な列は、最初の五問だけなら、</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="439">　はい・いいえ・いいえ・いいえ・いいえ。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="441">　観測された列との差は、一か所。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="443">　<span class="term term-code tone-1">73184</span>なら、</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="444">　いいえ・はい・いいえ・いいえ・いいえ。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="446">　差は、やはり一か所。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　95342は二か所違う。</p>
+<p class="source-line role-narration gap-0" data-source-line="449">　95621も二か所違う。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="451">　したがって、候補は二つ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="453">　51863で、御影の嘘は第一問。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="454">　<span class="term term-code tone-1">73184</span>で、御影の嘘は第二問。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="456">　第六問「三桁目は四以上か」への正しい答えは、51863なら「はい」、<span class="term term-code tone-1">73184</span>なら「いいえ」だ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="458">　御影はもう嘘を使っている。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="459">　第六回答は必ず真実になる。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="461">　次の一問で終わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　御影も同じことを理解していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="464">　その口元から、笑みが消えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　廉の告発時間。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="468">　三。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="469">　二。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="470">　一。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="472">　廉はベルに触れない。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　次は、御影の第五問。</p>
+<p class="source-line role-narration gap-0" data-source-line="475">　御影にとっては、<span class="term term-clue tone-2">六問目</span>へ進ませる前に勝負を決める最後の機会だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　なぜなら次の回、先に質問するのは廉だからだ。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="478">　廉が六番目の答えを聞いた瞬間、暗証番号と御影の嘘は確定する。</p>
+<p class="source-line role-narration gap-0" data-source-line="479">　その直後に告発できる。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　御影の<span class="term term-clue tone-2">六問目</span>が発せられることはない。</p>
+<p class="source-line role-narration role-command gap-1" data-source-line="483">　御影には、今ここで告発するか、次の一問で負けるかしか残されていなかった。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="486"><span class="source-indent" aria-hidden="true">　　　　　　　　</span>五</h2>
+<p class="source-line role-narration gap-1" data-source-line="488">　御影はすぐに第五問を読まなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　規定文の前に許されるのは、質問文そのものだけだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="491">　余計な言葉を挟めば反則になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　だから彼は、提出済みの文を一字ずつ、意味を押し込むように読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「四桁目は――七より大きいか」</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　七より大きい。</p>
+<p class="source-line role-narration gap-0" data-source-line="498">　すなわち八か九。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="500">　廉の遮光板に<span class="term term-proper">《TRUE》</span>が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　四桁目は八。</p>
+<p class="source-line role-narration gap-0" data-source-line="503">　答えは「はい」。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="505">　その瞬間、廉の頭に、火災当夜の時計が浮かんだ。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="507">　零時七分。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="508">　澪から最初の着信。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="510">　零時八分。</p>
+<p class="source-line role-narration gap-0" data-source-line="511">　通話はつながったが、声は聞こえなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　零時九分。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="514">　非常扉の前へ着いた廉は、内側から何かが叩く音を聞いた。</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="516">　七を越えた一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　あの一分を境に、妹は「助けを待つ人」から「死亡者名簿の一人」になった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="520">　廉の左親指が、火傷痕をゆっくりなぞった。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　御影はそれを見逃さない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「はい」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="526">　廉は真実を答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　声の奥に、わずかな摩擦音が混じった。</p>
+<p class="source-line role-narration gap-0" data-source-line="529">　脈が一拍速くなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="530">　親指が傷へ触れた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="532">　三年前、御影が「嘘の兆候」と名づけた反応が、すべて現れた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="534">　御影の候補は、五回答を終えた時点で二つに絞られていた。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="536">　<span class="term term-code tone-1">73184</span>。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="537">　廉が嘘をついたのは第三問、「四桁目は八か」。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="539">　<span class="term term-code tone-2">73164</span>。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="540">　廉が嘘をついたのは第五問、「四桁目は七より大きいか」。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="542">　廉の実際の回答列は、</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="544">　はい。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="545">　はい。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="546">　いいえ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="547">　はい。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="548">　はい。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="550">　暗証番号が<span class="term term-code tone-1">73184</span>なら、<span class="term term-code tone-1">第三回答</span>だけが反転している。</p>
+<p class="source-line role-narration gap-0" data-source-line="551">　暗証番号が<span class="term term-code tone-2">73164</span>なら、<span class="term term-code tone-2">第五回答</span>だけが反転している。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="553">　論理では決まらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　だから御影は、身体を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　第三問で廉は「いいえ」と答えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="558">　手は動かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="559">　呼吸も乱れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　第五問で「はい」と答えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="562">　傷に触れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="563">　声が軋んだ。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="565">　御影はベルへ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　榛名が告発時間を数える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「三」</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　廉は御影の目を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="573">「二」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="575">　御影の指が銀のベルを押し下げる。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="577">　澄んだ音が、地下室を一周した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="579">「告発する」</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　御影は言った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="583">「暗証番号は<span class="term term-code tone-2">73164</span>。真壁廉の嘘は、<span class="term term-code tone-2">第五回答</span>だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="585">　端末の画面が白くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　一秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="588">　二秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　御影は廉の左手を見たままだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="591">　廉の親指は、もう傷から離れている。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="593">　機械音声が告げた。</p>
+<p class="source-line role-narration role-system fx-beat tone-2 gap-1" data-source-line="595"><span class="term term-proper">《告発、不成立》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="597">　御影の瞳から、初めて計算が消えた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="599"><span class="term term-proper">《暗証番号不一致。虚偽回答番号不一致》</span></p>
+<p class="source-line role-narration role-system role-command gap-1" data-source-line="601"><span class="term term-proper">《敗者、御影朔》</span></p>
+<p class="source-line role-narration role-system role-command gap-1" data-source-line="603"><span class="term term-proper">《勝者、真壁廉》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="605">　背後で重いロックが外れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="607">　同時に、御影側の<span class="term term-document tone-4">告白文</span>を収めた箱が赤く点灯する。</p>
+<p class="source-line role-narration role-system role-command tone-4 gap-1" data-source-line="609"><span class="term term-proper">《送信を開始します》</span></p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="611">　御影はベルに置いた指を動かさなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="613">「第三問か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「そうだ」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="617">「四桁目は八か、と聞かれて、君は『いいえ』と嘘をついた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「ああ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="621">「五問目は真実だった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="623">「ああ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="625">「では、あの傷は何だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　廉は左手を持ち上げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="629">「痛かっただけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　御影の眉が初めて動く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="633">「そんな説明で――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「お前は質問を提出した時点で、五問目に何を使うか決めていた。三問目と同じ数字を、別の形でもう一度聞く。私の反応を比較するために」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「だから演じたと？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「演じていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　廉は傷を見た。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="643">「七を越えた一分を思い出した。あの夜、澪から着信があったのは零時七分。声が途切れたのは零時八分だ。『七より大きい』と聞かれた瞬間、身体が勝手に思い出した」</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　御影は黙った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="647">「私は五問目で、本当に怖かった。勝って金庫を開けたとき、澪が何を残しているのか知るのが怖かった。だから傷に触れた」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="649">「恐怖を、嘘に見せた」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-2 gap-1" data-source-line="651">「違う。恐怖は最初から恐怖だった。お前が勝手に、嘘という名前をつけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　廉は御影を見た。</p>
+<p class="source-line role-dialogue role-memory tone-2 gap-1" data-source-line="655">「お前が見抜いていたのは嘘じゃない。人間が何かを守ろうとして、感情を押し殺した瞬間だ。三年前の私は、澪の名誉と自分の立場を同時に守ろうとした。だから傷に触れた。今夜は、記憶を押し殺そうとして触れた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「第三問では、なぜ反応しなかった」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="659">「嘘しか言っていなかったからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　御影の目が細くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「意味が分からないな」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="665">「第三問で守るものはなかった。嘘はルールで義務づけられている。そこで『いいえ』と言っても、誰も傷つかない。失うものを想像しなければ、身体は反応しない」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="667">　廉は銀のベルを指先で回した。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="669">「お前自身が三年前に教えた。人は嘘に反応するんじゃない。嘘で失うものに反応する、と」</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　御影は、乾いた息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「私の言葉で、私を殺したわけか」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax gap-1" data-source-line="675">「お前を殺したのは<span class="term term-clue tone-2">六問目</span>だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「<span class="term term-clue tone-2">六問目</span>は、まだ聞かれていない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「だからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　廉は自分の質問列を指した。</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="683">「五問終了時点で、私の候補は51863と<span class="term term-code tone-1">73184</span>の二つ。お前の嘘は第一問か第二問。<span class="term term-clue tone-2">六問目</span>を聞けば必ず決まる。先問者は私だ。お前は<span class="term term-clue tone-2">六問目</span>へ入った瞬間に負ける」</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　御影が画面を見る。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="686">　<span class="term term-clue tone-2">六問目</span>。「三桁目は四以上か」。</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="688">「お前は第二問で嘘をつき、六つすべてを『いいえ』に揃えるつもりだった。五問目までは二候補を残せる。最善の配置だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「分かっていたのか」</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="692">「四問目で確信した。だから私は、お前にも五問目で二候補が残るよう、第三問を嘘に選んだ」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="694">　御影の候補を廉が知ることはできない。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="695">　だが、御影が「四桁目は八か」と「四桁目は七より大きいか」を重ねた時点で、二つの回答を比較して嘘を特定しようとしていることは分かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「お前は論理で決められない差を、私の身体で埋めるしかない。<span class="term term-clue tone-2">六問目</span>まで待てないからだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「私が告発しなければ？」</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="701">「次の質問で私が告発する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「私が指の反応を信じなければ？」</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="705">「その場合も、次の質問で私が告発する」</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　廉は静かに言った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="709">「私は、お前に正解を選ばせようとしたんじゃない。五問目で賭けるか、<span class="term term-clue tone-2">六問目</span>で確実に負けるかを選ばせた。お前が自分の目を信じる人間だと知っていたから、五問目で賭ける方へ追い込んだ」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="711">　御影はようやくベルから指を離した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「見事だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　その言葉に、悔しさはなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="716">　代わりに、獣が罠の構造を褒めるような、冷たい愉悦があった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="718">「だが、君はまだ金庫を開けていない」</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="721"><span class="source-indent" aria-hidden="true">　　　　　　　　</span>六</h2>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="723">　御影の<span class="term term-document tone-4">告白文</span>が送信される。</p>
+<p class="source-line role-narration role-system tone-4 gap-1" data-source-line="725">　端末には宛先ごとの受領通知が並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　東京地方検察庁。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　薬害被害者弁護団。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　三つの報道機関。</p>
+<p class="source-line role-narration gap-0" data-source-line="730">　ノクス製薬外部監査委員会。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="732">　御影朔本人の電子署名と音声認証が付いた<span class="term term-document tone-4">告白文</span>だった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="734">　内容は、火災当夜の避難制御ログを改竄し、遠隔操作記録を削除し、二名の技術者へ虚偽証言を指示した事実。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　それだけでも、三年前に閉じられた捜査を開き直すには足りる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="738">「<span class="term term-object tone-5">原本</span>が偽物なら、<span class="term term-document tone-4">告白文</span>だけでは私を火災の実行者にできない」</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　御影が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="742">「改竄は認めても、火をつけたとは書いていない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">「お前が火をつけたかどうかは、私が決めることじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="746">「法廷に任せる、と？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="748">「お前が閉じた法廷を、もう一度開ける」</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　榛名が、敗者側の手掛かり札を廉へ渡した。</p>
+<p class="source-line role-narration role-document role-clue gap-1" data-source-line="752">　一、一桁目は七。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="753">　二、二桁目は三。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="754">　三、五桁目は四。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="755">　四、四桁目は偶数で、三桁目より大きい。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="756">　五、三桁目と四桁目の和は六以上九以下であり、三桁目は二ではない。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="758">　候補は四つだった。</p>
+<p class="source-line role-narration role-system role-clue gap-1" data-source-line="760">　73064</p>
+<p class="source-line role-narration role-system role-clue gap-0" data-source-line="761">　73084</p>
+<p class="source-line role-narration role-system role-clue gap-0" data-source-line="762">　<span class="term term-code tone-2">73164</span></p>
+<p class="source-line role-narration role-system role-clue tone-1 gap-0" data-source-line="763">　<span class="term term-code tone-1">73184</span></p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="765">　廉の札から得た四候補との共通項は、一つしかない。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="767">　<span class="term term-code tone-1">73184</span>。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="769">　廉は金庫の前へ立った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="771">　七。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="772">　三。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="773">　一。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="774">　八。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="775">　四。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　最後のキーを押す。</p>
+<p class="source-line role-narration role-sound tone-5 gap-1" data-source-line="779">　低い駆動音とともに、扉が手前へせり出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　中にあったのは、黒い記憶媒体と、白い封筒だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　廉は先に封筒を取る。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="784">　表には、澪の字でこう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　――お兄ちゃんへ。勝っても、すぐ全部を公開しないで。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　廉の手が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　御影が小さく笑った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="792">「君の妹は最後まで分かっていた。<span class="term term-object tone-5">原本</span>には役員の命令だけでなく、治験参加者の氏名、遺伝情報、投薬履歴が含まれている。無加工で公表すれば、ノクスを倒す代わりに、生き残った患者たちの人生を壊す」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="794">「お前はそれを盾に、<span class="term term-object tone-5">原本</span>を消すつもりだった」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="796">「私は現実的なだけだ。真実は、公開すれば善になる物質ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　廉は封筒を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　中には短い手紙と、小さな音声タグが入っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="801">　タグを押すと、三年ぶりに妹の声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="803">『これを聞いているのが誰か、私は分かりません』</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　わずかな雑音。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="806">　澪は、火災の二日前に録音していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="808">『お兄ちゃんかもしれないし、御影さんかもしれない。二人とも、正しいことより、勝つことに向いている人だから』</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　御影の表情から笑みが消える。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="812">『<span class="term term-object tone-1">《アイリス》</span>には、火災の命令系統があります。でも同時に、何の罪もない患者さんの情報があります。だから、勝者にお願いがあります。<span class="term term-object tone-5">原本</span>を世間へ投げないでください。<span class="term term-object tone-5">原本</span>の存在と改竄の事実を公的機関へ届け、裁判所の保全命令を取ってください』</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　廉は目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="816">『御影さん。あなたが聞いているなら、あなたはきっと、情報を消す方を選ぶ。患者を守るためだと言いながら、自分を守るために』</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　御影の顎がわずかに硬くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="820">『お兄ちゃん。あなたが聞いているなら、あなたはきっと、全部を公開したくなる。私の死を無駄にしないためだと言いながら、自分の三年間を正当化するために』</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　廉の指が、音声タグを強く挟んだ。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="824">『どちらも、たぶん嘘です』</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="826">　澪の声は穏やかだった。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="828">『人は、自分を守りたいときほど、大きな正義を主語にします。だからこのゲームでは、一度だけ嘘を義務にしました。嘘をつかない人を選びたかったのではありません。自分が、何を守るために嘘を使うのか分かっている人を選びたかった』</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="830">　数秒の沈黙。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-5 gap-1" data-source-line="832">『勝った人へ。<span class="term term-object tone-5">原本</span>を棺にしないでください。誰かを閉じ込めるためではなく、扉を開けるために使ってください』</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="834">　録音が終わった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="836">　地下室に、金庫の冷却音だけが残る。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　御影が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="840">「どうする。公表すれば私を今夜中に終わらせられる。保全命令を待てば、ノクスには証拠を潰す時間ができる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="842">「もうない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="844">「何？」</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　廉は自分の上着から、薄い紙片を取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="847">　東京地方裁判所の受付印がある、証拠保全申立書の写しだった。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="849">「ゲーム開始の四時間前に申立てた。御影朔の署名付き<span class="term term-document tone-4">告白文</span>が送信された時点で、緊急保全を執行する条件になっている」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="851">　榛名が端末を確認する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="853">「たった今、執行開始の通知が届きました。ノクス製薬本社、第七码頭データセンター、外部保管庫の三か所です」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="855">　御影は初めて、金庫ではなく廉を見た。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="857">「<span class="term term-object tone-5">原本</span>を取ることが目的ではなかったのか」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="859">「<span class="term term-object tone-5">原本</span>だけなら、また違法取得だと潰される。三年前と同じだ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="861">「私の<span class="term term-document tone-4">告白文</span>を、令状の鍵にした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="863">「お前は勝てると思って署名した。だから証拠能力がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="865">「私がゲームへ来なければ？」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="867">「来る。<span class="term term-object tone-5">原本</span>を放置できないから」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="869">「私が<span class="term term-document tone-4">告白文</span>への署名を拒めば？」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="871">「拒めない。拒めば<span class="term term-object tone-5">原本</span>は被害者弁護団へ自動送付される契約だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　御影はしばらく黙り、それから低く笑った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="875">「金庫も、暗証番号も、君にとっては二番目だったわけか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="877">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　廉は黒い記憶媒体を取り出し、榛名へ渡した。</p>
+<p class="source-line role-narration gap-0" data-source-line="880">　榛名は証拠袋へ収め、封印番号を読み上げる。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-5 gap-1" data-source-line="882">「金庫は必要だった。だが、勝つだけでは足りなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="884">「では、何が一番だった」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="886">　廉は御影の<span class="term term-document tone-4">告白文</span>が送信された宛先を見た。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="888">「お前が、自分の意思で負けることだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　御影の笑みが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="892">「私は負けを選んでいない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="894">「選んだ」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="896">　廉は銀のベルを指した。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="898">「五問目で告発したのはお前だ。<span class="term term-clue tone-2">六問目</span>まで待てなかったのも、お前だ。私の傷を嘘だと決めたのも、お前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　御影は答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="902">「人を操るとき、お前はいつも選択肢を二つにする。会社を守るか、遺族を救うか。秘密を守るか、患者を晒すか。黙るか、社会的に死ぬか」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="904">　廉は金庫の扉を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="906">「今夜は私が、お前に二つだけ与えた。五問目で賭けるか、<span class="term term-clue tone-2">六問目</span>で負けるか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="908">「同じ穴の狢だと言いたいのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="910">「違う。私は、お前が選んだことを記録に残した」</p>
+<p class="source-line role-narration role-sound tone-5 gap-1" data-source-line="912">　遠くで、重い扉の解錠音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="913">　執行官と捜査員が地下区画へ入る合図だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　御影は椅子にもたれ、天井を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="917">「最後に一つだけ教えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="919">　ゲームは終わっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="920">　会話を禁じる赤灯も消えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="922">「何だ」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="924">「君は五問目で、本当に妹を思い出したのか。それとも、私にそう信じさせるため、今も嘘をついているのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="926">　廉は左手の傷を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="928">　答えれば、御影は声を測る。</p>
+<p class="source-line role-narration gap-0" data-source-line="929">　瞬きを測る。</p>
+<p class="source-line role-narration gap-0" data-source-line="930">　指を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="931">　最後まで、自分の方法が敗れたのではなく、ただ一度読み違えただけだと思おうとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="933">　廉は親指で傷をなぞった。</p>
+<p class="source-line role-narration gap-1" data-source-line="935">　御影の目が鋭くなる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="937">「その質問への答えは――」</p>
+<p class="source-line role-narration gap-1" data-source-line="939">　廉は、わずかに笑った。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-1" data-source-line="941">「<span class="term term-clue tone-5">七問目</span>だ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="943">　捜査員が扉を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　御影はしばらく廉を見つめていたが、やがて立ち上がり、差し出された手錠へ両手を揃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　机の上には、使われなかった<span class="term term-clue tone-2">六問目</span>が残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　三桁目は、四以上か。</p>
+<p class="source-line role-narration gap-1" data-source-line="951">　答えは「いいえ」。</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　けれど、その一語が口にされることはなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="955">　嘘を見破ったから勝ったのではない。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="956">　嘘をつかせたからでもない。</p>
+<p class="source-line role-narration fx-peak role-motif tone-1 gap-1" data-source-line="958">　<span class="term term-clue tone-2">六問目</span>に真実が待っていると、相手に理解させた。</p>
+<p class="source-line role-narration gap-0" data-source-line="959">　だから相手は、五問目で自分から賭けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　地下室を出る直前、廉は一度だけ振り返った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="963">　空になった金庫は、もう棺には見えなかった。</p>
+<p class="source-line role-narration fx-beat tone-5 gap-0" data-source-line="964">　扉を開けたままの、ただの箱だった。</p>
+<p class="source-line end-mark gap-2" data-source-line="967"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "六問目の棺";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

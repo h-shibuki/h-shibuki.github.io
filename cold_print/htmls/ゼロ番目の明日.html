@@ -1,0 +1,862 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="廃時計工場で親友・冬真が息を引き取った十三秒後、その携帯へ「九年後の榊蓮」から電話が入る。告げられたのは、赤い公衆電話を探し、三回まで過去へ戻って冬真を救えという指示。だが電話の主《差引屋》は、失われるはずだった痛み、記憶、縁、未来は形を変えて必ず回収されると告げる。くだらない喧嘩が破局へ転じる四十分を、蓮は代償を払いながらやり直す。ひとつの命を救えば、その損失は誰へ届くのか。そして九年後の自分は、なぜこの夜の親友を取引に巻き込んだのか。">
+<title>ゼロ番目の明日｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="ゼロ番目の明日" data-novel-id="ゼロ番目の明日" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>サスペンス・ジュブナイル・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>タイムトラベル</p>
+  <p><strong>CSVタグ：</strong>サスペンス、ジュブナイル、ファンタジー、タイムトラベル</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：401行／章：0／役割・強度タグ：455</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="ゼロ番目の明日 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">ゼロ番目の明日</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　親友が死んだ十三秒後、そいつから電話がかかってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　午前零時十三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　廃時計工場の大時計は、十二時を少し過ぎたところで止まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　深町冬真は、その真下に倒れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　胸から腹にかけて、折れた鉄骨が斜めに刺さっている。雨漏りの水と血が床の溝で混ざり、錆びた歯車のほうへ細い川をつくっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="12">「蓮」</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　冬真は俺を見た。</p>
+<p class="source-line role-narration role-memory tone-4 gap-0" data-source-line="15">　昔から、こいつは殴られても笑う男だった。なのに、そのときだけは笑わなかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="17">「栞ちゃんに……遅くなるって、言っとけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="19">「自分で言え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="21">「それ、いいな」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　冬真は一度だけ息を吐き、それきり動かなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　俺は何度も名前を呼んだ。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="26">　工場のあちこちでは、さっきまで殴り合っていた連中が立ち尽くしている。俺たち<span class="term term-world">〈青錆〉</span>も、向こうの<span class="term term-world">〈白雷〉</span>も関係なかった。人が死ぬ瞬間には、敵も味方も、ただの十七歳に戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　十三秒後。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　冬真の上着の内側で、着信音が鳴った。</p>
+<p class="source-line role-narration role-system tone-5 gap-1" data-source-line="32">　血で濡れたスマートフォンを引き抜く。画面には、登録した覚えのない名前が表示されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　――榊 蓮（九年後）。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　俺は自分の名を見つめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="37">　悪趣味な冗談だと思った。けれど、冬真の指はもう冷え始めていた。冗談を仕込む余裕など、誰にもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　通話ボタンに触れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="41">『聞こえるか』</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　受話口からした声は、確かに俺のものだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　ただし、煙草と後悔で九年ぶん擦り減らしたような声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">『赤い公衆電話を探せ。工場を出て、高架沿いに北へ三百メートル。三回まで戻れる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「何を言ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">『冬真を助けろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　声の向こうで、誰かが扉を叩いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="54">『ただし、栞を――』</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　そこで通話は切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　直後、工場の大時計が、動くはずのない長針を一目盛りだけ戻した。</p>
+<div class="source-line scene-break gap-2" data-source-line="61" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-4 gap-2" data-source-line="64">　赤い公衆電話は、潰れたクリーニング店と高架の柱の隙間にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　今どき誰も使わない箱だった。ガラスはひび割れ、電話帳は鎖だけを残して消えている。けれど受話器は、新品のように赤く濡れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　近づくと、呼び出し音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　受話器を取る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">『差引屋でございます』</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　男とも女ともつかない声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="76">『ただいまのお時刻、零時十四分。ご希望の取引は「直前事象の再計算」でよろしいでしょうか』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「冬真を生き返らせろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">『生き返らせるのではありません。死亡に至る前へ戻り、別の結果を選んでいただきます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「同じだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">『まったく違います』</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　電話ボックスの曇ったガラスに、いつの間にか人影が映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　黒い雨合羽。白い手袋。顔のある場所だけが、高架の影より暗い。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　振り返っても誰もいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="91">　ガラスの中にだけ、そいつは立っていた。</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="93">『差引規則をご説明します。一、戻れるのは本日二十三時三十四分まで。二、改変は三回まで。三、失われるはずだった量は、形を変えて必ず差し引かれます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="95">「量って何だ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="97">『痛み、時間、記憶、縁、未来。人間が失いたくないものには、おおむね値がつきます』</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　馬鹿げていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="100">　だが、俺の腕にはまだ冬真の血がついている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「やれ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="104">『一回目の手数料として、あなたと深町冬真様の共有記憶を一件いただきます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">「好きにしろ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="108">『承りました』</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　電話ボックスの床に、白い線が浮かび上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="111">　円の内側に数字と矢印が絡み合い、古い時計の文字盤に似た模様になる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">『合図のあと、目を閉じないでください。目を閉じると、戻れない部分だけが残ります』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="115">「合図は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">『もう済みました』</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　世界が、ガラスの割れる音を立てた。</p>
+<div class="source-line scene-break gap-2" data-source-line="122" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="125">　二十三時三十四分。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　俺は駅前のゲームセンターの裏に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　右手には、まだ開けていない缶コーヒー。スマートフォンには冬真からのメッセージ。</p>
+<p class="source-line role-narration gap-1" data-source-line="131"><span class="term term-world">〈話つけてくる。お前は来るな。栞ちゃん送ってけ〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="133">　四十分前に見た文章だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　雨も、踏切の音も、通り過ぎるバスの広告も同じだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="136">　俺は缶を投げ捨て、廃時計工場へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　<span class="term term-world">〈青錆〉</span>は、別に暴走族でも犯罪組織でもない。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="139">　同じ団地で育ち、学校から余った五人が、つるんでいただけだ。俺が喧嘩を始め、冬真が止め、ほかの三人が面白がって広げる。それがいつの間にか名前をつけられ、隣町の<span class="term term-world">〈白雷〉</span>と睨み合うようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　発端は、たった一枚の落書きだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="142">　互いに消した、消していないと言い合い、殴った、殴られたが積み重なった。冬真は今夜、そのくだらない連鎖を終わらせるつもりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　工場に着くと、正面扉の前で冬真と<span class="term term-world">〈白雷〉</span>の頭、真壁海斗が向かい合っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「蓮。来るなって言ったろ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="148">「帰るぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「話はあと五分で終わる」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="152">「その五分でお前は死ぬ」</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　冬真が眉を上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="155">　海斗が鼻で笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「榊、今度は占い師かよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　俺は二人の間に割って入り、工場の中を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　奥の作業台に、誰かが持ち込んだ花火の束。床には機械油。天井近くでは、切れかけた鉄骨が軋んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　さっき起きたことは覚えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="164">　海斗の後ろにいた下級生が花火を投げ、冬真が蹴り返し、火が油に移る。逃げ遅れた冬真を俺が引き戻そうとした瞬間、鉄骨が落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　俺は花火を持っていた少年の腕をつかみ、箱ごと水たまりへ投げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="168">「何すんだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「今日は解散だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　誰かが俺を突き飛ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="173">　反射で殴り返す。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　そこからは、いつもの俺たちだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　一発が三発になり、三発が十発になる。冬真が怒鳴り、海斗が止めに入り、倒れた誰かが作業台を蹴った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="179">　零時十二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　天井から、金属が裂ける音がした。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="183">「冬真！」</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　俺は冬真の襟をつかんで引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　巨大な歯車が落ち、冬真が立っていた場所を叩き潰す。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　助かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　そう思った次の瞬間、海斗の弟分――まだ中学三年だと聞いていた少年の頭が、跳ねた歯車の縁に押しつぶされた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="193">　零時十三分。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　少年のポケットで、スマートフォンが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　着信音は、冬真の死後に聞いたものと同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　俺は赤い公衆電話まで走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">『一回目の改変を確認しました』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="203">「話が違う！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">『死亡者は一名。損失量は維持されています』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="207">「冬真を助けろって言った！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">『深町冬真様は生存しています』</p>
+<p class="source-line role-dialogue fx-shout tone-5 gap-1" data-source-line="211">「代わりにガキが死んだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">『はい』</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　ガラスの中の雨合羽は、首を少し傾けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">『結果を消すことはできません。結果の持ち主を変えることはできます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「戻せ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="221">『二回目の手数料として、あなたと榊栞様の共有記憶を一件いただきます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「取れ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="225">『承りました』</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　背後から冬真が駆けてきた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="229">「蓮！　何してんだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「冬真、俺たちが小六のとき、給水塔の上で決めた合図、覚えてるか」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="233">「何の話だ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　俺たちだけの合図だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　喧嘩をやめるとき、左の拳を二度叩く。冬真が考えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　こいつはもう、覚えていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　世界が再び割れた。</p>
+<div class="source-line scene-break gap-2" data-source-line="243" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="246">　二回目。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　俺は誰も工場へ入れなかった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="250">　二十三時四十分に警察へ匿名で通報し、工場に危険物と不法侵入者がいると告げた。花火を奪い、油の缶を外へ出し、海斗を殴って気絶させ、冬真の右手と自分の左手を手錠でつないだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「お前、今日ほんとに変だぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　冬真は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「あとで説明する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「その『あと』が来ない顔してる」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　俺たちは工場から二百メートル離れた高架下に座った。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　周囲にはパトカー。<span class="term term-world">〈青錆〉</span>も<span class="term term-world">〈白雷〉</span>も警官に囲まれている。火はない。鉄骨もない。誰も殴り合っていない。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="263">　零時十二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　俺は冬真の手首に指を当てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　脈はある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「なあ蓮」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「黙ってろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「栞ちゃんから電話」</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　俺のスマートフォンが震えた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="276">　画面には<span class="term term-world">〈栞〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　出ると、妹の明るい声がした。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="280">『榊さん？』</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　一瞬、意味がわからなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「俺だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">『えっと、ごめんなさい。冬真くんの知り合いの榊さん、ですよね』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「兄ちゃんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　沈黙。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">『私、一人っ子ですけど』</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　胸の奥から、冷たいものがせり上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　手数料。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="297">　俺と栞の共有記憶が一件、消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　だが、一件どころではない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「栞。自転車。河川敷で、俺が――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">『切りますね』</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　通話が終わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　その瞬間、隣で冬真の身体が跳ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　手錠の鎖が鳴る。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="311">「冬真？」</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　冬真は胸を押さえ、呼吸を探す魚のように口を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　救急車はすぐそばにいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="316">　警官が叫び、救急隊員が走ってくる。胸骨圧迫。電気ショック。薬剤。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="318">　零時十三分。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　モニターの線が、一本になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　傷一つないまま、冬真は死んだ。</p>
+<div class="source-line scene-break gap-2" data-source-line="325" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-2" data-source-line="328">『死亡とは、方法ではなく勘定です』</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　赤い電話の声は淡々としていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「ふざけるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">『刃物を除けば落下物へ、落下物を除けば車両へ、車両を除けば内臓へ。帳尻は、もっとも近い通路を選びます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「じゃあ何をしても同じか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">『同じでない結末を選ぶために、当店がございます』</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　俺は受話器を握り潰しそうになった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「三回目を使う」</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="344">『その前に、未提示の契約書をご覧いただきます』</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　電話ボックスの広告差しに、黒い紙が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　表面には銀色の文字が浮いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　契約日――九年後の十一月二日。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　契約者――榊 蓮、二十六歳。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="351">　希望――榊栞の死亡事象を取り消す。</p>
+<p class="source-line role-narration gap-0" data-source-line="352">　対価――契約者に属する最良の未来、一件。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="354">　紙に触れると、知らない記憶が流れ込んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　九年後の俺。</p>
+<p class="source-line role-narration gap-0" data-source-line="357">　冷たい病院の廊下。</p>
+<p class="source-line role-narration gap-0" data-source-line="358">　白い布をかけられた栞。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　二十歳を過ぎた妹は、雨の交差点でトラックにはねられていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　仕事の電話を優先し、迎えに行かなかった俺は、病院を飛び出して赤い公衆電話を見つける。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　九年後の俺は言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「何でも払う。あいつを戻せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　差引屋は答える。</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="369">『あなたの最良の未来をいただきます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「未来なんか、いくらでも持ってけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　契約が成立する。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　栞は生き返る。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="377">　代わりに、最良の未来へつながる一本の道が、根元から切られる。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　その道の中心にいたのが、冬真だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　映像が変わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　生きていた冬真と、九年後の俺がいる。</p>
+<p class="source-line role-narration role-memory tone-4 gap-0" data-source-line="384">　二人で小さな整備工場を開いていた。看板には<span class="term term-world">〈ZERO CLOCK〉</span>。栞は事務机で笑い、海斗は取引先として出入りし、<span class="term term-world">〈青錆〉</span>も〈白雷〉も、とっくに昔話になっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　俺が最良の未来として差し出したものは、金でも地位でもなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="387">　冬真が生き延びた先にあった、あの光景だった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="389">　未来を消すため、店は原因を過去へさかのぼらせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="390">　今夜、冬真を殺すことにした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="392">「俺が……払ったのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">『はい』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「まだ払ってない。九年後の話だろ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="398">『代金は、契約より前の日付から回収される場合がございます。未来は過去より高価ですので』</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　吐き気がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「じゃあ、あの電話は」</p>
+<p class="source-line role-dialogue role-system role-memory tone-3 gap-1" data-source-line="404">『九年後のあなたが、契約直後に残した警告です。改変によって記憶が定着するまで、十三秒の猶予がありました』</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　だから声は、栞を、と言いかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　栞を助けた代償だと伝えようとしたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　背後で、冬真が息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　振り返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　死んだはずの冬真が、電話ボックスの外に立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="415">　いや、時間はまだ零時十四分。改変後の世界が完全に固定されるまでの、残りかすのような一分だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「聞こえてたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">「半分くらいな」</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　冬真は胸を押さえた。蘇生の跡も傷もない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="423">「変な夢、見た。歯車に潰されて、次は胸が止まって。お前が毎回、泣きそうな顔で怒鳴ってた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「夢じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="427">「だろうな」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="429">　冬真は黒い契約書を読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">「簡単じゃん。元に戻せばいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">「栞が九年後に死ぬ」</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="435">「でも、それが元の未来なんだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「選べるか、そんなもん」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="439">「じゃあ俺が死ぬ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「黙れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「お前の妹だぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「お前は俺の親友だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　冬真は少し困ったように笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">「それ、俺はもう一個、忘れてるらしいけどな」</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　左の拳を二度叩く合図。</p>
+<p class="source-line role-narration gap-0" data-source-line="452">　俺たちの最初の約束。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　忘れたはずなのに、冬真は無意識に左拳を握っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　赤い受話器から声がした。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="458">『三回目の改変をご希望ですか』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「別の払い方は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">『ございます』</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　ガラスの中の雨合羽が、初めて笑ったように見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">『死亡一件と最良未来一件。双方を清算するには、契約者ご本人の全関係を差し出していただきます』</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="468">「全関係？」</p>
+<p class="source-line role-dialogue role-memory tone-2 gap-1" data-source-line="470">『あなたを知る者の記憶、あなたを示す記録、あなたが与えた影響、あなたが受け取るはずだった役割。要するに、榊蓮という人物が、この世界に所属した事実です』</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　冬真が受話器を奪おうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="473">　俺は肩で押し返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「そうしたら、二人とも生きるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">『深町冬真様は今夜を越えます。榊栞様は九年後の事故を免れます』</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-1" data-source-line="479">「俺は死ぬ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">『死は、誰かに覚えられて初めて完成します。誰にも覚えられない方を、死者とは呼べません』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">「じゃあ何になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">『差し引かれた余りです』</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　冬真が俺の胸ぐらをつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「やめろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「これしかない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「俺が払う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「未来の契約者は俺だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「そんなの、まだお前じゃない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="499">「なるんだよ。栞が死んだら、俺は絶対に電話を取る。何でも払うって言う。今の俺ならわかる」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　冬真の手が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="503">「未来の俺は、お前を売った。知らなかったで済む話じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「だからって――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「俺が払う」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　初めて、自分で決めた気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　喧嘩を始めるのも、学校をさぼるのも、誰かのせいにできた。父親がいない。金がない。教師がむかつく。町が腐っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　けれどこれは、俺が選ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　冬真の命でも、栞の命でもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　俺が二人の明日から退く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「三回目を使う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="520">『手数料は不要です。全額を頂戴しますので』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="522">「蓮！」</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　冬真が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　俺は受話器を耳に当てたまま、左の拳を二度叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　終わりの合図だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　冬真はその意味を覚えていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="531">　それでも泣いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">『ご署名を』</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　ガラスに白い円が浮かぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　中心には空欄が一つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　俺は噛んだ親指の血で、そこに名前を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　榊 蓮。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　最後の一画を引くと、町じゅうの時計が零時十三分を指した。</p>
+<div class="source-line scene-break gap-2" data-source-line="545" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="548">　最初に消えたのは、スマートフォンの連絡先だった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="550">　<span class="term term-world">〈母〉</span>が名字だけになり、<span class="term term-world">〈栞〉</span>が知らない番号になり、〈冬真〉の履歴から俺との会話が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　次に写真。</p>
+<p class="source-line role-narration gap-0" data-source-line="553">　五人で撮った<span class="term term-world">〈青錆〉</span>の集合写真は、四人になった。俺が立っていた場所には、壁の落書きが不自然に続いている。</p>
+<p class="source-line role-narration role-document tone-4 gap-1" data-source-line="555">　学校の名簿から一行が消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="556">　机が一つ減る。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　玄関の靴が一足減る。</p>
+<p class="source-line role-narration gap-0" data-source-line="558">　家の冷蔵庫に貼られた「蓮、牛乳」という母のメモから、最初の二文字が消えて「牛乳」だけになる。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="560">　記憶は、最後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　冬真の目から怒りが薄れ、悲しみが薄れ、やがて警戒に変わった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="564">「……誰だ、お前」</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　その言葉は、鉄骨より深く刺さった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="568">「通りすがり」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　声が震えないように言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「血、出てるぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「平気だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　冬真は俺を知らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　それでも、放っておけない顔をした。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="578">　そういう奴だから、俺は未来を渡したくなかったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　遠くでサイレンが鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　冬真は仲間たちのほうへ戻っていった。誰も死んでいない工場から、誰もが生きて出てくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　俺は赤い電話ボックスの前に残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　雨が身体を通り抜けるように冷たかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　ガラスの中の雨合羽が、扉を開けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="588">　今度は反射ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　電話ボックスの奥に、狭い店が続いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="591">　壁一面に黒い帳簿。天井から無数の時計。どれも違う時刻を示し、秒針だけが同じ方向へ逆回りしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　白い手袋が一組、カウンターの上に置かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">『差し引かれた余りには、居場所がございません』</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="597">「だから、ここで働けって？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">『お客様は、忘れ物を取りに戻られることがあります』</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="601">「冬真も？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="603">『人間は、失った記憶そのものを忘れても、失った形までは忘れません』</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　俺は白い手袋をはめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　ちょうどだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　店の鏡を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="610">　俺の顔は映っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="611">　ただし、目鼻のある場所だけが、高架の影より暗かった。</p>
+<div class="source-line scene-break gap-2" data-source-line="614" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="617">　九年後。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="619">　深町冬真は、古い商店街の端で整備工場を営んでいた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="621">　店の名は<span class="term term-world">〈ZERO CLOCK〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　なぜその名にしたのか、本人にもわからなかった。大時計が止まった夜、何かを終わらせ、何かを始めた気がする。それだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　榊栞は、工場の事務と経理を担当していた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="626">　二人は兄妹ではない。幼なじみですらない。それでも栞は、冬真の隣にいると、ずっと昔からそこにいたような安心を覚えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　工場には椅子が五脚あった。</p>
+<p class="source-line role-narration gap-0" data-source-line="629">　従業員は四人だった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="631">「これ、一個多くない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　栞が何度も言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「最初から五脚だった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「誰が使うの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「さあ」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　冬真はいつも、入口に一番近い椅子を空けておいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　十一月二日。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　雨の夜。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　閉店後、赤い公衆電話から着信音が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　商店街に公衆電話などない。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　それでも音は、路地の奥から確かに鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　冬真は傘も差さず、音を追った。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　高架下に、赤い電話ボックスが立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　受話器の下に、黒いレシートが挟まっている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="657"><span class="term term-world">〈お忘れ物　一名〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="659">　裏面には、左の拳を二度叩く、小さな絵が描かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　見た瞬間、冬真の胸が痛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　知らないはずの工場。</p>
+<p class="source-line role-narration gap-0" data-source-line="664">　落ちてくる歯車。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　手錠。</p>
+<p class="source-line role-narration gap-0" data-source-line="666">　泣きそうな顔で怒鳴る少年。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="668">　名前だけが、どうしても思い出せない。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　電話ボックスの扉を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　奥には店があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="673">　黒い帳簿と、逆回りする時計。</p>
+<p class="source-line role-narration gap-0" data-source-line="674">　カウンターの向こうに、白い手袋の店員が立っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「いらっしゃいませ」</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　店員の声を聞いた瞬間、冬真は腹が立った。</p>
+<p class="source-line role-narration gap-0" data-source-line="679">　理由はわからない。</p>
+<p class="source-line role-narration gap-0" data-source-line="680">　殴りたいほど懐かしかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「俺たち、会ったことあるか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「三回ほど」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="686">　店員は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「全部、あなたが死んだ夜です」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　冬真は黒いレシートをカウンターへ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="692">「忘れ物を返せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「代金が必要です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「いくらだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="698">「あなたが生き延びたことで生まれた未来、すべて」</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　整備工場。</p>
+<p class="source-line role-narration gap-0" data-source-line="701">　仲間たち。</p>
+<p class="source-line role-narration gap-0" data-source-line="702">　栞。</p>
+<p class="source-line role-narration gap-0" data-source-line="703">　誰も死ななかった九年間。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="705">　冬真はしばらく黙り、それから笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「じゃあ、安いな」</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　店員の指が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="711">「そいつが払ってできた未来なら、最初から俺だけのものじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「お帰りください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「嫌だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「帰れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　店員の声から、丁寧さが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　冬真は左の拳を二度叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="723">「やっぱり知ってるだろ、これ」</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　店内の時計が、一斉に零時十三分を指した。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="727">　カウンターに新しい契約書が現れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　冬真はペンを取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　店員がその手首をつかむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　白い手袋越しなのに、互いの体温がわかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">「名前を教えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　冬真が言った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="738">　店員は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　答えれば、契約が戻る。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　答えなければ、冬真が未来を差し出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　どちらを選んでも、誰かの明日は欠ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　差引屋の時計だけが、嬉しそうに逆回りを続けていた。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="747">　やがて契約書の空欄に、まだ誰も書いていない名前が、銀色の文字でゆっくりと浮かび上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　――深町冬真。</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　親友が死ぬ十三秒前、赤い公衆電話が鳴り始めた。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -10,7 +10,7 @@
     "./serial-novel-inventory.csv",
     document.baseURI,
   );
-  const ONE_SHOT_DIRECTORY_URL = new URL("./novels/", document.baseURI);
+  const EXTENDED_HTML_DIRECTORY_URL = new URL("./htmls/", document.baseURI);
   const SERIAL_DIRECTORY_URL = new URL("./novels/serials/", document.baseURI);
 
   const VOTE_COLUMNS = ["Good数", "Bad数"];
@@ -102,6 +102,9 @@
     readerBack: document.querySelector("#reader-back"),
     readerBackLabel: document.querySelector("#reader-back-label"),
     readerNavLabel: document.querySelector("#reader-nav-label"),
+    extendedReader: document.querySelector("#extended-reader"),
+    extendedReaderStatus: document.querySelector("#extended-reader-status"),
+    extendedReaderFrame: document.querySelector("#extended-reader-frame"),
     readerArticle: document.querySelector("#reader-article"),
     readerKicker: document.querySelector("#reader-kicker"),
     readerSeriesTitle: document.querySelector("#reader-series-title"),
@@ -172,12 +175,14 @@
   function bindEvents() {
     elements.skipLink.addEventListener("click", (event) => {
       event.preventDefault();
-      const heading = elements.body.dataset.view === "reader"
-        ? elements.readerTitle
+      const target = elements.body.dataset.view === "reader"
+        ? state.currentReading?.kind === "one-shot" && !elements.extendedReader.hidden
+          ? elements.extendedReaderFrame
+          : elements.readerTitle
         : elements.body.dataset.view === "series"
           ? elements.seriesTitle
           : elements.portalTitle;
-      heading.focus({ preventScroll: false });
+      target.focus({ preventScroll: false });
     });
 
     elements.catalogTabs.addEventListener("click", (event) => {
@@ -225,6 +230,7 @@
     elements.readerBack.addEventListener("click", handleReaderBack);
 
     window.addEventListener("popstate", routeToCurrentLocation);
+    window.addEventListener("message", handleExtendedReaderMessage);
     window.addEventListener("storage", handleVoteStorageChange);
     window.addEventListener("scroll", handleWindowScroll, { passive: true });
     window.addEventListener("scrollend", flushHistorySnapshot, { passive: true });
@@ -1340,6 +1346,7 @@
 
   function showPortal(options = {}) {
     cancelCurrentRequest();
+    resetExtendedReader();
     beginScrollRestore();
     const returningToPortal = elements.body.dataset.view !== "portal";
     state.currentReading = null;
@@ -1402,6 +1409,7 @@
 
   async function showSeries(series, options = {}) {
     cancelCurrentRequest();
+    resetExtendedReader();
     beginScrollRestore();
     const routeToken = ++state.routeToken;
     state.currentRouteKey = `series:${series.seriesId}`;
@@ -1860,29 +1868,25 @@
       navLabel: "Cold Print",
       documentTitle: `${item.title} | Cold Print`,
       episodeMode: false,
+      focusHeading: false,
     });
-
-    const cacheKey = routeKey;
-    if (!options.forceReload && state.textCache.has(cacheKey)) {
-      renderReaderText(state.textCache.get(cacheKey), { episodeMode: false });
-      restoreReaderPosition();
-      return;
-    }
+    prepareExtendedReader(item);
 
     const controller = new AbortController();
     state.requestController = controller;
     try {
-      const novelUrl = new URL(encodeURIComponent(item.filename), ONE_SHOT_DIRECTORY_URL);
-      const rawText = await fetchText(novelUrl, "本文", { signal: controller.signal });
+      const documentUrl = buildExtendedHtmlUrl(item.filename);
+      await fetchText(documentUrl, "拡張フォント版本文", {
+        signal: controller.signal,
+        cache: options.forceReload ? "reload" : "default",
+      });
       if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
         return;
       }
-      const text = normalizeNovelText(rawText);
-      state.textCache.set(cacheKey, text);
-      renderReaderText(text, { episodeMode: false });
-      restoreReaderPosition();
+      loadExtendedReaderFrame(documentUrl, routeToken, routeKey);
     } catch (error) {
       if (error.name !== "AbortError" && routeToken === state.routeToken) {
+        resetExtendedReader();
         showReaderError(error, () => showOneShot(item, { forceReload: true }));
       }
     } finally {
@@ -1890,6 +1894,116 @@
         state.requestController = null;
       }
     }
+  }
+
+  function prepareExtendedReader(item) {
+    elements.body.dataset.readerMode = "extended-one-shot";
+    elements.readerArticle.hidden = true;
+    elements.readerFooter.hidden = true;
+    elements.extendedReader.hidden = false;
+    elements.extendedReader.dataset.ready = "false";
+    elements.extendedReader.setAttribute("aria-busy", "true");
+    elements.extendedReaderStatus.hidden = false;
+    elements.extendedReaderStatus.textContent =
+      "拡張フォント版の本文を読み込んでいます…";
+    elements.extendedReaderFrame.title = `${item.title} 拡張フォント版の本文`;
+  }
+
+  function loadExtendedReaderFrame(documentUrl, routeToken, routeKey) {
+    const frame = elements.extendedReaderFrame;
+    frame.onload = () => {
+      if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+        return;
+      }
+      guardReferenceChapterLinks(frame);
+      frame.onload = null;
+      frame.onerror = null;
+      elements.extendedReader.dataset.ready = "true";
+      elements.extendedReader.setAttribute("aria-busy", "false");
+      elements.extendedReaderStatus.hidden = true;
+      completeScrollRestore(0, () => frame.focus({ preventScroll: true }));
+    };
+    frame.onerror = () => {
+      if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+        return;
+      }
+      const item = state.currentReading?.item;
+      resetExtendedReader();
+      showReaderError(
+        new Error("拡張フォント版本文を表示できませんでした。"),
+        () => item && showOneShot(item, { forceReload: true }),
+      );
+    };
+    frame.contentWindow.location.replace(documentUrl.href);
+  }
+
+  function guardReferenceChapterLinks(frame) {
+    try {
+      const frameDocument = frame.contentDocument;
+      if (
+        !frameDocument?.body ||
+        frameDocument.body.dataset.novelId ||
+        frameDocument.documentElement.dataset.coldPrintChapterGuard === "true"
+      ) {
+        return;
+      }
+      frameDocument.documentElement.dataset.coldPrintChapterGuard = "true";
+      frameDocument.addEventListener("click", (event) => {
+        const link = event.target.closest?.('a[href^="#"]');
+        if (
+          !link ||
+          event.defaultPrevented ||
+          event.button !== 0 ||
+          event.metaKey ||
+          event.ctrlKey ||
+          event.shiftKey ||
+          event.altKey
+        ) {
+          return;
+        }
+        const rawHref = link.getAttribute("href");
+        if (!rawHref || rawHref.length > 200) {
+          return;
+        }
+        let targetId;
+        try {
+          targetId = decodeURIComponent(rawHref.slice(1));
+        } catch (_error) {
+          return;
+        }
+        const target = targetId ? frameDocument.getElementById(targetId) : null;
+        if (!target?.closest("article.novel")) {
+          return;
+        }
+        event.preventDefault();
+        const reduceMotion = frame.contentWindow
+          ?.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        target.scrollIntoView({
+          behavior: reduceMotion ? "auto" : "smooth",
+          block: "start",
+        });
+      }, { capture: true });
+    } catch (_error) {
+      /* The reader remains usable if a browser blocks same-origin frame access. */
+    }
+  }
+
+  function resetExtendedReader() {
+    const frame = elements.extendedReaderFrame;
+    frame.onload = null;
+    frame.onerror = null;
+    try {
+      frame.contentWindow?.location.replace("about:blank");
+    } catch (_error) {
+      /* A fresh iframe is already blank; route cleanup can continue. */
+    }
+    frame.title = "拡張フォント版の本文";
+    elements.extendedReader.hidden = true;
+    elements.extendedReader.dataset.ready = "false";
+    elements.extendedReader.setAttribute("aria-busy", "true");
+    elements.extendedReaderStatus.hidden = false;
+    elements.readerArticle.hidden = false;
+    delete elements.body.dataset.readerMode;
   }
 
   async function showEpisode(series, episodeId, options = {}) {
@@ -1969,11 +2083,13 @@
   }
 
   function prepareReader(options) {
+    resetExtendedReader();
     beginScrollRestore();
     elements.portalView.hidden = true;
     elements.seriesView.hidden = true;
     elements.readerView.hidden = false;
     elements.body.dataset.view = "reader";
+    elements.readerArticle.hidden = false;
     elements.readerKicker.textContent = options.kicker;
     elements.readerSeriesTitle.textContent = options.seriesTitle;
     elements.readerSeriesTitle.hidden = !options.seriesTitle;
@@ -1994,7 +2110,10 @@
     document.title = options.documentTitle;
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     const historyData = isPlainObject(history.state) ? history.state : {};
-    if (!Number.isFinite(historyData.readerScrollY)) {
+    if (
+      options.focusHeading !== false &&
+      !Number.isFinite(historyData.readerScrollY)
+    ) {
       requestAnimationFrame(() => elements.readerTitle.focus({ preventScroll: true }));
     }
     requestProgressUpdate();
@@ -2234,6 +2353,19 @@
     }
   }
 
+  function handleExtendedReaderMessage(event) {
+    if (
+      event.source !== elements.extendedReaderFrame.contentWindow ||
+      state.currentReading?.kind !== "one-shot" ||
+      elements.extendedReader.hidden ||
+      !isPlainObject(event.data) ||
+      event.data.type !== "cold-print:return-to-portal"
+    ) {
+      return;
+    }
+    returnFromOneShotToPortal(elements.readerBack.dataset.readerFocusKey);
+  }
+
   function navigateToSeries(seriesId, options = {}) {
     const historyData = isPlainObject(history.state) ? history.state : {};
     const returnDepth = Number.isSafeInteger(historyData.seriesReturnDepth)
@@ -2381,6 +2513,11 @@
 
   function buildOneShotHash(filename) {
     return `#novel=${encodeURIComponent(filename)}`;
+  }
+
+  function buildExtendedHtmlUrl(filename) {
+    const htmlFilename = `${filename.slice(0, -".txt".length)}.html`;
+    return new URL(encodeURIComponent(htmlFilename), EXTENDED_HTML_DIRECTORY_URL);
   }
 
   function buildSeriesHash(seriesId) {

@@ -1,0 +1,790 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="資産階級だけが「予備の身体」を所有し、記憶さえ継げる都市。代替体回収官の都築真は、逃亡したSN-0を追う。だが標的は自分と同じ顔、同じ記憶を持ち、真こそ交換後の複製だと告げた。法が人間と認めるのは一体だけ。さらに廃棄を待つ少女ミナが、すべての代替体の所在を記した台帳を奪おうとしている。正午の太陽が二人を照らすとき、「本物」の座をめぐる追跡は、命令に従う者と自由を望む者の戦いへ反転する。同じ人生を持つ二人のうち、明日を選べるのは誰なのか。">
+<title>予備の太陽｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="予備の太陽_読み切りアクション小説" data-novel-id="予備の太陽_読み切りアクション小説" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・バトル・ミステリ</p>
+  <p><strong>補助ジャンル：</strong>サスペンス・SF</p>
+  <p><strong>CSVタグ：</strong>アクション、バトル、ミステリ、サスペンス、SF</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：329行／章：0／役割・強度タグ：380</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="予備の太陽 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">予備の太陽</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　正午三分、私は私を撃ち損ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　弾丸は男の左耳をちぎり、背後の広告板に穴をあけた。穴の向こうでは、白い歯を見せた市長が「あなたは、あなたであり続ける」と笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　男は私と同じ顔で、私より上手に驚いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="9">「照準がずれたな、シン」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="10">「風だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="11">「地下街に風はない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="12">「では、手がずれた」</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　私は二発目を撃った。男は買い物客の列へ飛び込み、赤いコートの女を盾にして床を滑った。私は女の肩越しに狙ったが、女が悲鳴を上げて身を縮めたので、弾は天井の散水管を破った。生ぬるい水が降り、照明が明滅し、地下街はたちまち祭りのような混乱になった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="16">　逃げる男の後頭部には、私と同じ場所に小さな傷があった。七歳の夏、空の瓶で殴られた傷だ。殴ったのは父だった。瓶の中にまだ蝉がいると思ったらしい。父は翌年、連続性局に身体を売った。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　私は水煙の中を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　私の職業は代替体回収官だった。</p>
+<p class="source-line role-narration role-memory tone-5 gap-1" data-source-line="22">　この市では、資産等級が三以上の市民は、自分の予備を一体持つことができる。臓器だけを育てる者もいる。若い肉体を丸ごと作る者もいる。記憶を定期転写し、事故や病気で本体が損なわれたとき、法的な自分を予備へ移す。市の標語では、それを「死への行政的勝利」と呼んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　予備は人間ではない。少なくとも、帳簿の上では。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　帳簿は銃より強い。銃で人を殺せても、帳簿なら最初から人でなかったことにできる。</p>
+<p class="source-line role-narration role-memory tone-2 gap-1" data-source-line="28">　逃げた男の管理番号はＳＮ－０だった。名前は宮古シン。私と同じだ。顔も、指紋も、幼いころの記憶も同じ。違いは、彼が違法に目覚め、所有者の命令を拒んだことだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　そして、その所有者も宮古シンだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　つまり私だ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="34">「南口を封鎖しろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　耳の奥の通信機へ言った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="38">　返事の代わりに、甲高い雑音が鳴った。男が妨害器を使ったらしい。準備がいい。私の記憶から、私が追うとき何をするか知っているのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　階段の上で爆発が起きた。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　人々がこちらへ雪崩れた。私は手すりを飛び越え、逆向きに走る群衆の肩と頭を踏んで上った。途中で老人の帽子を蹴り落としたが、謝らなかった。謝罪は相手が人間であると確認してからするものだ。この街では確認に時間がかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　地上は真夏だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　太陽が建物の角という角を白く焼き、車道の樹脂が柔らかくなっていた。ＳＮ－０は配送用の三輪車を奪い、中央大通りを南へ走っていた。荷台から青い冷却液が漏れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　私は警備員の電動二輪を奪った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「局の徴用だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「証明を」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="52">「あとで死体に見せる」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　警備員が手を伸ばしたので、肘を逆に折った。乾いた枝のような音がした。彼は倒れながら私を罵った。その罵り方も行政用語だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　私は二輪を加速させた。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　中央大通りの両側では、上層市民の昼食を運ぶ担人たちが列を作っていた。彼らは背に冷蔵箱を縛られ、首の輪から伸びた導線で歩調を制御されている。信号が青になると輪が緩み、赤になると締まる。誰も信号を無視しない。秩序とは、たいてい首の周りにある。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　ＳＮ－０は担人の列へ突っ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　冷蔵箱が宙を舞い、銀色の皿、花、氷、半生の肉が路上へ散った。輪の導線が絡まり、十数人が一斉に倒れる。私は車体を傾け、倒れた担人の間を縫った。前輪が誰かの手を踏んだ。感触は小さな段差と変わらなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　ＳＮ－０が振り向き、片手で散弾銃を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　私は二輪から横へ身を投げた。散弾が車体を蜂の巣にした。私は転がりながら拳銃を三発撃ち、三輪車の後輪を潰した。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　三輪車が横転する。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　ＳＮ－０は路面を滑り、火花を引き、立ち上がる前に私へナイフを投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　刃が私の肩へ刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　私は速度を落とさず彼に体当たりした。二人で果物屋の屋台へ突っ込み、熟れた桃と木片の中を転がった。同じ顔が目の前にあるのは、鏡より不快だった。鏡は殴り返さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　彼の拳が私の顎を打った。</p>
+<p class="source-line role-narration gap-0" data-source-line="77">　私の肘が彼の喉を打った。</p>
+<p class="source-line role-narration gap-0" data-source-line="78">　彼の膝が私の腹へ入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="79">　私は肩のナイフを抜き、そのまま彼の脇腹へ突き立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　彼は笑った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="83">「そこも同じだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「何が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「刺し方」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　彼は私の手首をつかみ、刃をさらに自分の体内へ引き込んだ。近づいた私の額へ頭突きを入れる。視界が白く弾けた。次に見えたとき、彼は果物屋の裏口へ消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　私は立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　桃が一つ、潰れずに転がってきた。拾ってかじった。ぬるく、甘かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　母が死んだ日も暑かった。病院の廊下で私は桃の缶詰を食べた。医師が死亡時刻を告げる間も食べていた。あとで叔母に薄情だと言われたが、桃と死には関係がない。関係のないものを無理につなげるから、人は物語に飼われる。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="95">　肩の傷へ止血剤を吹き、私は裏口へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　果物屋の奥は、地下輸送路へ続いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　壁に貼られた案内図には、市の断面が描かれている。地上から順に、居住層、商業層、機械層、育成層、廃棄層。育成層より下は一般市民の立ち入りが禁じられていた。市民でないものを育てる場所だからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　ＳＮ－０の血が階段に点々と落ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　私は追った。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　六階分降りたところで、照明が消えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="107">「止まれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　女の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　私は止まらず、声の方向へ撃った。銃口の火で、剃り上げた頭と銀色の歯が見えた。女は弾を避け、低く潜り、私の脚を払った。背中から階段へ落ちる。後頭部を打つ直前、私は手すりをつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　女の靴底が顔へ来た。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="115">　私は首をひねり、彼女の足首をつかんで引いた。女は倒れながら短い刃を抜き、私の手の甲を裂いた。互いに一段ずつ落ち、暗闇で組み合った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「回収官は話を聞かないのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="118">「話は死体からでも聞ける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="119">「便利な耳だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　女が私の喉へ刃を当てた。私は銃口を彼女の腹へ当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="123">「相打ちだな」と女。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="124">「先に死んだほうが負けだ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="125">「同時なら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="126">「局が決める」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　非常灯が赤く点いた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="130">　女は二十代に見えた。裸の肩に、黒い数字が縦に刻まれている。０２１７。育成体の番号だった。舌先にも識別用の金属片が埋め込まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　彼女の背後にＳＮ－０が立っていた。脇腹を押さえ、私の拳銃と同型の銃を構えている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「銃を捨てろ、シン」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="135">「どちらの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="136">「追ってきたほう」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　私は女の腹から銃を離した。女も刃を引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「私はミナ」と彼女は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="141">「育成体に名前はない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="142">「だから拾った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="143">「落とし物か」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="144">「死んだ看護師から」</p>
+<p class="source-line role-narration role-system role-memory tone-2 gap-1" data-source-line="146">　ＳＮ－０が私へ小さな記憶端末を投げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「見ろ」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="150">　端末には連続性局の認証印があった。再生すると、手術台に横たわる男が映った。顔は私だった。胸が開かれ、人工心臓の交換を受けている。画面の隅に日付が出ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　三年前。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="154">　次の映像では、同じ男が死亡確認を受けていた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="156">　さらに次の映像で、培養槽から一体の予備が出された。記憶を書き込まれ、宮古シンとして登録された。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　その予備の右肩には、小さな製造痕があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　私は上着を破り、自分の右肩を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　同じ痕があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「映像は作れる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="165">「傷は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="166">「傷も作れる」</p>
+<p class="source-line role-dialogue role-memory role-clue tone-3 gap-0" data-source-line="167">「記憶は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「それもだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="169">「では何が本物だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　私は答えなかった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="173">　答えられないのではない。質問が悪い。市では本物かどうかは構造ではなく所有権で決まる。公式な印鑑が押されたものが本物で、押されなかったものは肉でできた誤植だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　ＳＮ－０は壁にもたれた。</p>
+<p class="source-line role-dialogue role-system tone-5 gap-1" data-source-line="177">「おまえは三年前に起動されたＳＮ－１だ。俺はその一年前に作られたＳＮ－０。元の宮古シンはとっくに死んだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「なら、私の所有者は誰だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「局だ」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-0" data-source-line="180">「命令書には私とある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「局は代替体同士を殺し合わせ、生き残ったほうを正式な宮古シンとして使う。回収官には、自分の逃亡体を始末したと思わせる。逃亡体には、偽物を倒せば自由になれると思わせる。安い選別だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　ミナが階段の下を指した。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="185">「証拠は育成層の主台帳にある。私たちはそれを地上へ出す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="186">「出してどうする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="187">「人々が知る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="188">「知っても昼食を食べる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「食べながら吐くかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　そのとき、上階で金属音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　六人分の足音。重い。一定。局の粛清班だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　ミナが赤い非常灯を撃ち抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　暗闇。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　粛清班の照準灯が階段を赤い線で切った。私は床へ伏せた。頭上を弾丸が走り、壁の破片が雨のように降る。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="201">「下へ！」とＳＮ－０が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　三人で階段を飛び降りた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="205">　下の踊り場には整備用の無人貨車が止まっていた。ミナが扉を蹴り開ける。私たちが飛び乗った直後、粛清班が姿を現した。全員、黒い外骨格を着ている。顔の代わりに鏡面の仮面。相手の顔を映し、撃たれる者に自分を殺す錯覚を与える装備だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　私は貨車の操作盤を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　安全装置が壊れ、車体が傾斜路を滑り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　粛清班が飛び乗ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　一人目の腕をＳＮ－０がつかみ、車輪の下へ引き込んだ。外骨格ごと砕ける音がした。二人目は天井へ磁気爪を打ち込み、車体の上を走った。私は貨車の側板へ身を乗り出し、そいつの鏡面仮面を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　仮面が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　中には若い女の顔があった。驚くほど普通だった。女は一瞬、私と目が合い、それから天井の梁へ頭をぶつけて消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　三人目が貨車内へ手榴弾を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　ミナが蹴り返した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="223">　爆発が後方の壁をえぐり、傾斜路全体が揺れた。貨車は速度を増す。前方に閉鎖扉が見えた。厚さ一メートルの防爆扉。警告灯が赤く回っている。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="225">「止めろ！」とＳＮ－０。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="226">「操作盤は私が撃った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="227">「なぜ撃った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="228">「そのときは正しいと思った」</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　ミナが貨車の床板を剥がした。下に整備用の空洞がある。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="232">「入れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　三人で潜り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　貨車が防爆扉へ衝突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　世界が一枚の鉄板になって私たちを叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　何秒か、私は自分の名前を忘れた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="242">　名前を思い出すより先に、銃を探した。手は正直だ。脳が自分を見失っても、指は引き金の場所を知っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　貨車は潰れていたが、衝突で防爆扉も半分開いていた。ミナが這い出す。ＳＮ－０は脇腹から大量に出血している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「歩けるか」と私は聞いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="247">「おまえと同じ程度には」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「私は歩ける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="249">「では歩ける」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　扉の向こうが育成層だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　白い霧の中に、透明な槽が何千本も並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　槽の中には、人がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　子ども。老人。妊婦。兵士。歌手。判事。上層市民が注文したあらゆる年齢、あらゆる体格の予備。眠っている者もいれば、目を開けてこちらを見ている者もいた。声は聞こえない。口だけが動いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　頭上の表示板に、在庫、適合率、償却予定日が流れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　ミナは一つの槽へ近づいた。中には彼女と同じ顔の少女がいた。肩に０２１８と刻まれている。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="263">「妹か」と私。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="264">「次の私」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="265">「同じではない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="266">「そうだ。だから出す」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="268">　ミナが制御端末へ手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　警報が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　床の溝から四足型の警備機が跳び出した。人間の背骨を模した細長い胴体に、切断刃の脚が六本。頭部には所有者識別用の読み取り機がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　最初の一体がミナへ飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　私は横から蹴り、空中で銃を三発撃った。装甲が弾く。警備機は壁を走り、天井から私の背へ落ちた。刃が上着を裂く。私は床へ転がり、脚の関節へ肩から抜いたナイフを差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　ＳＮ－０が散弾銃を奪って撃つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　警備機の頭部が吹き飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　残りが一斉に来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　ミナは培養槽の管を引き抜いた。青い液体が床へ噴き出す。警備機の脚が滑る。私は一体の背へ飛び乗り、読み取り機をつかんで別の一体へ向けた。互いを侵入者と誤認し、刃で切り合う。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　ＳＮ－０が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「俺たちは同じことを考える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="289">「今それを言うな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="290">「気味が悪いか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="291">「少し」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　最後の一体がＳＮ－０の胸を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　刃の先が背中から出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　私は警備機の脚をつかみ、全体重をかけて折った。ミナが頭部へ銃弾を撃ち込み続ける。警備機は痙攣し、止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　ＳＮ－０は床に座った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="301">　胸から泡立つ血が出ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「主台帳は中央塔の最上階だ」と彼は言った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="304">「知っている」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="305">「俺の記憶だからな」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="306">「私の記憶でもある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="307">「では、どちらが行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　私は答えず、彼の胸へ止血材を押し込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">「無駄だ」とミナ。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="312">「知っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　ＳＮ－０が私の手首をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「正式な宮古シンになりたいか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="317">「なれば給料が出る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="318">「それだけか」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="319">「昼食券も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="320">「悪くない」</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　彼は笑い、咳をし、血を吐いた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="324">「俺は自由になりたかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="325">「自由になって何をする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="326">「知らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="327">「計画性がない」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="328">「自由は計画の外にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　ＳＮ－０の手から力が抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　私はしばらく彼を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　自分の死体を見るのは初めてではなかった。訓練では、私の顔を合成した標的を何度も撃った。それでも実物は違った。違うはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　悲しくはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　ただ、彼が死んだことで、私が一人になったのが不愉快だった。孤独とは誰もいないことではない。自分を否定してくれる同じ顔がいなくなることだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　ミナがＳＮ－０の銃を拾った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="342">「行くぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="343">「その前に槽を開ける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="344">「全開放すれば生命維持が落ちる」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="345">「何体死ぬ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="346">「三割」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="347">「閉じたままなら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="348">「予定通り全部使われる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="349">「なら開けろ」</p>
+<p class="source-line role-narration role-system tone-5 gap-1" data-source-line="351">　私たちは制御端末を破壊した。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　何千本もの槽が順に開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　白い霧が育成層を満たし、裸の人々が床へ崩れ落ちた。泣く者、叫ぶ者、ただ座る者。目覚めたばかりの彼らには名前も服も行き先もない。それでも所有者は、少なくとも今ここにはいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　ミナは０２１８を抱き上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　少女は目を開け、ミナの顔を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="361">「あなたは誰」と少女が聞いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="362">「先に起きたほう」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="363">「私は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「あとから起きたほう」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="366">　少女は納得しなかったが、質問をやめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　中央塔へ向かう昇降機は封鎖されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　私たちは保守用の垂直軌道を登った。途中で三度、局員に襲われた。一度目はミナが配管の蒸気を噴かせ、二度目は私が昇降籠を落とし、三度目は目覚めた育成体たちが局員へ群がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　彼らは武器を持っていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　だから、局員から奪った。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　人間は何者かを教えられる前に、武器の使い方を覚えるらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　地上百八十階、中央塔の主台帳室に着いたとき、窓の外では夕方が始まっていた。真昼から逃げ続けた太陽が、街の端で赤く捕まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　主台帳室には、一人の老人がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　白い衣服。白い髪。背後の壁いっぱいに脳のような配線が広がっている。老人の身体からは何十本もの管が伸び、床下へ消えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「宮古シン」と老人は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="385">「どの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="386">「現在の」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="387">「便利な呼び方だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="388">「君は選別を通過した。逃亡体を排除した功績により、正式な市民権を与える。こちらへ来なさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　床に一本の黄色い線が引かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　私は線の前で止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「あなたは誰だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="395">「連続性局長、御堂アラタ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="396">「何代目の」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="397">「その質問に意味はない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="398">「では、あなたも私と同じだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="399">「違う。私は制度そのものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="401">　老人が指を動かす。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　ミナの首輪が締まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　彼女は膝をつき、喉をかきむしった。育成体の識別具には、遠隔処分機能がある。少女０２１８の首も締まり始める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「線を越えなさい」と局長。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="408">「越えれば？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="409">「君を本物にする」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="410">「越えなければ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="411">「在庫へ戻す」</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　私は黄色い線を見た。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="415">　線は薄かった。靴底よりも薄く、弾丸よりも弱そうだった。しかし街のすべては、こういう線でできている。市民と所有物。人間と部品。本物と代替。生者と死者。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　私は線を越えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　局長が笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　私はそのまま走り、机を踏み、老人の胸へナイフを突き立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　老人の顔が驚きに歪んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「なぜ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「線のこちら側なら、市民としてあなたを殺せる」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　局長の指が痙攣する。壁の配線が動き、天井から防衛銃が降りてきた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="430">　ミナが床を転がりながら発砲した。銃弾が一基を壊す。残り三基が火を噴く。私は局長の椅子を盾にして主端末へ走った。弾丸が老人の身体を貫き、白い衣服を赤くする。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="432">「愚か者」と局長が息を漏らした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="433">「そうかもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="434">「台帳を壊せば、誰が誰か分からなくなる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="435">「今も分からない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="436">「所有権が消える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="437">「いいことだ」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="438">「相続も、婚姻も、犯罪記録も、医療資格も消える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="439">「困るな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="440">「ならばやめろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="441">「困ることと、やめることは同じではない」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="443">　私は主端末へ拳銃を撃ち込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　一発。</p>
+<p class="source-line role-narration gap-0" data-source-line="446">　二発。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　三発。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="449">　画面に亀裂が走り、街中の登録情報が乱れ始めた。壁面に無数の名前が流れ、入れ替わり、重なり、文字化けする。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　防衛銃の弾が私の腿を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　倒れたところへ、天井の銃口が向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　ミナが局長の身体から管を引き抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　床が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　主台帳室の照明が消え、防衛銃が止まり、ミナと０２１８の首輪が弾けた。局長は椅子の上で小さくなった。制度そのものにしては、血の量が少なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　窓の外で、中央塔を囲む広告が一斉に消えた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="463">　代わりに、台帳の最終情報が街中の画面へ流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　上層市民の七割が代替体。</p>
+<p class="source-line role-narration gap-0" data-source-line="466">　局員の九割が代替体。</p>
+<p class="source-line role-narration gap-0" data-source-line="467">　資産等級一の評議員全員が、すでに三回以上交換済み。</p>
+<p class="source-line role-narration gap-0" data-source-line="468">　原本と呼べる人間は、ほとんど残っていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　街が静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　ほんの数秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　それから、遠くで銃声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　別の場所では歓声。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　別の場所では泣き声。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="478">　どこかで窓ガラスが割れ、どこかで食事が続けられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　人は真実を知れば変わる、とミナは言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　たしかに変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　ただし、どちらへ変わるかまでは、誰も決めていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　中央塔から降りる途中、私たちは何度も呼び止められた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「私は市民か」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="489">「この顔は私のものか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="490">「夫は三年前から別人だったのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="491">「私の子どもは在庫なのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="492">「あなたは宮古シンか」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="494">　最後の質問にだけ答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「今日はそうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　外へ出ると、太陽は沈みかけていた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="500">　塔の前では、首輪を外した担人たちが冷蔵箱を燃やしていた。上層市民たちは自分の認証端末を何度も顔へ向けている。端末は誰にも同じ表示を返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　該当者なし。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　ミナは０２１８の手を引いて歩き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「これからどうする」と彼女が聞いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="507">「給料が出ない」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="508">「昼食券も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="509">「重大だ」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-0" data-source-line="510">「自由になった感想は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="511">「腹が減った」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="513">　通りの自動販売機は、認証障害で止まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　私は拳で前面を割り、温くなった炭酸飲料を三本取り出した。一本をミナへ、一本を０２１８へ渡す。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　少女が缶を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「これは誰のもの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="520">「今は君のものだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="521">「どうして」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="522">「君が持っているから」</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　少女は缶を開けた。泡が噴き出し、手を濡らした。彼女は初めて笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　私は自分の缶を飲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　甘すぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　街のどこかで、また爆発が起きた。人々が走り出す。警報は鳴ったが、誰に従えばいいのか分からず、途中で途切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　私は銃の残弾を確かめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　二発。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　名前は壊れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="537">　所有者はいなくなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="538">　太陽は一つだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　それでも影は、私の足元から勝手に伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　私はその影を踏みながら、銃声のするほうへ走った。</p>
+<p class="source-line end-mark gap-1" data-source-line="544"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,999 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="消息を絶った研究施設〈ヘカテ〉へ乗り込んだ医師シオンたちを待っていたのは、宿主の記憶と声を奪い、群れで歌う寄生生物〈コーラス〉だった。逃げ場のない暗い船内で、さらに白い仮面の異星人が獲物を狩り始める。仲間か敵かも分からないその追葬者エイドは、母巣を滅ぼすため三つの星系を渡ってきたという。人間を餌と呼ぶ孤独な狩人と、命を見捨てられない医師。施設の自爆さえ災厄を宇宙へ放つと知った二人は、重力炉の奥へ向かう。互いの鼓動だけを頼りに、真空の巣を突破できるのか。">
+<title>真空で、君の鼓動を狩る｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="真空で君の鼓動を狩る" data-novel-id="真空で君の鼓動を狩る" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>ホラー・ロマンス・SF</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、バトル、ホラー、ロマンス、SF、BL</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：538行／章：0／役割・強度タグ：594</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="真空で、君の鼓動を狩る 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『真空で、君の鼓動を狩る』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　死んだ宇宙船は、眠っている獣に似ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　照明を失った窓は閉じた瞼で、冷え切った通路は喉。ときどき船殻をきしませる金属音だけが、夢の底で歯を鳴らす音のように響く。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　漂流研究施設<span class="term term-world">〈ヘカテ〉</span>へ足を踏み入れたとき、俺はそう思った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="9">「シオン、酸素濃度は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　船長のマーカスが先を照らしながら訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="13">「十八パーセント。吸えなくはないけど、胞子と揮発毒の反応が出てる。ヘルメットは外すな」</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　俺は携帯分析器を振り、淡い緑の波形を確認した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="17">　<span class="term term-world">〈ヘカテ〉</span>は三か月前、辺境惑星ルドーラの衛星軌道で消息を絶った。乗員は四十二名。救難信号なし。航路会社は事故と判断し、内部資産の回収を民間サルベージ船<span class="term term-world">〈アネモネ〉</span>に委託した。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　つまり俺たちだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　依頼書には「未知生物災害の可能性あり」と一行だけ記されていた。その一行に、依頼料の桁が二つ増えていた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="23">　金に困った人間は、一行の警告より桁の多い数字を信じる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「生命反応は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="27">「なし」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="29">　そう答えた直後、分析器の画面に赤い点が灯った。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　俺は足を止めた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="33">「……訂正。前方二十メートル。ひとつ」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　護衛役のネリーが銃を構えた。機関士のオドが後ろで悪態をつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　赤い点は静止していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　俺たちは研究区画へ続く隔壁を手動で開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　その向こうに、人間が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　正確には、人間だったものが。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　白衣を着た男が、壁から生えていた。背中から黒い樹脂状の物質が広がり、肋骨の間を貫いて床と天井に根を張っている。顔は乾き切っていたが、胸だけがゆっくり上下していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　生きている。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="49">　死体の顔で。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="51">「医者」</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　マーカスに促され、俺は近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　男の瞼が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　白濁した眼球が俺を捉える。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="59">「に、げ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　唇が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　次の瞬間、胸骨が内側から割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　骨の隙間から飛び出したものは、幼体というには大きすぎた。濡れた灰色の外殻。四本の脚。顔のあるべき場所に、花弁のように開閉する感覚器。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　ネリーの銃声が狭い通路を殴った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="69">　怪物は壁を蹴り、一瞬で天井へ張りついた。弾丸が外殻を削り、そこから銀色の体液が噴いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　飛沫を浴びた床が白く凍りつく。</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="73">「冷却性の血液だ！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="75">　俺が叫ぶ間に、怪物は照明の外へ消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　そして背後で、オドが短く息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　振り返る。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="81">　暗闇から伸びた透明な刃が、彼の胸を貫いていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="83">　怪物ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　何もない空間から、人の輪郭だけが浮かび上がる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="87">　水面に油を垂らしたような揺らめきが剥がれ、黒い装甲に包まれた巨躯が現れた。二メートルを超える。肩から下げた布は星明かりのように微細な光を流し、顔は滑らかな白い仮面で覆われている。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　そいつはオドの身体から刃を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　オドが崩れ落ちる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="93">「撃て！」</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　マーカスが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　ネリーが引き金を引くより早く、白い仮面の怪人は腕を振った。細い光の輪が飛び、ネリーの銃身を切断する。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　俺は倒れたオドへ駆け寄った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="101">　傷口から、血と一緒に黒い糸が這い出していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　皮膚の下を、何かが泳いでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「待て、こいつは感染して――」</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　言い終える前に、白い仮面の刃がオドの首を断った。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　赤い血が俺のフェイスシールドを叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　俺はそいつを見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　怒りで、視界が白くなる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="115">「この、化け物……！」</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　腰のパルス銃を抜き、仮面の中央へ押しつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　そいつは避けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　代わりに、仮面の奥から低い声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="123">『撃てば、群れが来る』</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　機械翻訳された共通語だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　俺の指が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　天井の奥から、硬い爪が金属を掻く音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　一匹ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　通路のあちこちで、同じ音が応える。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　白い仮面の怪人は、俺の銃口をゆっくり押し下げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">『走れ、人間』</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　照明が消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="141" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="143">　研究区画を抜けた時点で、生き残っていたのは俺とマーカスだけだった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="145">　ネリーは暗闇で連れ去られた。悲鳴は三秒で途切れた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="147">　仮面の怪人は、俺たちを助けたわけではない。追ってきた灰色の怪物を二体、冷徹に切り伏せ、俺たちを無視して先へ進んだだけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　だが結果として、俺たちは生き延びた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「ドッキングベイへ戻る」</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　マーカスが荒い息で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「駄目だ。さっきの襲撃で連絡が切れた。<span class="term term-world">〈アネモネ〉</span>側の気密も落ちてる可能性がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「じゃあどうする」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="159">「中央管制室。施設の記録を見れば、何が起きたか分かる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「分かってどうするんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="163">「死に方くらい選べる」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="165">　マーカスは笑わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　俺たちは保守用ダクトを通り、中央管制室へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　途中、壁に残された緊急記録を拾った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="171">　<span class="term term-world">〈ヘカテ〉</span>はルドーラ地表で発見した隕石性繭を研究していた。繭の内部には、極低温下でも活動する多細胞生物がいた。生物は他種の神経系に寄生し、宿主の記憶と発声器官を利用する。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　研究員たちはそれを<span class="term term-world">〈コーラス〉</span>と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　合唱。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　ひとつの巣が、食べた者たちの声で歌うからだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「趣味の悪い名前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　マーカスが呟いた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="183">　記録の末尾には、もっと悪い事実が残されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　生物災害発生後、施設長は救難信号を止めた。外へ広がることを恐れ、原子炉を臨界暴走させて自爆しようとした。しかし何者かが原子炉制御を封鎖した。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　その何者かの映像に、白い仮面の怪人が映っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「奴が止めたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「たぶん。獲物を狩る前に焼かれたくなかったんだろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">「俺たちも獲物か？」</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　答えようとしたとき、管制室の扉が閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　同時に、マーカスが俺を突き飛ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　銃声。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　弾丸が俺の肩をかすめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「何を――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">「動くな、シオン」</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　マーカスは銃を向けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　顔が青白い。唇が震えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　首筋の皮膚の下で、黒い糸が脈打っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「船長」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="215">「分かってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「感染はまだ初期だ。冷却睡眠に入れば進行を――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「嘘をつくな。お前、嘘が下手なんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　彼は銃口を俺から外し、自分の顎へ向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　俺は一歩踏み出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「やめろ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="227">「近づくな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　マーカスの声に、別の声が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　女の声。子供の声。老人の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　もう<span class="term term-world">〈コーラス〉</span>は、彼の喉を使い始めていた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="235">「シオン」</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　今度は、マーカス自身の声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="239">「<span class="term term-world">〈アネモネ〉</span>を頼む」</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　引き金が引かれる直前、天井が破れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　白い仮面の怪人が落下し、マーカスを床へ押さえつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　俺は叫んだ。</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="247">「殺すな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　怪人の刃が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　仮面が俺を向く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="253">『すでに群れの一部だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">「まだ話せる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">『声は罠だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="259">「それでも、まだ彼だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　床に押さえられたマーカスが笑った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="263">「医者ってのは……面倒だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　次に彼は、怪人の腰から円筒状の武器を抜き取った。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="267">　赤い警告光が点滅する。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　怪人が初めて動揺した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="271">『離せ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「こいつ、手榴弾だろ」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="275">『反物質杭だ。ここで起動すれば区画が消える』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">「ちょうどいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　マーカスは俺を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「走れ、シオン」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　俺は動けなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="285">「行け！」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　その声だけは、最後まで彼のものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　怪人が俺の胴を抱え、閉じかけた扉の外へ跳んだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="291">　背後で、白い光が弾けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　音はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　管制室も、マーカスも、そこへ集まりつつあった<span class="term term-world">〈コーラス〉</span>も、真円形に切り取られて消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="297" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="299">　気がつくと、俺は補助医療室の床に寝かされていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　肩の傷は止血されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　白い仮面の怪人が、壁際に座っていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="305">　黒い装甲の脇腹が裂け、銀色の血が滴っている。その周囲の床には霜ではなく、細い青い結晶が伸びていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「お前も、あいつらと似た血なんだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　俺が言うと、怪人は仮面をこちらへ向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">『似ていない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「でも凍る」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="315">『我々の血は熱を奪わない。熱を記憶する』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「詩的だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">『医学的事実だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　妙に真面目な返答に、俺は笑ってしまった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="323">　笑った途端、マーカスの最後の顔が浮かび、喉が詰まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　怪人は何も言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　俺は立ち上がり、医療棚を探った。人間用の凝固剤が未知種に効く保証はない。だが傷口を開いたままにするよりはましだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="329">「装甲を外せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">『必要ない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="333">「その出血量で強がるな。助けてもらった借りは返す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="335">『借りではない。お前を運んだのは、群れが生きた宿主を求めるからだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「つまり餌を守った？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="339">『そうだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="341">「正直すぎるぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">『嘘は群れの武器だ。私は使わない』</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　俺は怪人の前に膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「じゃあ正直に訊く。お前は何者だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　沈黙の後、仮面の側面が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　圧縮気体の抜ける音がして、白い面が外れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　現れた顔を見て、俺は息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　人間に似ていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="357">　額から頬へかけて滑らかな黒曜石色の皮膚。鼻梁は低く、耳の代わりに薄い鰭状の器官がある。両目には金色の虹彩が二重に重なり、光量に合わせて別々に収縮していた。口元は意外なほど繊細で、下唇の端に古い傷が走っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　恐ろしいというより、美しかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　冬の夜にだけ咲く、名も知らない花のように。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">『私はエイド。ヴァルクの追葬者』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「追葬者？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">『星間を渡る災厄を狩り、死んだ世界へ終わりを与える』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="369">「<span class="term term-world">〈コーラス〉</span>を追ってきたのか」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="371">『三つの星系で巣を焼いた。ここが最後の母巣だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="373">「原子炉の自爆を止めたのはなぜだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　エイドの二重の瞳が細くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="377">『母体は熱を感知すると幼体を宇宙へ射出する。原子炉を爆発させれば、数千の繭が軌道へ散る』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="379">「じゃあ、どうやって殺す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">『母体の内核だけを破壊し、その後に施設を焼く』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「一人で？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">『そのために来た』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「怪我してる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">『狩りに傷は含まれる』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="391">「死ぬことも？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="393">『当然だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　腹が立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　自分でも理由が分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　マーカスを失ったばかりなのに、目の前の異星人が死ぬことまで当然のように受け入れている。それがどうしようもなく気に障った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="401">「勝手に当然にするな」</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　俺は装甲の留め具を外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　エイドが俺の手首を掴む。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　指は四本で、人間より長い。体温は低いが、触れた場所から奇妙な脈が伝わった。鼓動が二つある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">『何をする』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「治療だ。暴れるなら麻酔を打つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">『私の代謝に人間の麻酔は効かない』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="415">「試してみるか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　しばらく睨み合い、先に目を逸らしたのはエイドだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　装甲の下の身体は、幾重もの傷跡に覆われていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　古い裂傷。焼け跡。噛み傷。どれも勲章のように整えられてはいない。ただ、生き残った結果としてそこにある。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　新しい傷は脇腹から背中へ抜けていた。<span class="term term-world">〈コーラス〉</span>の鉤爪が深く入り、内部に外殻の破片が残っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「抜くぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="427">『早くしろ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="429">「痛かったら言え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">『痛みは情報だ』</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="433">「可愛げがないな」</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　鉗子を差し込むと、エイドの腹筋が硬くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　破片を引き抜いた瞬間、彼の手が俺の肩を掴んだ。爪がスーツをへこませる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">「痛いんじゃないか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">『情報量が多いだけだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「そういうことにしておく」</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　凝固剤と皮膜材で傷を閉じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　処置を終えて手を離そうとしたが、エイドの指は俺の肩から動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　近い。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　二重の瞳に、自分の顔が四つ映っている。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="453">『シオン』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="455">「名前を覚えたのか」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="457">『死者が呼んでいた』</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　胸の奥が刺された。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　エイドは俺の頬へ手を伸ばした。硬い指先が、フェイスシールドに乾いた血をなぞる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">『これはお前の血ではない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「マーカスのだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">『お前の群れの長か』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「友人だ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="471">『ならば、その死はお前の中で続く』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「慰めてるつもり？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">『慰めという行為を、私は知らない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「そうか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">『だが、お前の呼吸が乱れるのは好ましくない』</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　それは十分に慰めだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　俺はエイドの手の甲に、自分の手を重ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　彼は振り払わなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="487" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="489">　中央記録の残骸から、母体の位置は判明していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　施設最下層の重力炉。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="493">　<span class="term term-world">〈コーラス〉</span>は炉心周辺の廃熱と電磁場を利用して成長している。母体を殺すには、重力炉の整流器を逆転させ、局所的な高重力圧縮を起こす必要がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　問題は、逆転操作が二か所同時だったことだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　一人が制御室で主系統を操作し、もう一人が炉心で手動レバーを固定する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「俺が制御室へ行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　エイドは即座に首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="503">『お前は脱出艇へ向かえ』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="505">「脱出艇は施設のロックが解除されないと動かない。解除には母体を殺す必要がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">『私が両方行う』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「同時操作だと言っただろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">『私の装備なら遠隔で――』</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="513">「仮面の通信機、壊れてる。さっきから俺の翻訳端末を経由して話してるの、気づいてないと思った？」</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　エイドが黙る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「俺は研究員じゃないが、医者だ。機器の死にかけくらい分かる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">『お前は戦士ではない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「お前は患者だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">『患者』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「今は俺のほうが立場が上だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　エイドは理解できないものを見る目をした後、低く喉を鳴らした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="529">　笑ったのだと気づくまで少しかかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="531">『奇妙な人間だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「よく言われる」</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　重力炉へ向かう通路は、巣に侵食されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　黒い樹脂状の膜が壁を覆い、内部で無数の影が蠢いている。ところどころに人間の顔が埋まり、俺たちが近づくたび目を開いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="539">「シオン」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　ネリーの声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　壁の中から。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「助けて。暗い。ここ、寒いよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　俺の足が止まりかける。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　エイドが肩を掴んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">『聞くな』</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="553">「分かってる」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="555">「シオン」</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　今度はマーカスの声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「お前のせいだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　息が詰まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「お前が<span class="term term-world">〈ヘカテ〉</span>へ行こうと言った。金が必要だと言った。お前が全員を連れてきた」</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　事実だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　高額依頼を受けるようマーカスを説得したのは俺だ。<span class="term term-world">〈アネモネ〉</span>の修理費、乗組員の未払い給与、俺自身の医療免許更新料。どれも言い訳にはならない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「お前が殺した」</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　壁から、何十ものマーカスが囁いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　膝が震える。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　そのとき、エイドが俺の手を取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　手袋越しではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　いつの間にか彼は装甲の右手を外していた。冷たい皮膚が俺の掌に触れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">『私を見ろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　俺は顔を上げた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="585">　金色の目が、暗闇で四つの月のように光っている。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="587">『群れは死者の声を使う。だが死者の意志は使えない』</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="589">「分かってる」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="591">『分かっていない。お前の鼓動が、嘘を信じている』</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　エイドは俺の手を自分の胸へ当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　装甲の隙間から、二つの心臓が互い違いに打つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　強く、確かなリズム。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">『私の鼓動を数えろ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="601">「何のために」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">『狩りでは、見えない獲物を鼓動で追う』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="605">「俺は獲物じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">『今は違う』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「今は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　エイドは答えず、俺の手を握ったまま歩き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　壁の声は続いていたが、二つの心臓の音に耳を澄ませると、少しずつ遠のいていった。</p>
+<div class="source-line scene-break gap-1" data-source-line="615" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="617">　重力炉は巨大な縦穴だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　中心に青白い人工重力核が浮かび、その周囲を黒い母体が包んでいる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="621">　母体は生物というより、ひとつの建築物に見えた。何百もの肢体が柱となり、半透明の膜が天井まで広がる。膜の内側には繭が脈打ち、食われた人間たちの顔が夢見るように浮かんでは消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　そして母体の中心に、巨大な眼が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　眼球の中に、四十二人分の口があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="627">『エイド』</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　口々が、彼の名を呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　俺は横を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="633">「お前の知り合いの声か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">『かつての狩りで失った者たちだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">『エイド、お前はまた遅かった』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">『お前だけが生きた』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">『臆病者』</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　エイドの手に力が入る。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="645">　彼にも、死者がいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　当たり前のことを、俺は初めて理解した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「俺を見ろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　さっきと同じ言葉を返す。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　エイドの瞳が俺へ向いた。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="655">「死者の意志までは使えないんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　長い沈黙の後、彼は頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">『制御室まで百二十秒。私が道を開く』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="661">「炉心レバーを固定したら、すぐ離れろ。圧縮開始まで十二秒しかない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">『了解した』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="665">「それと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">『何だ』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="669">「死ぬな」</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　エイドの鰭状の耳が、わずかに開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">『命令か』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「患者への指示だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">『従おう、医者』</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　彼は白い仮面を被った。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　次の瞬間、狩りが始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　エイドの身体が視界から消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　透明な揺らめきだけが宙を走り、天井から飛び降りた幼体を切り裂いた。銀色の体液が霧になり、周囲の空気を凍らせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　俺は凍結した床を滑り、制御室へ続く梯子を登った。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　背後で金属音、咆哮、熱線の弾ける音。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　振り返らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　振り返れば、きっと足が止まる。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="695">　制御室へ飛び込み、主系統を起動する。画面に古い警告が並んだ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="697"><span class="term term-proper">《整流器逆転は炉心崩壊を招きます》</span></p>
+<p class="source-line role-narration role-system gap-1" data-source-line="699"><span class="term term-proper">《二名の認証が必要です》</span></p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="701">　俺はマーカスの認証タグを端末へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「一名」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　自分のタグを重ねる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「二名」</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　主系統レバーを下ろす。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　炉心側の固定信号は、まだ来ない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「エイド」</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　通信に雑音だけが返る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="717">　残り九十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　モニターに炉心映像を出す。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="721">　エイドは母体の触肢に囲まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　片腕の装甲が剥がれ、仮面の半分が砕けている。それでも彼は進んでいた。伸縮槍で触肢を払い、炉心下部の手動レバーへ向かう。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　母体の眼が彼を追う。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　四十二の口が同時に開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　音ではない衝撃が走り、モニターが乱れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　エイドが膝をつく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="733">「立て」</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　通信は繋がっていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「立て、エイド」</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　俺の声は届かない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="741">　母体の触肢が槍のように持ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　考えるより先に、俺は制御室を飛び出していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　梯子を滑り降り、パルス銃を撃つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　触肢が一本、弾ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　母体の眼が俺を見た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="751">　四十二の口が笑った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="753">『シオン』</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　マーカスの声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="757">『来ると思っていた』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「黙れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　撃つ。撃つ。撃つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　銃身が赤く焼ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　幼体が左右から迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　エイドが立ち上がり、俺の前へ滑り込んだ。白い刃が弧を描き、二体を同時に断つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">『なぜ戻った』</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="771">「患者が指示を無視したからだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="773">『私は立った』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="775">「遅い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　俺は予備の医療用発煙カートリッジを母体の眼へ投げた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="779">　高温の殺菌煙が噴き出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　母体が身をよじる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="783">「今だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　エイドが跳躍し、手動レバーへ槍を突き立てた。全体重をかけて押し下げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　制御室から固定信号が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="789"><span class="term term-proper">《圧縮開始まで十二秒》</span></p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="791">「離れろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　俺たちは出口へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　十一。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="797">　母体の触肢が床を砕く。</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　十。</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　エイドが俺の背を押し、落下物を肩で受けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　九。</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　通路の隔壁が閉まり始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　八。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　俺が先に滑り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="811">　七。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　エイドの脚へ触肢が絡みつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　六。</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　彼が刃で切断する。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　五。</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　隔壁の隙間が人一人分になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　四。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　エイドが俺を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　そして、足を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="829">『行け』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="831">「ふざけるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　三。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　俺は隙間から腕を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　二。</p>
+<p class="source-line role-narration gap-1" data-source-line="839">　エイドも手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　指先が触れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　俺は彼の手首を掴み、全身で引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　局所重力が反転した。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　世界が折れ曲がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　母体も、触肢も、空気も、光さえも一点へ吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="853">　エイドの身体が隔壁の向こうへ引かれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　肩が抜けそうになる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="857">「離すな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="859">『離しているのは、お前ではない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="861">「屁理屈を――」</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　エイドのもう一方の手が隔壁を掴んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　金属がへこむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　彼は咆哮し、俺の側へ身体を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="869">　直後、隔壁が閉じる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="871">　向こう側で、青白い光が潰れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　重力炉の振動が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="875">　俺たちは床に倒れ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　しばらく、どちらも動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　やがてエイドが仰向けになり、砕けた仮面を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="881">『命令に従った』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="883">「ぎりぎりだ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="885">『死ななかった』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="887">「そうだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="889">『治療が必要か』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="891">「たぶん、お互いに」</p>
+<p class="source-line role-narration gap-1" data-source-line="893">　笑いが込み上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="895">　泣いているのかもしれなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　俺はエイドの胸へ額を押しつけた。二つの心臓が、乱れて、それでも確かに動いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="899">　彼の手が迷うように宙をさまよい、やがて俺の背へ触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="901">『シオン』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="903">「何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="905">『お前の呼吸は、まだ乱れている』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="907">「今度は悪い意味じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="909">『意味を説明しろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="911">　顔を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="913">　近すぎる距離で、金色の瞳が俺を映している。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　説明する代わりに、俺は彼の頬へ手を当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="917">　黒曜石色の皮膚は冷たく、下に微かな熱がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="919">「嫌なら押し返せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="921">『何を――』</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　唇を重ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="925">　エイドの身体が硬直する。</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　触れただけの短い口づけ。</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　離れると、彼は四つの瞳孔を大きく開いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="931">『これは医療行為か』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="933">「違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="935">『狩りの儀式か』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="937">「それも違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="939">『では何だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="941">「慰め。あと、生きててくれて嬉しいって意味」</p>
+<p class="source-line role-narration gap-1" data-source-line="943">　エイドは長く考え込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　やがて俺の後頭部へ手を回す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="947">『もう一度、情報が必要だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="949">「痛みと同じ扱いかよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="951">『情報量が多い』</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　今度の口づけは、彼からだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　慎重で、ぎこちなくて、驚くほど優しかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="957" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="959">　母体の死後、施設の封鎖は解除された。</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　俺たちは残った繭を焼き、脱出艇へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="963">　<span class="term term-world">〈アネモネ〉</span>はドッキング部を損傷していたが、船体そのものは生きていた。自動修復には二日かかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="965">　エイドの船は、施設外殻に擬態して停泊していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="967">　彼は自分の船へ戻れば、すぐに去れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="969">　なのに、<span class="term term-world">〈アネモネ〉</span>の医療室で大人しく縫合を受けていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="971">「もう終わったぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="973">『まだ傷がある』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="975">「それ、十年前の傷だろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="977">『再評価が必要かもしれない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="979">「患者は医者の指示に従うんじゃなかったか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="981">『私は学習した。人間の医者は、患者が近くにいると呼吸が安定する』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="983">「誰の話だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="985">『お前だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="987">　俺は返す言葉を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="989">　エイドは無表情に見えて、耳の鰭だけがわずかに開いている。彼が面白がっているときの癖だと、この二日で知った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="991">「お前、故郷へ帰らなくていいのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="993">『帰る』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="995">「いつ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="997">『お前の船が航行可能になってから』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="999">「それから？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1001">　尋ねた声が、自分でも情けないほど弱かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1003">　エイドは腰の装置から、小さな黒い環を外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1005">　俺の掌へ置く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1007">　内側に、星図のような光が流れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1009">『追葬者の航路標だ。持つ者の位置を、私はどの星系からでも追える』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1011">「それって、発信機？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1013">『そうだ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1015">「勝手に追跡する気か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1017">『嫌か』</p>
+<p class="source-line role-narration gap-1" data-source-line="1019">　俺は環を指にはめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1021">　大きさが自動で縮み、ぴたりと収まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1023">「嫌なら捨てる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1025">『捨てた場合も探す』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1027">「怖いこと言うな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1029">『私は狩る者だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1031">「俺は獲物じゃないって言っただろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1033">　エイドが立ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1035">　大きな身体が目の前まで来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1037">　彼は俺の指の環へ唇を触れ、それから静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1039">『今は違う』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1041">「またそれか。じゃあ、今は何だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1043">　二つの心臓が近づく。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="1045">　俺の翻訳端末は、次の言葉をうまく訳せなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1047">　画面に<span class="term term-proper">《同伴個体》</span><span class="term term-proper">《帰還地点》</span>《生涯追跡対象》と候補が並び、最後に《伴侶》で停止した。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="1049">　エイドは端末を見て、頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1051">『その語が最も近い』</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　宇宙では、音は伝わらない。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1055">　だから死んだ船は、永遠に眠っているように見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="1057">　けれど俺はもう知っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1059">　真空の向こうでも、誰かは鼓動を見つける。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="1061">　暗闇の果てから追いついて、手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="1063">　決して獲物を逃さない狩人のように。</p>
+<p class="source-line role-narration gap-1" data-source-line="1065">　あるいは、帰る場所を見失わない恋人のように。</p>
+<p class="source-line role-narration gap-1" data-source-line="1067">　俺はエイドの胸に手を置き、二つの鼓動を数えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1069">　ひとつ、ふたつ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1071">　その間に、自分の心臓が重なる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1073">　今度はもう、どの声にも惑わされなかった。</p>
+<p class="source-line end-mark gap-1" data-source-line="1075"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

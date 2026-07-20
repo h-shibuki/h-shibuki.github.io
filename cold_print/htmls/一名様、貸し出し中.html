@@ -1,0 +1,922 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="大学の潜水同好会が訪れた月眠湖キャンプ場には、共通の思い出と技能まで付いた「友人」を貸すサービスがある。六人で予約した仲間たちは誰も申し込んだ覚えがないのに、受付は「実在参加者五名、補完参加者一名」と告げた。全員が昔からの友人にしか見える一方、同じ出来事を「一緒に体験した」と覚える者と「今日初めて会った」と覚える者がいて、記憶の辻褄は少しずつ崩れる。湖底の旧道には「貸出品返却口」の看板。翌朝十時の返却期限までに、六人は借りられた一人を見つけられるのか。思い出が作られたものでも、友情まで偽物なのか。">
+<title>一名様、貸し出し中｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="一名様、貸し出し中" data-novel-id="一名様、貸し出し中" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ジュブナイル・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ジュブナイル、ファンタジー、奇妙な味</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：461行／章：0／役割・強度タグ：525</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="一名様、貸し出し中 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『一名様、貸し出し中』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　そのキャンプ場には、テントや焚き火台と並んで、「友人」を貸し出すサービスがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="4">　ただし、僕ら六人のうち、誰も申し込んだ覚えがなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="6" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="8">「馬場先輩、これ、どういう意味ですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　月眠湖キャンプ場の受付前で、僕は立て看板を指さした。</p>
+<p class="source-line role-narration gap-1" data-source-line="12"><span class="term term-proper">《一名補完サービス》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="13">　人数が合わない。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　バディが組めない。</p>
+<p class="source-line role-narration gap-0" data-source-line="15">　団体プランに一人足りない。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　そんなとき、あなたのグループに自然になじむ一名をお貸しします。</p>
+<p class="source-line role-narration role-document role-memory gap-1" data-source-line="18">　・共通の思い出つき</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　・技能調整済み</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="20">　・返却時の後片づけ不要</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　※補完員本人への説明は必要ありません。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="24">「読んだままだろ。友達が足りないときに借りるんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　青藍大学潜水同好会<span class="term term-world">〈トビウオ〉</span>の部長、馬場隆志先輩は、百二十リットルのザックを背負ったまま腕を組んだ。本人は「肩幅が広いだけ」と主張するが、その姿はキャンプに来た大学生というより、山中へ冷蔵庫を配達しに来た人だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">「友達は、焚き火台の隣で貸すものじゃありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　副部長の有馬佐知先輩が、冷静に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「じゃあ、どこで貸すんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="33">「そこから考え直してください」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="35">　受付の軒下には、ランタン、延長コード、毛布、友人、と書かれた料金表が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="36">　友人だけ、初回無料だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　僕らは夏休みを利用して、月眠湖へ一泊二日のキャンプ兼レイクダイビングに来ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="39">　車で来たのは、馬場先輩、有馬先輩、二年の磯崎公平先輩、同じく二年の須藤莉子先輩、そして一年の僕――宮坂透の五人。</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　もう一人、久我晴人が路線バスで遅れて来ることになっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　つまり、最初から六人だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　借りる必要はない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="45">「予約のお名前をお願いします」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　受付の女性は、湖面と同じくらい波のない声で言った。銀色の名札には、名字ではなく<span class="term term-proper">《管理人》</span>とだけ書かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="49">「青藍大学の馬場です。六名、湖畔サイト一つと、午後のダイビング」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="50">「確認いたします。実在参加者五名、補完参加者一名。合計六名様ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　馬場先輩の笑顔が止まった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="54">「じつざい？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="55">「当キャンプ場での区分です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="56">「俺たちは全員、だいたい実在してますけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="57">「だいたいで結構です」</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　管理人は六本のリストバンドをカウンターに置いた。五本は青く、一本だけ白かった気がしたが、磯崎先輩が「早い者勝ち！」と全部つかみ、適当に配ってしまった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「補完員の方は、すでに自然になじんでいるようですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　管理人が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　僕らは顔を見合わせ、それから笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="66">　誰が最初に笑い出したのかは、なぜか思い出せなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="68" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="70">　青藍大学潜水同好会<span class="term term-world">〈トビウオ〉</span>は、水中にいる時間より、陸で飯を作っている時間のほうが長い。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　馬場先輩はこれを「潜水には十分な栄養が必要だから」と説明しているが、去年の会計報告では、ダイビング用品費より調味料費のほうが高かったらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　サイトに着くと、有馬先輩が地面の傾斜と風向きを見て、十秒でテントの配置を決めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="75">「入口は湖と反対向き。夜は風が下りてくるから、タープは低め。馬場、そこに荷物を置かない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「なぜだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="77">「そこがテントを張る場所だから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="78">「テントは荷物を守るものだろ。なら荷物が先で――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="79">「どいて」</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　馬場先輩は百二十リットルのザックごと移動させられた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="83">　一方、磯崎先輩はエアマットの空気口に、ダイビング用のタンクを接続しようとしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">「三秒で膨らみますよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="86">「三万円のレギュレーターで寝床を膨らませるな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="87">「効率化です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="88">「破裂したら、お前を湖底で寝かせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　有馬先輩が工具を取り上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　須藤先輩はその様子を、インスタントカメラで撮っていた。白いフィルムが排出される。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="94">「事故の証拠写真？」と僕が聞くと、</p>
+<p class="source-line role-dialogue gap-0" data-source-line="95">「遺影候補」</p>
+<p class="source-line role-narration gap-0" data-source-line="96">　と須藤先輩は答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　僕は笑いながら、ペグを打った。</p>
+<p class="source-line role-narration gap-0" data-source-line="99">　笑い方も、ハンマーの握り方も、ずっと前からこの人たちとキャンプをしてきたように自然だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　実際、僕には思い出があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　春の新入生歓迎会で、馬場先輩が紙コップを片手に「海は広いが、部室は狭い！」と叫んだこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="104">　有馬先輩が僕のマスクの曇り止めを見て、「それ、食器用洗剤」と静かに指摘したこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="105">　磯崎先輩がプール練習でフィンを左右逆に履き、「抵抗を増やす訓練」と言い張ったこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="106">　須藤先輩が水中写真にこだわるあまり、魚より先にカメラへ空気を分けようとしたこと。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　どれも、思い出すと細部まで鮮明だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　食堂の油の匂いも、プールサイドの熱気も、みんなの笑い声も。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　だから受付の看板など、田舎のキャンプ場が始めた悪趣味な冗談だと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　昼を少し過ぎたころ、坂道の向こうから、一人の男が赤いボストンバッグを抱えて走ってきた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="115">「悪い！　バスが途中で鹿待ちになった！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="117">「久我、遅い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　馬場先輩たちが一斉に叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　男は僕と同じくらいの年で、日に焼けた細い顔をしていた。髪の先が濡れていて、靴には泥がはねている。</p>
+<p class="source-line role-narration gap-0" data-source-line="122">　彼は皆に手を振り、最後に僕を見た。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="124">「ええと……一年の宮坂、だよな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="125">「そうだけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="126">「写真で見た。久我晴人。よろしく」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　差し出された手を握りながら、僕は妙な感じがした。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　僕は久我を知らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="131">　同じ部にいて、同じ学年なのに、一度も見た覚えがない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「久我は五月から沖縄の実習に行ってたの」と須藤先輩が言った。「入れ違いだったから、二人は今日が初対面」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「そうでしたっけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「そうだよ」と有馬先輩が答えた。「久我は入学式の翌日に入部して、三日目に部室の鍵を湖へ落とした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「湖じゃなくて大学の噴水です」</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　久我が訂正した。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　その瞬間、僕の頭に映像が浮かんだ。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="144">　夜の噴水。</p>
+<p class="source-line role-narration gap-0" data-source-line="145">　袖を肩までまくり上げた馬場先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="146">　水底を懐中電灯で照らす有馬先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="147">　腹を抱えて笑う須藤先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="148">　びしょ濡れの磯崎先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「馬場先輩、最後は噴水に入って、靴だけ流されましたよね」</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　全員が僕を見た。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="154">「なんで知ってる？」と久我が聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「なんでって、僕もそこに――」</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　言いかけて、気づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　それは去年の出来事だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="161">　去年、僕はまだ高校生だった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="163">「何度も話を聞いたから、見た気になってるだけじゃない？」</p>
+<p class="source-line role-narration gap-0" data-source-line="164">　須藤先輩が言った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="166">「ああ……たぶん」</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-1" data-source-line="168">　僕は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="169">　皆も笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　久我だけが、しばらく僕を見ていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="173" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="175">　午後二時、僕らは管理棟裏のダイビングベースに集合した。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　月眠湖は、昔の谷をせき止めて造られた人造湖だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="178">　水没した旧道や石垣が今も湖底に残り、晴れた日には、水深十メートルほどまで木漏れ日の柱が差し込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="179">　海ほど華やかな魚はいないが、倒木の間を銀色の小魚が群れで走る光景は、空の中を潜っているように見えるらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　ガイドの説明を聞き、タンクの残圧を確認し、バディ同士で器材を点検する。</p>
+<p class="source-line role-narration gap-0" data-source-line="182">　馬場先輩と有馬先輩、磯崎先輩と須藤先輩、そして僕と久我が組んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「補完の方は、技能Ｂ設定で登録されています」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　ガイドが名簿を見ながら言った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="188">「技能Ｂ？」と馬場先輩が聞く。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「水深十二メートルまでの標準的な活動に対応、という意味です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="190">「俺は技能いくつですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="191">「声量Ａです」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　皆が笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="194">　僕も笑ったが、胸の奥に小さな石が沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　補完の方。</p>
+<p class="source-line role-narration gap-0" data-source-line="197">　それは久我のことだろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="198">　今日初めて現れた、僕だけが知らない男。</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　そう思うと、すべてが説明できる気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　水に入ると、音が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　湖は思ったより冷たく、青緑色の光がゆっくり揺れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="205">　岸から続く斜面を下りると、苔のついたガードレールが現れ、その向こうに旧道が伸びている。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　道路の上を、小魚の群れが車のように行き交っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　久我は落ち着いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="209">　呼吸は一定で、中性浮力もきれいに取れている。</p>
+<p class="source-line role-narration gap-0" data-source-line="210">　途中で右のフィンストラップが外れたが、慌てず僕に合図を送った。</p>
+<p class="source-line role-narration gap-0" data-source-line="211">　僕はポケットから予備のゴムバンドを取り出し、手早く固定した。</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　久我が親指と人差し指で輪を作る。</p>
+<p class="source-line role-narration gap-0" data-source-line="214">　ＯＫ。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　僕も同じサインを返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　その動きは、考えるより先に体から出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="219">　僕はいつ、こんな予備バンドを用意したのだろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="220">　誰に教わったのだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　旧道の先に、錆びた看板が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="224"><span class="term term-proper">《貸出品返却口　この先》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="226">　昔、湖になる前にあったボート乗り場のものだと、事前説明で聞いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　ただの偶然だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　それでも僕は、看板の矢印が自分だけを指しているように感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　浮上後、久我が僕の左手首をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="233">「宮坂、それ」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　ウェットスーツの袖から、白いリストバンドがのぞいていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　受付で配られたものだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　青い文字で、小さく印字されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="240"><span class="term term-proper">《補完１／返却期限　翌日十時》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「それ、全員についてるだろ」</p>
+<p class="source-line role-narration gap-0" data-source-line="243">　僕は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　久我は自分の袖をまくった。</p>
+<p class="source-line role-narration gap-0" data-source-line="246">　青いリストバンドには、サイト番号と名前だけが書かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　ほかの四人も同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　白いバンドは、僕だけだった。</p>
+<div class="source-line scene-break gap-1" data-source-line="252" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「受付の配り間違いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　夕方、僕は何度もそう言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　馬場先輩は焚き火台に薪を組みながら、「そういうこともある」とうなずいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="259">　磯崎先輩は「むしろ当たりですよ。限定カラー」と言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="260">　須藤先輩は僕の手首を撮影した。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　有馬先輩だけが、何も言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　夕食は、厚切りベーコンときのこの炊き込みご飯、焼きねぎを入れた鯖缶のアヒージョ、湖の水で冷やしたトマトだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　有馬先輩が小さな鉄鍋のふたを開けると、湯気と醤油の香りが広がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="266">「乾杯するぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　馬場先輩がショットグラスを六つ並べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「潜水旅行中なので、全員ノンアルコール」</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　有馬先輩が念を押す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「承知している。中身は麦茶だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="274">「なぜショットグラスに」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="275">「気分だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　六人で麦茶を一気に飲んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　磯崎先輩がむせ、馬場先輩が背中をたたき、その勢いで磯崎先輩の椅子が後ろへ倒れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="279">　須藤先輩は倒れる途中から撮影していた。</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-1" data-source-line="281">　僕は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="282">　腹が痛くなるほど笑った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="284">　借り物のリストバンドのことなど、笑っている間だけは忘れられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　食後、須藤先輩が昼に撮った写真をテーブルへ並べた。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　テントを張る馬場先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　エアマットを爆発させかける磯崎先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="289">　湖を背にした六人の集合写真。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　そして、スマートフォンの中には、過去の部活動写真が何百枚もあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="293">「これが去年の噴水事件」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="295">　須藤先輩が画面を見せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　僕が思い出した通りの光景だった。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="298">　夜の噴水。</p>
+<p class="source-line role-narration gap-0" data-source-line="299">　袖をまくった馬場先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="300">　懐中電灯を持つ有馬先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="301">　笑う須藤先輩と磯崎先輩。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　中央には、ずぶ濡れの久我がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　僕はいなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="306">　当然だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="307">　去年の僕は高校生なのだから。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　けれど、写真を見れば見るほど、胸の中で何かがずれていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　僕には、あの夜の水の冷たさまで分かる。</p>
+<p class="source-line role-narration gap-0" data-source-line="312">　馬場先輩の靴が噴水の循環口に吸われたとき、有馬先輩が「片方だけならサンダルとして使える」と言った声まで覚えている。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="314">　誰かから聞いた記憶ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="315">　僕自身の記憶だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「宮坂」</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　久我が、小声で呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「ちょっと来て」</p>
+<div class="source-line scene-break gap-1" data-source-line="323" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="325">　久我は僕を、炊事場の裏へ連れていった。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　そこにはレンタル用品のコンテナが積まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　ランタン。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　毛布。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　調理器具。</p>
+<p class="source-line role-narration gap-0" data-source-line="331">　折りたたみ椅子。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="333">　そして、一番下の棚に、<span class="term term-proper">《一名補完サービス取扱説明書》</span>と書かれた薄い冊子があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　久我が開いたページには、細かい文字が並んでいた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="337"><span class="term term-proper">《補完員は、対象グループの共有記憶を基に、最も自然な人物像へ調整されます》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="339"><span class="term term-proper">《技能、性格、口調、嗜好は、利用目的に応じて自動設定されます》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="341"><span class="term term-proper">《補完員本人は、自身を実在参加者と認識します》</span></p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="343"><span class="term term-proper">《返却後、付与された人格および記憶は初期化され、別の利用者様へ再配分されます》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="345">　僕は最後まで読めなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「これを見つけたとき、最初はお前が俺を疑ってる理由が分かったと思った」</p>
+<p class="source-line role-narration gap-0" data-source-line="348">　久我が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="349">「俺も、お前が補完員なんじゃないかと思った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="353">「俺は自分の家の住所を言える。母親の電話番号も、先月落とした単位の名前も言える。学生証のＱＲも大学の登録ページにつながる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="355">「僕だって」</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　僕は財布から学生証を出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="358">　青藍大学一年、宮坂透。</p>
+<p class="source-line role-narration gap-0" data-source-line="359">　写真も、生年月日も、学籍番号もある。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="361">　久我が裏面のＱＲコードを読み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　表示されたのは、大学のサイトではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="365"><span class="term term-proper">《月眠湖キャンプ場　一名補完サービス》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="367"><span class="term term-proper">《個体番号　Ｍ―０６》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="369"><span class="term term-proper">《貸出名　宮坂透》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="371"><span class="term term-proper">《利用期間　八月二十三日午前八時から、八月二十四日午前十時まで》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="373">　世界が、焚き火の煙のように揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「そんなわけない」</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　自分の声が遠かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="379">「僕は大学に通ってる。講義も受けた。部室にも行った。馬場先輩たちとプールで練習した」</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="381">「その講義の先生の名前は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　口を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="384">　出てこない。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="386">「家はどこ？」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="388">「海と山に囲まれた、静かな町で……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「何県だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　分からない。</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="394">「家族は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　スマートフォンの連絡先を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="397">　馬場先輩、有馬先輩、磯崎先輩、須藤先輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="398">　その四人しか登録されていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　写真フォルダの一番古い画像は、今朝八時十二分。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　車の後部座席から撮った高速道路の空だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　僕の記憶は、春から始まっているはずだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="404">　けれど、記録は今朝からしか存在しなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「じゃあ、僕が馬場先輩に初めて会った食堂も」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　久我は少し黙ってから言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「食堂は本物なんだと思う。馬場先輩も、紙コップも、狭い部室も。お前だけが、そこにいなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　湖のほうから、皆の笑い声が聞こえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="413">　馬場先輩が何かを落とし、磯崎先輩が大げさに騒ぎ、有馬先輩が叱っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　僕はその声を知っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="416">　どの笑い声が誰のものか、目を閉じても分かった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="418">　全部、借りた記憶だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「返却されたら、どうなるんだろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「冊子には初期化って書いてある」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="424">「初期化って？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「たぶん、今日のことも忘れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　久我は僕から目をそらした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「自分が誰だったかも」</p>
+<div class="source-line scene-break gap-1" data-source-line="432" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="434">　隠しておくことはできなかった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="436">　焚き火の前へ戻り、僕は学生証のＱＲコードと冊子を見せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　最初に口を開いたのは馬場先輩だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「つまり、お前はレンタルなのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「たぶん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「延滞料金はいくらだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「先輩」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「払えばいいだろ。部費で」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「今年の部費は、もう調味料で半分消えています」</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　有馬先輩が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「なら俺の私費で払う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「人をＤＶＤみたいに延滞しないでください」</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　須藤先輩が静かに言った。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="458">　磯崎先輩は冊子を裏返し、規約を読んでいた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="460">「<span class="term term-proper">《恒久利用には実在参加者一名との交代が必要》</span>だって。じゃあ俺と交代します？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「軽く言うな」と久我が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="464">「だって俺、今期の単位も返却したいし」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「そっちはもう大学に返却されてる」</p>
+<p class="source-line role-narration gap-0" data-source-line="467">　有馬先輩が答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　皆が笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　僕も、少しだけ笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　馬場先輩は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「宮坂、お前はどうしたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　問われて、初めて考えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　返却されたくない。</p>
+<p class="source-line role-narration gap-0" data-source-line="479">　忘れたくない。</p>
+<p class="source-line role-narration gap-0" data-source-line="480">　明日も、この人たちを知っていたい。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　けれど、誰か一人と交代しなければならないのなら、答えは決まっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「このままでいいです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「よくない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「誰かを僕の代わりにするほうが、もっとよくないです」</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　馬場先輩が何か言おうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="491">　有馬先輩が、その腕をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「透の言う通り」</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　彼女は初めて、僕を下の名前で呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「なら、返却までにできることをする」</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　須藤先輩がインスタントカメラを持ち上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="501">「記憶が消えるなら、記録を残す」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　そこから、皆は妙に忙しくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　須藤先輩は僕の写真を十枚以上撮った。</p>
+<p class="source-line role-narration gap-0" data-source-line="506">　馬場先輩はノートに、今日一日の出来事を、漢字を何度も間違えながら書いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　磯崎先輩は動画を回し、「この男は宮坂透。好きな食べ物は鯖缶。テントを張る速度は普通。笑うと右の眉だけ上がる」と実況した。</p>
+<p class="source-line role-narration gap-0" data-source-line="508">　久我はダイビング用の水中スレートに、僕の名前と今日の日付を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　有馬先輩は、ホーローのマグカップを一つ持ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="511">　ナイフの背で塗装を削り、側面に文字を刻む。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="513"><span class="term term-proper">《宮坂透》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="515">　その下に、少し迷ってから、もう一行。</p>
+<p class="source-line role-narration gap-1" data-source-line="517"><span class="term term-proper">《六人目ではなく、六人のうちの一人》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「これ、貸出品じゃないですよね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「私の私物。今から透のもの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「返却するとき、持っていけるかな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「持っていけなかったら、私が次に渡す」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="527">「次って？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「次は次」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　有馬先輩は、それ以上説明しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　夜が深くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　焚き火が小さくなり、湖の向こうに月が出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　月眠湖という名前の通り、白い月は水面に横たわって眠っているように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　有馬先輩が、アルミホイルに包んだ焼きりんごを火から取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="539">　切れ目にバターと砂糖とシナモンを詰めただけなのに、ふたを開くと甘い湯気が立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「熱いから気をつけて」</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　六人で、同じ鍋を囲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　馬場先輩は舌をやけどした。</p>
+<p class="source-line role-narration gap-0" data-source-line="546">　磯崎先輩は笑いすぎて、自分のりんごを地面に落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="547">　須藤先輩は落ちる瞬間を撮った。</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　有馬先輩は予備を半分分けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="549">　久我は僕のマグカップに、薄いコーヒーを注いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">「なあ、宮坂」</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　久我が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「お前の思い出が借り物でも、今日、俺のフィンを直したのはお前だよな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「うん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「このコーヒーが薄いのも、たぶん事実だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="561">「それは磯崎先輩が粉をけちったから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「部費がないんだよ」</p>
+<p class="source-line role-narration gap-0" data-source-line="564">　磯崎先輩が抗議した。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　馬場先輩が、ようやく少し笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="568">「だったら今日の分は、誰からも借りてない」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　有馬先輩が言った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="572">「今日の分？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「私たちが今つくった記憶」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　薪が崩れ、小さな火の粉が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　その夜、僕は自分が本物かどうかを、初めて気にしなくなった。</p>
+<div class="source-line scene-break gap-1" data-source-line="580" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="582">　翌朝九時五十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　受付前には、六人分の荷物が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　管理人は時計を見て、カウンターの下から白い箱を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「補完員一名様、ご返却をお願いします」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　僕は一歩前へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　馬場先輩が僕の肩をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="594">「まだ五分ある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「五分しかないです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="598">「同じ意味だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　有馬先輩が、ホーローのマグカップを僕のザックへ押し込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　須藤先輩は最後の一枚を撮った。</p>
+<p class="source-line role-narration gap-0" data-source-line="602">　磯崎先輩は動画を止めなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　久我は水中スレートを胸の前に掲げていた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="605"><span class="term term-proper">《宮坂透》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="606"><span class="term term-proper">《八月二十三日、月眠湖》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="607"><span class="term term-proper">《六人で潜った》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="609">　管理人が僕の白いリストバンドに触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　ぱちん、と小さな音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　馬場先輩の手から、力が抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「あれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　彼は僕を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　見知らぬ人を見る目だった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="621">「すみません。キャンプ場のスタッフさんですか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　有馬先輩が息をのんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="624">　須藤先輩は、さっき撮ったばかりの写真と僕の顔を交互に見た。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="626">「この人……誰？」</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　磯崎先輩のスマートフォンから、自分の声が流れていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="630"><span class="term term-proper">《この男は宮坂透。好きな食べ物は鯖缶――》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「俺、なんでこんな動画を？」</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　久我だけは、スレートの文字を何度も読んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="636">「宮坂透」</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　彼は名前を口にした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="640">「宮坂……透」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="642">　記憶は消えても、文字は残る。</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　顔を忘れても、空席があったことまでは消せない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「たぶん、お前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　久我が僕を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「俺たちは、お前を知ってた」</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　管理人が静かに言った。</p>
+<p class="source-line role-dialogue role-document role-memory tone-2 gap-1" data-source-line="653">「記憶は返却対象ですが、記録は規約外です。皆様、工夫なさいましたね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="655">「だったら、また借りられますか」</p>
+<p class="source-line role-narration gap-0" data-source-line="656">　有馬先輩が尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="658">「不足人数があれば」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「不足してなくても？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「サービスの趣旨とは異なります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「趣旨なんて知らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　有馬先輩は、僕のザックを強く押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="668">「持っていって。絶対になくさないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　僕はうなずいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　管理人に案内され、受付の奥にある小さな扉へ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="673">　扉には<span class="term term-proper">《返却口》</span>と書かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「僕は、これからどうなるんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「次のご利用まで、お休みいただきます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「次は、誰になるんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「必要とされる方です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「僕は、どこから来たんでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　管理人は初めて、少しだけ笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="687">「足りないところからです」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="689">「返されたら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="691">「また、足りないところへ」</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　扉が閉まる直前、久我の声が聞こえた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="695">「透！」</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　僕は振り返った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="699">「次も、席を空けておく！」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　僕が返事をする前に、白い光が視界を埋めた。</p>
+<div class="source-line scene-break gap-1" data-source-line="703" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="705">　目を覚ますと、僕は雪山へ向かうマイクロバスに乗っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「直樹、起きた？」</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　隣の席の女の子が、紙コップのココアを差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　窓の外には白い山。</p>
+<p class="source-line role-narration gap-0" data-source-line="712">　車内には、見覚えのある笑顔が九つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　僕の名前は、小松直樹。</p>
+<p class="source-line role-narration gap-0" data-source-line="715">　大学の演劇サークルに所属していて、今日は冬合宿へ向かっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="716">　隣の彼女とは一年のころから友達で、前の席の男とは学園祭の舞台で大げんかをした。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="718">　その記憶が、頭の中にきれいに並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　けれど、足元のザックに、見覚えのないホーローのマグカップが入っていた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="722"><span class="term term-proper">《宮坂透》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="724"><span class="term term-proper">《六人目ではなく、六人のうちの一人》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="726">　文字をなぞると、焚き火の匂いがした。</p>
+<p class="source-line role-narration gap-0" data-source-line="727">　焼きりんごの甘い湯気。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　湖の冷たさ。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　薄すぎるコーヒー。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　知らないはずの五人の笑い声が、胸の奥で重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　スマートフォンが震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="735"><span class="term term-proper">《指名利用の申請が届いています》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="737">　申請者は、青藍大学潜水同好会<span class="term term-world">〈トビウオ〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="738">　利用日は、来月の第一土曜日。</p>
+<p class="source-line role-narration gap-0" data-source-line="739">　行き先は、月眠湖キャンプ場。</p>
+<p class="source-line role-narration gap-1" data-source-line="741"><span class="term term-proper">《登録人数：五名》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="742"><span class="term term-proper">《不足人数：〇名》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="744">　システムは赤い文字で警告していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="746"><span class="term term-proper">《必要人数は満たされています。一名補完サービスの対象外です》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="748">　その下に、申請者からの備考があった。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="750"><span class="term term-proper">《誰だか、まだちゃんとは思い出せない》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="751"><span class="term term-proper">《でも、写真に一人ぶんの隙間がある》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="752"><span class="term term-proper">《マグカップも一つ足りない》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="753"><span class="term term-proper">《六人で行きたいので、六人目をお願いします》</span></p>
+<p class="source-line role-narration role-system gap-1" data-source-line="755">　画面の一番下に、二つのボタンが表示された。</p>
+<p class="source-line role-narration gap-1" data-source-line="757"><span class="term term-proper">《辞退する》</span></p>
+<p class="source-line role-narration role-document gap-0" data-source-line="758"><span class="term term-proper">《利用規約外として承諾する》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「誰から？」</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　隣の女の子が聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　僕はしばらく考えた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="765">　小松直樹の記憶の中には、その答えはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　それでも、分かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">「友達から」</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　僕は<span class="term term-proper">《承諾する》</span>を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　借りた記憶は、返せと言われる。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="774">　けれど、これからつくる記憶まで、誰かの在庫ではないはずだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　来月の第一土曜日、月眠湖の予約人数は、五名から六名に書き換わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　空席は、もうなかった。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

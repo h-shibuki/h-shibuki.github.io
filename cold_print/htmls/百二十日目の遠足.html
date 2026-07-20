@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="山頂に建つ窓のない〈楽園館〉では、四人の理事が人々に奇妙な規則を課し、「幸福実験」を続けていた。十一歳の郵便配達員コマが届けたのは、百二十日目の日没で管理権が失効し、門を開けよと命じる書留。だが理事たちは通知を焼き、給仕の少年イオに罪を着せる。自由を証明する控えを日没までに持ち帰らなければならない。吊り橋は落ち、山道は遠い。それでもコマは片方の靴で走り出す。山のすべてを敵に回しても、手紙を本当に待つ人へ届けるために。">
+<title>百二十日目の遠足｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="百二十日目の遠足" data-novel-id="百二十日目の遠足" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>サスペンス・ジュブナイル・奇妙な味</p>
+  <p><strong>補助ジャンル：</strong>ギャグ・頭脳戦</p>
+  <p><strong>CSVタグ：</strong>サスペンス、ジュブナイル、奇妙な味、ギャグ、頭脳戦</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：439行／章：0／役割・強度タグ：519</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="百二十日目の遠足 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">百二十日目の遠足</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　山のてっぺんに、窓のないホテルがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="4">　景色が悪いからではない。景色を見ると、外へ出たくなるからだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　ホテルの名は<span class="term term-world">〈楽園館〉</span>といった。楽園というものには窓がないらしい、とコマは覚えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　コマは十一歳で、麓の郵便局を手伝っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　切手の裏の味は好きではなかったが、手紙がどこかへ着くのは好きだった。紙切れ一枚が、谷を越え、雨に濡れ、犬に追われ、それでも誰かの名前までたどり着く。考えてみると、手紙はずいぶん根性がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　その日、コマは赤い鞄を肩から下げ、楽園館の鉄門を叩いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　門の上には札があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　　幸福実験　第百十九日</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　　本日、外の話をした者は、外へ出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　　ただし地下から。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="16">「地下も外なのか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　コマが札に訊くと、門番が小窓を開けた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「誰だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「郵便。みんな宛て」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="21">「みんなという名の者はいない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="22">「じゃあ、ここの人ぜんぶ宛て」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="23">「ぜんぶという名の者もいない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="24">「めんどくさい家だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　門番は怒るより先に困った顔をした。怒るには許可が必要なのかもしれなかった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="27">　コマは封筒を見せた。宛名には、たしかに<span class="term term-world">〈楽園館に滞在する全員へ〉</span>と書いてある。差出人は県の管理局、赤い封蝋、書留、受領印必須。大人が好きそうな重さのある手紙だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　しばらくして門が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="30">　中には庭があったが、花は全部、頭を切られていた。花が勝手に咲くのは規律違反なのだそうだ。噴水には水がなく、代わりに白い皿が積まれていた。皿の一枚一枚に、昨日のごちそうが乾いてこびりついている。</p>
+<p class="source-line role-narration gap-0" data-source-line="31">　痩せた人たちが、その皿を磨いていた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="33">「おなか、すいてる？」</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　コマが訊くと、いちばん近くの女は、磨く手を止めずに言った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="35">「幸福です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="36">「それ、おなかいっぱいの言い方じゃないね」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="37">「幸福です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="38">「二回言うと、もっとちがうね」</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　女はほんの少しだけ笑った。笑ってから、周りを見て、笑いを飲み込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="41">　楽園館には四人の理事がいた。総裁、校長、博士、会計士。四人は百二十日間、人間を幸福にする実験をしているのだという。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　初日は、全員に同じ服を着せた。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　十七日目は、食事の前に空腹へ感謝させた。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　三十九日目は、泣いた者に笑顔税を払わせた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="45">　六十一日目は、家族を番号で呼ばせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="46">　八十八日目は、各自のいちばん大切な物を広間に持ち寄らせ、値段の安い順に燃やした。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="47">　そして毎晩、四人は宴会をしながら「人はどこまで命令を受け入れられるか」という話を聞き、翌朝、その話を新しい規則にした。</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="49">　規則を思いつくたびに、四人はよく笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="50">　コマは、悪い大人にはもっと分かりやすい顔があると思っていた。角とか、黒い歯とか、耳から煙が出るとか。だが四人の歯は白く、服はよく似合い、爪の間まできれいだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="51">　悪さは、汚れない場所にも住めるらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　広間で、四人は昼食をとっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　大きな卓上には、鶏が三羽、魚が五尾、丸いパンが二十個、果物が山ほどあった。四人はそれぞれ一口ずつ食べ、残りを床へ落とした。食べ物が落ちるたび、会計士が銀の鈴を鳴らし、滞在者たちは拍手した。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="56">「食べないの？」</p>
+<p class="source-line role-narration gap-0" data-source-line="57">　コマは訊いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「食べきれないほど持つことが、豊かさなのだよ」と総裁が言った。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="59">「じゃあ、食べきれるぶんしかない人は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="60">「努力不足だ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="61">「鶏も？」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="62">「何？」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="63">「食べきれないの、鶏の努力不足？」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　博士がむせた。校長は笑いかけて、笑う相手を間違えたことに気づき、咳に変えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　コマは書留を差し出した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="68">「受領印」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「まず内容を検査する」と総裁が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="70">「みんな宛てだよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="71">「我々は、みんなを代表している」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="72">「四人しかいないのに？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="73">「優れた四人は、劣った四百人に等しい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="74">「足し算へただな」</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　校長がコマの腕をつかもうとした。その前に、給仕の少年が盆を滑らせた。銀の杯が落ち、床を転がり、校長の靴へ葡萄の汁をかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="77">　少年はコマより三つか四つ年上に見えた。髪が長く、左の眉に小さな傷があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">「失礼しました」</p>
+<p class="source-line role-narration gap-0" data-source-line="80">　少年は頭を下げた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="81">「イオ。今夜、反省室だ」と校長が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="82">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="83">「はい、じゃない」とコマが言った。「ぶどうが靴に行っただけだよ。靴は飲まないのに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「黙れ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「それ、郵便局では受領印にならない」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　その隙に、イオがコマの手から封筒を取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　すばやく封を切り、中身を広げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="89">　総裁の顔から、豊かさが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　手紙にはこうあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　　楽園館の臨時管理権は、明日、第百二十日の日没をもって失効する。</p>
+<p class="source-line role-narration gap-0" data-source-line="94">　　以後、門扉を開放し、滞在者の自由な退去を妨げてはならない。</p>
+<p class="source-line role-narration gap-0" data-source-line="95">　　本書は館内滞在者全員へ告知されたものとみなす。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　広間は静かになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="98">　皿を磨く音も、鍋の煮える音も、どこかの咳も止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="99">　イオは手紙を高く掲げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="101">「明日で終わりだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　その声は、窓のない壁にぶつかって、何度も返った。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="104">　終わりだ。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="105">　終わりだ。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="106">　終わりだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　会計士が暖炉から火掻き棒を取り、手紙を叩き落とした。博士が拾い、炎へ投げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　紙は一度だけ青く光り、端から黒く縮んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="110">　総裁はゆっくり立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「偽造文書だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="113">「封蝋も書留番号も本物だよ」とコマは言った。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="114">「証拠は燃えた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「郵便局に控えがある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="116">「では、取りに行けばよい」</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　総裁は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　その笑顔を見て、門番たちがコマの後ろへ回った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「明日の日没までに控えを持ち帰れたなら、門を開こう。持ち帰れなければ、この少年が文書偽造の罪を負う。おまえも二度と館へ入ることはできぬ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="122">「イオは何も偽造してない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="123">「ならば、戻ればよいだけだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="124">「戻るよ」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="125">「コマ！」とイオが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　コマは振り返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　イオは首を横に振っていた。麓の郵便局までは、山道を走っても半日以上。昨夜の雨で吊り橋が落ちたという話もある。楽園館の馬車なら間に合うが、もちろん貸す気はないのだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="129">　総裁は、間に合わないことを知っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="130">　そのうえで、約束の形にして人を壊すのが好きなのだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「だいじょうぶ」とコマは言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="133">「どうして」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="134">「郵便だから」</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　それは説明になっていなかったが、コマには十分だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="138" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="140">　第百二十日の朝、楽園館では、夜明け前から鐘が鳴った。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="141">　最後の規則が発表された。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　　本日、希望を口にした者は、嘘つきとみなす。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　滞在者たちは広間へ集められ、イオは中央の椅子に座らされた。手首には白い紐が巻かれていた。逃げないようにするためではない。逃げようと思っても無駄だ、と全員に見せるためだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="146">　四人の理事は朝から酒を飲み、日没を待った。</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　一方、コマは走っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　はじめの一時間は、世界のすべてが味方だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="151">　空気は冷たく、靴は軽く、下り坂は勝手に足を運んでくれた。コマは、走るのは地面が後ろへ行く遊びだと思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="152">　道ばたに大きなきのこがあった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="153">「帰りに見るからね」</p>
+<p class="source-line role-narration gap-0" data-source-line="154">　きのこは返事をしなかった。帰りを信じている顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　二時間目、世界は少し考え直した。</p>
+<p class="source-line role-narration gap-0" data-source-line="157">　昨夜の雨で道が崩れ、赤土が谷へ流れていた。吊り橋は本当に落ちていた。向こう岸まで、濁った川が太い音を立てている。</p>
+<p class="source-line role-narration gap-0" data-source-line="158">　コマは上流へ走った。倒れた杉が川にかかっているのを見つけ、四つん這いで渡った。</p>
+<p class="source-line role-narration gap-0" data-source-line="159">　真ん中まで来たところで、杉がぎしりと鳴った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="161">「折れる？」</p>
+<p class="source-line role-narration gap-0" data-source-line="162">　杉は答えなかった。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="163">「折れない？」</p>
+<p class="source-line role-narration gap-0" data-source-line="164">　やはり答えなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="165">「木は返事がわるいな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　コマは腹ばいになり、腕で幹を抱え、一尺ずつ進んだ。下では茶色い水が、先に行こう、先に行こうと急いでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="168">　向こう岸へ転がり落ちたとき、右の靴が流された。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="169">「あっ、それ私の！」</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　靴は川の仕事を手伝うことにしたらしく、すぐ見えなくなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="172">　コマは片足だけ靴下になった。濡れた靴下は、走るたびにぺたぺた鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="173">　片方の足だけ拍手しているみたいだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　三時間目、腹が減った。</p>
+<p class="source-line role-narration gap-0" data-source-line="176">　ポケットには、昨日イオがこっそり入れてくれた小さな焼き芋があった。星の形に切ってある。楽園館では、芋は丸いままだと「自由すぎる」と言われるので、角を作られるのだそうだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　コマは半分食べ、半分を包み直した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「帰ったら、いっしょに食べる」</p>
+<p class="source-line role-narration role-document role-memory tone-2 gap-0" data-source-line="179">　声に出したあと、最後の規則を思い出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="180">　ここは館の外だから、希望を言ってもよい。</p>
+<p class="source-line role-narration gap-0" data-source-line="181">　外というのは、ずいぶん便利だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　昼すぎ、麓の郵便局へ着いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="184">　局長はコマの叔父で、眼鏡を額に乗せたまま、眼鏡を探す癖があった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="186">「コマ！　その足はどうした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="187">「右足は元気。左の靴が旅に出た」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="188">「何の話だ」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="189">「控え。昨日の書留の控え！」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="190">「配達したのか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="191">「燃やされた」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="192">「燃やされた？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="193">「でも届いた。届いたから、燃やされたんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　叔父は事情を聞き、顔を青くした。</p>
+<p class="source-line role-narration gap-0" data-source-line="196">　書留の文面を写した副本は、県の役所にある。ここにあるのは、差出人、宛先、番号、受領時刻を記した台帳だけだった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="197">「これでは内容まで証明できん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="198">「昨日の封筒、薄かった」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="199">「何？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="200">「赤い字が、裏までちょっと見えてた。写す紙を使ったでしょ」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="201">「複写紙か。だが、文面の控えは発送簿から切り離して、役所へ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　叔父は言葉を止め、棚のいちばん下を引き出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="204">　そこには、書き損じの紙を入れる箱があった。正式な副本を書く前、役人が下書きに使った薄紙。裏返すと、複写紙の圧で、左右の逆になった文字がかすかに残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　コマは鏡を持ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="207">　鏡の中で、文字は正しい向きになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　　臨時管理権は、明日、第百二十日の日没をもって失効する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「あった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="212">「正式な証書ではない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="213">「でも、書いたものは同じ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="214">「理事たちは認めないぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="215">「認めないのは、行く前から知ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="216">「では何のために戻る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="217">「イオが待ってるから」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="218">「門を閉じられたら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="219">「叩く」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="220">「捕まったら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="221">「困る」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="222">「負けたら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「それは、戻ってから決める」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="225">　叔父はコマを見つめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="226">　大人は、勝てると分かってからでないと始めたがらない。子どもは、始めてしまったあとで勝ち方を探す。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　叔父は台帳、下書き、郵便局の公印を鞄へ入れた。自分も行くと言ったが、コマは首を振った。</p>
+<p class="source-line role-narration gap-0" data-source-line="228">　大人の足では日没に間に合わない。</p>
+<p class="source-line role-narration gap-0" data-source-line="229">　それに楽園館の門は、コマ一人を通す約束だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「じゃあ、これを持っていけ」</p>
+<p class="source-line role-narration gap-0" data-source-line="232">　叔父は片方だけの長靴を出した。左足用だったが、大きすぎた。</p>
+<p class="source-line role-narration gap-0" data-source-line="233">　コマは履き、紐で足首をぐるぐる巻いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="234">「へんな足」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="235">「左右そろっている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="236">「種類がそろってない」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　郵便局を出ると、村の人たちが集まっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　楽園館に家族を残した人。働きに行ったきり帰らない娘を待つ人。百二十日が終わると聞いて、門の前まで行くと言う人。</p>
+<p class="source-line role-narration gap-0" data-source-line="240">　コマは大人たちに公印の押された紙を一枚ずつ渡した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="241">「これ、読める人は読んで。読めない人には読んであげて。そしたら、みんな知ってることになる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="242">「何枚いる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="243">「知らない。いっぱい」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="244">「いっぱいとは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="245">「破られても、まだあるくらい」</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　村の学校の謄写器が回った。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　薄い紙が百枚、二百枚と吐き出された。子どもたちが乾かし、大人たちが束ねた。</p>
+<p class="source-line role-narration gap-0" data-source-line="249">　文字は紙へ移り、紙は人の手へ移った。</p>
+<p class="source-line role-narration gap-0" data-source-line="250">　手紙は、数が増えると群れになる。</p>
+<div class="source-line scene-break gap-1" data-source-line="252" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="254">　帰り道は上りだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　世界は、さっきよりはっきり敵になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　大きすぎる長靴は、三歩に一度、土を食べた。右足の靴は小石を拾い、左足の長靴は泥を飼った。息を吸うたび、胸の奥が紙やすりになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="258">　空の太陽は、約束を知らない顔で西へ進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　杉の橋まで戻ると、上流から流木がぶつかり、幹が半分折れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　コマは立ち止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="262">　川は朝より太くなっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="263">　回り道をすれば二時間。もう、そんな時間はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「飛べないかな」</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　自分に訊いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="267">　飛べない。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="268">「泳げないかな」</p>
+<p class="source-line role-narration gap-0" data-source-line="269">　泳げるが、鞄が濡れる。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="270">「川が止まらないかな」</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　川は忙しそうだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　そのとき、下流で山羊が鳴いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　岸辺に、炭焼きの老人が小舟をつないでいた。舟というより、大きな木の桶だった。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="275">「向こうへ渡りたい！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="276">「流されるぞ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="277">「急いでる！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="278">「急いで流されるぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　老人は文句を言いながら舟を出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="281">　山羊も乗った。乗る必要はなかったが、山羊は必要という言葉を知らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="282">　川の真ん中で舟が回り、コマと老人と山羊は、三人で別々の方向を向いた。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="283">「そっち漕いで！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="284">「どっちだ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="285">「山羊のしっぽじゃないほう！」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="286">「山羊が回っとる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　どうにか対岸へ着いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="289">　礼を言おうとしたとき、老人はコマの赤い鞄を見た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="290">「楽園館か」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="291">「うん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="292">「わしの息子もいる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="293">「じゃあ、門へ来て」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="294">「行って、何になる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="295">「一人増える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="296">「それだけか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="297">「一人増えるのが、何回もあると、いっぱいになるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　老人はしばらく黙り、山羊の角を撫でた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="300">「先に行け。わしらは遅い」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="301">「山羊は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="302">「もっと遅い」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="303">「でも来る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">「行く」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="305">「じゃあ、遠足だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　コマはまた走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　峠の手前で、楽園館の門番が二人、道を塞いでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　総裁が先回りさせたのだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="311">「鞄を渡せ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="312">「郵便は渡すよ。宛名の人に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="313">「ここで渡せ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="314">「名前は？」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="315">「命令だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="316">「命令さん宛てじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　一人が腕を伸ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　コマは鞄から紙束をひとつ放り上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="320">　風がさらった。</p>
+<p class="source-line role-narration gap-0" data-source-line="321">　白い紙が、鳥の群れみたいに峠へ散った。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　門番たちは慌てて追った。総裁から、一枚も館へ持ち込ませるなと言われている。</p>
+<p class="source-line role-narration gap-0" data-source-line="323">　コマは二人の間をすり抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　鞄には、まだ台帳と下書きと、公印がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　そして紙は、拾われるためだけに飛んだのではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　木の枝に引っかかり、岩に貼りつき、道の上へ落ちた。後から来る村人たちは、一枚ずつ拾いながら進んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="328">　山道そのものが、手紙になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　峠を越えたところで、コマは転んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="331">　膝が切れ、血がにじんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="332">　立とうとして、足が動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　日が傾いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="335">　楽園館の屋根は、遠くに小さく見える。</p>
+<p class="source-line role-narration gap-0" data-source-line="336">　どう考えても遠かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="337">　世界は広すぎる。人の脚は二本しかない。約束は、どうして距離を考えてから作られないのだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　コマは道の脇へ座り込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　息が戻るまで、と目を閉じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="341">　目を閉じると、イオの顔より先に、焼き芋が浮かんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　半分残した星の芋。</p>
+<p class="source-line role-narration gap-0" data-source-line="343">　くだらない、とコマは思った。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="344">　人が大変な目にあっているのに、芋を思い出すなんて。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　けれど、たぶん約束は、立派な言葉だけでできてはいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　半分残した芋とか、靴にかかった葡萄の汁とか、笑ってはいけない場所で少し笑ったこととか。そういう小さなものが、見えない糸になって人を引っぱる。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　コマはポケットの芋を確かめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　つぶれていたが、まだ半分あった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「待ってて」</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　希望を口にした。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="355">　館の最後の規則を破った。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　すると、不思議なことに、脚が少しだけ自分のものに戻った。</p>
+<div class="source-line scene-break gap-1" data-source-line="358" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="360">　日没が近づくと、楽園館の広間には長い影が伸びた。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　窓はないのに、天井の細い明かり取りから、赤い光が一本だけ落ちていた。その光が床の黒線を越えたら、日没と決められている。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　総裁はイオの前に立った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「友人は来ない」</p>
+<p class="source-line role-narration gap-0" data-source-line="365">　イオは黙っていた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="366">「おまえを置いて逃げた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="367">「コマは逃げるとき、もっと大きな声を出す」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="368">「信じているのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="369">「たぶん」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="370">「たぶん？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="371">「あいつ、途中で変な虫を見たり、雲の形を数えたりするから。時間は間違える。でも、戻る方向は間違えない」</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　校長が白い紐を締め直した。</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　博士は滞在者たちに笑うよう命じた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="375">「希望が外れた者を見るのは、幸福である。笑え」</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　誰も笑わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　会計士が銀の鈴を鳴らした。</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　それでも誰も拍手しなかった。</p>
+<p class="source-line role-dialogue fx-peak role-motif tone-4 gap-1" data-source-line="381">「笑え！」</p>
+<p class="source-line role-narration gap-0" data-source-line="382">　総裁が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　そのとき、遠くで何かが門を叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　一度。</p>
+<p class="source-line role-narration gap-0" data-source-line="387">　二度。</p>
+<p class="source-line role-narration gap-0" data-source-line="388">　三度。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「郵便！」</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　声は小さかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="393">　だが、館の中は静かすぎたので、全員に聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　総裁が門番を見た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="396">「開けるな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="397">「約束では、あの子一人を通すと」</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-0" data-source-line="398">「約束を守る相手は、我々が選ぶ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　もう一度、門が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　今度は、外から大勢の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「開けろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="404">「百二十日は終わりだ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="405">「家族を返せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　門の隙間から白い紙が差し込まれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="408">　一枚、また一枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="409">　風に押されて、庭を転がり、広間の扉まで来た。</p>
+<p class="source-line role-narration gap-0" data-source-line="410">　滞在者の女が拾った。</p>
+<p class="source-line role-narration gap-0" data-source-line="411">　逆さの文字を、鏡に映して読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「臨時管理権は、本日の日没をもって失効する」</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　総裁が紙を奪い、破った。</p>
+<p class="source-line role-narration gap-0" data-source-line="416">　次の紙を、別の男が拾った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="417">「門扉を開放し――」</p>
+<p class="source-line role-narration gap-0" data-source-line="418">　校長がそれも破った。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="419">　また一枚。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="420">　また一枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="421">　紙は庭のあちこちから入ってきた。排水溝、塀の割れ目、屋根の上。村人たちが外から投げ入れているのだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="423">「燃やせ！」と博士が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　料理人が紙を拾った。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="426">「どれを？」</p>
+<p class="source-line role-narration gap-0" data-source-line="427">　庭じゅうが白かった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="428">「全部だ！」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-0" data-source-line="429">「昨日まで、紙を粗末にするなという規則でした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="430">「今日は違う！」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-0" data-source-line="431">「では、昨日の規則は嘘だったのですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　その問いは小さかったが、広間の奥まで届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　門が、今度は内側から開いた。</p>
+<p class="source-line role-narration role-clue tone-4 gap-0" data-source-line="436">　最初に動いたのは、あの女だった。皿を磨いていた女。次に料理人。次に、銀の鈴を鳴らしていた使用人。門番の一人が鍵を床へ置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="437">　誰も命令していないのに、人々は同じ方向へ歩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　開いた門から、コマが転がり込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="440">　本当に転がった。長靴が石につまずき、両手と膝をつき、赤い鞄が頭を越えて飛んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="441">　広間の入口まで来ると、顔を上げた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="443">「まにあった？」</p>
+<p class="source-line role-narration gap-0" data-source-line="444">　イオが笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="445">「ぎりぎり」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="446">「まだ光が線を越えてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="447">「じゃあ、すごくまにあった」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　コマは立ち上がり、鞄から台帳と下書きを出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="450">　総裁はそれを見ても笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="452">「正式な証書ではない。無効だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="453">「そっか」</p>
+<p class="source-line role-narration gap-0" data-source-line="454">　コマは言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="455">「なら、紙には力がないんだね」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="456">「何？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="457">「紙に力がないなら、みんなが書かされた契約も、反省文も、借金の札も、ぜんぶ力がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　広間の人々が顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　会計士が叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="462">「それらは正式な書類だ！」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="463">「こっちは正式じゃないの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="464">「そうだ！」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="465">「同じ公印なのに？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="466">「我々が認めぬ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="467">「じゃあ、紙じゃなくて、あんたたちが勝手に決めてるだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　コマは、いちばん大事なことを見つけた子どもの顔で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「だったら、みんなも勝手に決めていいじゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　赤い光が床の黒線へ触れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　その瞬間、イオが手首の白い紐を引いた。紐はするりとほどけた。見せるための結び目だったので、ほんとうに人を縛る強さはなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="475">　彼は立ち上がり、総裁の前を通り、コマの隣へ来た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「出よう」</p>
+<p class="source-line role-narration gap-0" data-source-line="478">　誰かが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="479">「出よう」</p>
+<p class="source-line role-narration gap-0" data-source-line="480">　別の誰かが繰り返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　声は広がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="483">　百二十日間、命令に使われてきた口が、初めて自分のために同じ言葉を言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　四人の理事は、門を閉めろ、鐘を鳴らせ、捕まえろ、笑え、ひざまずけ、と次々に命じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="486">　だが命令は、聞く者がいなくなると、ただの大声だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="487">　総裁が銀の鈴を奪って鳴らした。</p>
+<p class="source-line role-narration gap-0" data-source-line="488">　誰も拍手しなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="489">　鈴は小さく、みじめな音を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　人々は門を出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="492">　外には村人たちがいた。炭焼きの老人もいた。山羊もいた。山羊は門の花壇へ入り、首を切られた花の葉を食べた。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="493">「それ、食べていいの？」とコマが訊いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　山羊は返事をしなかった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="495">「ま、今日からいいか」</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　空は赤く、その上にもう夜が来ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="498">　楽園館の人々は、長いあいだ空を見ていなかった。見上げたまま泣く者がいた。笑う者がいた。泣きながら笑う者もいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="499">　博士が見たら、分類に困っただろう。</p>
+<div class="source-line scene-break gap-1" data-source-line="501" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="503">　第百二十一日の朝、みんなで山を下りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　列は長く、速さはばらばらだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="506">　老人がいて、子どもがいて、荷物を抱えた人がいて、途中で何度も休んだ。遠足にしては暗い服が多く、弁当も足りなかったが、誰も列から外れなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　イオはコマの隣を歩いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="509">「昨日、ほんとに戻ると思ってた？」</p>
+<p class="source-line role-narration gap-0" data-source-line="510">　コマが訊いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="511">「思ってた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="512">「たぶん、って言ってた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="513">「聞いてたのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="514">「門のところで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="515">「正直に言うと、半分」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="516">「半分しか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="517">「半分も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="518">「じゃあ、これも半分」</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　コマはポケットから、つぶれた星形の焼き芋を出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　二人で分けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　冷たく、泥の味が少しして、それでも楽園館のどんな料理よりうまかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　昼になると、草原で休んだ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="525">　誰かが丸いパンを取り出した。切り分けようとすると、みんなが少し身構えた。パンを踏む日や、空腹へ感謝する日や、食べる前に許可を待つ日が、体の中にまだ残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　コマはパンをひとつ取り、かじった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="529">「今日は、何の日？」</p>
+<p class="source-line role-narration gap-0" data-source-line="530">　小さな子が訊いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="531">「百二十一日目」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="532">「何する日？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="533">「遠足」</p>
+<p class="source-line role-dialogue role-document role-clue tone-2 gap-0" data-source-line="534">「規則は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="535">「おなかすいた人から食べる」</p>
+<p class="source-line role-dialogue role-clue tone-4 gap-0" data-source-line="536">「笑ってもいい？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="537">「口にパン入ってないときね」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　みんなが笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="540">　今度は、誰も周りを見なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　山の上では、四人の理事が空っぽの広間に残っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="543">　総裁は鐘を鳴らし、校長は椅子を叱り、博士は沈黙を測り、会計士は誰もいない人数を帳簿につけていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="544">　窓のない楽園は、命令する相手を失うと、ただの大きな箱だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　草原を風が渡った。</p>
+<p class="source-line role-narration gap-0" data-source-line="547">　コマは寝転び、雲を指さした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="548">「あれ、長靴に似てる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="549">「どこが」とイオが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="550">「大きすぎるところ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="551">「雲は履かない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="552">「知ってるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　空は広かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="555">　広すぎて、誰の許可も届かなかった。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="556">　そして空は、百二十日間のどの規則にも、入っていなかった。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

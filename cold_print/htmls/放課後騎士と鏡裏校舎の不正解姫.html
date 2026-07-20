@@ -1,0 +1,1035 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="全校生徒を勝手に守護対象とする一人騎士道研究会の鳴海騎士と、怪異を「現実へ入り込んだ悪文」と見なし赤鉛筆で校正する砥上綴。学園祭前夜、生徒会室から三十万円が消え、書記の雨宮灯が失踪した。校内すべての鏡は、生徒会長・西園寺菫を犯人だと告発する。午後十一時十三分、噂が形になった鏡裏校舎では、菫を裁く「赤点裁判」が開廷するという。欠席しても有罪、正解以外に発言権なし。白いカラスが招く破綻した法廷で、騎士の信頼と校正係の論理は、皆が欲しがる派手な筋書きを覆せるのか。">
+<title>放課後騎士と鏡裏校舎の不正解姫｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="放課後騎士と鏡裏校舎の不正解姫" data-novel-id="放課後騎士と鏡裏校舎の不正解姫" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ジュブナイル・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>学園・ギャグ・頭脳戦</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ジュブナイル、ファンタジー、学園、ギャグ、頭脳戦</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：574行／章：0／役割・強度タグ：671</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="放課後騎士と鏡裏校舎の不正解姫 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『放課後騎士と鏡裏校舎の不正解姫』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　放課後の校内放送が「本日の落とし物」を告げるより先に、鏡が僕の名を呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="5">「鳴海騎士。汝は嘘つきである」</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　旧講堂の化粧鏡は、百年前の卒業生が寄贈したという大物だ。黒ずんだ銀の縁には、葡萄とも蛇ともつかない彫刻が絡みつき、鏡面には年中うっすら霧がかかっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　そんな由緒正しい鏡に名指しで非難されたので、僕は礼儀正しく一礼した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="10">「ご指摘、痛み入る。しかし僕は騎士だ。嘘はつかない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="11">「では、昨日、西園寺菫に『その髪型は地上のあらゆる王冠より美しい』と言ったのは真実か」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="12">「真実だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="13">「砥上綴に『君の寝癖は夜明けの稲妻のようだ』と言ったのは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="14">「それも真実だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="15">「購買の焼きそばパンに『また会おう』と言ったのは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="16">「固い誓いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　鏡はしばらく黙った。たぶん、僕の誠実さに胸を打たれたのだろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　次の瞬間、鏡の中から白い翼が飛び出し、僕の頭から羽根飾りをさらっていった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="21">「待て！　それは我が騎士道研究会の正装――」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　白いカラスだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="24">　黒い目、白いくちばし、雪のような羽。常識だけを反転させたような鳥が、旧講堂の扉をすり抜ける。僕は腰の模造剣を押さえ、追いかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　私立天秤坂学園三年、鳴海騎士。十八歳。</p>
+<p class="source-line role-narration gap-0" data-source-line="27">　名前の読みは「ないと」だ。両親は冗談半分でつけたらしいが、名は人生の予告編である。僕は入学初日に「校内騎士道研究会」を設立し、迷子を案内し、重い荷物を運び、廊下を走る者には優雅な早歩きを勧め、雨の日には傘を忘れた者を正門まで送ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="28">　部員は僕ひとり。</p>
+<p class="source-line role-narration gap-0" data-source-line="29">　ただし、全校生徒を守る対象と数えるなら、実質六百二十三人の大所帯だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　白いカラスは舞台袖へ消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="32">　追って暗幕をめくると、そこにあるはずの壁がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　代わりに、果てしなく長い廊下が伸びていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="35">　床は天井へ向かって下り、窓の外では雨粒が空へ落ちている。左右に並ぶ教室札は「三年一組」「三年一組の昨日」「まだ存在しない三年一組」と続き、突き当たりの標識にはこう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="37"><span class="term term-proper">《直進禁止。曲がることも禁止。立ち止まった者は遅刻とみなす》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="39">「校則として破綻しているな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="41">「破綻しているから怪異になるのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　背後から声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　砥上綴が、僕の羽根飾りを手に立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="46">　肩までの黒髪は片側だけ跳ね、制服の胸ポケットには赤鉛筆が七本。いつも通り、世界に対して三分ほど寝不足そうな目をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「綴。僕の羽根を取り戻してくれたのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="49">「床に落ちていたから拾っただけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="50">「運命の贈り物だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「落とし物よ」</p>
+<p class="source-line role-narration role-clue tone-2 gap-1" data-source-line="53">　彼女は校史編纂委員であり、学園内の怪談を訂正して回る「校則校正係」でもある。正式な役職ではない。だが、壁に増えた十三段目の階段を十二段へ戻し、誰もいない音楽室で勝手に留年判定を出すピアノを黙らせた実績がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　本人いわく、怪異とは「現実に入り込んだ悪文」らしい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「怪異は文章の癖が悪いの。主語を大きくし、因果を飛ばし、結論だけ派手にする。だから赤を入れる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="57">「剣より赤鉛筆が強いと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「少なくとも、あなたの剣は舞台用のアルミ合金でしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="59">「軽さは速さだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　綴は僕の羽根飾りを胸に押しつけ、廊下の奥を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「雨宮灯が消えた」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　冗談の余地が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　雨宮灯は生徒会書記で、西園寺菫会長の右腕だ。学園祭<span class="term term-world">〈天秤祭〉</span>を翌日に控え、誰より忙しいはずの彼女が、午後六時二十分ごろ、旧講堂で姿を消した。</p>
+<p class="source-line role-narration gap-0" data-source-line="68">　その少し前、午後六時十三分に、生徒会室の金庫から現金三十万円がなくなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="69">　監視映像には、菫会長らしき人物が金庫を開ける姿が映っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="70">　そして今朝、校内すべての鏡に赤い文字が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="72"><span class="term term-proper">《王冠を持つ嘘つきが、金を盗み、書記を消した》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="74">　王冠を持つ者。</p>
+<p class="source-line role-narration gap-0" data-source-line="75">　明日の開会式で、銀のティアラを戴く生徒会長。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="77">「菫が疑われているのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="78">「疑われている、で済めばよかった。噂が早すぎる。もう半分の生徒が『会長が灯を口封じした』と言ってる」</p>
+<p class="source-line role-dialogue role-clue fx-key role-motif gap-0" data-source-line="79">「残り半分は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="80">「『灯が会長を脅して金を持ち逃げした』」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="81">「人はどうして、証拠がないときほど筋書きを豪華にするんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="82">「退屈だから」</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　綴は赤鉛筆を一本抜き、標識の<span class="term term-proper">《直進禁止》</span>に二本線を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="85">　文字が悲鳴をあげた。</p>
+<p class="source-line role-narration gap-0" data-source-line="86">　廊下が紙のように折れ、僕らの足元へ旧講堂の床が戻ってくる。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="88">「いまの廊下は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="89">「鏡の裏側。噂が校舎を食べ始めてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="90">「白いカラスは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="91">「たぶん案内役。あるいは野次馬。怪異の鳥はだいたい性格が悪い」</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　白いカラスは舞台の照明桟に止まり、くちばしで僕の方を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="95">「騎士、裁判へ来い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="96">「鳥が喋った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「そこに驚くのね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「白いカラスまでは自然の個性として受け入れていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　カラスは首を一回転させた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「午後十一時十三分、鏡裏校舎にて赤点裁判を開く。被告、西園寺菫。罪状、窃盗、失踪、虚偽。弁護人、砥上綴。護衛、鳴海騎士」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="103">「本人の同意は？」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="104">「正しい者に同意はいらぬ。不正解に発言権はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　綴の目が細くなった。</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="108">「最悪の規則ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="109">「欠席したら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="110">「有罪」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="111">「出席したら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="112">「たぶん有罪」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="113">「では、やるしかないな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「あなた、その結論に行くまでが速すぎるのよ」</p>
+<div class="source-line scene-break gap-1" data-source-line="116" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="118">　午後九時。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　生徒会室には、嵐の前の船室のような緊張が詰まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　西園寺菫は長机の中央に座り、両側に並ぶ委員たちを睥睨していた。腰まで届く黒髪、まっすぐな背、指先まで隙のない所作。明日の開会式用の銀のティアラが机上に置かれ、蛍光灯の下で冷たく光っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="122">　彼女は怒っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="123">　菫が静かなほど、周囲はよく冷える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「鳴海。扉を閉めなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="126">「御意」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="127">「御意ではない。あなたは私の家臣ではないでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="128">「心は自由契約だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="129">「解約するわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　綴が監視映像をノートパソコンで再生した。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="132">　午後六時十三分。画面には鏡張りの渡り廊下が映っている。赤いマントを羽織った人物が生徒会室へ入り、数分後、封筒を抱えて出てくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　顔は髪とマントの襟に隠れていたが、背格好は菫によく似ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「会長。この時間、どこにいたの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="136">「開会式の原稿を確認していた。第二会議室で」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="137">「証人は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「いない」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="139">「金庫の鍵は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="140">「私が持っていた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="141">「ずっと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="142">「ずっとよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　綴は映像を止めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="145">　菫の返答に、一拍だけ空白があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="147">「嘘ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="148">「砥上さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="149">「責めてるんじゃない。位置を確認してるだけ。嘘は事実の反対じゃない。事実の一部を隠す道具よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　委員たちがざわめいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="152">　菫はしばらく綴を見つめ、やがて吐息を落とした。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="154">「鍵は、午後五時四十分に灯へ預けた。そのまま戻っていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="155">「理由は」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="156">「答えられない」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="157">「灯が三十万円を出した？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="158">「答えられない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="159">「あなたの指示？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="160">「答えられない」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　沈黙は、どんな告白より雄弁に聞こえることがある。</p>
+<p class="source-line role-narration gap-0" data-source-line="163">　委員たちの顔に疑いが広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　僕は机を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「待ってほしい。菫が答えないのは、答えられない理由があるからだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「鳴海、それは説明になっていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="169">「だが、説明できないことと、罪を犯したことは同じではない」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="170">「……それだけは、正しいわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　菫は少しだけ目を伏せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　綴が映像を拡大した。</p>
+<p class="source-line role-narration gap-0" data-source-line="175">　渡り廊下の非常口表示が左右逆になっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「このカメラ、廊下を直接撮ってない。向かいの大鏡に映った像を撮ってる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="178">「それが？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「マントの留め金を見て」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　菫の開会式用マントは、金の留め金を左肩に留める特注品だ。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="182">　映像の人物も、画面上では左肩に留め金がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="183">　だが鏡像なら、本来は右肩に見えなければならない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「つまり、着た本人は右肩に留めていた。あなたの衣装に慣れていない人間が、左右を間違えた」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="186">「灯……」</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　菫の声が、初めて揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「映っているのは、おそらく雨宮灯。会長のマントを借りて金庫へ入った。ここまでは推測じゃなく、映像から読める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「では、灯が盗んだのか」と会計委員が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　綴は赤鉛筆を机に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「そうやって一行でまとめた瞬間、怪異の文章になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　彼女はホワイトボードに書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　<span class="term term-world">〈灯が金庫から金を出した〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="201">　<span class="term term-world">〈三十万円が帳簿上なくなった〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="202">　<span class="term term-world">〈灯が消えた〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「この三文の間には、接続詞がない。なのに皆、『だから』でつないだ。どうして『その後』『一方で』『そのため別件として』じゃないの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　誰も答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　僕は菫を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="209">　彼女の拳は膝の上で固く握られていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「菫。君は灯を信じているか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="212">「当たり前でしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="213">「ならば、僕も信じる」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-0" data-source-line="214">「あなたは私を経由しないと人を信じられないの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="215">「いや。君が信じる人を、君ごと信じる」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="216">「……そういう台詞を真顔で言うから、あなたは信用しづらいのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　耳が少し赤かったので、たぶん完全な拒絶ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　そのとき、机上のティアラが音を立てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="221">　銀の輪の内側から、白いカラスがにゅっと顔を出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「開廷まで二時間。被告は王冠を戴け。弁護人は嘘を一つ用意せよ。騎士は首を洗え」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「最後だけ用途が違わないか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="225">「判決後に刎ねる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="226">「洗うのは首ではなく剣の方だろう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="227">「そこを議論しないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　綴はティアラをつかみ、カラスごと机へ伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「鏡裏へ行く前に、旧講堂を調べる。灯が消えた場所はあそこ。金の行き先も、たぶん同じ場所にある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="233">「なぜそう思うの」と菫。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「監視映像の灯は、封筒を抱えて旧講堂の方向へ向かっている。それと、今朝から講堂の鏡だけ、赤い文字が左右反転していない」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="236">「つまり？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="237">「向こう側から書かれた文字よ」</p>
+<div class="source-line scene-break gap-1" data-source-line="239" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="241">　午後十時。</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　旧講堂は、学園祭の舞台装置で埋まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　巨大な月、紙の森、竜の頭、海賊船の舵。明日上演される劇の小道具が暗闇に浮かび、懐中電灯の光を受けて、どれも半分だけ本物に見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　菫は制服の上から赤いマントを羽織り、ティアラを手にしている。被告の正装を拒めば、鏡が勝手に彼女の名を削るかもしれないと綴が言ったためだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="246">　僕は胸当てと籠手を装着した。文化祭劇で使う予定の騎士甲冑を、演劇部から正式に借りたものだ。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="248">「鳴海、それで戦えるの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="249">「見た目で半分勝てる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="250">「残り半分は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="251">「気合い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="252">「戦術欄に書けない言葉ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　綴は鏡の前にしゃがみ、床板を調べた。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　細い擦り傷が、舞台袖から鏡まで続いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">「重い物を引きずった跡だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="258">「ええ。それと、木屑。新しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　鏡の裏側を覗くと、壁との間に薄い隙間があった。僕ら三人で枠を押す。ぎしりと音がして、鏡全体が扉のように開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　奥には、小さな空間が隠されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　巻き上げ機。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　新品のワイヤー。</p>
+<p class="source-line role-narration gap-0" data-source-line="265">　工具箱。</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　そして、工事業者の封筒。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　綴が中の領収書を広げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="270"><span class="term term-proper">《舞台上部吊り具・緊急交換費　金三十万円　前金受領》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="272">　日付は今日。受領時刻は午後六時十八分。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　依頼者欄には、雨宮灯の署名があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="275">「盗まれた金じゃなかった」と僕は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="276">「学園祭予備費を、安全工事の前金に使ったのね」と綴。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="277">「私の指示よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　菫が認めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「昼の点検で、吊り具に亀裂が見つかった。明日の劇を中止すれば混乱する。業者は夜間作業なら間に合わせられるが、前金が必要だと言った。正式な稟議を待つ時間がなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="282">「なぜ隠した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="283">「交換が終わるまで公表しないと灯と決めた。舞台の真下で準備している生徒が、危険を知って混乱しないように。今夜のうちに理事へ報告するつもりだった」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="284">「監視映像で灯がマントを着ていたのは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="285">「予備費を運ぶ姿を見られれば噂になる。私が堂々と運んだように見せれば、聞かれても会長権限で説明できると……灯が提案した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="286">「左右を間違えたけどね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="287">「本人は完璧な変装だと思っていたわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　菫の口元が、ほんの一瞬だけゆるんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="290">　すぐに消えた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="292">「では、なぜ灯は鏡へ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="293">「工事の確認に来て、そのまま消えたのでしょう。私が到着したときには、彼女の手帳だけが落ちていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　手帳の最後の頁には、乱れた字でこうあった。</p>
+<p class="source-line role-narration role-clue tone-1 gap-1" data-source-line="297"><span class="term term-proper">《女王を信じるな。女王は正解しか信じない。》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="298"><span class="term term-proper">《消えた名前は、鏡の向こう。》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="299"><span class="term term-proper">《入るには、自分がいちばん言いたくない嘘を。》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="301">　その下に、一文。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="303"><span class="term term-proper">《私は、この学校が大嫌い。》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="305">　僕は息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　雨宮灯は天秤坂学園が好きだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="308">　行事のたびに誰より早く来て、誰より遅く帰る。校舎の古い傷まで「先輩たちの署名みたい」と笑う。予算表の余白に、来年の学園祭案を書き込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="309">　その彼女が、鏡の前で学校を嫌いだと言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">「嘘を鍵にして、自分から入ったのか」</p>
+<p class="source-line role-dialogue role-document gap-0" data-source-line="312">「たぶん」と綴。「最近、名簿から名前が消える事件が三件あった。本人は在籍しているのに、部員名簿や座席表から文字だけなくなる。灯は調べてた」</p>
+<p class="source-line role-dialogue role-document gap-0" data-source-line="313">「僕の研究会名簿は無事だろうか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="314">「最初から一人だから変化に気づきにくいわね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="315">「重大な構造的弱点だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　鏡の中で、鐘が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="318">　一度。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　二度。</p>
+<p class="source-line role-narration gap-0" data-source-line="320">　十一度目の後に、半端な音が十三回続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　鏡面が黒い水のように揺れ、白いカラスが浮かび上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「時刻である。被告は王冠を。弁護人は赤を。騎士は――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="325">「首なら洗った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="326">「素直で不気味だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　菫はティアラを戴いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　綴は赤鉛筆を耳に挟んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　僕は模造剣を抜く。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="332">「灯を連れ戻す。消えた名前もだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="333">「裁判で勝てばね」と綴。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="334">「負けたら？」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-0" data-source-line="335">「規則を書き換える」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="336">「それでも駄目なら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="337">「あなたが何とかする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「信頼が急に雑だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="339">「騎士でしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="340">「任された」</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　僕らは鏡へ踏み込んだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="344" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="346">　鏡の向こうは、夜の校舎によく似ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　ただし、よく似ているだけで、何一つ正しくなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　下駄箱には靴の代わりに持ち主の足跡が収まり、黒板には明日の授業の反省文が書かれている。時計の長針と短針は互いを追いかけて文字盤から逃げ出し、廊下の窓の外では、校庭が空にぶら下がっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　階段を上ると地下へ着き、右へ曲がると自分の背後に出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　案内役の白いカラスが、後ろ向きに飛ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「遅れるな。遅れた者は、来なかったことになる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="355">「来なかった者はどうなる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="356">「最初からいたことになる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="357">「出席簿が泣いているぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="358">「ここでは出席簿が生徒をつける」</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　実際、巨大な出席簿が廊下を歩いてきた。紙の脚を六本生やし、通りすがりのロッカーに赤い欠席印を押している。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　綴が赤鉛筆を向けると、出席簿は小さく舌打ちして道を譲った。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　理科室では、ビーカーの中で疑問符が煮えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="364">　美術室では、石膏像が互いの顔を描き直していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="365">　食堂では、空の椅子たちが「誰が座るにふさわしいか」を議論し、全員一致で机を退席処分にしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「ここは何なんだ」と僕。</p>
+<p class="source-line role-dialogue role-clue tone-4 gap-0" data-source-line="368">「学校で口にされた、答えの出なかった質問の捨て場」と白いカラス。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="369">「捨てられた質問は腐る。腐った質問は、正解を欲しがる。正解を一つ得れば安心する。誰かを悪者にすれば、もっと安心する」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="370">「君は女王の味方か？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="371">「私は白いカラスだ。白黒を決める者のそばにいる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="372">「便利な中立だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="373">「鳥に倫理を求めるな。餌をよこせ」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　僕はポケットのビスケットを渡した。</p>
+<p class="source-line role-narration gap-0" data-source-line="376">　カラスは一口かじり、顔をしかめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">「湿気ている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="379">「非常食に味を求めるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　やがて僕らは体育館へ着いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="382">　扉の上には<span class="term term-proper">《赤点裁判所》</span>の札。</p>
+<p class="source-line role-narration gap-0" data-source-line="383">　中へ入ると、床一面が方眼紙になっていた。観客席には、顔の代わりに答案用紙をつけた生徒たちが並ぶ。名前欄だけが空白だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="384">　壇上には巨大な鏡の玉座。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　そこに、少女の形をした何かが座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　制服に似た黒いドレス。</p>
+<p class="source-line role-narration gap-0" data-source-line="388">　髪は何百本もの赤鉛筆。</p>
+<p class="source-line role-narration gap-0" data-source-line="389">　顔は白紙で、目の位置に丸が二つ、口の位置に大きな×が一つ書かれている。</p>
+<p class="source-line role-narration gap-0" data-source-line="390">　右手には採点用の赤ペン。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="391">　左手には、名前を綴じた名簿。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="393">「採点姫」と綴が呟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　玉座の脇に、雨宮灯がいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="396">　透明な板の中へ押し込められ、まるで鏡に描かれた人物のように動けない。けれど意識はある。僕らを見て、目を見開いた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="398">「灯！」と菫が叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　採点姫の顔に、赤い丸が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「私語。減点一」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="403">「彼女を返しなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="404">「被告に命令権なし」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="405">「ならば生徒会長として――」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="406">「ここに生徒会はない。あるのは正解と不正解だけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　赤ペンが振られ、空中に文字が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="410"><span class="term term-proper">《問一　王冠を持つ者は金を盗んだか》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="412">　観客席の答案たちが、いっせいに「はい」と囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「異議」と綴。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="415">「弁護人、解答を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="416">「いいえ。三十万円は舞台吊り具の交換費として正当に支払われた。領収書もある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="417">「王冠を持つ者が、金庫から金を出した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="418">「映像の人物は雨宮灯。会長のマントを左右逆に着ていた。鏡像の方向から判断できる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="419">「雨宮灯は王冠のそばにいた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="420">「『王冠を持つ者』と『王冠のそばにいた者』は違う。主語をすり替えないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　綴が赤鉛筆で空中の問いに線を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="423">　<span class="term term-proper">《王冠を持つ者》</span>の文字が崩れ、<span class="term term-proper">《王冠の衣装を借りた者》</span>へ直る。</p>
+<p class="source-line role-narration gap-0" data-source-line="424">　観客席がざわめいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　採点姫の顔に、初めて小さな亀裂が走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「問一、採点保留」</p>
+<p class="source-line role-narration gap-1" data-source-line="430"><span class="term term-proper">《問二　西園寺菫は嘘をついたか》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="432">　菫はまっすぐ前を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「ついたわ。鍵をずっと持っていたと嘘をついた。支出を知らないふりもした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="435">「理由は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="436">「灯を守るため。安全工事が終わる前に騒ぎを起こしたくなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="437">「嘘は嘘。×」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="438">「嘘が悪い結果を生んだことは認める。でも、嘘をついたことと、金を盗んだことは同じではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　菫はティアラを外し、壇上へ置いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="442">「王冠が罪の証拠なら、返すわ。私は肩書きで正しくなるつもりはない」</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　観客席の答案用紙が、かすかに揺れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="445">　名前欄の空白に、薄い線が戻り始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　採点姫の赤ペンが強く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">「問二、西園寺菫は嘘つき。よって罪人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="450">「その『よって』が間違い」と綴。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="451">「嘘つきは罪人」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="452">「では、嘘を一度でもついた者は全員、盗人なの？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="453">「嘘つきは罪人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="454">「子どもに『注射は痛くない』と言った医師も？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="455">「嘘つきは罪人」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="456">「舞台に立って、架空の人物を演じた役者も？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="457">「嘘つきは罪人」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="458">「自分は平気だと言って、怖い友達の隣に立つ人も？」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　綴が僕を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　なぜ見る。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="463">「鳴海騎士。あなたはいま怖い？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="464">「怖くない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="465">「嘘」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="466">「即答だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="467">「膝の金具が鳴ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="468">「これは武者震いだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="469">「同義よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　採点姫が赤ペンを僕へ向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「鳴海騎士、嘘つき。罪人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="474">「なるほど。僕も被告席か」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="475">「鳴海、余計なことを言わないで」と菫。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="476">「だが、正直に怖いと言えば、灯を助けに来た君たちまで不安にする。僕は君たちの前では、怖くない騎士でいたい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="477">「格好つけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="478">「騎士の職務だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　菫は呆れた顔をした。</p>
+<p class="source-line role-narration gap-0" data-source-line="481">　その横で、綴がほんの少し笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　採点姫の顔の×が歪む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「嘘は不正解。不正解は消去」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-0" data-source-line="486">「あなたは、正解と善を混同している」と綴は言った。「事実に合う答えが、いつも人を救うとは限らない。事実に合わない言葉が、いつも人を傷つけるとも限らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="487">「採点不能。設問を変更」</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　空中の文字が燃え、新たな問いが現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="491"><span class="term term-proper">《問三　雨宮灯は、自ら鏡へ入ったか》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「はい」と綴。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="494">「ならば失踪は自業自得」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="495">「いいえ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="496">「矛盾。弁護人失格」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="497">「自分で入ったことと、閉じ込めてよいことは別。彼女は消えた名前を戻しに来た。あなたに奪われた生徒たちの名前を」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="498">「名前は不正解者から回収した」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="499">「誰が不正解だと決めたの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「私」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="501">「あなたが正しいと、誰が決めたの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="502">「私」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="503">「循環論法」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　綴の赤鉛筆が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="506">　空中に大きな赤い輪が描かれ、採点姫の二つの発言をぐるりと囲む。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　採点姫の玉座が軋んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="509">　観客席の答案たちが、初めて顔を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「私は正解。正解だから私」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="512">「文章としても落第ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　綴が言い切った瞬間、体育館の扉という扉が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="515">　廊下から無数の鏡が滑り込み、壁、床、天井を埋めていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　鏡には、それぞれ違う僕らが映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　笑っている菫。</p>
+<p class="source-line role-narration gap-0" data-source-line="519">　泣いている綴。</p>
+<p class="source-line role-narration gap-0" data-source-line="520">　逃げ出した僕。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　灯を見捨てた僕ら。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　灯を救えた僕ら。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　明日、学園祭が成功する世界。</p>
+<p class="source-line role-narration gap-0" data-source-line="524">　舞台装置が落ち、誰かが怪我をする世界。</p>
+<p class="source-line role-narration gap-0" data-source-line="525">　噂が消える世界。</p>
+<p class="source-line role-narration gap-0" data-source-line="526">　噂だけが残る世界。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="528">「可能性は雑音」と採点姫。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="529">「答えは一つ。正しい筋書きは一つ。犯人は一人。罰は一つ。そうでなければ、人は安心できない」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　赤ペンが振り下ろされる。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　鏡の中の無数の僕が、いっせいに×印で消された。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="535">「鳴海！」と誰かが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　足元が抜けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="538">　僕は方眼紙の底へ落ちながら、鏡の中の自分たちを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　逃げる僕。</p>
+<p class="source-line role-narration gap-0" data-source-line="541">　怯える僕。</p>
+<p class="source-line role-narration gap-0" data-source-line="542">　格好をつける僕。</p>
+<p class="source-line role-narration gap-0" data-source-line="543">　誰も守れない僕。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　採点姫の声が降ってくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「問四　鳴海騎士は、本物の騎士か」</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　答えは、簡単だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="550">　簡単だからこそ、怖かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　僕は剣の柄を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「いいや」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　落下が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　菫も、綴も、採点姫も黙った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「僕は騎士ではない。爵位もなければ、主君も領地もない。剣術大会では一回戦敗退。甲冑は借り物。研究会の部員は一人。誰かを必ず守れるほど強くもない」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="561">「ならば不正解」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="562">「それでも、騎士であろうとすることはできる」</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　僕は剣を床へ突き立てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="565">　アルミ合金の刃が、方眼紙を破る。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="567">「本物か偽物か、おまえの二択では決めさせない。名前に追いつく途中だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　破れ目から風が噴き上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="570">　僕は剣を支点に跳び、壇上へ戻る。着地は失敗し、甲冑が盛大に鳴ったが、勢いは保った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="572">「採点姫！　決闘を申し込む」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="573">「設問外」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="574">「ならば設問にしろ。問五――」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　僕は体育館じゅうの鏡を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="578">「この中で、最初の鏡はどれだ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　採点姫の顔が真っ白になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　壁の鏡が床の鏡を映し、床の鏡が天井を映し、天井が壁を映している。映像は互いの中へ無限に続き、どれが元でどれが写しなのか、境目がない。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="584">「最初は……正面の鏡」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="585">「その正面の鏡は、背後の鏡に映っている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="586">「背後が写し」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="587">「背後から見れば正面が写しだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="588">「観測者を固定せよ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="589">「観測者も鏡に映っているぞ。どの僕が本物だ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　採点姫の赤鉛筆の髪が、一本ずつ折れ始めた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="593">「正解は一つ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="594">「では答えろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="595">「正解は一つ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="596">「どれだ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="597">「正解は――」</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　白いカラスが、玉座の上へ舞い降りた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="601">「採点時間、終了」</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　くちばしで赤ペンをつつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　赤ペンが床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　綴が飛び込み、それを拾った。</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="608">「規則を訂正する」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="610">　彼女は空中の<span class="term term-proper">《不正解は消去》</span>に、太い二本線を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="611">　代わりに書く。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="613"><span class="term term-proper">《不正解は、再考》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="615">　文字が輝いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　体育館が大きく揺れる。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="618">　観客席の答案用紙が次々と剥がれ、その下から生徒たちの顔が現れた。名簿から消えていた三人だ。誰も傷ついていない。ただ、長い夢から覚めたように瞬きをしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　灯を閉じ込めた透明板にも、亀裂が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="621">　菫が駆ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="622">　僕も向かおうとしたが、採点姫が最後の力で赤い線を放った。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="624">「設問を壊す者は、全員不正解！」</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　僕は盾を構えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　だが舞台用の盾は薄い合板で、赤い線は簡単に貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　その前へ、菫がティアラを投げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　銀の輪が赤線を反射し、天井の鏡へ飛ばす。鏡から鏡へ、赤線が跳ね返る。無数に分かれた線は、採点姫自身を取り囲んだ。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="632">「会長権限を返上したのでは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="633">「これは王冠ではないわ」</p>
+<p class="source-line role-narration gap-0" data-source-line="634">　菫は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="635">「灯を迎えに行くための、ただの輪よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　灯の板が砕けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="638">　菫が彼女を抱きとめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="640">「会長、ごめんなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="641">「謝罪は後。説教はもっと後」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="642">「それ、助かったってこと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="643">「書記なら文脈を読みなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　灯は泣きながら笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　採点姫は赤い線の檻の中で、白紙の顔を歪めていた。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-1 gap-1" data-source-line="649">「正解がなければ、何を信じる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="650">「証拠」と綴。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="651">「一度に全部は分からない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="652">「だから確かめる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="653">「答えが複数なら、争いが起きる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="654">「一つに決めつけても起きる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="655">「不安は消えない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="656">「消さなくていい」</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　綴は折れた赤鉛筆を、採点姫へ差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「不安は、考え続けるためにある」</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　採点姫は鉛筆を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="663">　白紙の顔に、初めて小さな点が二つ現れた。目のようにも、句点のようにも見えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="665">「再考……とは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="666">「もう一度、読むこと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="667">「二度目も間違えたら」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="668">「三度目を読む」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="669">「終わらない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="670">「それが普通よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　採点姫の体が、細かな赤い文字へほどけていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="673">　文字は鏡へ吸い込まれ、最後に一枚の白紙だけが残った。</p>
+<p class="source-line role-narration gap-0" data-source-line="674">　白いカラスが白紙をくわえる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「判決。全員、保留」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="677">「無罪ではないのか」と僕。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="678">「生きている者に最終判決は早い」</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　カラスはそう言い、今度は僕の模造剣をくわえて飛び去った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="682">「待て！　それは借り物だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　追いかけた瞬間、体育館の床が裏返った。</p>
+<div class="source-line scene-break gap-1" data-source-line="686" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="688">　気がつくと、旧講堂の床に四人で転がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　時計は午後十一時十四分。</p>
+<p class="source-line role-narration gap-0" data-source-line="691">　鏡裏であれだけ長く過ごしたのに、こちらでは一分しか経っていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　僕の上には菫、その上には灯、さらに綴が折り重なっていた。全員無事である。ただし僕の胸当ては、三人分の重みを騎士道的に受け止めてへこんでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="695">「鳴海、変なところを触ったら退学よ」と菫。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="696">「両手は床だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="697">「なら何が私の腰に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="698">「剣の鞘だ」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="699">「紛らわしい装備をするな！」と三人が同時に叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　僕は反省し、鞘を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="702">　剣本体は白いカラスに盗まれたままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　灯の証言と領収書により、三十万円の使途は確認された。</p>
+<p class="source-line role-narration gap-0" data-source-line="705">　夜間工事は午前二時に完了。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="706">　消えていた三人の名前も、名簿と座席表へ戻った。本人たちは「答案用紙の夢を見ていた」と話したが、詳しいことは覚えていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　翌朝、菫は全校放送で事実を説明した。</p>
+<p class="source-line role-narration gap-0" data-source-line="709">　緊急支出の手続き不足と情報隠しについて謝罪し、監査を受けると約束した。灯も、自分だけで怪異を解決しようとしたことを謝った。</p>
+<p class="source-line role-narration gap-0" data-source-line="710">　噂はすぐには消えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="711">　それでも、「会長が金を盗んだ」という一文の横に、「安全工事だった」「書記を守ろうとして黙っていた」「そもそも映像は鏡像だった」という注釈が増えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="712">　単純な筋書きは、注釈が増えると怪異になりにくい。</p>
+<p class="source-line role-narration gap-0" data-source-line="713">　綴はそう言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　天秤祭は予定通り開幕した。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　旧講堂の鏡迷宮は、急きょ内容を変更した。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="718">　題して<span class="term term-world">〈正解のない展示室〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　入口で一枚の質問票を渡される。</p>
+<p class="source-line role-narration gap-1" data-source-line="721"><span class="term term-proper">《あなたは、昨日と同じあなたですか》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="722"><span class="term term-proper">《親切は、相手が望まなくても親切ですか》</span></p>
+<p class="source-line role-narration gap-0" data-source-line="723"><span class="term term-proper">《嘘を一度もつかずに、一日を過ごせますか》</span></p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="724"><span class="term term-proper">《鏡の中と外、どちらが先に笑いましたか》</span></p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="726">　出口に解答欄はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="727">　代わりに、赤鉛筆が一本ずつ置かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　展示は大盛況だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="730">　来場者は迷い、議論し、写真を撮り、なぜか最後には焼きそばパンを買って帰った。購買部との因果関係は未解明である。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　午後、僕は中庭のベンチで、綴に新しい羽根飾りをつけてもらっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="733">　以前のものは白いカラスに持ち去られたので、演劇部の余り布から作った。赤と白の二色で、やや派手だ。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="735">「似合う？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="736">「歩く非常口」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="737">「人を導けるということだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="738">「前向きの暴力ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　菫と灯が、紙コップの紅茶を持ってやってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　菫の頭にティアラはない。あれは鏡裏から戻る途中で砕け、銀の欠片になった。</p>
+<p class="source-line role-narration gap-0" data-source-line="742">　代わりに、灯が作った小さな輪飾りを胸につけている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">「鳴海」と菫。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="745">「何だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="746">「昨日、私たち全員を守ると言ったわね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="747">「言った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="748">「守れなかった可能性もあった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="749">「そうだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="750">「では、あれも嘘？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="751">「未来についての宣言は、嘘ではなく約束だ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="752">「果たせなければ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="753">「次に果たす」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="754">「都合のいい定義ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="755">「騎士道は、再考を許す」</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　綴が紅茶を吹きかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="758">　珍しく笑っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「何かおかしいか」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-0" data-source-line="761">「あなた、採点姫の規則をちゃっかり自分に使ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="762">「学びとは応用だ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="763">「では質問」と綴は言った。「昨日の鏡の中で、逃げ出したあなたを見たでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="764">「ああ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="765">「あれもあなた？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="766">「たぶん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="767">「怖くて逃げたい自分がいるのに、どうして残ったの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="768">「君たちがいたからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　綴は黙った。</p>
+<p class="source-line role-narration gap-0" data-source-line="771">　菫が眉を上げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="772">　灯が面白そうに僕らを見比べる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">「それは誰に向けた台詞？」と綴。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="775">「三人全員に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="776">「減点」と菫。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="777">「なぜだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="778">「配分が雑」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="779">「では一人ずつ――」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="780">「始めなくていい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　四人で笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　そのとき、中庭の水飲み場の鏡に、白い影が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="785">　白いカラスが僕の模造剣をくわえ、鏡の奥を飛んでいる。剣の柄には小さな紙が結ばれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="787"><span class="term term-proper">《再試験は、来年。》</span></p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="789">「卒業させる気がないのか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　僕は鏡へ駆け寄った。</p>
+<p class="source-line role-narration gap-0" data-source-line="792">　鏡の中の僕は、一拍遅れて同じ動きをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　いや。</p>
+<p class="source-line role-narration gap-0" data-source-line="795">　ほんの一瞬だけ、先に笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　どちらが本物かは、まだ決めなくていい。</p>
+<p class="source-line role-narration gap-0" data-source-line="798">　僕は鏡の中の騎士に敬礼し、彼も僕へ敬礼した。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　放課後の鐘が鳴る。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="801">　正解のない一日は、たぶん今日も、悪くない。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

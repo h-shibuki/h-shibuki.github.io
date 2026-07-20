@@ -1,0 +1,1490 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="『声の家賃』｜拡張フォントいじり検証版">
+<title>『声の家賃』｜拡張フォントいじり版</title>
+<!--
+主ジャンル：制度怪談・債務ホラー
+副ジャンル：デスゲーム／罪責と償いの心理劇
+推奨ジャンル書体：制度ホラー
+演出エンジン：契約・部屋番号・集計を等幅、足音とノックを異質な書体、罪責を細い明朝、恐怖の終点を小さな孤立行で処理
+意味色：灰＝債務と管理、赤＝集金と消失、青灰＝声と配線、錆色＝罪責、鈍緑＝生存と償い
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 1.72em;
+  --climax-max: 1.52em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #586773;
+  --tone-2: #8a3038;
+  --tone-3: #466d7d;
+  --tone-4: #8b5c43;
+  --tone-5: #6d7665;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #aabcc8;
+  --tone-2: #f07983;
+  --tone-3: #7db5cb;
+  --tone-4: #d08e6d;
+  --tone-5: #b5c2a5;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅">軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離">論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立">学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離">Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に" selected>制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用">風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden>
+  <h2>目次</h2>
+  <ol><li><a href="#chapter-1">一　雨宮荘</a></li><li><a href="#chapter-2">二　第一回集金</a></li><li><a href="#chapter-3">三　数えられない玉</a></li><li><a href="#chapter-4">四　六号室</a></li><li><a href="#chapter-5">五　最後の二部屋</a></li><li><a href="#chapter-6">六　退去</a></li><li><a href="#chapter-7">七　声の家賃</a></li></ol>
+</nav>
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>制度怪談・債務ホラー</p>
+  <p><strong>副ジャンル：</strong>デスゲーム／罪責と償いの心理劇</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">本文は静かな明朝、規則と数字は等幅、怪異は細く異質に</p>
+  <h3>意味色</h3><p>灰＝債務と管理、赤＝集金と消失、青灰＝声と配線、錆色＝罪責、鈍緑＝生存と償い</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：942行／章：7／役割・強度タグ：1143</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="『声の家賃』 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『声の家賃』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="5">　借金には音がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　督促状の薄い紙が玄関の床を擦る音。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　知らない番号から鳴り続ける携帯電話。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="9">　受話器の向こうで、名前だけを丁寧に呼ぶ男の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　真壁慎司は、そのどれも嫌いだった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="13">　けれど、いちばん嫌いなのは、何も鳴らない夜だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　音がしないと、次に何が鳴るのかを考えてしまう。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　午前二時十三分。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="17">　古いワンルームの郵便受けが、かたん、と鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　慎司は布団の中で目を開けた。電気は止められている。窓の外の街灯だけが、天井に鉄格子のような影を落としていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　郵便受けから滑り込んだのは、黒い封筒だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　表には、白いインクでこう書かれていた。</p>
+<p class="source-line role-narration role-document role-system gap-1" data-source-line="25">《真壁慎司様</p>
+<p class="source-line role-narration role-document role-system tone-1 gap-0" data-source-line="26">　債務残高　二千百四十三万円</p>
+<p class="source-line role-narration role-document role-system gap-0" data-source-line="27">　完済の機会は一度だけ</p>
+<p class="source-line role-narration role-document role-system gap-0" data-source-line="28">　本日二十三時　<span class="term term-name tone-1">雨宮荘</span>》</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　裏には地図と、短い注意書きがあった。</p>
+<p class="source-line role-narration role-document role-system gap-1" data-source-line="32">《遅刻した場合、機会は失われます。</p>
+<p class="source-line role-narration role-document role-system gap-0" data-source-line="33">　警察、弁護士、第三者への相談は自由です。</p>
+<p class="source-line role-narration role-document role-system gap-0" data-source-line="34">　ただし、その場合も返済期限は延長されません》</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　慎司は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="37">　喉の奥で、乾いた音がしただけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　まともな話ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　だが、まともな方法はもう全部使い切っていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="42">　会社は潰れた。家は売った。妻は娘を連れて出ていった。自己破産を勧められたが、慎司にはそれだけはできない理由があった。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="44">　三年前、彼が現場責任者をしていた改修工事で、一人の作業員が落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　安全帯を掛ける親綱は、予算を切り詰めるため、古いものを流用していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　署名したのは慎司だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　刑事責任は問われなかった。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="50">　だが、死んだ男の妻が法廷の廊下で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「法律に払わなくていいなら、誰に払えばいいんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　慎司は答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　それから、会社の運転資金、示談金、下請けへの未払いを埋めるため、借りられる場所からすべて借りた。最後に残ったのが、円環ファイナンスという、看板すらない貸金業者だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　黒い封筒には、その会社の印が押されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　慎司は夜明けまで封筒を見つめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　そして二十二時四十分、地図に記された山沿いの廃住宅地に立っていた。</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="65">一　<span class="term term-name tone-1">雨宮荘</span></h2>
+<p class="source-line role-narration gap-1" data-source-line="67">　雨は細く、途切れずに降っていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="69">　<span class="term term-name tone-1">雨宮荘</span>は、斜面に食い込むように建っていた。二階建ての木造アパートで、外壁は黒ずみ、軒下には濡れた洗濯ばさみがいくつも残っている。住人が消えたあとも、生活の口だけが開いたままになっているようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　門柱には、解体予定を告げる赤い紙が貼られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　その上から、誰かが爪で何度も線を引いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　玄関前には、慎司のほかに四人いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　灰色のコートを着た細身の女。二十代の終わりほどで、濡れた髪を耳に掛ける仕草だけが妙に落ち着いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　高価そうなスニーカーを履いた若い男。携帯を取り上げられたことに腹を立て、舌打ちを繰り返していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　首の太い中年男。誰より大きな傘を差しながら、誰にも入らせようとしない。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　そして、背の曲がった老人。黒い帽子を目深にかぶり、<span class="term term-name tone-1">雨宮荘</span>の二階を見上げていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「揃いましたね」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　玄関が内側から開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　現れた男は、三十代後半に見えた。黒いスーツ、銀縁の眼鏡、濡れていない革靴。口元には、相手を安心させるためだけに作られた笑みがあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「円環ファイナンスの木原亮介です。今夜の進行を務めます」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　木原は一人ずつ、携帯電話と財布を透明な袋に入れさせた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="93">　次に、玄関脇の古いインターホンを指した。</p>
+<p class="source-line role-dialogue role-document tone-1 gap-1" data-source-line="95">「入居確認をします。ボタンを押し、お名前と債務残高を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="97">「入居？」</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　灰色のコートの女が聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「便宜上の表現です。今夜だけ、皆さんにはこの建物の住人になっていただく」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　若い男が鼻で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「そういう芝居、いらねえんだけど。勝ちゃチャラなんだろ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">「もちろん」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="109">　若い男はインターホンのボタンを押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「久我拓海。千四百九十万」</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　ざ、とスピーカーが鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="114">　その奥で、幼い子どもが息を吸ったような音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　久我は眉をひそめたが、すぐに離れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　首の太い男が続いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="120">「守屋鉄平。六千三百万」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「堂島美冬。八百七十万円」</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　灰色の女は美冬というらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　老人はしばらく黙っていた。木原に促され、ようやくボタンを押す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="128">「相良源一。五百六十万」</p>
+<p class="source-line role-narration role-sound tone-3 gap-1" data-source-line="130">　その声を聞いた瞬間、インターホンの奥で、こつ、と何かが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　相良の指が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　木原の笑みが、ほんの少し深くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　最後に慎司が押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「真壁慎司。二千百四十三万円」</p>
+<p class="source-line role-narration role-sound tone-3 gap-1" data-source-line="139">　ざああ、と雨より濃い雑音が流れた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="141">　その中に、女の声が混じった気がした。</p>
+<p class="source-line role-narration role-horror fx-whisper fx-beat tone-3 gap-1" data-source-line="143">　――<span class="term term-horror tone-3">聞きました</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「今、誰か」</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　慎司が振り向くと、木原はもう玄関を開けていた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="149">「中へ。ゲームは二十三時ちょうどに始まります」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　廊下は、建物の外観から想像するより長かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　左右に六つの扉が並んでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="154">　一号室から五号室まで。</p>
+<p class="source-line role-narration gap-0" data-source-line="155">　いちばん奥だけ、番号札を剥がした跡があり、上から新しい板が打ちつけられていた。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="157">　板の隙間から、黒い髪のようなものが一本、垂れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　慎司が目を凝らしたとき、木原が手を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「こちらです」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="163">　元は共同食堂だったらしい部屋に、五脚の椅子が円形に並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="164">　中央には透明な箱があり、その中に<span class="term term-object tone-1">白い玉</span>が十個、赤い札が五枚入っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　壁には五本の透明な筒が縦に取りつけられ、それぞれ一号室から五号室までの数字が振られていた。筒の下には電光表示板がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　木原は全員が座るのを待ち、<span class="term term-object tone-1">白い玉</span>を二個ずつ配った。</p>
+<p class="source-line role-narration gap-0" data-source-line="169">　玉は陶器に見えたが、持つと金属のように重い。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="171">「ゲーム名は<span class="term term-system tone-1">《空室なし》</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　久我が吹き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「だっさ」</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="177">「規則は単純です」</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　木原は気に留めなかった。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="181">「皆さんには、それぞれ一部屋ずつ割り当てます。相良さん一号室、堂島さん<span class="term term-code tone-1">二号室</span>、真壁さん<span class="term term-code tone-1">三号室</span>、久我さん四号室、守屋さん五号室」</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　各人の前に鍵が置かれた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="185">「一回の集金につき、各自二個の家賃玉を受け取る。廊下にある各部屋の郵便受けへ、一個ずつ投入してください。同じ部屋へ二個入れてはいけません。自室へ入れられるのも一個までです」</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　美冬が言った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="189">「つまり、自分だけでは自分の部屋を守れない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「ご理解が早い」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　木原は透明な筒を指した。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="195">「投入された玉はここへ集まり、部屋ごとの合計が表示されます。最も少ない部屋が<span class="term term-system tone-2">《滞納室》</span>です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「同数なら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　相良が初めて顔を上げた。</p>
+<p class="source-line role-dialogue role-document tone-1 gap-1" data-source-line="201">「それまでの累計支払額が少ない部屋。それも同じなら、管理側の抽選です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「抽選ねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　相良の口元が歪んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　木原は赤い札を一枚ずつ配った。</p>
+<p class="source-line role-narration gap-0" data-source-line="208">　表には<span class="term term-proper">《引越》</span>と印刷されている。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="210">「滞納室の住人には、集金まで六十秒が与えられます。その間に限り、この<span class="term term-object tone-4">引越札</span>を使える。一度だけ、任意の一人と部屋を強制交換できます。拒否はできません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「そのあとは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　慎司が聞いた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="216">「集金人が来ます。滞納室にいる方は失格です」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="218">「失格ってのは、具体的にどうなる」</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　守屋が身を乗り出した。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="222">「別室へ移っていただきます。最後の一人になった時点で、債務は全額免除。加えて一千万円をお支払いします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「命の保証は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　美冬の問いに、木原は一拍だけ黙った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「暴力を使うゲームではありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「答えになってない」</p>
+<p class="source-line role-dialogue role-document role-comic gap-1" data-source-line="232">「参加を強制はしません。今なら帰れます。ただし、契約上の返済期限は明朝九時です」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　誰も立たなかった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="236">　立てる人間なら、最初からここに来ていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　木原は腕時計を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「では、二十三時。第一回集金を始めます」</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="243">二　第一回集金</h2>
+<p class="source-line role-narration gap-1" data-source-line="245">　三分間の投票時間が始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　守屋がすぐに椅子から立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="249">「先に話をまとめるぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　大きな体で輪の中心を塞ぎ、他の四人を見下ろす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="253">「全員、自分に一個。残り一個は俺の五号室だ。俺が安定して玉を集めりゃ、次から俺が配分を指示できる。勝手に動くより安全だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">「あなたが安全になるだけでは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　美冬が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="259">「仕切る奴が必要なんだよ。女は黙ってろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　久我が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="263">「いや、俺は乗るね。こういうのは胴元作った方が早い。守屋さん、俺の四号にも一個くれよ。若いの二人で回そうぜ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「誰が若いの二人だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="267">「見た目の話」</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　相良は二人を見ず、<span class="term term-object tone-1">白い玉</span>を指で転がしていた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="271">「一個は票。もう一個は借りだ。誰に入れたか、口で言っても証拠は残らん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「じいさん、怖がってんの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　久我が顔を寄せる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">「怖がっているさ。怖くない者から先に死ぬ場所を、昔からよく知っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　残り二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　慎司は美冬を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="282">　彼女も慎司を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「互いに一個ずつ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="286">　美冬が小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「残りは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">「自分」</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　それだけなら、<span class="term term-code tone-1">二号室</span>と<span class="term term-code tone-1">三号室</span>に二個ずつ入る。</p>
+<p class="source-line role-narration gap-0" data-source-line="293">　最低限の相互保証だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">「裏切らない根拠は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「ない。だから、最初は小さく信じるしかない」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　慎司は頷いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　五人は順番に廊下へ出た。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="302">　郵便受けは、各部屋の扉に口のように開いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　慎司は<span class="term term-code tone-1">三号室</span>へ一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="305">　<span class="term term-code tone-1">二号室</span>へ一個。</p>
+<p class="source-line role-narration role-command gap-1" data-source-line="307">　<span class="term term-object tone-1">白い玉</span>が金属板を転がり、壁の中へ落ちていく。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="309">　ころん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="310">　ころころ。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　途中で、別の玉とぶつかる音。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　そのあと、壁の奥からもう一つ、遅れて音が返った。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="315">　――ころん。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　誰も入れていないはずの、奥の板張りの向こうからだった。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="319">　慎司が振り向くと、板の隙間の黒い髪が、さっきより長く垂れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「時間です」</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　共同食堂へ戻ると、透明な筒に玉が落ち始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　一号室、一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　<span class="term term-code tone-1">二号室</span>、三個。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　<span class="term term-code tone-1">三号室</span>、二個。</p>
+<p class="source-line role-narration gap-0" data-source-line="328">　四号室、一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　五号室、三個。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　守屋が満足そうに笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="332">　美冬は慎司を見て、小さく頷いた。二人の約束は守られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　電光表示が点滅する。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="336"><span class="term term-proper">《最低　一号室／四号室》</span></p>
+<p class="source-line role-narration role-system tone-1 gap-0" data-source-line="337"><span class="term term-proper">《累計　同数》</span></p>
+<p class="source-line role-narration role-system gap-0" data-source-line="338"><span class="term term-proper">《抽選中》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="340">　相良と久我が、同時に透明な筒を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　機械音が鳴った。</p>
+<p class="source-line role-narration role-system fx-beat tone-2 gap-1" data-source-line="344"><span class="term term-proper">《滞納室　一号室》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="346">　六十秒の表示が始まる。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="348">　59。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="349">　58。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="351">　久我が大声で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="353">「じいさん、最初から終わってんじゃん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　相良は立ち上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　慌てる様子はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　赤い<span class="term term-object tone-4">引越札</span>を取り、久我の胸に押しつけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「交換だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　久我の笑いが止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="364">「は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「一号室と四号室を交換する」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="368">「待てよ。おい、冗談だろ。俺の部屋だぞ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="370">「今からお前の部屋は一号室だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　木原が二人の鍵を交換した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="374">「規則です。拒否はできません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="376">「ふざけんな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　久我が相良の襟をつかもうとした瞬間、天井のスピーカーが鳴った。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="380"><span class="term term-proper">《暴力行為は即時失格となります》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="382">　久我の手が止まった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="384">　42。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="385">　41。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「なあ、じいさん。金払う。勝ったら半分やる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「勝ったあとに払うと言う者から、昔はよく取り立てた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「じゃあ札！　俺の<span class="term term-object tone-4">引越札</span>やる！　今返せよ！」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="393">「使えるのは滞納室の住人だけだ。今の滞納室の住人は、お前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　久我は木原を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="397">「抽選やり直せ。いくらだ。俺、外に金あるから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="399">「残り三十秒です。移動してください」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="401">　扉の向こうで、こつ、と音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　全員が黙った。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="405">　こつ。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　廊下の奥。</p>
+<p class="source-line role-narration gap-0" data-source-line="408">　板で塞がれた場所から。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="410">　こつ。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　今度は少し近い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「何だよ、これ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="416">　久我の声が掠れた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="418"><span class="term term-proper">《残り二十秒》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="420">　木原は一号室の扉を開けた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="422">「中へ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「別室に行くだけだろ？　そう言ったよな？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「ええ。集金後、こちらで確認します」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　その言い方に、慎司は寒気を覚えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="429">　何を確認するのか、木原は言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　久我は逃げようとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　だが玄関の電子錠が赤く光り、開かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　守屋が道を塞いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「ルールはルールだ。さっさと入れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「てめえ、さっき組むって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「組む前に落ちたんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　残り十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　久我は泣きそうな目で全員を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="445">　最後に美冬と目が合った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「助けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　美冬は視線を逸らさなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="450">　ただ、動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　慎司も動けなかった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="454">　木原が久我を一号室へ押し入れ、扉を閉めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="455">　鍵が外側から回る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="457">　0。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="459">　照明が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　暗闇の中で、廊下を裸足で歩く音がした。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="463">　ぺた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="464">　ぺた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="465">　ぺた。</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　一号室の前で止まる。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="469">　三度、ノック。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="471">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="472">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="473">　こん。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「誰だよ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="477">　扉の向こうから、久我の声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">「開けろよ。おい、木原。もういいだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　返事はなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="483">　代わりに、幼い声がした。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="485">「おかあさん。家賃のひと、きたよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　久我が息を呑む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「誰だ。中に誰かいるのか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　一号室の中で、何かが床を這い始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　爪が畳を引っ掻く。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　ゆっくり、久我へ近づいていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「やめろ。来るな。来るなよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　がたん、と扉が内側から揺れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="499">　細い隙間から、黒い液体が染み出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　それは水ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="502">　濡れた髪の束だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　久我の悲鳴が一度だけ上がった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="506">　直後、部屋の中で<span class="term term-object tone-1">白い玉</span>が転がった。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="508">　ころん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="509">　ころころ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="510">　ころん。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　慎司は数えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="515">　二個。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　三個。</p>
+<p class="source-line role-narration gap-0" data-source-line="517">　四個。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　久我が持っていたのは、もう使った二個だけのはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　照明が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　木原は一号室の鍵を開けた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="525">　部屋には誰もいなかった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="527">　窓は釘で塞がれ、押し入れも空だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="528">　畳の中央に、久我のスニーカーが左右揃えて置かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　その片方から、<span class="term term-object tone-1">白い玉</span>が一個、ゆっくり転がり出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　美冬が口元を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　守屋の顔から血の気が引いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　相良だけが、目を閉じたまま呟いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「まだ、あの子は数えているのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　木原が一号室の扉を閉めた。</p>
+<p class="source-line role-dialogue role-system fx-beat tone-2 gap-1" data-source-line="542">「久我様、失格。残り四名です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">「どこへ行った」</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　慎司が詰め寄る。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="548">「失格者の処遇は非公開です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「あれを演出だと言うのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="552">「私は、暴力を使うゲームではないと申し上げました」</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　木原は笑っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="555">　だが眼鏡の奥の目は、一号室を見ようとしなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「第二回集金は、十分後に始めます」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="560">三　数えられない玉</h2>
+<p class="source-line role-narration gap-1" data-source-line="562">　共同食堂へ戻っても、誰も椅子に座らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　守屋が最初に口を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「今のは仕掛けだ」</p>
+<p class="source-line role-narration role-comic tone-3 gap-1" data-source-line="568">　自分に言い聞かせるような声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「床下に穴がある。煙か何かで見えなくして、下へ落とした。そうに決まってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「ここは斜面に建ってる。床下に回収路を作る空間はある」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　慎司は答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　建築現場にいた経験から、可能性だけなら否定できなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　だが、一号室の畳に切れ目はなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　何より、あの髪はどこから入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　美冬が相良を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「あなた、知っているんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「何を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「さっき、“まだ数えているのか”と言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　相良は帽子を脱いだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="589">　白髪が頭皮に貼りついている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="591">「年寄りの独り言だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="593">「嘘」</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　美冬は一歩近づいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="597">「この建物を見たときから、あなたは知っていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　相良は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　守屋が二人の間に割り込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「次は相良を落とす。こいつは<span class="term term-object tone-4">引越札</span>を使った。もう逃げられない」</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　慎司と美冬へ指を向ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「俺たち三人で相互に入れる。自分に一個、残りを順に回す。相良には誰も入れない。奴の自票一個だけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「その次は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　慎司が聞く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="613">「三人になったら話し合う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「最後は一人だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="617">「だから何だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　守屋の目が細くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「全員助かるゲームじゃない。今さら善人ぶるな。さっき久我を助けなかったのは、お前も同じだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　慎司は言い返せなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　助けられなかったのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="626">　自分が一号室へ入るのが嫌で、動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　守屋はそこを正確に突いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="630">「まず相良。これは決定だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　美冬が慎司を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　慎司は小さく頷いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="635">　ほかに策はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　第二回集金。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="639">　部屋は入れ替わっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="640">　一号室は封鎖。</p>
+<p class="source-line role-narration gap-0" data-source-line="641">　<span class="term term-code tone-1">二号室</span>が美冬。</p>
+<p class="source-line role-narration gap-0" data-source-line="642">　<span class="term term-code tone-1">三号室</span>が慎司。</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　四号室が相良。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　五号室が守屋。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　慎司は<span class="term term-code tone-1">三号室</span>へ一個、<span class="term term-code tone-1">二号室</span>へ一個入れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="647">　約束どおりだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　玉を入れる直前、彼は爪で表面を強く擦った。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　小さな三日月形の傷がつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　壁の中を玉が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　ころころ、と右へ流れたあと、かち、と金属音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　慎司は動きを止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　この建物の壁は薄い。</p>
+<p class="source-line role-narration gap-0" data-source-line="659">　<span class="term term-code tone-1">三号室</span>の郵便受けから共同食堂の筒へ向かうなら、音は左へ流れるはずだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　今は右へ行った。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　配管の途中に、切替器がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　全員が戻ると、筒へ玉が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　<span class="term term-code tone-1">二号室</span>、三個。</p>
+<p class="source-line role-narration gap-0" data-source-line="668">　<span class="term term-code tone-1">三号室</span>、一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="669">　四号室、二個。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　五号室、二個。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　慎司は透明な筒へ顔を寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　<span class="term term-code tone-1">三号室</span>には、自分の票と美冬の票、二個あるはずだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「堂島」</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　慎司が低く呼ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「私は入れた」</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　美冬は即座に答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「<span class="term term-code tone-1">三号室</span>に一個。嘘じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　守屋が笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「女の言葉を信じた結果だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　電光表示が点滅した。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="692"><span class="term term-proper">《滞納室　三号室》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="694">　六十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　慎司の心臓が強く打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　美冬が裏切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="699">　そう考えるのが最も簡単だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　だが、透明な四号室の筒に落ちた二個のうち、一個に三日月形の傷がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　慎司が自分で<span class="term term-code tone-1">三号室</span>へ入れた玉だった。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="705">　機械が票を移した。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　木原が操作したのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="708">　それとも、建物が。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="710">　52。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「真壁、札を使え」</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　守屋が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="716">「相良と交換しろ。最初からそのための同盟だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　相良は黙っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　<span class="term term-object tone-4">引越札</span>はもうない。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="721">　慎司が相良を選べば、計画どおり相良が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　だが、表示は操作されている。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　木原は誰かを落とすため、数字を作っている。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="726">　なぜ慎司を選んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　守屋の袖口に、白い粉がついていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　廊下の壁を擦った跡だろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="730">　そのポケットが、四角く膨らんでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　携帯は預けたはずだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="733">　何を隠している。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="735">　38。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「早くしろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　守屋が怒鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　慎司は赤い札を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　相良を落とせば、残るのは守屋、美冬、自分。</p>
+<p class="source-line role-narration gap-0" data-source-line="744">　守屋は次に美冬と組み、自分を落とすだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　美冬を落とせば、守屋と相良に挟まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　守屋を落とせば、最大の支配者を消せる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="749">　だが、守屋が木原と通じている証拠はない。</p>
+<p class="source-line role-narration fx-key role-motif fx-climax tone-4 gap-1" data-source-line="751">　選ぶとは、証拠がないまま他人の命に値段をつけることだった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="753">　28。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="755">「真壁さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　美冬が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「私を信じろとは言わない。でも、その玉の傷を信じて」</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　彼女も気づいていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="763">　22。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　慎司は守屋の胸に<span class="term term-object tone-4">引越札</span>を押しつけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="767">「交換だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　守屋の顔が凍った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「お前、何を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="773">「<span class="term term-code tone-1">三号室</span>と五号室を交換する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="775">「話が違う！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="777">「話は、相良を落とすだった。数字を変える話は聞いてない」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="779">「俺がやったって証拠があるのか！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="781">「ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　慎司は守屋の鍵を取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="785">「だから、賭けた」</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　木原が二人を交換させた。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　慎司は五号室へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="790">　守屋は<span class="term term-code tone-1">三号室</span>へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　残り十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　守屋は木原にすがった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="796">「俺は御社に六千万借りてる。俺を消したら回収できないぞ。こいつらより価値がある。俺は営業で、まだ稼げる。娘だっている。来月、中学に上がるんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　慎司の足が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　守屋は胸ポケットから、小さな写真を落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="801">　制服姿の少女が笑っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　隠していた四角いものは、写真入れだった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="805">　0。</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　<span class="term term-code tone-1">三号室</span>の扉が閉まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　守屋は最後まで写真へ手を伸ばしていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="811">　照明が消える。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="813">　廊下の奥から、裸足の音。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="815">　ぺた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="816">　ぺた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="817">　ぺた。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　今度は、子どもの足音が一つ多い。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="821">　たた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="822">　たた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="823">　たた。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　<span class="term term-code tone-1">三号室</span>の前で、二つの足音が止まった。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="827">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="828">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="829">　こん。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="831">「待て！」</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　守屋が扉を殴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="835">「真壁！　娘に伝えろ！　俺は逃げたんじゃない！　金を作ろうとしたんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　扉の向こうで、女が囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「払えない人は、みんなそう言いました」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="841">　守屋の声が途切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　次に聞こえたのは、壁の中で何か重いものが引きずられる音だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="844">　共同食堂の周囲を、ゆっくり一周する。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="846">　ずる。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="847">　ずる。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="848">　ずる。</p>
+<p class="source-line role-narration gap-1" data-source-line="850">　慎司の真後ろで止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　壁紙が内側から膨らんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="853">　人の顔の形になる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="855">　口のあたりが開き、守屋の声で言った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="857">「証拠、なかったんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　慎司は動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　美冬が彼の腕を引いた瞬間、壁紙は元に戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　照明がつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　<span class="term term-code tone-1">三号室</span>は空だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="866">　畳の上に少女の写真だけがあり、濡れた子どもの指跡が五つ、笑顔の上を横切っていた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="868">「守屋様、失格」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="870">　木原の声は震えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　慎司は彼を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="874">「お前も怖いんだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「何のことでしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="878">「これはお前たちの仕掛けじゃない」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="880">　木原の笑顔が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　ほんの一瞬だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="883">　しかし慎司には十分だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　木原は数字を操作できる。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="886">　だが、集金人までは支配できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　このゲームは、恐怖を演出しているのではない。</p>
+<p class="source-line role-narration fx-key role-motif fx-beat gap-0" data-source-line="889">　本物の何かを、規則の形に閉じ込めようとしている。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="892">四　<span class="term term-name tone-2">六号室</span></h2>
+<p class="source-line role-narration gap-1" data-source-line="894">　残り三人。</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　美冬は<span class="term term-code tone-1">二号室</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="897">　相良は四号室。</p>
+<p class="source-line role-narration gap-0" data-source-line="898">　慎司は五号室。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　第三回集金までの十分間、相良は共同食堂を出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="901">　木原が止めようとしたが、相良は廊下の奥、板で塞がれた場所まで歩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="903">　板の前に立ち、帽子を胸に当てる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="905">「十八年か」</p>
+<p class="source-line role-narration gap-1" data-source-line="907">　美冬が追いついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="909">「ここが、<span class="term term-name tone-2">六号室</span>なんですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="911">　相良は頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="913">「昔はな」</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　慎司も近づく。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="916">　板の隙間から、冷たい空気が漏れていた。雨の匂いではない。長く閉じた押し入れと、古い乳歯のような匂い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="918">「何があった」</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　相良は板を見たまま話した。</p>
+<p class="source-line role-dialogue role-memory tone-1 gap-1" data-source-line="922">「瀬尾郁美という女が住んでいた。息子は湊。父親はいない。家賃を四か月滞納した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="924">「あなたが取り立てた？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="926">「当時の俺は、木原不動産の回収係だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="928">　木原の顔を、美冬が振り返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="930">　進行役は共同食堂の入口に立ち、黙っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="932">「木原亮介の父親が大家だ。あの男はまだ学生だったが、父親の仕事を手伝っていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="934">　相良は続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="936">「冬の夜、俺たちは<span class="term term-name tone-2">六号室</span>の外から鎖を掛けた。荷物を運び出されないためだ。電気も水も止めた。翌朝には親戚が金を持ってくると、女は何度も言った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="938">「なぜ開けなかったんです」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="940">　美冬の声が硬くなる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="942">「金を払わずに出ていくと思った。見せしめにもなる。俺たちは廊下のインターホンで、払え、払えと一晩中言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="944">　相良の手が震え始めた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="946">「夜中、子どもが泣き止んだ。次に女が笑い始めた。細い声で、家賃なら声で払います、と言った。朝、鎖を外して入ったら、誰もいなかった」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="948">「消えた？」</p>
+<p class="source-line role-dialogue role-horror tone-3 gap-1" data-source-line="950">「窓は内側から釘で塞がれていた。押し入れにもいない。ただ、壁一面に黒い手形があった。母親の大きい手と、子どもの小さい手。それから、インターホンに録音が残っていた」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="952">　相良は古い声を真似るように、低く言った。</p>
+<p class="source-line role-dialogue role-horror fx-whisper tone-1 gap-1" data-source-line="954">「<span class="term term-horror tone-3">聞きました</span>。あなたの名前も、部屋も、借りたものも」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="956">　慎司は玄関で聞いた声を思い出した。</p>
+<p class="source-line role-narration role-horror fx-whisper fx-beat tone-3 gap-1" data-source-line="958">　――<span class="term term-horror tone-3">聞きました</span>。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="960">「木原の父親は<span class="term term-name tone-2">六号室</span>を板で塞いだ。だが、滞納者を追い込むたび、どこかの部屋で<span class="term term-horror tone-2">三度ノック</span>が鳴るようになった。取り立てた社員が一人ずつ消えた。最後に父親も消えた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="962">「それで、このゲームを？」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="964">「年に一度、借金を抱えた者をここへ入れる。名前と借金をインターホンに聞かせ、滞納室を作る。あれは指定された部屋へ行く。何人か食わせれば、一年は静かになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="966">　美冬が木原を睨んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="968">「私たちは供物？」</p>
+<p class="source-line role-narration gap-1" data-source-line="970">　木原は腕時計を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="972">「第三回集金を開始します。作り話に付き合う時間はありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">「相良さんをここへ呼んだのも、復讐のため」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="976">「債務者を平等に選定しました」</p>
+<p class="source-line role-narration gap-1" data-source-line="978">　相良が笑った。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax gap-1" data-source-line="980">「お前の親父と同じだ。規則にすれば、自分の手が汚れていないと思える」</p>
+<p class="source-line role-narration gap-1" data-source-line="982">　木原の頬が引きつった。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="984">「投票してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="986">　三人は<span class="term term-object tone-1">白い玉</span>を二個ずつ受け取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　慎司と美冬は、廊下の角で短く言葉を交わした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="990">「互いに一個。自分に一個」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="992">「相良さんは一個になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="994">「彼はもう札を使ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="996">　美冬は唇を噛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="998">「助ける？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1000">　慎司は答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　相良は多くの人間を追い詰めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1003">　久我を身代わりにもした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1005">　だから消えていいのか。</p>
+<p class="source-line role-narration gap-1" data-source-line="1007">　その問いに、正しい答えを出せる時間は三分しかない。</p>
+<p class="source-line role-narration fx-key role-motif fx-climax gap-0" data-source-line="1008">　この場所では、時間の短さそのものが暴力だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1010">　相良が二人の横を通った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1012">「俺には入れるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1014">「何を言ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1016">「三回目の集金が来る前に、俺はここへ戻るつもりだった。木原から金を借りたのも、そのためだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1018">「死ぬために？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1020">「払うためだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1022">　相良は慎司へ、錆びた小さな鍵を渡した。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1024">「<span class="term term-name tone-2">六号室</span>の板の右下。古い点検口がある。中に<span class="term term-code tone-2">管理人室</span>へつながるインターホン線が残っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1026">「それで何ができる」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-2 gap-1" data-source-line="1028">「あの女は数字を見ていない。声を聞いている。誰かが滞納室を読み上げるたび、その声を道にして来る」</p>
+<p class="source-line role-narration gap-1" data-source-line="1030">　相良は木原を見た。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1032">「呼ばせろ。自分の名前を、自分の声で」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1034">「どうやって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1036">「借金取りは、相手が怯えると余計に喋る」</p>
+<p class="source-line role-narration gap-1" data-source-line="1038">　投票が終わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1040">　筒に玉が落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1042">　<span class="term term-code tone-1">二号室</span>、三個。</p>
+<p class="source-line role-narration gap-0" data-source-line="1043">　四号室、一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="1044">　五号室、二個。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="1046"><span class="term term-proper">《滞納室　四号室》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1048">　六十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="1050">　相良は動かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1051">　<span class="term term-object tone-4">引越札</span>はすでにない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　美冬が彼の前に立つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1055">「あなたは、久我さんを犠牲にした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1057">「ああ」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1059">「今さら一人消えて、払ったことになると思う？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1061">「ならんだろうな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1063">「逃げたいですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="1065">　相良は少し考えた。</p>
+<p class="source-line role-dialogue role-sound gap-1" data-source-line="1067">「逃げたい。だから、ここに立っていられる。死にたいだけなら、こんなに怖くはない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1069">　残り三十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="1071">　<span class="term term-name tone-2">六号室</span>の板の向こうで、子どもが鼻歌を歌い始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1072">　音程のない、同じ二音の繰り返し。</p>
+<p class="source-line role-narration gap-1" data-source-line="1074">　相良は四号室の前へ行った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1075">　扉を開ける前に、慎司へ言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1077">「この家から出ても、名前は置いていけない。忘れるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1079">「どういう意味だ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1081">　相良は答えず、部屋へ入った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1083">　0。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1085">　照明が消える。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1087">　三度のノック。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1089">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1090">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1091">　こん。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1093">　四号室の中から、相良の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1095">「瀬尾さん。あの夜、開けなかったのは俺だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1097">　廊下の奥で、女が息を吸う。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="1099">「湊君。泣いていたのを聞いていた。聞こえないふりをした」</p>
+<p class="source-line role-narration gap-1" data-source-line="1101">　扉の隙間から、白い指が一本入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1103">「払えるものはない。命でも足りん。だが、俺の名前は置いていく」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1105">　相良はインターホンに登録したときと同じ声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1107">「相良源一。五百六十万円。四号室」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1109">　女の声が答えた。</p>
+<p class="source-line role-dialogue role-horror fx-whisper tone-3 gap-1" data-source-line="1111">「<span class="term term-horror tone-3">聞きました</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="1113">　扉が、内側へではなく、壁の奥へ沈み始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1115">　四号室全体が暗い穴へ引き込まれる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1116">　畳も、天井も、相良の姿も、遠ざかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1118">　相良は最後までこちらを見ていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1120">「あと二人だ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1122">　子どもの声が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1124">　穴が閉じた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1126">　そこには最初から部屋などなかったように、平らな壁だけが残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1128">　木原が後ずさる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1130">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="1132">　初めて、彼の口から取り繕わない言葉が出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1134">「毎年、三人で止まる。三人払えば、朝まで来ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1136">　<span class="term term-name tone-2">六号室</span>の板が、内側から膨らんだ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1138">　大きな手形が一つ。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="1139">　小さな手形が一つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1141">　その下に、濡れた指で文字が書かれる。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="1143"><span class="term term-proper">《あと　二へや》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1145">　美冬が木原を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1147">「あなた、今年の規則を知らないみたいですね」</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1150">五　最後の二部屋</h2>
+<p class="source-line role-narration gap-1" data-source-line="1152">　木原は共同食堂へ逃げ込み、内側から操作盤を叩いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1153">　玄関の電子錠が二重に掛かる音がした。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="1155">「ゲームを続行します」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1157">　声だけが急に冷静さを取り戻していた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1159">「最後の一名が決まれば、契約どおり債務は免除される」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1161">「三人で止まると言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="1163">　慎司が問う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1165">「過去の傾向です。規則ではありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1167">「お前は俺たちと同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1169">　美冬が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1171">「数字が守ってくれると思って、ここへ入った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1173">「黙れ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1175">「借金を背負わせれば、誰かを部屋へ押し込めると思った。でも、あれはあなたの契約書を読まない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1177">「黙れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1179">　木原は壁のボタンを押した。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1181">　<span class="term term-code tone-1">二号室</span>と五号室以外の表示が消える。</p>
+<p class="source-line role-narration role-command gap-0" data-source-line="1182">　<span class="term term-object tone-1">白い玉</span>が四個、箱の中へ落ちた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="1184">「最終集金です」</p>
+<p class="source-line role-narration gap-1" data-source-line="1186">　慎司と美冬は玉を二個ずつ受け取った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1188">　残る部屋は二つ。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1189">　規則では、同じ部屋へ二個入れられない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1191">　つまり、二人とも<span class="term term-code tone-1">二号室</span>と五号室へ一個ずつ入れるしかない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1193">「必ず二対二になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="1195">　美冬が言った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1197">「累計で決めるつもりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1199">　慎司は表示板の記録を見た。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1201">　<span class="term term-code tone-1">二号室</span>の累計は九。</p>
+<p class="source-line role-narration gap-0" data-source-line="1202">　五号室は七。</p>
+<p class="source-line role-narration gap-1" data-source-line="1204">　低いのは五号室。</p>
+<p class="source-line role-narration gap-0" data-source-line="1205">　今の住人は慎司。</p>
+<p class="source-line role-narration gap-1" data-source-line="1207">　彼の<span class="term term-object tone-4">引越札</span>はもうない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1209">　最終戦に見せかけて、結果は始まる前から決まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1211">　守屋を犠牲にして五号室へ移った、その選択まで含めて、今ここへ戻ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1213">「私の札を使う」</p>
+<p class="source-line role-narration gap-1" data-source-line="1215">　美冬が赤い札を出した。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1217">「使えるのは滞納室の住人だけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1219">「規則なんて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1221">「今、破れば木原が何をするかわからない。扉を開ける前に俺たちを閉じ込める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1223">「じゃあ、あなたが」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1225">「まだ終わってない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1227">　慎司は<span class="term term-name tone-2">六号室</span>の方を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1229">　相良から受け取った錆びた鍵がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="1231">　二人は投票のため廊下へ出た。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1233">　木原の声がスピーカーから追う。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1235"><span class="term term-proper">《残り二分》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1237">　慎司は<span class="term term-code tone-1">二号室</span>へ一個、五号室へ一個入れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1238">　美冬も同じようにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1240">　玉が壁の中を転がる。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1242">　かち。</p>
+<p class="source-line role-narration gap-0" data-source-line="1243">　右へ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1244">　かち。</p>
+<p class="source-line role-narration gap-0" data-source-line="1245">　左へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1247">　切替器の音。</p>
+<p class="source-line role-narration gap-1" data-source-line="1249">　木原は最後まで数字を操作するつもりだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1251">　美冬が<span class="term term-name tone-2">六号室</span>の板の前にしゃがんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1252">　右下の壁紙を剥がすと、小さな鍵穴が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1254">　錆びた鍵を差す。</p>
+<p class="source-line role-narration gap-1" data-source-line="1256">　回らない。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1258"><span class="term term-proper">《残り一分三十秒》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="1260">「貸して」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1262">　慎司は鍵を受け取り、押し込みながら少し持ち上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1263">　古い錠は扉の重みで噛んでいる。現場で何度も見た故障だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1265">　左へ戻し、荷重を抜き、もう一度右へ。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1267">　がちり。</p>
+<p class="source-line role-narration gap-1" data-source-line="1269">　点検口が開いた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1271">　中には、布巻きの古い電線と、新しい赤いケーブルが詰め込まれている。木原たちは昔の配線へ後付けでゲーム装置をつないでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1273">　慎司は指で線を追った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1275">　白が共通線。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1276">　青が各部屋。</p>
+<p class="source-line role-narration gap-0" data-source-line="1277">　赤い新線が共同食堂の放送設備。</p>
+<p class="source-line role-narration gap-1" data-source-line="1279">　その奥に、色の褪せた札がある。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="1281"><span class="term term-proper">《管理人室　呼出》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="1283">「つなげられる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1285">　美冬が聞く。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1287">「線は生きてる。だが、呼び出すだけじゃ足りない。相良は、自分の声で名前を言わせろと言った」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1289"><span class="term term-proper">《残り一分》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1291">　共同食堂の扉が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1292">　木原が出てくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1294">　手には黒い小型装置があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1295">　親指が赤いボタンに乗っている。</p>
+<p class="source-line role-dialogue role-command tone-2 gap-1" data-source-line="1297">「点検口から離れてください。建物を損壊した場合、即時失格です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1299">「押すと何が起きる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1301">「全室の錠が閉まります。朝まで開きません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1303">「自分も出られないぞ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1305">「<span class="term term-code tone-2">管理人室</span>には別の出口がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="1307">　木原は汗を流しながら笑った。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1309">「あなた方とは違う。私は住人ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1311">　美冬が一歩前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1313">「本当に？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1315">　木原の視線が彼女へ向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1317">　その一瞬に、慎司は赤いケーブルの被覆を鍵の縁で削った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1318">　銅線が露出する。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1320"><span class="term term-proper">《残り四十五秒》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="1322">「木原さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="1324">　美冬が言う。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1326">「あなたのお父さんが消えたとき、何を聞いたんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1328">「時間稼ぎは無駄です」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1330">「<span class="term term-horror tone-2">三度ノック</span>された？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1332">　木原の親指が震えた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1334">「<span class="term term-code tone-2">管理人室</span>の内側から？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1336">「黙れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1338">「お父さんは、最後にあなたの名前を呼んだんじゃないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1340">「黙れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1342">　木原が赤いボタンを押した。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="1344">　同時に、慎司は露出した赤線を<span class="term term-proper">《管理人室　呼出》</span>の端子へ押しつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1346">　火花が散る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1348">　全館のスピーカーが耳を裂くように鳴った。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1350">　ざあああああ。</p>
+<p class="source-line role-narration role-command tone-3 gap-1" data-source-line="1352">　その雑音の中へ、木原の怒鳴り声が吸い込まれる。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-1 gap-1" data-source-line="1354">「俺は管理人だ！　木原亮介だ！　お前らを選ぶ側なんだ！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1356">　古いインターホンが、声を反復した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1358">　――管理人だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1359">　――木原亮介だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1360">　――選ぶ側なんだ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1362">　廊下の灯りが一つずつ消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="1364">　木原の顔から色が失われた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1366">「切れ。今すぐ線を切れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1368">　慎司は銅線を握ったまま離さなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1369">　手のひらが焼ける。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="1371">「借りたものを言え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1373">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1375">「玄関で俺たちに言わせた。名前と借金。お前も言え」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1377">「私に債務はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1379">　美冬が木原の手から黒い装置を叩き落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1381">「ある。十八年分」</p>
+<p class="source-line role-narration gap-1" data-source-line="1383">　<span class="term term-name tone-2">六号室</span>の板が、内側から一度だけ強く叩かれた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1385">　どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="1387">　木原が後ずさる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1389">「違う。払った。毎年払った。お前たちみたいな連中を、三人ずつ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1391">　インターホンがその声を拾う。</p>
+<p class="source-line role-narration gap-1" data-source-line="1393">　――毎年払った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1394">　――三人ずつ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1396">　子どもの声が、建物中のスピーカーから聞こえた。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="1398">「たりない」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1400"><span class="term term-proper">《残り二十秒》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1402">　透明な筒へ玉が落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1404">　<span class="term term-code tone-1">二号室</span>、二個。</p>
+<p class="source-line role-narration gap-0" data-source-line="1405">　五号室、二個。</p>
+<p class="source-line role-narration gap-1" data-source-line="1407">　表示が点滅した。</p>
+<p class="source-line role-narration role-system tone-1 gap-1" data-source-line="1409"><span class="term term-proper">《累計　二号室　十一》</span></p>
+<p class="source-line role-narration role-system tone-1 gap-0" data-source-line="1410"><span class="term term-proper">《累計　五号室　九》</span></p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="1411"><span class="term term-proper">《滞納室　五号室》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1413">　木原が笑い出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1415">「ほら、五号室だ！　真壁、お前だ！　規則は変わらない！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1417">　天井のスピーカーが、女の声で答えた。</p>
+<p class="source-line role-dialogue role-horror fx-whisper tone-3 gap-1" data-source-line="1419">「<span class="term term-horror tone-3">聞きました</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="1421">　電光表示の数字が崩れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1422">　五号室の「五」が、ゆっくり線を増やし、見たことのない文字になる。</p>
+<p class="source-line role-narration role-system fx-beat tone-2 gap-1" data-source-line="1424"><span class="term term-proper">《滞納室　管理人室》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1426">　木原が共同食堂へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1428">　扉は開かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1430">　さっき自分で全室を施錠した。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1432">　廊下の奥から、裸足の音がする。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1434">　ぺた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1435">　ぺた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1437">　その隣に、小さな足音。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1439">　たた。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1440">　たた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1442">　二つの足音は、<span class="term term-code tone-1">二号室</span>も五号室も通り過ぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1444">　共同食堂の前で止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1446">　木原は扉を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1448">「開けろ！　真壁、線を戻せ！　契約書を出す！　二人とも完済にする！　金もやる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1450">　慎司は答えなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1452">　扉の内側で、<span class="term term-horror tone-2">三度ノック</span>が鳴った。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1454">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1455">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1456">　こん。</p>
+<p class="source-line role-narration gap-1" data-source-line="1458">　外からではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1459">　木原の背後からだった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1461">　共同食堂の壁一面に、黒い手形が浮かび上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1462">　大きな手。</p>
+<p class="source-line role-narration gap-0" data-source-line="1463">　小さな手。</p>
+<p class="source-line role-narration gap-0" data-source-line="1464">　そのどちらでもない手が、無数に増えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1466">　久我。</p>
+<p class="source-line role-narration gap-0" data-source-line="1467">　守屋。</p>
+<p class="source-line role-narration gap-0" data-source-line="1468">　相良。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1469">　これまでこの建物で部屋へ押し込められた者たち。</p>
+<p class="source-line role-narration gap-1" data-source-line="1471">　木原が叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1473">「俺は住人じゃない！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1475">　幼い声が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1477">「なまえ、きいたよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1479">　壁が柔らかく窪み、木原の体を包んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1481">　彼は眼鏡を落とし、指先で床を掻いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1482">　爪が剥がれ、細い血の線が残る。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1484">「私は管理人だ。管理人は払わなくていい。取り立てる側だ。私は、私は――」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1486">　女の声が、すぐ耳元で囁いた。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax gap-1" data-source-line="1488">「いちばん長く住んでいました」</p>
+<p class="source-line role-narration gap-1" data-source-line="1490">　壁が閉じた。</p>
+<p class="source-line role-narration fx-beat tone-2 gap-1" data-source-line="1492">　木原は消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1494">　同時に、玄関の電子錠がすべて外れた。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1497">六　退去</h2>
+<p class="source-line role-narration role-command gap-1" data-source-line="1499">　慎司と美冬は雨の中へ飛び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1501">　振り返らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1502">　斜面を下り、街灯のある道路まで走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1504">　午前四時過ぎ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1505">　雨はいつの間にか止んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1507">　二人はコンビニの前で初めて立ち止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1508">　美冬は笑おうとして、失敗した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1510">「借金、残りましたね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1512">「ああ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1514">「一千万円もなし」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1516">「ああ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1518">「それでも、さっきよりましに思える」</p>
+<p class="source-line role-narration gap-1" data-source-line="1520">　慎司は焼けた手のひらを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="1521">　皮膚に、細い線が残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1523">　電線の跡ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1524">　小さな手のひらの形だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1526">「堂島さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1528">「美冬でいいです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1530">「美冬さん。借金は何に使った」</p>
+<p class="source-line role-narration gap-1" data-source-line="1532">　彼女はしばらく黙った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1534">「母の治療費、というのは半分だけ本当です。介護施設の金を使い込みました。最初は穴を埋めるつもりだった。次に借りれば戻せると思った。戻せないまま増えた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1536">「警察に行くのか」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="1538">「行きます。生きて出たから」</p>
+<p class="source-line role-narration gap-1" data-source-line="1540">　慎司は頷いた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="1542">「俺も、破産の相談をする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1544">「払いたい相手がいるんじゃないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1546">「いる。だからこそ、闇金に払ってる場合じゃない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1548">　言ってから、慎司は初めて、自分が借金と償いを同じものだと思い込んでいたことに気づいた。</p>
+<p class="source-line role-narration fx-climax role-motif gap-1" data-source-line="1550">　苦しみ続ければ、誰かに払っていることになる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1551">　そんな勘定を、死んだ者は望んでいないかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1553">　美冬の携帯が入った透明袋は、<span class="term term-name tone-1">雨宮荘</span>に置いたままだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1554">　慎司のものも同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1556">　二人はコンビニの電話を借り、警察へ通報した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1558">　夜が明けてから警察が<span class="term term-name tone-1">雨宮荘</span>へ入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1559">　建物の中に人はいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1561">　一号室から五号室まで、すべて空。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="1562">　共同食堂も、透明な筒も、電光表示板も消えていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1564">　<span class="term term-name tone-2">六号室</span>を塞いでいた板を外すと、奥には部屋ではなく土壁があった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1565">　壁の中から古いインターホンの録音機だけが見つかった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="1567">　テープには、十八年前の女と子どもの声が入っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1568">　その後に、何十人もの名前と借金額が続いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1570">　最後は、こうだったという。</p>
+<p class="source-line role-narration role-document role-system gap-1" data-source-line="1572">《木原亮介。</p>
+<p class="source-line role-narration role-document role-system gap-0" data-source-line="1573">　十八年分。</p>
+<p class="source-line role-narration role-document role-system tone-1 gap-0" data-source-line="1574">　<span class="term term-code tone-2">管理人室</span>》</p>
+<p class="source-line role-narration gap-1" data-source-line="1576">　円環ファイナンスの事務所は、その日のうちに空になった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1577">　契約書も帳簿も持ち去られ、木原の行方はわからないままだった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1579">　慎司は弁護士を通じて破産を申し立てた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="1580">　美冬は自首した。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="1582">　守屋の娘には、父親の写真だけが匿名で送られた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="1583">　慎司は手紙を書こうとしたが、何度書いても「自分が選んだ」という一文の先へ進めなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1585">　<span class="term term-name tone-1">雨宮荘</span>は一か月後に解体された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1587">　作業員の一人が、基礎の下から<span class="term term-object tone-1">白い玉</span>を大量に見つけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1588">　数え始めると、必ず一個足りなくなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1589">　袋を変えても、人数を増やしても同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1591">　気味が悪いと、全部埋め戻された。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1594">七　声の家賃</h2>
+<p class="source-line role-narration gap-1" data-source-line="1596">　三か月後。</p>
+<p class="source-line role-narration gap-1" data-source-line="1598">　慎司は小さな電気工事会社で働き始めた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="1599">　給料の一部を、事故で死んだ作業員の遺族へ送った。受け取りを拒否される月もあったが、その分は別の口座に積み立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1601">　借金の督促電話は減った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1602">　眠れる夜も少しずつ増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1604">　午前二時十三分。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1606">　新しいアパートのインターホンが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1608">　慎司は目を覚ました。</p>
+<p class="source-line role-narration gap-1" data-source-line="1610">　画面には誰も映っていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1611">　ただ、白黒の砂嵐の中に、古い木造廊下が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1613">　<span class="term term-name tone-1">雨宮荘</span>の廊下。</p>
+<p class="source-line role-narration gap-1" data-source-line="1615">　奥に、番号を剥がした扉がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="1617">　慎司は受話器を取らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1619">　呼び出し音が止まる。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1621">　しばらくして、玄関の郵便受けが、かたん、と鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1623">　床に<span class="term term-object tone-1">白い玉</span>が一個、転がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1625">　表面には、爪で三日月形の傷がついている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1627">　あの夜、慎司が<span class="term term-code tone-1">三号室</span>へ入れた玉だった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1629">　インターホンのスピーカーが勝手に入った。</p>
+<p class="source-line role-narration role-sound tone-3 gap-1" data-source-line="1631">　ざああ、という雑音。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1633">　次に、慎司自身の声が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1635"><span class="term term-proper">《真壁慎司。二千百四十三万円》</span></p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1637">　玄関の外ではなく、部屋の中から、子どもが囁いた。</p>
+<p class="source-line role-dialogue role-horror fx-whisper gap-1" data-source-line="1639">「ひとつ、たりない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1641">　慎司は振り向いた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1643">　押し入れの襖に、見覚えのない金属札が掛かっている。</p>
+<p class="source-line role-narration role-document role-system gap-1" data-source-line="1645">《<span class="term term-code tone-1">三号室</span></p>
+<p class="source-line role-narration role-document role-system gap-0" data-source-line="1646">　真壁慎司》</p>
+<p class="source-line role-narration gap-1" data-source-line="1648">　襖の向こうで、<span class="term term-object tone-1">白い玉</span>が転がり始めた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1650">　ころん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1651">　ころころ。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1652">　ころん。</p>
+<p class="source-line role-narration gap-1" data-source-line="1654">　一個。</p>
+<p class="source-line role-narration gap-0" data-source-line="1655">　二個。</p>
+<p class="source-line role-narration gap-0" data-source-line="1656">　三個。</p>
+<p class="source-line role-narration gap-1" data-source-line="1658">　慎司は数えまいとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1660">　だが、数えないふりをすることは、聞こえないふりをすることと同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1662">　四個。</p>
+<p class="source-line role-narration gap-0" data-source-line="1663">　五個。</p>
+<p class="source-line role-narration gap-1" data-source-line="1665">　携帯電話が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1667">　美冬からだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1669">　慎司は通話ボタンを押す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1671">「美冬さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="1673">　返事はない。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1675">　遠くで、<span class="term term-horror tone-2">三度ノック</span>がした。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="1677">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1678">　こん。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="1679">　こん。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1681">　そのあと、美冬の声が聞こえた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1683">　ひどく小さく、濡れた声で。</p>
+<p class="source-line role-narration gap-1" data-source-line="1685"><span class="term term-proper">《堂島美冬。八百七十万円。二号室》</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1687">　電話の向こうで、女が答える。</p>
+<p class="source-line role-dialogue role-horror fx-whisper tone-3 gap-1" data-source-line="1689">「<span class="term term-horror tone-3">聞きました</span>」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1691">　慎司の押し入れも、同時に答えた。</p>
+<p class="source-line role-dialogue role-horror fx-whisper tone-3 gap-1" data-source-line="1693">「<span class="term term-horror tone-3">聞きました</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="1695">　襖が、内側から一寸だけ開く。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="1697">　黒い髪の間に、子どもの目が一つ見えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1699">「つぎの、しゅうきんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="1701">　玄関の外で足音が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1703">　慎司はようやく理解した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1705">　あの夜、彼らは<span class="term term-name tone-1">雨宮荘</span>から逃げたのではない。</p>
+<p class="source-line role-narration role-horror fx-key role-motif fx-beat fx-peak tone-1 gap-1" data-source-line="1707">　部屋を持ち帰ったのだ。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="1709">　三度、ノックが鳴った。</p>
+<p class="source-line end-mark gap-1" data-source-line="1711"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "声の家賃";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="三十九歳独身の御厨進の台所へ、コロッケを踏み潰して宇宙人イオが落ちてきた。彼女が持つのは、小学生時代の秘密結社が書いた予言——故郷・七尾坂で鐘が十三回鳴り、進が花嫁へ口づけなければ現実が書き換わる。二十一年ぶりの町では、住民全員が同じ嘘を信じ、同窓会の写真から五人目の友達だけが消えていた。軽口とプリンを燃料に、進は忘れた夏の秘密へ挑む。十四回目の鐘が鳴る前に、町が選んだ都合のよい記憶を覆せるのか。SF怪異ラブコメ。">
+<title>十四回目の鐘が鳴る町｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="十四回目の鐘が鳴る町" data-novel-id="十四回目の鐘が鳴る町" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ラブコメ</p>
+  <p><strong>補助ジャンル：</strong>SF・ギャグ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ラブコメ、SF、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：583行／章：0／役割・強度タグ：666</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="十四回目の鐘が鳴る町 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">十四回目の鐘が鳴る町</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="5">　宇宙人が僕の台所に落ちてきたのは、同窓会の案内状を千切って、買ってきたコロッケの油を吸わせていたときだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　まず天井が青く光った。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　次に、屋根の上で巨大な鍋でもひっくり返したような音がして、石膏の粉と断熱材と、ひどく機嫌の悪そうな女が降ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　女は僕の食卓に着地した。正確には、食卓に置いてあったコロッケ三個のうち二個を踏みつぶして着地した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="12">「御厨進、三十九歳、未婚。本人確認を要求します」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="14">　黒い髪が水の中にいるみたいにふわふわと浮いている。琥珀色の瞳の奥で、細い光の輪が三つ、別々の速さで回っていた。銀色の服は宇宙服というより、デパートの包装紙を全身に巻いたように見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="16">「先に、うちの天井を確認してもらえますか」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="17">「質問で質問に返すのは、低文明圏で交渉を遅延させる典型的手段です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="18">「低文明圏には敷金という制度があるんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「本人と確認しました」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　女は、ぺしゃんこになったコロッケを靴底からはがし、匂いを嗅いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="23">「油脂、芋、哺乳類の肉、焦燥、独居臭」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="24">「最後の二つは成分じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="25">「地球語では成分です」</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　そう言って、彼女は胸元から一枚の紙を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　黄ばんだ原稿用紙だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="30">　右肩に、片目のついた風車の絵がある。三枚の羽根は長さがばらばらで、真ん中の丸に、黒い点が一つ。僕はその絵を知っていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="32">　小学校六年生の夏、僕たち五人が作った秘密結社――「木曜星人対策本部」の印だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　紙には、子どもの字でこう書かれていた。</p>
+<p class="source-line role-dialogue role-document fx-beat gap-1" data-source-line="36">『二〇二六年七月十日　午後七時十三分</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="37">　星見台の鐘が十三回鳴る。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="38">　空から花嫁が降りる。</p>
+<p class="source-line role-narration role-document tone-3 gap-0" data-source-line="39">　七尾坂の人は、一つだけ嘘を忘れる。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="40">　進が花嫁に口づけすれば、世界はつづく。』</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　最後に、僕の名前と、ソースで押した親指の跡があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「受理番号、地球辺境区七尾坂三一一号。婚姻ならびに局地的現実改稿の立会人として到着しました」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　女は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「私はイオ。あなたの花嫁です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="49">「これは小学生の悪ふざけです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="50">「宇宙に悪ふざけという免責区分はありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「ありますよ。たぶん宇宙の半分くらいは、それでできてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="52">「その認識だけは正確です」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　イオは僕の皿から、無事だった最後のコロッケを取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「儀式は明日です。直ちに七尾坂へ向かいます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="57">「行きません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「では、この周辺三百二十キロメートルの現実が、住民の多数決で書き換えられます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="59">「行きます」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　僕は、まだ油の染みた同窓会の案内状を見た。</p>
+<p class="source-line role-dialogue role-document fx-beat gap-1" data-source-line="63">『星迎え祭・特別同窓会</p>
+<p class="source-line role-narration role-document tone-3 gap-0" data-source-line="64">　忘れて、前へ。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="65">　七月十日、七尾坂市立星見台にて』</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　片目の風車が、印刷された紙の上で笑っていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="69" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="71">　七尾坂は、海と山の間に置き忘れられたような町だ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="73">　新幹線は通らない。高速道路は町の手前で気が変わる。名物は潮風で錆びた自転車と、どの店で食べても少し甘い焼きそば。僕が十八歳で出ていったあと、人口は半分近くになったと聞いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　ところが二十一年ぶりに降りた駅は、人であふれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　駅前には片目の風車の旗が何百本も並び、商店街のシャッターには銀色の花嫁が描かれている。土産物屋では「十三の鐘まんじゅう」が売られ、子どもたちは風車の仮面をつけて走り回っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　横断幕には、同じ言葉があった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="81">『忘れて、前へ。七尾坂・星迎え祭』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「人気の宗教ですか」とイオが訊いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「僕らの落書きです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「地球では、落書きが成長すると宗教になるのですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="86">「だいたいそうです」</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　イオは東京からずっと、僕の古いレインコートを着ていた。銀色の服のままだと目立つからだ。もっとも、髪は相変わらず重力を無視して揺れ、駅の自動改札は彼女が通るたびに『皇族用航路を検索しています』と表示した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="90">「進！」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　声に振り返ると、赤い取材腕章をつけた女が、人混みをかき分けてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　森下アヤだった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="96">　小学生のころ、男子より速く走り、男子より強く殴り、男子より早く初恋の相手を決めていた。僕はその相手ではなかった。二十六年たった今も、目だけは昔と同じように、こちらの嘘を一枚ずつ剥がすような光をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「本当に来たんだ。案内状、三回無視したくせに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="99">「四回目はコロッケの下敷きにした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="100">「最低」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="101">「天井から事情が降ってきたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　イオが一歩前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「妻です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="106">「違います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="107">「明日から妻です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="108">「もっと違います」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　アヤは僕とイオを見比べ、遠慮なく吹き出した。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="112">「東京に出て、とうとうそういう業者に引っかかったの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="113">「違う。これは宇宙行政の事故だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「たいていの結婚も似たようなものよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　彼女は笑ってから、急に声を低くした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「進。あの印、覚えてるよね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="119">「もちろん」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-0" data-source-line="120">「市は、百年前の星迎え伝説から見つかった印だって発表してる。でも、あれは私たちが描いた。そうちゃんが考えた観光企画にしても、やりすぎだと思わない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　そうちゃん。</p>
+<p class="source-line role-narration gap-0" data-source-line="123">　真鍋壮一。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　木曜星人対策本部のリーダーで、いまは七尾坂市長だった。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="127">「同窓会には来る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="128">「そのために来た」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="129">「それと、案内状の裏。『五人、全員集合』って書いてあったでしょ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="130">「五人？」</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　僕が訊き返すと、アヤの表情が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「進、私たち、何人だったっけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="135">「四人だろ。僕と、アヤと、そうちゃんと、ゴン」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="136">「そうだよね。四人だよね」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　彼女はそう言いながら、鞄から一枚の写真を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　古びたポラロイド写真だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　星見台のフェンスの前に、十二歳の僕たちが並んでいる。僕、アヤ、壮一、太ったゴン。四人とも片目の風車を描いた段ボールのバッジを胸につけている。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　けれど、僕とアヤの間には、不自然な隙間があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　そこだけ、人の形に白く焼けている。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　写真の裏には、五人分の筆圧で、こう書かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">『木曜星人対策本部　全員集合』</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="151">「この写真を見るたび、誰かの名前が喉まで出かかるの」とアヤは言った。「でも、思い出そうとすると、頭の中で鐘が鳴る」</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　隣で、イオが黙って写真を見ていた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="154">　彼女の左の耳たぶが、青く光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　東京からの道中で知ったことが一つある。</p>
+<p class="source-line role-narration gap-0" data-source-line="157">　イオは嘘をつくと、耳が光る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="159">「知ってるんだな」と僕は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「機密です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="162">「耳」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="163">「これは感情照明です」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="164">「何の感情？」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="165">「殺意」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　青い光が、少し強くなった。</p>
+<div class="source-line scene-break gap-1" data-source-line="169" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="171">　同窓会は、廃校になった七尾坂第二小学校の体育館で開かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　壁には僕たちの卒業制作が残っていた。色あせた海、色あせた山、色あせた将来の夢。その下に、祭りのための巨大なスクリーンが置かれ、市長の真鍋壮一が演説していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「七尾坂には、忘れなければ進めない悲しみがあります」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="177">　そうちゃんは、子どものころから人前で話すのがうまかった。缶蹴りのルールを説明するだけで、全校集会みたいになった。三十九歳になった彼は、白いシャツの袖をまくり、穏やかな笑顔を浮かべている。テレビで見る地方の若手政治家、そのままだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「明日の星迎え祭で、私たちは古い痛みに区切りをつけます。忘れることは、裏切ることではありません。未来を選ぶことです」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　拍手が起きた。</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　会場の全員が、胸に片目の風車のバッジをつけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　イオは受付でもらったプリンを、すでに十七個食べていた。宇宙では乳製品が貴金属扱いらしい。十八個目に手を伸ばしたところで、壮一が僕たちに気づいた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="187">「進！」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="189">　壇上から降り、昔と同じように両手を広げて近づいてくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「来てくれたか。うれしいよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="192">「町じゅう、僕らの秘密基地みたいになってるな」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="193">「使わせてもらった。怒ったか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="194">「著作権料しだい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「市の財政を知ってて言うなよ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="197">　壮一は笑い、イオを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　一瞬だけ、その顔から血の気が引いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="201">「こちらは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="202">「婚約者です」とイオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="203">「災害です」と僕。</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="204">「進は昔から、変わった子に好かれたな」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　その言い方が、胸に引っかかった。</p>
+<p class="source-line role-dialogue role-memory role-clue fx-beat gap-1" data-source-line="208">「昔から？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="209">「いや、言葉のあやだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　壮一の胸のバッジが、かすかに振動した。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="212">　イオの耳が青く光る。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　そのとき、体育館の明かりが一斉に消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　暗闇の中で、スクリーンだけが白く光った。</p>
+<p class="source-line role-narration gap-0" data-source-line="217">　片目の風車が大きく映り、どこからともなく、子どもの声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">『みんなが同じ嘘を言ったら、ほんとになる』</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　ざわめきが起きる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">『でも、ほんとになった嘘の外に、だれかひとり、置いていかれる』</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　雑音。</p>
+<p class="source-line role-narration gap-0" data-source-line="226">　遠くで鐘の音。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="227">　そして、少女の笑い声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">『進くんは、忘れないでね』</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　僕の後頭部で、何かが割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　夏草の匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="234">　錆びたフェンス。</p>
+<p class="source-line role-narration gap-0" data-source-line="235">　赤い長靴。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　僕の手を握る、小さくて冷たい指。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="238">「たま、お」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　名前が、口からこぼれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　非常灯が点いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="243">　壇上で壮一が、青ざめた顔をしていた。アヤは放送機材のそばに立ち、古いカセットテープを掲げている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="245">「市の展示室にあったタイムカプセルから、先に回収した」と彼女は言った。「そうちゃん。説明して」</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　会場の視線が壮一に集まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　壮一はしばらく黙り、それからマイクを持った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「古い悪ふざけです。祭りを妨害したい人間がいるようですが――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="253">『うそ』</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　今度はスクリーンではなく、イオが言った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="257">　彼女の髪が大きく持ち上がり、体育館の蛍光灯が一本ずつ破裂した。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="259">「真鍋壮一。あなたは、この惑星の合意改稿装置を不正に起動しようとしている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="260">「何者だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="261">「婚姻立会人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="262">「そこは重要じゃない」と僕は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　壮一は、僕を見た。</p>
+<p class="source-line role-narration role-memory tone-5 gap-0" data-source-line="265">　昔、秘密基地で敵役を決めるときと同じ目だった。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="267">「進。星見台へ来い。全部、思い出させてやる」</p>
+<div class="source-line scene-break gap-1" data-source-line="269" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="271">　星見台は、町を見下ろす丘の上にある。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　もとは気象観測所で、戦後に時計塔が増築された。僕らのころには閉鎖され、フェンスには『立入禁止』と書かれていた。もちろん、立入禁止は十二歳の子どもにとって、『秘密基地に最適』という意味だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　夜の坂道を、僕、アヤ、イオ、壮一の四人で上った。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　祭りの準備で、塔には無数の電球が巻かれている。丘の下では、町じゅうのスピーカーが同じ音楽を流していた。明るく軽快で、何かを考える隙間を与えない曲だった。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="279">「ゴンは？」と僕は訊いた。</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-0" data-source-line="280">「三年前に死んだ」と壮一は答えた。「肝臓だ。最後まで、五人目の名前を思い出そうとしてた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="281">「たまおだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="282">「そうだ。黒木玉緒」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="284">　名前を聞いた瞬間、記憶がまた戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　転校してきた少女。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　季節外れの赤い長靴。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　給食のプリンを、宝石みたいに眺める癖。</p>
+<p class="source-line role-narration gap-0" data-source-line="289">　自分は遠い星から来た、と真顔で言うので、クラス中から「宇宙人」と呼ばれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="290">　夏休みが終わる前に、故郷の星へ帰らなければならないとも言っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　僕だけは笑わなかった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="293">　信じたわけではない。ただ、彼女が嘘をつくとき、左の耳たぶが青く光るのを知っていたからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　僕はイオを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「玉緒」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　彼女は前を向いたまま歩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「その呼称は、現地滞在用の仮名です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="302">「給食のプリンを七個盗んだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="303">「貴重資源の保護です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">「僕の自転車の後ろに乗って、月まで競争しろって言った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="305">「低重力圏への移動訓練です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="306">「泣くと鼻水が出た」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="307">「それは別人です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="308">「耳が青い」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="309">「……感情照明です」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　アヤが立ち止まり、息を呑んだ。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="313">「玉緒なの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　イオは答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　壮一が、星見台の鉄扉に手を当てた。片目の風車のバッジが光り、何十年も錆びついていた扉が、音もなく内側へ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　地下へ続く階段が現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「一九九九年八月十二日」と壮一は言った。「俺たちはここへ入った。玉緒に連れられて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「違う」と、僕の口が勝手に言った。「僕が連れてきた」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　赤い非常灯。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　壁に並んだ銀色の管。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　奥にあった、大きな赤いボタン。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="329">　『押すな』と書いてあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　だから僕は、押した。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="332">　思い出した瞬間、膝から力が抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　地下の装置は、観測所の機械ではなかった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="335">　玉緒は止めようとした。僕は笑って、宇宙人なら止めてみろと言った。赤いボタンを押すと、丘の下で地面が割れた。町の古いガス管と、地下に不法投棄されていた薬品が一斉に爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　火の柱が上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="338">　窓ガラスが空へ飛んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="339">　僕らは、塔の上から、七尾坂が燃えるのを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　死者は、三千人を超えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　そのはずだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="345">「玉緒は、この装置を使った」と壮一は言った。「町じゅうのラジオとテレビに声を流して、『爆発は起きなかった』と言わせた。生き残った人間は、みんな同じ言葉を繰り返した」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　階段の先に、巨大な空洞があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　中央に、黒い鐘が浮かんでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　鐘の表面には、数え切れないほどの文字が流れていた。日本語、英語、見たことのない記号。そして、子どもの筆跡で描かれた片目の風車。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「合意改稿装置」とイオが言った。「観測文明が、未成熟惑星の社会形成を調査するために残したもの。十分な数の知性体が、同じ虚偽を同時に選択すると、周囲の現実をその虚偽に整合させます」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="353">「願いが叶う機械？」とアヤ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="354">「いいえ。多数決で、少数派を世界の外へ捨てる機械です」</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　イオの声は、いつもの皮肉を失っていた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="358">「一九九九年、爆発はなかったことになった。死者は生者へ戻り、建物も元へ戻った。しかし、改稿前の現実を知り、なお虚偽に同意しなかった者が一人いた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「玉緒」と僕は言った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="362">「私は、この町の現実から排除された。戸籍も、写真も、家族の記憶も消えた。あなたたちの記憶だけは、印に残した保護信号のおかげで完全には消えなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　壮一が黒い鐘を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「そして今夜、もう一度使う」</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　空洞の壁に、映像が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　二年前の豪雨。</p>
+<p class="source-line role-narration gap-0" data-source-line="371">　崩れる山。</p>
+<p class="source-line role-narration gap-0" data-source-line="372">　濁流に呑まれる住宅。</p>
+<p class="source-line role-narration gap-0" data-source-line="373">　ニュース映像の中で、壮一が泥だらけになって叫んでいる。</p>
+<p class="source-line role-dialogue fx-whisper tone-5 gap-1" data-source-line="375">「市は、土砂災害の危険を知っていた」とアヤが言った。「避難指示が遅れた。亡くなった十二人の中に……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="377">「妻と息子がいた」</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　壮一の声は静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「俺が予算を削った。俺が『この程度の雨なら大丈夫だ』と言った。俺が殺した」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　彼は振り返った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="385">「明日、町の全員が『あの日、土砂崩れは起きなかった』と言う。家族は戻る。十二人全員、戻る。何が悪い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「代わりに、誰かが外へ捨てられる」と僕は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="388">「一人だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="389">「一人だぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="390">「三千人を救うために、玉緒は一人で消えた。十二人を救うために、今度は一人。数は合う」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="391">「人間を割り算に使うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　僕の声は、思ったより大きく響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　壮一の顔が歪んだ。</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="397">「東京へ逃げたお前に何がわかる。俺は二十六年、この町で毎朝、何もなかった顔をして生きてきた。市長になって、町を守ると言い続けて、最後には自分の家族も守れなかった。忘れて前へ？　そんな言葉、信じてるわけないだろ。忘れたふりをしなきゃ、人は朝起きられないんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　誰もすぐには答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="401">　黒い鐘の中で、低い音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　一回。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　地上の時計塔が、試運転を始めたのだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「明日の午後七時十三分」とイオが言った。「十三回目の鐘で、住民の音声が同期されます。私は装置を停止します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="408">「できるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="409">「そのために来ました」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="410">「花嫁として？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="411">「現実から排除された者は、同じ場所へ戻れません。ですが、婚姻契約は二名を一つの法的単位として扱う。あなたが子どものころ提出した契約が、私をここへ引き戻す通行証になった」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="413">　僕は、黄ばんだ原稿用紙を思い出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「じゃあ、あの予言は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="416">「あなたが作った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="417">「どうして宇宙に届いた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="418">「紙の下に、私が送信板を敷いた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="419">「共犯じゃないか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="420">「十二歳でした」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="421">「宇宙法に未成年者取消は？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="422">「ありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="423">「宇宙は法整備からやり直せ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="425">　アヤが、こんな状況なのに笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="426">　壮一だけは笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「止めさせない」と彼は言った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="430">　壁の銀色の管から、白い光が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　僕たちの胸の高さに、透明な壁が生まれる。壮一は向こう側へ下がり、地上へ続く別の扉を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">「明日、町は家族を取り戻す。お前たちは、ここで見ていろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　扉が閉まった。</p>
+<div class="source-line scene-break gap-1" data-source-line="437" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="439">　透明な壁は、触れると子どものころの記憶を見せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　アヤが叩くと、運動会で転んだ場面が浮かんだ。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="442">　僕が蹴ると、父親に初めて嘘をついた夜が映った。</p>
+<p class="source-line role-narration gap-0" data-source-line="443">　イオが指先で触れると、何も映らなかった。代わりに壁全体が青く染まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「便利だな」と僕は言った。「反省会には向いてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="446">「現実改稿装置の安全隔壁です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="447">「安全って、閉じ込められてるけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="448">「安全には、たいてい誰かを閉じ込める機能があります」</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　地上から祭りの音が聞こえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　日付が変わり、七月十日になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　アヤは鞄からカセットを出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「これ、まだ続きがある」</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　携帯用の古いプレーヤーに入れ、再生する。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　十二歳の僕たちの声が流れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="460">　笑い声。風の音。遠くの鐘。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">『将来のぼくたちへ。木曜星人対策本部の最後の会議を始めます』</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　子どもの壮一が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">『二十六年後、玉緒が地球へ帰る方法を決めます。進、意見は』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="467">『大人になったら、ぼくが玉緒と結婚する』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="468">『きもちわる』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="469">『アヤ、うるさい』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="470">『結婚したら、同じ家の人になるから。そしたら、玉緒は外じゃなくなる』</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="471">『進くん、意味わかって言ってる？』</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　玉緒の声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">『わかってる。たぶん』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="476">『たぶんじゃ困る』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="477">『じゃあ絶対』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="478">『絶対は、いちばん嘘になりやすい言葉だよ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="479">『それでも覚えてる』</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="480">『何を？』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="481">『玉緒がいたこと』</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　長い沈黙。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="485">　それから少女が、泣きながら笑う声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="487">『じゃあ、約束。鐘が十三回鳴ったら、迎えに来る』</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　テープはそこで終わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　僕は、透明な壁に背中を預けた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="493">「僕は忘れた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="494">「完全には」とイオが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="495">「二十六年だぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="496">「私の時間では、七か月です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="497">「便利な時間だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="498">「待つ側には長かった」</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　初めて、彼女が僕をまっすぐ見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　琥珀色の瞳の奥で、光の輪が止まっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「私は監査官ではありません。資格もありません。書類を盗み、航路を偽装し、ここへ来ました。あなたの契約がなければ、二度と地球の現実には入れなかった」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="506">　耳たぶは光っていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="508">「じゃあ、明日装置を止めるっていうのも」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="509">「できます。たぶん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="510">「たぶんじゃ困る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="511">「あなたの文明の言い方を学びました」</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　アヤが咳払いした。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="515">「再会の空気を壊すようで悪いけど、壁を壊す方法は？」</p>
+<p class="source-line role-dialogue role-system gap-0" data-source-line="516">「婚姻認証」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="517">「具体的には？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="518">「原稿用紙に記載されたとおりです」</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　僕とイオは同時に黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　アヤはにやりと笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　小学生のころと同じ、ろくでもないことを思いついた顔だ。</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-1" data-source-line="525">「世界を救うためなら仕方ないんじゃない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="526">「楽しんでるだろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="527">「二十六年分」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="528">「私は業務上、異論ありません」とイオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="529">「君も少しは照れろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="530">「顔面温度は一・八度上昇しています」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="531">「それは照れてるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="532">「プリンの食べすぎです」</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　そのとき、地上で花火が上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="535">　透明な壁が震える。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　僕は、イオの肩に手を置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="538">　彼女の髪が、驚いた猫の尻尾みたいに逆立った。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="540">「認証だけだ」と僕は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="541">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="542">「契約の同意とは別」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="543">「はい」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="544">「目を閉じる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="545">「宇宙では相手の逃走を防ぐため、開けます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="546">「地球では閉じてくれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　イオは目を閉じた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="550">　唇が触れた瞬間、体育館の床にワックスをかけすぎた日の匂いがした。夏の秘密基地。赤い長靴。プリンの銀紙。忘れていた時間が、一気に胸へ戻ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　透明な壁が、盛大な音を立てて割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　アヤが拍手した。</p>
+<p class="source-line role-narration gap-0" data-source-line="555">　イオが目を開け、低い声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「二・三秒。地球平均より短い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="558">「統計を取るな」</p>
+<p class="source-line role-dialogue role-system gap-0" data-source-line="559">「再認証を推奨します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="560">「逃げるぞ」</p>
+<div class="source-line scene-break gap-1" data-source-line="562" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="564">　七月十日、午後七時十三分。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　星見台の丘には、七尾坂の住民ほぼ全員が集まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　片目の風車の仮面。</p>
+<p class="source-line role-narration gap-0" data-source-line="569">　片目の風車の旗。</p>
+<p class="source-line role-narration gap-0" data-source-line="570">　片目の風車を映した何千台もの携帯電話。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　時計塔の下に、壮一が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="573">　背後の巨大スクリーンには、亡くなった十二人の写真が映っていた。妻と、十歳の息子。壮一は二人の写真だけを見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　一回目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　黒い音が、空から落ちてくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　町じゅうの窓が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　二回。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　三回。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　住民の携帯電話に文字が表示される。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="585">『あの日、土砂崩れは起きなかった』</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　壮一がマイクを持つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="589">「これは、失った人を取り戻すためです。皆さん、私と同じ言葉を」</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　四回。</p>
+<p class="source-line role-narration gap-0" data-source-line="592">　五回。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　人々が読み上げ始める。</p>
+<p class="source-line role-dialogue role-memory fx-key role-motif gap-1" data-source-line="596">「あの日、土砂崩れは起きなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　声は最初ばらばらだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="599">　六回目で揃い始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="600">　七回目には、町そのものが喋っているように聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　僕たちは地下から走り、群衆の後ろに出た。アヤが放送車へ向かう。イオは時計塔の制御盤へ。僕は人の波をかき分け、壇上へ進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　八回。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　空が、古いフィルムのようにちらついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　土砂崩れの跡地に、消えた家々の輪郭が現れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="609">　写真の中の十二人が、ゆっくりこちらを向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　九回。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="613">「やめろ、そうちゃん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　僕の声は群衆に呑まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　壮一は僕を見つけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="618">　泣いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="620">「もう少しなんだ、進」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　十回。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　スクリーンに、壮一の妻が映る。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="625">　泥のついていない顔で、笑っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="626">　息子が手を振る。</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　群衆の声が大きくなる。</p>
+<p class="source-line role-dialogue role-memory fx-key role-motif gap-1" data-source-line="630">「あの日、土砂崩れは起きなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　十一回。</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　イオが制御盤へ手を差し込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="635">　青い光が塔を駆け上がった。だが、町じゅうの風車の印が赤く光り、彼女の体を弾き飛ばした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="637">「住民の同意率、九十二パーセント！」とイオが叫ぶ。「停止権限を超えています！」</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　十二回。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　僕は壮一からマイクを奪った。</p>
+<p class="source-line role-narration gap-0" data-source-line="642">　彼は抵抗しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　目の前に、十二歳の僕が見えた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="645">　赤いボタンへ手を伸ばし、笑っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="646">　その後ろで、玉緒が泣いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　僕は町へ言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="650">「一九九九年八月十二日、星見台で爆発は起きた」</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　群衆の声が揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「僕が装置を押した。僕が町を壊した。黒木玉緒という女の子が、みんなを救った。僕たちは生き返って、彼女だけを忘れた。そうちゃんも、アヤも、ゴンも、僕も知っていた。怖くて、ずっと黙っていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　スクリーンの映像が乱れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　写真の十二人の顔に、白い亀裂が走った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="660">「進、黙れ！」と壮一が叫んだ。「あと一回だ！」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="662">「土砂崩れは起きた。十二人は死んだ。市は危険を知っていた。そうちゃんは判断を誤った。僕たちは、それを忘れちゃいけない」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="664">「正しいことを言えば、人が戻らなくてもいいのか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　壮一の叫びは、鐘より大きかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　僕は答えられなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="669">　正しさは、墓の前ではいつも薄っぺらい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">「よくない」と僕は言った。「戻ってほしい。今すぐ戻ってきてほしい。僕だって、玉緒に二十六年返したい。でも、誰かを世界の外へ落として作る再会は、救いじゃない。次に悲しみが来たら、また誰かを捨てることになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　壮一が僕の胸ぐらをつかむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「じゃあ俺は、どうやって明日の朝を迎える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「忘れないまま迎えるんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　それは残酷な言葉だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="680">　だから僕は、彼と一緒に泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　十三回目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　世界から、音が消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="686" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="688">　町が二つに重なっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　土砂崩れの起きた七尾坂。</p>
+<p class="source-line role-narration gap-0" data-source-line="691">　起きなかった七尾坂。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="693">　道の上に家が立ち、家の中を濁流が流れ、死んだ人と生きた人が同じ場所で互いを通り抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　黒い鐘が、空に浮かんでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">『同意率、八十八・四パーセント』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="698">『改稿不成立』</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="699">『不整合解消のため、記憶保持者一名を排除します』</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　機械の声が、全員の頭の中で響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　風車の印が回り始める。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　群衆の視線がイオへ集まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　彼女の体が、端から透けていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「またか」とイオは、小さく言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　僕は彼女の手をつかんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="711">　冷たかった。十二歳の夏と同じだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「婚姻契約は二人を一つにするんだろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="714">「進、離して」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="715">「業務上、異論はないんじゃなかったのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="716">「これは業務ではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="717">「じゃあ何だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="718">「個人的に、あなたを失いたくない」</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　耳たぶが、青く光っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「嘘だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="723">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　僕は黄ばんだ原稿用紙を取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="726">　最後の行の下に、いつの間にか新しい文字が浮かんでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">『花嫁が戻るとき、迎えた者は町を出る』</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　十二歳の玉緒が書いた、小さな字だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「知ってたのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="733">「読み落としました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="734">「耳」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="735">「故障です」</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　僕は原稿用紙に、自分の名前を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　御厨進。</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　今度はソースでも鉛筆でもなく、アヤから借りた油性ペンで。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="743">「進！」とアヤが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　僕はイオを抱き寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="747">「二回目は平均より長くする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="748">「比較対象が少なすぎます」</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　口づけた瞬間、十四回目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　時計塔に、十四回目を鳴らす仕組みはない。</p>
+<p class="source-line role-narration gap-0" data-source-line="753">　それでも鳴った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="755">　一度目の夏に忘れられた少女のため。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="756">　二度目の夏に忘れられる男のため。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　音は町を通り抜け、海の向こうへ消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="760" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="762">　目を開けると、朝だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　星見台の丘には、祭りの旗が散らばっていた。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="765">　土砂崩れで失われた人々は戻らなかった。けれど、スクリーンには一九九九年の事故記録が映り、町の人々は、黒木玉緒の名前を口にしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="767">「玉緒ちゃんを、どうして忘れてたんだろう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="768">「第二小にいた子だ」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="769">「プリンが好きだった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="770">「変な長靴を履いてた」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="772">　人々の記憶の中に、彼女が戻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　壮一は塔の下に座り、妻と息子の写真を抱いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="775">　アヤがその隣にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　僕は二人へ近づいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="779">「そうちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　壮一は顔を上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="782">　礼儀正しい、知らない人を見る目だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="784">「どちらさまですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　アヤも僕を見た。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="788">「取材の方？　すみません、いまは市長に質問しないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　胸の奥に、冷たい穴が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　僕はスマートフォンを出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="793">　連絡先から、七尾坂に関係する名前が消えていた。卒業写真の僕の場所は白く焼け、写真の裏には四人分の名前しかない。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　木曜星人対策本部は、壮一、アヤ、ゴン、玉緒の四人で作られたことになっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="797">「僕が外へ出たのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　イオだけが、丘の端に立って僕を見ていた。</p>
+<p class="source-line role-dialogue role-memory tone-2 gap-1" data-source-line="801">「局地現実からの排除です。町の境界を越えれば、行政上の記録は一部戻ります。ただし、七尾坂の人々はあなたを思い出せない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="802">「ずいぶん局地的な死刑だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="803">「宇宙行政は、名称を穏やかにするのが得意です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="805">　僕は笑おうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="806">　うまくいかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　丘を下りる前に、アヤが僕を呼び止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="810">「あの」</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　振り返る。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="814">「どこかで、会いました？」</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　僕は答えかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="817">　そのとき、アヤの胸の風車のバッジが、一度だけ回った。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　彼女は眉を寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="821">「変ね。あなたを見ると、頭の中で鐘が鳴る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="823">「たぶん、耳鳴りです」</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　僕は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="827">「お大事に」</p>
+<div class="source-line scene-break gap-1" data-source-line="829" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="831">　一年後、七尾坂の星迎え祭は、名前を変えて続いていた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="833">『忘れず、前へ。七尾坂・記憶祭』</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　一九九九年の事故と隠蔽は公表され、星見台の地下装置は封鎖された。壮一は市長を辞め、災害対応の責任を問う裁判で証言した。アヤの記事は全国賞を取り、亡くなった十二人の慰霊碑と、黒木玉緒の小さな像が丘に建てられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　像の手には、プリンが一個握られている。</p>
+<p class="source-line role-narration gap-0" data-source-line="838">　造形した人は、理由を知らなかったという。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　僕は祭りの日、観光客に混じって町へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　イオも一緒だった。</p>
+<p class="source-line role-narration role-document tone-4 gap-0" data-source-line="843">　地球監査局の身分を本当に取得し、いまは各地に埋まった「合意改稿装置」の回収をしている。僕はその報告書を書く仕事をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　宇宙にも謝罪文は多い。</p>
+<p class="source-line role-narration gap-0" data-source-line="846">　むしろ宇宙だからこそ多い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="848">「地球側担当者の過失により、小惑星帯の配置が一部変更されましたことを、深くお詫び申し上げます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="849">「それ、君が蹴った隕石だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="850">「低重力下の不可抗力です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="851">「監視映像では助走してた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="852">「文章を柔らかくしてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　僕たちは星見台の丘へ上った。</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　僕を知る人は誰もいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="857">　それでも、不思議と去年ほど苦しくなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　時計塔が鳴り始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　一回、二回。</p>
+<p class="source-line role-narration gap-0" data-source-line="862">　町の人々が、静かに数える。</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　十三回で、誰も拍手をしなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="865">　みんな空を見上げ、もう一度待った。</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　十四回目。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="869">　子どもが祖母に訊いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="871">「どうして十四回なの？　星迎えは十三の鐘なんでしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　祖母は考えてから答えた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="875">「昔ね、この町は大事な誰かを忘れたらしいの。でも、誰を忘れたのかも忘れちゃった。だから最後の一回は、その人が帰る道を間違えないように鳴らすんだって」</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　僕は時計塔を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="879">「機械に十四回目の機能はないんだろ」と訊いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="880">「ありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="881">「じゃあ、どうして鳴る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="882">「人間は、ときどき装置よりしつこい」</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　イオが僕の手を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「ところで、重大な連絡があります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="887">「嫌な予感しかしない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="888">「一年前の婚姻契約ですが、正式受理されていません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="889">「そうなのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="891">　胸のどこかが、少しだけ軽くなり、少しだけ沈んだ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="893">「署名欄が地球式で、星間法上の発光性が不足しています」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="894">「よかった。じゃあ僕らはまだ――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="895">「本日、再提出します」</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　丘の向こうから、銀色の円盤が一機、二機、三機と現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="898">　空いっぱいに増えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　円盤の窓から、角の生えた者、三つ目の者、クラゲのような者たちが手を振っている。駅前の自動改札が遠くで一斉に鳴り、『皇族婚礼航路を設定しました』と町じゅうへ宣言した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="902">「親族です」とイオは言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="903">「何人いる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="904">「近い親戚だけで八千四百」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="905">「七尾坂の人口より多い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="906">「プリンは用意しましたか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="907">「してない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="908">「外交問題です」</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　町の人々は、祭りの余興だと思って歓声を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="912">　イオは僕に、銀色に光る婚姻届を差し出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="913">　僕は受け取り、今度こそ細かい字まで読んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　最下段に、見覚えのない条項があった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="917">『本契約の当事者は、互いが存在したことを、宇宙の終了まで忘れない。』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="919">「絶対は、いちばん嘘になりやすい言葉じゃなかったか」</p>
+<p class="source-line role-narration gap-1" data-source-line="921">　イオの耳たぶが、青く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="923">「だから、二人で本当にします」</p>
+<p class="source-line role-narration gap-1" data-source-line="925">　十四回目の鐘の余韻の中で、僕は署名した。</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　その夜、七尾坂の人々は、空に月が二つあるのを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　誰も驚かなかった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="931">　この町では、忘れていたものが帰ってくるのは、もう珍しいことではなかったからだ。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

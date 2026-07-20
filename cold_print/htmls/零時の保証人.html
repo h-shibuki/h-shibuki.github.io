@@ -1,0 +1,936 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="倒産した工場の元従業員四十三人が、知らぬ間に総額一億二千百万円の借金を負わされた。保守員の相馬直人が契約書の片隅から見つけた唯一の対抗手段は、債権会社の令嬢・久世玻璃と戦う〈零時清算〉。全五回、信用片を少なく入れた側がその回の負債を引き受け、使った片は戻らない。玻璃だけが使える黒い片と、互いに一度だけ相手の投入数を読む〈監査〉もある。勝てば全債務消滅、負ければ二十年の労務契約。人の喉に鳴る借金の音を聞きながら、直人は不公平そのものをルールにした頭脳戦へ挑む。">
+<title>零時の保証人｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="零時の保証人" data-novel-id="零時の保証人" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>サスペンス・会話劇・頭脳戦</p>
+  <p><strong>補助ジャンル：</strong>読み切り</p>
+  <p><strong>CSVタグ：</strong>サスペンス、会話劇、頭脳戦</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：475行／章：0／役割・強度タグ：517</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="零時の保証人 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『零時の保証人』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　借金には音がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　硬貨の音ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　名前を呼ばれても返事をしない人間の、喉の奥で鳴る乾いた音だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　相馬直人は、その音を四十三人分知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　零時十二分。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="12">　久世債権管理株式会社、本社地下七階。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　窓のない清算室の中央に、円形の黒い卓があった。卓の左右には革張りの椅子が二脚。背後の曇りガラスには、明鐘精機の元従業員たちが並んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　四十三人。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="17">　未払い賃金を受け取るはずだった四十三人は、会社が倒産する三日前、いつの間にか「生活再建支援金」という名の借金を背負わされていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　元本、一億二千百万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　利息は午前零時を境に跳ね上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="22">　払えなければ、久世債権管理が用意した二十年の労務契約へ移行する。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="24">　契約書の末尾に、虫の脚ほど小さな文字で一行だけ例外があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　――債務者代表は、債権者代表に対し、一度に限り「零時清算」を請求できる。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="28">　請求が受理されている間だけ、利息計算と労務契約の発効は凍結される。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　その一行を見つけたのが直人だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　勇気があったからではない。</p>
+<p class="source-line role-narration role-document tone-4 gap-0" data-source-line="33">　元の仕事が、硬貨選別機と入退場ゲートの保守だったからだ。誰も読まない取扱説明書を読む。誰も疑わない小さな誤差を探す。そういう仕事を十年してきた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="35">「相馬君」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　曇りガラスの向こうで、元工場長の木原が拳を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　頑張れ、とは言わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　頑張ってどうにかなる場所ではないと、全員が分かっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　直人も拳を上げ返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　掌は冷たく、指だけが熱かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　向かいの扉が開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　白いスーツの女が入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　久世玻璃。</p>
+<p class="source-line role-narration gap-0" data-source-line="50">　二十六歳。久世債権管理の執行役員であり、創業家の一人娘。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="52">　報道写真では、いつも口元だけが笑っていた。だが実物は違った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="53">　目も笑っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　人が崖から足を滑らせる瞬間を、心から面白がる人間の目だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「四十三人を一人で背負うなんて、立派ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　玻璃は椅子に腰掛け、白い手袋を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="59">　左手の人差し指だけ、爪が銀色に塗られている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「立派じゃない。くじで外れただけです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「嘘」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　即答だった。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="67">「くじで決める人は、契約書の五十七ページ目なんて読みません」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="69">　直人の喉が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　乾いた音。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　彼女はそれを聞き逃さず、楽しそうに首を傾げた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="74">「安心してください。私は希望を笑いません。希望は、払えない人が最後に使う通貨ですから」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="76">「あなたは使わない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「ええ。私は確率を買います」</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　卓の端に立つ公証人が、銀の杖で床を一度叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　魚住と名乗った老人だった。まぶたも口元も、紙を折ったように薄い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「零時清算を開始します」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　天井から、五枚の真鍮板が降りてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　一〇〇万。</p>
+<p class="source-line role-narration gap-0" data-source-line="89">　三〇〇万。</p>
+<p class="source-line role-narration gap-0" data-source-line="90">　九〇〇万。</p>
+<p class="source-line role-narration gap-0" data-source-line="91">　二七〇〇万。</p>
+<p class="source-line role-narration gap-0" data-source-line="92">　八一〇〇万。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　合計一億二千百万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="95">　四十三人の借金と同じ額だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　魚住が二つの浅い箱を開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="98">　白い信用片が十五枚ずつ。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="99">　さらに玻璃の側にだけ、透明な鍵付き箱へ納められた黒い信用片が三枚置かれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「競技名は『信用杯』。全五回戦です」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　卓上に、蓋付きの陶器の杯が二つ置かれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「各回、双方は任意の枚数の白い信用片を杯へ投入します。投入数の少ない者が、その回の負債を引き受けます。投入数が同じ場合、双方が同額の負債を引き受けます。使用した信用片は消滅します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">「金を出せない方が借金を負う。当然ですね」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="109">　玻璃が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　魚住は続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「債権者側には、最終の第五回戦に限り、資本信用として黒い信用片三枚の使用が認められます。一枚は入札上、一枚として数えます。ただし使用した一枚につき、最終負債へ二千万円を加算します」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="115">「債務者側には？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「ありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="119">「公平ですね」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="121">　直人が言うと、玻璃は声を立てて笑った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="123">「借金の世界に、公平なんて単語があると思っていたんですか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　魚住は、今度は赤い円盤を一枚ずつ配った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">「双方、一度だけ『監査』を請求できます。杯を封印した後、開示前に、相手の投入数を宣言してください。的中した場合、相手の投入数はゼロとして扱います。監査者の投入数は有効なまま、精算後にその信用片が返却されます。外れた場合、監査者の投入数をゼロとして扱い、投入した信用片は失われます。黒い信用片の加算負債は、監査で無効になった場合も消えません」</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　直人は赤い円盤を摘まんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="130">　軽い。</p>
+<p class="source-line role-narration gap-0" data-source-line="131">　だが、指先に貼りつくような重さがあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「最終負債の少ない側を勝者とします。相馬直人が勝利した場合、対象債権一億二千百万円は全額消滅。久世玻璃が勝利した場合、労務契約は即時発効します」</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　曇りガラスの向こうで、誰かが息を呑んだ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="137">「なお、情報の収集は自由です。相手方の身体、杯、信用片、設備への直接干渉のみを禁じます」</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　直人は顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　玻璃は銀色の爪を卓へ置いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「始めましょう」</p>
+<div class="source-line scene-break gap-2" data-source-line="146" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="149">　第一回戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="150">　負債、一〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　直人は白い信用片を二枚、掌の中へ隠した。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　多く出せば勝てる。</p>
+<p class="source-line role-narration gap-0" data-source-line="155">　だが使った信用片は戻らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="156">　最初から飛ばせば、後半の二七〇〇万と八一〇〇万で息切れする。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　玻璃は表情を変えない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「投入してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　魚住の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　直人は杯の投入口へ、信用片を一枚ずつ落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　カン。</p>
+<p class="source-line role-narration gap-0" data-source-line="167">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　硬い音が陶器の底で跳ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　玻璃も投入を終える。</p>
+<p class="source-line role-narration gap-0" data-source-line="172">　杯に蓋がされ、真鍮の留め具が下りた。</p>
+<p class="source-line role-dialogue role-clue fx-beat fx-key role-motif gap-1" data-source-line="174">「監査は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　双方、使わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　開示。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　直人、二枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="181">　玻璃、三枚。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="183">「負債一〇〇万円。相馬直人」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="185">　直人側の表示板に、赤い数字が灯った。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　１００。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　椅子がわずかに沈んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「二枚」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="193">　玻璃が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「何です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「あなたが入れる前から、二枚だと思っていました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「そうですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「驚かないんですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「一回当てただけなら、占い師でもできます」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　玻璃は頬杖をついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　銀の爪が、卓上の小さな飾り鋲に触れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「では、もう一度」</p>
+<p class="source-line role-narration gap-2" data-source-line="211">　第二回戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="212">　負債、三〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　残りは直人十三枚、玻璃十二枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　直人は三枚を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　一枚目。</p>
+<p class="source-line role-narration gap-0" data-source-line="219">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　玻璃の人差し指が、ほんのわずかに強張る。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　二枚目。</p>
+<p class="source-line role-narration gap-0" data-source-line="224">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　呼吸が一拍止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　三枚目。</p>
+<p class="source-line role-narration gap-0" data-source-line="229">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　指先が離れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　直人は視線を上げなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="234">　自分の杯だけを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　開示。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　直人、三枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　玻璃、四枚。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「負債三〇〇万円。相馬直人」</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　表示は四〇〇万円になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　曇りガラスの向こうで、木原が額を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　直人の残りは十枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　玻璃は八枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　次は九〇〇万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="251">　その次は二七〇〇万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="252">　最後は八一〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　もう一度同じことが起きれば、玻璃の優位はほぼ動かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「三枚」</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　玻璃が囁いた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="260">「あなたは慎重ですね。慎重な人は、恐怖を小分けにして払う。でも利息は、小分けにしても減らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　直人はようやく顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　銀色の爪。</p>
+<p class="source-line role-narration gap-0" data-source-line="265">　爪の下の飾り鋲。</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　彼女の杯の下には厚い革の敷物がある。直人の杯の下にはない。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　黒い卓を横切る金色の装飾線。</p>
+<p class="source-line role-narration gap-0" data-source-line="269">　その線は直人の杯の底から、玻璃の指先の飾り鋲まで続いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　直人の古い職場では、硬貨選別機の異常を探すとき、筐体に金属棒を当てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="272">　ベアリングの欠け。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　モーターの偏芯。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　詰まった硬貨。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　振動は、金属を伝う。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　耳を当てなくても、指先で分かる。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　玻璃は直人の表情を読んでいるのではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="281">　杯へ落ちる信用片の数を、卓の内部を通じて数えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　盗み聞き。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　いや、盗み触り。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　直人が杯へ三枚落とせば、玻璃は四枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　二枚なら三枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　常に一枚だけ上。</p>
+<p class="source-line role-narration gap-0" data-source-line="290">　最小の支出で、確実に負債を押しつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　彼女の言葉が蘇る。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　――私は確率を買います。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　違う。</p>
+<p class="source-line role-narration gap-0" data-source-line="297">　この女は、確率など買っていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="298">　確定を盗んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　直人の背中を冷たい汗が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　仕組みが分かっても、止められない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="303">　杯を替えてくれと言えば、情報収集は自由だと突っぱねられる。</p>
+<p class="source-line role-narration gap-0" data-source-line="304">　飾り鋲に触るなとも言えない。</p>
+<p class="source-line role-narration gap-0" data-source-line="305">　設備へ干渉すれば、失格になるのはこちらだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　それでも直人は、少しだけ息を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　壊れた機械は怖くない。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　怖いのは、どこが壊れているか分からない機械だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　場所が分かれば、やることは一つだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　誤った情報を、正しく流す。</p>
+<div class="source-line scene-break gap-2" data-source-line="317" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="320">　第三回戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="321">　負債、九〇〇万円。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="323">　直人は残り十枚の白い信用片から、六枚を取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　多すぎる。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　ここで六枚使えば、残りは四枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　後半二回に使える手が、ほとんど固定される。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　玻璃の口元がかすかに上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　彼女には、まだ八枚ある。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　直人は一枚目を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　二枚目。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　三枚目と四枚目を、掌の中でぴたりと重ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　硬貨選別機では、二枚の硬貨が密着して一枚のように流れることがある。重なり硬貨。現場では最も面倒な故障の一つだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　直人は、重ねた二枚を同時に落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　音は一つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　だが杯の中には二枚入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　五枚目。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　六枚目。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　振動は五回。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　投入は六枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　直人は杯から手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　玻璃の銀の爪も、飾り鋲から離れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　彼女は六枚を自分の杯へ入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　聞こえた五枚より、一枚だけ多く。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　双方の杯が封印される。</p>
+<p class="source-line role-dialogue role-clue fx-climax fx-key role-motif gap-1" data-source-line="373">「監査は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　魚住が問う。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　玻璃は赤い円盤を、指ではじいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　円盤は卓上を滑り、中央の溝へ収まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「監査します」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　曇りガラスの向こうがざわめいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　直人の心臓が一度、大きく鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　彼女は監査を使う必要がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="387">　五枚だと知っているなら、六枚で勝てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　それでも使う理由は一つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="390">　監査が的中すれば、自分の六枚が戻ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="391">　負債を押しつけ、信用片も減らさない。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　完全勝利。</p>
+<p class="source-line role-narration gap-0" data-source-line="394">　それを見せつけたいのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　玻璃は直人をまっすぐ見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「相馬直人。あなたの投入は、五枚です」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　魚住が直人を見る。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="402">「監査返しは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「しません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「では、開示」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　蓋が上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　魚住の細い指が、直人の杯から信用片を数えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「一、二、三、四、五――六」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　空気が止まった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="416">　玻璃の笑みも止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　次に、彼女の杯。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「六」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　本来なら同数。</p>
+<p class="source-line role-narration gap-0" data-source-line="423">　双方が九〇〇万円を負う。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　しかし監査は外れた。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="426">　玻璃の投入数は、規則上ゼロになる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「監査失敗。久世玻璃の有効投入数はゼロ。負債九〇〇万円、久世玻璃」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="430">　表示板に赤い数字が灯る。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　９００。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　玻璃の椅子が沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　ほんの数センチ。</p>
+<p class="source-line role-narration gap-0" data-source-line="437">　それでも、初めて彼女の目線が直人より低くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　曇りガラスの向こうで、誰かが叫んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="440">　すぐに別の誰かが口を塞いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　玻璃は杯の中の六枚を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「重ねて落としたのね」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="446">「規則には、一枚ずつ落とせとは書いていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　魚住が頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「設備への干渉なし。信用片への加工なし。投入方法に違反なし。成立です」</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　玻璃は銀の爪を飾り鋲へ押しつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　今度は音がするほど強く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「私の卓を、騙した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="457">「卓は騙していない」</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　直人は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「あなたが、音の数を信用片の数だと決めつけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　玻璃の唇が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　一瞬、怒鳴るのかと思った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="467">　だが彼女は笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="468">　写真の笑顔ではない。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="469">　初めて、目より先に口が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「いい」</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　低い声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「やっと、賭けになった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　直人は残りの信用片を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　自分は四枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="482">　玻璃は二枚。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「あなたが賭けにしたんじゃない。あなたの確定が、壊れただけだ」</p>
+<div class="source-line scene-break gap-2" data-source-line="487" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="490">　第四回戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="491">　負債、二七〇〇万円。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="493">　直人、累計四〇〇万円。残り四枚。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="494">　玻璃、累計九〇〇万円。残り二枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　直人は三枚を入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　玻璃は二枚すべてを入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　玻璃の前には黒い信用片が三枚ある。</p>
+<p class="source-line role-narration gap-0" data-source-line="501">　だが資本信用の封印が解かれるのは、最終第五回戦だけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　金を持つ側だけに許された、最後の非常口。</p>
+<p class="source-line role-narration gap-0" data-source-line="504">　今はまだ、使えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　玻璃が投入できる白い信用片は二枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　直人の三枚を上回る手段はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　開示。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　直人、三枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="512">　玻璃、二枚。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「負債二七〇〇万円。久世玻璃」</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　表示が変わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　３６００。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　玻璃の椅子が大きく沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　直人の手元には、白い信用片が一枚残った。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　玻璃の白い信用片は、ゼロ。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　だが彼女の前には、黒い信用片が三枚ある。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　そして最後の負債は、八一〇〇万円。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「なるほど」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　玻璃が呟いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「三回戦で私に六枚を使わせた時点で、ここまで決まっていたのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「決まってはいない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「いいえ。四回戦までは決まっていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　彼女は黒い信用片を閉じ込めた透明蓋を、爪で一度弾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「最後だけは、まだ決まっていない」</p>
+<div class="source-line scene-break gap-2" data-source-line="544" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="547">　第五回戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　負債、八一〇〇万円。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="550">　魚住が銀の鍵を回した。</p>
+<p class="source-line role-narration gap-0" data-source-line="551">　玻璃の前で、黒い信用片の封印が解ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　直人は最後の白い信用片を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　投入数、一。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　玻璃は白を持っていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="558">　黒を使わなければ、投入数ゼロ。八一〇〇万円を負い、累計一億一千七百万円で敗北する。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　黒を一枚使えば、一対一。</p>
+<p class="source-line role-narration gap-0" data-source-line="561">　同数なので双方が八一〇〇万円を負う。さらに玻璃には二千万円が加算される。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　直人は八五〇〇万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="564">　玻璃は一億三千七百万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　玻璃の敗北。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　黒を三枚使えば、三対一で直人に八一〇〇万円を負わせられる。</p>
+<p class="source-line role-narration gap-0" data-source-line="569">　だが玻璃自身に六千万円が加算される。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　直人、八五〇〇万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="572">　玻璃、九六〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　やはり玻璃の敗北。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　勝てるのは、黒を二枚使った場合だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　玻璃は二対一で勝ち、直人が八一〇〇万円を負う。</p>
+<p class="source-line role-narration gap-0" data-source-line="579">　直人は累計八五〇〇万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="580">　玻璃は三六〇〇万円に四〇〇〇万円を加え、七六〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　九〇〇万円差で、玻璃の勝ち。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　ただし、直人には監査が残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　直人が「二枚」と宣言し、玻璃が本当に二枚なら、玻璃の投入数はゼロになる。</p>
+<p class="source-line role-narration gap-0" data-source-line="587">　玻璃は八一〇〇万円を負い、黒二枚の四〇〇〇万円も加算される。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　累計、一億五千七百万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　玻璃の敗北。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　だが玻璃が黒を一枚しか入れていなかったら。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　直人の監査は外れ、直人の投入数がゼロになる。</p>
+<p class="source-line role-narration gap-0" data-source-line="596">　玻璃の一枚が上回り、直人が八一〇〇万円を負う。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　直人、八五〇〇万円。</p>
+<p class="source-line role-narration gap-0" data-source-line="599">　玻璃は三六〇〇万円に二〇〇〇万円を加え、五六〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　玻璃の勝利。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　沈黙すれば、玻璃は二枚で勝つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　二枚と監査すれば、玻璃は一枚で勝つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　一か二か。</p>
+<p class="source-line role-narration gap-0" data-source-line="607">　監査するか、しないか。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="609">　ここへ来て初めて、機械の故障も、残り枚数の計算も役に立たない。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　人間を読むしかない。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　玻璃は卓の下の投入口へ手を入れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="614">　黒い信用片を何枚取ったか、直人からは見えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　直人も最後の白い一枚を杯へ落とす。</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　カン。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　玻璃の側からも音がした。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="621">　だが厚い革が振動を殺し、何枚かは分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　杯が封印される。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　魚住が赤い円盤を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　直人の監査権。</p>
+<p class="source-line role-dialogue role-clue fx-beat fx-key role-motif gap-1" data-source-line="629">「監査は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　曇りガラスの向こうは静かだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　四十三人が息を止めると、部屋から人間の気配が消える。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="635">　玻璃が微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「これが賭けです、相馬さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「そうですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">「私は一枚かもしれない。二枚かもしれない。あなたが監査を使えば外れるかもしれない。使わなければ、二枚に負けるかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「分かっています」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="645">「怖い？」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　直人は自分の右手を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　震えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="650">「怖い」</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　曇りガラスの向こうで、誰かが小さく泣いた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="654">　玻璃の笑みが深くなる。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="656">「正直で素敵」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="658">「でも、あなたほどじゃない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="660">　笑みが止まった。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="662">「私が？」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="664">「あなたは、希望が怖い」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　直人は赤い円盤へ指を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="668">「黒を一枚入れる手は、俺が『二枚』と監査することを祈る手だ。俺が間違えてくれることに賭ける手。自分では結果を作れない」</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　玻璃の銀の爪が、卓を一度叩いた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="672">「黒を二枚入れる手は違う。俺が怯えて監査を使わないと決めつける手だ。相手の恐怖に値段をつけ、自分で結果を支配したつもりになれる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="674">「言葉で誘導するつもり？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「もう杯は閉じている」</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　直人は彼女を見た。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="680">「あなたは賭けが好きなんじゃない。賭けに見せかけた確定が好きなんだ。三回戦でもそうだった。五枚だと信じたから、六枚を取り戻すために監査した」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="682">　玻璃の瞳から、笑いが薄れた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="684">「希望は、払えない人が使う通貨だと言った。だからあなたは、一枚を入れられない。俺が間違えるよう祈るなんて、あなたにはできない」</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　直人は赤い円盤を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　溝の中を滑る音が、やけに大きく響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「監査します」</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　魚住が問う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「宣言数を」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="696">　直人の喉が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　借金の音。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="699">　恐怖の音。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　それでも声は出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「二枚」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　玻璃は動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　一秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="708">　二秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="709">　三秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　やがて、彼女は目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「開けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　魚住が玻璃の杯を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　黒い信用片が、二枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　曇りガラスの向こうで、四十三人分の息が一斉に戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「監査的中」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　魚住の声だけが平らだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="725">「久世玻璃の投入数はゼロ。相馬直人の白い信用片一枚は返却。負債八一〇〇万円、久世玻璃。黒い信用片二枚の加算負債、四〇〇〇万円」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="727">　表示板の数字が回る。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　３６００。</p>
+<p class="source-line role-narration gap-0" data-source-line="730">　７６００。</p>
+<p class="source-line role-narration gap-0" data-source-line="731">　１５７００。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　久世玻璃、累計一億五千七百万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　相馬直人、累計四〇〇万円。</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　玻璃の椅子が、重い音を立てて最下段まで沈んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「勝者、相馬直人」</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　魚住が銀の杖を床へ打ちつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　その瞬間、曇りガラスが透明になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　木原が泣いていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="746">　隣の女性が笑いながら泣いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="747">　誰かが両手を突き上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="748">　誰かが腰を抜かして座り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　四十三人の携帯電話が、ほとんど同時に鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　債務残高、〇円。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　労務契約、無効。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　久世債権管理の印章が入った電子債権台帳から、四十三人の名前が消えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　直人は椅子に座ったまま動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　勝った実感より先に、吐き気が来た。</p>
+<p class="source-line role-narration gap-0" data-source-line="761">　膝が震え、奥歯が痛いほど噛み合っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　玻璃は沈んだ椅子から直人を見上げていた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="765">「最後、一枚だったら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　直人は答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">「私が一枚を入れていたら、あなたは負けていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「そうですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="773">「それでも二枚と宣言した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="775">「あなたが二枚を入れると思った」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="777">「確率は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="779">「知りません」</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　玻璃はしばらく黙った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="783">　やがて、声を立てずに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="785">「あなた、賭博師には向いていない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="787">「二度とやりません」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="789">「どうして？　勝ったのに」</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　直人は返却された最後の白い信用片を、掌の上で転がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="793">「怖かったからです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="795">「怖いから数えられた。怖いから壊れている場所を探した。怖いから、あなたが何を怖がるか考えた」</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　直人は立ち上がった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="799">「恐怖を楽しめる人より、恐怖を嫌う人の方が、逃げ道を本気で探す」</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　玻璃の目が、わずかに細くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="803">「また会いましょう、相馬さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="805">「修理の依頼なら」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="807">「何を直してくれるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　直人は黒い卓の金色の装飾線を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「まず、その盗聴器から」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="813">　玻璃は、今度こそ声を上げて笑った。</p>
+<div class="source-line scene-break gap-2" data-source-line="816" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="819">　地上へ戻るエレベーターの中で、木原が直人の肩を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="821">「怖くなかったのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　直人は壁にもたれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="825">「ずっと怖かったです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="827">「そうは見えなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="829">「見せる余裕がなかっただけです」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="831">　扉の上で、数字が一つずつ増えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　地下七階。</p>
+<p class="source-line role-narration gap-0" data-source-line="834">　地下六階。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　地下五階。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　誰も喋らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="838">　けれど、もう喉の奥で鳴る乾いた音はしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　地上に着く。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="842">　扉が開くと、夜明け前の街が青く濡れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　借金の音が消えた朝、街は驚くほど静かだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　直人の掌には、返却された白い信用片が一枚だけ残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　彼はそれを指ではじき、近くの排水溝へ落とした。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="850">　小さな金属音が、闇の底へ沈んでいく。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　今度は誰も、その数を数えなかった。</p>
+<p class="source-line end-mark gap-2" data-source-line="855"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

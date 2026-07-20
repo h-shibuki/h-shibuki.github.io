@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="潰れた喫茶店が残した借金は一千八百万円。結婚六年目の真一と茜は、相手を気遣うほど本音を確かめられなくなっていた。そんな二人へ届いたのは「相互理解を換金しませんか」という招待状。閉鎖された式場の地下で待っていたのは、夫婦の共有記憶をチップに変え、互いに関する六問へ賭ける奇妙な取引だった。正解すれば未来の思い出が増え、外せば過去が失われる。借金を消すために差し出せるのは、二人が夫婦であった証そのもの。最も近い相手を、本当に知っているのは誰なのか。">
+<title>夫婦残高｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="夫婦残高" data-novel-id="夫婦残高" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="romance-drama">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離" selected>恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>サスペンス・ロマンス・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>会話劇・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>サスペンス、ロマンス、ファンタジー、会話劇、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">恋愛・関係性</span></p>
+  <p id="currentPresetDescription">会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離</p>
+  <h3>意味色</h3><p>紅＝想い、青＝距離、紫＝記憶、橙＝ぬくもり、緑＝約束</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：466行／章：0／役割・強度タグ：514</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="夫婦残高 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">夫婦残高</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　差し押さえ予告の封筒は、いつもより少しだけ丁寧に郵便受けへ差し込まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　まるで、こちらの生活を壊すことを申し訳なく思っているみたいだった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="8">「今度は何？」</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　台所から茜が訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="12">「電気代」</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　真一は嘘をついた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="16">　封筒の右上には、赤い字で「最終」とある。三年前に始めた小さな喫茶店は、二年で潰れた。残ったのは業務用エスプレッソマシンのローンと、保証人になってくれた叔父への気まずさと、利息で太った一千八百万円の債務だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　妻の佐伯茜、三十四歳。夫の佐伯真一、三十五歳。結婚六年目。</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　二人の夫婦生活は、借金ほど完全に破綻してはいなかったが、胸を張って健全とも言えなかった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="22">　以前は、肩が触れればその先を想像した。今では、肩が触れると、どちらが先に風呂へ入るかを相談した。寝室でのことは、さらに面倒だった。誘えば断られる気がする。断れば傷つける気がする。だから真一はカレンダーを眺め、茜は眠そうなふりをし、二人とも相手に気を遣ったまま、相手の気持ちだけは確かめなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　差し押さえ予告を裏返すと、もう一通、見覚えのない薄桃色の封筒が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　宛名は「佐伯真一・茜　ご夫妻」。差出人はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　中には、白いカードが一枚だけ入っていた。</p>
+<p class="source-line role-narration gap-2" data-source-line="31">　　あなた方の相互理解には、換金価値があります。</p>
+<p class="source-line role-narration gap-0" data-source-line="32">　　夫婦残高を担保に、債務を清算しませんか。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="33">　　今夜二十三時、相互理解換金所・第零支店。</p>
+<p class="source-line role-narration gap-2" data-source-line="36">　裏面には地図と、黒い文字で短い注意書きがあった。</p>
+<p class="source-line role-narration gap-2" data-source-line="39">　　お二人でお越しください。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="40">　　一人で来店された場合、愛情は査定対象外となります。</p>
+<p class="source-line role-dialogue gap-2" data-source-line="43">「怪しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　カードを見た茜は即答した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="47">「うん」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="49">「行くの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="51">「行かない理由を、金額で説明できる？」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="53">　茜は冷蔵庫に貼られた返済予定表を見た。予定というより、敗戦の記録だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「できない」</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　二人は二十三時の十分前に家を出た。</p>
+<div class="source-line scene-break gap-2" data-source-line="60" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-4 gap-2" data-source-line="63">　相互理解換金所・第零支店は、閉店した結婚式場の地下にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　入口には看板がない。灰色の扉に、小さなインターホンが付いているだけだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「佐伯です」</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　真一が名乗ると、すぐに鍵が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　中は銀行と産婦人科と古いホテルを足したような造りだった。壁は薄い桃色。受付の脇には給水機があり、その横に避妊具の自動販売機が置かれている。値段は一箱一万円だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">「高っ」</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　真一が思わず言うと、受付にいた女が顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="77">「安心は、たいてい後払いにすると高くつきます」</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　年齢の分からない女だった。三十代にも五十代にも見える。黒いスーツを着て、両手の指に一本ずつ、合計十本の細い結婚指輪をはめていた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="81">「担当の水城です。ご来店ありがとうございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　水城は二人を奥の部屋へ通した。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　そこには向かい合わせの椅子が二脚と、円形のテーブルが一つあった。テーブルの中央には透明な皿があり、白いチップが十二枚積まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　一枚一枚に日付が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　結婚した月から、半年ごとの年月だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="91">「これ、なんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="93">「お二人の夫婦残高です」</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　水城は座らずに答えた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="97">「夫婦とは、互いについて知っていると信じる二人が、知らない部分を月賦で買い続ける契約です。お二人は六年間で、十二単位の共有記憶を積み立てました」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="99">「記憶を、換金するんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　茜が眉をひそめた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="103">「正確には、相互理解の精度に投資していただきます。これから六問、お互いについての質問をします。質問ごとに、一枚から三枚まで賭けてください。相手の回答を当てれば、賭けた枚数と同数の未来残高が加算されます。外せば、そのチップは回収されます」</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="105">「未来残高？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="107">「まだ起きていない思い出です。過去と違って、傷も汚れもありません。金融商品としては優秀です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="109">　水城は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「最終残高が十八枚に達すれば、債務一千八百万円を全額清算します。途中でやめることもできます。ただし、失った残高は戻りません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「単なるクイズでしょう」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="115">　真一は言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="117">「夫婦にとって、単なるクイズほど危険なものはありません」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="119">　水城は二台の薄い端末を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「先ほど別室で入力していただいた問診票が、正解データです。ご自身が選んだ答えは変更できません。なお、露骨な内容は扱いません。当所は品位より、気まずさを重視しております」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="123">　茜が端末を受け取り、真一を見た。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="125">「六問なら、いける？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">「六年一緒にいるんだぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="129">「その言い方、もう外しそう」</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　水城が一枚目のカードをめくった。</p>
+<div class="source-line scene-break gap-2" data-source-line="134" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="137">　第一問。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　茜が、夫婦生活のあとで最も腹が立つ真一の行動はどれか。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　Ａ　すぐに洗面所へ行く。</p>
+<p class="source-line role-narration gap-0" data-source-line="142">　Ｂ　背中を向けて眠る。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　Ｃ　「大丈夫だった？」と何度も確認する。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="144">　Ｄ　記録アプリを開く。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="146">「待って」</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　真一は顔を上げた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="150">「記録アプリって、健康管理のためのやつだよな」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="152">「質問には答えられません」</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　水城が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「いや、茜に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「もっと答えられない」</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　茜は腕を組んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　真一には理屈があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　茜は潔癖ではないが、寝具の汚れには細かい。終わったあと真一が先に洗面所へ行くと、置き去りにされたような顔をすることがある。だからＡだ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="166">　ただ、Ｄも気になる。二年前、真一は夫婦生活を改善しようとして、睡眠時間、飲酒量、会話時間、親密な時間の有無を表計算に記録していた。データを取れば問題が見えると思ったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　三週間で茜に削除された。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「一枚で」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　真一はチップを一枚、前へ出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「Ａ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="176">　茜の端末が光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　正解は、Ｄ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「あれ、ほんとに嫌だった」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="182">　茜が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「改善したかったんだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="186">「私、故障した家電じゃないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　水城がチップをつまんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　日付は、結婚一年目の四月から九月。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　透明な皿の下に細い溝が開き、チップが吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　その瞬間、真一の頭の奥で、柔らかいものが切れた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="196">　潮の匂いがした。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="198">　雨の音。黄色い傘。茜の濡れた髪。ホテルの狭いベランダ。何か大切な場面だったはずなのに、指で触れた霧のように消えていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="200">「ねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　茜の顔が青ざめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「私たち、新婚旅行、どこに行ったっけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「沖縄だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　真一は答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　知識としては分かる。写真も見たことがある。だが、そこにいた自分がいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　水城が小さく鼻歌を歌った。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　知らない旋律だったが、なぜか胸が痛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「那覇の雨は温かいですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　水城は独り言のように言った。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="220">「今の、どういう意味ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「残高は市場へ流動化されました。次へ進みますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　真一と茜は顔を見合わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　帰るべきだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　それでも、テーブルの上には差し押さえ予告が置かれていた。水城がいつの間に持ってきたのか分からない。赤い「最終」の文字が、十二枚から十一枚になった白いチップより現実的に見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「続けます」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="232">　茜が言った。</p>
+<p class="source-line role-narration gap-2" data-source-line="235">　第二問。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　真一が、現在の夫婦生活で最も望んでいることはどれか。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　Ａ　回数を増やすこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="240">　Ｂ　新しい工夫を試すこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="241">　Ｃ　茜の方から誘われること。</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　Ｄ　上手だと褒められること。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「これは二枚」</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　茜は迷わずチップを出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「Ｃ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="250">　真一の端末が光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　正解、Ｃ。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　皿の中央に、金色のチップが二枚現れた。日付の代わりに「未使用」と刻まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「分かるんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　真一は少し恥ずかしくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「分かるよ。回数の話をするとき、あなた、必ず最後に『別に毎日じゃなくていいけど』って付けるから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="262">「そんなに回数が欲しいわけじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「うん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「ただ、たまには、必要とされたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　茜は一度うなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「私も、誘うと応じなきゃいけない契約が始まる気がしてた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「誘って途中でやめてもいいだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="274">「今まで、そう言ったことなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　真一は言葉に詰まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　水城は二人の沈黙が熟すのを待ち、次のカードをめくった。</p>
+<p class="source-line role-narration gap-2" data-source-line="281">　第三問。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　茜が、避妊について確認したいタイミングはどれか。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　Ａ　その場の直前。</p>
+<p class="source-line role-narration gap-0" data-source-line="286">　Ｂ　前日まで。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　Ｃ　終わったあと。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　Ｄ　真一に任せたいので、確認は不要。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">「二枚。Ｂ」</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　今度は真一が即答した。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　正解だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「雰囲気を壊したくないのかと思ってた」</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　真一が言うと、茜は呆れた顔をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「安心してる方が、雰囲気を楽しめるの。直前に探し始めて、ない、コンビニ行く、ってなる方がよっぽど壊れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「それは一回だけだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="304">「一回で十分、歴史になるの」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　水城が金色のチップを二枚加えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　残高は十五枚になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「あと三枚」</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　真一は口元を緩めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「いける」</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　その慢心は、第四問で値札を付けられた。</p>
+<p class="source-line role-narration gap-2" data-source-line="319">　第四問。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　親密な時間の途中で茜が黙るとき、真一が最も恐れていることはどれか。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　Ａ　自分の体を見られていること。</p>
+<p class="source-line role-narration gap-0" data-source-line="324">　Ｂ　早く終わらせたいと思われていること。</p>
+<p class="source-line role-narration gap-0" data-source-line="325">　Ｃ　茜が断れずに合わせていること。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="326">　Ｄ　明日の返済を思い出されること。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「三枚」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="330">　茜が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　真一は止めようとした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="334">「二枚にしない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「分かるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　茜はＤを選んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　正解は、Ｃだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　水城の手が三枚の白いチップを取る。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　結婚二年目の冬。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　三年目の夏。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　四年目の春。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「待って」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　茜が手を伸ばしたが、水城は止めなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　三枚のチップが、順番に溝へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　一枚目で、真一は茜に結婚を申し込んだ場所を失った。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="358">　二枚目で、二人で拾った猫が家に来た日の匂いを失った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="360">　三枚目で、喫茶店を開く前夜、茜が何を言ってくれたかを失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　出来事は残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　駅前でプロポーズした。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　猫の名前はムギだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　茜は開業を応援してくれた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="370">　だが、記憶の中から体温だけが抜け落ちた。新聞記事を読むように、自分の人生を知っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　茜はこめかみを押さえた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="374">「私、何て言った？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="376">「何が」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="378">「お店を開く前の日」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「分からない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「私も分からない」</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　水城は回収したチップを掌で転がしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「立派なことをおっしゃっていましたよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「どうして、あなたが知ってるの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「市場は、よく知っています」</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　茜が立ち上がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="394">「帰る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「現在残高は十二枚です」</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　水城は静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「今お帰りになれば、債務は残り、失った四単位も戻りません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「脅してるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「会計です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「同じでしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「いいえ。脅しには感情があります」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　茜は椅子の背をつかんだまま、真一を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　真一も帰りたかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　ただ、帰れば、明日には口座が凍結される。家具が運び出される。茜の給料まで返済へ吸い込まれる。自分の失敗のせいで。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「あと二問だけ」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="418">　真一は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「取り返せる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「今のあなた、ギャンブルする人の顔してる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「俺は賭け事なんかしない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「だから怖いの。慣れてない人は、負けを取り返すことしか考えなくなる」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　正しかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　正しいから、真一は腹が立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　腹が立った自分が、さらに情けなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「じゃあ、どうする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「私に決めさせないで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「聞いただけだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「あなたの借金なのに、最後の判断だけ私に渡さないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　部屋が静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　水城は十本の指輪を眺めている。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　真一は椅子に座り直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「続けたい。俺が決める。でも、茜が嫌なら、やめる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「それ、矛盾してる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="452">「矛盾したまま聞いてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　茜はしばらく黙り、やがて座った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「二問だけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「うん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「賭ける枚数は、相談する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「うん」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　水城が第五問を置いた。</p>
+<p class="source-line role-narration role-sensory gap-2" data-source-line="467">　茜が最近、触れられることを避けていた最大の理由はどれか。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　Ａ　真一への魅力を感じなくなった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="470">　Ｂ　仕事で疲れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="471">　Ｃ　子どもを望むか決められず、親密さが結論を迫るものに感じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="472">　Ｄ　断ったあと、真一を慰める役まで引き受けるのが苦しかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　真一は選択肢を見つめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　Ａなら終わりだ、と最初に思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　Ｂなら楽だ、と次に思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　Ｃはあり得る。結婚四年目から、双方の親が子どもの話をするようになった。二人は「そのうち」と答え続けた。そのうち、という言葉は便利だった。期限がないふりをして、毎日少しずつ迫ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　だが、真一の目はＤから離れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　断られた夜、彼は黙り込んだ。責めないように気をつけていた。ため息もつかなかった。だから自分は優しいと思っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　けれど茜は、そんな真一の機嫌を戻すために、翌朝いつもより明るく話した。朝食を少し豪華にした。肩を揉んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　断るたびに、後処理をしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「三枚」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="492">　真一は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　茜が眉を上げた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="496">「大丈夫？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「大丈夫じゃない。でも、Ｄ」</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　正解は、Ｄだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　金色のチップが三枚現れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="504">　茜は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「断ることそのものより、その後がしんどかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="508">「黙ってれば、責めてないことになると思ってた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「黙ってる人の空気って、すごくしゃべるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「ごめん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「謝るだけじゃなくて、次から聞いて。今日は抱きしめるだけにする、とか。何もしないで寝る、とか。選べるようにして」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="516">「分かった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「それと、子どものことも、親密な時間と分けて話したい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="520">「分かった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="522">「二回目の分かったは、ちょっと軽い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「じゃあ、今度はちゃんと話す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="526">「それでいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　残高は十五枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　第六問は、茜が真一を当てる番だった。</p>
+<p class="source-line role-narration gap-2" data-source-line="533">　真一が一人で欲求を済ませたあと、最も強く感じることはどれか。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　Ａ　茜に隠している罪悪感。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　Ｂ　自分の年齢への焦り。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="537">　Ｃ　夫婦でいる意味が薄れる不安。</p>
+<p class="source-line role-narration gap-0" data-source-line="538">　Ｄ　誰にも気を遣わずに済んだ安堵と、その安堵を感じたことへの寂しさ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「こういうのも聞くんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　真一は額を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">「品位より気まずさを重視しております」</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　水城が答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　茜は二枚を賭けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「Ｄ」</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　真一は顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「なんで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">「私も同じだから」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="558">　端末が光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　正解、Ｄ。</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　金色のチップが二枚加わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　残高、十七枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　あと一枚。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　真一は息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「もう一問ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「通常問題は終了です」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　水城はテーブルの下から、黒い箱を二つ出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「最終精算へ移ります」</p>
+<div class="source-line scene-break gap-2" data-source-line="579" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="582">　黒い箱には、ボタンが二つ付いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　白いボタンに「共同継続」。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　赤いボタンに「単独清算」。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　水城は二人の間に仕切りを立てた。互いの顔も手元も見えなくなる。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="590">「最終精算の規則を説明します」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="592">　壁に数字が映った。</p>
+<p class="source-line role-narration gap-2" data-source-line="595">　　二人とも「共同継続」</p>
+<p class="source-line role-narration gap-0" data-source-line="596">　　残高を十八枚とし、共同債務を全額清算。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　　一人が「単独清算」、一人が「共同継続」</p>
+<p class="source-line role-narration gap-0" data-source-line="599">　　単独清算を選んだ者の債務を免除し、二千万円を支給。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="600">　　共同継続を選んだ者は、全債務と残存記憶を引き受ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　　二人とも「単独清算」</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　　債務は双方に残る。夫婦残高は全額回収。</p>
+<p class="source-line role-dialogue gap-2" data-source-line="606">「ずるい」</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　仕切りの向こうで茜が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="610">「金融商品は、だいたいそう言われます」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="612">「話し合いは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="614">「できません。制限時間は三分。押したボタンは変更できません」</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　真一は白と赤を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　理屈は簡単だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　茜が白を押すなら、自分は赤を押した方が得をする。借金は消え、二千万円まで手に入る。</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　茜が赤を押すなら、自分も赤を押すしかない。白を押せば、すべてを背負わされる。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　どちらの場合も、赤が合理的だ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="626">　そして茜も、同じ計算をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　二人とも合理的に赤を押せば、二人とも失う。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　真一の喉が乾いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　借金は自分が作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　茜には逃げる権利がある。むしろ赤を押すべきだ。二千万円を持って、この六年間を捨てて、やり直せばいい。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="636">　それなら、自分も赤を押すべきだ。茜が出ていくなら、せめて自分の記憶まで相手に背負わせる必要はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　赤いボタンが、救命具に見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　残り二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　仕切りの向こうからは、何も聞こえない。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　茜は何を考えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　さっき、自分と同じだと言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　一人で済ませたあとの安堵と寂しさ。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　子どもを望むか決められないこと。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　断ったあとまで、真一の感情の面倒を見ていたこと。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　茜は六年間、真一が思っていたよりずっと疲れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　なら、赤だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　赤を押す。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　そう考えた瞬間、真一は気づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　自分はまた、茜のためだと言いながら、茜の選択を先回りしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　彼女は逃げたいかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　残りたいかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　どちらでもいい。どちらを選ぶかは、茜のものだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="670">　信じるというのは、相手が裏切らないと予測することではない。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="672">　裏切れる自由を相手に残したまま、自分の手を決めることだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　残り一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　真一は白いボタンに手を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　茜が赤を押せば、自分は終わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　それでも、白を押す。</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　借金を背負わせたのは自分だ。最後の一回くらい、相手の答えを操作しようとせず、自分の答えだけを出したかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　真一は「共同継続」を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　箱の中で、硬い音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　仕切りが下がる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="690">　茜の前の白いボタンが、光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　二人とも、しばらく何も言えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　水城が拍手をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「最終残高、十八枚。債務は清算されました」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="698">　壁の数字が、</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　１８，０００，０００</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　から、</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　０</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　へ変わった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="708">　真一は椅子の背にもたれた。力が抜け、笑いとも泣き声ともつかない息が出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="710">「どうして白にした？」</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　茜に訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="714">「あなたが赤を押すと思ったから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="716">「それなら、赤にするだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="718">「うん。だから、赤にしようとした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="720">「じゃあ、なんで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「私も、勝手にあなたの答えを決めるの、やめた」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="724">　二人は笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="726">　新婚旅行の笑い方ではなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="728">　その笑い方は、もう失われている。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="730">　けれど、今の二人にしかできない笑い方だった。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="732">「回収された記憶は戻りますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　真一が水城に訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「戻りません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="738">「勝ったのに？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="740">「債務は清算されました。過去は別会計です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="742">「どこへ行ったんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　水城は十本の指輪を軽く鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="746">「必要としている方のところへ」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="748">「誰が、他人の思い出なんか必要とするんですか」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="750">「思い出のない方です」</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　水城は出口の扉を開けた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="754">「どうぞ、未来残高を大切に」</p>
+<div class="source-line scene-break gap-2" data-source-line="757" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="760">　翌朝、銀行のアプリから債務が消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　差し押さえ予告の赤い文字も、ただの印刷に見えた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="764">　真一は会社を休み、茜も午後から有給を取った。二人で区役所へ行って借入関係の書類を確認し、帰りに安いカレーを食べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">「今日、どうする？」</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　夜、寝室で茜が訊いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　以前なら、その質問だけで二人とも身構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="772">「話だけでもいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">「抱きしめるだけでも？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="776">「何もしないで寝てもいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="778">「じゃあ、今日は話して、途中で眠くなったら寝る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="780">「了解」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="782">「それと、了解って言い方、仕事っぽい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="784">「分かった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="786">「その分かったは、まあまあ」</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　灯りを消したあと、二人は子どものことを話した。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　結論は出なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　出なかったことに、どちらも少し安心した。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　結論のない会話を続けられるなら、まだ夫婦でいられる気がした。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="796">　失った記憶は、日常のあちこちに穴を開けた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="798">　写真を見ても、なぜ笑っているのか分からない。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="800">　ムギが初めて家に来た日の動画を再生すると、二人とも泣いた。悲しいからではなく、泣くべき記憶があるはずなのに、それを持っていないことが悲しかった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="802">　それでも、新しい記憶は増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　茜が初めて途中で「今日はここまで」と言い、真一が「分かった」と答えた夜。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　真一が誘われ、嬉しさのあまり歯磨き粉をシャツに落とした夜。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　避妊具の買い置きを、特別なことではなく洗剤と同じように確認できた朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　回数は増えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　会話は増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　真一には、それでよかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　相互理解換金所のことは、夢だったのかもしれないと思う日もあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　借金が消えたという事実だけが、夢ではないと証明していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　三か月後の日曜日、二人は駅前の商業施設へ出かけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　改札を抜けたところで、白髪の男が茜を見て立ち止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　七十歳くらいだった。上等なコートを着て、胸元に小さな桃色のカードを下げている。</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　男の目に、突然、涙が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="828">「茜」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　男は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　真一が前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="834">「どなたですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　男は我に返ったように口を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="838">「すみません。初めてお会いします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="840">「じゃあ、どうして名前を」</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　男は胸元のカードを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　そこには、小さくこう書かれていた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-2" data-source-line="847">　　共有記憶体験サービス</p>
+<p class="source-line role-narration gap-0" data-source-line="848">　　商品番号ＳＫ－０６－０２</p>
+<p class="source-line role-narration gap-0" data-source-line="849">　　新婚期・沖縄・雨天</p>
+<p class="source-line role-dialogue gap-2" data-source-line="852">「妻を三年前に亡くしまして」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="854">　男は困ったように笑った。</p>
+<p class="source-line role-dialogue role-sensory tone-4 gap-1" data-source-line="856">「私たちは新婚旅行へ行けなかった。だから昨夜、半年分だけ買ったんです。目を閉じると、雨の匂いがして、あなたが黄色い傘を持っている。ホテルのベランダで、海が見えないと笑っている」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="858">　茜の顔から血の気が引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="860">　男は真一を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="862">「あなたは砂糖を二つ入れた紅茶を飲んでいました。茜さんは甘すぎると言った。でも最後には、あなたのカップから一口飲んだ」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="864">　真一には、何一つ思い出せなかった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="866">　男の声だけが、失われた自分の過去を正確に語っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「海、きれいでしたね」</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　男は茜に言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　茜は唇を震わせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="874">「雨で、見えなかったんじゃないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「ええ。だから、あなたはこう言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="878">　男は目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="880">「見えないなら、想像した海は二人だけのものだね、と」</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　茜が泣き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　その言葉を、茜自身は覚えていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="886">　真一も覚えていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　見知らぬ男だけが、二人きりだったはずの時間を持っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="890">「返してください」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="892">　真一は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="894">　男は首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「返し方が分かりません。もう、私の人生の中にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　改札の向こうで、発車ベルが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　男は何度も頭を下げ、人混みの中へ消えていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　真一と茜は、その場に立ち尽くした。</p>
+<p class="source-line role-narration gap-1" data-source-line="904">　借金はなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　だが、二人きりだったはずの六年間には、もう値札が付いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　やがて茜が、真一の手を握った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="910">「帰ろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="912">「うん」</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　二人が歩き出したとき、背後から女の声がした。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="916">「あーちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　それは、真一が結婚一年目にだけ使っていた、茜の呼び名だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　二人は振り返らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="922">　振り返らなくても分かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　改札の向こうには、桃色のカードを下げた人々が何人もいて、全員が懐かしそうに、茜を見ていた。</p>
+<p class="source-line end-mark gap-2" data-source-line="927"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

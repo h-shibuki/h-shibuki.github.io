@@ -1,0 +1,931 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="消防士の迅は、初めての火災現場で足が止まった三秒を忘れられない。旧百貨店〈天環館〉の仮装イベントで、衣装制作者の澄花が彼に着せたのは、四十年前の大火で十八人を救い、姿を消した〈銀の消防士〉を再現した服だった。右袖だけが合わない衣装、手首の赤いしつけ糸、火傷を負った管理人の謎めいた助言。そして零時直前、館内で再び炎が上がり、澄花と少女が七階へ消える。逆回りする時計と過去の館内放送のなか、迅は偽物の救助服で火へ向かう。仮縫いの糸は、誰を完成まで連れ戻すのか。">
+<title>零時の仮縫い｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="零時の仮縫い" data-novel-id="零時の仮縫い" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="satirical-sf">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用" selected>風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ヒーロー・アクション・サスペンス</p>
+  <p><strong>補助ジャンル：</strong>ロマンス・SF・タイムトラベル</p>
+  <p><strong>CSVタグ：</strong>ヒーロー、アクション、サスペンス、ロマンス、SF、タイムトラベル、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">風刺SF・日常コメディー</span></p>
+  <p id="currentPresetDescription">親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用</p>
+  <h3>意味色</h3><p>橙＝生活、灰＝企業、赤＝異常、青＝技術、紫＝主題</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：458行／章：6／役割・強度タグ：514</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="零時の仮縫い 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『零時の仮縫い』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="3"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>一</h2>
+<p class="source-line role-narration gap-1" data-source-line="5">　羽鳥迅は、炎よりも採寸が苦手だった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="7">「肩、上げない。胸を張りすぎない。消防士って、立ってるだけでそんなに威圧感を出さなきゃいけないの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　小暮澄花は、口に待ち針をくわえたまま言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="11">「威圧感じゃない。姿勢がいいんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="12">「はいはい。じゃあ、その立派な姿勢のせいで右の袖が一・五センチ足りません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="13">「一・五センチくらい誤差だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="14">「火事場で一・五センチを笑う人に、私は命を預けたくないなあ」</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　そこまで言って、澄花は待ち針を外し、迅の手首にメジャーを巻いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　七月十二日、午後九時四十分。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　琴吹市の旧市街に建つ<span class="term term-world">〈天環館〉</span>六階、衣装工房<span class="term term-world">〈スプール〉</span>には、布と接着剤とアイロンの熱が混じった匂いがこもっていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="21">　天環館は、四十年前まで<span class="term term-world">〈天環百貨店〉</span>だった建物だ。閉店後は長く廃墟同然だったが、耐震改修を経て、今では劇場、ギャラリー、貸し工房の入った文化施設になっている。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="23">　その再開館十周年と、百貨店火災から四十年の節目を兼ねて、今夜は全館貸し切りの仮装イベントが開かれていた。題して<span class="term term-world">〈零時の仮面市〉</span>。参加者は夜通し、映画や漫画や自作世界の住人になって館内を歩く。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　澄花は、そのメインステージに登場する衣装を任されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　迅が着ている銀色の服も、その一着だった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="29">　頭から足首までを覆う、鈍い光沢の救助服。胸には太い留め具、背中には円筒形の装置、肩には折り畳まれた防火マント。もちろん、どれも舞台用の造形物だ。銀色の表地は熱に強そうに見えるだけの化学繊維で、背中の装置は発泡樹脂、留め具は磁石だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　それでも鏡の中の姿には、妙な説得力があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「本物みたいだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="34">「本物じゃ困るよ。重くてステージに上がれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="35">「いや、そういう意味じゃなくて」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　迅は鏡に向かって顎を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　銀色の救助服は、四十年前の火災で撮られた一枚の写真をもとにしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　昭和六十一年七月十二日、午後十一時五十七分。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　閉店作業中の天環百貨店七階から出火。内装材と売り場の布製品に燃え移った火は、吹き抜けを通って一気に広がった。消防隊の到着前、逃げ遅れた十八人を助けた者がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　銀色の服を着た、名もなき救助者。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　新聞写真には、煙の中から子供を抱えて現れる姿が残っている。だが当時、そのような装備を採用していた消防本部はなく、消防団にも、警備会社にも、該当する人物はいなかった。十八人目を運び出したあと、銀色の救助者は建物へ戻り、そのまま消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　以来、琴吹市では<span class="term term-world">〈銀の消防士〉</span>と呼ばれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　澄花は古い新聞写真を拡大し、つぶれた輪郭から縫い目を推測し、見えない背面を想像して、この衣装を作った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「写真の通りに作ると、どうしても右袖だけ変なんだよね」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　澄花が眉間にしわを寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「左より長いのに、手首のところで急に細くなってる。元の人が左右で腕の長さが違ったのかな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="57">「昔の防火服なら、修理の継ぎはぎかもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「でも縫い目がすごくきれい。これ、たぶん仮縫いの糸まで写ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　澄花は机から古い写真のコピーを取り、迅に見せた。</p>
+<p class="source-line role-narration gap-0" data-source-line="61">　銀色の袖口に、針ほど細い黒い線が巻きついている。白黒写真だから色はわからない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「お守りかもな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="64">「じゃあ、こっちにも付けよう」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="66">　澄花は赤いしつけ糸を一本抜き、迅の右手首に結んだ。蝶結びでも固結びでもない、服飾学校で最初に教わる仮止めの結び方だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="68">「本番が終わるまで。ほどけたら縫い直し」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「縁起悪くないか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="70">「逆。仮縫いっていうのは、完成まで戻ってこられるようにしておく印だから」</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　そのとき、工房の扉が三度、ゆっくり叩かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　立っていたのは、天環館の管理人、久世という老人だった。背が高く、白髪を短く刈り、左のこめかみから顎まで古い火傷の痕が走っている。迅は何度か会ったことがあるが、正面から目を合わせると、不思議に胸がざわついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　老人の後ろには、白髪をひとつに結んだ同じ年頃の女性がいた。管理人夫人らしい。彼女は机の端で開いたままになっていた裁ちばさみを閉じ、そっと内側へ寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「急いでいるときほど、刃を開いたまま置かないこと」</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　その左親指には、澄花が学生時代に回転式カッターで作ったのとよく似た、三日月形の傷があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「そろそろ最終点検です。六階は十一時半で施錠します」</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　久世はそう言い、銀色の迅を眺めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="85">　その視線は、衣装の出来栄えを褒めるものでも、仮装を面白がるものでもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　失くしたものが、帰ってきたときの目だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="89">「右の袖口を、二センチ詰めなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　老人は澄花に言った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="93">「え？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「扉の把手に引っかかる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="95">「どうしてわかるんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="96">「この建物は、出っ張りが多いからね」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　久世は微笑んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="99">　その右手首には、色あせた赤い糸が、細い腕輪のように巻かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　澄花が何か尋ねる前に、老人は廊下へ出た。すれ違いざま、迅の肩を二度、軽く叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">「今度は、音のするほうへ行け」</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　迅は振り返った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="107">「今度は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　久世は答えず、夫人と並んで非常灯の下を歩いていった。夫人だけが一度振り返り、澄花の右手首を確かめるように見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　澄花が、迅の顔をのぞき込んだ。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="113">「知り合い？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「いや」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「顔色悪いよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="116">「照明のせいだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　嘘だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　三か月前、迅は消防士になって初めて、要救助者のいる火災に入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="121">　木造アパートの二階。寝室から子供の泣き声が聞こえていた。先輩隊員の後ろについて進み、あと一枚、扉を開ければよかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　そのとき天井裏で何かが崩れ、火の粉が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　迅の足は、三秒止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　先輩は振り返りもせず、扉を蹴り開け、子供を抱き上げた。全員無事だった。迅も処分を受けなかった。むしろ初出場にしてはよく動いたと言われた。</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　だが迅の中では、あの三秒がまだ燃え続けている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">「俺さ」</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　気づくと、迅は鏡の中の銀色の男に向かって話していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「制服を着てるだけなんじゃないかって思うときがある」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="136">「制服？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="137">「消防士の。中身が追いついてないのに、服だけ先に本物になったみたいで」</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　澄花は笑わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　迅の背後に回り、銀色の肩を両手で整えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「衣装も制服も、着ただけで人を変えたりしないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　鏡越しに、目が合った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="147">「でも、人は着たものに恥ずかしくない自分になろうとする。私は、その最初の一歩に合う寸法を測ってるだけ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="148">「一・五センチまで？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="149">「一ミリでも」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　澄花は銀色の胸当てを指で弾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">「これは偽物。でも、この服を着た迅が何をするかまでは、偽物じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　迅はしばらく黙り、それから言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「本番が終わったら、飯に行かないか」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="158">「衣装の感想会？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="159">「二人で」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="160">「それは、いま答えないとだめ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="161">「できれば」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="162">「じゃあ、右袖が無事だったら考える」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　澄花は背を向けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="165">　耳だけが赤かった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-1" data-source-line="167"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>二</h2>
+<p class="source-line role-narration gap-1" data-source-line="169">　午後十一時四十八分。</p>
+<p class="source-line role-narration gap-0" data-source-line="170">　天環館一階の吹き抜けは、別世界の住人で埋まっていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="172">　鎧の騎士、機械仕掛けの天使、魔法学校の生徒、怪獣、幽霊、宇宙飛行士。手作りの羽根や剣や尻尾が照明を受け、色とりどりに揺れている。ステージ上では司会者が、零時のカウントダウンを始める準備をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　迅は銀色の救助服姿で、舞台袖に立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="175">　澄花は胸の留め具を直し、最後に右袖を引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「二センチ、詰めた」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="178">「一・五じゃなく？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「管理人さんを信じてみた」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="180">「俺より？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「採寸についてはね」</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　そこへ、小さな宇宙飛行士が走ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="184">　透明な丸いヘルメットをかぶった、十歳くらいの女の子だった。胸には手書きで<span class="term term-world">〈ひな・月面調査隊〉</span>とある。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="186">「銀の消防士さん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　少女は迅を見上げ、目を輝かせた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="190">「本物？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="191">「衣装は偽物」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="192">「じゃあ中の人は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="193">「いちおう本物」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="194">「すごい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　ひなは両手を上げた。その背中の酸素ボンベは、菓子の筒を銀紙で包んだものだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「私、七階のフォトスポットに手袋忘れちゃった。お母さんに怒られるかな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「取りに戻るのはだめ。もう上の階は閉まる時間だ」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="200">「でも、月面では手袋ないと死んじゃう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="201">「地球では、忘れ物より帰ることのほうが大事だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　ひなは不満そうに頬を膨らませたが、やがて頷き、人混みへ戻っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　その数秒後、迅は匂いを感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　甘く、鼻の奥に貼りつくような匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="208">　熱せられた電線の被覆が溶ける匂いだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　顔を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　吹き抜けの上、六階と七階の間に吊られた巨大な月のオブジェ。その裏側から、髪の毛ほど細い煙が上がっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　迅が舞台袖を飛び出した瞬間、月の裏で青い火花が散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　ぱん、と乾いた音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　白い綿で作られた雲の飾りが、一息に橙色へ変わった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="220">「火事だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　迅の声は、マイクを通さなくても吹き抜けの端まで届いた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="224">「飾りを置いて、東側と南側の出口へ！　走るな、立ち止まるな！　エレベーターは使わない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　誰かが演出だと思って拍手した。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　だが天井から燃えた布片が落ちると、歓声は悲鳴に変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　迅は最寄りの発信機を押し、館内電話を取った。場所、階数、火と煙の状況を短く伝える。近くのスタッフに避難誘導を任せ、消火器を持つ別のスタッフには、炎が天井へ達する前だけ使うよう指示した。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　しかし火は速かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　月のオブジェから垂れた装飾布を伝い、炎が六階の手すりへ走る。吹き抜け上部にたまった煙が、黒い天井のように厚くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　警報ベルが一度鳴り、途切れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　館内が暗くなり、非常灯へ切り替わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　迅は舞台袖へ戻った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="240">「澄花！」</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　返事がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　床に、澄花の裁ちばさみが落ちていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　その隣に、銀紙で包まれた小さな筒。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　ひなの酸素ボンベだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　迅の胃が冷たくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　スタッフが駆け寄ってきた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="253">「女の子が七階へ戻ったって！　小暮さんが追いかけました！」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="254">「北階段は？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="255">「煙で使えません。西階段は防火扉が閉まらない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="256">「消防隊は」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="257">「もう到着するはずです！」</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　外から、かすかにサイレンが聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　迅は銀色の胸当てを外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="262">　こんな衣装は火の中で何の役にも立たない。むしろ溶ければ皮膚に貼りつく。全部脱ぐべきだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　だがそのとき、館内放送が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　ざあっ、という古いテープの雑音。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">『ただいま、七階子供服売り場におきまして、火災が発生しております』</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　若い女性の声だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　いまの天環館に、子供服売り場などない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">『お客様は係員の指示に従い、中央階段を避け――』</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　放送はそこで歪み、低い唸りへ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　吹き抜けの大時計が、十一時五十九分を指していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　秒針だけが、逆向きに進んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　迅は銀色の胸当てを握ったまま、動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　また三秒が来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　そう思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　一秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　二秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　どこか上の階から、金属を叩く音がした。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="291">　かん、かん、かん。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　三秒目が終わる前に、迅は走っていた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-1" data-source-line="295"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>三</h2>
+<p class="source-line role-narration gap-1" data-source-line="297">　六階へ上がる東階段は、まだ煙が薄かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　迅は壁沿いに進み、階段室の扉を閉めながら上がった。途中の避難器具庫から、簡易型の避難用フードを二つ取る。正式な防火装備も空気呼吸器もない。これ以上熱が上がれば引き返すしかない。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　六階の踊り場で、久世が立っていた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="303">　老人は煙の中でも、驚くほど落ち着いていた。片手に古い真鍮の鍵を持ち、もう一方の手で壁の一角を指している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「そこに扉がある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="306">「壁しかない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="307">「いまは、な」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="309">　久世は鍵を迅へ投げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">「十一時五十九分だけ、昔の建物が戻る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="312">「何を言ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="313">「音のするほうへ行け」</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　上から、かん、かん、とまた音がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「あなたは何を知ってるんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="318">「四十年分だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　非常灯が明滅した。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　一瞬だけ、壁に鉄の扉が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="323">　次の瞬間には、また灰色の壁へ戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　久世は迅の右袖を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　赤い糸が揺れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「今度こそ、間に合え」</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　迅が問い返す前に、濃い煙が階段を横切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="331">　視界が戻ったとき、老人はいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　壁には、鉄の扉が残っていた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="335">　迅は真鍮の鍵を差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　扉の向こうから、熱風が吹いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　そこは六階ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　蛍光灯の並ぶ、古い百貨店の売り場だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　色あせた婦人服。木製の陳列台。赤い文字の<span class="term term-world">〈夏物大処分〉</span>。天井から黒煙が垂れ下がり、遠くでガラスの割れる音がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　迅のスマートフォンが震えた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="345">　画面の日付は、一九八六年七月十二日。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　十一時五十九分二十秒。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「冗談だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　背後の扉が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　同時に、迅の銀色の衣装が重くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　発泡樹脂だった背中の円筒が、鋼鉄のような質量を持つ。胸の磁石式留め具が硬い金属へ変わり、薄い表地の下を冷たい空気が流れた。透明な飾り板だった面体が顔を覆い、内部に白い文字が灯る。</p>
+<p class="source-line role-narration gap-1" data-source-line="357"><span class="term term-world">〈残圧　十分〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="358"><span class="term term-world">〈要救助者　十八〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="360">　耳元で無線が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">『未確認隊員へ。七階、逃げ遅れ多数。応答せよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　迅は息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　本来なら溶けるはずの衣装が、本物の防火服になっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="367">　いや、本物という言葉さえ足りない。四十年後の想像から作られた服が、四十年前の火災の中で、初めて現実になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　無線の向こうで声が繰り返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">『応答せよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　迅は胸元の送信ボタンを押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「羽鳥、進入します」</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　そのとき、売り場奥から金属音がした。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="379">　かん、かん、かん。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="381">「迅！」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　澄花の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　煙の下を這い、閉じたシャッターを裁ちばさみの柄で叩いている。隣にはひながいた。二人とも床すれすれに身を伏せていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　迅は駆け寄り、避難用フードを二人にかぶせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「どうしてここに」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="390">「こっちの台詞！　七階の試着室に入ったら、鏡の中が急に昔になって――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="391">「ひな、歩けるか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="392">「うん。でも、月面より煙たい」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　強がっているが、声が震えていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="396">　迅はシャッターの隙間を確認した。向こう側から炎の光が脈打っている。正面突破はできない。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　澄花が天井を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「この売り場、今の七階と柱の位置が同じ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="401">「わかるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="402">「半年、ここで衣装作ってる。壁紙より見てるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　彼女は床の模様を指でなぞった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「この先に、昔の搬入口があるはず。今はフォトスポットの裏側」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="407">「そこまで行ければ、現在の消防隊と合流できるかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　迅はひなを背負った。</p>
+<p class="source-line role-narration gap-0" data-source-line="410">　澄花は自分の腰に、衣装用の細いベルトを巻いた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="412">「それは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="413">「空中演技用のハーネス。見た目はリボンだけど、中は人を吊れる規格品」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="414">「なんで持ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="415">「衣装屋をなめないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　三人は姿勢を低くし、売り場の奥へ進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　迅が前方の熱と煙を確認し、澄花が柱や売り場の記憶から道を選ぶ。ひなが咳をすると立ち止まり、フードの密着を確かめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　途中、倒れた陳列棚の下から手が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　一九八六年の店員だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="424">　迅は棚を持ち上げ、澄花が肩を引き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="426"><span class="term term-world">〈要救助者　十七〉</span></p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="428">　面体の表示が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「この人を置いていけない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="431">「置いていかない」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　澄花は即答した。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　彼女は売り場のカーテンを裂き、ハーネスの補助ベルトと合わせて簡易の担架を作った。結び目は小さく、無駄がなく、引く方向にだけ強く締まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「縫う時間はないから、今日は結ぶだけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="438">「十分だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　四人で進む。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　また一人、煙に倒れた客を見つけた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="443">　さらに、試着室に閉じ込められた母子。</p>
+<p class="source-line role-narration gap-0" data-source-line="444">　倉庫の机の下で震える若い店員。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　迅は扉を開けるたび、あの三秒を思い出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　だが足は止まらなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　恐怖が消えたわけではない。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="450">　恐怖より先に、次にすることを選べるようになっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　面体の数字が減っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="454"><span class="term term-world">〈十二〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="455"><span class="term term-world">〈九〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="456"><span class="term term-world">〈六〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="458">　搬入口の前には、床から天井まで防火シャッターが下りていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="459">　脇の操作盤は焼け、巻き上げ機構は動かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　澄花は壁を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「この向こうが、今のフォトスポット」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="464">「切れるか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="465">「シャッターは無理。でも、脇の点検口なら」</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　彼女は裁ちばさみを迅へ渡した。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="468">　迅が銀色の刃先を点検口へ差し込むと、裁ちばさみまで白い光を帯びた。薄い鉄板が、布のように開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　穴の向こうに、鏡が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　鏡の中には、二〇二六年の七階が映っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="473">　黒い防火服の消防隊員が、煙の中でこちらを探していた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="475">「おい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　迅が叫ぶと、隊員が振り向いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="478">　互いの姿が見えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　鏡の表面に水のような波紋が広がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="482">『あと十五秒です』</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　無線が告げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">『時間境界、閉鎖まで十五秒』</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　迅は点検口を広げた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="490">「ひなから！」</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　澄花がひなを抱き、鏡へ押し出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="493">　少女の体が銀色の面を通り抜け、向こう側の隊員に受け止められた。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　続いて、救助した店員と客を一人ずつ送る。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　一九八六年の人々が二〇二六年へ出れば、歴史が壊れるのではないか――そんな考えが頭をよぎったが、鏡を抜けた彼らは、向こう側で薄い光になり、同じ場所の床へ溶けるように消えた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="498">　過去へ戻ったのだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="499">　ただし、煙の外へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="501"><span class="term term-world">〈要救助者　一〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="503">　最後の母子を通したところで、鏡の縁が狭くなった。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="505">「澄花、先に行け！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="506">「迅は」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="507">「すぐ行く！」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　澄花は首を振った。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　そのとき、背後から小さな泣き声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　売り場の奥。</p>
+<p class="source-line role-narration gap-0" data-source-line="514">　炎の向こう。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　ひとり。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="518">　面体の数字は<span class="term term-world">〈一〉</span>のままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　迅と澄花は、同時に気づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　まだ、泣いている子供が一人残っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">『十秒』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「行って」</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　迅は澄花の肩をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「向こうへ戻れ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="530">「戻って、どうするの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="531">「生きる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="532">「迅を置いて？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="533">「子供がいる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「だから一緒に行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　澄花は腰のハーネスを締め直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「火の中で一・五センチを笑う人に、命を預けたくないって言ったでしょ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="540">「今は二センチ詰めた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="541">「じゃあ、なおさら一人で行かせない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">『五秒』</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　鏡の向こうで、消防隊員が腕を伸ばしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　迅は一瞬だけ、澄花の手を握った。</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　赤いしつけ糸が、二人の手首の間で揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「夕飯」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="551">「覚えてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="552">「右袖は無事だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="553">「帰れたら答える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">『三、二――』</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　澄花は鏡へ裁ちばさみを投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　刃が境界を抜けた瞬間、鏡は暗い壁へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　零時。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　二人は一九八六年に残った。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-1" data-source-line="565"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>四</h2>
+<p class="source-line role-narration gap-1" data-source-line="567">　子供は、玩具売り場のレジ台の下にいた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="569">　迅の空気は残り三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="570">　天井の煙が低くなり、熱で照明器具が歪んでいる。出口まで同じ道は使えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　澄花が壁の案内図を引き剥がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「屋上へ行く階段が、北側にある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="575">「そこは火元に近い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="576">「でも途中にミシン室がある。外壁側の窓に面してる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="577">「ミシン室？」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="578">「この百貨店、裾直しを館内でやってた。古い図面で見た」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　迅は子供を抱き上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　六歳ほどの男の子だった。名札には<span class="term term-world">〈くぜ　しんいち〉</span>とある。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="583">「久世……」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　少年は泣きながら迅の銀色の胸をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「おじいちゃんが、銀の人が来るって言ってた」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="588">「おじいちゃん？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="589">「夢で」</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　考える時間はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　三人は北へ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="594">　途中、炎が通路を横切った。迅は銀色のマントを広げ、澄花と子供を覆う。舞台用なら一瞬で燃え落ちるはずの布が、白く輝いて熱を弾いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　右袖が、倒れた扉の把手をかすめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　二センチ詰めていなければ、引っかかっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　迅は笑いそうになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　四十年後の老人の忠告に、四十年前の自分が救われている。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　ミシン室の窓は、熱で膨らんで開かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　澄花が作業台の足を蹴り、迅がそれを振り下ろす。ガラスが割れ、夜気が流れ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　下に消防隊のはしご車が見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="607">　まだ誰も、窓の三人に気づいていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　澄花はカーテンを裂き、少年の体に巻いた。余った布を折り返し、手早く結ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="611">「それ、ほどけないか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="612">「仮縫いじゃないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　迅は少年を抱いて窓辺に立ち、銀色のマントを大きく振った。</p>
+<p class="source-line role-narration gap-0" data-source-line="615">　下で隊員が気づく。</p>
+<p class="source-line role-narration gap-0" data-source-line="616">　はしごが旋回を始めた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="618">　面体の表示が変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="620"><span class="term term-world">〈要救助者　零〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="622">　少年を隊員へ渡した瞬間、銀色の装備から力が抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　背中の円筒は軽い発泡樹脂へ戻り、胸の留め具は磁石になった。面体の表示が消え、熱が一気に押し寄せる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="626">「迅！」</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　澄花が彼の襟をつかみ、窓からはしごへ引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　二人が地上へ降りた直後、七階の窓から炎が噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　零時七分。</p>
+<p class="source-line role-narration gap-0" data-source-line="633">　天環百貨店の正面には、濡れたアスファルトの匂いと、煤だらけの人々の泣き声が満ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　救助された十八人は、全員生きていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　銀色の救助者と、白い作業着の女を除いて、二人の名前を知る者はいなかった。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-1" data-source-line="639"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>五</h2>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="641">　夜明け前、迅と澄花は救急車の脇に並んで座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　銀色の衣装は煤で黒くなり、右袖だけが裂けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　赤いしつけ糸は、まだ手首に残っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「ここ、一九八六年なんだよな」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　迅が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="650">「たぶん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="651">「俺たち、まだ生まれてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="652">「そうだね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="653">「スマホは圏外」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="654">「充電器も四十年後」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-0" data-source-line="655">「消防署へ行って、本当のことを話したら信じると思う？」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-0" data-source-line="656">「銀色の発泡樹脂を着た未来人が、鏡を抜けて来ましたって？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="657">「厳しいな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="658">「衣装の説明だけなら私がする」</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　二人は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="661">　笑うしかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　東の空が、煙の向こうで青くなり始めている。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　新聞記者が近づき、名前を尋ねた。</p>
+<p class="source-line role-narration gap-0" data-source-line="666">　迅と澄花は顔を見合わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　本名を名乗れば、四十年後に同じ名前の人間が生まれたとき、何が起きるかわからない。黙って消えれば、戸籍も金も住む場所もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　澄花は、救助した少年が落としていった名札を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="672"><span class="term term-world">〈くぜ　しんいち〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="674">「久世です」</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　彼女は記者に言った。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="678">「久世……？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="679">「久世迅。こっちは、久世澄花」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="680">「ご夫婦ですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　迅がむせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="683">　澄花は一拍だけ黙り、それから平然と答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="685">「仮縫い中です」</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　記者は意味がわからないまま、手帳にそう書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　遠くで、救助された少年が手を振っている。</p>
+<p class="source-line role-narration role-clue tone-3 gap-1" data-source-line="691">　のちに少年とその家族は、身元のない二人に住む場所と<span class="term term-world">〈久世〉</span>の名を貸すことになる。そして四十年後、成長した少年は、天環館の改修で見つかった真鍮の鍵を、年老いた迅へ返す。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　歴史は、縫い目を隠すように閉じていった。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="695">「夕飯の約束だけど」</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　澄花が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「右袖、破れたよ」</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-0" data-source-line="700">「無事に戻った判定にはならない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="701">「戻る場所が四十年ずれた」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="702">「じゃあ、答えは四十年後？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="703">「その前に、戸籍と仕事と住む家」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="704">「現実的だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="705">「衣装屋だから。夢みたいなものほど、縫い代を多めに取るの」</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　澄花は迅の右袖をつまんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="709">「でも、まあ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="710">「まあ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="711">「夕飯くらいなら、今日でもいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　午前六時、二人は駅前の食堂へ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="714">　未来では伝説と呼ばれる二人が、初めて同じ朝を歩いた。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-1" data-source-line="716"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>六</h2>
+<p class="source-line role-narration gap-1" data-source-line="718">　二〇二六年七月十三日、午前零時七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　天環館七階のフォトスポットで、消防隊員が鏡の前に倒れているひなを発見した。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="721">　少女の腕には、四十年前の百貨店の値札がついた布が巻かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　羽鳥迅と小暮澄花は、館内のどこにもいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　同じ夜、管理人の久世夫妻も姿を消した。</p>
+<p class="source-line role-narration gap-0" data-source-line="726">　自宅の食卓には二人分の皿が並び、湯気の消えかけたスープが残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　壁には、四十年分の写真があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　一九八六年、煤だらけの若い男女。</p>
+<p class="source-line role-narration gap-0" data-source-line="731">　一九九六年、小さな縫製工房の前で笑う夫婦。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="732">　二〇〇六年、消防設備会社の作業服を着た男と、舞台衣装の賞状を持つ女。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="733">　二〇一六年、改修された天環館の鍵を受け取る二人。</p>
+<p class="source-line role-narration gap-0" data-source-line="734">　二〇二六年、銀色の衣装を挟んで立つ、白髪の夫婦。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　最後の写真の裏には、老いた澄花の字で一行だけ書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="738"><span class="term term-world">〈仮縫い完了。右袖、二センチ。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="740">　その朝、地元紙は四十年前の火災写真を再掲載した。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　これまで煙で見えなかった部分が、最新の画像処理で初めて鮮明になったという。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　銀色の救助者の隣に、白い作業着の若い女が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="744">　女の右手には裁ちばさみがあり、二人の手首は一本の赤い糸で結ばれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　記事の見出しは、こうだった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="748"><span class="term term-world">〈名もなき二人、十八名を救う〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="750">　その下に、小さな訂正記事が載っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　天環百貨店火災の発生時刻は、長年「午後十一時五十七分」とされてきたが、保存されていた館内時計の記録から、正確には「午後十一時五十九分」であった。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　ただし、その時計は出火後の一分間だけ、針が逆向きに進んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　理由は、今もわかっていない。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

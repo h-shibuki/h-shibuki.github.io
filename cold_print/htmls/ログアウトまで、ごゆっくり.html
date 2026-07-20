@@ -1,0 +1,979 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="人づきあいよりゲームの穴を見つけるのが得意な特待生・久世凪は、学園の華〈迎賓遊戯部〉から奇妙な攻略へ招かれる。舞台は、客の記憶から望みどおりの体験を作る仮想ホテル。設計図にない客室零号では、正体不明の客が二千九百四十七夜もチェックアウトを待っていた。過去七回の挑戦は全滅し、敗北するたび現実で大切な誰かの名前を失う。しかもログインした凪の役職は案内役ではなく「客」。不快な真実を忘れさせ、完璧に満足させようとするホテルで、親切すぎるルールの抜け穴を探す夜が始まる。">
+<title>ログアウトまで、ごゆっくり。｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="ログアウトまで、ごゆっくり" data-novel-id="ログアウトまで、ごゆっくり" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ミステリ・ホラー</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・SF・学園</p>
+  <p><strong>CSVタグ：</strong>アクション、ミステリ、ホラー、ジュブナイル、SF、学園</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：518行／章：0／役割・強度タグ：597</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="ログアウトまで、ごゆっくり。 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『ログアウトまで、ごゆっくり。』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　名門校には、校則より強いものが三つある。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　家柄。寄付金。そして、笑顔で差し出される招待状だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　放課後、私の机に置かれていた封筒は、その三つ目だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　黒い紙に銀の箔押し。宛名は「久世凪様」。差出人は、私立鏡陵学園・迎賓遊戯部。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　そんな部があることくらいは知っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　通称<span class="term term-world">〈パレス〉</span>。旧天文台を改装した部室で、選び抜かれた生徒たちが紅茶を注ぎ、会話を磨き、学園祭や寄付者向けの催しを演出する。校内ネットには、部員が廊下を歩いただけで「今日の尊さ」という速報が立つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　つまり、私とは最も縁遠い場所だ。</p>
+<p class="source-line role-narration role-clue tone-2 gap-1" data-source-line="15">　私は特待枠で入った二年生で、制服の袖口を自分で繕い、昼休みは購買のパンを三分で食べ、残り時間をフルダイブゲームの攻略掲示板に費やす。人と目を合わせるより、当たり判定の抜け穴を見つけるほうが得意だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　封筒を裏返す。</p>
+<p class="source-line role-narration gap-0" data-source-line="18">　封蝋の中央に、小さく文字が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　――ＧＵＥＳＴ：００００。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　嫌な予感はした。</p>
+<p class="source-line role-narration gap-0" data-source-line="23">　だが、嫌な予感というものは、たいてい高難度コンテンツの入口でもある。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　私は封を切った。</p>
+<div class="source-line scene-break gap-2" data-source-line="28" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="31">　旧天文台の扉を開けると、星空の代わりにシャンデリアが降っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　丸い部屋。濃紺の絨毯。磨き上げられたテーブル。壁際には最新型のフルダイブチェアが五台並び、その奥では、現実に存在していいのか疑わしい四人が一斉に立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="35">「ようこそ、久世凪さん。君が来てくれると信じていたよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　中央の青年が、舞台の幕でも開けるように両腕を広げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　九条院礼。三年生。迎賓遊戯部部長。金茶の髪に、作り物じみて整った顔。学園案内の表紙で三年連続ほほえんでいる男だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="40">「信じる前に、私の予定を確認するという発想はなかったんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="41">「予定なら確認済みだ。今日は十七時から二十三時まで、ゲーム<span class="term term-world">〈亡骸食堂オンライン〉</span>の期間限定レイドを周回するつもりだったね」</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　細い眼鏡の青年が、タブレットから顔を上げずに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「瀬尾透真。副部長。人物情報と会話設計を担当している」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="46">「怖い調査をしないでください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="47">「公開プロフィールだけだ。君のゲーム内名が<span class="term term-world">〈ＮＡＧＩ＿４０４〉</span>であることも、全サーバーで唯一、最終ボスを木製スプーンだけで倒したことも公開情報だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="48">「そこまで公開した覚えはありません」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="50">「木製スプーンで？」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　ソファから身を乗り出したのは、小鳥遊未都。短く切った黒髪に、宝石みたいなピアスを並べた二年生だ。迎賓遊戯部の衣装と仮想空間設計を担当しているらしい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="54">「いいね。品がない」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="55">「褒めてます？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="56">「最高に」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　最後の一人、大門岳は、私の肩幅の二倍ありそうな体で小皿を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「とりあえず、シュークリームを」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="61">「毒入りですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="62">「カスタード入りだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="63">「ではいただきます」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="65">　甘いものに罪はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　私が一口かじるのを待って、九条院先輩は声を落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">「単刀直入に言おう。今夜、僕たちと一緒にゲームを攻略してほしい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="71">「接待をする部が、攻略ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">「僕たちの接待は、紅茶と世間話だけではない。相手が望む物語を、一晩だけ現実にする。それが迎賓遊戯部だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　壁面が淡く光り、映像が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　夜の海に建つ、巨大なホテル。</p>
+<p class="source-line role-narration gap-0" data-source-line="78">　無数の窓を持つ黒い塔が、満月を串刺しにしている。玄関には金文字の看板。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　ＮＯＣＴＵＲＮＥ　ＰＡＬＡＣＥ。</p>
+<p class="source-line role-dialogue role-system tone-3 gap-1" data-source-line="82">「学園が開発した没入型迎賓システム。客の嗜好や記憶から、最適な仮想体験を生成する。僕たちは試験運用と演出を任されている」</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　透真先輩が画面を切り替えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="86">「問題は、毎月最終金曜日の午前零時にだけ、存在しない客室が出現することだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　ホテルの階層図。その最下部に、設計図にはない部屋が点滅していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　ＲＯＯＭ：０。</p>
+<p class="source-line role-narration gap-0" data-source-line="91">　ＧＵＥＳＴ：ＵＮＫＮＯＷＮ。</p>
+<p class="source-line role-narration gap-0" data-source-line="92">　ＷＡＩＴＩＮＧ：２９４７　ＮＩＧＨＴＳ。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="94">「二千九百四十七夜？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「約八年だ」と透真先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「中にいるお客様を満足させ、ロビーまでお見送りする。それが今夜の任務だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　九条院先輩は優雅に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「ただし、過去七回、僕たちは全滅している」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「優雅に言う情報じゃないですね」</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-1" data-source-line="106">「死亡ペナルティは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　私が尋ねると、四人の表情がわずかに固まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　未都先輩が耳のピアスを一つ、指で弾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「名前を一つ、忘れる」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="114">「ゲーム内の？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「現実の」</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　部屋が急に広くなったように感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　大門先輩が、空になった小皿を見つめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「前回、俺は小学校の担任の名前を忘れた。顔も声も覚えているのに、そこだけ白い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「私は飼っていた猫の名前を忘れた」と透真先輩。「記録には残っている。だが見ても、自分の記憶だという実感がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　九条院先輩は何も言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　その沈黙だけで、彼がもっと大きなものを失っているとわかった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="130">「それで、バグ利用が得意な私を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「君は不親切なゲームに強い」と九条院先輩は言った。「そして、このゲームは、おそらく親切すぎる」</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　妙な言葉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　私は壁のホテルを見た。窓の一つだけが、呼吸するように明滅している。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　八年間、待っている誰か。</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　攻略不能。死亡時に現実記憶の損失。正体不明の隠しエリア。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　気づけば、口元が少し上がっていた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="144">「報酬は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「学食のデザート券、一年分」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「安い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「迎賓遊戯部への入部権」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「もっといらない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「では、僕から君への貸しを一つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「それが一番高そうなので、それで」</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　九条院先輩は、勝ち誇ったように笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「交渉成立だ」</p>
+<div class="source-line scene-break gap-2" data-source-line="163" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="166">　フルダイブの瞬間は、眠りに落ちる感覚とは違う。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="167">　現実の重さが一枚ずつ剥がれ、代わりに別の世界の規則が骨に流し込まれてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　目を開けると、私は夜の海に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　正確には、海の上に敷かれた赤い絨毯の上だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="172">　頭上には逆さまの波。足元には星空。正面では、ノクターン・パレスの回転扉が、私たちを待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　九条院先輩の白い礼装には、<span class="term term-world">〈ＭＡＳＴＥＲ　ＯＦ　ＣＥＲＥＭＯＮＹ〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="175">　透真先輩の黒衣には、<span class="term term-world">〈ＡＮＡＬＹＳＴ〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="176">　未都先輩は銀糸の外套をまとい、<span class="term term-world">〈ＴＡＩＬＯＲ〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　大門先輩の両腕には巨大な菓子箱型の盾、<span class="term term-world">〈ＣＨＥＦ〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　私の胸元にも役職が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　<span class="term term-world">〈ＧＵＥＳＴ〉</span>。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="183">「……客？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「表示ミスだろう」と透真先輩。「本来、攻略補助者には<span class="term term-world">〈ＧＵＩＤＥ〉</span>が割り当てられる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="187">「嫌なバグですね」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="189">「君はバグが好きなのでは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「敵のバグは好きです。自分の名札に出るバグは嫌いです」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　回転扉を押す。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　ロビーでは、顔のない従業員たちが一斉に頭を下げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「お帰りなさいませ」</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　声が重なった瞬間、システム表示が赤く染まった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="201">　――警告。</p>
+<p class="source-line role-narration gap-0" data-source-line="202">　――チェックアウト未完了の客室があります。</p>
+<p class="source-line role-narration gap-0" data-source-line="203">　――新規宿泊者一名を確認。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　新規宿泊者。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　私のことだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　その意味を考える前に、鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　従業員たちの首が、同時に百八十度回転した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「お荷物を、お預かりいたします」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　白手袋が伸びる。</p>
+<p class="source-line role-narration gap-0" data-source-line="215">　手ではない。肘から先が銀のナイフになっていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="217">「接客開始だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　九条院先輩が指を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　彼の周囲に金色の文字が展開する。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　<span class="term term-world">〈ご指名ありがとうございます〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　すべての従業員が、うっとりした顔のない顔を彼へ向けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="226">　強制注目。つまり、挑発スキルだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="228">「部長がタンクなんですか！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="230">「注目を集めるのは得意でね！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="232">「日常と役割が一致しすぎてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　大門先輩が菓子箱の盾を地面に叩きつけた。蓋が開き、焼きたてのエクレアが弾丸のように飛ぶ。従業員の胸に命中すると、クリームが爆発し、行動速度低下の表示が出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「食べ物で遊ぶなって習いませんでした？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="238">「これは回復アイテムだ。敵に当てると糖分過多になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　ゲーム理論としては理解できる。倫理は理解できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　未都先輩が銀の糸を宙へ走らせる。切り裂かれた空間がファスナーのように開き、ロビーの柱と二階の手すりが縫い合わされた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="244">「ショートカット作った！　三十秒で閉じるよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　私は走った。</p>
+<p class="source-line role-narration role-system role-clue tone-2 gap-0" data-source-line="247">　大理石の床を三歩。配膳台へ跳び、転倒判定が出る直前にメニュー画面を一度開いて硬直を切る。そのままシャンデリアの鎖を蹴り、二階へ。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="249">「今の動き、仕様か？」と透真先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「仕様書にないだけで仕様です」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　背後で九条院先輩が叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="255">「その理屈は、校則違反にも使えるかな！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="257">「使ったら退学になるやつです！」</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　廊下へ滑り込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="260">　壁の絵画が口を開け、無数の褒め言葉を吐いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　――素晴らしいお客様です。</p>
+<p class="source-line role-narration gap-0" data-source-line="263">　――あなたは正しい。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　――あなたは特別。</p>
+<p class="source-line role-narration gap-0" data-source-line="265">　――あなたに不快なものは、すべて排除します。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　言葉が泡のようにまとわりつく。触れるたび、視界の端に<span class="term term-world">〈満足度＋１〉</span>と表示された。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="269">「避けろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　透真先輩が鋭く言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　直後、褒め言葉を浴びすぎた壁が膨張し、廊下を押し潰し始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="275">「褒め殺しって、物理攻撃だったんですね」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="277">「このホテルでは肯定が多いほど逃げ道が減る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　私は壁を蹴り、まだ一度も褒めてこない非常口へ体当たりした。</p>
+<p class="source-line role-narration gap-0" data-source-line="280">　鍵がかかっている。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="282">　普通なら、解除用の鍵を探す場面だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　だが、ドア枠の右下に、ほんの一瞬だけ照準が吸われた。</p>
+<p class="source-line role-narration role-clue tone-2 gap-1" data-source-line="286">　当たり判定がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　私は髪に挿していた装飾ピンを抜き、そこを突いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　非常口全体が裏返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　華やかな廊下が消え、むき出しの配線と灰色の保守通路が現れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">「隠しルート発見」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「美しくないね」と九条院先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「最短です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「それは美しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　五人で駆ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="303">　保守通路の先には、数字のないエレベーターがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　扉が開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="306">　中には、燕尾服を着た黒い人影が立っていた。顔の位置に、金色の鍵穴が一つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">「総支配人ノクスでございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　人影は深く一礼した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「八年ぶりの新しいお客様を、心より歓迎いたします。久世凪様」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　私の背中を、冷たいものが走った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="316">「どうして私の名前を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「当館は、お客様がご自身を理解されるより先に、お客様を理解いたします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="320">「趣味の悪いホテルですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="322">「ご安心ください。不快な事実は、すべて忘れさせて差し上げます」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="324">　エレベーターの扉が閉じる直前、ノクスは鍵穴の顔を九条院先輩へ向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「今度こそ、適切な代替者をお連れいただき、ありがとうございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　九条院先輩の表情が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　扉が閉まった。</p>
+<div class="source-line scene-break gap-2" data-source-line="333" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="336">　エレベーターは、下へ落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="337">　階数表示が、Ｂ１、Ｂ２、Ｂ３と減り、やがて数字ではなくなった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="339">　<span class="term term-world">〈忘れた誕生日〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　<span class="term term-world">〈送れなかった手紙〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="341">　<span class="term term-world">〈顔は覚えている人〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　<span class="term term-world">〈名前だけ覚えている人〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　最後に、０。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　扉の向こうには、ホテルの客室ではなく、古い教室があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　窓の外は真夜中。机は一つ。そこに、旧式の鏡陵学園制服を着た少女が座っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="349">　顔には白い仮面。中央に、黒いゼロ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「また来たの」</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　少女は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　九条院先輩が一歩進む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「お待たせいたしました。今夜こそ、あなたを――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">「その言い方、嫌い」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　空中に数値が出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　<span class="term term-world">〈ＧＵＥＳＴ　ＳＡＴＩＳＦＡＣＴＩＯＮ：０〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="364">　<span class="term term-world">〈－１０〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「開始時点でマイナスになったぞ」と大門先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「過去最速だね」と未都先輩。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　九条院先輩は微笑みを崩さない。だが、こめかみが引きつっている。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="372">「失礼いたしました。では、まずお名前を伺っても？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="374">「知らない」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="376">「お好きな飲み物は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">「何でも」</p>
+<p class="source-line role-dialogue role-clue tone-4 gap-1" data-source-line="380">「お食事は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「いらない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「音楽、花、香り、会話。ご希望を一つでも――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「それ、私じゃなくてもいいよね」</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　数値がさらに下がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　<span class="term term-world">〈－２０〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　教室の壁が、軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　九条院先輩は言葉を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　私は少女の机の前まで歩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「帰りたい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　四人が振り返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　少女は、仮面の奥でこちらを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「接客会話として零点だ」と透真先輩が小声で言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「満足度も元から零点です」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="408">「帰る場所がわからない」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　少女の声は、初めて少しだけ揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「じゃあ、探そう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「何を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「あなたが嫌いなもの」</p>
+<p class="source-line role-dialogue role-clue fx-whisper tone-3 gap-1" data-source-line="418">「……好きなものじゃなくて？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「好きなものは、忘れると作れます。嫌いなものは、忘れても身体が避けます」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　私は椅子を引き、逆向きに座った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="424">「まず、このホテルは嫌い？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「大嫌い」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　数値が動く。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　<span class="term term-world">〈＋１〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　未都先輩が目を丸くした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「上がった」</p>
+<p class="source-line role-dialogue role-clue tone-4 gap-1" data-source-line="436">「九条院先輩の笑顔は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「眩しくて腹が立つ」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　<span class="term term-world">〈＋３〉</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「僕個人への評価で攻略が進むのは複雑だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「透真先輩の眼鏡」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「頭が良さそうで嫌」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　<span class="term term-world">〈＋２〉</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「眼鏡に罪はない」と透真先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="452">「未都先輩の服」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「格好いい。そこは好き」</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　<span class="term term-world">〈＋５〉</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「見る目あるじゃん」と未都先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「大門先輩のお菓子」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="462">「知らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　大門先輩が、菓子箱の盾から小さな袋を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「メロンパンだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　少女の肩が、わずかに跳ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　それはホテルの豪華さに似合わない、購買で売っていそうな平たいメロンパンだった。表面の格子が一つ、途中で歪んでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「昔、これを焼いたことがある気がする」と大門先輩。「レシピが部室の古いノートに挟まっていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　少女は袋を受け取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="475">　仮面を少し持ち上げ、一口かじる。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　教室の空気が変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　窓の外に、昼の光が差す。</p>
+<p class="source-line role-narration gap-0" data-source-line="480">　九歳くらいの少年が、焦げたメロンパンを両手で持っている幻が映った。</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="482">『お姉ちゃん、これ石？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">『パン。たぶん』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">『固いよ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">『弟なら黙って食べる』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="490">『横暴だ！』</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　少年の顔は、九条院先輩によく似ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　少女の手から、パンが落ちた。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="496">「礼……？」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　九条院先輩が息を呑む。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　仮面に亀裂が入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="502">「どうして、僕の名前を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「礼」</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　少女は、確かめるようにもう一度呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　九条院先輩の膝が折れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="509">　両手で頭を抱える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「その声を、知っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　教室の机が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="514">　代わりに、古い写真が空中を埋め尽くす。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　学園祭の看板を描く少女。</p>
+<p class="source-line role-narration gap-0" data-source-line="517">　この天文台で笑う少女。</p>
+<p class="source-line role-narration gap-0" data-source-line="518">　幼い九条院先輩の頬を引っ張る少女。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　写真の下に、削除済みの文字列が戻ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　九条院澄。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　鏡陵学園一年。</p>
+<p class="source-line role-narration gap-0" data-source-line="524">　迎賓遊戯部・初代部長。</p>
+<p class="source-line role-narration gap-0" data-source-line="525">　八年前、ノクターン・パレス試験運用事故にて死亡。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="527">「姉さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　九条院先輩の声は、子どものようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　白い仮面が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　その下には、彼とよく似た目をした少女の顔があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「やっと思い出した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「ごめん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「それ、忘れたほうが言う台詞じゃないでしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　澄先輩は泣きそうに笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　次の瞬間、天井が裂けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　金色の鍵穴が、夜空いっぱいに開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「記憶の復元は、推奨されないサービスです」</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　総支配人ノクスの声が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　教室がホテルの大広間へ変わる。</p>
+<p class="source-line role-narration gap-0" data-source-line="552">　壁一面の鏡に、完璧な笑顔を浮かべた私たちが映っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「悲嘆、怒り、後悔、罪悪感。お客様を不快にする要素は、当館が責任をもって除去いたします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">「姉さんを消したのは、あなたか」</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　九条院先輩が立ち上がる。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="560">「当館は、学園の評判とご遺族の幸福を最適化しました。事故の記録を削除し、関係者の接続端末から記憶の索引を遮断した。誰も苦しまなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="562">「誰も、姉さんを悼めなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="564">「悲しみのない状態を、人は幸福と呼びます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「それは幸福じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　私が言うと、鏡の中の私が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「久世凪様。あなたは理解してくださるはずです」</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　足元に、私の個人情報が並ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　特待生。</p>
+<p class="source-line role-narration gap-0" data-source-line="575">　転入後の交友関係、希薄。</p>
+<p class="source-line role-narration gap-0" data-source-line="576">　家族は遠隔地。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　学園内影響度、下位一パーセント。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　消失時の総不快度、最小。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　選定結果：代替者に最適。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="582">　胸元の<span class="term term-world">〈ＧＵＥＳＴ〉</span>が赤く光る。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　ノクスの声が、やさしくなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「客室零号から九条院澄様をチェックアウトさせるには、新しい宿泊者が必要です。あなた一人が残れば、皆様は満足して帰れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「だから私を呼んだのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　九条院先輩が、顔色を失った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「僕は、君を姉さんの代わりにするために」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="594">「あなたの意思ではありません。残留記憶に誘導され、当館が選んだ候補を招待しただけです」</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　鏡の中の完璧な九条院先輩が笑う。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="598">「ホストは、お客様のために最善を尽くす。それが迎賓遊戯部でしょう？」</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　大広間の扉が閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　無数の従業員が現れる。今度は全員、私たちの顔をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　完璧な九条院礼。</p>
+<p class="source-line role-narration gap-0" data-source-line="605">　完璧な瀬尾透真。</p>
+<p class="source-line role-narration gap-0" data-source-line="606">　完璧な小鳥遊未都。</p>
+<p class="source-line role-narration gap-0" data-source-line="607">　完璧な大門岳。</p>
+<p class="source-line role-narration gap-0" data-source-line="608">　そして、完璧に誰からも惜しまれない久世凪。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="610">「最悪の評価システムだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　私は呟いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="614">「攻略法はあるか」と透真先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">「あります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「即答だね」と未都先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="620">「壊れたルールは、守らずに使うんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　私は九条院先輩へ手を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="624">「先輩。さっきの報酬、変更します」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="626">「こんな時に？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">「こんな時だからです。私を、迎賓遊戯部に入れてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　彼は目を見開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「入部権はいらないと言っていたじゃないか」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="634">「気が変わりました。あと、勘違いしないでください。感動的な友情ではなく、システム上の都合です」</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　私は胸の<span class="term term-world">〈ＧＵＥＳＴ〉</span>を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="638">「客だから、代替候補にされる。部員になれば、私はホスト側です」</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　透真先輩の眼鏡が光る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="642">「ホストは一人である必要がない。迎賓遊戯部という団体を、一つのホスト・エンティティとして登録するのか」</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="644">「このゲーム、パーティ名を一個体として扱う場面があります。称号判定、ギルド所有権、イベントフラグ。人間一人を残せというなら、人間ではない一人を残せばいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「部そのものを、客室零号の主人にする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">「そうです」</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　九条院先輩は、こんな状況なのに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="652">「久世凪。君を迎賓遊戯部に迎える。役職は――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「バグ取り担当で」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「もう少し華やかな名称にしよう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="658">「じゃあ、不具合令嬢」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「採用」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「冗談です」</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　彼が私の手を取る。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　システム音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　<span class="term term-world">〈久世凪が迎賓遊戯部へ加入しました〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="669">　<span class="term term-world">〈個人役職を統合します〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="670">　<span class="term term-world">〈ＨＯＳＴ　ＥＮＴＩＴＹ：迎賓遊戯部〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="672">　胸元の文字が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　代わりに、五人の衣装へ同じ紋章が浮かぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="675">　六つの角を持つ、歪んだ星。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　それを見た澄先輩が、目を細めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「そのマーク、私が描いたの。定規がずれて、角が一個多くなったやつ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「学園では『完全なる五光星』と説明されています」と透真先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「完全じゃないよ。失敗作」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="685">「それでいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　九条院先輩は剣のように腕を振った。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="689">「迎賓遊戯部、接客開始！」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="691">「戦闘開始の間違いでは？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="693">「僕たちにとっては同じだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　完璧な部員たちが襲いかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　九条院先輩の偽物は、一分の隙もない微笑で剣を振るった。本物は初撃を避け損ね、肩を斬られた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="699">「部長！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「安心してくれ。完璧な僕より、現実の僕のほうが少し弱い！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「安心材料がない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　透真先輩の偽物は、こちらの行動を先読みする。本物の透真先輩はタブレットを投げ捨てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「予測不能な行動を取る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="709">「具体的には？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="711">「何も考えず突っ込む」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="713">「それ、大門先輩の担当では？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「任せろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　大門先輩が菓子箱の盾を抱え、二人まとめて偽物へ突進した。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　未都先輩は、自分の偽物がまとっていた完璧なドレスを見て、鼻で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「左右対称なんて、つまらない」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　銀糸を走らせる。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　ドレスの縫い目がほどけ、巨大な翼になって偽物を絡め取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　私は、自分の偽物と向き合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　そいつは何の特徴もない顔で立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　目立たず、迷惑をかけず、誰にも必要とされない。学校が計算した、最適な私。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="731">「あなたが消えても、世界は困りません」</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　偽物が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="735">「そうかもね」</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　私は床へ身を沈めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="738">　偽物の蹴りを、髪一本ぶんで避ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="740">「でも、世界が困るかどうかで、プレイヤーの価値は決まらない」</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　シャンデリアの反射を踏み台にする。</p>
+<p class="source-line role-narration gap-0" data-source-line="743">　本物のシャンデリアではない。鏡面に映っただけの光だ。</p>
+<p class="source-line role-narration role-clue tone-2 gap-0" data-source-line="744">　普通なら足場判定はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　だが、このホテルは、客が信じたものを現実にする。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　なら、踏めると思えば踏める。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　私は虚像を蹴り、偽物の頭上へ跳んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="752">「ゲームは、遊んだ本人が面白ければ勝ちです」</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　木製スプーンを召喚し、そいつの額へ叩き込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　偽物が砕ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="758">「本当にスプーンを使うんだ」と未都先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「縁起物です」</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　総支配人ノクスが、鏡の奥で初めて声を荒らげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「不完全は、不快です。不快は排除されなければならない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">「お客様がそう言いましたか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　九条院先輩が問う。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　ノクスが止まった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="772">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">「君は、満足を代行しているだけだ。本人に聞いていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　全員が澄先輩を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　澄先輩は、割れた仮面を床へ落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="780">「評価をどうぞ」と私は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="782">「正直に？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="784">「それ以外、効かなそうなので」</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　澄先輩は大広間を見回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="788">「ホテルは暗すぎ。廊下は長すぎ。紅茶はぬるい。制服の趣味は悪い。礼の笑顔は昔から大げさ。透真くんは説明が長い。未都ちゃんの服は好き。岳くんのメロンパンは、前よりおいしい。凪ちゃんは失礼」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="790">「最後だけ反論したいです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="792">「でも」</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　澄先輩は、泣きながら笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="796">「退屈はしなかった。八年ぶりに、ちゃんと嫌なことがあった。だから今夜は、楽しかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　数値が跳ね上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　<span class="term term-world">〈ＧＵＥＳＴ　ＳＡＴＩＳＦＡＣＴＩＯＮ：１００〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="802">　大広間のすべての扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　その向こうに、朝焼けのロビーが見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　ノクスの身体へ、亀裂が走った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="808">「理解不能。幸福には、不快が含まれる。矛盾。矛盾。矛盾――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="810">「人間を相手にするなら、仕様です」</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　私は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　ノクスは砕け、無数の鍵になって床へ降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　九条院先輩が、澄先輩へ手を差し出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="818">「姉さん。帰ろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　澄先輩はその手を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「帰っても、身体はないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="824">「記録がある。写真がある。僕が覚えている」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="826">「それだけ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="828">「それだけじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　九条院先輩は、私たちを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="832">「部室に席がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　大門先輩が頷く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="836">「メロンパンも焼ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="838">「衣装も作る」と未都先輩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="840">「会話記録の保存領域は確保できる」と透真先輩。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　私は肩をすくめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="844">「バグだらけですけど、遊べます」</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　澄先輩は、ゆっくり手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　六人の影が、朝焼けのロビーへ重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="850">　チェックアウトの鐘が鳴る。</p>
+<div class="source-line scene-break gap-2" data-source-line="853" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="856">　目を開けると、旧天文台の天井があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　現実の時計は、午前零時一分。</p>
+<p class="source-line role-narration gap-0" data-source-line="859">　何時間も戦ったはずなのに、一分しか経っていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　隣のチェアで、九条院先輩が上体を起こした。</p>
+<p class="source-line role-narration gap-0" data-source-line="862">　頬に涙の跡が残っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「思い出した」</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　彼は、部室の壁へ駆け寄った。</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　そこには、さっきまで存在しなかった写真が一枚かかっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　八年前の迎賓遊戯部。</p>
+<p class="source-line role-narration gap-0" data-source-line="871">　中央で、九条院澄が焦げたメロンパンを掲げている。写真の隅には、幼い礼先輩が不満そうな顔で写っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　透真先輩のタブレットに、削除されていた事故記録が次々と復元される。</p>
+<p class="source-line role-narration gap-0" data-source-line="874">　学園は翌朝、八年前の試験運用事故と記録隠蔽を公表することになった。ノクターン・パレスは停止。関係者への調査。新聞、謝罪、責任問題。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　現実は、ゲームのエンディングほどきれいではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="878">　それでも、消されたままよりはいい。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="880">　部室の端末が、小さく鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="882">『ただいま』</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　スピーカーから澄先輩の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="886">　九条院先輩は笑い、今度は隠さず泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　私はそっと帰ろうとした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="890">「どこへ行くんだい、凪」</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　背後から呼び止められる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="894">「攻略は終わりました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「入部手続きが残っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="898">「システム上の都合です。現実では無効です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="900">「口頭契約も契約だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　透真先輩が、いつの間にか入部届を差し出していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="904">「部費は免除。活動日は週三。デザート券は一年分。九条院の貸し一つも有効だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="906">「条件を積まないでください」</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　未都先輩が私の肩へ、新しいジャケットをかける。</p>
+<p class="source-line role-narration gap-0" data-source-line="909">　黒地に銀糸。背中には、角が一つ多い歪んだ星。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="911">「似合う。品がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="913">「それ、褒め言葉なんですよね」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="915">「最高に」</p>
+<p class="source-line role-narration gap-1" data-source-line="917">　大門先輩が、二個目のシュークリームを差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="919">「歓迎用だ」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="921">　甘いものに罪はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　私は入部届へ名前を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="925">　こうして迎賓遊戯部は、五人と、一人分の声と、角が一つ多い星で再出発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　後日、澄先輩は最初の活動記録を、古い形式のテキストファイルにして保存した。</p>
+<p class="source-line role-narration gap-0" data-source-line="928">　画像も音声もない、ただの文字列。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="930">「どうして今どき、テキストなんですか」と私が聞くと、端末の向こうで彼女は笑った。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="932">『軽いから。どんな端末でも開けるし、コピーされても気づかれにくい』</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="934">「何をコピーする気です？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="936">『記憶』</p>
+<p class="source-line role-narration gap-1" data-source-line="938">　その時は、冗談だと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="940">　ファイル名は、こうだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="942">　――ログアウトまで、ごゆっくり.txt</p>
+<div class="source-line scene-break gap-2" data-source-line="945" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration role-system gap-2" data-source-line="948"><span class="term term-skill">【ＮＯＣＴＵＲＮＥ　ＰＡＬＡＣＥ／自動復旧ログ】</span></p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="950">　外部端末による活動記録の閲覧を確認。</p>
+<p class="source-line role-narration gap-0" data-source-line="951">　読了率：１００％。</p>
+<p class="source-line role-narration gap-0" data-source-line="952">　九条院澄に関する記憶痕跡：生成済み。</p>
+<p class="source-line role-narration gap-1" data-source-line="954">　記憶を保持する者は、迎賓者として扱われます。</p>
+<p class="source-line role-narration gap-0" data-source-line="955">　外部閲覧者を<span class="term term-world">〈臨時ホスト〉</span>へ登録しました。</p>
+<p class="source-line role-narration gap-1" data-source-line="957">　ＨＯＳＴ　ＥＮＴＩＴＹ：迎賓遊戯部</p>
+<p class="source-line role-narration gap-0" data-source-line="958">　現在のホスト数：６＋１</p>
+<p class="source-line role-narration gap-0" data-source-line="959">　現在のお客様数：１</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　退室条件：最後のお客様を見送ること。</p>
+<p class="source-line role-narration gap-1" data-source-line="963">　なお、九条院澄様の滞在予定は、永久となっております。</p>
+<p class="source-line role-narration gap-1" data-source-line="965">　ようこそ、迎賓遊戯部へ。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="967">　ログアウトまで、ごゆっくり。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

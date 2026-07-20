@@ -1,0 +1,952 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="海洋観測員・雨宮澪の歯に届いた低い振動は、二十年前に海で消えた父が鳴らしていた「三つ、間を置いて二つ」の鐘の合図だった。直後、海底地熱施設を破壊して全長百メートル超の巨獣クガナが浮上し、人口百二十万の鏡浜へ進み始める。軍が迎撃を急ぐ一方、澪はその行動に無差別な怒りではない目的を感じ取る。さらに海底からは、電気も生物も食らう白い群体が迫っていた。ミサイルが巨獣を敵と決める前に、父の鐘で呼びかけることはできるのか。怪獣と都市の運命を、忘れられた音がつなぐ。">
+<title>巨獣は鐘の音を忘れない｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="巨獣は鐘の音を忘れない" data-novel-id="巨獣は鐘の音を忘れない" data-theme="night" data-effects="full" data-fontmode="full" data-genre="military-sf">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅" selected>軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　海の底で鐘が鳴る</a></li><li><a href="#chapter-2">二　黒い島が歩く</a></li><li><a href="#chapter-3">三　掌</a></li><li><a href="#chapter-4">四　白い空腹</a></li><li><a href="#chapter-5">五　兵器の言葉</a></li><li><a href="#chapter-6">六　鐘を運ぶ</a></li><li><a href="#chapter-7">七　塔の上の嵐</a></li><li><a href="#chapter-8">八　海の返事</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ヒーロー・アクション・サスペンス</p>
+  <p><strong>補助ジャンル：</strong>SF</p>
+  <p><strong>CSVタグ：</strong>ヒーロー、アクション、サスペンス、SF</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">軍事・ハードSF</span></p>
+  <p id="currentPresetDescription">本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅</p>
+  <h3>意味色</h3><p>金＝選択、青＝技術、紫＝記憶、灰＝制度、赤＝危機</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：475行／章：8／役割・強度タグ：536</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="巨獣は鐘の音を忘れない 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『巨獣は鐘の音を忘れない』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-0" data-source-line="2">――読み切り怪獣小説――</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="5">一　海の底で鐘が鳴る</h2>
+<p class="source-line role-narration gap-1" data-source-line="7">　その音は地震計より先に、雨宮澪の歯に届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　午前三時十七分。鏡浜海洋観測所の窓は、沖合の発電環を取り巻く赤い警戒灯を映していた。夏の台風が接近し、窓ガラスは低く唸っている。だが、澪の奥歯をかすかに震わせたのは風ではなかった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="11">　どん。どん。どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　長い間。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　どん。どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　机上の紙コップに、同心円の波紋が広がった。</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="19">　澪は椅子を蹴って立ち、海底聴音網の波形を拡大した。周波数〇・七ヘルツ。機械の回転音でも、地殻の破断でもない。規則正しく、しかも海底二千八百メートルから発せられている。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　三つ。間を置いて、二つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　その打ち方を、澪は知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　父が、錆びた手鐘でいつも鳴らしていた合図だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="27">「三つ打てば海へ。二つ打てば山へ」</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　幼い澪が意味を尋ねると、父は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「昔の島の道しるべだ。霧が出ても、鐘なら迷わん」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="33">「誰が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="35">「人も。人でないものも」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="37">　父、雨宮源蔵は、鏡浜から南へ六百キロ離れた小島、王午島の最後の灯台守だった。島は二十年前の海底隆起と大津波で放棄され、源蔵は避難船を見送ったあと行方不明になった。遺体は見つからなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　澪は父の迷信を嫌い、科学を選んだ。海は神秘ではない。温度と塩分と圧力と音速で記述できる巨大な流体だ。そう信じることが、父を奪った海と折り合う唯一の方法だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　モニターに新しい警報が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　海底温度、十二秒で八度上昇。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　沖合四十キロの海底地熱発電施設<span class="term term-world">〈ネレイド環〉</span>から、緊急回線が開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="47">『観測所、こちら制御塔。第四掘削孔で圧力異常。原因不明の生体反応を――』</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　通信が、金属を引き裂くような雑音に呑まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　次いで、観測所の床そのものが持ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　棚からファイルが落ち、照明が消えた。非常灯が点灯する。沖合の海が、一瞬だけ真昼のように白く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　澪は窓に駆け寄った。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　水平線の彼方で、<span class="term term-world">〈ネレイド環〉</span>の一部が傾いていた。直径十二キロの発電施設は、海面に浮かぶ銀色の輪だ。その中央から黒い水柱が立ち、雲を突き抜けていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　水柱の中に、山があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　いや、山ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　それはゆっくりと身を起こした。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　海面を割って現れた頭部は、珊瑚礁を焼き固めたような黒い突起に覆われていた。短い首の後ろには、何枚もの岩盤を重ねたような甲殻が盛り上がっている。腕は異様に長く、海中から引き抜かれた五本の指が、発電環の外縁をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　鉄骨が飴のように曲がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　稲妻が雲からその背へ落ちた。黒い甲殻の隙間に、赤い光が血管のように走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　巨獣は、海の底から四十年ぶりに息を吸う者のように胸を膨らませた。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　そして吠えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　咆哮は音ではなかった。空気の壁だった。観測所の窓が一斉に砕け、澪の体は床へ投げ出された。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="77">　血の味がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　それでも澪は、割れた窓の向こうを見続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　巨獣は怒っているのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　呼んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　なぜか、そう思った。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="88">二　黒い島が歩く</h2>
+<p class="source-line role-narration gap-1" data-source-line="90">　夜明けまでに、世界は巨獣へ名前を与えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　国際海洋生物災害機構の暫定呼称は<span class="term term-world">〈大型複合生物ＫＧＮ―１〉</span>。報道各社はそれを縮め、<span class="term term-world">〈クガナ〉</span>と呼んだ。王午島の古い方言で「火を抱くもの」を意味する語に似ていたためだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　全長百三メートル。直立時の頭頂高八十七メートル。推定体重六万二千トン。</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　爬虫類にも、哺乳類にも分類できない。黒曜石のような鱗。丸く盛り上がった背部甲殻。発達した肩と長い前肢。水中では四肢を使って泳ぎ、陸では拳を地面につく半直立姿勢を取る。頭蓋内には霊長類に近い巨大な前頭葉があるらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　数字は、何ひとつ現実感を与えなかった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="100">　クガナは<span class="term term-world">〈ネレイド環〉</span>の六基ある地熱抽出塔を、一本ずつ破壊した。噛みつくのでも、無闇に叩くのでもない。配管の根元を指で探り、正確に引き抜いていく。そのたびに海面から蒸気が噴き上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　自衛軍の無人攻撃機が到着したのは、午前六時四十二分だった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="104">　警告射撃のあと、対艦誘導弾十二発がクガナの背へ吸い込まれた。火球が黒い甲殻を包む。中継映像を見守っていた観測所の職員たちは、誰も声を出さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　煙の中で、赤い筋が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　甲殻の継ぎ目から、灼熱の蒸気が噴き出す。クガナは両腕を海面につき、背を丸めた。巨体の周囲で海が沸騰し、白い円が広がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="110">「熱を溜めてる」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="112">　澪は呟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　次の瞬間、クガナが跳んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　六万トンの巨体が海面を離れた。甲殻の後部から超高圧の蒸気が噴射され、黒い山が数百メートル先へ弧を描く。飛行と呼べるほど優雅ではない。大地そのものが、重力への怒りで跳ねたような運動だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　着水の衝撃で、攻撃機二機が波に呑まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　クガナは北を向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　鏡浜市の方角だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　人口百二十万。湾岸には液化水素基地、気象制御塔、国際貨物港が並ぶ。台風避難のため、主要道路はすでに渋滞していた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="126">　防災庁から観測所へ、全データの提出命令が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　澪が市庁舎地下の統合災害対策室へ到着したとき、巨大スクリーンには沿岸避難図とクガナの予測進路が重ねて表示されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「上陸まで九十分」</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　迎えた立花環は、防災局の制服の袖を肘までまくっていた。高校時代の同級生で、澪が島を出たあとも鏡浜に残った数少ない友人だ。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="134">「軍は湾口で迎撃する。市民は北側高台へ移動中。で、海の先生。あれは何をしに来る？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「分からない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="138">「分からないで済む大きさじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「だから、分かったふりをしないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　環は一瞬だけ目を閉じた。眠っていない顔だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「分かってる。でも、こちらは判断しなきゃならない」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="146">　澪は持参した端末を卓上へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「クガナは発電塔を選んで壊してる。無差別じゃない。最初の音も、呼吸音や威嚇じゃなく、信号の可能性がある」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="150">「誰に向けた信号？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「それを調べる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="154">「上陸まで九十分で？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「八十九分ある」</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　環は乾いた笑いをこぼした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「そういうところ、昔から嫌いじゃない」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="162">　澪は父の資料を開いた。王午島の民話、地層図、手書きの楽譜。源蔵は灯台守であると同時に、島の口承を集めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　<span class="term term-world">〈火守は海の底に眠る〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="165">　<span class="term term-world">〈白い空腹が目覚めるとき、火守は山を背負って歩く〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="166">　<span class="term term-world">〈鐘を三つ、二つ。道を告げよ〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="167">　<span class="term term-world">〈恐れよ。だが、憎むな〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="169">　子供の頃は、酔った老人の昔話だと思っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="171">　澪は海底聴音データと、古い鐘の録音波形を重ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　完全には一致しない。だが、間隔の比率が同じだった。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="175">　三、空白、二。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　その下に、別の微弱な音があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　クガナの信号へ重なる、無数の擦過音。海底のさらに深い場所から、何百万もの小さな口が一斉に歯を鳴らしているような音だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="181">「環、掘削孔周辺の生体センサーを全部出して」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="183">「何かいるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「クガナ以外のものが」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="188">三　掌</h2>
+<p class="source-line role-narration gap-1" data-source-line="190">　午前八時十三分、クガナは鏡浜湾へ侵入した。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　湾口封鎖線には護衛艦七隻、無人潜航艇二十四機が展開していた。海面は台風前の鉛色で、低い雲が工場煙突を隠している。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　第一斉射。</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　海が火で埋まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　クガナは前腕で顔を覆い、砲火の中を進んだ。爆発のたび、甲殻が剥がれ、赤黒い体液が海へ落ちた。それでも進路は変わらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　湾岸の液化水素基地ではなく、人口密集地でもなく、鏡浜中央区に立つ<span class="term term-world">〈天蓋塔〉</span>へ向かっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　天蓋塔は高さ七百二十メートル。上空の水分と電荷を制御し、台風の勢力を弱めるための気象施設だ。塔の地下には、<span class="term term-world">〈ネレイド環〉</span>から送られた地熱エネルギーを一時貯蔵する巨大な超伝導コイルがある。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="204">「熱と電気を追ってる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　環が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「それなら、発電塔を壊した説明がつかない」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="210">「食べるためじゃない、と？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「止めようとしてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　スクリーン上で、避難中の自動運転列車が一本、急停止した。高架線の先が、砲撃による津波で崩落している。車内に二百三十七人。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　クガナが、その高架へ近づいていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　対策室の空気が凍った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="220">「列車を後退させろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="222">「電源喪失。補助系統、応答しません！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「乗客を線路へ出して」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="226">「後方二キロも浸水しています！」</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　映像の中で、クガナの肩が高架橋へ触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　コンクリートが割れ、列車の先頭車両が傾く。窓の内側で人々が雪崩のように折り重なった。最後尾の非常扉から、赤いランドセルを背負った少女が線路へ這い出す。風に煽られ、手すりから落ちかけた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="232">　巨大な指が、画面を横切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　誰かが悲鳴を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　クガナの手は高架橋を包み込んだ。指一本が車両より太い。黒い爪がコンクリートへ食い込み、崩れかけた橋桁を支えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　少女は、巨獣の掌から数メートルの位置で動けずにいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　クガナの眼が、その子を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　琥珀色の眼球。縦長の瞳孔。その奥で、焦点が絞られるのを澪は見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　少女が、ランドセルにつけていた小さな鈴を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　ちりん。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　中継マイクにも拾えないほどの音だったはずだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　クガナは顔を近づけた。鼻孔から漏れた息が少女の髪をなびかせる。少女は泣きながら鈴を握りしめ、もう一度鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　ちりん。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　巨獣の喉が低く震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　クガナは高架橋を持ち上げ、崩れていない隣の橋脚へ静かに載せ直した。鋼材が軋み、車両は水平を取り戻す。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　それだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　クガナは少女を連れ去りも、見つめ続けもしなかった。人間の存在を理解したうえで、自分の道から退けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　対策室には、通信音だけが残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　環が小さく息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「今のを見ても、軍は撃つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「うん」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="270">「市民を救ったと言える？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「救ったかどうかは、クガナに聞かないと分からない」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="274">「聞けるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　澪は父の録音波形を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「鐘なら、たぶん」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="281">四　白い空腹</h2>
+<p class="source-line role-narration gap-1" data-source-line="283">　異変は湾の外で始まっていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="285">　破壊された<span class="term term-world">〈ネレイド環〉</span>の海底カメラが、最後の映像を送ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　掘削孔から、白い糸が噴き出している。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　一本一本は細い。だが数十万本が絡まり、海中で巨大な膜を作っていく。透明な傘、節のある触手、眼のような発光器官。クラゲ、管虫、菌糸、深海性甲殻類――無数の生物の特徴を寄せ集めた群体だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　それは周囲の魚群を包み、骨も鱗も残さず溶かした。鉄製の掘削機へ触れた部分は、金属イオンまで取り込んで銀色に硬化する。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　群体は海底ケーブルに沿って北上していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　電流を食べながら。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　解析班は、暫定名を<span class="term term-world">〈白虚〉</span>とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「単一生物じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　澪は映像を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「おそらく極端な高圧・高温環境で共生していた微生物群。掘削で封印層を破って、酸素と電気と有機物を得た。環境に合わせて形を変えてる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="305">「封印層？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「クガナの巣だった場所よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　環が澪を見る。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="311">「つまり、うちが穴を開けたせいで、二匹とも起きた？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「クガナはあれを押さえ込んでいたのかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「昔話どおりに」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「昔話は観測記録でもある。数字を使わなかっただけ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="319">　白虚は送電網を通じて増殖した。沿岸の変電所が次々と停止し、空には発光する白い糸が舞い始めた。台風の外縁雲がそれに絡み、巨大な渦を作る。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　天蓋塔は、都市で最も大きな電力と大気電荷が集中する場所だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　クガナも、白虚も、そこへ向かっている。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="325">　防衛司令部から会議回線が開かれた。画面に兵頭玄一郎総監が現れる。五十代半ば、白髪を短く刈り、声だけは異様に静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">『白虚の存在は確認した。しかし、現時点で最大の直接脅威はＫＧＮ―１だ。天蓋塔到達前に排除する』</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　環が答える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">「高架橋での行動をご覧になったはずです。クガナには状況判断能力がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="333">『知性があることと、安全であることは同義ではない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="335">「白虚を狙っている可能性が高い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">『可能性で百二十万人を賭けることはできない』</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　正論だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　だからこそ、澪は腹が立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「総監。クガナを攻撃すると、甲殻から大量の熱放射が起きます。市街地で追い詰めれば、被害はむしろ拡大します」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="345">『代案は？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「進路を誘導します」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="349">『手段は？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「鐘です」</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　会議回線の向こうで、誰かが鼻で笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　兵頭は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">『科学的根拠を』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">「同じ音響パターンに反応した記録があります。王午島では、クガナと思われる生物へ避難方向を伝える鐘の習慣がありました」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="361">『成功確率は？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「算出できません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">『ならば作戦とは呼べない』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「撃てば怒る。鐘なら、聞くかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="369">『それを賭けと呼ぶ』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="371">「ミサイルだって賭けでしょう。殺せるかどうか分からないんだから」</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　数秒の沈黙。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">『迎撃作戦は予定どおり実施する。ただし、音響誘導の準備は許可する。失敗した場合、直ちに退避せよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　回線が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　環が眉を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「意外と話が分かる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「分かってない。両方やるだけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「組織としては満点」</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　澪は父のノートをめくった。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　鐘は王午島の古い寺から、島の閉鎖後に鏡浜市立博物館へ移されていた。青銅製。重さ一・六トン。</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　問題は、市立博物館がクガナの進路上にあることだった。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="394">五　兵器の言葉</h2>
+<p class="source-line role-narration gap-1" data-source-line="396">　市街地へ上陸したクガナは、初めて二本の脚で立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　倉庫街の屋根が胸の下に並ぶ。尾が一振りされるたび、貨物コンテナが積み木のように散った。長い腕は地面すれすれまで届き、指先は道路や配管を探るように動いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　歩く速度は時速二十二キロ。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　速すぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　澪と環は装甲救助車で博物館へ向かった。運転は環。澪は助手席で古鐘の共振周波数を計算し、後部座席では技術員二人が移動用の磁気懸架台を調整していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　空は白く濁っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　白虚の糸が雲から垂れ、電線へ触れるたび青い火花を散らす。街路樹には半透明の膜が張り、捕らえられた蝉が数秒で溶けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「巨獣が一匹なら、まだ話は単純だったね」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　環がハンドルを切りながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「昔の人も、そう思ったから物語にしたんじゃないかな」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="416">「何を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「どうしようもないものが二つ来たとき、片方に名前をつける。名前をつけた方とは、話せるかもしれないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　前方の高層ビルの間から、クガナの頭が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　近い。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　観測映像では分からなかった匂いが、車内の濾過装置を越えて入ってきた。焼けた岩、潮、獣の皮膚、雷雨の直前の空気。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　クガナは道路中央で止まり、天を仰いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　上空に白虚の群体が集まっている。無数の膜が折り重なり、翼を持つ蛇のような輪郭を作っていた。白い稲妻がその体内を走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　クガナの胸が膨らむ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="432">「伏せて！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="434">　澪が叫ぶのと同時に、巨獣の口腔が赤く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　咆哮。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　超高温の水蒸気と、低周波の衝撃波が一本の見えない槍となって空を貫いた。雲が円形に吹き飛び、白虚の一部が蒸発する。周囲の窓ガラスが数百枚、遅れて砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　白虚はちぎれながらも逃げなかった。散った断片が送電線へ取りつき、再び増殖する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「食べ物がある限り、戻る」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="444">　澪は呟いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="446">「天蓋塔のコイルに到達したら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「市内の電力だけじゃない。上空の台風から雷を吸う。どこまで成長するか分からない」</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　そのとき、路面に赤い照準光が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　ビル屋上から、軍用の音響標識弾が発射される。クガナの足元へ突き刺さり、高周波の叫びを放った。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　巨獣が苦痛に頭を振った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="456">「迎撃が始まった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　環が急ブレーキを踏む。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　四方の交差点から無人戦闘車両が現れた。徹甲弾がクガナの胸と膝へ集中する。上空からは貫通爆弾が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　爆発。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　クガナの背部甲殻が一枚、根元から割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　そこから噴き出した光は、火ではなかった。白熱した蒸気と微細な鉱物粒子が渦を巻き、道路を舐めた。アスファルトがガラス化し、無人車両が赤く溶ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　衝撃で救助車が横転した。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　澪の世界が回った。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　気づくと、車内は横倒しになり、警報音が鳴っていた。額から血が落ちる。環はハンドルに挟まれ、意識を失っている。技術員の一人が後部扉を蹴ったが、歪んで開かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　外で、巨大な足音が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　車体の上に影が落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　クガナが見下ろしていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="480">　片眼の周囲から血が流れ、割れた甲殻の奥で赤い器官が脈打っている。怒りと痛みに荒れた呼吸が、救助車を揺らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　澪は動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　恐ろしいものと、悪いものは同じではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　父のノートにあった言葉を思い出す。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="488">　澪は胸ポケットから、小さな音響端末を取り出した。古鐘の録音を最大出力で再生する。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　安物のスピーカーでは、低音が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　それでもクガナの瞳孔が縮んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　ごおん。ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　三つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　間を置いて、二つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　巨獣の呼吸が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　澪はマイクをつかんだ。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="506">「聞こえる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　答えはない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「あなたが何をしたいか、私は知らない。私たちが何をしたかも、全部は知らない。でも、あれを止めたいんでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　言葉が通じるはずはない。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　クガナは顔を近づけた。巨大な眼に、横倒しの車と、小さな澪の姿が映る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="516">「だったら、私たちを踏まないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　長い指が伸びてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　救助車の屋根が、缶のように剥がされた。クガナは歪んだ車体の側面をつまみ、ゆっくりと起こした。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　環が咳き込んだ。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="524">　クガナは音の鳴る端末を見つめたあと、天蓋塔の方角へ頭を向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　白虚の白い影が、塔を覆い始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　巨獣は拳を地面につき、走り出した。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="531">六　鐘を運ぶ</h2>
+<p class="source-line role-narration gap-1" data-source-line="533">　市立博物館の収蔵庫は半壊していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　古鐘は、崩れた展示壁の向こうに無傷で残っていた。緑青に覆われた表面には、波と山と、背に島を載せた獣の文様が刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　澪は指で文様の溝をなぞった。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　子供の頃、父が拓本を取っていたものと同じだ。だが、実物を見るのは初めてだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　鐘の下縁に、小さな文字列があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　<span class="term term-world">〈海へ三つ。山へ二つ。眠りへ一つ〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「方向だけじゃない」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="547">　澪は呟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　父は最後の一節を、澪へ教えなかった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="551">　眠りへ一つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　長く鳴らす一打は、争いを終える合図なのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　環は肋骨を痛めていたが、救助隊の制止を無視して戻ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「磁気懸架台は壊れた。代わりに港湾局の重量物ドローンを六機回す。鐘を空輸して、天蓋塔の中層デッキへ吊るす」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="559">「台風の中で？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="561">「陸路はクガナが走ったあとで使えない。空も大差ないけどね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「あなた、組織として零点」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「友人として加点して」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　ドローンのワイヤが古鐘へ取りつけられた。収蔵庫の天井を破り、六機が一斉に浮上する。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　鐘が、初めて風を受けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　街は怪獣映画のセットのようだった。倒れた高架、燃えるタンク、避難放送を続ける無人スピーカー。その上空を、一・六トンの鐘がゆっくりと進む。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　澪と環は小型輸送機で並走した。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　天蓋塔の全景が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　塔の上半分は白虚に包まれている。半透明の群体が幾重にも巻きつき、雲から雷を吸い込んで膨張していた。いまや全長は二百メートルを超え、巨大な翼と複数の尾を持つ怪鳥のように変形している。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　その足元へ、クガナが到達した。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　巨獣は塔の外壁に指をかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　鋼鉄の外装がへこむ。クガナは長い腕を使い、体を引き上げた。肩の甲殻が塔へ擦れ、火花が雨の中へ散る。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　白虚が反応した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="587">　触手の束が槍のように伸び、クガナの背へ突き刺さる。甲殻の隙間から熱と電気を吸い上げ、白い体内へ赤い光を流し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　クガナが吠えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　塔全体が震えた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="593">「鐘を中層デッキへ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　環の指示で、ドローンが降下する。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　その瞬間、白虚から放たれた稲妻が一機を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　ドローンが爆発。ワイヤが一本切れ、古鐘が大きく傾く。残る五機では姿勢を維持できない。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="601">「落ちる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　鐘は輸送機の目前を通過し、塔の側面へ衝突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　ごおおん――。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　空と海を揺らす、深い音。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　クガナの動きが止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　鐘は一本のワイヤだけで宙吊りになり、雨の中を振り子のように揺れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　澪は操縦席の後ろから身を乗り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「近づけて」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="617">「無理！」</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　環が叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="621">「鐘を叩ける距離まで！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="623">「その先は白虚の放電域！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="625">「録音じゃ足りない。本物の音なら、あれにも届く」</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　環は澪を睨んだ。高校時代、二人で立入禁止の防波堤を越えたときと同じ顔だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="629">「帰ったら絶交だからね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="631">「二十年前にも聞いた」</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　輸送機は塔へ寄った。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　雨と火花が窓を叩く。環は機体を鐘の横へ滑らせ、緊急ハッチを開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　風が澪の体を引きずり出そうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　安全索を腰へつなぎ、外部ステップへ立つ。眼下七百メートル。街は白い雨と黒い煙に沈んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　鐘は十メートル先で揺れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　澪は射出式の係留索を撃った。鉤が鐘の吊り金具へ食い込む。ロープを伝い、宙へ身を投げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　一瞬、何も足の下になかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　鐘の縁へ肩からぶつかる。息が抜けた。両腕で青銅の突起につかまり、どうにか落下を免れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　風の中で、父の笑い声が聞こえた気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　人も。人でないものも、鐘なら迷わん。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　鐘木は失われていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　澪は腰の工具袋から、鋼鉄製のハンマーを抜いた。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="658">七　塔の上の嵐</h2>
+<p class="source-line role-narration gap-1" data-source-line="660">　第一打。</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　クガナが塔の中腹で顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　第二打。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　白虚の触手が、鐘へ向きを変える。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　第三打。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　海へ三つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　澪は間を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　風が息を吸うほどの、短い静寂。</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　第四打。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　第五打。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　山へ二つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　クガナは意味を探すように、海と塔を交互に見た。古い島の道しるべが、数百年の時間を越えて巨獣の記憶へ触れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　澪は天蓋塔の上部を指した。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="692">「上へ！　あれを海へ落として！」</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　言葉ではない。身振りなど見えるかも分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　だがクガナは登り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　一気に。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　両腕で塔を抱き、脚を蹴り上げる。背部から蒸気を噴き、数十メートルずつ跳ね上がった。白虚の触手が顔へ巻きつく。クガナはそれを噛みちぎり、赤熱した息を至近距離から浴びせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　白虚の体内で、取り込まれた金属片が弾ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　群体は形を変えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　翼を折り畳み、巨大な口になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　塔の上半分を丸ごと呑み込み、クガナの頭部へかぶさる。数百万の微細な歯が鱗を削り、白い体が赤く染まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　クガナは塔から片手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　長い腕を白虚の内部へ突き込み、中心で脈打つ発光核をつかむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　白虚が絶叫した。</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　耳ではなく、骨の髄へ届く声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　鐘のワイヤが切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　澪と古鐘が落下する。</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　安全索が伸びきり、澪の体は輸送機の下へ激しく振られた。古鐘は塔の外壁にぶつかりながら落ち、中層の整備用足場へ引っかかった。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="724">「澪！」</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　環の声が無線で割れる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="728">「生きてる！」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="730">　澪は安全索を手繰った。そのとき、別回線が強制接続された。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">『雨宮技官、聞こえるか』</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　兵頭総監だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">『長距離貫通弾<span class="term term-world">〈日輪〉</span>を発射した。着弾まで四分』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="738">「待って！　クガナが白虚を押さえてる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="740">『だから撃つ。二体が重なった瞬間が唯一の機会だ』</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="742">「塔ごと壊すつもり？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">『地下コイルは緊急遮断済み。市民の避難範囲も更新した』</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="746">「クガナは敵じゃない！」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="748">『敵か味方かを決めるのは、感情ではなく結果だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　兵頭の声は、最後まで静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="752">『そして、あれを生かして次の街へ向かわせる責任を、私は負えない』</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　通信が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　空の東に、小さな光点が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　極超音速弾頭。あと三分。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　クガナは白虚の核をつかんだまま、塔頂へ達した。甲殻は砕け、左眼は閉じ、片腕の皮膚が骨近くまで溶かされている。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　白虚は雷雲とつながり、無尽蔵の電気を吸って再生していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　このまま撃てば、クガナも死ぬ。</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　撃たなければ、白虚が街を食う。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　澪は足場の鐘を見た。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="770">　眠りへ一つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　長い一打。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　それは、クガナへ死ねと命じる音なのか。</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　父はなぜ、その意味を教えなかったのか。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　澪は安全索を切り、塔の外部梯子へ飛び移った。腕の皮が裂ける。雨で滑る足場を降り、古鐘へ走る。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="780">「澪、戻って！」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　無線の環へ答えず、鐘の下へ潜り込む。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="784">　東の光が大きくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　あと二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　クガナが澪を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　七百メートルの巨体差を越えて、確かに眼が合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　澪はハンマーを両手で握る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="794">「眠れ、じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　父が最後の一節を教えなかった理由を、ようやく理解した。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　道を告げる鐘に、服従の命令などない。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　眠りとは、戻る場所だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="802">「海へ帰れってことね」</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　澪は鐘を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　ごおおおおおん――。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　一つの音が、長く、長く伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　クガナの瞳が閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　次いで、巨獣は白虚を両腕で抱きしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　塔から背を離す。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　落ちるのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　甲殻の全ての隙間が、朝焼けのように輝いた。蓄えられた地熱が一斉に解放され、背部と脚部から白い噴流が伸びる。</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　クガナは跳んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　白虚を抱えたまま、塔頂から雲へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　六万トンの黒い巨体が、嵐の中に弧を描く。丸い甲殻が風を受け、短い滑空へ変わった。白虚は逃れようと翼を広げるが、クガナの長い指が発光核を離さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　極超音速弾頭<span class="term term-world">〈日輪〉</span>が到達した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="828">　光点が、二体の中心へ吸い込まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　昼より白い閃光。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　音は遅れてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　天蓋塔が大きくしなり、澪は鐘の陰へ投げ出された。空が燃え、白虚の群体が無数の光る雨になって蒸発する。</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　その中心から、黒い影が落ちてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　クガナ。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　甲殻は半分失われ、両腕は胸の前で何かを守るように組まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　巨獣は湾へ落下した。</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　海面が持ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　壁のような波が沿岸へ向かう。だが天蓋塔の気象制御翼が緊急展開し、衝撃波の一部を上空へ逃がした。港の防潮堤が波を受け、亀裂を走らせながら耐える。</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　水煙が街を覆った。</p>
+<p class="source-line role-narration gap-1" data-source-line="850">　澪は鐘にしがみついたまま、何も見えない海へ叫んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="852">「クガナ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　返事はなかった。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="857">八　海の返事</h2>
+<p class="source-line role-narration gap-1" data-source-line="859">　台風は、その日の夕方に消えた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="861">　白虚が蓄積していた電荷と水分を失い、雲そのものが崩壊したためだと説明された。鏡浜市の死者・行方不明者は二百十八人。奇跡的に少ない、と報道は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　奇跡という言葉を、澪は好きになれなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　数字の中には一人ずつの暮らしがあり、偶然助かった人も、誰かに助けられた人もいる。奇跡と呼ぶと、その違いが見えなくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　クガナの遺体は発見されなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="869">　湾底には巨大な落下痕と、剥がれた甲殻片が残っていた。甲殻は玄武岩に似た鉱物と有機組織の複合体で、内部に高効率の熱交換構造を持っていた。学者たちは新しい分類群を提唱し、軍は生体兵器の可能性を調査し、企業は責任の所在を争った。</p>
+<p class="source-line role-narration gap-1" data-source-line="871">　兵頭総監は辞任しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　記者会見で、再び同じ状況になれば同じ判断をすると述べた。そのうえで、音響誘導を許可した判断も正しかったと付け加えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="875">　環は「あの人、最後まで組織として満点」と笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　天蓋塔の中層に引っかかった古鐘は回収され、修復された。鏡浜市は海沿いの公園に新しい鐘楼を建てたが、澪は除幕式に出なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　鐘は記念碑ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="881">　道具だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="883">　あの音を、海に向けて鳴らせる場所へ置くべきだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　一年後。</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　澪は再建された海洋観測所の夜勤室にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　<span class="term term-world">〈ネレイド環〉</span>は撤去され、掘削孔は封鎖された。王午島周辺を含む海域は、国際保護区に指定されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="891">　午前三時十七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="893">　聴音網の最南端が、低い振動を拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="895">　澪は椅子から立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　波形を拡大する。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="899">　どん。どん。どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="901">　長い間。</p>
+<p class="source-line role-narration gap-1" data-source-line="903">　どん。どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="905">　胸の奥が痛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="907">　発信源は王午島の南西、深度四千百メートル。ゆっくりと南へ移動している。</p>
+<p class="source-line role-narration gap-1" data-source-line="909">　同僚を呼ぶより先に、澪は窓を開けた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="911">　夜明け前の海は暗く、どこまでも平らだった。公園の鐘楼が遠くに見える。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="913">　澪は緊急回線で鐘楼の自動撞木を起動した。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　三つでも、二つでもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="917">　一つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="919">　ごおおおおおん――。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="921">　眠りへ一つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　帰る場所を告げる音が、海の上を渡っていく。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="925">　聴音端末の波形が一度、途切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　静寂。</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　それから、深い場所で巨大な何かが身じろぎした。海流が変わり、無数の魚が一斉に進路を開ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="931">　返事は、咆哮ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="933">　遠い海底から届く、長い一打。</p>
+<p class="source-line role-narration gap-1" data-source-line="935">　澪は目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="937">　怪物は、飼い慣らせない。</p>
+<p class="source-line role-narration gap-0" data-source-line="938">　守護神と呼べば、都合よく美しくなりすぎる。</p>
+<p class="source-line role-narration gap-0" data-source-line="939">　災厄と呼べば、こちらが先に開けた傷を忘れてしまう。</p>
+<p class="source-line role-narration gap-1" data-source-line="941">　ただ、海の底には、人間より古く、山より熱く、鐘の音を覚えている命がいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="943">　それで十分だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　東の空が薄青くほどけていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　黒い背が水平線に一瞬だけ現れ、朝の光を受けて沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　海は、返事をした。</p>
+<p class="source-line end-mark gap-2" data-source-line="952"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

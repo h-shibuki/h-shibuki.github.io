@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="日曜の夕食、古いテレビが突然映し出したのは、家族を「更新」する謎の番組だった。午後六時半、柴田達夫の母・千鶴は食卓から消え、知らない女性が当然のようにその席へ座る。妻も娘も写真も、最初から彼女が家族だったと告げるのに、猫だけが拒絶する。七時までに、母という役割とは無関係な千鶴自身の特徴を三つ証明できなければ、入れ替わりは永久になる。自分は母の何を知っていたのか。残り三十分、家族の記憶を掘り返す探索が始まる。">
+<title>六時半の家族｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="六時半の家族_読み切り小説" data-novel-id="六時半の家族_読み切り小説" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ホラー・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ホラー、ファンタジー、奇妙な味、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：287行／章：0／役割・強度タグ：326</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="六時半の家族 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">六時半の家族</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　日曜の午後六時二十九分、柴田家では、コロッケをめぐる小規模な戦争が起きていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="6">「健太、それ、お姉ちゃんの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="7">「名前書いてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="8">「衣に“芽衣”って彫っておけばよかった？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="9">「ソースかけたら消えるよ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="11">　十四歳の芽衣と九歳の健太が、最後の一個を箸で挟み合う。その横で、父の達夫はキャベツを噛みながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="13">「証拠の保全が先だ。現場に触るな」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="14">「お父さん、家でも保険調査員やるのやめて」</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　妻の七海が呆れ、向かいに座った母の千鶴が笑った。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="18">「達夫は昔からそう。遠足のお菓子が一個なくなっただけで、全員の指紋を取ろうとしたんだから」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="19">「母さん、それは三十五年前の話だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「三十五年前でも、やったことはやったこと」</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　柴田達夫、四十四歳。損害保険会社の調査員である。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　火事、水漏れ、盗難、偽装事故。嘘をつく人間は大勢見てきたが、日曜の夕食くらいは平穏であってほしいと願っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　もっとも、三世代五人と猫一匹で暮らしている時点で、平穏など高望みなのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　居間のテレビでは、聞き覚えのない古い音楽が流れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　七海が首をかしげる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="32">「こんな番組、あった？」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　画面には、妙に奥行きのないスタジオが映っていた。黄色いカーテン、造花の植木、赤い丸テーブル。その中央に、銀色の髪をきっちり分けた男性司会者が座っている。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="36">『皆さま、こんばんは。お茶の間定時便のお時間です』</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　低く、穏やかな声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="40">『毎週日曜、午後六時三十分。ご家庭の役割を、より円滑に更新いたします』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「なにそれ。怖い」</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　芽衣が笑いながらスマートフォンを向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　時計の長針が真下を指す。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　午後六時三十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　ぷつん、と家中の音が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　冷蔵庫のうなりも、換気扇も、外を走る車の音も、健太がすする味噌汁の音さえも。</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　世界が一秒だけ、息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　テレビの司会者がこちらを見た。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="58">『柴田家の皆さま。今週も、よい家族を』</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　白い光が居間を満たした。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　達夫は思わず目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　再び目を開けたとき、母の席には、知らない女が座っていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="67" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="70">　年齢は七十前後。丸眼鏡に、薄桃色のカーディガン。髪はふわりと巻かれ、口元には上品な笑みがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　女は千鶴の箸でコロッケを半分に切り、健太の皿へ載せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="74">「けんちゃんは育ち盛りだものねえ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="76">「やった。おばあちゃん大好き」</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　健太が笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　達夫は立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「誰だ、あんた」</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　全員の箸が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="86">「ちょっと、あなた」</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　七海が困った顔をする。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「お義母さんに、なんてこと言うの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「母さんじゃない」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-0" data-source-line="93">「お父さん、また推理ごっこ？」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="94">「ごっこじゃない。この人は知らない人だ。母さんはどこへ行った」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　女は悲しげに眉を下げた。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="98">「達夫ちゃん、疲れているのねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　その呼び方を聞いた瞬間、達夫の背中に冷たいものが走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　千鶴は、息子を“達夫ちゃん”などと呼ばない。</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　達夫が中学一年のとき、友人の前で一度そう呼んで以来、二度と呼ばなくなった。本人いわく、「子どもの面子も守れない親は三流」だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">「全員、動くな」</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　達夫は居間を見回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　掃き出し窓には内側から鍵がかかっている。廊下への扉は、達夫のすぐ横。台所へ通じる引き戸は七海の背後にあり、事件の瞬間まで彼女が料理を運んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　光が走ったのは、ほんの一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　誰かが出入りできる状況ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　千鶴が消え、見知らぬ女が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　五人全員がそろった、完全な密室で。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="120">「お父さん、顔が本気で怖い」</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　芽衣がスマートフォンを下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「動画、撮れてるか」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="125">「撮ってたけど……普通だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　画面を再生すると、光が走る前から、丸眼鏡の女が千鶴の席に座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　達夫は息をのんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　食卓の端では、飼い猫のシオだけが背中の毛を逆立て、女に向かって低く唸っていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="134" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-3 gap-2" data-source-line="137">　達夫は家族を居間に残し、家中を調べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　寝室、浴室、押し入れ、天袋。千鶴の姿はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　玄関には、千鶴の茶色い靴があった。財布も携帯電話も、いつもの布バッグに入っている。裏口には補助錠。庭の土に足跡はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　家族写真を確認すると、どの写真にも丸眼鏡の女が写っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　運動会で健太に水筒を渡しているのも、芽衣の入学式で目を赤くしているのも、正月に七海と黒豆を煮ているのも、すべてあの女だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　だが、写真立ての裏に挟まっていた古い証明写真だけは違った。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　若いころの千鶴が、しかめ面でこちらを見ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　達夫は写真を握りしめ、居間へ戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">「この人を知ってるか」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　家族に見せる。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　七海は首を振った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="159">「誰？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="160">「母さんだ」</p>
+<p class="source-line role-dialogue role-name gap-0" data-source-line="161">「達夫ちゃん、本当にどうしたの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　丸眼鏡の女が立ち上がり、達夫の額へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　達夫はその手首をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　女は左手で箸を持っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　千鶴は右利きだ。七年前に左手首を骨折して以来、重い物を持つと痛むと言っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　テーブルの上のコロッケを見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　真円に近い、きれいな小判形。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="175">　千鶴のコロッケは、必ず片側がとがっていた。家族はそれを“千葉県”と呼んでいた。千鶴が成形を面倒くさがり、最後に手のひらで一度だけ押すせいだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「このコロッケ、あんたが作ったのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「ええ。みんなの好物でしょう？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「中に何を入れた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「ひき肉と玉ねぎよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　達夫はコロッケを割った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「母さんは、余ったたくあんを刻んで入れる。七海は嫌がる。芽衣は気づかない。健太は黄色いのが入ってると喜ぶ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="187">「そうだっけ？」と七海。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="188">「入ってないよ」と芽衣。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「黄色いの、たまごじゃないの？」と健太。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="191">　全員の記憶が書き換わっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　だが、完全ではない。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="195">　シオはまだ唸っている。古い証明写真も残った。達夫の記憶も消えていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　何か、規則がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　そのとき、玄関のチャイムが鳴った。</p>
+<div class="source-line scene-break gap-2" data-source-line="202" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="205">　立っていたのは、灰色の作業服を着た小柄な女だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　帽子を深くかぶり、顔の半分を白いマスクで隠している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「電気メーターの点検です」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="211">「日曜の夜に？」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　達夫が尋ねると、女は黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　胸元に身分証はない。工具箱も持っていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「会社名は」</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-0" data-source-line="218">「……忘れました」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="219">「帰ってください」</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　達夫が扉を閉めかけたとき、女の右手が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　親指の付け根に、古い三日月形の火傷痕がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　どこかで見たことがある気がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="227">「達夫」</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　女が小さく呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　胸の奥がざわついた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="233">　しかし顔を見ても、知らない人間にしか見えない。目を離すと、年齢すら思い出せなくなる。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="235">「帰ってください」</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　達夫は扉を閉めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　鍵をかけた直後、なぜかひどく大切なものを捨てた気がした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="241">　居間へ戻ると、テレビの司会者が微笑んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="243">『役割から離れた方は、ご家族には認識されません』</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　達夫は画面へ駆け寄った。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="247">『ご安心ください。代わりの役割担当者が、食事、会話、思い出、年中行事を滞りなく代行いたします』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="249">「なんだ、これは」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">『家族役割休暇サービスでございます』</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　司会者は赤い丸テーブルの上へ、一枚の申込書を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">『“お母さん”“お父さん”“おばあちゃん”“お兄ちゃん”。役名でしか呼ばれなくなった皆さまへ、束の間の自由を』</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　画面に、小さな文字が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　――無料体験は番組終了まで。</p>
+<p class="source-line role-narration gap-0" data-source-line="260">　――午後七時までに本人確認が行われない場合、代行者を正式登録します。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　――本人確認には、役割名ではなく個人名を使用してください。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="262">　――さらに、その方が家族内で担う役割と無関係な特徴を三点、お答えください。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　時計は六時四十二分を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　達夫は千鶴の携帯電話を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　発信履歴の一番上に、番号のない通話記録がある。午後六時二十六分、通話時間三分四秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　メモ帳には、千鶴の字で一行だけ残されていた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="272">　<span class="term term-world">〈一晩だけ、誰の世話もしない人になってみたい〉</span></p>
+<p class="source-line role-dialogue role-name fx-whisper tone-3 gap-1" data-source-line="274">「お義母さん……」</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　七海がようやく青ざめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「でも、さっき来た人がそうだったとして、どうして私は分からなかったの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="279">「役割を外れた人間は、家族に認識されない。俺も顔を見たのに、知らない人にしか見えなかった」</p>
+<p class="source-line role-dialogue role-name gap-0" data-source-line="280">「おばあちゃん、どこ行ったの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　健太の声が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　達夫は玄関へ走った。</p>
+<div class="source-line scene-break gap-2" data-source-line="287" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="290">　外は雨だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　作業服の女の姿はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　達夫は傘もささず、家の周囲を探した。細い路地、駐車場、コンビニの軒下。通行人に尋ねても、「そんな人は見ていない」と言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　六時四十八分。</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　家の前へ戻ると、シオが門の外にいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「おまえ、いつ出た」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　シオは達夫を一度見て、雨の中を走り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　猫は角を二つ曲がり、古い児童公園へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　ブランコのそばのベンチに、三人の女が座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　一人は赤い傘を持つ若い女。</p>
+<p class="source-line role-narration gap-0" data-source-line="309">　一人は犬を抱いた中年の女。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　一人は灰色の作業服を着た小柄な女。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　だが顔を見比べると、三人とも輪郭がぼやけた。目を閉じると、誰がどこに座っていたのかさえ曖昧になる。</p>
+<p class="source-line role-dialogue role-name fx-climax role-motif tone-3 gap-1" data-source-line="314">「母さん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　呼んでも、誰も振り向かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　役割名ではだめだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　個人名。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　達夫は口を開き、絶句した。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　母の名前が出てこない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="326">　“母さん”という言葉が、喉に蓋をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　免許証、保険証、年賀状。何度も目にしてきたはずなのに、名前だけが白く抜け落ちている。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　六時五十二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　達夫はポケットの証明写真を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　写真の裏に、青いボールペンで書かれていた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="336">　<span class="term term-world">〈柴田千鶴　二十七歳。車掌試験、二次で落ちる。悔しい。〉</span></p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="338">「千鶴！」</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　灰色の作業服の女が、わずかに顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　輪郭のぼやけ方が弱くなる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="344">「柴田千鶴！」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　達夫はベンチへ駆け寄った。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　役割と無関係な特徴を三つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　母親らしさでも、祖母らしさでもない、その人自身のこと。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="352">　達夫は記憶を探った。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　朝食を作る姿。洗濯物をたたむ姿。孫を叱る姿。病院へ付き添う姿。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　浮かぶのは、家族のために何かをしている母ばかりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　知らなかったのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　見ようとしてこなかったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　六時五十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　女が立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「もういいよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　声は雨音より小さかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="370">「代わりの人、感じがよかったでしょう。コロッケもきれいで」</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="372">「母さ……千鶴さん、待ってくれ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="374">「無理しなくていい。私だって、自分のこと、三つも思いつかないもの」</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　女が背を向ける。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="378">　その右手の火傷痕を見て、達夫の記憶がはじけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「花火が嫌いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　女が止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「俺が五歳のとき、倒れたろうそく花火を素手でつかんだ。それから線香花火まで怖がるようになった。夏祭りでは、いつも金魚すくいのところに逃げてた」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　輪郭が少し戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「二つ目。あんこが嫌いだ。家族には甘い物が苦手だって言ってるけど、チョコレートは夜中に一人で食べる。つぶあんだけが嫌いなんだ。小学校の給食で、あんパンを八個食べさせられたから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「なんで、そんなこと覚えてるの」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="392">「三つ目……」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　達夫は息を切らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　時計を見る。六時五十八分。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　車掌試験。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　証明写真の裏書き。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「電車の運転士になりたかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　女の肩が揺れた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="406">「子どものころから、ずっと。女は無理だって言われて、駅員を受けて、車掌試験まで行った。父さんと結婚して辞めたあとも、時刻表を捨てなかった。踏切で特急が通ると、今でも車両番号を数える」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　雨の向こうで、踏切の警報音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　女が振り返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　見慣れた細い目。少し曲がった鼻。怒る直前だけ片方が上がる眉。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　柴田千鶴が、そこにいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「遅い」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　千鶴は泣きながら言った。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="420">「四十四年も息子やってて、思い出すのが遅い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「悪かった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="423">「それに三つ目、半分間違い。なりたかったのは運転士じゃなくて車掌。運転は性に合わない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「そこは今、採点を甘くしてくれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　公園の時計が七時を告げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　遠くの柴田家から、テレビの音が響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">『本人確認を受理しました』</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　白い光が、雨粒の一つ一つを照らした。</p>
+<div class="source-line scene-break gap-2" data-source-line="435" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="438">　家へ戻ると、丸眼鏡の女は消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　家族写真も元に戻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　七海は千鶴へ抱きつき、芽衣は泣きながら「千鶴さん」と三回呼び、健太は「おばあちゃんじゃだめなの？」と困った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「普段はいいよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　千鶴は濡れた作業服を脱ぎながら言った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="448">「たまには名前も使っておくれ。忘れられたら困るからね」</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　食卓へ戻ると、コロッケはまだ温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　千鶴は丸眼鏡の女が作った一個を食べ、顔をしかめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「味が上品すぎる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="455">「たくあん、入ってないもんね」と健太。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="456">「今まで入ってたの？」と芽衣。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="457">「おまえは本当に何も気づいてないな」と達夫。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　家族は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　テレビはコンセントを抜き、押し入れの奥へしまった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="463">　それから一週間、家族は意識して互いを名前で呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「七海、しょうゆ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="466">「自分で取って、達夫」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="467">「芽衣、靴下が裏返し」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="468">「見ないで、千鶴さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="469">「健太、宿題」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="470">「名前で呼ばれると逃げられない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　日曜の午後六時二十九分。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　柴田家では、再び最後のコロッケをめぐる戦争が起きていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="476">「今日はじゃんけん」と七海。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="477">「調査員としては、重量を測って二等分を提案する」と達夫。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="478">「細かい男だねえ、達夫は」</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　千鶴が笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　六時三十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　押し入れの奥から、音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　コンセントの抜けたテレビが、ひとりでに点いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="488">『皆さま、こんばんは。お茶の間定時便のお時間です』</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　家族の笑いが止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　銀髪の司会者は、赤い丸テーブルの上に、新しい申込書を置いた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="494">『今週は、“お父さん役”の更新審査を行います』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「俺？」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　達夫の前に、白い封筒が現れた。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="500">　宛名は、<span class="term term-world">〈柴田家　お父さん役様〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　個人名は書かれていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">『ご家族の皆さま。役割と無関係な、この方の特徴を三つお答えください』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「簡単じゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　芽衣が手を挙げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「ネクタイがいつも曲がってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="511">『それは勤務上の外見です』</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="512">「カレーを食べると絶対シャツに飛ばす！」と健太。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="513">『それは家庭内での行動です』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="514">「寝るとき、いびきがうるさい」と七海。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="515">『それは同居人としての観察です』</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　画面の隅に、大きな数字が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　０／３。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「達夫、あんた、何になりたかった？」</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　千鶴が尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　達夫は答えようとした。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="527">　だが、思い出せなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　探偵でも、調査員でも、夫でも、父でも、息子でもなかった自分が、何を好きで、何を怖がり、どこへ行きたかったのか。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="531">　頭の中には、家族の予定と仕事の記録ばかりが詰まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　テレビの司会者が、穏やかに微笑む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">『ご安心ください』</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　食卓の端で、シオが達夫の隣の空席に向かって毛を逆立てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">『代わりの方は、もう到着しております』</p>
+<p class="source-line end-mark gap-2" data-source-line="542"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

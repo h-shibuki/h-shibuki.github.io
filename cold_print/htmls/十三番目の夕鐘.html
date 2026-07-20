@@ -1,0 +1,990 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="夕方六時、町の鐘は十二回鳴る。骨の内側に響く十三回目を聞いた翌朝、鳴海朝陽以外の誰もが幼なじみ・久世小夜を忘れていた。写真も名簿も彼女を失い、小夜自身の身体まで灰となって消え始める。代々鐘を鋳る祖父は、十三年に一度、一人の名前を捧げて町を守る掟を語る。だが朝陽の青銅片には、忘れられた母と小夜の兄の記憶が眠っていた。日没までに地下の〈最初の鐘〉へ辿り着き、名を食う怪異から小夜を取り戻せるか。忘却に抗う二人の伝奇冒険。">
+<title>十三番目の夕鐘｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="十三番目の夕鐘" data-novel-id="十三番目の夕鐘" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ミステリ・ホラー</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・伝奇</p>
+  <p><strong>CSVタグ：</strong>アクション、ミステリ、ホラー、ジュブナイル、伝奇</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：517行／章：6／役割・強度タグ：612</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="十三番目の夕鐘 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『十三番目の夕鐘』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　この町では、夕方六時、鐘は十二回鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　十三回目を聞いた者は、翌朝、誰か一人を忘れている。</p>
+<div class="source-line scene-break gap-1" data-source-line="8" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="10"><span class="source-indent" aria-hidden="true">　</span>一</h2>
+<p class="source-line role-narration gap-1" data-source-line="12">　最初の十二回は、いつもと同じだった。</p>
+<p class="source-line role-narration role-ritual tone-4 gap-1" data-source-line="14">　山の中腹にある夕凪神社から、重い鐘の音が町へ転がり落ちる。商店街のシャッターが震え、電線の雀がいっせいに飛び立ち、海へ沈みかけた夕日が、古い家々の窓を赤く燃やした。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　鳴海朝陽は自転車を押しながら、無意識に数えていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="18">「……十、十一、十二」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　そこで音は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　隣を歩く久世小夜が、紙袋からたい焼きの尻尾をのぞかせたまま、得意げに笑う。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="24">「ほら。十二回。『十三回目を聞くと呪われる』なんて、観光協会が作った怪談だって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="26">「観光協会が、客の来なくなる怪談を作るかよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">「逆に来るかも。心霊スポット目当てで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="30">「うちの町に来ても、海と坂と、やたらうるさいカモメしかないぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「あと、無愛想な鋳物屋の孫」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「それは観光資源じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　小夜が笑った、その瞬間だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　――ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　音は耳から入ってこなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　骨の内側で鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　朝陽の歯がかちりと噛み合い、胸ポケットの中で、母の形見だと聞かされている小さな青銅片が震えた。鐘の舌を欠いたような、指先ほどの金属片だ。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="46">　十三回目。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　商店街を歩いていた人々が、いっせいに足を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　八百屋の主人は包丁を持ったまま宙を見つめ、バス停の老人は隣の空席に向かって「誰だっけ」とつぶやいた。信号機の赤だけが、血のように瞬いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　朝陽の隣で、紙袋が落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="54">「小夜？」</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　彼女は両手で喉を押さえていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="58">「今……誰かに、名前を呼ばれた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「俺には鐘しか聞こえなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「鐘じゃない。下から」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　小夜が指さしたのは、地面だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　アスファルトの上に伸びた彼女の影が、夕日とは反対の山側へ向かっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　影の頭がゆっくりと持ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　黒い平面の中に、細い亀裂が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　口だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　――くぜ、さよ。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　影が笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　次の瞬間、小夜の影は地面から剥がれ、濡れた布のようにうねりながら路地へ逃げ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　小夜は膝から崩れ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　朝陽が抱きとめたとき、通りの人々はもう歩き始めていた。誰もこちらを見ない。たい焼きだけが、夕焼けの路上で湯気を失っていった。</p>
+<div class="source-line scene-break gap-1" data-source-line="84" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-1" data-source-line="86"><span class="source-indent" aria-hidden="true">　</span>二</h2>
+<p class="source-line role-narration gap-1" data-source-line="88">　翌朝、教室には一つ、見覚えのない空席があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　窓側の後ろから二番目。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　机の横には猫のキーホルダーがついた紺色の鞄。机の中には、昨日の数学で小夜が「余裕」と言いながら三問中二問を間違えた小テスト。黒板の当番表には、白いチョークで消したような跡がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　なのに、担任は出席簿を読み上げるとき、その席を飛ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「先生」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　朝陽が手を挙げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="100">「久世は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　教室が静まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　担任の眉が寄る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">「くぜ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「久世小夜。そこ、あいつの席でしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　前の席の男子が振り返った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「鳴海、寝ぼけてんの？　そこ、ずっと空席じゃん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「昨日までいただろ。放課後、一緒に帰って――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「朝陽」</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　声は窓の外からした。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　小夜が、校舎の外壁に張りつくように立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　三階だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　彼女の髪は重力を無視して上へ流れ、制服の裾から下は、薄い煙のように透けている。顔色は悪いが、本人はいつものように眉を吊り上げた。</p>
+<p class="source-line role-dialogue role-memory fx-shout tone-3 gap-1" data-source-line="126">「ちょっと！　勝手に私を過去形にしないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　朝陽は椅子を蹴って立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　クラス全員がびくりとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　けれど、誰も窓の外を見なかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="134">「……見えてないのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　昼休み、朝陽は屋上へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　立入禁止の札が下がった扉を、肩で押し開ける。潮風が吹き込み、フェンスのそばに座っていた小夜の輪郭を揺らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「遅い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「授業中に三階の窓へ出るな。心臓が止まる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「止まったら仲間だね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「縁起でもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　朝陽は彼女の隣へ座った。触れようとして、手を止める。</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　小夜の右肩の向こうに、青い空が透けていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「家は？」</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="154">「お母さん、私を見ても『どちらさまですか』って。お父さんは、玄関に知らない靴があるって怒ってた」</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　声は明るかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　明るすぎた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「写真もだめ。卒業アルバムは顔が真っ黒。スマホの連絡先は、名前のところだけ空白。朝陽に電話しようとしたけど、自分の声が機械に入らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　小夜は膝を抱えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「ねえ。私、死んだのかな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「死んでたら、たい焼き代を請求できない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「昨日の、私が払ったんだけど」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「じゃあ生きてる。借金は存在証明だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　小夜が吹き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　その笑いが途切れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　彼女の左手の小指が、先端から灰になって崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　二人とも黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　灰は風に巻かれ、空へ消えた。小夜は震える手を背中へ隠す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「昨日、影に名前を呼ばれた。たぶん、あれが私を消してる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「十三番目の鐘だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　朝陽は胸ポケットから青銅片を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　表面には細かな文字が刻まれている。幼いころは傷だと思っていたが、今見ると、いくつもの名前を無理やり削り取った跡に見えた。</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="190">「うちは代々、神社の鐘を鋳てきた。爺ちゃんが何か知ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「聞けば教えてくれる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「たぶん、怒鳴る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「じゃあ当たりだね。大人は隠してることを聞かれると、まず怒るから」</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　小夜は立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="200">「行こう。私が全部消える前に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「いつまでだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「わかんない。でも――」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　彼女は目を閉じ、震える息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「自分の名字が、一瞬、思い出せなかった」</p>
+<div class="source-line scene-break gap-1" data-source-line="210" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-1" data-source-line="212"><span class="source-indent" aria-hidden="true">　</span>三</h2>
+<p class="source-line role-narration gap-1" data-source-line="214">　鳴海鋳房は、町外れの川沿いにある。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　工房へ入ると、金属と煤と油の匂いが鼻を刺した。天井から大小の鐘が吊られ、風もないのに、かすかに揺れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　祖父の源造は、溶鉱炉の前に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　七十を越えても背中は曲がらず、腕は丸太のように太い。朝陽を見るなり、火箸を炉へ突っ込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「学校はどうした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「久世小夜を知ってるか」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　火の粉が弾けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　それだけで答えは十分だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「帰れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="232">「やっぱり知ってるんだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="234">「その名を口にするな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「なんでだ。町中の人間が忘れてる。家族までだぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　源造は火箸を握る手に力を込めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「忘れたなら、それでいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　工房の隅で、小夜が息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　源造には彼女が見えていない。それでも声だけは聞こえたらしく、老人の片眉が動く。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="246">「……まだ、ここにいるのか」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="248">「いるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　小夜が答える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「勝手に消すな。私の人生は、町の備品じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　源造は目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「夕凪の鐘は、町を守るためにある。十三年に一度、鐘は一つの名を食う。その名が人の世から消えれば、海は鎮まり、山は崩れず、町は次の十三年を生き延びる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「生け贄じゃないか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「そう呼びたければ呼べ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="262">「ふざけるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　朝陽の声が工房に反響した。吊られた鐘が、いっせいに低く唸る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「十三年前は、誰だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　源造の顔から血の気が引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　朝陽は青銅片を突き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「これは母さんの形見だって言ったな。でも俺は、母さんの葬式を覚えてない。墓もない。写真も、一枚もない。なのに俺は、母さんが歌ってた歌だけ覚えてる。『夕焼け小焼け』の最後を、いつも間違えてた」</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　老人の口元が歪んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「母さんも、鐘に食われたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「じゃあ、どうして名前を言えない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="282">「やめろ」</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="284">「母さんの名前は！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="286">「夕子だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　源造の怒声と同時に、天井の鐘がすべて鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　何十もの音が重なり、工房の窓ガラスが粉々に砕ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　小夜が頭を抱えてうずくまった。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　床に落ちたガラス片の一つ一つに、女の顔が映った。長い髪。やさしい目。朝陽とよく似た眉。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　すべての口が、同じ言葉を形作る。</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　――忘れないで。</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　炉の火が黒く染まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　黒い炎の中から、長い腕が伸びる。指先には爪の代わりに小さな鐘がぶら下がり、その一つ一つから、泣き声が漏れていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="304">「下がれ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　源造が火箸で腕を叩く。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　金属を打つような甲高い音。黒い腕は炉へ引っ込んだが、床に落ちた影がむくむくと膨らみ、人の形になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　顔がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　首から上は青銅の鐘で、裾の裂け目が口のように開いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　その内側で、白い歯が何列も鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「名を、よこせ」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="318">　鐘の怪物が、小夜へ手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　朝陽は作業台の木槌をつかみ、横殴りに振り抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　ごん、と鈍い音。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="324">　怪物の頭がへこみ、歯の隙間から黒い泥が噴き出す。泥が床へ落ちるたび、人の声になった。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="326">「お母さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「先生」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">「ぼくは、ここに」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「忘れないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　小夜の顔が青ざめる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="336">「これ……今まで消された人たち？」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="338">　怪物の腕がしなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　朝陽は木槌で受けた。衝撃が肩まで突き抜け、壁へ叩きつけられる。</p>
+<p class="source-line role-dialogue fx-beat fx-key role-motif gap-1" data-source-line="342">「朝陽！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="344">　小夜が駆け寄ろうとした瞬間、怪物の指の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　彼女の左腕が肘まで透けた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="348">「やめろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　朝陽は立ち上がり、胸の青銅片を怪物へ投げつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　青銅片が額に刺さる。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="354">　怪物は絶叫した。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="356">　人の声ではない。千人が同時に名前を呼ばれ、同時に忘れられるような声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　黒い体が裂け、煙となって炉の奥へ吸い込まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　あとに残った青銅片を、源造が拾った。</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="362">「鐘の舌の欠片だ。夕凪神社の地下にある、最初の鐘のな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="364">「最初の鐘？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「今、山で鳴っているものは抜け殻だ。本物は、三百年前から地の底に逆さに吊られている」</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　源造は、削られた文字を親指でなぞった。</p>
+<p class="source-line role-dialogue role-ritual tone-3 gap-1" data-source-line="370">「十三年前、小夜の兄――久世朔が選ばれた。夕子は儀式を止めようとした。地下の鐘へ入り、朔の名を取り戻そうとして……鐘に呑まれた」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　小夜が顔を上げた。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="374">「兄……？」</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　目の奥に、古い光景がよみがえったようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　雨の日。黄色い傘。小さな自分の手を引く、少年の背中。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="380">「朔兄……」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　名前を口にした途端、工房の奥で何かが泣いた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="384">「私、兄がいた。ずっと、夢の中の人だと思ってた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「だから今回、お前が選ばれた」</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　源造の声は低かった。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="390">「忘れられた名を思い出す者は、空鐘様にとって傷になる。十三年前に取りこぼした記憶を、今度こそ食い尽くすつもりだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「じゃあ地下の鐘を壊せばいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　朝陽が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「できん。あれを壊せば、町を押さえているものまで解ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「本当に町を守ってるのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「何？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="402">「さっきの化け物は、守り神の顔じゃなかった。忘れられた人間を腹に詰めて、もっと名前を欲しがってた」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　朝陽は青銅片を奪い返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「守ってるんじゃない。育ってるんだ。俺たちが忘れるたびに」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　源造は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　その沈黙を、小夜が破った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「地下へ行く道を教えて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「ならん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「私は今夜までに消える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「一人で済むなら――」</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　乾いた音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　小夜の平手が、源造の頬を打っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　透けた手だった。それでも老人の顔は横を向いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「一人で済む、じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　小夜の声は震えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「一人が消えたら、その人を好きだった人の中にも穴が空く。何を失くしたかもわからない穴が。町中が穴だらけになるまで続けて、それを平和って呼ぶの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　源造の足元に、涙が一滴落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　消えかけた少女の涙だけは、床に残った。</p>
+<div class="source-line scene-break gap-1" data-source-line="436" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-1" data-source-line="438"><span class="source-indent" aria-hidden="true">　</span>四</h2>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="440">　夕凪神社へ続く石段は、六百六十六段あると言われている。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　実際に数えた者はいない。途中から、上った段と下りた段の数が合わなくなるからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　午後五時四十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　朝陽と小夜は、赤い鳥居をくぐった。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　源造は工房に残った。地下への道は教えない、と最後まで言い張ったが、朝陽の青銅片に付着した黒い泥が、山へ向かって細い筋を引いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「お爺さん、来ないかな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="452">「来ない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「即答」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「あの人は昔から、決めたことを曲げない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「朝陽もそっくりだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「どこが」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「眉間」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　小夜は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　その顔の左半分が、もう薄かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　石段の左右には、赤い前掛けをつけた地蔵が並んでいる。どれも顔を削られ、胸に小さな札を抱えていた。札には何も書かれていない。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="470">　一段上るたび、背後で足音が増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　一人分。二人分。十人分。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　振り返ってはいけない、と町の子どもは教えられる。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　小夜が小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="478">「後ろ、何人いると思う？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「数えるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="482">「百人くらい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「数えるなって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「私たちが知ってる人数より、多いね」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="488">　足音の中に、子どもの草履、杖、ハイヒール、裸足が混じっている。誰も息をしていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　五時五十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　二人は拝殿へ着いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　扉は開いていた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="496">　中には祭壇がなく、畳の中央に四角い穴が口を開けている。冷たい風が地下から吹き上がり、何百枚もの白い紙札を天井へ舞い上げていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　札には、途中まで書かれた名前がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「久世　朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　小夜が一枚をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　墨の文字が血のように滲む。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　ほかにも、古い名、新しい名、外国人らしい名、幼い字で書かれた名が、床一面を埋めていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="508">「こんなに……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「十三年に一人じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　朝陽は札を拾い上げる。</p>
+<p class="source-line role-dialogue role-memory role-ritual tone-3 gap-1" data-source-line="514">「儀式を見た人。止めようとした人。忘れられた人を思い出した人。全部、食われたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　穴の底から、鐘の音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　まだ六時前なのに、一回。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　小夜の右足が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　彼女は倒れ、朝陽が腕をつかむ。触れた感触は、霧より薄い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「時間がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　二人は穴へ下りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　石の階段は、地中へ向かって螺旋を描いていた。壁には古い絵が彫られている。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　海から黒い波が来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　人々が逃げる。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="534">　一人の女が、家々の鏡や鍋や鈴を集め、巨大な鐘を鋳る。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="536">　鐘の表面に、死者の名前を刻む。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　最後の絵で、町の人々は鐘を囲み、一人ずつ名を読み上げていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="540">　怪物へ人を差し出す絵は、どこにもない。</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="542">「これが本当の儀式だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　朝陽は壁をなぞった。</p>
+<p class="source-line role-dialogue role-memory role-ritual tone-5 gap-1" data-source-line="546">「死んだ人を忘れないために、鐘を鳴らしたんだ。町を守ったのは生け贄じゃない。記憶だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　その先の壁だけ、後世に塗りつぶされていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　黒い漆の下から、乱暴に削られた文字が覗いている。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="552">　――鐘は死者を世に返すにあらず。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　――名を人の胸へ返すものなり。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　小夜が息を吸った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="558">「誰かが意味を逆にした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「忘れた方が楽だったんだ。悲しい名前も、都合の悪い名前も、鐘に食わせればいい。そうやって守り神を、名喰いの化け物に変えた」</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="562">「じゃあ、元の儀式をすれば」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="564">「名前を全部、読み上げる」</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　朝陽は床に落ちていた白札を束ねた。</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="568">「鐘を鳴らして、町に返す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「何人いると思ってるの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「知らない。でもやる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「六時まで、あと七分」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「七分あれば、かなり喋れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　小夜は呆れ、それから笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="580">「無愛想なくせに、こういうときだけ前向き」</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　階段の最下部に、巨大な扉があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　青銅でできた扉には、十三の手形が押されている。最後の一つだけ新しく、指先から黒い泥が流れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　小夜が近づく。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　手形が彼女の手を引いた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="590">「小夜！」</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　扉が開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　闇の向こうから、無数の腕が伸び、小夜をさらった。</p>
+<div class="source-line scene-break gap-1" data-source-line="596" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-1" data-source-line="598"><span class="source-indent" aria-hidden="true">　</span>五</h2>
+<p class="source-line role-narration gap-1" data-source-line="600">　地下の空洞は、町が一つ入るほど広かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　天井から、逆さまの鐘が吊られている。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　高さは五階建ての校舎ほど。青銅の表面は黒く腐食し、削られた名前の跡が、無数の爪痕のように走っていた。鐘の口は上を向き、その底から、黒い根が地中へ伸びている。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　根には人が実っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　目を閉じた子ども。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　制服姿の学生。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　作業着の男。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　赤ん坊を抱いた女。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　誰も顔がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　誰も名前がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　中央の根に、小夜が絡め取られていた。身体は胸から下が消え、輪郭が砂のようにこぼれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　鐘の内側から、あの怪物が這い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　今度は工房で見たものより何倍も大きい。胴体は黒い縄と人の髪で編まれ、頭の鐘には、歯の代わりに無数の舌が垂れている。舌の一枚一枚に、名前が刻まれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="626">「久世、小夜」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="628">　怪物が名を舐める。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　小夜の制服から校章が消えた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="632">「返せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　朝陽は木槌を構え、床を蹴った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="636">　怪物の腕をかいくぐり、膝へ叩き込む。青銅がへこみ、内側から子どもの泣き声が漏れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　反撃の腕が飛ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　朝陽は転がって避けた。床が砕け、黒い根が蛇のように襲いかかる。木槌で一本を折ると、根の中から白い札が噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　名前だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　朝陽は札をつかみ、叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="646">「浜口清次！」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　逆さの鐘が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　根に実った老人の顔が戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　町のどこかで、誰かが「あっ」と声を上げた気がした。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="654">　怪物がのけぞる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「名前を呼ばれるのが嫌なんだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　朝陽は散らばる札を拾い、次々に読み上げた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="660">「三田村ハナ！　奥野譲！　小田桐美雪！　伊佐木蓮！」</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　一つ呼ぶたび、鐘の表面に文字が浮かぶ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="664">　一つ呼ぶたび、怪物の身体から黒い縄がほどける。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　だが札は多すぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　何百、何千。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　六時まで、あと三分。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="672">　怪物が頭を振る。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　十三枚の舌が、鐘のように鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　衝撃波が朝陽を吹き飛ばす。背中から壁へ叩きつけられ、肺の空気が抜けた。木槌が手を離れ、闇へ転がる。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="678">　怪物の指が朝陽の胸をつかむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「おまえも、忘れろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　視界が白く染まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　母の顔が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　声が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　夕焼けの台所で歌っていた人が、ただの光になる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="690">「やめろ……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="692">「忘れれば、痛くない」</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　甘い声だった。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="696">「喪った者を忘れれば、悲しみも消える。罪を忘れれば、眠れる。名を忘れれば、死者は最初からいなかったことになる」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="698">　朝陽の中から、小夜との記憶が抜けていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　たい焼き。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　屋上。</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　強がった笑い。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　空席。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　少女の名前が、喉の奥でほどけ始める。</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-1" data-source-line="710">「朝陽！」</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　小夜の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　彼女は根に縛られたまま、残った右手で胸を叩いていた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="716">「私の名前、言って！」</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　朝陽は口を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　出てこない。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="722">「何回でも！」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="724">「……さ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="726">「もっと！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">「小夜！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="730">　怪物の指に亀裂が入る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「久世小夜！」</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　朝陽は叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「十五歳！　辛いものが苦手なくせに見栄を張る！　数学が得意って言うけど、昨日の小テストは三十三点！　たい焼きは頭から食う！　猫に好かれたいのに毎回逃げられる！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="738">「最後のは言わなくていい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="740">「うるさい！　俺が覚えてる！　お前が忘れても、町中が忘れても、俺が覚えてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　小夜の輪郭が光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　消えた左手が戻る。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="746">　怪物の腕が砕け、朝陽は床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　六時まで、あと一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　地上で一回目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　逆さの鐘が共鳴する。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="754">　怪物が咆哮し、空洞の黒い根が一斉に朝陽へ迫った。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　そのとき、天井から太い綱が落ちてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　根を薙ぎ払い、源造が滑り降りる。肩には、工房で最も大きな撞木を担いでいた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="760">「遅い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　朝陽が叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「年寄りに六百六十六段はきついんだ！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="766">　源造は撞木を振り回し、怪物の胸へ叩きつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　ごおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　鐘の音が空洞を揺らす。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="772">　怪物の胴から、一人の女がこぼれ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　長い髪。やさしい目。朝陽とよく似た眉。</p>
+<p class="source-line role-dialogue role-name fx-whisper tone-3 gap-1" data-source-line="776">「母さん……」</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　夕子は透き通った姿で立ち、息子の頬へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　温かくはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　それでも、触れた場所に懐かしい歌がよみがえった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="784">「ごめんな」</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　源造が、娘へ言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="788">「十三年前、わしは町を選んだ。お前の言葉を信じなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　夕子は首を横に振る。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　そして、逆さの鐘を指さした。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　鐘の頂上――本来なら底にあたる場所に、一文字だけ、削られず残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　名。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　朝陽は気づいた。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="800">「怪物にも、名前がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　小夜が根を引きちぎりながら叫ぶ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="804">「最初の守り神の名前！」</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　地上で二回、三回、四回と鐘が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　壁画の最初の女。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="810">　死者の名を刻んだ鐘。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="812">　忘却ではなく、記憶を守った神。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　朝陽は青銅片を握りしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　削り跡の間に残った細い線を、指でなぞる。欠けた文字が、逆さの鐘に反射した光の中でつながっていく。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="818">「名守……」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="820">　怪物が初めて怯えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「言うな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="824">「夕名守」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="826">「言うな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　怪物の舌が一斉に伸びる。</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　源造が撞木で受け止めた。肩が裂け、血が飛ぶ。それでも老人は退かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="832">「朝陽！　呼べ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　五回、六回、七回。</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　小夜が朝陽の手を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　今度は、はっきりと温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　二人で息を吸う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="842">「夕名守大神！」</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　名前が、地下から地上へ突き抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　町中の窓が震えた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="848">　人々の頭に、忘れていた顔が戻る。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="850">　八百屋の主人は包丁を落とし、幼いころに亡くした姉の名を叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　バス停の老人は隣の空席を抱きしめ、戦争から帰らなかった友の名を呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　小夜の母は夕食の皿を三枚並べたまま立ち尽くし、「朔、小夜」と泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　八回、九回、十回。</p>
+<p class="source-line role-narration role-horror tone-1 gap-1" data-source-line="858">　怪物の黒い縄がほどけ、内側から青い光があふれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="860">　顔のない人々に、次々と顔が戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　十一回。</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　夕子が朝陽へ微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="866">「ずっと、覚えてた」</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　朝陽は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　十二回。</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　彼女の唇が動く。</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　――知ってる。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　夕子の姿は光になり、鐘の文字へ溶けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="878">　地上の音が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="880">　町全体が、息を止めた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="882">　怪物はまだ残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　胸の中心に、黒い穴が開いている。そこから、最後の舌が伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="886">　舌には何も刻まれていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　名を失った神自身のための空白だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="890">「十三回目は、誰かを消す鐘じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　朝陽は転がっていた木槌を拾った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="894">「忘れた名前を、帰す鐘だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　小夜が隣で木槌に手を添える。</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　源造が撞木を構える。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　三人は、逆さの大鐘を同時に打った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="902">　十三回目。</p>
+<p class="source-line role-narration gap-1" data-source-line="904">　――ごおおおおおん。</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　今度の音は、骨の内側ではなく、町にいる全員の胸で鳴った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="908">　怪物の黒い身体が裂ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　中から現れたのは、白い髪の小さな子どもだった。古い装束をまとい、泣き腫らした目で、朝陽たちを見上げている。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="912">「わたしを……覚えているか」</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　朝陽は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="916">「ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　小夜も頷く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="920">「忘れない」</p>
+<p class="source-line role-narration gap-1" data-source-line="922">　子どもは、ようやく笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　その姿は無数の白い鳥となり、逆さの鐘の口から地上へ飛び立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="926">　黒い根が崩れ、顔を取り戻した人々が光へ変わる。光は一つずつ、白札に吸い込まれていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="928">　やがて大鐘は、三百年ぶりに正しい向きへ回転した。</p>
+<p class="source-line role-narration gap-1" data-source-line="930">　地の底へ、静かに着地する。</p>
+<p class="source-line role-narration gap-1" data-source-line="932">　朝陽は小夜の手を握ったまま、力が抜けて座り込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="934">「いるか」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="936">「いるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="938">「名前は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="940">「久世小夜。十五歳。数学は――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="942">「三十三点」</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="944">「それは忘れていい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="946">　小夜の拳が朝陽の肩を叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="948">　今度は、ちゃんと痛かった。</p>
+<div class="source-line scene-break gap-1" data-source-line="950" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-1" data-source-line="952"><span class="source-indent" aria-hidden="true">　</span>六</h2>
+<p class="source-line role-narration gap-1" data-source-line="954">　それから一か月、町は泣き続けた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="956">　忘れていた家族を思い出した者。</p>
+<p class="source-line role-narration gap-1" data-source-line="958">　墓すら作れなかった友を弔う者。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="960">　自分が誰かを忘れていたことに、初めて気づいた者。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="962">　夕凪神社の境内には、名を記すための石碑が建てられた。白札から読み取れた名は二千三百十四。読み取れないものも多く、石碑の最後には、空白のままの欄が残された。</p>
+<p class="source-line role-narration gap-1" data-source-line="964">　空白もまた、誰かがいた証だと、源造が言った。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="966">　神社の鐘は新しく鋳直された。</p>
+<p class="source-line role-narration gap-1" data-source-line="968">　表面には消されたすべての名と、中央に大きく「夕名守大神」と刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="970">　毎日夕方六時、鐘は十三回鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="972">　今度は町中の人が、声に出して数える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">「十、十一、十二、十三」</p>
+<p class="source-line role-narration gap-1" data-source-line="976">　十三回目のあと、誰かが必ず、忘れたくない名を一つ呼ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="978">　月曜日の朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="980">　担任は出席簿を開き、窓側の後ろから二番目を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="982">「久世小夜」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="984">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="986">　小夜が返事をする。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　教室の全員が、当たり前のように彼女を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="990">　朝陽は頬杖をついたまま、こっそり息を吐く。</p>
+<p class="source-line role-narration gap-1" data-source-line="992">　放課後、小夜は彼の机へ紙袋を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="994">「はい。たい焼き」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="996">「借金の返済？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="998">「私が払ったって言ったでしょ。これはお礼」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1000">「何の」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1002">「覚えててくれた」</p>
+<p class="source-line role-narration gap-1" data-source-line="1004">　小夜は窓の外を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1006">　山の鐘楼が、夕日に黒く浮かんでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1008">「人って、いつかは忘れるよね。声とか、顔とか。大事だった気持ちまで薄くなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1010">「だから鐘があるんだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1012">「朝陽は、私のこと忘れない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1014">「数学三十三点は一生忘れない」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1016">「そこじゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1018">　たい焼きが飛んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1020">　朝陽は片手で受け止め、尻尾からかじる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1022">　小夜が「あ、そっちから食べる派なんだ」と笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1024">　そのとき、遠くで一回目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1026">　二人は並んで数え始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="1028">　夕焼けの町を、一つずつ、名前が帰ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1030">　十二。</p>
+<p class="source-line role-narration gap-1" data-source-line="1032">　そして――十三。</p>
+<p class="source-line end-mark gap-2" data-source-line="1035"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

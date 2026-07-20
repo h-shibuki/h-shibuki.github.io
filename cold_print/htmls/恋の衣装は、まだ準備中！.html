@@ -1,0 +1,997 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="大学祭前夜、服飾サークルの佐伯悠真へ、演劇サークルの看板役者・星川莉央が駆け込んでくる。明日のヒーローショーで着る姫騎士ルミナのドレスは、背中のファスナーが壊れたまま。本番は朝九時、修理には着た状態での調整が必要だ。雷雨に閉じ込められた作業室で、採寸なら平静な悠真も、莉央との距離には針先ほどの余裕しかない。さらに隣室の仮想試着装置が暴走し、衣装も秘密もずぶ濡れにしていく。舞台の幕が上がるまでにドレスは直るのか。そして二人がまだ言葉にできない気持ちは、どんな衣装を選ぶのか。">
+<title>恋の衣装は、まだ準備中！｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="恋の衣装は、まだ準備中！" data-novel-id="恋の衣装は、まだ準備中！" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示" selected>学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ラブコメ・学園・ギャグ</p>
+  <p><strong>補助ジャンル：</strong>読み切り</p>
+  <p><strong>CSVタグ：</strong>ラブコメ、学園、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示</p>
+  <h3>意味色</h3><p>赤＝気合、青＝戦術、金＝信頼、紫＝迷い、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：536行／章：0／役割・強度タグ：614</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="恋の衣装は、まだ準備中！ 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『恋の衣装は、まだ準備中！』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">※登場人物は全員二十歳以上です。</p>
+<p class="source-line role-narration gap-2" data-source-line="6">　大学祭前日の午後六時。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　服飾サークル「シーム」の作業室には、ミシンの音と、雨が窓を叩く音だけが響いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　佐伯悠真、二十歳。大学二年生。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　人と話すより糸と話すほうが得意で、派手な服を作るくせに、自分は一年中、黒いパーカーとジーンズ。そんな彼は、最後の縫い目を確かめながら、ようやく息をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="13">「よし。これでステージ衣装、全部――」</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　完成。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　そう言い終えるより先に、作業室の扉が勢いよく開いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="19">「佐伯くん、助けて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　飛び込んできたのは、星川莉央。二十歳。同じ大学の二年生で、演劇サークルの看板役者だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　長い髪は雨粒をまとい、頬は走ってきたせいで赤い。普段なら誰もが振り返るほど堂々としている彼女が、今は大きなスポーツバッグを胸に抱え、泣きそうな顔をしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「どうしたの、星川さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="26">「壊れたの。明日の主役衣装」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="27">「どこが？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="28">「背中のファスナー」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　莉央は作業台にバッグを置き、中から銀と青のドレスを取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　大学祭の目玉、演劇サークルのヒーローショー。</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　莉央が演じるのは、宇宙王国の姫騎士ルミナ。細身のドレスに短いマント、肩には星形の装飾。悠真が一か月かけて仕立てた自信作だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　だが、背中のファスナーは途中で歯が外れ、布まで噛み込んでいる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="37">「本番用を着て最終リハーサルしてたら、悪役にマントを踏まれて……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="38">「これはひどいな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="39">「直る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="40">「直す。何時まで？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="41">「明日の朝九時」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="42">「間に合わせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　悠真が即答すると、莉央は胸の前で両手を合わせた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="46">「ありがとう！　佐伯くん、本当に神様！」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="47">「神様じゃなくて、地味な裁縫係」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="48">「神様はだいたい裏方にいるのよ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="50">　さらりと言って笑う。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="51">　その笑顔を正面から受け、悠真は針を一本落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="53">「と、とりあえず、壊れ方を確認したい。着た状態で布の張りを見ないと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="54">「うん。じゃあ、着替えるね」</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　莉央は部屋の隅にある簡易試着室へ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="57">　三本の支柱に厚いカーテンを掛けただけの、頼りない設備だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　カーテンが閉まり、衣擦れの音がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　悠真は作業台の上だけを見ることにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="62">　糸。針。はさみ。指ぬき。</p>
+<p class="source-line role-narration gap-0" data-source-line="63">　実に平和で、理性的な景色である。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="65">「佐伯くん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="66">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="67">「後ろ、上がらない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="68">「ファスナーが壊れてるからね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「そうじゃなくて。腕が届かないの。少し手伝って」</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　カーテンの隙間から、莉央が顔だけを出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">「目、つぶっててくれたらいいから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="74">「いや、目をつぶったら直せない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="75">「じゃあ、背中だけ見て」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「その注文、難易度が高くない？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="77">「職人魂でなんとかして」</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　職人魂とは、ずいぶん便利な言葉らしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　悠真が試着室へ入ると、莉央は背中を向けて立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="82">　ドレスは腰までしか閉まっておらず、白いインナーと、すらりとした背中がのぞいている。細い肩ひもの上に、濡れた髪が張りついていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="84">「……佐伯くん？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「見てない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="86">「見ないと直せないって自分で言ったでしょ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="87">「必要なところだけ見てる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="88">「耳まで赤いけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="89">「作業室が暑い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="90">「冷房、二十度よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　逃げ道が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　悠真は咳払いをし、布を噛んだファスナーに指を添えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「少し引っ張るよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「うん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「痛かったら言って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="99">「それ、なんだか言い方が――ひゃっ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="101">　指先が、背中の肌をかすめた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="103">「ご、ごめん！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="104">「冷たかっただけ。大丈夫」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　莉央はそう言ったが、肩がぴんと上がっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="107">　悠真も手の置き場がわからなくなり、ファスナーの金具をつまんだまま固まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　その瞬間。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　ガタン、と試着室の支柱が傾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「え？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="114">「危ない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　悠真は反射的に片手で支柱をつかみ、もう片方の手で莉央の肩を抱き寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　カーテンが半分落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　莉央の身体が、悠真の胸にぶつかる。</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　銀色のドレスは背中が開いたまま。悠真の手のひらには、驚くほど近い体温があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　二人の顔が、十センチも離れていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　莉央の睫毛が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="125">　悠真は息を止めた。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="126">　雨音だけが、急に大きくなった気がした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="128">「……佐伯くん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="129">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="130">「支柱、もう大丈夫？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="131">「あ。うん」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="132">「じゃあ、その……手」</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　悠真の手はまだ、莉央の肩を抱いていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="136">「ごめん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　勢いよく離れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="139">　今度は悠真の肘がカーテンに引っかかり、残っていた布まで全部落ちた。</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-1" data-source-line="141">「きゃっ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="142">「見てない！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="143">「だから今は見ないと危ないってば！」</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　悠真は目を閉じたままカーテンを拾おうとし、丸椅子につまずき、布を頭からかぶって転んだ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="147">　暗闇の中で、莉央の笑い声が弾けた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="149">「もう……佐伯くん、真面目すぎ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="150">「真面目で悪かったね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="151">「悪くないよ。むしろ、そこが――」</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　言葉が途中で止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「そこが？」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="156">「なんでもない。早く直して、職人さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　顔を出した悠真が見たのは、背中を向けた莉央だけだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="159">　ただ、鏡に映った彼女の頬は、悠真と同じくらい赤かった。</p>
+<div class="source-line scene-break gap-2" data-source-line="162" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="165">　壊れたファスナーは、交換が必要だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　悠真はドレスをマネキンに着せ、縫い目をほどき始めた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="168">　莉央はというと、帰ろうとはしなかった。サークル備品の大きなＴシャツとショートパンツを借り、作業台の向かい側に座っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　Ｔシャツには、赤い糸で「縫えばなんとかなる」と書かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「本当に、それ着て帰るの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="173">「だって服、雨でびしょびしょなんだもん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="174">「乾燥機、倉庫にあったはず」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="175">「じゃあ、一緒に取りに行こう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="176">「場所、教えるから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="177">「一人で行くの、怖い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「大学の倉庫だよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「夜の大学って、出るらしいよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「何が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「卒業できなかった先輩」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="182">「生々しいな」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="184">　莉央はくすくす笑い、椅子の上で膝を抱えた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="185">　大きすぎるＴシャツの裾が、太腿の半ばまで落ちている。ショートパンツは履いているはずなのに、正面からは見えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　悠真は視線をドレスへ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「星川さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="190">「なに？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="191">「その座り方、危ない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="192">「どこ見てるの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="193">「見ないようにしてるから言ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="194">「ふふ。佐伯くんって、意外とちゃんと男の子なんだね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「その評価、必要？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="196">「必要。いつも私をマネキンみたいに扱うから」</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　はさみを動かす手が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="200">「嫌だった？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="201">「逆。安心してた」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　莉央は膝に顎を乗せ、少しだけ目を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">「私、演劇サークルで目立つ役をもらうことが多いでしょ。写真を頼まれるのも、誘われるのも慣れてる。でも、衣装が少し短いとか、胸元が開いてるとか、そういう話ばっかりされると……なんだか、私じゃなくて、形だけ見られてる気がして」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="206">「……うん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="207">「佐伯くんは、採寸のときも衣装のことしか言わなかった。『肩が動かしにくくない？』とか、『この生地なら照明を反射しすぎない』とか」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="208">「仕事だから」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="209">「今日だって、背中が開いてたのに、必死で目をそらしてた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="210">「それは普通だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="211">「普通にしてくれる人って、案外少ないんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　雨はまだ強い。</p>
+<p class="source-line role-narration role-sensory tone-1 gap-0" data-source-line="214">　窓の向こうで稲光が走り、少し遅れて低い雷鳴が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　莉央の肩が小さく跳ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="218">「雷、苦手？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="219">「ぜんぜん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="220">「今、跳ねたけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="221">「演技」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「さすが看板役者」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="223">「……ちょっとだけ苦手」</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　もう一度、雷が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　今度は莉央が椅子から立ち、悠真のそばへ来た。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="228">　作業を見るふりをしているが、距離が妙に近い。柔らかな髪が、悠真の腕に触れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「そこ、縫い直すの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="231">「うん。古いファスナーを外して、新しいのをつける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「手伝える？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="233">「針、使える？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="234">「ボタンなら」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="235">「じゃあ、マントの星飾りを補強して。ここ」</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　二人は肩を並べて作業を始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　莉央は意外に器用だった。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="240">　けれど雷が鳴るたび、針先が止まり、少しずつ悠真に寄ってくる。三回目の雷のころには、二人の肩は完全に触れ合っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「星川さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="243">「作業中です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="244">「近い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="245">「照明が暗いから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="246">「机のライト、三つ点いてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="247">「細かい男は嫌われるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「覚えておく」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　莉央がむっとして、悠真の脇腹を指でつついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　そのとき、廊下から電子音が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">『衣装認識システム、起動します』</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　二人は顔を見合わせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「今の、何？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="259">「たぶん工学サークルの展示」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　作業室の隣では、工学サークルが大学祭用の実験機材を組み立てていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="262">　名称は「フィットミラー」。鏡の前に立つと、カメラが体格を読み取り、様々な衣装を画面上で試着できるという装置だ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="264">　便利そうだが、開発責任者の真壁杏奈先輩、二十一歳は笑顔でこう言っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">『だいたい安全。たまに服装データが暴走するけど、服が本当に脱げるわけじゃないから安心して』</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　安心できる部分が少ない説明だった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="270">『認識対象を検索中……発見しました』</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　作業室の壁に掛けられた大型モニターが勝手に点灯した。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　画面には、莉央の全身が映っている。</p>
+<p class="source-line role-dialogue role-comic fx-beat gap-1" data-source-line="275">「ちょっと待って。いつ撮ったの!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="276">「天井のカメラみたいだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　モニター上の莉央の服が、瞬時に切り替わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　宇宙姫のドレス。</p>
+<p class="source-line role-narration gap-0" data-source-line="281">　白衣の研究員。</p>
+<p class="source-line role-narration gap-0" data-source-line="282">　猫耳付きのカフェ制服。</p>
+<p class="source-line role-narration gap-0" data-source-line="283">　スポーツウェア。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　そして、真夏の海を思わせる大胆な水着。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="286">「きゃああああっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　莉央が両腕で自分の身体を隠した。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="290">「画面だけ！　現実の服は変わってない！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="291">「わかってるけど、見ないで！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="292">「だから画面を消そうとしてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　悠真がリモコンを探す横で、画面の水着は次々に形を変える。</p>
+<p class="source-line role-narration gap-0" data-source-line="295">　肩ひもの細いもの。腰にリボンのついたもの。布面積について設計者と話し合いたくなるもの。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">『おすすめ度、九十八パーセント』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="298">「おすすめしなくていい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　莉央は裁断用の大きな紙をつかみ、モニターへ投げつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="301">　紙はふわりと舞い、悠真の顔に張りつく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「佐伯くん、見た？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">「見てない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="305">「一瞬、見てた！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="306">「消すために画面を見たんだよ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="307">「何色だった？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="308">「青――じゃなくて、知らない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="309">「見てるじゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　怒った莉央がクッションを投げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="312">　悠真が避ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="313">　クッションは壁の非常用スイッチに命中した。</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　赤いランプが点滅した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">『展示モードを、緊急洗浄モードに切り替えます』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="318">「緊急洗浄？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="319">「何を洗うの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　天井のノズルから、細かな水が一斉に噴き出した。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="323">「冷たっ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="324">「うわっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　小雨のような水が、作業室全体へ降り注ぐ。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　悠真は真っ先に修理中のドレスへ防水布をかぶせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　莉央もマントを抱えて机の下へ滑り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　十秒ほどで水は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　床も、机も、二人もびしょ濡れだった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="335">「最悪……」</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　莉央が立ち上がる。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="338">　借り物の白いＴシャツは水を吸い、肌に張りついていた。下に着ているものの輪郭が透けそうになり、莉央はそれに気づいて悲鳴を上げる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="340">「見ないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　悠真は即座に背を向け、自分の黒いパーカーを脱いで後ろへ差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「これ着て」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="345">「佐伯くんは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="346">「Ｔシャツが黒だから平気」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="347">「……ありがとう」</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　衣擦れの音。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-0" data-source-line="350">　濡れた布が肌から離れる音がして、悠真は窓の外の暗闇だけを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「もういいよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　振り返ると、莉央はパーカーの前を胸元まで閉めていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　悠真のものなので、袖は少し長い。濡れた髪を片側へ寄せ、指先だけ出した姿は、普段の華やかな彼女とは違って見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「似合う」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="358">「それ、服を作る人として？」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="359">「いや……普通に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="360">「普通に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="361">「かわいいと思う」</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　言ってから、悠真は口を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　莉央は目を丸くした。</p>
+<p class="source-line role-narration gap-0" data-source-line="366">　それから、パーカーの襟を鼻先まで引き上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「急にそういうこと言うの、反則」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="369">「忘れて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="370">「無理。耳に保存した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="371">「削除機能は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="372">「ありません」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="374">　パーカーの陰で、莉央が笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　モニターから、再び電子音が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">『緊急洗浄、完了。安全確認のため、室内をロックします』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="379">「え」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="380">「今、ロックって言った？」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　扉へ駆け寄る。</p>
+<p class="source-line role-narration gap-0" data-source-line="383">　ノブは回らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">『解除には、二名による同時認証が必要です』</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　壁の両端に、手形のパネルが点灯した。</p>
+<p class="source-line role-narration gap-0" data-source-line="388">　一つは床から二メートルほどの高さ。</p>
+<p class="source-line role-narration gap-0" data-source-line="389">　もう一つは、大型棚の裏側。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「設計した人、性格悪くない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="392">「杏奈先輩なら、あり得る」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　まず、高い位置のパネル。</p>
+<p class="source-line role-narration gap-0" data-source-line="395">　悠真が手を伸ばすが、ぎりぎり届かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="397">「踏み台は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="398">「水で濡れて危ない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="399">「じゃあ、私が肩車する？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="400">「逆だろ」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="401">「冗談よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　莉央は悠真の前でしゃがみかけ、慌てて立ち直った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="405">「私が上に乗るの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="406">「嫌なら別の方法を探す」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="407">「嫌とは言ってないけど……変なところ、見ないでね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="408">「どこを見るんだよ」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="409">「それは、その……いろいろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　結局、悠真が壁際にしゃがみ、莉央が肩へまたがる形になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「重くない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="414">「ぜんぜん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="415">「本当に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="416">「軽すぎて怖い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="417">「それ、褒めてる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="418">「たぶん」</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　莉央の両脚が悠真の肩の横にあり、長いパーカーの裾が頭上で揺れている。</p>
+<p class="source-line role-narration gap-0" data-source-line="421">　悠真は前方の壁だけを凝視した。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="423">「佐伯くん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「なに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「上、見たら怒るからね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「見ないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="427">「絶対？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="428">「絶対」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="429">「……そんなに即答されると、少しくらい気にしてほしい気もする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="430">「どうしろっていうんだよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　動揺した悠真が立ち上がりすぎ、莉央の頭が天井すれすれまで上がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="434">「高い高い高い！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="435">「暴れないで！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="436">「佐伯くんが急に立つから！」</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　莉央がバランスを崩し、両脚で悠真の首を挟む。</p>
+<p class="source-line role-narration gap-0" data-source-line="439">　パーカーの裾がふわりと広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　悠真は全力で目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「目、閉じたら危ないでしょ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="444">「さっき見るなって言っただろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="445">「前だけ見て！　前だけ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　どうにか体勢を戻し、莉央が高いパネルへ手を置く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">『認証一、待機中』</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="451">「次、棚の裏！」</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　悠真は莉央を下ろし、二人で大型棚の横へ回った。</p>
+<p class="source-line role-narration gap-0" data-source-line="454">　棚と壁の隙間は狭く、人一人が横向きで入れる程度しかない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「私のほうが細いから行く」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="457">「濡れた床、気をつけて」</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　莉央は身体を横にし、隙間へ入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="460">　だが途中で、パーカーの背中が棚の金具に引っかかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「あれ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="463">「動ける？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="464">「待って。後ろ、何かに引っかかってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="465">「外すよ」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="466">「うん。……あっ、でも、パーカーの下、Ｔシャツ着てないから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="467">「知ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="468">「知ってるって言い方、恥ずかしい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　悠真は顔を横へ向けたまま、金具を探った。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="471">　濡れた布の下で、莉央の背中がすぐそこにある。指先が触れそうになるたび、二人とも息を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「右？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="474">「もう少し上」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="475">「ここ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="476">「ひゃっ。そこ、背中」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="477">「ごめん」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="478">「くすぐったい……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="479">「動かないで。余計に外れない」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="480">「佐伯くんの指が冷たいんだもん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="481">「水をかぶったから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="482">「言い訳になってない」</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　どうにか金具を外した瞬間、棚の脚が濡れた床ですべった。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="486">「危ない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　悠真は莉央を引き戻した。</p>
+<p class="source-line role-narration gap-0" data-source-line="489">　二人はそのまま、床に積んであった舞台用クッションへ倒れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　ぼふん、と柔らかな音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　悠真が下。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　莉央が上。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　パーカーのフードが落ち、濡れた髪が悠真の頬をくすぐった。</p>
+<p class="source-line role-narration gap-0" data-source-line="497">　莉央の手は悠真の胸の上にある。片膝は彼の腰の横。顔と顔の距離は、さっきよりも近かった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="499">「……また、この体勢」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「ごめん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="501">「謝るの、どっちだろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="502">「どいてもらえると助かる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="503">「すぐ、どくけど」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　莉央は動かなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="507">　瞳の中に、モニターの青い光が映っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="508">　頬に落ちた髪から、水滴が一つ、悠真の首筋へ落ちた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="510">「佐伯くん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="511">「うん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="512">「さっき、かわいいって言ったの、本気？」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="513">「……本気」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="514">「私のこと、そういうふうに見たこと、あるんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="515">「あるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="516">「いつから？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="517">「衣装の仮縫いをした日から」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="518">「半年も前じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="519">「言えるわけないだろ。星川さん、人気者だし」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="520">「人気があったら、好きになっちゃだめなの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="521">「だめじゃない。でも、僕なんかが言ったら迷惑かなって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="522">「それ、私が決めることだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　莉央の声は、驚くほど静かだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　悠真は答えようとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="527">　だが、その直前。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">『認証待機時間、残り十秒』</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="531">「忘れてた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　莉央が飛び起きる。</p>
+<p class="source-line role-narration gap-0" data-source-line="534">　二人はそれぞれのパネルへ走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="536">「星川さん、届く？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="537">「届いた！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="538">「三、二、一――」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　二人が同時に手を置く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">『認証成功。ロックを解除します』</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　扉の鍵が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　同時に、隣室から大きな物音がして、真壁杏奈先輩が工具箱を抱えて飛び込んできた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="548">「二人とも無事!?　装置が雷で暴走して――あら」</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　濡れた作業室。</p>
+<p class="source-line role-narration gap-0" data-source-line="551">　床のクッション。</p>
+<p class="source-line role-narration gap-0" data-source-line="552">　Ｔシャツ一枚の悠真。</p>
+<p class="source-line role-narration gap-0" data-source-line="553">　悠真のパーカーを着た莉央。</p>
+<p class="source-line role-narration gap-0" data-source-line="554">　そして、二人の真っ赤な顔。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　杏奈先輩は眼鏡を押し上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="558">「説明は不要ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="559">「必要です！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="560">「ものすごく必要です！」</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　二人の声が、きれいに重なった。</p>
+<div class="source-line scene-break gap-2" data-source-line="565" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="568">　翌朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　空は、昨日の嵐が嘘のように晴れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　大学祭のメインステージ裏で、悠真は最後の衣装確認をしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="573">　交換したファスナーは滑らかに動く。マントの星飾りも、莉央が縫い直した部分だけ少し不揃いだが、強度は十分だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="575">「完成」</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　試着室から出てきた莉央は、宇宙姫ルミナそのものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　銀色のドレスは照明を受けて淡く輝き、青いラインが身体の動きに合わせて流れる。短いマントが肩から背へ広がり、昨日壊れていたファスナーは、最初からそこにあったように見えない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「どう？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="582">「完璧」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="583">「衣装が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="584">「両方」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="585">「……昨日から、急に攻めるね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="586">「二度目だから、少し慣れた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="587">「私は慣れない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="589">　莉央は笑いながらも、耳を赤くした。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　舞台袖から、開演を告げる音楽が聞こえる。</p>
+<p class="source-line role-narration gap-0" data-source-line="592">　観客の歓声が大きくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="594">「行ってくる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="595">「うん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="596">「ちゃんと見ててね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="597">「衣装の動き？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="598">「私を」</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　莉央は一歩近づき、悠真の胸元を指で軽く押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="602">「形だけじゃなくて、私を見て」</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　そう言って、ステージへ駆けていく。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="606">　眩しい照明の中、彼女は誰よりも堂々としていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="607">　剣を振るい、悪役と戦い、子どもたちへ笑顔を向ける。昨日、雷に肩をすくめていた人と同じとは思えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　悠真は舞台袖から、その姿を一瞬も見逃さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　ショーは終盤へ差しかかった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="612">　悪役が放った光線を、ルミナ姫がマントで跳ね返す。派手な音響と同時に、工学サークルの送風装置が強い風を起こす予定だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　予定どおりなら、マントが美しく広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　だが。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「強すぎないか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　装置がうなり、突風がステージを横切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　莉央のマントが大きく舞い上がる。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="623">　同時に、ドレスの軽いスカート部分まで危険な角度で持ち上がった。</p>
+<p class="source-line role-dialogue fx-beat fx-key role-motif gap-1" data-source-line="625">「きゃっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　莉央は剣を持っているため、押さえられない。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　観客席がざわめく。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　悠真は考えるより先に走っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="632">　舞台へ飛び出し、宙を舞ったマントの端をつかむ。そのまま莉央の前へ回り込み、広げたマントで彼女をすっぽり隠した。</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　間一髪。</p>
+<p class="source-line role-narration gap-0" data-source-line="635">　見えそうで、見えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　観客席から、どっと歓声が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　だが台本には、悠真の役など存在しない。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　悪役役の先輩が小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「誰だ、お前」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="644">「衣装係です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="645">「今は何か名乗れ」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="646">「ええと……」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　莉央がマントの陰から顔を出した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="650">「彼は、王国一の仕立て騎士です！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="652">　観客が笑い、拍手する。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　悠真も腹をくくった。</p>
+<p class="source-line role-narration gap-0" data-source-line="655">　舞台中央で片膝をつき、精いっぱい芝居がかった声を出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「姫。破れた衣装も、乱れた心も、僕が何度でも縫い直します」</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　言った直後、自分で恥ずかしくなった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="660">　けれど莉央は、少し目を見開いたあと、誰よりも輝く笑顔を見せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「では騎士よ。最後まで、私のそばに」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「はい、姫」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　即興の展開は、なぜか大成功だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　ルミナ姫と仕立て騎士は力を合わせ、悪役を倒す。</p>
+<p class="source-line role-narration gap-0" data-source-line="669">　エンディングの音楽が流れ、二人が並んで礼をすると、大学祭で一番ではないかと思うほどの拍手が降り注いだ。</p>
+<div class="source-line scene-break gap-2" data-source-line="672" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration gap-2" data-source-line="675">　ステージを降りた途端、悠真はその場にしゃがみ込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「無理。もう二度と舞台には出ない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="678">「格好よかったよ、仕立て騎士さん」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="679">「恥ずかしくて記憶を消したい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="680">「だめ。私の耳と目に保存したから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="681">「削除機能は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="682">「ありません」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="684">　昨日と同じ答えに、二人で笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　莉央はマントを外し、悠真の肩へ掛けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「助けてくれて、ありがとう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="689">「衣装係だから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="690">「衣装だけ？」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="691">「……星川さんも」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="692">「また名字」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="693">「莉央さん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="694">「さん、もいらない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="695">「難易度が高い」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="696">「職人魂でなんとかして」</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　莉央は一歩、近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　舞台裏の狭い通路。</p>
+<p class="source-line role-narration gap-0" data-source-line="701">　遠くから祭りの音がする。</p>
+<p class="source-line role-narration gap-0" data-source-line="702">　二人の周りだけ、時間がゆっくりになったようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="704">「昨日、言いかけたことがあるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="705">「試着室で？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="706">「うん。佐伯くんの真面目なところ、悪くないって言ったあと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="707">「そこが？」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="708">「好き、って言おうとした」</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　悠真の呼吸が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「私が衣装を壊したとき、最初に佐伯くんの顔が浮かんだ。直してほしいだけじゃなくて、会いたかったのかもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="713">「僕は、ずっと会いたかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="714">「サークル棟で、ほぼ毎日会ってたよ」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="715">「そういう意味じゃなくて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="716">「わかってる」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="718">　莉央は笑い、悠真のマントの端を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="720">「私のこと、ちゃんと見てくれる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="721">「見る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="722">「でも、見てほしくないところは見ないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="723">「努力します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="724">「そこは断言して」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="725">「見ません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="726">「よろしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　莉央が背伸びをする。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="730">　唇が触れる――その寸前。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　背後のモニターが、大音量で起動した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">『ベストカップル認証、百パーセント！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「杏奈先輩！」</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　廊下の角から、眼鏡だけがのぞいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="740">「ごめん。装置の動作確認中で」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="741">「絶対わざとですよね！」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="742">「続けてどうぞ。記録映像は自動保存されるけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="743">「しなくていい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　莉央が近くのクッションを投げる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="746">　杏奈先輩は笑いながら逃げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　悠真がため息をつく。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="750">「……場所、変える？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="751">「ううん」</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　莉央は悠真のマントを引き、今度こそ距離をなくした。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="755">　触れるだけの、短いキス。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　離れたあと、二人とも顔を真っ赤にして黙り込む。</p>
+<p class="source-line role-narration role-comic tone-4 gap-0" data-source-line="758">　先に笑ったのは莉央だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「今の、ちゃんと見た？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="761">「目、閉じてた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="762">「私も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="763">「じゃあ、もう一回？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="764">「調子に乗らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　莉央は悠真の胸を軽く押し、それでも手は離さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　そのとき、また送風装置が作動した。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　強い風が通路を吹き抜け、莉央のスカートがふわりと舞い上がる。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="772">「きゃっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　悠真は反射的に顔をそらし、手にしていたマントを差し出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="775">　莉央は片手でスカートを押さえ、もう片方の手でマントを受け取る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="777">「見た？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="778">「見てない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="779">「本当に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="780">「青いリボンなんて見てない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="781">「見てるじゃない！」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="783">　莉央の叫びが、祭りの空へ響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　そのあと悠真が会場を三周ほど追いかけられたこと。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="786">　途中で二人とも笑い出し、結局、手をつないで屋台を回ったこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="787">　そして翌年、演劇サークルの新作に「仕立て騎士」という役が正式に追加されたことは――また別の話である。</p>
+<p class="source-line end-mark gap-2" data-source-line="790"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

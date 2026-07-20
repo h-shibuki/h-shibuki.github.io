@@ -1,0 +1,916 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="曜日違いで同じ顔をした七人兄弟、校庭を泳ぐ購買部、毎朝転校してくる同級生——異常が日常の高校で、常盤真人だけは「普通」であることを誇っていた。ところが校内放送が、明日の正午に最も普通な生徒を消すと宣告する。友人たちは真人を奇人に仕立てようと大騒ぎ。さらに七人の“曜日”は、過去に排出された普通の生徒たちだと明かす。名簿も記憶も薄れていく中、借り物の奇行ではない自分だけの異常を見つけられるか。平均からはみ出すための、前代未聞の学園サバイバル。">
+<title>八人目の曜日｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="八人目の曜日" data-novel-id="八人目の曜日" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ホラー・ジュブナイル</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味・学園・ギャグ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ホラー、ジュブナイル、奇妙な味、学園、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：455行／章：0／役割・強度タグ：528</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="八人目の曜日 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">八人目の曜日</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　僕の通う私立うずまき高等学校には、三種類の人間がいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　一つ目は、変な人。</p>
+<p class="source-line role-narration gap-0" data-source-line="6">　二つ目は、かなり変な人。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　三つ目は、自分だけは普通だと思っている、ものすごく変な人だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　僕――常盤正人は、そのどれにも当てはまらない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="11">　朝は七時に起き、食パンにいちごジャムを塗り、八時十二分の電車に乗る。趣味は読書と音楽鑑賞。特技は十円単位までの割り勘。好きな教科は現代文、嫌いな教科は持久走。将来の夢は、まだ決まっていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　つまり、どこに出しても恥ずかしくない普通の高校二年生である。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　ただし、僕以外の連中は、どこに出してもたいてい返品される。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="17">「常盤くん、おはよう。今日の私、床に負けてない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　昇降口で話しかけてきたのは、クラス委員の天井ミチルだ。彼女は「床を歩くと運気を吸われる」という祖母の遺言を守り、机、ロッカー、窓枠、たまに人の肩を渡って登校する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="21">「床は勝負してないと思うよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="23">「そういう油断が敗北を呼ぶの」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　ミチルは僕の頭を踏み台にして、下駄箱の上へ飛び移った。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　廊下では、野球部の木魚沢がバットで木魚を打っていた。美術部の白目さんは、透明な絵の具で透明な富士山を描いていた。担任の蒲田先生は、右手にはめたワニの人形を通してしか会話しない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="29">「ホームルームを始めるワニ。日直、号令だワニ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「先生、今日はワニのほうがネクタイしてます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「本体は寝坊したワニ」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　そんな二年Ｂ組でも、とりわけ目立つのが、窓際に横一列で座る七人の男子だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　月島月太。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　月島火太。</p>
+<p class="source-line role-narration gap-0" data-source-line="39">　月島水太。</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　月島木太。</p>
+<p class="source-line role-narration gap-0" data-source-line="41">　月島金太。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　月島土太。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　月島日太。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　名字も顔も身長も声も、ついでにテストの点数まで同じ。違うのは胸につけた曜日バッジだけで、しかも本人たちは毎朝つけ間違える。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　僕らは彼らを「曜日兄弟」と呼んでいた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="49">「おい常盤。俺たちの中で、今日いちばん知的なのは誰だ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　月太が聞いた。たぶん月太だ。バッジが正しければ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="53">「全員、数学の追試だったよね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「そういう細かいことじゃない。知性は雰囲気だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="57">「じゃあ、メガネをかけてる水太」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「これは窓だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　水太はレンズのないフレームを外し、そこから外を眺めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　いつも通りの朝だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　八時三十分、チャイムが鳴るまでは。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　キーン、コーン、と最初の二音が響いたあと、スピーカーが咳払いをした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">『あー、あー。本日は晴天なり。本日は晴天なり。なお、地下では小雨です』</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　教室中が天井を見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　放送委員の声ではない。蒲田先生のワニも首をかしげていた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="75">『生徒諸君にお知らせします』</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　低く、古い声だった。カセットテープを井戸の底で再生しているような声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">『明日、正午。本校で最も普通な生徒が、一名、消えます』</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　数秒の沈黙。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="83">　それから木魚沢が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">「なんだそれ。いちばん普通って、常盤じゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　教室中の視線が、僕に集まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="89">「いやいやいや、何を真に受けてるんだよ。誰かのいたずらだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="91">『繰り返します』</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　放送は、僕の言葉にかぶせるように続いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="95">『明日、正午。本校で最も普通な生徒が、一名、消えます。消えた生徒は、早退扱いとなります。保護者への連絡は各自でお願いします』</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　ブツン、と音が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　蒲田先生がワニを外し、自分の口で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「これは、まずいな」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　先生が本体でしゃべったことのほうが、僕には怖かった。</p>
+<div class="source-line scene-break gap-2" data-source-line="106" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="109">　校長室には、校長が三人いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　一人は机の前に座り、一人は観葉植物に水をやり、もう一人は壁に掛かった肖像画の中で腕組みしている。どれが本物か尋ねると、三人とも「校長という概念です」と答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「さっきの放送は何なんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　僕が聞くと、机の校長が書類をめくった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「放送室は十年前から閉鎖されています」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="119">「じゃあ、どこから？」</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　観葉植物の校長が葉っぱを一枚めくった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="123">「旧放送室です」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="125">「それはどこに？」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　肖像画の校長が額縁の外を指さした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="129">「ありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　話が一歩も進まない。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　付き添いで来たミチルが、観葉植物の鉢にしゃがみ込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「校長先生。学校案内に載っていない校則ってありますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　三人の校長が、同時に黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　机の校長が、いちばん下の引き出しから、黒い表紙の冊子を出した。表紙には白い文字でこうあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="141">『校則・第零版』</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　ページを開く。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="145">　一、授業中は静かにすること。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="146">　二、廊下は走らないこと。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="147">　三、異常が過半数を超えた場合、普通を一名排出すること。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「三番、明らかに様子がおかしいですよね」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="151">「昔からある規則です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">「昔からあるなら、もっと早く直してください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「校則を変えるには生徒総会の三分の二以上の賛成が必要です。ただし第零版を読んだ生徒は、決議前におおむね消えます」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="157">「民主主義の欠陥が極端すぎる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　思わず大声を出すと、肖像画の校長が僕を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「いい反応ですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="163">「何がですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「実に普通です」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　背中が冷たくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　ミチルが僕の肩をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">「正人くん。明日の正午までに、変な人になろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　校長室の三人が、うんうんとうなずいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　この学校で初めて全員の意見が一致した瞬間だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="178" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="181">　その日の二年Ｂ組は、授業を中止して「常盤正人異常化計画」に取り組んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　まず、外見。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　白目さんが僕の制服に目を描いた。胸に二つ、背中に三つ、ひざに一つ。どこを見ているのか聞くと、「来週」と答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　次に、口調。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　演劇部の鼻山が僕に語尾を割り当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「今日から全部の文末に『および冷蔵庫』をつけろ」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="193">「どうして？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「理由を求める姿勢が普通だ。求めるな。冷やせ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「なるほど、および冷蔵庫」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「納得が早い。普通だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　次に、趣味。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="203">　木魚沢から木魚を三個もらい、ミチルから「架空の叔父を毎朝見送る」という習慣を教わった。蒲田先生のワニからは、ワニにしか通じない方言を習った。</p>
+<p class="source-line role-narration role-clue tone-2 gap-1" data-source-line="205">　それでも、クラスの判定は厳しかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「服が変なだけで、中身は普通」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="208">「変なことをやらされてる普通の人」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="209">「むしろ変人集団の中で頑張る常識人として完成度が上がった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="210">「冷蔵庫」</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　最後の意見は、家電だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　放課後、曜日兄弟が僕を囲んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「俺たちに任せろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　七人は同じ顔で同時に笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">「普通でなくなる最短の方法は、俺たちの誰かになることだ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="222">「それ、個性が減る方向じゃない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「七人いる時点で十分おかしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　それはそうだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　彼らは僕を月島家へ連れていった。学校から徒歩五分。玄関が七つ、表札が七つ、犬小屋にも同じ表札がついている家だ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="230">　居間には同じソファが七脚あり、同じ湯のみが七個、同じ家族写真が七枚飾られていた。ただし、写真はすべて少しずつ古く、写っている制服も違っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="232">「まず顔だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　火太が言い、僕の頬を両手で挟んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「引っ張るなよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="238">「安心しろ。俺たちは全員、こうしてこの顔になった」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　部屋が静かになった。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="242">「……どういう意味？」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　火太は手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　七人のうち誰かが、カーテンを閉めた。誰かがテレビを消した。誰かが僕の前に、古い学生証を並べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　どの学生証にも、曜日兄弟と同じ顔が写っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　けれど名前は違った。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　昭和五十八年度　二年Ｄ組　西尾孝一。</p>
+<p class="source-line role-narration gap-0" data-source-line="253">　平成三年度　一年Ａ組　坂巻純。</p>
+<p class="source-line role-narration gap-0" data-source-line="254">　平成十一年度　三年Ｃ組　榎本拓也。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　平成十九年度　二年Ｅ組　花村修平。</p>
+<p class="source-line role-narration gap-0" data-source-line="256">　平成二十六年度　一年Ｂ組　大路雅人。</p>
+<p class="source-line role-narration gap-0" data-source-line="257">　令和二年度　三年Ａ組　佐伯誠。</p>
+<p class="source-line role-narration gap-0" data-source-line="258">　令和五年度　二年Ｆ組　高梨洋介。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　生まれた年も、名字も、全部ばらばらだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="262">「俺たちは兄弟じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　月太が言った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="266">「昔、この学校でいちばん普通だった生徒だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　僕は笑おうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　誰も笑っていなかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="272">「じゃあ、消えたっていうのは……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="274">「体が消えるわけじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　水太が、自分の顔を指でなぞった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="278">「顔が消える。名前が消える。家族の記憶から消える。『その人らしさ』だけが抜かれて、学校が決めた平均の型に押し込まれる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="280">「それが、その顔？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="282">「そう。俺たちは“平均くん”の七代目までだ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="284">「どうして曜日の名前を？」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="286">「本名を思い出せなくなるから、仮につけた。七人だったから曜日にした。お前が加わったら……そうだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　金太が少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">「祝日」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="292">「嫌だよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　七人がほっとしたように笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「そのツッコミだ。俺たちも昔は、そうやって笑ってた」</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　テーブルの上の学生証を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　写真の裏には、鉛筆で短い言葉が書かれていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="302">『母さんのカレーは辛口』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="303">『左足の小指にほくろ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">『妹の名前は千佳』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="305">『将来は消防士』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="306">『猫のミミを忘れない』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="307">『本当の名字は――』</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　どれも途中で薄れ、読めなくなっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">「毎年じゃないんだね」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="313">「異常が増えすぎた年だけだ。最近は間隔が短い。この学校、どんどん変になってるから」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="315">「皆を普通に戻せばいいんじゃないか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「やってみたさ。だが、変な連中に『普通にしろ』と言うと、それぞれが自分なりの普通を始める。ある年は全校生徒が朝礼で納豆をかき混ぜた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「なぜ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「当時の校長が『粘り強い人間になれ』と言ったからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　この学校なら、ありえる。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="325">「じゃあ、どうすれば助かる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　七人は顔を見合わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　同じ顔なので、合わせたというより、鏡が増えたように見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">「お前が本当にやりたい、変なことをするんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　日太が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="335">「誰かにやらされたんじゃない。昔から隠してたもの。人に言ったら引かれそうで、でも本当は好きなこと。そういうのが一つくらいあるだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「ないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="339">「よく考えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　考えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　読書。普通。</p>
+<p class="source-line role-narration gap-0" data-source-line="344">　音楽鑑賞。普通。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="345">　甘い卵焼きが好き。普通。</p>
+<p class="source-line role-narration gap-0" data-source-line="346">　寝る前に目覚ましを二個確認する。普通。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　コンビニでもらった割り箸を捨てられず、引き出しに四十二膳ある。少し変だが、弱い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「本当にない」</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　僕が言うと、七人の顔から笑いが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="353">「それが一番まずい」</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　月太がつぶやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「空っぽの人間ほど、平均の型に入りやすい」</p>
+<div class="source-line scene-break gap-2" data-source-line="360" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="363">　翌朝、学校は異常の見本市になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　誰も消えたくないので、全員が必死に変人になろうとしていたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　校門では生徒会が入場者にくじを引かせ、「今日一日の前世」を割り当てていた。体育館では剣道部が竹刀で将棋を指し、吹奏楽部は音を出すと普通だからという理由で、全員が楽器を抱えて無音の演奏会を開いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　先生たちも負けていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　英語教師は逆立ちして古文を教え、数学教師は「二次関数は気持ちの問題」とだけ板書して帰った。蒲田先生はワニを二匹に増やし、両手で夫婦げんかをしていた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="373">「ワニ夫、あなた最近帰りが遅いワニ！」</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-0" data-source-line="374">「仕事だワニ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="375">「その口でよく言えるワニ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="376">「同じ口だろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　僕が突っ込むと、クラス全員が拍手した。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="380">「出た、普通の反応！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="381">「安定感がすごい！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="382">「やっぱり常盤だ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="383">「および冷蔵庫！」</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　普通であることが、こんなに注目を集めるとは思わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　午前十一時。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　校内放送が入った。</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="391">『判定まで、あと一時間です』</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="393">　スピーカーの声に、笑いはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　その直後から、不思議なことが起き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　僕の机から、名前が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　教科書の表紙に書いた「常盤正人」の文字が、消しゴムをかけたように薄くなった。スマートフォンの連絡先から僕の名前だけ抜け、母に電話すると、知らない番号を見るような声で「どちらさまですか」と言われた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="401">「母さん、僕だよ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="403">『僕って、どちらの僕さん？』</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　通話が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　足元が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　ミチルが窓枠から飛び降り、僕の腕をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「まだ消えてない。顔も同じ。大丈夫」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="413">「母さんが僕を知らない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「大丈夫じゃなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　十一時三十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　クラス写真から僕だけが消えた。僕が立っていた場所には、空白ができず、最初から全員が少しずつ詰めて並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　十一時四十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　出席番号十七番が欠番になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　十一時五十分。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　蒲田先生が僕を見て首をかしげた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="429">「君、何組の生徒だワニ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　教室中が静まり返った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="433">「先生、常盤だよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　ミチルが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「ほら、いつも真ん中の列に座ってて、テストはだいたい七十二点で、みんなのツッコミをして――」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="439">「そんな生徒、いたワニ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　ワニの黒い目は、冗談を言っていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　曜日兄弟が一斉に立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「旧放送室へ行くぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「でも、ないって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">「なくなる前なら、見える」</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　七人が教室の後ろの壁に並び、同時に押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　壁が、観音開きに割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　その向こうに、細い階段が地下へ続いていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="458" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="461">　地下は、小雨だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　天井も雲もないのに、冷たい雨が降っている。階段の両側には、歴代の卒業写真が並び、どの写真にも同じ顔の男子が一人ずつ写っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　僕と曜日兄弟、そしてミチルは、雨の中を下りた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「どうして来たんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　僕はミチルに聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「床に負けたまま友達まで失うのは、もっと嫌だから」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="473">「今、床の話いる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「いる。私の核だから」</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　彼女は真剣だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　階段の最下段に、木の扉があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">『旧放送室　０』</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　月太が扉を開けた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="485">　中にはマイクが一本と、巨大な秤があった。片方の皿には、鉛筆、上履き、学生証、弁当箱、笑い声、寝癖、将来の夢――形のあるものも、ないものも、山のように積まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　もう片方の皿は空だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　壁の時計は、十一時五十七分を指していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">『候補者、入室』</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　天井のスピーカーが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　空の皿に、僕の名前が浮かび上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">『常盤正人。普通度、九十九・八。平均適合率、百パーセント』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="499">「そんな数値、誰が決めた！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="501">『周囲の認識です』</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　声は淡々としていた。</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="505">『本人が何者であるかは、判定に影響しません。周囲から何者と思われているか。それが個性です』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「勝手すぎる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">『社会とは、おおむねそのようなものです』</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　反論しづらいことを言うな。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　時計は十一時五十八分。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　曜日兄弟が僕の前に並んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「こいつを持っていくなら、俺たちから返せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　月太が学生証を秤に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「俺の本名」</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　火太が置いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="523">「俺の家族」</p>
+<p class="source-line role-narration gap-0" data-source-line="524">　水太が置いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="525">「俺の夢」</p>
+<p class="source-line role-narration gap-0" data-source-line="526">　木太が置いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="527">「俺の顔」</p>
+<p class="source-line role-narration gap-0" data-source-line="528">　金太が置いた。</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="529">「俺の記憶」</p>
+<p class="source-line role-narration gap-0" data-source-line="530">　土太が置いた。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="531">「俺が俺だった証拠」</p>
+<p class="source-line role-narration gap-0" data-source-line="532">　日太が置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　空だった皿が、少し沈んだ。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="536">『返却不能。データは平均化済みです』</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="538">「だったら、新しい個性をやる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　月太が曜日バッジを外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　残りの六人も外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　七個のバッジが、秤に落ちる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="546">『それは仮の識別情報です』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="548">「仮でも、七年かけて俺たちの名前になった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　七人が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　僕には、もう誰が月太で、誰が火太なのかわからなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　だが不思議なことに、それぞれが別の人間に見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　一人は怖がりなのに前へ出る。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="557">　一人は口が悪いくせに、いつも最後に鍵を閉める。</p>
+<p class="source-line role-narration gap-0" data-source-line="558">　一人は甘い物を隠れて食べる。</p>
+<p class="source-line role-narration gap-0" data-source-line="559">　一人は笑うと右の頬だけへこむ。</p>
+<p class="source-line role-narration gap-0" data-source-line="560">　一人は人の話を最後まで聞かない。</p>
+<p class="source-line role-narration gap-0" data-source-line="561">　一人は靴下を左右ちがう色で履く。</p>
+<p class="source-line role-narration gap-0" data-source-line="562">　一人は、自分より先に誰かが消えることを許さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　顔は同じでも、同じ人間ではなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="566">「普通度を測り直せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　ミチルが秤の上に飛び乗った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">『床に触れない習慣。異常度、七十三』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「習慣じゃない。信念よ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　ミチルは両足で皿を踏んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「床は運気を吸う。これはおばあちゃんが最後にくれた、くだらないけど大事な言葉。誰に笑われても、私は守る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　秤が大きく傾いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　壁の時計が、十一時五十九分を指した。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="582">『再計算を開始』</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　学校中の声が、スピーカーから流れ込んできた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="586">「木魚は打楽器じゃなくて相棒だ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="587">「透明な富士山だって、私には見えてる！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="588">「ワニ夫婦は来月、離婚しますワニ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="589">「逆立ち古文は腰に悪い！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="590">「納豆は百十二回が一番うまい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　全校生徒が、自分の奇妙さを叫んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　異常を演じる声ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　どうしても捨てられない、本人だけの普通だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　秤の両皿が激しく上下した。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="600">『警告。平均値を算出できません』</p>
+<p class="source-line role-dialogue role-system gap-0" data-source-line="601">『警告。普通の定義が不安定です』</p>
+<p class="source-line role-dialogue role-system gap-0" data-source-line="602">『警告。全員が自分を普通と認識しています』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="604">「それでいいんだよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　僕はマイクをつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="608">「変な人間なんていない。自分の中では、みんな普通だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="610">『詭弁です』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="612">「高校生なんて、だいたい詭弁でできてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　時計の秒針が、十二の直前で震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　そのとき、僕の頭の中に、母の声がよみがえった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="618">　――あんた、またやってるの？</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　幼いころの僕は、居間の時計を全部、十二時十二分に合わせていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="622">　壁掛け時計も、目覚まし時計も、電子レンジも、ビデオデッキも。左右対称に並んだ数字を見ると、胸の奥がすっと静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　誰にも言わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="625">　中学生になってからは、見つからないよう、夜中に一人でやった。</p>
+<p class="source-line role-narration gap-0" data-source-line="626">　朝には必ず直した。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　自分でも意味がわからず、恥ずかしかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　けれど、やめられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　僕は壁の時計に飛びついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　針をつかみ、十一時五十九分から、十二時十二分へ動かした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">『何をしていますか』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「時計を十二時十二分にそろえる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">『理由は』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">「知らない。でも昔から、そうすると落ち着くんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">『非合理的です』</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="645">「そうだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　僕は初めて、自分のために笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「これが僕の普通だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　時計が、十二時十二分を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　十二回でも、十三回でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　なぜか八回、鐘が鳴った。</p>
+<div class="source-line scene-break gap-2" data-source-line="658" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="661">　気がつくと、僕は教室にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　机も、黒板も、クラスメイトも元通りだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　ミチルは窓枠に座り、蒲田先生のワニは夫婦そろって仲直りしていた。木魚沢は木魚を抱いて泣き、白目さんの透明な富士山には、透明な朝日が昇っていた。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="667">「助かった……？」</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　僕は自分の手を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　名前は消えていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="672">　顔も変わっていない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="673">　スマートフォンには母から「夕飯はカレー」とメッセージが届いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　窓際では、曜日兄弟が横一列に座っていた。</p>
+<p class="source-line role-narration role-document fx-key role-motif gap-1" data-source-line="677">　一、二、三、四、五、六、七。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　七人。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　僕は胸をなで下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　その日の午後、学校は臨時休校になった。校長は「設備点検」と説明したが、点検する設備が現実そのものだとは誰も言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　帰り道、ミチルと並んで歩いた。正確には、僕が歩道を歩き、ミチルがガードレールの上を歩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="687">「ねえ、正人くん」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="689">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="691">「曜日兄弟、前から七人だったよね」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="693">「そうだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="695">「月、火、水、木、金、土、日」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「うん」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="699">「じゃあ、あの子は誰？」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　振り返った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="703">　曜日兄弟が、僕らの後ろを歩いていた。</p>
+<p class="source-line role-narration role-document fx-key role-motif gap-1" data-source-line="705">　一、二、三、四、五、六、七。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　そして、少し離れて、もう一人。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　同じ顔、同じ制服。</p>
+<p class="source-line role-narration gap-0" data-source-line="710">　胸には、白いバッジ。</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　そこに黒い文字で、こう書かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="714">『平』</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　その少年は、僕と目が合うと、口元に指を当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　静かに、と言うように。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　次の瞬間、七人の中へ紛れ、どれが彼だったかわからなくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「八人、いるよな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="724">「いるね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="726">「僕は助かったんじゃないのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　ミチルは少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="730">「たぶん、助かったよ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="732">「じゃあ、あれは？」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="734">「正人くんの中から、“普通”だけが抜けたんじゃない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　冗談にしては、彼女の顔が真剣だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　家に帰ると、居間の時計が十二時十二分で止まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　電子レンジも、炊飯器も、母の腕時計も。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　家中の時計が、全部、十二時十二分。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="743">「母さん、これ……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="745">「何言ってるの。あんたが毎日そろえてるんでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　母は当たり前のように言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="749">「昔から、一日も欠かさずに」</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　胸の奥が、すっと静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　不思議と、もう直そうとは思わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　翌朝。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="757">　窓際には、曜日兄弟が八人並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　誰も、そのことを変だとは言わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　蒲田先生が出席簿を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="763">「月島月太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="764">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="765">「月島火太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="766">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="767">「月島水太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="768">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="769">「月島木太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="770">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="771">「月島金太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="772">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="773">「月島土太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="774">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="775">「月島日太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="776">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="777">「月島平太」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="778">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　八人目が返事をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　僕と同じ声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　クラスの誰かが、僕の席を見た。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="786">「あれ。お前、誰だっけ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　冗談だと思って笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　誰も笑わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　スピーカーが、咳払いをした。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="794">『生徒諸君にお知らせします』</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　低く、古い声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="798">『本日、本校へ転入する生徒を紹介します』</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　教室の扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　そこに、見覚えのない女子生徒が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　髪型は普通。</p>
+<p class="source-line role-narration gap-0" data-source-line="805">　制服の着方も普通。</p>
+<p class="source-line role-narration gap-0" data-source-line="806">　趣味は読書と音楽鑑賞です、と彼女は言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="807">　特技は十円単位までの割り勘。</p>
+<p class="source-line role-narration gap-0" data-source-line="808">　将来の夢は、まだ決まっていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　彼女は教室を見回し、八人の同じ顔と、窓枠に座る委員長と、ワニに授業をさせる教師を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　そして、ごく普通の反応をした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="814">「なに、このクラス……」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="816">　スピーカーが小さく笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="818">『なお、明日、正午』</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　僕は立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　少なくとも、そうしたつもりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　けれど僕の席には、最初から誰も座っていなかった。机の名札も白紙だった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="826">「逃げろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　叫びは、窓際に並ぶ八人の口から、同時に飛び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　転校生が青ざめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　八人目の胸で、『平』のバッジが鈍く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="834">『本校で最も普通な生徒が、一名、消えます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="836">（了）</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

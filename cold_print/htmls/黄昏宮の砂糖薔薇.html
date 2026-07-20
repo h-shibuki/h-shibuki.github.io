@@ -1,0 +1,864 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="砂糖に記憶を移す飴職人ニナは、亡き妹の名を王太子に思い出させたことで、建国舞踏会の菓子作りを命じられる。誕生日も母の顔も知らない彼女自身に残されたのは、孤児院の門前で握っていた黒い飴だけ。王宮ではすべての時計が最初の銃声の時刻で止まり、門外にはパンを求める列、内側には白薔薇が山と積まれていた。護衛する近衛隊長イレーネも、宮殿へ深い疑念を抱いている。人が忘れたい記憶ほど甘く飾る黄昏宮で、ニナの砂糖菓子が呼び覚ますのは、王家が封じた誰の思い出なのか。">
+<title>黄昏宮の砂糖薔薇｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="黄昏宮の砂糖薔薇" data-novel-id="黄昏宮の砂糖薔薇" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ロマンス・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>SF・奇妙な味・料理</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ロマンス、ファンタジー、SF、奇妙な味、料理、タイムトラベル</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：403行／章：0／役割・強度タグ：457</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="黄昏宮の砂糖薔薇 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">黄昏宮の砂糖薔薇</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration role-memory tone-3 gap-2" data-source-line="4">　ニナが自分の誕生日を知らない代わりに知っていたのは、砂糖には記憶が染みこむ、ということだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　うれしい日に煮た飴は、舌の上で小さな鐘のように鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　泣いた日に焦がしたカラメルは、どれほど甘くしても、最後に雨の味がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　十九年前の嵐の晩、ニナは王都オルフェリアの孤児院<span class="term term-world">〈聖鐘の家〉</span>の門前で見つかった。籠も産着もなく、濡れた毛布と、銀紙に包まれた黒い飴がひとつだけ。院長のマルタ先生は、その飴を捨てずに小箱へしまい、ニナが十二になった日に渡してくれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="11">「お母さまが残したものかもしれないからね」</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　けれどニナは、まだ一度も包みを開いていない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="14">　母親の顔を知らない人間は、母親の最後の味を知るのが怖い。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　その代わり、ニナは人に飴を作った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="18">　弟分のポルが熱を出せば、薄荷と蜂蜜で青い星を作った。小さなミレイが里親の家へ向かう朝には、杏とミルクを練った橙色の丸い飴を持たせた。寂しくなったときに噛まずになめれば、食堂の長椅子や、洗濯物の間を走り回った午後を思い出せるように。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="20">　十八で孤児院を出てからは、石畳の市場に屋台を出した。看板には、子どもの字で<span class="term term-world">〈ニナの思い出飴〉</span>と書いた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="22">　貴族の菓子職人のように、金箔も異国の香料も使えない。けれどニナの飴を食べると、忘れていた声や、失くした風景がふいに胸へ戻るという評判が立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　もっともニナ自身は、それを魔法だとは思っていなかった。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="26">「人はね、思い出すきっかけを待ってるだけ。飴は小さいから、心の隙間へ入りやすいのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　そう言って笑うと、たいていの客はもう一袋買った。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　王宮から迎えが来たのは、六月の雨が市場の天幕を銀色にしていた午後だった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="32">　黒い馬車から降りた女は、濡れた石畳へ長靴の踵を鳴らした。銀の飾緒をつけた紺の軍服。腰には細身の剣。背は高く、淡い金髪をうなじで結び、雨粒さえ命令に従わせそうな灰色の目をしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「ニナ・ベルか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「借金取りなら、ベルは鐘の音のほうです。鳴らしてもお金は出ません」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　女の口元が、ほんの少しだけ動いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="40">「近衛隊長、イレーネ・アルジェントだ。王太子殿下がおまえの飴を召し上がった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「食あたりですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「十年ぶりに、亡くなった妹君の名を口にされた」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　雨音が一瞬、遠くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　イレーネは一枚の勅書を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「一週間後の建国舞踏会まで、黄昏宮に滞在し、菓子を作れとのご命令だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　ニナは孤児院の雨漏りする屋根を思った。冬までに買わなければならない薪を思った。勅書に記された報酬は、聖鐘の家を三度建て直しても余る額だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="54">「行きます」</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　答えてから、ニナは屋台の戸を閉めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="58">「ただし、厨房では私の言うことを聞いてもらいます。砂糖は身分を見ませんから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「王宮でそれを言う者は、長生きしない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「隊長さんは長生きしたいんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　イレーネは雨の向こうにそびえる宮殿を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="66">「今朝までは、そう思っていた」</p>
+<div class="source-line scene-break gap-2" data-source-line="69" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="72">　黄昏宮は、遠くから見ると薔薇色だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　夕日を混ぜたような石で築かれ、百二十の窓と、三十六の塔を持つ。だが近くで見ると、壁には細い亀裂が走り、窓辺の彫像はみな、何かを言いかけたまま口を閉ざしていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="76">　門前にはパンを求める人々の列があり、そのすぐ内側では、舞踏会のための白薔薇が荷車いっぱいに運びこまれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「外では小麦が去年の四倍よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　ニナが言うと、イレーネは前を向いたまま答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「宮中では、値段の上がるものを数えない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「便利ですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="86">「便利な仕組みは、たいてい誰かの背中に載っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　宮殿の回廊へ入ったとき、ニナは最初の奇妙なものを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　壁の大時計が、十一時四十七分で止まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　次の広間の置時計も、侍女の控え室の小時計も、厨房の煤けた時計まで、針は同じ時刻を指している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「全部、壊れてるんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「止めてある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「どうして」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="100">「建国の夜、最初の銃声が鳴った時刻だそうだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「建国を祝う宮殿が、銃声の時刻を忘れないなんて」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="104">「王家は、忘れたいものほど飾りたがる」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　厨房では、四十人の料理人と菓子職人がニナを待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　総料理長は、彼女の市場服と泥のついた靴を見て鼻を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="110">「この娘が、殿下のお口に妙な幻を見せたという飴売りか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「幻ではありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　ニナは作業台へ籠を置いた。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="116">「思い出です。幻より扱いが難しいので、邪魔をしないでください」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="118">　その日のうちに、ニナは銅鍋を磨かせ、湿気た砂糖を捨てさせ、香料棚の半分を窓から遠ざけた。怒鳴る総料理長には、煮詰めたシロップの温度を指先だけで当ててみせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　夕方、試作の飴ができた。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　白い薔薇の形をした、小指の爪ほどの砂糖菓子だった。中には酸味の強い野苺の蜜を一滴閉じこめてある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「ずいぶん小さい」</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　背後から声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　ニナが振り向くと、白いシャツ姿の青年が立っていた。黒に近い栗色の髪。青い目。肖像画で見た王太子ユリアンその人だったが、絵より痩せ、絵よりずっと疲れて見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「大きな菓子は、口をふさぐためにあります。小さな菓子は、話を始めるためです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「では、これは何を話す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「食べた人次第です」</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　ユリアンは薔薇をつまみ、舌へ載せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　砂糖の花弁がほどけた瞬間、彼の目が見開かれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「庭だ」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="142">「どこの？」</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="144">「わからない。宮殿の北に、古い林檎の木がある。妹が赤い靴で走っている。私は……」</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　彼は言葉を失い、次いで、子どものように笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「そんな庭は、黄昏宮にはありません」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="150">　総料理長が冷たく言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　ユリアンは笑みを消さず、ニナを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「だが私は知っている。木の幹の傷まで」</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　ニナは返事ができなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　彼女もまた、その林檎の木を知っていたからだ。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="160">　夢の中で何度も見た。赤い靴の少女。枝から落ちる白い花。遠くで鳴る銃声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「殿下」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　イレーネが厨房の入口に現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「評議会のお時間です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「時計はどれも十一時四十七分だが」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「それでも会議は遅れます」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　ユリアンは肩をすくめた。去り際に、ニナの手元の薔薇をもう一つ見て言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「次は、今日の味を作ってくれないか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「今日の味なんて、明日にならないとわかりません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「では、明日も来る理由ができた」</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　扉が閉じると、総料理長が盛大に咳払いをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　ニナは鍋をかき混ぜた。頬が熱いのは火のせいだと、自分に言い聞かせた。</p>
+<div class="source-line scene-break gap-2" data-source-line="185" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="188">　翌朝、女王エレオノーラが厨房へ薄紫の粉を届けさせた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="190">　水晶の小瓶に入ったそれは、光を受けるたび、粉雪のように舞った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「舞踏会の菓子、千二百個すべてに混ぜよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　女王付きの侍従は、そう伝えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「何の粉ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「王家の秘薬だ。食べた者の心を穏やかにする」</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　ニナは爪の先ほどを蜜へ溶かし、味見した。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　甘くも苦くもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　ただ、一瞬、自分の名前がわからなくなった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="206">　屋台の場所も、聖鐘の家の子どもたちの顔も、胸の内側から白い布をかけられたように遠のいた。慌てて舌を噛むと、痛みとともに記憶が戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「これは穏やかにする粉じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　ニナは小瓶を閉めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「忘れさせる粉です」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　侍従の目は動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「同じことだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　その晩、ニナは宮殿を抜け出した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="220">　裏門で待っていたのは、幼なじみのトーマだった。聖鐘の家で一緒に育ち、今は印刷工として働いている。指にはいつも黒いインクが染み、笑うと左の犬歯だけが尖って見えた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="222">「王宮の菓子職人になったって？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「一週間だけよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「一週間あれば、王様は国を三つ駄目にできる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「王様はいないわ。女王と王太子よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「肩書きで腹はふくれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　トーマは外套の内側から一枚の紙を出した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="234">　そこには、太い活字で<span class="term term-world">〈パンと朝を、すべての者へ〉</span>と刷られていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「建国舞踏会の夜、広場に人が集まる。兵士の半分は撃たない。俺たちは門を開ける」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="238">「その先は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「王冠を終わらせる」</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-5 gap-1" data-source-line="242">「人を殺して？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「宮殿は毎日、人を殺してる。名前を呼ばず、食卓を汚さずに」</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　ニナは反論できなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　門前のパンの列。薄紫の粉。忘れることと穏やかであることを同じだと言った侍従。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「トーマ、王宮には変なものがある。時計が全部同じ時刻で止まってる。殿下は、存在しない庭を覚えていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「貴族の頭は暇すぎて、勝手に庭を生やすんだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「私も知ってたの。その庭を」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="256">　トーマの笑みが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　彼はニナの首元を見た。銀の鎖に、古い飴の包みが下がっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「まだ持ってたのか、それ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="262">「うん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「食べるなよ」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="266">「どうして？」</p>
+<p class="source-line role-dialogue role-memory fx-whisper gap-1" data-source-line="268">「理由はない。だけど子どものころから、そいつを見ると……同じ夢を思い出しそうになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　遠くで、宮殿の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　十一回。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　そして少し間を置き、割れたような一音。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　時刻を数えるなら、十一時四十七分には鳴るはずのない鐘だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="279" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="282">　三日目、ユリアンは町へ出たいと言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「殿下が消えれば、私の首も消えます」</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　イレーネはきっぱり断った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「隊長の首は、剣より頑丈そうだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="290">「試してみますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　結局、ユリアンは台所用の灰色の外套を着て、ニナの菓子籠を持ち、イレーネは二十歩後ろからついてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　王太子は、町の匂いを知らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　焼けた油、馬の汗、川の泥、安い石鹸、パン屋の煙。物乞いの子どもが袖を引くたび、どうすればよいのかわからず立ち止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「お金を全部渡しても、明日また同じ子がいるわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　ニナが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「では、どうすればいい」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="304">「明日のパンを、運のいい人だけのものにしないこと」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　ユリアンは長いあいだ黙っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　聖鐘の家では、子どもたちがニナへ飛びついた。ユリアンは身分を隠したまま、壊れた椅子を直し、井戸から水を汲み、最後には粉だらけになって生地をこねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　ポルが彼を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「お兄さん、仕事へたね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「今日初めて働いたからね」</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="316">「大人なのに？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「大人ほど、初めてのことを隠すんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　帰り道、二人は鐘楼の屋根へ上った。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　ニナは焦がしバターの飴を半分に割り、ユリアンへ渡した。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　眼下には、灰色の屋根が海のように続いていた。その向こうで黄昏宮だけが、夕陽を独り占めして光っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「宮殿から見る町は、宝石箱に見える」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　ユリアンが言った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="330">「町から見る宮殿は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「蓋よ。重くて、開かない」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　彼は飴を噛まずになめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「この味を覚えている」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="338">「初めて作ったのに？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「君とここへ来たことも」</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　風が止んだ。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="344">「夢の中で、私は何度もこの町を見た。何度も君に会い、何度も建国の夜を迎えた。イレーネが門を開ける。銃が鳴る。君は赤い服で私の名を呼ぶ。そして、空が割れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　ニナの指先が冷たくなった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="348">「夢の続きは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「いつも、同じ朝に戻る」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　ユリアンは彼女の首に下がった銀紙を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「その飴も夢に出てくる。君は最後に、それを食べる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「食べたら、どうなるの」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="358">「それを思い出せない」</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　鐘楼の下で、イレーネが剣の柄を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「殿下。戻ります」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　ユリアンは立ち上がり、ニナへ手を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　彼女がその手を取ると、掌に古い傷があるのがわかった。細く、白い傷。ニナはなぜか、その傷が剣ではなく、割れた砂糖細工でできたものだと知っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「私たち、前にも会ったのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="370">「そうなら」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="372">　ユリアンは微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="374">「今度こそ、初めての別れ方を選びたい」</p>
+<div class="source-line scene-break gap-2" data-source-line="377" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="380">　五日目の深夜、イレーネがニナの部屋を訪れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　軍服ではなく、白いシャツに黒いズボンだけだった。右手には、潰れた鉛玉を載せていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「これを知っているか」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="386">「銃弾？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「今朝、胸当ての内側から出てきた。撃たれた覚えはない。だが夢では、私は宮殿の門でこれを受ける」</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　ニナは鉛玉に触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　指先へ、燃える痛みが走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　石段に倒れるイレーネ。赤く染まる軍服。門の向こうで叫ぶトーマ。ユリアンの白い手。何百もの足音。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="396">　見たことのない記憶だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「地下へ行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　イレーネが言った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="402">「薄紫の粉は、宮殿の地下から運ばれている。見張りを二人、私の命令で外した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「隊長が命令に背くんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「私は王家に忠誠を誓った。国を食い潰す仕組みにではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　二人は厨房奥の塩蔵庫から、螺旋階段を下りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　地下には、宮殿より広い空間があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　天井から無数のガラス管が垂れ、青白い光が脈打っている。中央では、巨大な時計仕掛けが音もなく回っていた。歯車は水晶、振り子は黒い金属。周囲には人の背丈ほどの透明な筒が並び、中で紫色の粒が雪のように舞っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　ニナが一つへ近づくと、粒の中に景色が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　舞踏会。</p>
+<p class="source-line role-narration gap-0" data-source-line="417">　銃声。</p>
+<p class="source-line role-narration gap-0" data-source-line="418">　門を開くイレーネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　倒れるユリアン。</p>
+<p class="source-line role-narration gap-0" data-source-line="420">　その胸へすがる、自分。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　次の筒にも、同じ夜があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　ただし少しずつ違う。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="426">　ある夜にはトーマが先に撃たれ、ある夜にはイレーネが女王を刺し、ある夜にはニナが薄紫の菓子を配って、群衆が何もかも忘れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　筒の根元には数字が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　百八十九。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　二百七。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　二百四十。</p>
+<p class="source-line role-dialogue role-memory fx-whisper tone-3 gap-1" data-source-line="434">「これは……記憶だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　ニナは言った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="438">「一度きりの記憶ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　背後で、衣擦れの音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　女王エレオノーラが立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　白い夜着の上に金の外套を羽織り、王冠はつけていない。老いて見えた。肖像画より二十歳も、三十歳も。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「二百四十一度目よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　女王は静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「この国が建国舞踏会を迎えるのは」</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　イレーネが剣を抜いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「陛下。これは何です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「慈悲です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「忘却を慈悲と呼ぶのですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「覚えたまま繰り返すほうが、残酷でしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　女王は時計仕掛けへ手を置いた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="464">「あなたたちは毎夜、同じ悲劇を演じる。王太子は群衆の前で倒れ、近衛隊長は門で死に、革命家は翌朝処刑される。そして時計が十二時を打つ前に、すべては十一時四十七分へ戻る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「なぜ」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　ニナの声は震えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　女王は上を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「見たい者がいるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　天井の暗闇で、何か巨大な影が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　一瞬だけ、星より大きな目がこちらを覗いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　ニナは息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「ここは国ではないのですか」</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="482">「国だったものの記憶よ。遠い時代の者たちが、滅びたオルフェリアを砂糖樹脂と歯車で作り直した。黄昏宮の最期。王家の終焉。忠誠と恋と革命。彼らは安全なガラスの外から、私たちが美しく死ぬのを眺める」</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　女王は笑った。その笑みには、憎しみより疲労があった。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="486">「私は管理者として作られた。筋書きが崩れれば記憶を削り、役を元へ戻す。あなたたちが苦しまぬように」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「苦しまない人形なら、なぜ私たちは夢を見る」</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　イレーネが問うた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="492">「長く繰り返しすぎたのよ。砂糖は湿気を吸い、歯車は癖を持つ。人形は、役にないことを覚え始めた」</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　女王の目がニナへ移った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「とくにあなたは異常だった」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="498">「私？」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="500">「記録に、ニナ・ベルという菓子職人はいない」</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　胸の奥で、何かが落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「では私は、誰なんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「歴史に書かれなかった者たちよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　女王は透明な筒を見渡した。</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="510">「厨房で火傷した娘。門前でパンを待った子。弾を鋳た職人。死者の名を記録されなかった母親。削られた記憶の欠片が、長い年月のうちにひとつの形を取った。それがあなた」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　ニナは首元の銀紙を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「この飴は」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="516">「最初の夜から存在する、唯一の記憶よ。箱庭を作った者が、飾りとして置いた黒い砂糖玉。だが二百四十回の夜を吸い、今では私にも中身がわからない」</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　女王は手を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="520">「菓子を作りなさい。薄紫の粉を混ぜ、皆を眠らせるの。舞踏会は美しく終わる。それが私たちに許された永遠よ」</p>
+<p class="source-line role-narration role-memory tone-5 gap-1" data-source-line="522">　ニナは、記憶の筒の中で何度も死ぬ人々を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　忘れれば痛みはない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="525">　忘れれば、明日を欲しがることもない。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="527">　だが聖鐘の家で、ミレイに持たせた橙色の飴を思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　寂しさを消すためではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="530">　寂しくても、帰る場所があったと忘れないための飴だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="532">「私は、忘れさせる菓子は作りません」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="534">「では皆、また死ぬ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="536">「一度も生きずに繰り返すよりましです」</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　女王の顔から、最後の柔らかさが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「舞踏会の夜、わかるでしょう。自由とは、痛みに別の名前をつけただけだと」</p>
+<div class="source-line scene-break gap-2" data-source-line="543" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="546">　建国舞踏会の夜、黄昏宮は一万本の蝋燭で燃えるように輝いた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="548">　貴族たちは絹と宝石をまとい、窓の外で鳴る群衆の声を楽団の音でかき消した。広場には<span class="term term-world">〈パンと朝を〉</span>の旗が波打ち、その先頭にトーマがいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　ニナは赤いドレスを着せられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　夢で何度も見た色だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　大広間には、白い砂糖薔薇が千二百個並んだ。女王の命じた薄紫の粉は、どれにも入っていない。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="556">　代わりにニナは、地下の記憶の粒を一晩かけて蜜へ溶かした。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="558">　甘い記憶だけではない。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="559">　空腹。嫉妬。恐怖。誰かを見捨てた瞬間。見捨てられても手を伸ばした瞬間。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　すべてを焦がし、黒い芯として白い花の中へ閉じこめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「皆さまへ、王家からの記念菓子です」</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　合図とともに、侍従たちが盆を配った。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　最初の一人が薔薇を噛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　老侯爵はグラスを落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「私は、この夜を知っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　別の貴婦人が悲鳴を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="575">「息子が門で死ぬ。いいえ、もう死んだ。百回も」</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　音楽が崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　千二百人の中へ、二百四十回分の夜が一斉に戻った。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="581">　泣く者。床へ膝をつく者。使用人の顔を見て赦しを乞う者。自分が撃てと命じた相手を思い出し、窓から逃げようとする者。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　そのとき、外で最初の銃声が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　大時計は十一時四十七分を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　近衛兵たちが一斉にイレーネを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　女王の命令は、群衆へ発砲せよ。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　イレーネは剣を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　そして切っ先を、宮殿の門へ向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「開門」</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　兵の一人が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">「隊長、それは反逆です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="601">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　イレーネは静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="605">「二百四十一回目の忠誠だ。今度は国に捧げる」</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　重い門が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　群衆が雪崩れこむ。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="611">　トーマとイレーネの目が合った。夢の中では、いつもその直後に銃弾が彼女の胸を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　若い兵が銃を構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　トーマが飛び出し、銃口を空へ押し上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　弾丸は天井の水晶灯を砕いた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="619">　無数の光が、砂糖の雨のように降った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「筋書きが変わったな」</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　トーマが笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="625">　イレーネも、ほんの一瞬だけ笑った。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="627">　大広間の奥で、女王が地下装置の鍵を回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　宮殿全体が低く唸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　窓の外の旗が止まり、落ちかけた水晶片が空中で静止する。人々の声が伸びて、遠い海鳴りのようになった。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="633">「ニナ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　ユリアンが彼女の手を取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　二人は厨房を抜け、地下へ走った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="639">　時計仕掛けの振り子が大きく揺れ、針が十二時へ近づいている。透明な筒の記憶が吸い上げられ、紫の光になって歯車へ流れこんでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">「止めれば、この世界ごと消えるかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　女王が装置の前に立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「外の者は壊れた展示を捨てる。あなたたちの朝は、一秒も続かない」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　ユリアンはニナを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「君は怖いか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="651">「怖いわ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「私もだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　彼は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「初めて同じことを覚えていられる」</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　ニナは銀紙の包みを外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　黒い飴は、十九年前から少しも溶けていなかった。表面には、小さな薔薇の筋が刻まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「これを食べれば、全部わかる」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="665">「たぶん」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="667">「そして忘れられない」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="669">「たぶん」</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　ユリアンは彼女の頬へ触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「では半分ずつにしよう」</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　ニナは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「王太子って、飴の割り方も知らないのね」</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　彼女は黒い飴を歯で割った。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　二人で半分ずつ口に入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　味は、苦かった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="685">　焦げた砂糖。鉄。雨。焼けた布。母親の歌。処刑台の朝。厨房で笑った娘たち。名もなく埋められた兵士。パンを分けた子ども。二百四十回の口づけ。二百四十回の別れ。まだ一度も来ていない朝の匂い。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="687">　ニナは思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　自分が一人ではないことを。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="691">　歴史の端から削り落とされた、何千人もの「いた」という記憶であることを。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　ユリアンも泣いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="695">「君を、ずっと知っていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「ええ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「ずっと会えなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「ええ」</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　針が十二時へ触れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　ニナはユリアンの手を取り、残った黒い飴の欠片を時計仕掛けの中心へ落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　振り子が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　次の瞬間、世界中の時計が初めて、十一時四十八分を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　大地が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　宮殿の天井に一本の亀裂が走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　星空が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　空は空ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　巨大なガラスの天蓋だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　その向こうに、月より大きな人間の顔と、白い天井灯と、見たことのない文字の並ぶ札があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　女王は目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="725">「幕が下りる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="727">「いいえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　ニナは割れてゆく空を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="731">「やっと、客席の灯りがついたのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　ガラスが砕けた。</p>
+<div class="source-line scene-break gap-2" data-source-line="736" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-memory tone-3 gap-2" data-source-line="739">　市立記憶博物館の夜間警備員、真鍋修一は、二十三時四十七分に第八展示室の警報を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　特別展示<span class="term term-world">〈黄昏宮の最期――失われたオルフェリア王国の自動人形菓子細工〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　十九世紀末に作られたとされる、直径三メートルの精巧な箱庭である。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　毎夜の閉館後、仕掛けが自動で動き、王太子の死と革命軍の突入を十二分間で再現する。砂糖樹脂製の人形は数千体。中央の赤い服の菓子職人だけは、後世の修復で加えられたもので、史実上のモデルは不明――そう説明板に記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　真鍋が駆けつけると、強化ガラスの天蓋に、内側から蜘蛛の巣状の亀裂が入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　仕掛けは止まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　本来なら門前で倒れるはずの近衛隊長は立っていた。革命家の青年も、王太子も。数千の人形が、舞台の中央ではなく、こちらを見上げていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　赤い服の娘だけが、どこにもいなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="755">「そんな馬鹿な」</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　真鍋が無線へ手を伸ばしたとき、靴の下で何かが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　小さな銀紙だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　中には、黒い砂糖の欠片が一つ残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　拾い上げた指先へ、知らない雨の冷たさが伝わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　鐘楼の屋根。</p>
+<p class="source-line role-narration gap-0" data-source-line="766">　焦がしバターの飴。</p>
+<p class="source-line role-narration gap-0" data-source-line="767">　青い目の青年。</p>
+<p class="source-line role-narration gap-0" data-source-line="768">　門を開く女隊長。</p>
+<p class="source-line role-narration gap-0" data-source-line="769">　インクで汚れた手。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="770">　そして、ガラスの空の下で笑う赤い服の娘。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="772">　真鍋は、彼女の名を思い出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">「ニナ」</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　展示室のすべての時計が、十一時四十八分へ進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　翌朝、博物館は臨時休館になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　だが、そのころにはもう遅かった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="782">　清掃員が黒い飴を舐め、警備責任者が彼の記憶を聞き、修復員が割れた天蓋に触れた。昼までに、知らない王国の最期を覚えている者は百人を超えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　夕方には、町の菓子店で売られている飴という飴が、かすかに雨と鉄の味を帯びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　そして二十三時四十七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　町じゅうの時計が、一斉に止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　人々は窓を開け、誰も見たことのない黄昏宮の方角を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　どこにも宮殿はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　それでも全員が、門の開く音を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　箱庭の人々は、外の世界へ出られなかったのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　その代わり、外の世界を、箱庭の外のままにはしておかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　暗い通りのどこかで、少女の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="802">「さあ。今度は、朝の味を作りましょう」</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

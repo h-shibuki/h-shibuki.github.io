@@ -1,0 +1,876 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="湯のみほどの背丈の「まるびと」が暮らす、こさじ町。スープ店〈おたま屋〉のマロは、悩みに向き合うぬくもりを一杯に込めて届けている。毎朝いちばんに来る無口な森番ヨルへ、密かな想いも煮込みながら。そんなある日、北の森に、大切な味や声や色を吸う「からっぽ霧」が発生する。最大の銀鍋を背負ったマロと護衛のヨルは、胸の本音を言わなければ渡れない橋を越え、霧の中心へ向かう。けれど相手の空腹は、料理だけでは満たせないものだった。残り少ないスープを、二人は誰のために温めるのか。">
+<title>ふたりぶんのスープ｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="ふたりぶんのスープ" data-novel-id="ふたりぶんのスープ" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="romance-drama">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離" selected>恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・ロマンス・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>料理・お仕事・BL</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、ロマンス、ファンタジー、料理、お仕事、BL</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">恋愛・関係性</span></p>
+  <p id="currentPresetDescription">会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離</p>
+  <h3>意味色</h3><p>紅＝想い、青＝距離、紫＝記憶、橙＝ぬくもり、緑＝約束</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：415行／章：0／役割・強度タグ：452</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="ふたりぶんのスープ 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">ふたりぶんのスープ</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="3">　こさじ町の朝は、スープの匂いで始まる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="5">　町は、よその国の食卓に置けば、大きな丸皿ひとつに収まってしまうほど小さい。住んでいるのは、湯のみくらいの背丈をした「まるびと」たちだ。みんな丸い耳や尖った耳や、ふかふかのしっぽを持っていて、二十歳を越えると、それぞれ好きな仕事に就く。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　町の東角にある<span class="term term-world">〈おたま屋〉</span>の主人、マロは二十四歳。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　焼いたミルクパンのような色をした、まるい青年だった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="10">　マロの仕事は、スープを作ること。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　それから、ときどき、困っている誰かのところへスープを届けることだった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="13">　風邪には、ねぎの白いスープ。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-0" data-source-line="14">　失恋には、少し辛い赤いスープ。</p>
+<p class="source-line role-narration gap-0" data-source-line="15">　眠れない夜には、月豆を煮た青いスープ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="17">　どのスープも、飲んだからといって問題が消えるわけではない。ただ、問題に向き合うための力を、おなかの底に小さく灯してくれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　だからマロは、町役場から正式に認められた<span class="term term-world">〈ぬくもり係〉</span>でもあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="21">「おはようございます。いつものですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　夜明け前、店の扉が二度、こつこつと鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="24">　入ってきたのは、炭のように黒い毛並みをした青年だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　ヨル、二十六歳。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="27">　北の森を見回る<span class="term term-world">〈森番〉</span>で、細い剣を腰に下げている。耳は長く、声は低く、笑うところを見た者はほとんどいない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="29">「……ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　ヨルは、窓際のいちばん小さな椅子に座った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="33">　マロは、薄い琥珀色の玉ねぎスープを注ぐ。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　浮かべるパンは、いつも一枚。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="35">　けれど今日は、そのパンを星の形に切ってあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　ヨルは星を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　マロを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="39">　また星を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="41">「変でしたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「いや」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="45">「子どもっぽいとか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="47">「思っていない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="49">「じゃあ、かわいいですか」</p>
+<p class="source-line role-dialogue fx-whisper tone-4 gap-1" data-source-line="51">「……スープが冷める」</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　ヨルは顔を伏せ、星のパンをさくりとかじった。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　長い耳の先だけが、ほんの少し赤くなっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　マロは気づかないふりをした。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="57">　気づいたと知られたら、ヨルはしばらく店に来なくなるかもしれない。そうなればマロは、夜明け前に起きる理由をひとつ失ってしまう。</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　ヨルが毎朝来るようになって、一年と三か月。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="60">　マロがヨルを好きになって、一年と二か月と二十九日。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　つまり、ほとんど最初からだった。</p>
+<div class="source-line scene-break gap-2" data-source-line="65" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="68">　その日の昼、町役場の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　緊急の鐘は三回。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　大変な緊急なら六回。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　今回は、九回鳴った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="74">「多いなあ」</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　通りのまるびとたちが、いっせいに空を見上げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="77">　九回目の余韻が消えるより早く、役場の伝書鳥が<span class="term term-world">〈おたま屋〉</span>の煙突へ突っ込んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　ぼふん。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　灰だらけになった伝書鳥は、くちばしから紙を吐き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">『北の森に、からっぽ霧、発生。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="84">　食べものの味、声、色、元気などを吸われた者、多数。</p>
+<p class="source-line role-narration gap-0" data-source-line="85">　ぬくもり係マロは、最大鍋を持って出動されたし。</p>
+<p class="source-line role-narration gap-0" data-source-line="86">　護衛は森番ヨルとする。』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「ヨルさんと」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　マロは、そこだけ二度読んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　胸がふわっとする。</p>
+<p class="source-line role-narration gap-0" data-source-line="93">　直後、北の窓から黒い霧が見えて、ふわっとした胸が、きゅっと縮んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　からっぽ霧は、めったに出ない。</p>
+<p class="source-line role-narration gap-0" data-source-line="96">　出ると、あたりにある「大事なもの」を吸い込む。</p>
+<p class="source-line role-narration role-memory role-sensory gap-1" data-source-line="98">　昔、南の丘に現れたときは、花から匂いを、鳥から歌を、町長から演説の結論だけを吸い込んだ。最後のものについては、そのままでもよかったのではないかという意見もあった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="100">　しかし今回は、人から味も声も元気も奪っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　放ってはおけない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="103">　マロは背中に、町でいちばん大きな銀鍋を背負った。中には、根菜と豆と香草を煮込んだ<span class="term term-world">〈勇気のスープ〉</span>が入っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　ふたを締め、ひしゃくを帯に差し、店を出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　扉の前には、もうヨルがいた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="109">「準備は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「できてます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「怖いか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="115">「少し」</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　マロは正直に答えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="118">　ヨルの長い耳が、こちらへわずかに傾く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="120">「俺がいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　たった四文字だった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="124">　なのに、勇気のスープを一杯飲んだみたいに、マロのおなかが温かくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="126">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　二人は北の森へ向かった。</p>
+<div class="source-line scene-break gap-2" data-source-line="131" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="134">　北の森へ行くには、<span class="term term-world">〈ほんとのこと橋〉</span>を渡らなければならない。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　橋は気むずかしい。</p>
+<p class="source-line role-narration gap-0" data-source-line="137">　渡ろうとする者が、胸の中に隠していることをひとつ言わないと、板がつながらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　二人が川辺に立つと、向こう岸までの板が、ぽつ、ぽつと空中に浮かんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　どれも間が広すぎて、そのままでは渡れない。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　橋の欄干についた口が、あくびをする。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「ほんとのことを、ひとつずつ」</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　マロは困った。</p>
+<p class="source-line role-narration gap-0" data-source-line="147">　昨夜、鍋の底についた焦げを見なかったことにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="148">　町長の帽子を、巨大なきのこだと思っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="149">　ヨルの横顔を見るたび、指で輪郭をなぞってみたいと思う。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　最後のものは、絶対に言えない。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="153">「ええと……ぼくは」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　ヨルが先に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「雷が苦手だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　マロは目を丸くした。</p>
+<p class="source-line role-narration gap-0" data-source-line="160">　ヨルは森番で、暗闇も獣も怖がらない。嵐の夜でも一人で巡回する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「意外です」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="164">「笑うな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「笑いません。今度、雷の日は店に来てください。鍋の音で聞こえなくします」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　一枚目の板が、すうっと手前へ伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　マロの番だった。</p>
+<p class="source-line role-dialogue fx-whisper tone-4 gap-1" data-source-line="172">「ぼくは……ヨルさんが来る朝だけ、店を三十分早く開けています」</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　二枚目の板が伸びる。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　ヨルは、驚かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「知っていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「えっ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="182">「店の札に、開店は日の出と書いてある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「じゃあ、どうして毎朝、日の出前に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="186">「それは次の橋で言う」</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　ヨルは先に歩き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　マロはしばらく動けなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="191">　橋の欄干の口が、にやにやしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">「早く行けば」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「橋に言われたくありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　それでもマロは、少し弾む足でヨルを追った。</p>
+<div class="source-line scene-break gap-2" data-source-line="200" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="203">　森へ入ると、色が薄くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　赤い実は灰色に。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　青い苔は灰色に。</p>
+<p class="source-line role-narration gap-0" data-source-line="207">　黄色いちょうちょまで灰色になって、飛ぶたびに、紙くずのような音を立てた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="209">　道ばたには、味を吸われた木の実が落ちている。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="210">　ひとつ拾ってかじると、濡れた布のような味がした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="212">「おいしくない……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="214">「食べるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「確かめないと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="218">「腹を壊す」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="220">「心配してくれてます？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「ぬくもり係に倒れられると困る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「ぼく自身の心配は」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　ヨルは答えず、マロの手から木の実を取り上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　そのまま遠くへ投げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="228">　灰色のリスが拾い、ひとかじりして、なんともいえない顔をした。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="230">「リスさん、ごめんなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　さらに進むと、小さな集落があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　きのこの家が五軒。</p>
+<p class="source-line role-narration gap-0" data-source-line="235">　切り株の家が三軒。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　住人たちは広場に集まり、みんな口を閉じていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　いや、閉じているのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　声を吸われているのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　子どもを抱いた父親が、必死に何かを訴える。</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　その子どもの体は、霧の色に近い灰色だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　マロはすぐ鍋を下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「大丈夫。順番に配ります」</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　返事はない。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="249">　それでも、聞こえていると信じて、マロは笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　勇気のスープを椀に注ぐ。</p>
+<p class="source-line role-narration gap-0" data-source-line="252">　ひとり一杯。</p>
+<p class="source-line role-narration gap-0" data-source-line="253">　子どもには半分。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　飲んだ者の頬に、少しずつ色が戻っていく。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="256">　声はまだ出ないが、目に光が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　鍋の中身は、半分になった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="260">「先へ行く分が減る」</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　ヨルが小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「でも、ここで使うために持ってきました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「霧の中心に、もっと必要かもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「そのときは、そのときです」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　マロが次の椀を差し出すと、ヨルは何も言わなくなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　代わりに、椀を配るのを手伝った。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　最後の一杯を受け取った老婆が、震える指で森の奥を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　その先には、地面へ向かって落ちていく黒い霧があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　ヨルが剣を抜く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「中心は近い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「行きましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　二人は、空になりかけた鍋を背負い直した。</p>
+<div class="source-line scene-break gap-2" data-source-line="285" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="288">　森の奥には、大きなくぼ地があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　底に、黒い鍋がいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　置かれているのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="293">　いるのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　家より大きな鉄鍋に、細い四本の脚が生え、二つの取っ手は腕のように動いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="296">　鍋の中は真っ暗で、底が見えない。</p>
+<p class="source-line role-narration gap-0" data-source-line="297">　そこから黒い霧が、ぐつぐつと湧いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　鍋が、こちらを向いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="300">　顔はないのに、見られているとわかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「おなかが、すいた」</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　地面の下から響くような声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="306">「ずっと、ずっと、すいた」</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　黒い取っ手が伸びてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　ヨルの剣が光った。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　取っ手そのものではなく、まとわりつく霧だけを切る。霧は細い布のように裂け、風にほどけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「マロ、下がれ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「いいえ。話してみます」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="317">「危険だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「おなかがすいているなら、ぼくの仕事です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="321">　マロは鍋を下ろし、残っていたスープを、全部ひしゃくですくった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「少ししかありません。でも、どうぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　黒い鍋の中へ注ぐ。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　じゅっ、と音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　湯気は上がらない。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="330">　香りも残らない。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="331">　スープは闇へ吸い込まれ、それきりだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="333">「たりない」</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　黒い鍋が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「ひとりぶんは、すぐ、さめる」</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　霧が爆発するようにあふれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　マロの耳から音が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　目の前から色が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="343">　胸の中にあった元気が、栓を抜かれたように流れ出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　膝が折れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　倒れる寸前、誰かの腕がマロを抱きとめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　何も聞こえない。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="350">　けれど、黒い毛並みと、革の匂いでわかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　ヨルだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　ヨルはマロを片腕で支え、もう片方の手で剣を振った。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　霧が裂ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　だが、裂けた先から、また霧があふれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　剣では終わらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　マロはヨルの胸を叩き、黒い鍋を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　ヨルは首を振った。</p>
+<p class="source-line role-narration gap-0" data-source-line="362">　行くな、と言っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　それでもマロは、ヨルの腕から抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　ふらつきながら、黒い鍋へ近づく。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="368">　縁に手をかけると、頭の中へ、知らない記憶が流れ込んできた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="370">　昔、このくぼ地では、大きな祭りが開かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="371">　森の住人たちは、ひとつの鍋を囲み、それぞれが持ってきたものを入れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="372">　豆をひとつ。</p>
+<p class="source-line role-narration gap-0" data-source-line="373">　にんじんを半分。</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　塩をひとつまみ。</p>
+<p class="source-line role-narration gap-0" data-source-line="375">　誰かが多く持っていなくても、みんなで煮れば、全員がおなかいっぱいになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　けれど、道が変わり、町が移り、祭りはなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　最後の年。</p>
+<p class="source-line role-narration gap-0" data-source-line="380">　黒い鍋は火にかけられたまま、誰も来ない広場で待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　夕方まで。</p>
+<p class="source-line role-narration gap-0" data-source-line="383">　夜まで。</p>
+<p class="source-line role-narration gap-0" data-source-line="384">　雨が降るまで。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　中身は、からっぽだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　待つ気持ちだけが焦げつき、鍋は、ひとりで歩き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　マロは胸を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　これは食べものの空腹ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="393">　誰かと分けるはずだった時間の空腹だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　ヨルがマロの肩をつかんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="396">　音はまだ戻らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　マロは口を動かした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「ふたりぶん、作りましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　ヨルの眉が寄る。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　マロは空になった銀鍋を指し、自分とヨルを指し、それから黒い鍋を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　ヨルはしばらく動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　やがて、腰の袋から干しきのこを一枚出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="409">　巡回中の非常食だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　マロはポケットを探り、小さな玉ねぎを出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="412">　昼食にするつもりだったものだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　二人は、黒い鍋の前に座った。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　銀鍋へ水を入れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="417">　玉ねぎを刻む。</p>
+<p class="source-line role-narration gap-0" data-source-line="418">　干しきのこを割る。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　塩は、ヨルの携帯瓶からひとつまみ。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　けれど、火がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　火打ち石は霧に濡れ、何度打っても火花が散らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　黒い鍋が、低く笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="427">「さめる。どうせ、さめる」</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　ヨルは火打ち石を置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　それから外套を脱ぎ、マロと銀鍋をまとめて包んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　体温が伝わってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　マロは驚いてヨルを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　ヨルの唇が動く。</p>
+<p class="source-line role-narration gap-0" data-source-line="437">　音はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="438">　けれど、ゆっくりだったから読めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">『俺が、あたためる』</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　二人は外套の中で、ぴったり肩を寄せた。</p>
+<p class="source-line role-narration gap-0" data-source-line="443">　ヨルの胸は、見かけよりずっと温かい。</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　火はつかない。</p>
+<p class="source-line role-narration gap-0" data-source-line="446">　それでも鍋を抱え、二人で待った。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　しばらくすると、不思議なことが起きた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="450">　銀鍋の底に、小さな橙色の光が灯った。</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　火ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="452">　二人のおなかの奥からこぼれたような、やわらかい光だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　水が、ことこと鳴り始める。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="456">　玉ねぎの甘い匂い。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="457">　きのこの深い匂い。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="458">　塩の、海を思わせる匂い。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　失われていた音と色が、少しずつ戻る。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="462">「……ヨルさん」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　マロの声が出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「聞こえる」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　ヨルの声も戻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　黒い鍋が身をよじる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「たりない。まだ、たりない」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="474">「味見をしましょう」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="476">　マロは一杯だけ残っていた小さな椀に、スープを注いだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　椀はひとつ。</p>
+<p class="source-line role-narration gap-0" data-source-line="478">　ひしゃくもひとつ。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　ヨルが受け取る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="482">「おまえが先に飲め」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「作った人は最後です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「倒れた人間が先だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「まるびとです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「今はどちらでもいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　ヨルはひしゃくでスープをすくい、マロの口元へ差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　マロはためらいながら飲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　薄い。</p>
+<p class="source-line role-narration gap-0" data-source-line="497">　具も少ない。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="498">　いつもの<span class="term term-world">〈おたま屋〉</span>なら、お客には出さない味だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　けれど、とてもおいしかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="502">「どうだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「ヨルさんも」</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　今度はマロがすくい、ヨルへ差し出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　ヨルはマロの目を見たまま飲んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="509">　喉がひとつ動く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「うまい」</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　黒い鍋から出ていた霧が、少し薄くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="515">「どうして」</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　黒い鍋が震える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「どうして、からっぽなのに、おいしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　マロは答えた。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="523">「誰かと食べると、味が増えるんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「うそだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="527">「本当です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「なら、どうして、おまえたちは、いっしょにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　急な問いに、マロは黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　隣のヨルも黙る。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　黒い鍋の中で、霧がまた膨らんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「いっしょに、いたいからか」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　マロの心臓が、どくんと鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="540">　ほんとのこと橋より、ずっと逃げ場がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　ヨルが椀を地面へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">「そうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　マロは息を止める。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　ヨルは黒い鍋ではなく、マロを見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「俺は、こいつと一緒にいたい」</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="552">「ヨルさん」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="554">「毎朝、日の出前に店へ行くのは、腹が減っているからじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　ヨルの長い耳が赤い。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　頬まで、ほんの少し赤い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「おまえが、俺を見つけて、おはようと言うからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　マロは、何も言えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「森番は、夜の仕事だ。暗い道を一人で歩く。誰にも会わずに一日が終わることもある」</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　ヨルは一度、視線を落とした。</p>
+<p class="source-line role-dialogue fx-whisper tone-4 gap-1" data-source-line="567">「でも、店へ行けば、おまえがいる。俺の椅子がある。いつものスープがある。俺は……あれを失いたくない」</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　黒い鍋の霧が、みるみるほどけていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「それは」</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　マロの声が震えた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="575">「ぼくのことが、好きってことですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="577">「そう言っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="579">「スープじゃなくて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「おまえだ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="583">「星のパンも」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="585">「かわいかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「ぼくと、どっちが」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="589">「今それを聞くのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="591">「大事なので」</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　ヨルは困った顔をした。</p>
+<p class="source-line role-narration gap-0" data-source-line="594">　マロは初めて見る顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　とても、かわいいと思った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="598">「おまえのほうが、かわいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　その瞬間、黒い鍋が、ぽん、と音を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　家より大きかった体が、みるみる縮む。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　牛ほどになり、犬ほどになり、最後には、両手に乗るくらいの小鍋になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　黒い霧は消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　森の色が戻る。</p>
+<p class="source-line role-narration gap-0" data-source-line="608">　鳥の声が戻る。</p>
+<p class="source-line role-narration gap-0" data-source-line="609">　遠くの集落から、誰かの歓声が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　小鍋は四本の脚で、ちょこちょことマロたちへ近づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="612">　銀鍋をのぞき込み、恥ずかしそうに取っ手を揺らす。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="614">「……ひとくち」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">「どうぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　マロは最後のスープを、小鍋の中へ注いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　小鍋は、ふるふる震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="622">「おいしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　今度の声は、小さく、丸かった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="626">　マロは笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　ヨルも、ほんの少しだけ口元をゆるめた。</p>
+<p class="source-line role-dialogue role-name fx-climax role-motif tone-4 gap-1" data-source-line="629">「ヨルさん、今、笑いました？」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="631">「笑っていない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="633">「笑いました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「霧の見間違いだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「もう霧はありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　マロが顔を近づける。</p>
+<p class="source-line role-narration gap-0" data-source-line="640">　ヨルは逃げなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　代わりに、マロの頬へ手を添えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="644">「橋で言わなかった、もうひとつの本当のことがある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「はい」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="648">「ずっと、触れたかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　ヨルの指が、マロの頬をゆっくりなぞる。</p>
+<p class="source-line role-narration gap-0" data-source-line="651">　マロが、ずっとヨルにしてみたかったのと、同じように。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「ぼくもです」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="655">「触れていいか」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="657">「もう触れてます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「もっとだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　マロは目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　唇が重なる。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　玉ねぎと、きのこと、少しの塩。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-0" data-source-line="666">　さっき二人で飲んだスープと同じ味がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　短い口づけだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="669">　離れると、ヨルの耳は真っ赤だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　マロの耳も、きっと同じ色だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　小鍋が二人の足元で、ことこと鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「おかわり」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「帰ったら作ります。今度は三人ぶんですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「いや」</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　ヨルが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「こいつの分は別の椀にしろ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="685">「どうしてです？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="687">「二人ぶんは、二人で食べたい」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="689">　マロは少しだけ驚き、それから、声を上げて笑った。</p>
+<div class="source-line scene-break gap-2" data-source-line="692" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="695">　からっぽ霧が消えた翌朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　<span class="term term-world">〈おたま屋〉</span>の窓際には、新しい椅子がひとつ増えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="698">　古い椅子の隣に、ぴったり並んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　ヨルは、いつもの玉ねぎスープを頼んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="701">　マロは同じものを二杯作り、自分も隣へ座った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="703">　足元では、小鍋が豆のスープを飲んでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　すっかり店の手伝いになり、空いた椀を四本の脚で運ぶのが仕事だ。ときどき客の椀まで空にしようとするので、目は離せない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="706">「今日も森ですか」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="708">「ああ。だが、夜明けまでには戻る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="710">「お店は日の出に開きますよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「知っている」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="714">「では、どうして早く来るんです？」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="716">　ヨルはスープをひとくち飲んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="717">　星の形のパンをかじる。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　それから、テーブルの下で、マロの手を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「おはようを言うためだ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="723">　店の外で、朝の鐘が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　町じゅうの煙突から、白い湯気がのぼっていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　マロはヨルの肩へ、そっと頭を預けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">「おはようございます、ヨルさん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="730">「おはよう、マロ」</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　湯気の向こうで、ヨルが笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="734">　スープは、今日も二人ぶんだった。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

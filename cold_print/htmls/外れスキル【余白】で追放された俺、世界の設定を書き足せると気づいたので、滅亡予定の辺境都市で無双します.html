@@ -1,0 +1,1083 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="『外れスキル【余白】で追放された俺、世界の設定を書き足せると気づいたので、滅亡予定の辺境都市で無双します』｜拡張フォントいじり検証版">
+<title>『外れスキル【余白】で追放された俺、世界の設定を書き足せると気づいたので、滅亡予定の辺境都市で無双します』｜拡張フォントいじり版</title>
+<!--
+主ジャンル：追放系Webファンタジー
+副ジャンル：世界改変スキル／都市防衛／関係性コメディー
+推奨ジャンル書体：Webファンタジー
+演出エンジン：通常本文を画面向け、能力名を装飾明朝、世界の説明文を等幅、ツッコミを丸ゴ、選択と信頼を見出し書体へ切替
+意味色：青＝余白と可能性、赤＝炎と危機、金＝信頼と共同体、紫＝世界記述、緑＝日常とツッコミ
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 2.18em;
+  --climax-max: 1.78em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #36739a;
+  --tone-2: #a04735;
+  --tone-3: #a57b28;
+  --tone-4: #72568f;
+  --tone-5: #3d7b64;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #82c4ed;
+  --tone-2: #ef8a74;
+  --tone-3: #e1bd67;
+  --tone-4: #b399d2;
+  --tone-5: #7ec6a4;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="paper" data-effects="full" data-fontmode="full" data-genre="web-fantasy">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅">軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離">論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立">学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離" selected>Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に">制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用">風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>追放系Webファンタジー</p>
+  <p><strong>副ジャンル：</strong>世界改変スキル／都市防衛／関係性コメディー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">Webファンタジー</span></p>
+  <p id="currentPresetDescription">画面向け本文、能力名、世界記述、ツッコミを役割別に分離</p>
+  <h3>意味色</h3><p>青＝余白と可能性、赤＝炎と危機、金＝信頼と共同体、紫＝世界記述、緑＝日常とツッコミ</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：554行／章：0／役割・強度タグ：710</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="『外れスキル【余白】で追放された俺、世界の設定を書き足せると気づいたので、滅亡予定の辺境都市で無双します』 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『外れスキル<span class="term term-skill tone-1">【余白】</span>で追放された俺、世界の設定を書き足せると気づいたので、滅亡予定の辺境都市で無双します』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-dialogue gap-2" data-source-line="4">　「リオ。今日限りで、お前を<span class="term term-name tone-4">《白銀の聖剣》</span>から追放する」</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　王都冒険者ギルドの二階。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　金貨一枚もする個室で、勇者ガルドはそう言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　窓際には、神官セレナと弓使いのバルツがいる。二人とも俺と目を合わせようとしない。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　テーブルの中央には、黒曜迷宮を攻略した証である竜眼石。その隣には、山のような金貨袋が積まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　俺の前に置かれているのは、銅貨三枚だけだった。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="14">　ずいぶん分かりやすい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="16">「理由を聞いても？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「戦えない。回復もできない。荷物持ちと記録係なら、もっと安く雇える」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　ガルドは自慢の金髪をかき上げ、腰の聖剣を鳴らした。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="22">「そもそも、お前の天恵は<span class="term term-skill tone-1">【余白】</span>とかいう意味不明の外れスキルだろう？　黒曜迷宮を踏破できたのは、俺の聖剣とセレナの加護のおかげだ。お前は俺たちの名声にぶら下がっていただけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="24">「そうか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="26">「反論しないのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">「事実じゃない部分はあるけど、もう決めたんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　俺が言うと、ガルドは鼻で笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　反論したところで、時間の無駄だ。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="33">　それに、俺は三年間、この連中に何も説明してこなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="35">　ガルドの聖剣には<span class="term term-world">〈刃こぼれしない〉</span>。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="36">　セレナの法衣には<span class="term term-world">〈呪いを一度だけ肩代わりする〉</span>。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="37">　バルツの靴には<span class="term term-world">〈足音を獣に聞かれない〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　ほかにも、鎧、矢筒、水筒、薬瓶、野営道具。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="40">　俺は毎晩、仲間が眠ったあとで、装備品に見える“白い<span class="term term-magic tone-1">余白</span>”へ短い<span class="term term-magic tone-4">一文</span>を書き足していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　彼らは自分たちが一流だから、毒沼でも倒れず、魔獣の群れにも見つからず、百回剣を打ち合わせても武器が折れないのだと思っている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="44">　まあ、それはそれで幸せな勘違いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">「分かった。今まで世話になった」</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　俺は立ち上がり、背負い袋を肩にかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="49">　そして扉へ向かう前に、三人の装備へ指を向ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　目に見えないインクが、空中へほどけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　俺が書いた文章は、俺の魔力で維持されている。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="54">　契約を切れば、<span class="term term-magic tone-1">余白</span>は元に戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「何をした？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="58">「俺が預けていたものを返してもらっただけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「負け惜しみか。さっさと消えろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「ああ。それと一応、忠告しておく」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　俺は聖剣を指さした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="66">「その剣、三日以内に鍛冶屋へ持っていったほうがいい。芯に亀裂が入ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　ガルドは腹を抱えて笑った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="70">「聖女から授かった聖剣だぞ？　お前ごときが鑑定したつもりか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　俺は肩をすくめ、銅貨三枚をテーブルに残した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="74">「退職金はいらない。その代わり、二度と俺の仕事を自分の手柄にするな」</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　そう言って、俺は<span class="term term-name tone-4">《白銀の聖剣》</span>を辞めた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="78">　その三日後、本当に聖剣が折れることになるのだが――そのときの俺は、もう王都から百キロ離れた街道を歩いていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="80" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration role-magic tone-1 gap-1" data-source-line="82">　天恵<span class="term term-skill tone-1">【余白】</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　十歳の祝福式でその名が出たとき、神官は首をかしげた。</p>
+<p class="source-line role-narration gap-0" data-source-line="85">　攻撃でも防御でも、生産でもない。古い文献にも記録がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="86">　鑑定板には、能力説明すら表示されなかった。</p>
+<p class="source-line role-narration fx-whisper fx-key role-motif fx-beat tone-1 gap-1" data-source-line="88">　ただ、空欄だけがあった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="90">　だから外れスキルと呼ばれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　けれど俺には、昔から見えていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="93">　剣の銘の横、契約書の末尾、魔法陣の切れ目、誰も気に留めない小さな空白。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　そこへ指で文字を書くと、現実が少しだけ変わる。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="97">　壊れかけの椅子に<span class="term term-world">〈次に座る者が立つまで壊れない〉</span>と書けば、一人分だけ持ちこたえる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="98">　濁った井戸に<span class="term term-world">〈夜明けまで毒を沈める〉</span>と書けば、朝までは安全な水になる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="99">　鈍った短剣に<span class="term term-world">〈縄だけはよく切れる〉</span>と書けば、鋼鉄の鎖さえ断てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　何でもできるわけではない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="102">　すでに書かれた性質を消すことはできず、本物の<span class="term term-magic tone-1">余白</span>に、<span class="term term-magic tone-4">一文</span>だけ。</p>
+<p class="source-line role-narration gap-0" data-source-line="103">　しかも、無茶な内容ほど魔力を食う。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　――少なくとも、俺はそう思っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　王都を出て四日目。</p>
+<p class="source-line role-narration gap-0" data-source-line="108">　昼食代を惜しんで森の木の実をかじっていると、前方から悲鳴が聞こえた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="110">「止まれ！　馬車を囲め！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="112">　街道の曲がり角で、十人ほどの盗賊が一台の馬車を襲っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="113">　護衛は二人。片方は肩を斬られ、もう片方は槍を折られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　逃げてもよかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="116">　俺はもう冒険者パーティーの一員ではないし、剣の腕も並だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　ただ、馬車の扉から、小さな女の子が顔を出していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　泣きながら、倒れた護衛へ手を伸ばしている。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="121">「……仕方ないな」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　俺は足元の小石を拾った。</p>
+<p class="source-line role-narration gap-0" data-source-line="124">　どこにでもある、丸い石だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　その表面には、自然が削り残した細い白線が見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　俺は指先に魔力を集めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="129">　淡い青色の文字が浮かぶ。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="131">　<span class="term term-world">〈投げれば、悪意ある者の額に当たる〉</span></p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="133">「おい、そこの旅人！　余計な真似を――ぶへっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　小石が盗賊の額に命中した。</p>
+<p class="source-line role-narration gap-0" data-source-line="136">　男は白目をむいて倒れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　俺は二個目、三個目と拾った。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="140">　ひょい。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="141">　ごつん。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="143">　ひょい。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="144">　ごつん。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="146">「な、なんだこの石は！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="148">「避けろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="150">「避けても当たるぞ！？」</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　一分もしないうちに、九人が額を押さえて転がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="153">　最後に残った頭領らしき大男が、女の子を人質に取ろうと馬車へ走る。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="155">「小細工ばかりしやがって！」</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　男の槍が、扉の前に立った銀髪の女性へ突き出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　間に合わない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="160">　そう思った瞬間、俺の目に、槍と女性のあいだにある空間の<span class="term term-magic tone-1">余白</span>が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　物ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="163">　紙でも、武器でも、魔法陣でもない。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="165">　<span class="term term-motif tone-1">世界そのものの、まだ何も書かれていない場所</span>。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="167">　俺は無意識に、そこへ<span class="term term-magic tone-4">一文</span>を書いた。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="169">　<span class="term term-world">〈この一歩は、届かない〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="171">　槍の穂先が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　いや、男は全力で走っている。足も動いている。なのに、一歩分の距離が永遠に縮まらない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　大男が間抜けな声を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　俺も同じ気分だった。</p>
+<p class="source-line role-narration fx-key role-motif fx-beat tone-1 gap-1" data-source-line="181">　<span class="term term-motif tone-1">世界にも、余白がある</span>のか。</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　俺は男の背後へ回り、首筋を手刀で打った。</p>
+<p class="source-line role-narration gap-0" data-source-line="184">　巨体が地面に沈む。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="186">　静かになった街道で、銀髪の女性が俺を見つめていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　二十歳前後だろうか。旅装の上からでも育ちのよさが分かる。青灰色の瞳は、驚きよりも強い好奇心に輝いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「今のは、空間魔法ですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「たぶん違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">「たぶん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「俺も初めてやったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　女性は数秒黙り、それから吹き出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「命を救われた直後に笑うのは失礼ですね。申し遅れました。私はミレイア・<span class="term term-name tone-3">フェルセン</span>。北辺都市<span class="term term-name tone-3">フェルセン</span>の領主代行です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「領主代行？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="203">「父が病に伏しているので、今は私が街を預かっています。こちらは妹のノエルです」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　女の子が馬車から降り、俺の外套をつかんだ。</p>
+<p class="source-line role-dialogue fx-shout tone-5 gap-1" data-source-line="207">「石のお兄ちゃん、ありがとう！」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="209">　もっと格好いい呼び名はなかったのだろうか。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　ミレイアは倒れた盗賊たちと、俺の腰にある安物の短剣を見比べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「リオ様。差し支えなければ、目的地を伺っても？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「特に決めていない。仕事を探しながら北へ行くつもりだった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「それなら、<span class="term term-name tone-3">フェルセン</span>へ来てください」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　彼女は、迷いなく言った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="221">「我が街はいま、滅亡の危機にあります。ですから、あなたのような規格外の方を雇えるなら、少しも遠慮している場合ではありません」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="223">「滅亡？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「はい。六日後、古竜が目覚めます」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="227">　ずいぶん物騒な再就職先だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="229" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="231">　北辺都市<span class="term term-name tone-3">フェルセン</span>は、美しい街だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　山脈から流れる青い川。赤い屋根。中央広場には巨大な日時計があり、城壁の外には麦畑が広がっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　ただし、人々の顔は暗い。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　家財を荷車へ積む者。神殿で祈る者。商店の扉へ板を打ちつける者。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　六日前、天文塔が凶兆を観測した。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="239">　北の休火山に封じられていた<span class="term term-name tone-2">終焉竜ヴァルグリム</span>が目覚め、<span class="term term-name tone-3">フェルセン</span>へ飛来する。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="240">　古い記録によれば、その黒炎は城一つを三呼吸で灰にするという。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「王都へ援軍を求めましたが、近隣を治めるカルゼン侯爵に握り潰されました」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　領主館の執務室で、ミレイアは地図を広げた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="246">「侯爵は以前から、この街の銀鉱山を欲しがっていました。鉱山の権利を譲れば兵を出す、と」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「譲らないのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「譲れば、鉱夫の賃金は半分になり、冬を越せない家が出ます。それに、兵が来ても古竜に勝てる保証はありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「住民を避難させるのは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「老人と子どもを含めて一万二千人。山道は狭く、全員が安全圏へ出るまで十日は必要です」</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　つまり、間に合わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　窓の外には、補修中の城壁が見える。</p>
+<p class="source-line role-narration gap-0" data-source-line="259">　石材は古く、魔法障壁を生む刻印もほとんど消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　その城壁の上に、俺には巨大な文字が見えた。</p>
+<p class="source-line role-narration role-system role-magic tone-2 gap-1" data-source-line="263">　<span class="term term-world">〈フェルセン防壁。残存出力十二パーセント。終焉竜来襲時、推定耐久時間――四・七秒〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="265">　そして文章の末尾に、空白がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　俺は目をこすった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="269">「リオ様？」</p>
+<p class="source-line role-dialogue fx-key role-motif tone-4 gap-1" data-source-line="271">「街にも、説明文がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「はい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="275">「いや、こっちの話だ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="277">　王都を離れてから、俺の<span class="term term-skill tone-1">【余白】</span>は明らかに変わった。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　以前は物に残された隙間しか見えなかったのに、いまは場所、現象、果ては人の魔法にまで文章が浮かぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　パーティーにいた頃、俺は毎日、百を超える装備へ魔力を流し続けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="281">　その維持をやめたことで、本来の力が戻ったのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　試しに、自分自身を見てみる。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="285">　<span class="term term-world">〈リオ・クローデル。天恵【余白】。世界に残された未確定領域へ、一文を追記する〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="287">　その下に、さらに小さな文字があった。</p>
+<p class="source-line role-narration role-system role-magic tone-4 gap-1" data-source-line="289">　<span class="term term-world">〈魔力量測定不能。理由――既存尺度の上限を超過〉</span></p>
+<p class="source-line role-dialogue fx-whisper fx-beat tone-4 gap-1" data-source-line="291">「……測定不能って、ゼロじゃなくて上限越えだったのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　祝福式の神官は、鑑定板が真っ白になったのを見て「魔力なし」と判断した。</p>
+<p class="source-line role-narration gap-0" data-source-line="294">　まさか、板のほうが音を上げていたとは。</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　俺は少しだけ、遠い目になった。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="298">　三年間、夜ごと何百個もの装備を強化しても、魔力切れになったことはない。</p>
+<p class="source-line role-narration gap-0" data-source-line="299">　なぜ疑問に思わなかったのだろう。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「何か分かりましたか？」</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-1" data-source-line="303">「ああ。たぶん、街を守れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　ミレイアが息をのむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「本当ですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「まだ試したいことはある。でも、少なくとも四・七秒よりは長くできる」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　俺は城壁へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　古代魔法の刻印に手を触れる。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="314">　石壁の<span class="term term-magic tone-1">余白</span>へ、指先で<span class="term term-magic tone-4">一文</span>を書いた。</p>
+<p class="source-line role-narration role-magic fx-climax role-motif tone-4 gap-1" data-source-line="316">　<span class="term term-world">〈この壁は、守ろうとする意志の数だけ強くなる〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="318">　瞬間。</p>
+<p class="source-line role-narration role-sound tone-3 gap-1" data-source-line="320">　街全体が、鐘のように鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　城壁に埋もれていた金色の線が一斉に輝き、百年分の汚れと苔が光に弾かれる。崩れていた石材が自ら浮き上がり、元の場所へ収まっていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　中央広場から歓声が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　補修に当たっていた職人が、腰を抜かしている。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="328">　俺の目の前で、説明文が変わった。</p>
+<p class="source-line role-narration role-system role-magic tone-4 gap-1" data-source-line="330">　<span class="term term-world">〈フェルセン防壁。残存出力――算定不能。住民一万二千四百八十一名の防衛意志に接続〉</span></p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="332">「……やりすぎたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「いま、何をしたんです？」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　追いついたミレイアが、光る城壁と俺を交互に見た。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-1" data-source-line="338">「<span class="term term-magic tone-4">一文</span>、足しただけだ」</p>
+<p class="source-line role-dialogue role-comic tone-1 gap-1" data-source-line="340">「<span class="term term-magic tone-4">一文</span>で、廃れていた古代防壁を完全復旧させたのですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「完全かどうかは、竜に殴らせてみないと」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="344">「その確認方法は却下します」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　彼女は即答したあと、口元を押さえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　笑っている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="349">　暗かった街に、ほんの少しだけ希望が戻った。</p>
+<div class="source-line scene-break gap-1" data-source-line="351" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="353">　それから五日間、俺は<span class="term term-name tone-3">フェルセン</span>中の<span class="term term-magic tone-1">余白</span>を探した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="355">　干上がりかけた貯水槽には、<span class="term term-world">〈雨水を一滴も無駄にしない〉</span>。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="356">　治療院の薬棚には、<span class="term term-world">〈必要な者へ渡るまで効能を失わない〉</span>。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="357">　避難路の石畳には、<span class="term term-world">〈子どもと老人を転ばせない〉</span>。</p>
+<p class="source-line role-narration fx-key role-motif tone-1 gap-1" data-source-line="359">　何でもかんでも強くするのではなく、必要な場所へ、必要な<span class="term term-magic tone-4">一文</span>だけを書く。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="361">　書くたびに街の人たちは驚き、やがて俺を見つけると、妙なお願いをするようになった。</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="363">「兄ちゃん、この鍋に<span class="term term-world">〈料理が勝手にうまくなる〉</span>って書いてくれ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「料理人の腕が上がらなくなるから駄目だ」</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="367">「じゃあ<span class="term term-world">〈焦げてもおいしい〉</span>！」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="369">「まず火加減を覚えろ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="371">　パン屋の少年には、<span class="term term-world">〈早起きできる枕〉</span>を頼まれた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="372">　宿屋の女将には、<span class="term term-world">〈夫が隠し酒をできない棚〉</span>を頼まれた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="373">　ノエルには、<span class="term term-world">〈宿題が自分で終わる鉛筆〉</span>を頼まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　全部断った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="377">「リオは意外と厳しいのですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　領主館の食堂で、ミレイアが笑う。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="381">「<span class="term term-magic tone-1">余白</span>は、怠けるためにあるんじゃない。足りないものを補うためにある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「では、私に足りないものも補えますか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　向かいに座る彼女の顔には、疲労が濃い。</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　五日間、ほとんど眠らずに避難計画と防衛準備を進めていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「睡眠だな」</p>
+<p class="source-line role-dialogue role-comic tone-5 gap-1" data-source-line="390">「情緒がありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「領主に必要なのは、甘い言葉より判断力だろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「正論ですが、少しくらい迷ってください」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　俺は空になった茶器へ湯を注いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　ミレイアは、侯爵の要求を拒み続けている。</p>
+<p class="source-line role-narration gap-0" data-source-line="399">　鉱山を差し出せば、自分だけは助かる。妹も、父も、領主家の家臣も逃がせる。</p>
+<p class="source-line role-narration gap-0" data-source-line="400">　それでも彼女は、一万二千人を置いていかなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="402">　この街の防壁が彼女の意志に応えたのも、当然だと思う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「なあ、ミレイア」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「はい」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="408">「どうして、初対面の俺を街へ連れてきた？」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　彼女は少し考え、窓の外を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「盗賊を倒したから、ではありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「違うのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「あなたは、倒れた護衛を最初に助け起こしました。名乗るより先に。あれを見て、この方なら力を預けても大丈夫だと思ったのです」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　俺は返事に困った。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　ガルドたちは、俺の力を知らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="421">　知ろうともしなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="423">　ミレイアは、力を見抜いたから信じたのではない。</p>
+<p class="source-line role-narration fx-key role-motif tone-3 gap-0" data-source-line="424">　力以外のところを見て、信じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「買いかぶりだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「では、買ったままにしておきます。返品は受け付けません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「領主って強引なんだな」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="432">「滅亡寸前ですから」</p>
+<p class="source-line role-narration role-sound tone-3 gap-1" data-source-line="434">　そのとき、街の北で爆発音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　窓ガラスが震える。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="437">　次いで、警鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　予定より一日早い。</p>
+<p class="source-line role-narration fx-beat tone-2 gap-1" data-source-line="441">　終焉竜が来た。</p>
+<div class="source-line scene-break gap-1" data-source-line="443" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration gap-1" data-source-line="445">　北門へ駆けつけると、山の向こうが黒く染まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　雲ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　翼だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　一度羽ばたくたび、森が波打つ。鱗の隙間から赤い光が漏れ、角の周囲では雷が踊っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　全長百メートルを超える黒竜が、夕空を覆い隠していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　城壁の上では、衛兵たちが震えながら弓を構えている。</p>
+<p class="source-line role-narration gap-0" data-source-line="454">　それでも、誰一人逃げていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　金色の防壁が、彼らの意志に呼応して輝いた。</p>
+<p class="source-line role-dialogue role-command fx-shout gap-1" data-source-line="458">「全員、配置につけ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　ミレイアの声が飛ぶ。</p>
+<p class="source-line role-dialogue role-command tone-4 gap-1" data-source-line="462">「攻撃は私の命令まで待て！　市民の避難を優先！　北区画が空になるまで、必ず持ちこたえる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　恐怖に負けかけていた兵たちの背筋が伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　そのとき、南側から派手な軍旗が近づいてきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="467">　カルゼン侯爵家の紋章だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「援軍？」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　ミレイアの副官が声を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　だが、先頭にいる男を見て、俺は眉をひそめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　白銀の鎧。</p>
+<p class="source-line role-narration gap-0" data-source-line="476">　折れた聖剣の代わりに、豪華な大剣を背負っている。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="478">　ガルドだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　後ろには、セレナとバルツもいる。三人とも包帯だらけだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="482">「リオ！　やはりここにいたか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　ガルドは、俺を見つけるなり怒鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「お前が妙な呪いをかけたせいで、俺の聖剣が折れた！　迷宮では魔獣に囲まれ、セレナの法衣も裂けた！　今すぐ元に戻せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「忠告しただろ。鍛冶屋へ持っていけって」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="490">「あれはお前が壊したようなものだ！」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="492">「元々の亀裂を、俺が三年間止めていただけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　ガルドの顔が引きつった。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　セレナが青ざめ、バルツは自分の靴を見下ろす。</p>
+<p class="source-line role-narration gap-0" data-source-line="497">　ようやく気づいたらしい。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="499">「では……迷宮で毒が効かなかったのも、矢が尽きなかったのも……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="501">「全部じゃない。お前たち自身の実力もあった。ただ、自分で思っていたほど無敵ではなかった。それだけだ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="503">「ふざけるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　ガルドが大剣へ手をかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　その後ろから、肥えた中年男が馬を進める。</p>
+<p class="source-line role-narration gap-0" data-source-line="508">　紫の外套に、宝石だらけの指輪。カルゼン侯爵本人だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「内輪揉めはあとにしろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　侯爵は城壁の向こうに見える古竜を一瞥し、鼻を鳴らした。</p>
+<p class="source-line role-dialogue role-document tone-3 gap-1" data-source-line="514">「ミレイア嬢。最後の機会だ。鉱山譲渡の証文へ署名せよ。さすれば我が軍が、貴族街の住民だけは避難させてやる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="516">「ほかの市民は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「間に合わん。平民など、また増える」</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　城壁の上で、空気が凍った。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　ミレイアは証文を受け取らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「お帰りください、侯爵」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="526">「正気か？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="528">「ええ。私の街に、守る命を選ぶ援軍は不要です」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="530">「ならば、全員まとめて焼かれるがよい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　侯爵が馬首を返す。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="534">　その瞬間、終焉竜が咆哮した。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　空気が震え、馬が暴れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="537">　黒竜の赤い目が、まっすぐガルドを見ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　正確には――ガルドの胸元を。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　鎧の上に、黒い宝石が吊られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="542">　黒曜迷宮の最奥で、彼が戦利品として持ち帰った竜眼石だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　俺の目に、宝石の説明が浮かぶ。</p>
+<p class="source-line role-narration role-system role-magic tone-2 gap-1" data-source-line="546">　<span class="term term-world">〈終焉竜ヴァルグリム制御鍵。王権認証部品。封印施設より取り外されたため、休眠命令を解除〉</span></p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="548">「ガルド、その石を今すぐ外せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「何？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="552">「それが竜を起こした。元の祭壇から持ち出したんだろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="554">「これは俺が迷宮を攻略した証だ！　渡せるか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　黒竜が口を開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　喉の奥に、太陽のような光が生まれた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="559">　まずい。</p>
+<p class="source-line role-dialogue role-command fx-shout gap-1" data-source-line="561">「総員、伏せろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　ミレイアが叫ぶ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="565">　黒炎が放たれた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="567">　山を削りながら迫る、破滅の奔流。</p>
+<p class="source-line role-narration gap-0" data-source-line="568">　夜が昼に変わり、熱だけで遠くの木々が燃え上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　俺は城壁の前へ出た。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="572">「リオ様！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="574">　防壁の<span class="term term-magic tone-1">余白</span>へ手を伸ばす。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="576">　すでに<span class="term term-magic tone-4">一文</span>は書いてある。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　本来なら、二つ目は加えられない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="579">　だが、城壁の説明文のさらに外側に、誰にも使われていない細い空間があった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="581">　文章の<span class="term term-magic tone-1">余白</span>ではない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="582">　<span class="term term-magic tone-1">余白</span>という概念そのものの、<span class="term term-magic tone-1">余白</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　俺は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「外れスキルにしては、ずいぶん融通が利くじゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　指を走らせる。</p>
+<p class="source-line role-narration role-magic fx-climax role-motif tone-4 gap-1" data-source-line="590">　<span class="term term-world">〈この街では、炎は人を照らす光にしかならない〉</span></p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="592">　黒炎が城壁へ衝突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　爆音は、しなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="596">　破滅の炎は無数の光へほどけ、街の上を舞った。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="597">　赤、青、金、紫。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="598">　夏祭りの灯籠のような火の粒が、夕暮れの<span class="term term-name tone-3">フェルセン</span>を照らしている。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="600">　熱はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　子どもたちが避難所の窓から手を伸ばし、歓声を上げた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="603">　終焉竜が、困惑したように首を傾げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　城壁の上も、侯爵軍も、誰一人声を出せなかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="607">「……竜の息を、消した？」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="609">　ミレイアがつぶやく。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="611">「消してない。灯りにした」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="613">「そのほうが、もっとおかしいです」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="615">　もっともだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　黒竜は再び息を吸い込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「同じ手は二度――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「たぶん何度でも効く」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="623">　二発目の黒炎も、花火のように散った。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="624">　三発目は、街の日時計をきらきら光らせた。</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="626">　古竜は口を閉じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　少し傷ついた顔に見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　だが、問題は解決していない。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="630">　竜を倒せば、墜落だけで街が潰れる。そもそも、この竜は命令に従っているだけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　俺はガルドへ向き直った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="634">「鍵を渡せ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="636">「断る！　侯爵閣下は、この石に金貨一万枚の価値があると――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="638">「命より高いのか？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="640">「俺は勇者だ！　この竜は俺が倒す！」</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　ガルドが大剣を抜き、城壁から飛び降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　無謀ではあるが、身体能力だけなら本当に一流だ。風魔法で跳躍し、黒竜の鼻先へ斬りかかる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="646">「聖光斬！」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　白い斬撃が、黒い鱗へ直撃した。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="650">　ぱきん。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　大剣が根元から折れた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="654">「な……」</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　黒竜が前脚を軽く振る。</p>
+<p class="source-line role-narration gap-0" data-source-line="657">　ガルドは虫のように弾き飛ばされ、城壁へ突っ込んだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="659">　俺が書き足した防壁が衝撃を受け止めたので死んではいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="660">　壁に人型の穴は開いたが。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="662">「勇者様！」</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　セレナが駆け寄る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="666">　ガルドの胸元から、制御鍵がこぼれ落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="667">　俺はそれを拾う。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　黒竜の目が、俺を捉えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　巨大な翼が羽ばたく。</p>
+<p class="source-line role-narration gap-0" data-source-line="672">　突風で兵士たちが倒れるなか、俺は城壁を蹴った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="674">　靴の<span class="term term-magic tone-1">余白</span>へ、<span class="term term-magic tone-4">一文</span>。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="676">　<span class="term term-world">〈次の一歩だけ、空を地面として踏める〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="678">　一歩。</p>
+<p class="source-line role-narration gap-0" data-source-line="679">　空中に光の足場が生まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　書く。</p>
+<p class="source-line role-narration gap-0" data-source-line="682">　踏む。</p>
+<p class="source-line role-narration gap-0" data-source-line="683">　また書く。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　俺は階段を駆け上がるように、百メートルの空を昇った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="687">「人間……王鍵ヲ……返セ……」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="689">　終焉竜の声が、頭の中へ直接響く。</p>
+<p class="source-line role-narration gap-0" data-source-line="690">　怒りではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="691">　苦痛に満ちた声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　近づいて、ようやく分かる。</p>
+<p class="source-line role-narration gap-0" data-source-line="694">　竜の額には巨大な魔法陣が刻まれ、その半分が焼け落ちている。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="695">　命令文が壊れ、同じ行動を繰り返しているのだ。</p>
+<p class="source-line role-narration role-system role-magic tone-4 gap-1" data-source-line="697">　<span class="term term-world">〈第一命令。王都を侵す敵を焼却せよ〉</span></p>
+<p class="source-line role-narration role-system role-magic tone-4 gap-0" data-source-line="698">　<span class="term term-world">〈第二命令。王鍵の保持者を王権代行者として認証〉</span></p>
+<p class="source-line role-narration role-system role-magic tone-4 gap-0" data-source-line="699">　<span class="term term-world">〈第三命令。王統断絶時――　　　　　　　　　〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="701">　最後が空白だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　古代王国は滅び、正統な王はいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　なのにガルドが鍵を持ち出したせいで、竜は彼を王権代行者と誤認した。</p>
+<p class="source-line role-narration gap-0" data-source-line="705">　そしてガルドが<span class="term term-name tone-3">フェルセン</span>を「攻略対象」と口にした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="707">　壊れた命令が、それを敵国への進軍命令として処理したのだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="709">「ヴァルグリム。お前は、街を焼きたいのか？」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="711">「我ハ……守護兵器……王国ヲ……民ヲ……守ル……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「なら、話は早い」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="715">　俺は制御鍵を魔法陣の中央へはめ込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="716">　欠けた線がつながり、空白が青く輝く。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="718">　そこへ、<span class="term term-magic tone-4">一文</span>を書いた。</p>
+<p class="source-line role-narration role-magic fx-climax role-motif fx-peak tone-4 gap-1" data-source-line="720">　<span class="term term-world">〈王統断絶時、最も多くの民を守ろうとする者を主と認める〉</span></p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="722">　世界が、静止した。</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　風が止まり、光の粒が空中で固まる。</p>
+<p class="source-line role-narration gap-0" data-source-line="725">　遠いどこかで、巨大な本の頁がめくられるような音がした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="727">　終焉竜の瞳から、濁った赤色が消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　澄んだ金色へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　竜はゆっくりと地上を見下ろす。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　城壁の最前列。</p>
+<p class="source-line role-narration gap-0" data-source-line="733">　逃げずに立ち、一万二千人の避難を指揮しているミレイアを。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="735">「新タナル主ヲ……確認」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="737">　翼を畳み、<span class="term term-name tone-2">終焉竜ヴァルグリム</span>が空中で頭を垂れた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="739">「命令ヲ。我ガ王」</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　ミレイアは呆然としていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　俺は空中から叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="745">「ミレイア！　命令してくれ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="747">「わ、私がですか！？」</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="749">「この街で一番、皆を守ろうとしてただろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　彼女は周囲を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="752">　兵士。市民。妹。病床の父がいる領主館。</p>
+<p class="source-line role-narration gap-0" data-source-line="753">　そして、頭を垂れる古竜。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　大きく息を吸う。</p>
+<p class="source-line role-dialogue fx-shout tone-2 gap-1" data-source-line="757">「<span class="term term-name tone-2">終焉竜ヴァルグリム</span>！」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="759">　その声は、街の隅々まで届いた。</p>
+<p class="source-line role-dialogue role-command fx-climax role-motif gap-1" data-source-line="761">「<span class="term term-name tone-3">フェルセン</span>の民を守りなさい！　誰一人、理不尽な炎で失わせてはなりません！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="763">「御意」</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　古竜が翼を広げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　今度の咆哮は、恐怖ではなく誓いだった。</p>
+<div class="source-line scene-break gap-1" data-source-line="769" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="771">「これは我が軍の手柄である！」</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　すべてが終わった直後、カルゼン侯爵はそう主張した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="775">「我々が竜を追い詰めたからこそ、<span class="term term-name tone-3">フェルセン</span>家は服従させられたのだ！　従って、銀鉱山の管理権は――」</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　その面の皮の厚さだけは、古竜の鱗に勝てそうだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="779">「侯爵様」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="781">　俺は、彼が持っていた鉱山譲渡の証文を指さした。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　まだ署名欄は空白。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="784">　契約条件の末尾にも、小さな<span class="term term-magic tone-1">余白</span>がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="786">「何だ、平民」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="788">「その証文、一行抜けていますよ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="790">　俺は指で書き足した。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="792">　<span class="term term-world">〈本契約に関する発言は、真実のみを口にできる〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="794">　証文が光った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="796">「な、何をした！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="798">「では侯爵。援軍を出さなかった本当の理由は？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="800">「古竜が<span class="term term-name tone-3">フェルセン</span>を滅ぼしたあと、無人になった鉱山を奪うためだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　侯爵は自分の口を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　周囲の兵士たちが、一斉に彼を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="806">「王都への救援要請を握り潰しましたか？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="808">「三通とも燃やした！　ついでに天文塔の予測を一日遅い内容へ書き換えさせた！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="810">「避難させるつもりだったのは？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="812">「自分の息がかかった商人と、鉱山技師だけだ！　平民など知るものか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　広場が静まり返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　侯爵は涙目で口を閉じようとするが、証文を握っている限り、質問には正直に答えてしまう。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　ミレイアが衛兵へ命じた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="820">「カルゼン侯爵を拘束してください。証文と証言は王都監察院へ送ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「き、貴様ら！　私を誰だと――私は侯爵だ！　賄賂と脅迫で爵位を買っただけの無能だが、侯爵なのだぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　自白が止まらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　部下たちは目をそらし、侯爵を縛り上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　次に、ガルドが俺の前へ来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　治療は受けたらしく、頭に包帯を巻いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="831">　セレナとバルツも一緒だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="833">「リオ」</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　声には、以前の勢いがなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="837">「戻ってこい。今度は報酬の二割……いや、三割をやる。お前の補助と俺の剣があれば、また最強のパーティーになれる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「剣、折れてるぞ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="841">「新しいものを買う！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="843">「そういう話じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　俺は三人を見た。</p>
+<p class="source-line role-dialogue role-memory fx-key role-motif fx-climax tone-3 gap-1" data-source-line="847">「俺が欲しかったのは、金貨の割合じゃない。仲間として、自分の仕事を見てほしかっただけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　セレナが唇をかむ。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="851">「……ごめんなさい。私、加護が強くなったのだと思い込んでいました。あなたが毎晩、法衣を直していたことにも気づかなくて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="853">「私もだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　バルツが頭を下げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="857">「靴の手入れも、矢羽根の調整も、全部当然だと思っていた。謝って済むとは思わないが、本当にすまなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　二人の謝罪は受け取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="860">　ガルドは、まだ納得していない顔だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="862">「俺は勇者だぞ。お前だって、勇者パーティーの一員という肩書きが必要なはずだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　俺は背後を振り返った。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="866">　城壁の向こうでは、終焉竜が壊れた水路を前脚で器用に直している。</p>
+<p class="source-line role-narration gap-0" data-source-line="867">　広場では、市民がミレイアを囲んで歓声を上げていた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="868">　ノエルがこちらへ走りながら、「石のお兄ちゃん！」と手を振っている。</p>
+<p class="source-line role-dialogue role-comic fx-key role-motif fx-beat tone-5 gap-1" data-source-line="870">「間に合ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　俺が答えると、ガルドの顔が真っ赤になった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="874">　その後、彼は侯爵から受け取った前金と、黒曜迷宮から無断で持ち出した制御鍵の件で監察院に連行された。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　勇者資格は停止。</p>
+<p class="source-line role-narration gap-0" data-source-line="877">　罰として一年間、王立図書館で古文書の写本を命じられたらしい。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="879">　<span class="term term-magic tone-4">一文</span>字でも間違えると最初からやり直しだという。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="881">　<span class="term term-magic tone-1">余白</span>の大切さを学ぶには、ちょうどいい仕事だと思う。</p>
+<div class="source-line scene-break gap-1" data-source-line="883" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>◇</div>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="885">　終焉竜騒動から三か月。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="887">　<span class="term term-name tone-3">フェルセン</span>は、滅亡どころか以前より賑やかになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　古竜を一目見ようと、商人や冒険者が各地から訪れる。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="890">　ヴァルグリムは普段、北山の頂上で眠っているが、週に一度は街へ降りてきて、水路工事や荷運びを手伝う。</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　最初は悲鳴を上げていた住民も、今ではすっかり慣れた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="894">「ヴァル爺、そっちの材木持ってくれ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「承知シタ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="898">「畑を踏むなよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="900">「努力スル」</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　古代王国の最終兵器が、大工に叱られてしょんぼりしている。</p>
+<p class="source-line role-narration gap-0" data-source-line="903">　平和で何よりだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="905">　カルゼン侯爵は爵位を剥奪され、銀鉱山へ送った違法徴税分を全額返還させられた。</p>
+<p class="source-line role-narration gap-0" data-source-line="906">　セレナとバルツは新しいパーティーを組み、今度は装備の手入れを自分たちでやっているらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　そして俺は、領主館の一室を借りて暮らしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　肩書きは、<span class="term term-name tone-3">フェルセン</span>特別補佐官。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="911">　仕事内容は、防壁の点検、古代文書の解読、街の相談事の処理。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="912">　あと、ノエルの宿題監視だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="914">「リオ、ここに名前を書いてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　執務室で、ミレイアが一枚の書類を差し出した。</p>
+<p class="source-line role-dialogue role-document tone-4 gap-1" data-source-line="918">「新しい雇用契約か？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="920">「似たようなものです」</p>
+<p class="source-line role-narration gap-1" data-source-line="922">　受け取って読む。</p>
+<p class="source-line role-narration role-document fx-beat gap-1" data-source-line="924">　婚姻届だった。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="926">「どこが似てるんだ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="928">「長期契約です。住居と食事つき。共同経営者として、領地運営にも参加していただきます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="930">「途中解約は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="932">「原則認めません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="934">「強引な領主だな」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="936">「滅亡寸前ではなくなりましたので、今は個人的な理由です」</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="938">　ミレイアは平然としていたが、耳が赤い。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="940">　書類の署名欄には、二人分の<span class="term term-magic tone-1">余白</span>がある。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="942">「ここに<span class="term term-world">〈必ず幸せになる〉</span>と書けば、そうなると思いますか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="944">　彼女が尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="946">　俺は少し考え、首を横に振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="948">「書かない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="950">「どうして？」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="952">「幸せは、最初から決められていないほうがいい。失敗したら話し合って、足りないところを二人で書き足せばいいだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="954">　ミレイアは目を丸くしたあと、柔らかく笑った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="956">「では、まず何を書き足しますか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="958">　俺は羽根ペンを取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="960">　魔力ではなく、普通のインクにつける。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="961">　自分の名前を書き、その横へ短い<span class="term term-magic tone-4">一文</span>を添えた。</p>
+<p class="source-line role-narration role-sensory role-magic tone-4 gap-1" data-source-line="963">　<span class="term term-world">〈毎朝、同じ食卓でお茶を飲む〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="965">「ずいぶん控えめですね」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="967">「毎日続けるなら、これくらいがいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="969">「分かりました」</p>
+<p class="source-line role-narration gap-1" data-source-line="971">　ミレイアも署名する。</p>
+<p class="source-line role-narration gap-0" data-source-line="972">　その横に、彼女はこう書いた。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="974">　<span class="term term-world">〈ときどき、甘い言葉も添える〉</span></p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="976">「これは契約条件か？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">「最重要項目です」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="980">　窓の外で、街の鐘が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="981">　広場を走る子どもたち。荷馬車を引く商人。城壁の上で訓練する衛兵。北山からあくびをする古竜。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="983">　俺には今も、世界中の<span class="term term-magic tone-1">余白</span>が見える。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="985">　書き足せる場所は、きっと無限にある。</p>
+<p class="source-line role-narration gap-0" data-source-line="986">　けれど、何でも俺の望みどおりにすればいいわけではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　人が自分で選び、自分で歩いたあとに残る、ほんの少しの足りない部分。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="989">　そこを支える<span class="term term-magic tone-4">一文</span>であればいい。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="991">　俺は開け放った窓から、<span class="term term-name tone-3">フェルセン</span>の街を見渡した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="993">　街の説明文の末尾に、新しい<span class="term term-magic tone-1">余白</span>が生まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="995">　指先を上げ、そっと書いた。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="997">　<span class="term term-world">〈この街の明日は、今日より少しだけ幸せになる〉</span></p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="999">　鐘の音に重なるように、世界が頁をめくった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1001">　そして俺たちの物語は、<span class="term term-magic tone-1">余白</span>の先へ続いていく。</p>
+<p class="source-line end-mark gap-2" data-source-line="1004"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "外れスキル【余白】";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

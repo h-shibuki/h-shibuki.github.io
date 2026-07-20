@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="失くした鍵ではなく、言えなかった謝罪や捨てた勇気を回収する男、黒瀬真。午前二時、派手な若社長・北条アキラに連れられ、存在しない雑居ビルの「人生再編集社」へ踏み込む。依頼は、死期の迫る父が十五年前に削除した「七歳の誕生日」を取り戻すこと。閉店まで残り六分、社員はなぜか真を知っており、封じられた一日の奥からは彼自身のものではない記憶があふれ出す。人生から切り取られたものは、本当に消えたのか。親子の空白を追う奇妙な回収劇が始まる。">
+<title>人生再編集社は午前二時に閉まる｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="人生再編集社は午前二時に閉まる" data-novel-id="人生再編集社は午前二時に閉まる" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ミステリ・ファンタジー</p>
+  <p><strong>補助ジャンル：</strong>家族ドラマ・お仕事</p>
+  <p><strong>CSVタグ：</strong>アクション、ミステリ、ファンタジー、家族ドラマ、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：446行／章：0／役割・強度タグ：490</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="人生再編集社は午前二時に閉まる 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『人生再編集社は午前二時に閉まる』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　雨は、街がついた嘘を洗い流すには細すぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　午前一時四十二分。港ノ宮のネオンは濡れた路面で二重になり、酔客もタクシーも、自分の影を一人ぶん余計に連れて歩いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　黒瀬回収所は、二十四時間営業のコインランドリーの二階にある。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　看板には<span class="term term-world">〈失くした物、捨てた物、捨てられなかった物〉</span>とだけ書いてある。財布や指輪なら交番へ行け、と黒瀬シンはいつも言う。彼が回収するのは、警察が受理してくれない品物だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　死んだ男が出し忘れた退職届。</p>
+<p class="source-line role-narration gap-0" data-source-line="12">　結婚式の前日に逃げた花嫁の勇気。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　二十年間、一度も口にされなかった「すまなかった」。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　そういう、形のない落とし物である。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　その夜、シンは事務机に両足を載せ、ぬるい缶コーヒーを飲んでいた。窓の外では、ランドリーの乾燥機が回るたび、赤と青のネオンが交互に瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　扉が三度、ノックされた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="21">「開いている」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　返事を待たず、孔雀色のコートを着た青年が入ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="24">　年は二十二、三。銀色の長靴、真珠を埋め込んだ手袋、黒曜石の杖。雨の夜に目立つためだけに設計されたような男だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　青年は部屋を見回し、深刻な顔で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">「ひどい事務所だ。観葉植物が遺言を書き始めている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="30">「水をやってないだけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「それを世間では、ひどい事務所と言う」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　青年は名刺を一枚、机へ滑らせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　宝条アキラ。</p>
+<p class="source-line role-narration gap-0" data-source-line="37">　宝条グループ臨時総裁。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　肩書の下には、なぜか小さく<span class="term term-world">〈美貌による地域振興担当〉</span>と印刷されている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="40">「その担当は必要か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「私が街を歩けば景気が上向く。統計はまだない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「用件は」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="46">　アキラの笑みが消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="47">　代わりに、古い写真が机へ置かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　海沿いの小さな遊園地。錆びた観覧車を背に、七歳ほどの少年と、一人の男が笑っている。少年はアキラだった。男は宝条グループ会長、宝条十蔵。新聞では、笑わない経営者として有名な人物だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　写真の裏には、十五年前の六月十七日とある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="53">「父は今夜、死ぬ」</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　アキラは淡々と言った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="57">「港ノ宮聖十字病院。医師は夜明けまでもたないと言っている。意識はほとんどない。だが一時間前、急に目を開けて、こう言った。『七歳の誕生日を返せ。校了になる前に』」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="59">「校了？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「母の遺品から、これも見つけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　今度は、細長い領収書だった。紙は黄ばんでいるが、印字だけは妙に鮮明だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　人生再編集社。</p>
+<p class="source-line role-narration gap-0" data-source-line="66">　ご依頼内容――六月十七日、終日削除。</p>
+<p class="source-line role-narration gap-0" data-source-line="67">　依頼者――宝条十蔵。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　備考欄には、赤い文字でこう記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　<span class="term term-world">〈後悔は誤字です。訂正、承ります〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="73">　シンは缶コーヒーを置いた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="75">「聞いたことがある。午前一時から二時まで、場所を変えて現れる店だ。金ではなく、記憶を取る」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="77">「今夜は旧高架下、十三番倉庫の隣だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">「よく見つけたな」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="81">「港ノ宮じゅうの私立探偵を雇った。最後まで残った一人が、店の前で自分の名前を忘れた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「料金は高い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">「宝条家に、買えない物があると思うか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="87">「ある。まともな服だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　アキラは一秒だけ目を細め、それから杖を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="91">「気に入った。君を雇う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="93">「まだ受けるとは言ってない」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="95">「父の記憶を取り戻してほしい。あの写真の一日を、夜明けまでに」</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　シンは写真を手に取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　観覧車。</p>
+<p class="source-line role-narration gap-0" data-source-line="100">　海風。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　紙袋に入った焦げたキャラメル。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　知らないはずの匂いが、舌の奥によみがえった。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　そして少年の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　――パパ、もう一周。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　シンは写真を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「前金は倍だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「三倍払おう。私の依頼は常に見栄えが大事だ」</p>
+<div class="source-line scene-break gap-2" data-source-line="116" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="119">　旧高架下には、十三番倉庫までしかない。</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　だが午前一時五十三分、倉庫と倉庫の隙間に、十四番目の扉が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　扉の上の時計は、一時五十三分を指している。</p>
+<p class="source-line role-narration gap-0" data-source-line="123">　秒針だけが、妙に急いで動いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　真鍮の看板には、こうある。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　人生再編集社</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　営業時間　午前一時より午前二時まで</p>
+<p class="source-line role-narration role-document tone-4 gap-0" data-source-line="129">　※閉店時に店内に残ったお客様は、不要部分として処理いたします。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">「ずいぶん強気な接客だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　シンが言うと、アキラは懐中鏡で前髪を直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「老舗とは、だいたい無礼なものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　扉を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　中は、外から想像できないほど広かった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="140">　白い廊下が遠くまで続き、その両側に、天井まで届く引き出しが並んでいる。引き出しには<span class="term term-world">〈言わなかった告白〉</span><span class="term term-world">〈選ばなかった職業〉</span>〈見なかったふり〉〈笑うべきでなかった葬式〉などと札がついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　受付には、赤鉛筆を髪に挿した女が座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　年齢は三十にも六十にも見える。黒いスーツの襟元に、銀色のホチキスをブローチ代わりにつけている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「いらっしゃいませ。人生再編集社へようこそ」</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　女は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「新規の削除でしょうか。浮気、失言、進路変更など、今夜は比較的空いております」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「返品だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　シンが領収書を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「十五年前、宝条十蔵が切り取った一日を返してもらう」</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　女は領収書を見ず、シンの顔を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　笑みが、ほんの少し深くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「原稿番号ＨＪ―〇六一七。ようやくお戻りになりましたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="163">「何の話だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「失礼。こちらの話です」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　アキラが身を乗り出した。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="169">「父の記憶はどこだ。言い値で買う」</p>
+<p class="source-line role-dialogue role-document role-memory tone-3 gap-1" data-source-line="171">「削除済みの過去は返却できません。当社規約、第三条です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="173">「では御社ごと買う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「当社は創業前から営業しておりますので」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="177">「不愉快だ。歴史の長さを値札にする会社は嫌いだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「お褒めにあずかり光栄です」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　女は机の下から分厚い帳簿を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="183">「削除された一日は、通常、裁断して保存します。ただし、感情の密度が高すぎる場合、切除部分が人の形を取ることがございます」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="185">「人の形？」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="187">「余白人、と呼んでおります。過去から切り離され、来歴を持たず、しかし自分が何者かも知らぬまま、街を歩く人々です」</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　女の赤鉛筆が、シンを指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「たとえば、そちらの方のように」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　廊下の奥で、何かが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　カチン。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　巨大な時計の針が、一分進んだ音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　壁の時計は、一時五十四分を指している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「冗談は嫌いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　シンは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">「存じております。あなたからは、冗談を理解する部分が削除されておりますので」</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　アキラが横目で見た。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="209">「それは元からでは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「黙れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　受付の女は帳簿を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「お帰りください。閉店まで、あと六分です」</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　アキラは杖の石突きで床を二度叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　天井の照明が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　一秒後、非常灯がつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="222">　受付の女が振り返ると、アキラはすでにカウンターの内側にいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「何をなさったのです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「宝条製の携帯電磁妨害器だ。通称、役員会。すべての機能を一時停止させ、誰も責任を取らない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「最低の発明だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「我が社の伝統だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　アキラは帳簿を奪い、廊下へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　女はため息をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「校正部。侵入者二名です。一名は派手すぎますので、簡潔にしてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　引き出しが一斉に開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　黒いスーツの男たちが、紙のように薄い身体を折り畳みながら這い出してきた。顔には目も鼻もなく、額に<span class="term term-world">〈要修正〉</span>という赤い判が押されている。右手の代わりに巨大な消しゴム、左手の代わりに朱肉のついた判子が生えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「君の担当客だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　アキラが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">「お前を簡潔にするそうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　シンはコートの内側から、黒い折り畳み傘を抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="249">　柄をひねると、芯から細い鋼線が伸びる。回収屋に銃は向かない。穴を開けた品物は、たいてい値打ちが下がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　最初の校正係が判子を振り下ろした。</p>
+<p class="source-line role-narration gap-0" data-source-line="252">　シンは傘で受け流し、鋼線を首に巻きつけ、引き出しへ叩き返す。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　別の一体がアキラに迫った。</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　アキラは杖の宝石を押した。</p>
+<p class="source-line role-narration gap-0" data-source-line="257">　杖の先から金色の紙吹雪が爆発し、校正係の顔へ貼りつく。紙には一枚ずつ<span class="term term-world">〈可決〉</span>と印刷されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="259">「何だそれは」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="261">「携帯用臨時株主総会」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="263">「お前の会社は早く潰れたほうがいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「父にも同じことを言われた」</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　アキラの声から、一瞬だけ冗談が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　二人は廊下を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　引き出しの隙間から、切り捨てられた人生が漏れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　言えなかった「好き」が、銀色の魚になって床を跳ねた。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　辞表を出せなかった勇気が、黒い犬の姿で吠えた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="275">　忘れたふりをされた死者たちが、半透明の手でこちらを招いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">「父は、ここで何を捨てた」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　走りながら、アキラが帳簿をめくる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="281">「六月十七日、終日削除。付随項目――妻への愛情、息子への愛情、笑い癖、弱者への同情、遊園地の乗り物酔い……ずいぶんまとめて切ったな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="283">「最後のは戻さなくていい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="285">「父らしい。吐くほど弱いのに、観覧車を四周した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="287">「三周じゃないのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　シンが言うと、アキラは足を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">「写真に、そんなことは書いていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　シンも止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　頭の奥で、錆びたゴンドラが揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　七歳の少年が、指を四本立てて笑っている。</p>
+<p class="source-line role-narration role-clue tone-3 gap-1" data-source-line="299">　――四周だよ。パパ、忘れたの？</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="301">「……先へ行くぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　シンは低く言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　アキラは何も言わず、帳簿のページを破った。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　紙面に赤い矢印が浮かび、廊下の先を指す。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="309">　<span class="term term-world">〈第七保管室　愛情過多による切除物〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="311">　時計が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　一時五十七分。</p>
+<div class="source-line scene-break gap-2" data-source-line="316" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="319">　第七保管室は、海の匂いがした。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　扉の向こうに、十五年前の遊園地があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　空は夕焼けで止まり、観覧車も、風船も、波も、すべてが動く寸前の姿で静止している。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　中央のベンチに、若い宝条十蔵が座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="325">　今のシンと、同じ顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　いや、同じというより――シンの顔が、十蔵から疲労と威厳と十五年を剥がした顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　十蔵の隣には、七歳のアキラがいる。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="330">　紙袋から焦げたキャラメルをつまみ、父親の口へ無理やり押し込んでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「苦い」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　若い十蔵が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「大人の味だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「お前は子どもだろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「ぼくは今日で七歳だ。昨日より大人だ」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="342">　記憶の中のアキラが胸を張る。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　そこへ、公衆電話のベルが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　若い十蔵が受話器を取る。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　表情から、笑みが消えた。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="349">「……手術が、終わった？」</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　夕焼けの色が薄くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　電話の向こうの声は聞こえない。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　だが結果は、十蔵の肩が崩れたことで分かった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="356">　アキラの母は、長い病気の末、その日の夕方に亡くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　彼女は手術室へ入る前、夫と息子を遊園地へ追い出したのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　――アキラの誕生日に、病院の匂いを残さないで。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　――あの子と笑ってきて。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　それが最後の願いだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　けれど十蔵は、自分が笑っていた時刻に妻が死んだことを許せなかった。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="366">　息子を見るたび、妻を失った痛みと、その痛みから逃げた自分を思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　だから一日を切り取った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="370">　悲しみだけを消すつもりで、愛情までまとめて。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「愚かな男だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　大人のアキラが、静止した父子を見つめた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="376">「悲しめるほど愛した、というだけのことを、十五年も理解できなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">「人は、痛みの原因より先に、痛みを感じる自分を憎む」</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　シンは答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　なぜそんな言葉を知っているのか、自分でも分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　背後で拍手がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　受付の女が、校正係たちを従えて立っていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="388">「ご名答です、黒瀬シン様。正確には、宝条十蔵様より切除された<span class="term term-world">〈家族を愛した人格〉</span>。それがあなたです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「俺は十五年、この街で生きてきた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「切り取られた文章にも、切り取られた後の余白がある。あなたはそこで経験を重ねた。名前をつけ、仕事を覚え、他人の落とし物ばかり拾ってきた」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　女は、少しだけ優しい声になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「ご自分が落とし物だったからでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　シンは返事をしなかった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="400">　思い出せる最初の記憶は、十五年前の雨だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　高架下で目を覚まし、ポケットには空の財布しかなかった。身分証も、家族の写真もない。近くの看板から適当に名字を取り、煙草の箱に印刷された銘柄から名前を取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　それ以前は、何もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　何もないことに、慣れたつもりでいた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="407">「父の記憶を戻す方法は」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　アキラが問う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「ございます。切除物を原文へ戻し、再統合すること」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「つまり」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「黒瀬様が宝条十蔵様へ戻ればよろしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　シンは自分の手を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">「戻った後、俺はどうなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「一行が本文へ戻れば、余白からは消えます」</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　アキラが一歩、女へ近づいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「別の方法を言え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="427">「ございません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="429">「では作れ」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="431">「規則ですので」</p>
+<p class="source-line role-dialogue role-document tone-2 gap-1" data-source-line="433">「私は規則が嫌いだ。規則はたいてい、作った者だけが得をする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="435">「珍しく正論ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　シンが言うと、アキラは振り返った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="439">「君まで納得するな。父の一部だろうが何だろうが、十五年生きた人間を消していい理由にはならない」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="441">「お前は父親の記憶を取り戻しに来た」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「依頼を変更する。君も父も両方持ち帰る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「欲張りだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「金持ちの長所だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　受付の女が赤鉛筆を振った。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　空中に巨大な赤い線が走り、静止していた遊園地を横断した。</p>
+<p class="source-line role-narration gap-0" data-source-line="452">　観覧車が真っ二つに割れ、夕焼けが紙片となって落ちる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「閉店準備に入ります。不要部分を処理してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　校正係が一斉に襲いかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　シンは傘を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="459">　黒い布へ赤い判子が押される。<span class="term term-world">〈削除〉</span>の文字が浮かび、傘の半分が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　シンは残った骨を槍のように突き出し、一体をベンチへ縫い止める。</p>
+<p class="source-line role-narration gap-0" data-source-line="462">　アキラは杖を横薙ぎに振り、別の一体の足を払った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="464">「役員会はもうないのか！」</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="466">「ある。だが二度目は本当に会社が止まる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="468">「止めろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="470">「月曜に決算発表だ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="472">「世界の危機より株価か！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="474">「株主は世界より怖い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　校正係の判子が、アキラの肩へ迫った。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　シンが割り込み、左腕で受けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　<span class="term term-world">〈不要〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　赤い文字が皮膚に焼きつき、左腕が肘から先ごと透明になった。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="483">「シン！」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="485">「走れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　保管室の奥に、出口の扉が見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="488">　時計は一時五十九分。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="489">　残り一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　アキラは動かなかった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="493">「父を助けても、君が消える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「もともと俺は、あの男が捨てたものだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「十五年は、もともとではない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「そうだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　シンは笑った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="503">　自分が笑えることを、今まで忘れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「だから、俺の十五年は俺のものだ。どう使うかも、俺が決める」</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　アキラの顔が歪んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="508">　派手な服も、尊大な口調も、その瞬間だけは、置き去りにされた七歳の少年を隠せなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「私は、父に一言、聞きたいだけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「何を」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="514">「私を愛していたのか」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="516">　シンは、止まった記憶の中の十蔵を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="517">　そしてアキラの頭へ、透明になっていない右手を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「四周だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「何が」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「観覧車。お前が三周だと言い張って、降りる直前にもう一周ねだった。あいつは乗り物に弱くて、最後は真っ青だった。それでも乗った」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　アキラの目から、涙が一筋だけ落ちた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="527">「それが答えだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　時計の長針が、十二へ重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　シンはアキラを出口へ突き飛ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　背後から校正係が迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="534">　受付の女が赤鉛筆を振り上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　シンは扉を閉じる直前、アキラに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「病院へ行け。俺も行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「どうやって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">「近道だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　扉が閉まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　午前二時。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　人生再編集社は、旧高架下から消えた。</p>
+<div class="source-line scene-break gap-2" data-source-line="551" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="554">　宝条十蔵は、白い病室で眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　心電図の音は弱く、窓の向こうでは、雨が上がり始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　アキラが駆け込んだ時、時計は二時十二分だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　ベッド脇の椅子に、黒瀬シンが座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　左腕は戻っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="563">　だが身体の輪郭は薄く、向こうのカーテンが透けて見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「近道にもほどがある」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　アキラが息を切らして言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「人生の十五年を飛ばしてきた。タクシーより速い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「運賃は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="573">「高かった」</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　シンは立ち上がり、眠る十蔵を見下ろした。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="577">　老人の顔に自分の未来を見ているのか、それとも自分の過去を見ているのか、アキラには分からなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="579">「統合には、原文側の同意がいるらしい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「意識がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「聞こえているさ。俺なら、聞いている」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　シンは十蔵の手を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「宝条十蔵。お前が捨てたものを返しに来た」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　心電図が、一度大きく跳ねた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="591">「妻を失った痛みも、息子を愛した記憶も、笑っていた自分も、全部だ。都合の悪い行を消して、立派な人生に見せかけるのは終わりにしろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　十蔵のまぶたが震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「受け取れ。訂正ではない。これがお前の原文だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　シンの身体が、細かな文字になってほどけ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　一文字ずつ、光る塵となり、十蔵の胸へ吸い込まれていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　アキラは手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「黒瀬シン」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="605">「何だ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="607">「君は父ではない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「ああ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="611">「父の一部でもない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="613">「そうか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「私が雇った、腕のいい回収屋だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　シンは少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「前金三倍。忘れるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「請求書を出せ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="623">「死ぬほど高くする」</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　それが最後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　黒いコートも、傷のある手も、皮肉な声も、夜明け前の病室で消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　心電図が激しく乱れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　十蔵が息を吸い、目を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　十五年ぶりに、息子をまっすぐ見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「アキラ」</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　掠れた声だった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="639">「七歳の誕生日……観覧車は、四周だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　アキラは笑おうとして、失敗した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「三周だ」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="645">「四周だ。お前は昔から、都合の悪いことを一つ少なく数える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="647">「あなたに似たんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　十蔵は、長く息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「すまなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="655">「何に対してだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「全部だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「便利な言葉だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="661">「十五年かけて、ようやく言えた」</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　アキラはベッド脇に膝をついた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="665">「母を愛していたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「愛していた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="669">「私を」</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　十蔵は、震える手で息子の孔雀色の襟をつまんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「その服を許せない程度には、今も愛している」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「なら元気になれ。明日はもっとひどい服で来る」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="677">　十蔵は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　笑ったまま、午前二時二十九分に息を引き取った。</p>
+<div class="source-line scene-break gap-2" data-source-line="682" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="685">　病室の時計が二時三十分を示した時、扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　人生再編集社の受付の女が入ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="688">　濡れてもいない黒いスーツ。赤鉛筆。銀色のホチキス。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「復元処理が完了いたしました」</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　アキラは立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「帰れ。今は営業時間外だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「回収業務は二十四時間でございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　女は請求書を差し出した。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="700">　復元料――対象者と最も深く結びついた人物の、対象者に関する全記憶。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="702">「金ではない、と聞いていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="704">「はい」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="706">「私が父を忘れるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「声も、顔も、憎しみも、愛情も。三分後には、そちらのベッドにいる方が誰か分からなくなります」</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　アキラは請求書を読んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="711">　隅から隅まで、二度読んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　それから、躊躇なく署名した。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="715">「規約をお読みになるお客様は、珍しい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「父が読まずに失敗した。家訓にする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="719">「よろしいのですか」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="721">「記憶を返すために、別の記憶を奪う。実に下品な商売だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="723">「お褒めにあずかり――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="725">「だから、対策した」</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　アキラは胸元から、小さな録音機を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　再生ボタンを押す。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　自分の声が流れた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="733">『明日の私へ。ベッドの男は宝条十蔵。あなたの父だ。頑固で、臆病で、十五年間、人生の大事な一日を捨てていた。だが最後に取り戻した。あなたを愛していた。観覧車は四周。黒瀬シンへの報酬は未払い。以上を毎朝聞け』</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　女は眉を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「外部記録は、やがて意味のない情報になります。感情の伴わない事実にすぎません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「それで十分だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　アキラは病室の窓を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　雨上がりの港ノ宮で、巨大な広告塔が一斉に点灯した。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　街じゅうのスクリーンに、あの古い写真が映し出される。</p>
+<p class="source-line role-narration gap-0" data-source-line="746">　観覧車の前で笑う父と子。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="748">　タクシーの屋根にも、コンビニのレジ画面にも、深夜営業の美容院にも、同じ写真が現れた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="750">　<span class="term term-world">〈この男は宝条十蔵。息子を愛していた。観覧車は四周〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="752">「宝条グループの広告枠を、午前二時二十七分に全部買った」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="754">「記憶がなければ、写真を見ても何も感じませんよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="756">「なら、毎日読み直す」</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　アキラは言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="760">「私は毎朝、父を知る。毎朝、あの男に腹を立て、少しずつ好きになる。毎日が初対面だ。ずいぶん贅沢だろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　受付の女は、初めて困ったように笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「次の改訂版では、外部記録も徴収対象に加えましょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">「悪徳企業は改善が早い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="768">「では、代金を」</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　女が指を鳴らした。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="772">　アキラの瞳から、光が一瞬だけ消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　写真の中の少年。</p>
+<p class="source-line role-narration gap-0" data-source-line="775">　病室の匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="776">　父の怒鳴り声。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="777">　母の葬儀。</p>
+<p class="source-line role-narration gap-0" data-source-line="778">　十五年分の反発。</p>
+<p class="source-line role-narration gap-0" data-source-line="779">　たった十七分の和解。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　すべてが、音もなく抜け落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　アキラは瞬きをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　ベッドの老人を見て、首をかしげる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="787">「……誰だ、この地味な老人は」</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　録音機から、自分の声が流れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="791">『あなたの父だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　アキラは黙って聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　窓の外の広告塔を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　写真の少年が自分だと理解するまで、少し時間がかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　やがて彼は、理由の分からない涙を手袋で拭った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="801">「なるほど」</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　そして、死んだ父に向かって言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="805">「初対面から面倒をかける男だ」</p>
+<div class="source-line scene-break gap-2" data-source-line="808" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="811">　翌朝、黒瀬回収所の扉には、新しい紙が貼られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　<span class="term term-world">〈臨時休業。所長は長期回収業務のため不在〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="815">　その下に、小さな追記がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　<span class="term term-world">〈未払い報酬については、宝条アキラまで〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="819">　誰が書いたのか、アキラには分からなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="820">　それでも彼は看板を外さず、事務所の家賃を一年分払った。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　観葉植物には、毎週水をやらせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　街のどこかで、まだ帰る場所を知らない余白人がいるかもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="825">　その時、腕のいい回収屋が戻れるように。</p>
+<div class="source-line scene-break gap-2" data-source-line="828" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="831">　さて。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　人生再編集社の地下では、受付の女がその夜の帳簿を閉じていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="835">「復元料、宝条アキラ様より受領」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="837">　彼女は数字を確かめ、首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「わずかに不足しておりますね」</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　帳簿の末尾に、赤い文字が浮かぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　不足分――この物語を、ここまで読むのに要した時間。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　女は赤鉛筆を置き、こちらを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="847">「問題ございません」</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　にっこり笑って、帳簿へ受領印を押す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="851">「お客様には、もうお支払いいただきましたので」</p>
+<p class="source-line end-mark gap-2" data-source-line="854"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

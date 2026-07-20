@@ -1,0 +1,1213 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="午前零時、取り壊し前の旧校舎で黒板が、七年前に存在ごと消えた妹・凪の名を書く。彼女を唯一覚えている兄・真壁蓮がその名を呼ぶと、放送は十三人の出席を取り始めた。死者の声に返事をした者は名を食われ、顔も記録も周囲の記憶から消えていく。封印を守る転校生・月白御琴によれば、止めるには焼けた養育舎の出席簿から、忘れられた十三人の真名を呼び戻すしかない。妹の声が「私を呼ばないで」と警告する闇で、一時十三分までの、存在を懸けた出席確認が始まる。">
+<title>ナナシノカミ　――午前零時の出席簿――｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="ナナシノカミ_午前零時の出席簿" data-novel-id="ナナシノカミ_午前零時の出席簿" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ミステリ・ホラー</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・学園・伝奇</p>
+  <p><strong>CSVタグ：</strong>アクション、ミステリ、ホラー、ジュブナイル、学園、伝奇、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：752行／章：0／役割・強度タグ：844</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="ナナシノカミ　――午前零時の出席簿―― 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『ナナシノカミ　――午前零時の出席簿――』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration role-horror tone-3 gap-2" data-source-line="4">　午前零時、誰もいないはずの三年二組で、黒板がひとりでに妹の名前を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　白いチョークが、き、き、と虫の歯ぎしりみたいな音を立てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　真壁　凪。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="10">　七年前に消えた、俺の妹。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="11">　写真からも、戸籍からも、父さんと母さんの記憶からさえ消えた女の子。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　その名前を覚えているのは、この町で俺だけだった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="15">「……凪」</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　呼んだ瞬間、黒板の奥で何かが笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　チョークが落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="20">　乾いた音が、暗い教室にやけに大きく響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　俺――真壁蓮は、握っていた古い携帯電話を見た。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="23">　七年前、凪がいなくなった夜から電源すら入らなかった端末だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　今夜十一時十三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　突然、画面が光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="28">『れん。がっこうにきて』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="29">『しゅっせきを、とって』</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　それだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　だから俺は、取り壊し前で立入禁止になっている旧校舎へ忍び込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　自分でも馬鹿だと思う。七年も待ったせいで、馬鹿になるには充分だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「その名前を、二度と呼ばないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　背後から声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　振り返ると、教室の入口に女の子が立っていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="41">　長い黒髪。うちの学校の制服。首には赤い組紐が十三重に巻かれ、胸元まで垂れている。右手には、ひび割れた丸い鏡。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　月白御琴。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　今月、三年一組に転校してきたばかりの生徒だ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="46">「月白……どうしてここに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="47">「あなたこそ。今の声で、あれに居場所を教えた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="49">「あれって何だよ。凪はどこにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　御琴は答えず、鏡を俺へ向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　曇った鏡面に、俺の姿が映る。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　その背後。</p>
+<p class="source-line role-narration gap-0" data-source-line="55">　教室の天井から、白い顔が十三個、逆さにぶら下がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　目も鼻も口もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="58">　濡れた紙粘土みたいな、つるりとした顔。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　俺は息をのんで振り向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　何もいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　だが鏡の中では、十三の顔がいっせいにこちらを向いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="66">『これより』</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　校内放送が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　ざざざ、と砂嵐。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　続いて、幼い子どもの声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">『十三名の出席を、確認します』</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　廊下の非常灯が一斉に消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　遠くで鐘が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　一つ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="81">　御琴の顔から血の気が引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「始まった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">『一人目』</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　放送の声が、嬉しそうに弾む。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="89">『矢島、海斗くん』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="91">「おーい、蓮！　いるんだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　聞き慣れた大声が階段の方から響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　最悪だった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="97">「海斗!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　教室に飛び込んできたのは、俺の幼なじみだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="100">　ジャージ姿にサンダル。片手には金属バット。俺が夜中に家を抜け出したのを見て、追ってきたらしい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「やっぱりここか。おばさんから電話きたぞ。お前がまた凪ちゃんの――」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="104">「返事するな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　御琴が叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="110">『矢島、海斗くん』</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　放送がもう一度呼ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　声が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">『海斗』</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　低く、やさしい男の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　海斗の手からバットが落ちた。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="122">「……親父？」</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　海斗の父親は三年前に海で死んでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="126">『海斗。返事をしなさい』</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="128">　廊下の闇から、濡れた足音が近づいてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　ぺた。</p>
+<p class="source-line role-narration gap-0" data-source-line="131">　ぺた。</p>
+<p class="source-line role-narration gap-0" data-source-line="132">　ぺた。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="134">「親父……そこにいるのか」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="136">「海斗、聞くな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　俺は海斗の肩をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　だが海斗の目は、もう俺を見ていなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　廊下の奥で揺れる、作業服姿の影を見つめている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">『海斗』</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="145">「……はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　二つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　海斗の顔から、目と鼻と口が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　いや、消えかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　皮膚が溶けた蝋みたいに輪郭を失い、のっぺりと白くなる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="155">「海斗！」</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　御琴が赤い組紐を一本ほどき、海斗の左手首へ巻きつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="158">　紐が蛇のように締まり、彼の皮膚へ食い込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　白く潰れかけた顔に、かろうじて目鼻が戻った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="162">「う、うわ……俺、今……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「名前を半分、喰われた」</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　御琴は海斗の手首の結び目を強く引いた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="168">「夜明けまでに取り戻さなければ、この町の全員があなたを忘れる。写真も記録も消える。あなた自身も、自分が誰だったか分からなくなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「冗談だろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「冗談なら、あの人に聞いてみれば？」</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　御琴が鏡を廊下へ向ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　鏡の中にだけ、海斗の父親が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　顔は白く塗り潰されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　その背中から、子どもの腕が何十本も生えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　腕たちは海斗を指さし、一斉に口のない声で囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">『つぎは、だれ？』</p>
+<div class="source-line scene-break gap-2" data-source-line="187" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-2" data-source-line="190">「この町には、名前を喰う神がいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　俺たちは旧校舎の西階段を駆け下りていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　背後から、無数の上履きが床を擦る音が追ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　振り向かなくても分かる。白い顔の生徒たちだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「ナナシノカミ。十三年に一度、午前零時から一時十三分まで、十三人の名前を呼ぶ。返事をした者は、この世との縁を切られる」</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　御琴は走りながら言った。</p>
+<p class="source-line role-dialogue role-ritual tone-4 gap-1" data-source-line="201">「うちの神社は、あれを封じるために建てられた。学校がこの場所に移されたのも、子どもの声で神を眠らせるため」</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="203">「学校で神を封じるって、意味分かんねえぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　海斗が息を切らしながら怒鳴る。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="207">「大昔から、出席を取る声は名前を現世へ縫い止める力を持つの。毎日、先生が呼んで、生徒が答える。その積み重ねで封印していた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「じゃあ何で今夜、起きた」</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　俺の問いに、御琴は一瞬だけ目を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「封印の楔が、もう限界だから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「楔？」</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　三つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　校舎全体が大きく軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　壁の塗装が剥がれ、その下から黒い木の板が現れる。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="222">　蛍光灯は油皿へ変わり、アルミサッシの窓は格子戸になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　廃校舎が、もっと古い別の建物へ変わっていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　階段の踊り場に掛かっていた校歌の額が落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　その裏から、焦げた文字が現れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">『鏡守養育舎』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「大正八年、この町に流行り病が広がった」</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　御琴が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「身寄りのない十三人の子どもが、この養育舎に集められた。町の大人たちは病気を恐れて、扉を外から釘で打った。そして――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="237">「焼いたのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　御琴は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　答えなくても、焦げ臭い空気が教えてくれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　階段の下から、子どもたちの歌が聞こえる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="245">『ひとり、ふたり、なまえをかして』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="246">『みたり、よたり、かえしてあげる』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="247">『いつつ、むっつ、わすれてしまえ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">『ななつのよるに、せんせいがくる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「大人たちは十三人の名前を記録から消した。そんな子どもは最初からいなかったことにした。供養もされず、呼ぶ者もいない魂が絡み合って、ナナシノカミになった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「そいつが名前を奪ってるってことか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「自分たちにないものを集めている。十三人分の名前を喰えば、この町にいる全員の名前を書き換えられる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「どうなる」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="258">「誰が親で、誰が子で、誰を愛して、誰を憎んだのか。全部なくなる。六千人の、顔のない町になる」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="260">　階下の闇から白い手が伸びてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　俺はとっさに海斗の金属バットを拾い、振り抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　がんっ、と硬い感触。</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　白い顔の生徒が手すりを越えて飛びかかってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="267">　制服は何十年も前の詰襟やセーラー服、最近のブレザーまで入り混じっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　これまで奪われた生徒たちだ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="271">「名前を返せぇ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　顔のない口から、黒い液体がこぼれる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="275">「俺の名前を、返せぇ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="277">「悪いけど、俺は持ってねえ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　もう一度バットを叩き込む。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="280">　腕に痺れが走った。怪物はよろめくだけで倒れない。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　御琴がひび割れた鏡を向けた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="284">「映し身は、真名へ帰れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　鏡から月光のような白い光が走る。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="287">　怪物の胸に、薄い文字が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">『佐伯　涼』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="291">「佐伯涼！」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　御琴が呼ぶ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="295">　怪物の動きが止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　顔に一瞬だけ、泣きそうな少年の目が戻る。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="299">『……はい』</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　その体は白い紙片になって崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　海斗が目を丸くする。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「名前が分かれば倒せるのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「倒したんじゃない。自分の名前へ戻しただけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　御琴は鏡を握り直した。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　ひびが一本、増えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「ナナシノカミを止める方法も同じ。十三人の本当の名前を呼び、もう一度この世へ縫い止める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「その名前はどこにある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「地下書庫。焼け残った最初の出席簿が、封印の中心にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　俺は階段を見下ろした。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="320">　底のない井戸みたいな闇。</p>
+<p class="source-line role-narration gap-0" data-source-line="321">　そこから、妹の声がした。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="323">『お兄ちゃん』</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　左の掌が熱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　七年前、消えかけた凪の手をつかんだとき、爪で深く裂かれた傷。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="328">　今も残る三日月形の傷痕から、黒い血が一滴こぼれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">『来ちゃだめ』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="332">「凪！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">『わたしの名前を、呼ばないで』</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　四つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　階段の下で、何百もの白い顔が上を向いた。</p>
+<div class="source-line scene-break gap-2" data-source-line="341" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="344">　地下書庫は、旧校舎の図書室のさらに下にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　本棚の陰に隠された鉄扉。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　御琴が鏡を当てると、錆びた表面に十三個の手形が浮かび、扉が内側へ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　冷たい風が吹き上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　石段の先には、焼け焦げた教室があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　黒い柱。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　崩れた机。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　天井から吊るされた、小さな真鍮の鐘。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　黒板には、子どもの字でこう書かれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">『きょうも、せんせいはこなかった』</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　海斗が息をのむ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="363">「ここで……十三人が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　答えたのは御琴ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　教室の奥から、白い狐面をつけた老人が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　紋付きの羽織。</p>
+<p class="source-line role-narration gap-0" data-source-line="372">　手には杖。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="373">　うちの学校の校長、月白玄堂。そして御琴の祖父だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「祖父さま」</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　御琴が鏡を構える。</p>
+<p class="source-line role-dialogue role-ritual tone-1 gap-1" data-source-line="379">「今夜は神社から出ない約束だったはずだ、御琴」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「私を閉じ込めて、生贄にするつもりだったから？」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　海斗が俺へ顔を寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「今、生贄って言ったよな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「聞こえた」</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　玄堂は狐面を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="390">　深い皺の刻まれた、疲れた顔だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「言葉を選びなさい。これは犠牲ではない。月白の役目だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「同じよ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="396">「一人の名で六千人を守る。それが百年以上続いた盟約だ。十三年ごと、月白の血を引く者が名を差し出し、神を眠らせる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「十三年前は、兄さんを差し出した」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　御琴の声が震えた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="402">「私は兄さんの顔を覚えていない。父さんも母さんも、息子がいたことすら覚えていない。でも私の部屋の壁に、背比べの傷が二人分あった。押し入れには、私宛ての手紙があった。『御琴を頼む』って」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="404">　首の赤い組紐が、かすかに光る。</p>
+<p class="source-line role-dialogue role-memory tone-2 gap-1" data-source-line="406">「兄さんの名前を思い出すために、私はこの七年間、町じゅうの記録を調べた。なのに祖父さまは、今度は私を差し出すつもりなの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「お前なら神をあと十三年は抑えられる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「その次は誰を差し出すの」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　玄堂は答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「その次の次は？」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="416">「黙りなさい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　杖が床を打つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　五つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　教室の机が、一斉にこちらを向いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="423">　椅子には白い子どもたちが座っている。十三人。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　その中央。</p>
+<p class="source-line role-narration gap-0" data-source-line="426">　赤いランドセルを抱いた少女がいた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="428">「凪……」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　七年前より背が伸びている。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　短かった髪は肩まで届き、顔つきも、消えた八歳の少女ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　俺が十五歳になったように、凪も十四歳になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　ただし、体の半分が黒板の中に沈んでいた。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="436">「お兄ちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　凪は泣きそうな顔で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「大きくなったね」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　胸の奥に押し込めていた七年分が、一気に崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　駆け寄ろうとした俺の前へ、玄堂の杖が突き出される。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「近づくな。あの娘が今の楔だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「凪が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「七年前、封印が一度ほころんだ。神に呼ばれたあの娘は、本来の祭日ではない夜にここへ来た。そして自ら名を差し出し、目覚めを遅らせた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="452">「自ら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　俺は凪を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　凪は目を逸らした。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="458">　七年前の記憶が蘇る。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　夜中、家を出ようとした凪。</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　止める俺。</p>
+<p class="source-line role-narration gap-0" data-source-line="462">　泣きながら「呼んでる子がいるの」と言った凪。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="464">　俺は怖くなって、母さんを呼びに行った。</p>
+<p class="source-line role-narration gap-0" data-source-line="465">　戻ったときには、玄関だけが開いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「どうしてだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「だって、ずっと泣いてたから」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　凪は黒板の中の十三人を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「誰にも名前を呼んでもらえなくて。ずっと、ずっと、出席を待ってた」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="475">「だからって、お前が消える必要はないだろ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「お兄ちゃんが、わたしの名前を忘れなかったから、わたしは全部消えずにいられた」</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　凪の視線が俺の掌の傷へ落ちる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="481">「最後に引っかいたの、ごめんね。でも、あそこに名前を残せば、お兄ちゃんだけは覚えてくれる気がした」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="483">　傷痕から黒い血がにじみ、文字の形に広がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">『凪』</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　俺の掌に、妹の名前が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　玄堂が低く告げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「楔は今夜で砕ける。だから御琴の名を新たに与える。真壁凪は解放されるが、外へ戻ることはできない。すでに七年、神と混ざりすぎた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「ふざけるな。凪も御琴も助ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「子どもの理想で、町を滅ぼすつもりか」</p>
+<p class="source-line role-dialogue role-horror fx-shout tone-5 gap-1" data-source-line="497">「子どもを焼いて始まった呪いを、また子どもで繋ぐ方がどうかしてる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　玄堂の顔が歪んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　一瞬、怒ったのかと思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="502">　だが違った。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　あれは、泣くのを耐えている顔だった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="506">「……それを、何度考えたと思う」</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　玄堂が杖の石突きで床板を突いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　焼けた教卓の下から、一冊の帳面がせり上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="511">　黒く焦げた表紙。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">『鏡守養育舎　出席簿』</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　御琴が息をのんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　玄堂はそれをつかむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「名を呼び戻す方法は、私も試した。だが十三人目の名だけがない。戸籍にも、この出席簿にも。名のない魂を一人残せば、神は必ず蘇る」</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　彼は帳面を懐へ入れた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="523">「終わらない希望は、絶望より残酷だ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="525">「待て！」</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　玄堂が杖を振るう。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　机に座っていた白い子どもたちが、一斉に立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　御琴の鏡が光る。</p>
+<p class="source-line role-narration gap-0" data-source-line="532">　俺はバットを構える。</p>
+<p class="source-line role-narration gap-0" data-source-line="533">　海斗も拳を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　そのとき、放送が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">『二人目』</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　幼い声が告げる。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="541">『月白、御琴さん』</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　玄堂が教室を出ていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「鐘楼で待つ。十三回目の鐘が鳴る前に、御琴の名を神へ渡す」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　扉が閉まり、何本もの黒い腕が閂のように絡みついた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="549">『月白、御琴さん』</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　御琴の顔が白くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　声が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">『みこと』</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　若い少年の声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">『こっちにおいで』</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　御琴の目から涙がこぼれた。</p>
+<p class="source-line role-dialogue role-name fx-whisper tone-3 gap-1" data-source-line="563">「兄さん……？」</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　六つ目の鐘が鳴った。</p>
+<div class="source-line scene-break gap-2" data-source-line="568" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-climax role-motif gap-2" data-source-line="571">「返事するな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　今度は俺が御琴の肩を抱いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　だが教室中から、少年の声が聞こえる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="577">『御琴』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="578">『御琴』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="579">『怖くないよ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="580">『僕と同じになればいい』</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　赤い組紐が一本、御琴の首からほどけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　宙を泳ぎ、白い子どもの一人へ吸い込まれる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="586">　御琴の瞳から、光が薄れた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="588">「私……何をしに、ここへ来たんだっけ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="590">「おい！」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="592">「名前を呼ばれるたび、結び目が記憶を代わりに食べられる」</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　御琴は自分の頬を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「十三本なくなれば、私は返事をする。そうなる前に鐘楼へ行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="598">「この扉をどうやって開ける！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="600">「向こうが閂なら、こっちは壁を壊すだけだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　海斗が床のバットを拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　顔の輪郭が、また少し薄くなっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="606">「校則にも書いてある。非常時は窓から避難しろってな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="608">「地下だぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="610">「窓はある」</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　海斗が指さした。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　焼けた教室の窓。</p>
+<p class="source-line role-narration gap-0" data-source-line="615">　その向こうには土壁があるはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　だが今は、真っ赤な夕焼けが広がっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="618">　地平線まで並ぶ墓標。その間を、白い顔の生徒たちが歩いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="620">「絶対、非常口じゃないだろ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="622">「扉よりマシだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　白い子どもたちが襲いかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　海斗がバットを振り回し、俺が机を蹴り倒す。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="627">　御琴は鏡で怪物たちの名前を照らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="629">「高橋一馬！　吉野沙耶！　阿久津誠！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="631">　名前を呼ばれるたび、怪物が紙へ戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　だが鏡のひびも増えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　俺たちは窓へ飛び込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　ガラスを破ったはずなのに、音はしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　次の瞬間、墓場を走っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　空には黒い月。</p>
+<p class="source-line role-narration gap-0" data-source-line="642">　旧校舎が、巨大な焼け跡のようにそびえている。</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　屋上の鐘楼だけが、天へ突き刺さる塔になっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「ここ、どこだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="647">「名前を失った者が流れ着く、神の腹の中」</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　御琴が答える。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　七つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　墓標から手が生える。</p>
+<p class="source-line role-narration gap-0" data-source-line="654">　白い生徒たちが土を破り、何十人も這い出してきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">『名前を』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="657">『お前の名前を』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="658">『呼んでくれる人を』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="659">『よこせ』</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　海斗が俺の背中を叩いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="663">「先に行け！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="665">「一人で格好つけるな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「一人じゃねえだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　海斗は手首の赤い紐を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">「矢島海斗だ。お前がそう呼んだ。なら、まだ俺はここにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　顔が消えかけているのに、笑った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="675">「七年も妹を覚えてた執念男が、ここで止まんな」</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　俺は御琴の手を引いた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="679">「海斗。絶対、自分の名前を忘れるな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「おう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　俺たちは鐘楼へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　背後で金属バットが骨を打つような音が鳴り続ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　途中、御琴の組紐がまた一本消えた。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="689">「私の家族は……誰？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="691">「月白玄堂がお前のじいさんだ。兄さんがいた。お前は兄さんの名前を取り戻すために来た！」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="693">「そう……だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　さらに一本。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「この鏡は？」</p>
+<p class="source-line role-dialogue role-horror fx-climax role-motif gap-1" data-source-line="699">「怪物の本当の名前を映す！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「あなたは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「真壁蓮！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="705">「違う。私にとって、あなたは何？」</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　息が詰まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　会ったのは今夜が初めてだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="710">　友達と呼ぶには短すぎる。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="711">　他人と呼ぶには、一緒に死にかけすぎている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="713">「共犯者だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　御琴が目を瞬かせ、ふっと笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「最低の答え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="719">「覚えやすいだろ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="721">「うん。忘れない」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　八つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　鐘楼への石段が裂け、下から巨大な白い顔がせり上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　口のない顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　その表面に、奪われた無数の名前が黒い文字で這っている。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="730">　怪物が頭を振る。</p>
+<p class="source-line role-narration gap-0" data-source-line="731">　髪の代わりに伸びた何百本もの腕が、俺たちへ襲いかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　俺は掌を突き出した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="735">「凪！」</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　傷痕が燃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　白い腕が俺へ触れた瞬間、黒い火花が散る。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="741">　妹の名前が、俺をこの世へ繋ぎ止めている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="743">「行けぇっ！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="745">　腕をかいくぐり、怪物の顔へバットを叩き込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="746">　海斗から借りた一撃。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　白い顔に亀裂が走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　御琴の鏡が、その奥を照らした。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="752">　十三人の子どもが、暗闇の中で身を寄せ合っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="753">　いちばん小さな子を中心に、残る十二人が輪になって守っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　小さな子の胸だけ、名前札が空白だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　俺たちは鐘楼へ駆け上がった。</p>
+<div class="source-line scene-break gap-2" data-source-line="760" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="763">　屋上の鐘楼では、巨大な鐘が宙吊りになっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　その下に御琴の祖父が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="766">　床一面に赤い縄が張られ、中央には人ひとり分の空白。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　玄堂が出席簿を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="770">「九つ目が鳴った。もう時間がない」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="772">「帳面を渡せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">「十三人目の名がない限り、無駄だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="776">「十二人だけでも呼ぶ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="778">「十二人を神から切り離せば、残った一人にすべての飢えが集まる。今より強い化け物になるぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="780">「だからって御琴を渡すのか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　玄堂の手が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="784">「私は息子を二人、神へ渡した」</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　御琴が目を見開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="788">「二人？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="790">「十三年前、お前の兄を楔にした。それより前には、私の長男を。名を渡した瞬間、私は彼らを忘れた。悲しみさえ残らなかった。ただ、毎朝食卓に余る茶碗を見て、胸の奥に穴が空いている理由だけが分からなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　玄堂は笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="793">　泣いているような笑いだった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="795">「忘れることは救いではない。だが、町が滅びるよりはましだと、私は自分に言い聞かせてきた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="797">「祖父さま」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="799">「許してくれとは言わない」</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　玄堂が杖を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　床の赤い縄が御琴の足首へ絡みついた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="805">「御琴！」</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　俺が手を伸ばす。</p>
+<p class="source-line role-narration gap-0" data-source-line="808">　だが縄は俺の体を弾き飛ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　背中を鐘の柱へ打ちつけ、息が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　九つ目の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　御琴の組紐が三本、まとめて消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　彼女の瞳から俺の姿が抜け落ちる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="818">「あなた……誰？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="820">「共犯者だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　御琴の唇が動く。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="824">「きょう、はん……」</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　玄堂が出席簿を鐘の下へ置いた。</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="828">「月白御琴。その名をもって、ナナシノカミを鎮め奉る」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　黒い月が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　空の亀裂から、巨大なものが降りてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　黒い学生服を何百枚も縫い合わせたような体。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　首から上には、十三個の白い面。</p>
+<p class="source-line role-narration gap-0" data-source-line="836">　胸には、名前を奪われた人々の顔が浮かんでは消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　ナナシノカミ。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　十三の面が同時に口を開いた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="842">『月白、御琴さん』</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　赤い縄が御琴を鐘の真下へ引きずる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="846">「はい、と答えなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　玄堂の声が震える。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="850">『月白、御琴さん』</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　御琴の口が開く。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="854">「……は」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="856">「答えるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　俺は掌の傷を噛み切った。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="859">　血があふれる。</p>
+<p class="source-line role-narration gap-0" data-source-line="860">　凪の文字が赤く燃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　その手で赤い縄をつかむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　皮膚が焼ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="865">　爪が剥がれそうになる。</p>
+<p class="source-line role-narration gap-0" data-source-line="866">　それでも引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「御琴！　お前は月白御琴だ！　兄さんの名前を探して、こんな地獄まで来た！　鏡を持った、口の悪い、俺の共犯者だ！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="870">　御琴の瞳に光が戻る。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="872">「……答えが、最低」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="874">「知ってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　彼女は首に残った組紐を全部つかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="878">「だったら、これも共犯」</p>
+<p class="source-line role-narration gap-1" data-source-line="880">　十三本のうち残る七本を、自分で引きちぎる。</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　赤い紐が空中で刃に変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="884">「御名縛り――解！」</p>
+<p class="source-line role-narration gap-1" data-source-line="886">　刃が赤い縄を切り裂く。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="888">　同時に、御琴の記憶が炎のように散った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="889">　幼い日の笑顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="890">　両親の声。</p>
+<p class="source-line role-narration gap-0" data-source-line="891">　兄とつないだ手。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="892">　ひとつひとつが光の蝶になり、夜へ消えていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="894">「御琴！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「大丈夫」</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　何も覚えていないはずの彼女が、鏡を構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="900">「やるべきことだけは、覚えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　ひび割れた鏡がナナシノカミを映す。</p>
+<p class="source-line role-narration gap-1" data-source-line="904">　胸の奥に、十二の名前が浮かび上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　玄堂の足元から出席簿が飛び、空中で頁を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　十回目の鐘。</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　神の腕が襲う。</p>
+<p class="source-line role-narration gap-1" data-source-line="912">　俺は一頁目をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="914">「一ノ瀬千代！」</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　御琴の鏡が光る。</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　神の右肩から、赤い着物の少女が剥がれ落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="919">　少女は驚いたように自分の手を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="921">「ここにいる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　俺は叫んだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="925">　千代の顔に目鼻が戻り、光の粒になる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="927">「馬場宗吉！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="929">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="931">「花村ヨネ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="933">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="935">「木島太一！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="937">「ここにいる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="939">　名前を呼ぶたび、神の体から子どもが一人ずつ離れていく。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="941">　そのたびに怪物は小さくなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="942">　だが怒りは増していった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="944">『やめろ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="945">『また、ひとりになる』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="946">『なまえを、うばうな』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="948">「奪ってない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="950">　神の腕をかわしながら、俺は叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="952">「返してるんだ！　お前たちは最初から、ひとりじゃなかった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="954">　十一回目の鐘。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="956">「榊ハル！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="958">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="960">「野上正！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="962">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="964">「島田ツネ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="966">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="968">「藤吉！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="970">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="972">「イネ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="976">「カン！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="980">「スズ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="982">「ここにいる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="984">「清太！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="986">「ここにいる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　十二人の子どもが光になり、鐘楼を囲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="990">　残った神は、小さな白い赤ん坊の姿になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="992">　だがその影は、町全体を覆うほど巨大だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="994">　十二回目の鐘が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="996">　出席簿の最後の欄は、焼け落ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="998">　名前がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1000">　白い赤ん坊が泣く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　声だけで、鐘楼の柱が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1004">　御琴の鏡に亀裂が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1005">　玄堂が膝をつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="1006">　俺の掌から凪の文字が薄れていく。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1008">　黒い影の中から、凪が現れた。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="1010">「お兄ちゃん、もういいよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1012">「よくない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1014">「十二人を返せた。あの子には、わたしの名前をあげる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1016">「駄目だ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1018">「最初に約束したの。泣きやむまで、一緒にいるって」</p>
+<p class="source-line role-narration gap-1" data-source-line="1020">　凪の足が影へ溶けていく。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1022">「わたしが真壁凪じゃなくなっても、お兄ちゃんが覚えててくれた七年間は消えないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1024">「勝手に終わらせるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1026">　俺は出席簿をめくった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1028">　焦げた頁。</p>
+<p class="source-line role-narration gap-0" data-source-line="1029">　十二人の名前。</p>
+<p class="source-line role-narration gap-0" data-source-line="1030">　子どもの落書き。</p>
+<p class="source-line role-narration gap-0" data-source-line="1031">　丸い太陽。</p>
+<p class="source-line role-narration gap-0" data-source-line="1032">　十三本の線で描かれた花。</p>
+<p class="source-line role-narration gap-0" data-source-line="1033">　そして、何度も書き直されたひらがな。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1035">『あかるい』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1036">『あかるいこ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1037">『あかり』</p>
+<p class="source-line role-narration gap-1" data-source-line="1039">　息が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1041">　玄堂が顔を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1043">「それは名ではない。ただの落書きだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1045">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="1047">　俺は赤ん坊を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1049">　十二人の子どもたちは、あの暗い教室でこの子を囲んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1050">　名札が空白でも、呼ぶ言葉がなかったわけじゃない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1052">「大人が戸籍に書かなかっただけだ。あの子たちは呼んでた」</p>
+<p class="source-line role-narration gap-1" data-source-line="1054">　赤ん坊の影が俺を飲み込もうと広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1056">　俺は一歩、前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1058">「お前には名前がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="1060">　影の中で、何千もの声が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1062">『うそ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1063">『だれも、つけてくれなかった』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1064">『だれも、よばなかった』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1066">「十二人が呼んだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1068">　出席簿を掲げる。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="1070">「暗い部屋で泣かなかったから。みんなを安心させるみたいに笑ったから。お前を――灯って呼んだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1072">　赤ん坊が泣きやむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1074">　黒い月に、細い光が差した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1076">「十三人目」</p>
+<p class="source-line role-narration gap-1" data-source-line="1078">　俺は、出席を取る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1080">「灯！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1082">　返事はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1084">　影が俺の足を這い上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1085">　喉を締める。</p>
+<p class="source-line role-narration gap-0" data-source-line="1086">　名前を剥がそうと、無数の指が胸へ食い込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="1088">　俺はもう一度叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1090">「灯！　ここにいるんだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1092">　凪が赤ん坊へ手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1094">「灯」</p>
+<p class="source-line role-narration gap-1" data-source-line="1096">　御琴も呼ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1098">「灯」</p>
+<p class="source-line role-narration gap-1" data-source-line="1100">　海斗の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1102">　墓場から、白い生徒たちを引きずりながら鐘楼へ上がってくる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="1103">　顔はほとんど消えていた。それでも笑っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1105">「呼ばれてんぞ、灯！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1107">　玄堂が震える手で狐面を外し、床へ置いた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1109">「……灯」</p>
+<p class="source-line role-narration gap-1" data-source-line="1111">　十二人の子どもたちが輪になり、一斉に呼ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1113">「灯」</p>
+<p class="source-line role-narration gap-1" data-source-line="1115">　赤ん坊の顔に、初めて目が生まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1117">　涙で濡れた、黒い瞳。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1119">「出席を取るぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1121">　俺は息を吸った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1123">「灯！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1125">　十三回目の鐘が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1127">『はい』</p>
+<p class="source-line role-narration gap-1" data-source-line="1129">　小さな声が、世界を割った。</p>
+<div class="source-line scene-break gap-2" data-source-line="1132" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-1 gap-2" data-source-line="1135">　光が爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1137">　黒い月が砕け、墓標が崩れ、白い生徒たちの顔に次々と名前が戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1139">「矢島海斗！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1141">　俺は叫んだ。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="1143">「はい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1145">　海斗の顔が完全に戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1147">「月白御琴！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1149">　一瞬、御琴はきょとんとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="1150">　それから胸へ手を当てた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1152">「……はい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1154">「真壁凪！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1156">　妹は泣きながら笑った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="1158">「はい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1160">　俺は凪の手をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1162">　七年前と同じ、小さな手。</p>
+<p class="source-line role-narration gap-0" data-source-line="1163">　今度は絶対に離さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1165">　鐘楼が崩れ始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="1167">　柱が折れ、巨大な鐘が傾いた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="1168">　足元の闇は消え、夜明け前の旧校舎が戻ってくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1170">「走れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1172">　玄堂が鐘を支える綱へ飛びついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1174">「祖父さま！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1176">　御琴が振り返る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1178">「先に行け！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1180">「一緒に！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1182">「まだ、最後の号令が残っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="1184">　玄堂は鐘の下に立った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1185">　周囲には十三人の子どもたちがいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1187">　もう白い顔ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1188">　古い着物や継ぎはぎの服を着た、どこにでもいそうな子どもたちだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1189">　中央で灯が玄堂の指を握っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1191">「大人が始めたことは、大人が終わらせる」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1193">　玄堂は御琴へ微笑んだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1195">「お前の兄の名は、月白奏だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1197">　御琴の瞳から涙があふれる。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="1199">「奏……兄さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1201">「忘れてすまなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="1203">　玄堂が綱を引く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1205">　鐘が、これまでとは違う澄んだ音を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1207">「本日の出席を終える」</p>
+<p class="source-line role-narration gap-1" data-source-line="1209">　十三人の子どもたちが玄堂を見上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1211">「全員、帰りなさい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1213">『はい、先生』</p>
+<p class="source-line role-narration gap-1" data-source-line="1215">　鐘楼が崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1217">　俺たちは凪の手を引き、階段を駆け下りた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1219">　背後で十四人分の笑い声が聞こえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1220">　今度は誰かを誘う声ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1222">　長い授業を終えた子どもたちの声だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="1225" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="1228">　夜明けと同時に、旧校舎の鐘楼は崩落した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1230">　警察も消防も、老朽化による事故として処理した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1231">　月白玄堂校長は行方不明。</p>
+<p class="source-line role-narration gap-0" data-source-line="1232">　俺たち三人が深夜の校舎へ侵入していた件は、ものすごく怒られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1234">　ただし、町にはもっと大きな混乱が起きた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1236">　消えていた名前が、全部戻ったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1238">　アルバムの空白に、見知らぬ同級生の顔が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1239">　家の押し入れから、存在しなかったはずの子どもの服が見つかった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="1240">　何百人もの人が、忘れていた家族や友人を思い出し、泣いた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="1242">　父さんと母さんは、玄関に立つ凪を見た瞬間、七年分の記憶を取り戻した。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1244">　母さんは膝から崩れ、凪を抱きしめた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1245">　父さんは声も出せず、二人ごと抱きしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1247">　その夜、食卓には四人分の茶碗が並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1249">　凪は七年前のままではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1250">　神の中でも時間は流れていたらしい。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="1251">　十四歳になった妹は、俺より少し背が低いだけで、昔みたいに俺の後ろへ隠れたりしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1253">　でも、嫌いなニンジンを俺の皿へ移す癖は変わっていなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1255">「おい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1257">「七年ぶりなんだから、いいでしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1259">「七年分まとめて食わせる気か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1261">「お兄ちゃんなら余裕」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1263">　そんなくだらない会話で、母さんがまた泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1265">　海斗は翌朝、自宅で母親に三時間抱きしめられたらしい。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1266">　名前を失っていたのは一晩だけなのに、母親の中には「息子がいなかった世界」の寒さが残っていたという。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="1268">　御琴は、かなりの記憶を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1270">　両親の顔。</p>
+<p class="source-line role-narration role-ritual gap-0" data-source-line="1271">　神社の作法。</p>
+<p class="source-line role-narration gap-0" data-source-line="1272">　好きだった食べ物。</p>
+<p class="source-line role-narration gap-0" data-source-line="1273">　俺たちと旧校舎へ入った理由。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1275">　それでも「月白奏」という兄の名前だけは覚えていた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1276">　祖父が最後に返してくれた名前だからだ。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="1278">　放課後、俺と海斗が神社を訪ねると、御琴は石段の上で竹ぼうきを持っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1280">「どちらさま？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1282">「共犯者だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1284">　俺が答えると、御琴は眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1286">「最低の名乗り方」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1288">「ほらな。覚えてなくても反応が同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1290">　海斗が笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="1292">　御琴はしばらく俺たちを見ていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="1293">　やがて、ほんの少しだけ笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1295">「では共犯者。これから、私が忘れたことを全部教えて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1297">「全部は無理だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1299">「どうして？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1301">「俺たちも今夜知り合ったばかりだから」</p>
+<p class="source-line role-narration gap-1" data-source-line="1303">　御琴は呆れた顔をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1305">「本当に最低」</p>
+<p class="source-line role-narration gap-1" data-source-line="1307">　境内の奥には、新しい石碑が建てられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1309">　一ノ瀬千代。</p>
+<p class="source-line role-narration gap-0" data-source-line="1310">　馬場宗吉。</p>
+<p class="source-line role-narration gap-0" data-source-line="1311">　花村ヨネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1312">　木島太一。</p>
+<p class="source-line role-narration gap-0" data-source-line="1313">　榊ハル。</p>
+<p class="source-line role-narration gap-0" data-source-line="1314">　野上正。</p>
+<p class="source-line role-narration gap-0" data-source-line="1315">　島田ツネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1316">　藤吉。</p>
+<p class="source-line role-narration gap-0" data-source-line="1317">　イネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1318">　カン。</p>
+<p class="source-line role-narration gap-0" data-source-line="1319">　スズ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1320">　清太。</p>
+<p class="source-line role-narration gap-1" data-source-line="1322">　そして最後に、一文字。</p>
+<p class="source-line role-narration gap-1" data-source-line="1324">　灯。</p>
+<p class="source-line role-narration gap-1" data-source-line="1326">　姓はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1327">　生まれた日も、亡くなった日もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1329">　それでも、名前はある。</p>
+<p class="source-line role-narration gap-1" data-source-line="1331">　俺たちは十三人分の花を供えた。</p>
+<div class="source-line scene-break gap-2" data-source-line="1334" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="1337">　一か月後。</p>
+<p class="source-line role-narration gap-1" data-source-line="1339">　新校舎での朝のホームルーム。</p>
+<p class="source-line role-narration gap-1" data-source-line="1341">　担任が出席簿を開き、いつもの調子で名前を呼ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1343">「矢島海斗」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="1345">「はい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1347">「月白御琴」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1349">「はい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1351">「真壁蓮」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1353">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="1355">　窓の外では、夏の雲が流れている。</p>
+<p class="source-line role-narration gap-0" data-source-line="1356">　何でもない朝。</p>
+<p class="source-line role-narration gap-0" data-source-line="1357">　誰かが誰かの名前を呼び、返事をする朝。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="1359">　それが、どれほど強い呪いなのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="1360">　俺たちはもう知っている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1362">　放課後、教室に忘れ物を取りに戻ると、黒板に小さな字があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1364">『きょうも、せんせいはきた』</p>
+<p class="source-line role-narration gap-1" data-source-line="1366">　その下に、丸い太陽の絵。</p>
+<p class="source-line role-narration gap-1" data-source-line="1368">　俺はチョークを手に取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1370">『灯』</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1372">　名前を書き、誰もいない教室へ呼びかける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1374">「いるんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1376">　風もないのに、カーテンが揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1378">　黒板の隅に、小さな白い手形が一つつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1380">　そして、耳元で声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1382">『はい』</p>
+<p class="source-line role-narration gap-1" data-source-line="1384">　それはもう、誰かを奪う声ではなかった。</p>
+<p class="source-line end-mark gap-2" data-source-line="1387"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1084 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="夜明けとともに王都を襲う帝国軍は、人間から名と記憶を奪った〈無名兵〉を三千も従えていた。伝令カイに残された猶予は五刻。弓使い、鍵師、術師、名簿を背負う老僧、帝国から寝返った騎士とともに、古代の〈暁炉〉が眠る王墓地下の迷宮へ降りる。入口で刻んだ六人の名は消え、通路は記憶を書き換え、鐘は自分が誰かを忘れさせる。しかも敵将レヴァンは、すでに先へ進んでいた。役目や後悔を餌に道を変える迷宮で、仲間は互いの名を夜明けまで覚えていられるのか。">
+<title>風葬の迷宮｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="風葬の迷宮" data-novel-id="風葬の迷宮" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="adventure-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む" selected>冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　夜明けまで五刻</a></li><li><a href="#chapter-2">二　六枚の名札</a></li><li><a href="#chapter-3">三　第一層　名のない兵舎</a></li><li><a href="#chapter-4">四　第二層　骨の市場</a></li><li><a href="#chapter-5">五　第三層　忘却の川</a></li><li><a href="#chapter-6">六　第四層　逆さの空</a></li><li><a href="#chapter-7">七　暁炉</a></li><li><a href="#chapter-8">八　五人と一人</a></li><li><a href="#chapter-9">九　風葬</a></li><li><a href="#chapter-10">十　名を持たない墓</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>サスペンス・ファンタジー</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、バトル、サスペンス、ファンタジー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">冒険・アクション</span></p>
+  <p id="currentPresetDescription">疾走する本文に、号令・衝突音・決断を太い書体で刻む</p>
+  <h3>意味色</h3><p>青＝旅路、赤＝戦い、金＝決断、紫＝傷、緑＝仲間</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：603行／章：10／役割・強度タグ：654</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="風葬の迷宮 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">風葬の迷宮</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4">一　夜明けまで五刻</h2>
+<p class="source-line role-narration gap-1" data-source-line="6">　王都リーヴァが包囲された夜、カイは城壁の上で、星が一つずつ消えていくのを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　星を隠していたのは雲ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　石冠帝国の天蓋艦――黒い鉄板を何層も重ねた空飛ぶ要塞が、月明かりを呑み込みながら近づいていた。艦腹には無数の鎖が垂れ、その先で、灰色の兵士たちが風に揺れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　兵士たちは叫ばない。寒さに身をよじることもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="12">　兜の奥に顔がなく、胸甲に名札もない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="14">「無名兵だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　隣で弓を構えていたネアが吐き捨てた。山国生まれの彼女は、夜目が利いた。「三千はいる。後ろの雲にも、まだ艦影がある」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="18">　城壁の下では、自由軍の負傷兵が担架で運ばれていた。三日前に北門を失い、昨日は水路を焼かれた。食糧は朝まで。矢は二斉射分。城内には兵より避難民のほうが多い。</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　そして帝国軍は、夜明けと同時に総攻撃を始める。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="22">　カイの腰には、刃こぼれした短剣が一本あった。王都を脱出するとき兄から渡されたもので、兄はその二刻後に死んだ。形見と呼ぶには実用的すぎ、武器と呼ぶには頼りなさすぎた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="24">　それでもカイは、何度もその柄に触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="26">「伝令カイ」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　背後から声がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="29">　自由軍司令のサラが、白い外套を風にはためかせて立っていた。三十代半ばの細身の女で、右目を銀の覆いで隠している。疲労で頬はこけていたが、声だけは王城の鐘のようによく通った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「地下へ降りてもらう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「避難路ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="35">「墓地だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　サラは城壁の向こうを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="39">「正確には、墓地の下にある迷宮だ。帝国がこの国へ攻め込んだ理由も、無名兵を作った方法も、その最深部にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　彼女は一枚の青銅板を差し出した。手のひらほどの大きさで、中央に古い文字が刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　――名を持つ者だけが、暁を起こせる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「古代都市セイルの遺構。通称、風葬の迷宮。最深部には『暁炉』という装置が眠っている。伝承では、山脈を越えて風を呼び、海を割り、空を落とす力がある」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="47">「伝承で戦争に勝てるなら、詩人を将軍にすればいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　ネアが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　サラは笑わなかった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="53">「帝国は伝承を信じた。十年前、北部の遺跡から暁炉の一部を掘り出し、人間から名前と記憶を奪う機械を作った。あの兵士たちは死者ではない。名を奪われ、命令だけを残された生者だ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="55">　城壁の上を、冷たい沈黙が渡った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="57">「今夜、帝国のレヴァン将軍も迷宮へ入った。彼が暁炉を手に入れれば、王都の十万人が次の無名兵になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「こちらが先に起動すれば？」とカイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「天蓋艦を落とせるかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「かもしれない」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="65">「確かなことは一つだけだ。何もしなければ、夜明けにこの国は終わる」</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　サラは六枚の青銅板を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">「迷宮は侵入者の記憶を読み、道を変える。古文書には、入口で名を刻めとある。同行者は選んである。剣、弓、術、癒やし、鍵、そして帝国の知識。六人で降りる」</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　ネアは弓を背負い直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">「帰りは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　サラは少しだけ間を置いた。</p>
+<p class="source-line role-dialogue role-command tone-1 gap-1" data-source-line="77">「夜明けまでに戻れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　それが答えだった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="82">二　六枚の名札</h2>
+<p class="source-line role-narration gap-1" data-source-line="84">　王城裏の共同墓地には、雨が降っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　城壁の上では乾いた風しか吹いていなかったのに、墓地の一角だけ細い雨筋が落ちている。古い仕掛けだ、と鍵師のリネが言った。地下から漏れ出す冷気が、地上の湿りを集めているらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　彼女は背が低く、腰に三十本以上の針金と工具を吊していた。歩くたび、銀貨袋のようにかすかな音がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「迷宮ってのはね、入る前が一番親切なんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　墓石の陰を調べながら、リネは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「帰らせたいなら門を閉じる。門が開いてるってことは、入れたい理由がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「励ましとして受け取っておこう」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　術師フェドが答えた。黒い法衣の胸に、七本の細い硝子管を並べている。管の中には赤、青、黄、白の砂が入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　術を一度使うたびに一本を割る。古代文字を読むための灯火も、岩を砕く爆炎も、眠りの霧も、すべて同じ七本から支払われる。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="102">「最後の一本は帰路のためだ」とフェドは全員に念を押した。「英雄は入口で数を忘れ、死体になってから思い出す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「死体は思い出さないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　穏やかな声で訂正したのはハルムだった。白髭の老僧で、背には武器の代わりに分厚い名簿を負っている。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="108">　名簿には、帝国との戦争で死んだ者の名が記されていた。兵士も農民も、罪人も旅人も、敵兵さえも。ハルムは戦場を歩いて名を聞き取り、死体のそばで一度読み上げてから、墨で書き留めてきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="110">「死者が思い出せないから、私たちが覚えるのだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　最後の一人は、墓地の門から離れて立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　バルド。元石冠帝国軍百人隊長。長身で、肩幅は棺より広い。帝国式の大剣を背負っているが、黒い軍装から紋章だけが切り取られていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="116">　彼が自由軍へ投降したのは半年前だった。理由をカイは知らない。ただ、レヴァン将軍の副官を務めていたこと、無名兵の製造所から十二人の子どもを逃がしたこと、その十二人のうち九人が王都にいることだけを聞いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「裏切るなら、ここが最後の機会だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　カイが言うと、バルドは目を細めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「私にか、お前にか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「両方にだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="126">「よい答えだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　リネが最も古い墓石の首を回すと、地面の雨水が一斉に渦を巻いた。泥の下から、螺旋階段が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　階段の入口には、六つの細い窪みがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　カイたちは青銅板に一人ずつ名を刻んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　カイ。</p>
+<p class="source-line role-narration gap-0" data-source-line="135">　ネア。</p>
+<p class="source-line role-narration gap-0" data-source-line="136">　リネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="137">　フェド。</p>
+<p class="source-line role-narration gap-0" data-source-line="138">　ハルム。</p>
+<p class="source-line role-narration gap-0" data-source-line="139">　バルド。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　窪みへ差し込むと、石の奥で巨大な何かが息を吸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　墓地に降っていた雨が止んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　同時に、六枚の青銅板から文字が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="147">「歓迎されたね」とリネが言った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="149">　階段の底で、暗闇が口を開けていた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="152">三　第一層　名のない兵舎</h2>
+<p class="source-line role-narration gap-1" data-source-line="154">　地下第一層は、兵舎だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　左右に石造りの寝台が並び、朽ちた盾と槍が壁に掛かっている。どれも人間より一回り小さい。セイル人は小柄だったのかもしれないし、ここが子どもの兵舎だったのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　フェドが白砂の硝子管を折った。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　光が鳥の形になって飛び立ち、天井近くを漂った。残り六本。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「三刻は持つ」とフェド。「それまでに下層への階段を見つける」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　リネは羊皮紙に線を引きながら先頭を歩いた。角を二つ曲がり、十七歩進み、左の扉を開ける。空の武器庫。戻って右へ。そこで彼女は足を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「同じ場所だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「間違えたか」とバルド。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="170">「私は道で飯を食ってる。あんたは人を斬って飯を食ってた。仕事の話は慎重にしよう」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　壁には、先ほどリネが爪でつけた傷があった。だが地図の上では、あり得ない位置だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　廊下が動いたのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="175">　記憶のほうが書き換えられている。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　ハルムが名簿を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「声に出して確かめよう。ここにいるのは六人。カイ、ネア、リネ、フェド、ハルム、バルド」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　名前が呼ばれるたび、廊下の壁がわずかに震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="183">「迷宮が聞いてる」とネア。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「なら、偽名を使えばいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　カイが提案すると、ハルムは首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「偽名は嘘ではない。名乗った瞬間から、その者の一部になる。ここでは余計な顔を増やすだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　そのとき、背後の寝台が軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　一つではない。二十、三十。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="195">　石の寝台から、錆びた鎧が起き上がっていた。中身は空だ。兜の隙間には闇しかなく、胸には削り取られた名札の跡がある。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="197">　バルドが大剣を抜いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「無名兵の原型だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　鎧の群れが一斉に走り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　ネアの矢が最初の兜を貫いた。空のはずなのに黒い血が吹き、後続の足を滑らせる。カイは低く潜って膝裏を断ち、倒れた一体を踏み台にして二体目の喉へ刃を差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　だが斬っても、鎧は止まらない。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="207">「胸だ！」とバルドが叫ぶ。「名札の跡を壊せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　大剣の横薙ぎが三体の胸甲をまとめて砕いた。黒い霧が噴き出し、鎧が崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　リネは戦わなかった。壁際を走り、床を蹴り、寝台の下に手を突っ込んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="213">「見つけた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　石床から一本の鎖を引き出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　しかし鎖の先には、小さな鐘がついていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「待て、それは――」</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　フェドの制止より早く、鐘が鳴った。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="223">　音は廊下ではなく、全員の頭蓋の内側で響いた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="225">　カイは一瞬、自分がなぜ剣を握っているのか忘れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="226">　目の前の鎧が何なのかも、隣で弓を射ている女が誰なのかも。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="228">「名を言え！」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="230">　ハルムの声が暗闇を裂いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="232">「自分の名を言え！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="234">「カイ！」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="236">　叫ぶと、胸の奥に杭が打ち込まれたような痛みが走った。だが視界が戻った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="238">「ネア！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="239">「リネ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="240">「フェド！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="241">「バルド！」</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　五つの声。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　ハルム自身の名だけが聞こえない。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　老僧は鎧に組みつかれ、喉を締め上げられていた。カイが駆け寄るより先に、ネアの矢が鎧の胸を射抜く。バルドが老僧を引きずり出した。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="249">「……ハルム」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　咳き込みながら、彼はようやく名乗った。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　鐘の音が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　残っていた鎧が、糸を切られたように崩れ落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　床の中央に、下へ続く階段が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　リネは鐘を睨んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="261">「罠が正解だったらしい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="263">「次からは鳴らす前に相談しろ」とフェド。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「次があると思ってるなら、あんたは楽観的だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　カイは刃についた黒い血を拭い、人数を数えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　六人。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　まだ、六人いた。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="274">四　第二層　骨の市場</h2>
+<p class="source-line role-narration gap-1" data-source-line="276">　第二層には、町があった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="278">　天井まで続く石柱の間に、乾いた噴水、崩れた店、吊り看板、共同井戸が並んでいる。地下に築かれたのではない。地上にあった町が、何らかの力で丸ごと沈められたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　路地の先では、青白い風が川のように流れていた。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="282">　風に触れた紙片が、古い鳥の群れとなって舞い上がる。店先の壺からは、誰もいないのに香辛料の匂いがした。遠くで子どもの笑い声が聞こえ、すぐに石の軋みに変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「人の記憶が残ってる」とハルムが言った。「町ではなく、町を覚えている何かだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　広場の中央に、六つの石像が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　剣士、射手、鍵師、術師、僧侶、騎士。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　顔まで、カイたちに似ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　像の足元には古代文字が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　――役目を選べ。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="295">　――役目は名より古く、死より長い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「気に入らないな」とネア。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　リネは石像の台座を調べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「広場を出る道は六つ。たぶん一人ずつ、自分の像の前を通れってことだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「拒んだら？」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="305">「こういう場所は、拒否した人の記録を親切に残さない」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　六人は分かれ、それぞれの像の前へ進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　カイが剣士像に近づくと、石の顔が兄のものに変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　――お前は伝令だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　唇が動かないまま、声がした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="315">　――命令を運ぶ者。命令を作る者ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　カイの足が止まる。</p>
+<p class="source-line role-narration role-command tone-2 gap-1" data-source-line="319">　兄はいつもそう言った。速く走れ。余計なことを考えるな。剣は最後に抜け。命令は疑うな。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　王都脱出の日、兄は北門を守れという命令に従い、死んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「俺はカイだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　彼は像に言った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="327">「伝令は仕事だ。俺の全部じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　兄の顔に亀裂が走り、像は元の無貌へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　隣ではネアが、故郷の族長らしい老人の幻影を睨んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="333">「女は峰を継げない？　だったら峰のほうを降りてこさせな」</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　矢尻で像の額を叩く。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　リネは自分そっくりの鍵師像に財布を盗まれ、怒鳴りながら取り返した。フェドは師匠の幻に術の才能を否定され、「だから道具を使うんだ」と硝子管を振ってみせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　ハルムだけは、像の前で長く黙っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　僧侶像は若い女の顔をしていた。彼の娘なのだと、カイにはなぜか分かった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="343">　帝国軍がハルムの村を焼いたとき、娘の遺体は見つからなかった。名簿の最初の頁には、ただ一つ、死亡の印がついていない名前がある。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="345">「父親であることは、役目ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　ハルムは静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「だが、捨てられる役目でもない。私は娘を探している。死者の名を集めるのは、その途中だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　像は何も答えず、砂になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　最後に、バルドの前の騎士像が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　顔はレヴァン将軍だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　銀髪を短く刈り、左頬に剣傷がある。帝国の紋章を胸に、剣を杖のように立てている。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="359">　――百人隊長バルド。命令違反、軍資産の損壊、被験体十二名の逃亡を幇助。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="361">「九人は生きている」とバルド。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　――三人は死んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「知っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　――ならば、なぜ胸を張る。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="369">　バルドは答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　騎士像の剣が動く。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　石とは思えない速さだった。バルドは大剣で受けたが、膝まで地面に沈んだ。二撃、三撃。広場に火花が散る。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="375">「手を貸す！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="377">　カイが走ろうとすると、足元の文字が赤く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　――役目は一人で負え。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「馬鹿な規則だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　カイは構わず線を越えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　広場全体が震えた。残り五体の石像が一斉に武器を構える。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="387">「だから相談しろって言ったろ！」フェドが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「相談したら止めただろ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「当然だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　戦いは短く、ひどく乱雑だった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="395">　ネアは射手像の矢を柱の陰へ誘い、跳ね返った矢をそのまま敵の眼へ通した。リネは鍵師像の足首に工具の鎖を絡め、噴水へ落とした。ハルムが祈りで骨の市場に残る記憶を鎮め、フェドは黄色い硝子管を割った。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　残り五本。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　雷が広場を走り、六体の像を硬直させる。</p>
+<p class="source-line role-narration gap-1" data-source-line="401">　カイとバルドは同時に踏み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　短剣がレヴァン像の脇腹へ刺さり、大剣が胸を砕く。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　石像は崩れながら、バルドにだけ聞こえる声で何かを囁いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　バルドの顔色が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">「何を言われた？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「下で待つ、と」</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　本物のレヴァン将軍は、すでに彼らより先へ進んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　広場の六つの道が一つに重なり、地下へ降りる坂になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　坂の奥から、水音が聞こえた。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="420">五　第三層　忘却の川</h2>
+<p class="source-line role-narration gap-1" data-source-line="422">　川は黒かった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="424">　幅は二十歩ほど。水面は鏡のように静かで、フェドの光鳥さえ映さない。対岸には金色の扉があり、中央に六つの手形が並んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　橋も舟もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　川岸には、帝国兵の死体が三体転がっていた。一体は若い女、一体は片腕の男、もう一体は少年と言ってよい年齢だった。傷はない。全員、穏やかな顔で死んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　胸の名札だけが、白く焼けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　バルドが膝をつき、女兵士の瞼を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「先遣隊だ。レヴァンは部下を試しに使った」</p>
+<p class="source-line role-dialogue role-sensory tone-5 gap-1" data-source-line="436">「この川に触れると死ぬ？」とネア。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　ハルムは水際に名簿の端を近づけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　紙に書かれた文字が、墨の煙になって水へ吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　彼は慌てて本を引いた。頁の端から三十人分の名が消えている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「命ではない。名前を食う川だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「名前を失ったら、あの兵士みたいになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「おそらく。肉体は生きていても、自分へ戻る道がなくなる」</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　リネは壁、床、天井を調べたが、仕掛けは見つからなかった。金色の扉には古代文字が浮かび上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　――ひとつの名を、みずから差し出せ。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　――残る者に道を与える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「一人、無名になれって？」</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　ネアの声が低くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="459">「別の方法を探す」とカイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「時間がない」とバルド。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「だからって誰かを捨てるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「捨てるのではない。選ぶ必要があると言っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「選ばれる側が言えよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　大剣の柄に、バルドの手がかかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　カイも短剣へ手を伸ばす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「二人とも、武器を置け」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　ハルムが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　老僧は名簿を閉じ、背から降ろした。それをカイへ押しつける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="478">「私が行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「駄目だ」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="482">「聞きなさい。私は年を取った。戦えぬという意味ではない。長く生きたぶん、名が一つでできていないという意味だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="484">　ハルムは微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「父。夫。僧。記録係。臆病者。頑固者。娘を諦められぬ愚か者。どれかを川が食べても、少しは残るかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「残らなかったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「そのときは、君たちが覚えていればよい」</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　彼はカイの返事を待たず、黒い水へ足を入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　波紋が広がる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="496">「ハルム！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="498">　カイが名を呼ぶと、老僧の輪郭から白い光が剥がれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　川の上に、石の足場が一つ現れる。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="502">　もう一歩。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　――ハルム。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　その名が、カイの記憶の中で遠ざかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　老僧は何者だったか。いつから同行していたか。なぜ自分は重い名簿を抱えているのか。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="510">　もう一歩。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　足場が増える。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　ネアが泣きながら何かを叫んでいる。だが、誰の名を呼んでいるのか分からない。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="516">　もう一歩。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　白髭の男の顔がぼやけた。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="520">「忘れるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　男は川の中央で振り返った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「名ではなく、したことを覚えろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　最後の一歩。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　対岸まで石の道がつながった。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　そこには誰もいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　六人分の荷物があり、五人が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　カイは自分の腕の中にある名簿を見た。表紙の裏に、見覚えのない筆跡で一文が書かれている。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="536">　――死者が思い出せないから、私たちが覚える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「誰が書いた？」とリネ。</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　誰も答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　金色の扉に、六つの手形がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　五人が手を当てても、一つ足りない。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="546">　そのとき名簿がひとりでに開き、白い頁が風にめくれた。紙から淡い手の形が伸び、最後の窪みに触れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　カイは理由も分からず、名簿を強く抱いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　五人は川を渡った。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　振り返ると、石の足場はもうなかった。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="557">六　第四層　逆さの空</h2>
+<p class="source-line role-narration gap-1" data-source-line="559">　扉の向こうには、空があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　地下深くにいるはずなのに、頭上には青空が広がり、白い雲が流れている。足元には都市が逆さに吊られていた。尖塔の先が下を向き、橋が空中で輪を描き、水路の水は重力に逆らって上へ流れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　中央には、巨大な風車のような塔が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　塔の羽根は止まっている。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="566">　しかし都市全体を巡る透明な管の中を、青い光が脈打っていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="568">「古代都市セイル……」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　フェドが息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「沈んだんじゃない。空を裏返して隠したんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　足場の先には、細い石の軌道が塔まで伸びていた。軌道上には翼のついた小舟が置かれている。五人が乗ると、舟は重みを確かめるように沈み、やがて青い風を噴いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「操縦桿がない」とバルド。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="578">「走り出してから言わないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　リネの悲鳴と同時に、舟が射出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　逆さの街が流れていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　尖塔と尖塔の間を抜け、上へ落ちる滝をくぐり、崩れた橋を飛び越える。青い風が頬を切り、カイの髪を後ろへ引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　一瞬だけ、戦争も、包囲も、失った誰かのことも忘れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　世界にはまだ、見たことのない景色がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　その事実が、胸を痛いほど膨らませた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「右から来る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　ネアが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　別の軌道を、黒い舟が並走していた。帝国兵が六人。先頭に立つ銀髪の男は、石像で見た顔をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　レヴァン将軍。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="600">「遅かったな、バルド！」</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　風の中でも、その声は鋼のように届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　将軍が腕を振ると、帝国兵が鉤縄を投げた。三本がこちらの舟へ食い込み、二隻の距離が縮まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　矢が飛んだ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="608">　ネアは身を反らして避け、空中で一射を返した。敵の射手が肩を貫かれ、逆さの街へ落ちていく。落下した体は途中で重力の向きを変え、空へ吸い込まれて見えなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　カイは鉤縄を一本切った。二本目に刃を入れたところで、帝国兵が綱を伝って飛び移ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　狭い舟の上で剣がぶつかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　リネは床へ伏せたまま、工具で舟の側板を開けた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="616">「何をしてる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「壊せば止まるかと思って！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="620">「止まったら落ちるぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="622">「じゃあ速くする！」</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　彼女が青い管を二本つなぐと、舟が爆発的に加速した。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　乗り移りかけていた兵士が振り落とされる。残った鉤縄がぴんと張り、敵船まで引きずられた。二隻は尖塔の間へ突っ込んでいく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">「伏せろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　バルドの大剣が鉤縄をまとめて断った。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　こちらの舟は塔の左をすり抜ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="633">　帝国の舟は曲がりきれず、石壁へ激突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　兵士が投げ出される中、レヴァンだけが跳んだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="637">　彼は壁面から突き出た旗竿を蹴り、次の橋へ着地した。人間離れした動きだった。左腕には、青い光を放つ金属環が巻かれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「暁炉の欠片だ」とバルド。「あれで自分の身体から恐怖を消している」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="641">「恐怖だけ？」とカイ。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="643">　バルドは答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　舟は中央塔へ吸い込まれた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="647">　着床した瞬間、フェドの光鳥が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　残りの硝子管は五本。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　塔の内部で、朝のような光が彼らを待っていた。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="654">七　暁炉</h2>
+<p class="source-line role-narration gap-1" data-source-line="656">　塔の中心には、巨大な輪が浮いていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="658">　輪は幾重にも重なり、その内側を無数の文字が流れている。読めるものもあった。人名だ。古代人の名、今の国々の名、帝国式の名、山国の名。男、女、子ども。死者、生者。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　何百万もの名が、光の川となって輪を巡っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　その下に、一人の少女が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　白い服。裸足。髪は水のように透き通っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="666">「六名での入場を確認」</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　少女は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="670">「現在、五名を視認。一名は自発的に登録を放棄。規約により、同行権のみ継続しています」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">「あなたは誰？」とネア。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="674">「私は暁炉の案内人格。呼称はアサ。都市セイルの記憶保全と防衛を担当します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「外の戦争を止めたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　カイが進み出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「帝国の天蓋艦を落とせるか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「可能です」</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　アサはためらわず答えた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="686">「半径八十里の風圧を反転。空中構造物を地表へ固定。予測される死者、六千四百から一万二千」</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　カイの喉が乾いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　天蓋艦には帝国兵がいる。無名兵もいる。名を奪われただけの生者が、何千人も鎖に吊られている。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="692">「王都を救うには？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「周辺居住者の個体名を暁炉へ移管し、集団制御下に置きます。これにより戦闘、恐慌、反乱、略奪を停止。市民は生命活動を維持します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「無名兵にするってことか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="698">「旧称です。セイルでは『静穏市民』と呼びました」</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　フェドが乾いた笑いを漏らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="702">「帝国は遺跡を盗んだんじゃない。真似しただけか」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="704">　アサの背後に、都市の記憶が映し出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　かつてセイルは争いの絶えない都市だった。氏族の名、家の名、神の名を掲げて殺し合った。そこで支配者たちは、争いの原因を名前に求めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　名を炉へ預ければ、憎しみは消える。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="709">　同時に、愛も、誇りも、約束も消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　静かになった都市は、誰も修理を望まず、誰も子どもの未来を願わず、ゆっくりと滅びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　最後に残った技師たちは都市を裏返し、暁炉を封じた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="715">「名前が戦争を起こすんじゃない」とネア。「名前を旗にして、人が起こすんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「同義です」とアサ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="719">「全然違う」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="721">　背後で拍手が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　レヴァン将軍が塔へ入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　軍装は裂けていたが、歩みは乱れていない。左腕の金属環から青い糸が伸び、暁炉へつながっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="727">「古代人は結論までたどり着き、実行を恐れた」</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　将軍は輪を見上げた。</p>
+<p class="source-line role-dialogue role-sensory tone-5 gap-1" data-source-line="731">「名は境界を作る。王国、部族、家族。私とお前。味方と敵。境界があるから奪い合う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="733">「だから全部、皇帝のものにするのか」とカイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="735">「皇帝もいずれ名を捨てる。最後に残るのは秩序だけだ」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="737">　バルドが大剣を抜いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「あなたは昔、兵に名を覚えろと言った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="741">「覚えている」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="743">「百人を率いるなら、百人の名を呼べと。死なせる命令を出す者には、それが最低限の責任だと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="745">「だから疲れたのだ、バルド」</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　レヴァンは初めて、ひどく老いた顔をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="749">「千人、万人の名を覚えた。どの名にも母がいて、子がいて、帰る家があった。正しい命令など一つもなかった。ならば、名のほうをなくせばよい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">「責任をなくすためにか」</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　バルドの声は静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="755">「そうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　レヴァンの金属環が輝いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　塔の床から、無数の透明な兵士が立ち上がる。古代セイルの守備兵。顔はなく、胸には空白の板がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="761">「暁炉、管理権限を帝国代表レヴァンへ移せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="763">「権限証明を確認」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="765">　アサの瞳が青く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="767">「不足一件。起動には、入口で登録された六名分の同意が必要です」</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　レヴァンはカイたちを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「だから先遣隊では開かなかったか。六人で入ったのは正しかったな」</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　彼は剣を抜く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="775">「死者の指でも同意は取れる」</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="778">八　五人と一人</h2>
+<p class="source-line role-narration gap-1" data-source-line="780">　透明な兵士たちが押し寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　ネアの矢は体をすり抜ける。カイの短剣も手応えがない。兵士の槍だけが実体を持ち、床へ深い傷を刻んだ。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="784">「胸の板！」</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　バルドが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　第一層の鎧と同じだった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="790">　カイは槍をかいくぐり、透明な胸の空白を突く。刃が光へ食い込み、兵士は文字の粒になって消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　だが数が多すぎる。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　フェドが赤砂の管を割った。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　残り四本。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　炎の壁が塔を横切り、守備兵の胸板をまとめて焼く。リネは床の溝へ工具を差し込み、輪を巡る光の流れを一部せき止めた。兵士たちの動きが鈍る。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　ネアが三本の矢を同時につがえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="802">「カイ、伏せて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　矢は彼の頭上を越え、三体の胸を射抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　その向こうから、レヴァンが来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　カイは短剣で受けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　一撃で刃が半ばまで欠けた。二撃目を避け、輪の支柱へ転がる。将軍は追わない。狙いはカイではなく、青銅の名札だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　入口で文字を失った六枚は、いつの間にかそれぞれの胸元へ戻っていた。カイの板には再び名が浮かんでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　カイ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="816">「取られるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　フェドが青砂の管を割る。</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　残り三本。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="822">　氷の鎖がレヴァンの足を床へ縫い止めた。だが左腕の金属環が光ると、将軍は自分の足首ごと感覚を切り捨てるように鎖を踏み砕いた。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="824">　痛みも恐怖もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="825">　その代わり、迷いもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　バルドが正面からぶつかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="829">　二本の大剣が噛み合い、塔全体が鐘のように鳴る。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="831">「行け！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="833">「どこへ！」カイが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="835">「炉を止めろ。こいつは私が知っている」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="837">「今のあれを知ってるようには見えない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「昔のあの人も、まだ中にいる」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="841">　バルドは押し返しながら笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="843">「だから厄介なんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　カイたちは暁炉の輪へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　アサが両手を広げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="849">「選択してください。一、帝国代表へ権限移管。二、周辺住民を静穏化。三、風圧反転による防衛。四、停止状態を維持」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="851">「どれも駄目だ」とカイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="853">「定義外です」</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　リネは輪の基部を調べていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="857">「選択肢を出す装置は、選択肢の外側を隠してる。たいてい鍵穴は裏にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　彼女は名札を一枚、細い隙間へ差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　輪の文字が乱れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="863">「名が流れてる向きを逆にできる」</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　フェドが気づいた。「炉へ集めるんじゃない。外へ返すんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="867">「結果は？」</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="869">「帝国の装置に囚われた名前も、ここから複製された術式なら共鳴して戻るかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="871">「かもしれない、か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="873">「詩人を将軍にするよりは、少しましだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="875">　六つの挿入口が輪の基部に開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　カイ、ネア、リネ、フェド、バルド。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　五枚の名札を入れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="881">　一つ足りない。</p>
+<p class="source-line role-narration gap-1" data-source-line="883">　アサが告げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="885">「登録放棄者の名札が必要です」</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　カイは名簿を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　頁の間から、文字のない青銅板が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="891">　誰のものか分からない。</p>
+<p class="source-line role-narration gap-0" data-source-line="892">　だが、手に取ると胸が痛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="894">　白い髭。穏やかな声。川の上に現れた石の道。</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　名ではなく、したことを覚えろ。</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　カイは空白の板を六つ目の挿入口へ差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　暁炉が悲鳴を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="902">「無記名の同意を検出。個体識別不能。処理を中止――」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="904">「続けろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　リネが工具を押し込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="908">「鍵が持ち主を分からないなら、誰にでも開くってことだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　輪の回転が逆になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="912">　流れていた何百万もの名前が、光の嵐となって塔から噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　文字の風が逆さの都市を駆け抜け、地下の川を越え、墓地を突き抜け、包囲された王都へ昇っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　遠くで天蓋艦の鎖が切れる音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　無名兵たちが一人ずつ顔を取り戻す。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="920">　母の名を叫ぶ者。</p>
+<p class="source-line role-narration gap-0" data-source-line="921">　自分の名を何度も確かめる者。</p>
+<p class="source-line role-narration gap-0" data-source-line="922">　命令を忘れ、泣き崩れる者。</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　帝国軍の隊列が乱れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="926">　暁炉の中では、透明な守備兵が次々と消えていく。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="928">　レヴァンの左腕の環にも、光の亀裂が走った。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="930">　将軍が初めて痛みに顔を歪める。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="932">「バルド……」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="934">　その声には、命令ではない響きがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="936">　バルドの剣が止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="938">「戻れます、将軍」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="940">「何にだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="942">「あなたの名に」</p>
+<p class="source-line role-narration gap-1" data-source-line="944">　レヴァンはしばらく彼を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="946">　やがて左腕の環を自ら剥ぎ取った。血が噴き出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="948">　その瞬間、暁炉の輪が一つ外れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="950">　巨大な金属環が傾き、塔の中心へ落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="952">　レヴァンはバルドを突き飛ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="954">「部下を生かせ」</p>
+<p class="source-line role-narration gap-1" data-source-line="956">　輪が将軍を呑み込んだ。</p>
+<p class="source-line role-narration role-sensory role-sound gap-1" data-source-line="958">　轟音。</p>
+<p class="source-line role-narration gap-1" data-source-line="960">　床が割れ、逆さの都市全体が揺れ始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="962">　アサの姿が明滅した。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="964">「記憶保全機能、停止。都市反転機構、崩壊。地表到達まで、推定四百二十秒」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="966">「帰路用の術を！」とネア。</p>
+<p class="source-line role-narration gap-1" data-source-line="968">　フェドは残った三本の硝子管を見た。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="970">「一つは風、一つは防壁、一つは……爆炎だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="972">「帰りの一本は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">「最初からそんな便利なものはない。士気のために嘘をついた」</p>
+<p class="source-line role-narration gap-1" data-source-line="976">　リネが彼の脛を蹴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">「生きて帰ったら、もう一回蹴る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="980">「予定に入れておく」</p>
+<p class="source-line role-narration gap-1" data-source-line="982">　塔の向こうで、石の舟が砕け落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="984">　出口までの軌道はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="986">　代わりに、暁炉から放たれた名の風が、地上へ向かって吹き上がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　カイは欠けた短剣を鞘へ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="990">「風に乗る」</p>
+<p class="source-line role-narration gap-1" data-source-line="992">　バルドが割れた床の端を見下ろした。下には、逆さの尖塔と雲と、地上へ続く青い光の奔流がある。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="994">「落ちれば死ぬ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="996">「ここにいても死ぬ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="998">　ネアが笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1000">「それなら、景色のいいほうだ」</p>
+</section>
+<section class="chapter" id="chapter-9">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1003">九　風葬</h2>
+<p class="source-line role-narration gap-1" data-source-line="1005">　五人は塔から飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1007">　落下は一瞬だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1009">　次の瞬間、名の風が体をつかみ、上へ投げた。上下が何度も入れ替わる。尖塔が迫り、ネアの矢が壁の飾りへ刺さる。全員を結んだ綱が張り、軌道が変わる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1011">「左！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1013">　リネが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1015">　崩れた橋の隙間を抜ける。背後で中央塔が折れ、巨大な輪が街へ降り注いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1017">　フェドが緑砂の管を割った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1019">　残り二本。</p>
+<p class="source-line role-narration gap-1" data-source-line="1021">　風が翼になり、五人を押し上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1023">　忘却の川が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1025">　黒い水は名の嵐に照らされ、無数の顔を映している。川岸に、白い服の誰かが立っていた気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1027">　カイは手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1029">　誰に向けた手なのか、自分でも分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1031">　その人影は名簿へ手を添えるような仕草をし、静かに頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1033">　風が強くなる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1035">　第二層の町を通り抜ける。石像の破片が空へ舞う。第一層の兵舎では、胸を砕かれた鎧の中から小さな光が飛び出し、一つずつ人の名になって風へ加わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1037">　螺旋階段は崩れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1039">　頭上には墓地の石蓋だけがある。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1041">「爆炎を使う！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1043">　フェドが赤砂の管を折った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1045">　残り一本。</p>
+<p class="source-line role-narration gap-1" data-source-line="1047">　炎が石蓋を吹き飛ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="1049">　夜空が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1051">　五人は雨上がりの墓地へ放り出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　直後、地面が盛り上がり、古代都市セイルの尖塔が一本だけ地上へ突き出した。墓石が跳ね、土煙が王城の壁まで広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1055">　カイは何度か転がって、兄の短剣を握ったまま止まった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1057">　空には夜明け前の薄明かりがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1059">　天蓋艦は落ちていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1061">　代わりに、ゆっくりと降下していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1063">　無名兵を吊っていた鎖が外され、甲板では帝国兵たちが混乱している。ある者は武器を捨て、ある者は互いの顔を見つめ、ある者はその場に座り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1065">　城壁の上から、自由軍の歓声が上がった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1067">　だがサラは攻撃命令を出さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1069">　彼女は城門を開かせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1071">　帝国兵を討つためではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1072">　地上へ降りてくる者を受け入れるために。</p>
+<p class="source-line role-narration gap-1" data-source-line="1074">　その朝、石冠帝国の包囲軍三万のうち、一万一千人が武器を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1076">　残りは撤退した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1078">　戦争は終わらなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1080">　皇帝は健在で、帝国にはまだ七つの軍団と二十隻の天蓋艦があった。自由軍は一つの都市を守っただけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1082">　それでも、無名兵を作る機械はすべて沈黙した。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1084">　奪われた名が戻ったことで、帝国各地の工場では反乱が起きた。兵士は命令書より家族の顔を選び、囚人は番号ではなく互いの名を呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1086">　夜明けは、勝利ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1088">　勝てるかもしれないという、最初の証拠だった。</p>
+</section>
+<section class="chapter" id="chapter-10">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1091">十　名を持たない墓</h2>
+<p class="source-line role-narration gap-1" data-source-line="1093">　三日後、王城裏の共同墓地に新しい墓が建った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1095">　墓の下に遺体はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1097">　石碑にも名はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1099">　ただ、六枚の青銅板が埋め込まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1101">　カイ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1102">　ネア。</p>
+<p class="source-line role-narration gap-0" data-source-line="1103">　リネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1104">　フェド。</p>
+<p class="source-line role-narration gap-0" data-source-line="1105">　バルド。</p>
+<p class="source-line role-narration gap-1" data-source-line="1107">　最後の一枚は空白だった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1109">　サラは、その前で戦死者名簿をカイへ返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1111">「この本を書いた者を、誰も覚えていない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1113">「俺たちもです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1115">「だが筆跡は各地に残っている。三千四百二十一人分。帝国兵の名まである」</p>
+<p class="source-line role-narration gap-1" data-source-line="1117">　カイは表紙を撫でた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1119">　知らない人から受け取ったはずなのに、長い旅を共にした道具のように手になじんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1121">　リネは空白の名札の下へ、小さな文字を彫った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1123">　――私たちに道をくれた人。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1125">「これでいいのかな」とネア。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1127">「名ではなく、したことを覚えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1129">　カイは口にした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1131">　どこで聞いた言葉か分からない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1132">　けれど四人とも、なぜか頷いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1134">　バルドは墓から少し離れた場所に立ち、東の空を見ていた。レヴァン将軍の遺体は見つからなかった。帝国の記録では反逆者、自由軍の記録では敵将のままだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1136">「どちらで残す？」とカイが尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1138">「両方だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1140">　バルドは答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1142">「人は一つの名に収まらない。あの人に教わったことも、あの人が壊したものも、どちらも消してはいけない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1144">　フェドが最後の硝子管を陽に透かした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1146">　中には白砂が入っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1148">「それ、何の術だったの？」とリネ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1150">「帰路用だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1152">「嘘つき」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1154">「本当だ。使わずに帰れたから、効いた」</p>
+<p class="source-line role-narration gap-1" data-source-line="1156">　今度こそ、リネは彼の脛を蹴った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1158">　墓地に笑い声が広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1160">　そのとき、空白の名札の縁で、小さな風が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1162">　鈴のような音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1164">　カイは振り返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1166">　墓の向こうには、朝の王都がある。壊れた屋根を直す人々。帝国兵だった者へ水を渡す子ども。名前を尋ね合う声。失った名を墓石へ刻み直す金槌の音。</p>
+<p class="source-line role-narration gap-1" data-source-line="1168">　戦争は続く。</p>
+<p class="source-line role-narration gap-0" data-source-line="1169">　迷宮も、世界のどこかでまだ口を開けているだろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="1170">　古代の力を求める者も、名を奪えば人を支配できると考える者も、いなくはならない。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1172">　だから彼らは、また剣を取り、地図を描き、術の砂を詰め、死者の名を書くだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="1174">　勝つためだけではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1176">　自分が誰であるかを、誰かに決めさせないために。</p>
+<p class="source-line role-narration gap-1" data-source-line="1178">　東から吹いた風が、六枚の名札を一度に鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1180">　五つの名と、一つの空白。</p>
+<p class="source-line role-narration gap-1" data-source-line="1182">　そのすべてが、確かに同じ朝を呼んでいた。</p>
+<p class="source-line role-dialogue gap-2" data-source-line="1185">（了）</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

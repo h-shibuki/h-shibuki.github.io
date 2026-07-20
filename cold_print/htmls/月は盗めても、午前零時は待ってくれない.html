@@ -1,0 +1,1192 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="盗まれた物を持ち主へ戻し、持ち主が悪党なら勝手に返却先を変える「返却屋」城戸レイ。雲上美術館へ潜入した夜、量子暗号鍵〈オルフェウスの月〉を、赤いドレスの怪盗に目の前でさらわれる。追跡したレイを待っていたのは、彼を逮捕しに来た星野マヤ警部補だった。だが警察署まで武装集団に襲われ、月が午前零時に起動すれば、金融・司法記録と街の所有権まで書き換えられると判明する。容疑者と刑事は片手ずつ手錠でつながれたまま、空の街を駆ける。盗まれた過去を、零時までに誰へ返すのか。">
+<title>月は盗めても、午前零時は待ってくれない｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="月は盗めても、午前零時は待ってくれない" data-novel-id="月は盗めても、午前零時は待ってくれない" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="satirical-sf">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用" selected>風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・SF</p>
+  <p><strong>補助ジャンル：</strong>ギャグ</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、SF、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">風刺SF・日常コメディー</span></p>
+  <p id="currentPresetDescription">親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用</p>
+  <h3>意味色</h3><p>橙＝生活、灰＝企業、赤＝異常、青＝技術、紫＝主題</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：731行／章：0／役割・強度タグ：810</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="月は盗めても、午前零時は待ってくれない 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">月は盗めても、午前零時は待ってくれない</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　俺の職業は「返却屋」だ。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="5">　盗まれた宝石、持ち逃げされた設計図、別れた恋人の部屋に置き忘れた合鍵。持ち主のところへ戻すべきものを戻す。それが仕事である。</p>
+<p class="source-line role-narration gap-0" data-source-line="6">　ただし、持ち主が悪党だった場合は少し話が変わる。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　そのときは、もっとましな持ち主を俺が勝手に選ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　その夜、俺は高さ八百メートルの美術館で、銀の盆にシャンパンを載せていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　似合わないと思うだろう。俺もそう思う。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="12">「笑顔が足りないぞ、新人」</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　背後から給仕長が小声で言った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="16">「これ以上笑うと、客が追加料金を請求されてる気分になります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="17">「口も動かすな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="18">「では心で謝罪します。聞こえました？」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　給仕長は聞こえなかったふりをして去った。賢明な男だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　ここはクラウン・ヒルズ特別区、通称<span class="term term-world">〈空の街〉</span>。金持ちが地上の排気ガスと庶民のため息を嫌って、雲の上に建てた巨大都市である。その中央に浮かぶノクターン美術館では、百年に一度の名宝展が開かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　主役は、黒いガラスケースの中に鎮座する青白い宝石――<span class="term term-world">〈オルフェウスの月〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="25">　卵ほどの大きさで、値段は小国の国家予算三年分。説明板には「古代王朝の秘宝」とある。</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　嘘だ。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="27">　本当は量子暗号の記憶媒体で、街じゅうの金融記録、司法記録、企業の裏帳簿へ接続できる鍵だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="28">　つまり宝石というより、悪党たちの人生を丸ごと入れた金庫の鍵だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　俺は匿名の依頼人から、今夜それを盗み出すよう頼まれていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="31">　盗む仕事なのに返却屋を名乗るのはおかしい？</p>
+<p class="source-line role-narration gap-0" data-source-line="32">　世の中には、最初から持つ資格のない連中もいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　ケースの周囲には警備員が十二人。天井にレーザー感知器、床に重量センサー、壁には軍用ドローン。見張り役の目つきは鋭く、客の宝石はさらに鋭く、会話だけがひどく鈍かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「この月は、わたくしの瞳と同じ色ですの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="37">「奥さまの瞳は茶色では？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="38">「照明の問題ですわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　金持ちの世界では、照明はたいていの問題を解決するらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　俺は盆を持ったまま、ケースの横を通り過ぎた。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　右手の小指で腕時計を二度叩く。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="44">　厨房の冷蔵庫で小型送電機が起動し、館内の電圧を一瞬だけ揺らす。レーザー網が〇・七秒停止。充分だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　俺が左袖から薄い鏡板を滑らせた、その瞬間だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　照明が全部消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「おいおい。俺は〇・七秒って注文したぞ」</p>
+<p class="source-line role-narration role-comic tone-5 gap-1" data-source-line="52">　闇の中で、誰かが笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="53">　女の笑い声だった。低く、楽しそうで、財布の所在を確認したくなる声だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　次の瞬間、天井のガラスが砕けた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="56">　月光が滝のように降り、銀色のワイヤーに吊られた赤いドレスの女が、逆さまに舞い降りてきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="58">「こんばんは、紳士淑女の皆さま」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="60">　女は仮面越しに微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「今夜、月をいただきます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="64">「予約は？」と俺は訊いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　女は一瞬だけ俺を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="68">「あなた、給仕にしては態度が高いわね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「雲の上ですから」</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　女が指を鳴らす。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　ガラスケースが音もなく開いた。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="73">　俺の仕掛けではない。もっと上等な解除コードだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　女は<span class="term term-world">〈オルフェウスの月〉</span>をつかみ、ワイヤーを巻き上げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="76">　警備ドローンが一斉に銃口を向けた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="78">「止まれ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「その台詞、もう少し色気を足した方がいい」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="82">　俺は盆のシャンパンをドローンへ投げた。グラスが砕け、泡が光学センサーを覆う。ドローン同士が互いを侵入者と誤認し、空中で衝突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　赤い女は天井の穴へ消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="85">　俺はテーブルを蹴り倒し、飛び乗った。白いクロスごと床を滑り、騒ぐ客の足元を抜ける。</p>
+<p class="source-line role-dialogue fx-shout tone-1 gap-1" data-source-line="87">「どいてください！　床の光沢検査です！」</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　誰もどかなかったので、俺が避けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　非常口へ飛び込み、螺旋階段を三段ずつ駆け上がる。屋上へ出ると、赤い女が小型飛行艇へ乗り込むところだった。</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="93">「忘れ物だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　俺は銀の盆を投げた。盆は回転しながら女のワイヤー装置に食い込み、巻き上げ機を止めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="96">　女が体勢を崩す。</p>
+<p class="source-line role-narration gap-0" data-source-line="97">　宝石が宙を舞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　俺は屋上の縁から跳び、片手を伸ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="100">　指先が宝石に触れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　同時に、横から鋼鉄の手錠が飛んできて俺の手首にはまった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「確保」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　冷たい声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　もう片方の輪は、屋上アンテナに固定されていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　俺は空中でぴたりと止まり、八百メートル下の夜景を見下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「ずいぶん眺めのいい逮捕だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　屋上に立っていたのは、黒いパンツスーツの女だった。短い髪、細い目、無駄のない姿勢。胸元のバッジにはクラウン・ヒルズ警察、星野マヤ警部補とある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="115">「城戸レイ。窃盗、詐欺、住居侵入、無免許飛行、図書館の延滞十二件」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="116">「最後のは陰謀だ。本を返そうとしたら図書館が移転してた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="117">「移転先は向かいの建物よ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="118">「遠い」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　赤い女の飛行艇が浮上した。</p>
+<p class="source-line role-narration gap-0" data-source-line="121">　俺はぶら下がったまま叫ぶ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="123">「警部補、月が逃げるぞ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="124">「あなたも逃げようとしていたでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="125">「俺は追いかけてただけだ」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="126">「シャンパンを投げて？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="127">「景気づけに」</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　マヤは飛行艇に銃を向けた。だが女は煙幕弾を撃ち、屋上を真紅の煙で包む。</p>
+<p class="source-line role-narration gap-0" data-source-line="130">　エンジン音が遠ざかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　煙が晴れたとき、月も女も消えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　残ったのは俺と警部補と、アンテナからぶら下がる手錠だけだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「では、署で景気のいい話を聞かせてもらいましょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「その前に一つ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「何」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="139">「引き上げてくれ。足の下が八百メートル空いてると、会話に集中できない」</p>
+<div class="source-line scene-break gap-2" data-source-line="142" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="145">　クラウン・ヒルズ警察の取調室は、俺の部屋より広く、俺の部屋よりきれいで、たぶん家賃も高かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="146">　欠点は、扉の外に警官がいることだ。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="148">　星野マヤは向かいに座り、透明端末へ証拠映像を映した。</p>
+<p class="source-line role-narration gap-0" data-source-line="149">　そこには、給仕姿の俺がケースへ近づき、照明が消え、宝石が消え、俺が屋上へ走る様子が見事につながっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「映画なら主役だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="152">「被告人席の？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="153">「続編が作りにくい」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　マヤは映像を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「赤いドレスの女は誰？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="158">「知らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="159">「ケースを開けた方法は？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="160">「知らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="161">「あなたの依頼人は？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="162">「知らない」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="163">「よくそれで仕事になるわね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="164">「知らないことを知ってる顔で話すのが営業の基本だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　マヤの眉が一ミリ動いた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="167">　この女にとっては爆笑に近い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="169">「城戸。あなたが宝石を狙っていたことは確かよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="170">「それは認める」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="171">「ずいぶん素直ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="172">「警察は正直者に優しいと聞いた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="173">「誰から？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="174">「嘘つきから」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　彼女はため息をつき、映像を巻き戻した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="178">　俺は画面の一角を指さす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「ここ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「何？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="182">「照明が消える〇・二秒前、客の影が動いてる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「人間は動くわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「影は照明より先には動かない」</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　マヤが映像を拡大する。</p>
+<p class="source-line role-narration gap-0" data-source-line="188">　たしかに壁際の影だけが先にずれ、その後で停電が起きていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「録画映像が差し替えられてる。リアルタイム映像に見せた、十二秒前のループだ」</p>
+<p class="source-line role-dialogue role-system gap-0" data-source-line="191">「館内システムへ侵入した者がいる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="192">「それも、警備の管理権限を持つ者がね。赤い女は外から入ったように見せただけだ。天井のガラスは内側から爆破されてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　マヤは無言で別の映像を呼び出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　天井の破片が屋外へ飛んでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「あなた、最初から気づいていたの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="198">「屋上から落ちてる最中に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「もっと早く言いなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="200">「風が強くて」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="202">　彼女が端末を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「つまり内部犯行」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="205">「しかも、俺を犯人にする予定だった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="206">「あなたほど便利な濡れ衣は珍しいもの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="207">「褒められると照れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　そのとき、取調室の照明が一度だけ明滅した。</p>
+<p class="source-line role-narration gap-0" data-source-line="210">　俺とマヤは同時に天井を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　換気口から小さな銀色の球が落ちてくる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="214">「伏せろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　俺はテーブルを蹴り上げた。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="217">　球が炸裂し、青い電撃が室内を走る。端末が破裂し、壁の監視カメラが火花を散らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　扉の外で銃声。</p>
+<p class="source-line role-narration gap-0" data-source-line="220">　続いて、何か重いものが倒れる音。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　マヤは拳銃を抜き、俺はテーブルの陰で手錠を見せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「片手が空いてると助かるんだが」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="225">「逃げない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="226">「ここより居心地の悪い場所を探す方が難しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　彼女は手錠を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「その言葉、記録したわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="231">「機械は今壊れた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「私が覚えてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="233">「それが一番厄介だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　扉が吹き飛んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　黒い装甲服の男が二人、短機関銃を構えて入ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　俺は倒したテーブルの脚をつかみ、男の足元へ滑らせた。一人がつまずく。マヤがもう一人の銃を正確に撃ち抜く。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　つまずいた男が起き上がる前に、俺は椅子を畳んで首へ引っかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「予約のない面会は困る」</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　男を壁へ叩きつける。</p>
+<p class="source-line role-narration gap-0" data-source-line="244">　もう一人が腰からナイフを抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　マヤは拳銃の弾倉を交換しようとしたが、男が距離を詰める方が早い。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　俺は床の電撃球を蹴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　球は男の足元へ転がり、残っていた電荷を放つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="249">　男は妙な踊りを三秒披露して倒れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「ダンスは悪くない。衣装が重すぎるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　マヤが廊下を確認する。</p>
+<p class="source-line role-narration gap-0" data-source-line="254">　警官たちは気絶していたが、呼吸はある。</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　倒れた襲撃者の肩には、金色の獅子をかたどった徽章があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="257">　クラウン・ヒルズ最大の企業、久我堂グループの私設警備隊<span class="term term-world">〈ゴールド・ライオン〉</span>の印だ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="259">「久我堂征司……」とマヤが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　久我堂征司。空の街の半分を所有し、残り半分に金を貸している男。ノクターン美術館の理事長で、今夜の名宝展の主催者でもある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="263">「大物だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="264">「証拠がない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="265">「今、証拠が取調室を爆破したぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="266">「私設警備隊の装備を盗んだ可能性もある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="267">「君はいつもそんなに慎重なのか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="268">「あなたがいつもそんなに雑だから、世の中は均衡を保てるのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　遠くで非常警報が鳴り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　俺は襲撃者のポケットを探り、黒い招待状を取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　金文字で<span class="term term-world">〈ソラリス・タワー完成十周年記念舞踏会　午後十一時三十分〉</span>とある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="275">「久我堂の本社ビル。今夜もう一つパーティーか」</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　マヤが腕時計を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　午後十時五十八分。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="280">「どうして今夜に限って金持ちは二度も着替えるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="281">「一度目の服で税金を払わなかったからじゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　招待状の裏に、小さく暗号化された時刻が浮かび上がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　〇〇：〇〇。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　午前零時。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="289">「月の起動時刻だ」と俺は言った。「久我堂は零時に何かする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="290">「あなたの依頼人は、その計画を知っていた？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="291">「匿名通信は一度きりだった。ただ、こんな言葉を残した」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="293">　俺は記憶をたどる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="295">「『月が歌えば、街は過去を失う』」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="297">　マヤの顔から冗談の余地が消えた。</p>
+<p class="source-line role-dialogue fx-whisper tone-2 gap-1" data-source-line="299">「司法記録の消去……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="300">「犯罪歴、資金洗浄、企業の不正、ぜんぶきれいにする気だ。ついでに自分へ都合のいい所有権を書き込めば、明日の朝には街そのものが久我堂の私物になる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="301">「そんなことが可能なの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="302">「金持ちが『不可能』と言うときは、たいてい値段交渉だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　廊下の奥でエレベーターが動き出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="305">　新手が来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　マヤは拳銃をホルスターへ戻し、俺の手首へもう一度手錠をかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「おい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="310">「あなたは容疑者のままよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="311">「この状況で？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="312">「だから片方だけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　手錠のもう一方を自分の手首へはめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「一緒に来てもらう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「デートの誘いなら、もう少し照明のいい場所で聞きたかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="319">「次にそれを言ったら、反対の手にもかける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="320">「情熱的だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　エレベーターの到着音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　俺たちは窓を蹴破り、二十七階から外へ飛び出した。</p>
+<div class="source-line scene-break gap-2" data-source-line="327" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="330">　正確には、窓の外を走る清掃用ゴンドラへ飛び乗った。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="331">　それでもマヤは着地した直後、俺を殺しそうな目で見た。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="333">「先に言いなさい！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="334">「言ったら飛ばなかっただろ」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="335">「当たり前よ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="336">「だから言わなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　背後の窓から襲撃者たちが銃を撃つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="339">　俺たちは手錠でつながれたまま、ゴンドラの制御盤へ転がり込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="341">「運転できる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="342">「清掃員の経験は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="343">「ない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="344">「じゃあ俺より適任だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　俺はレバーを最大まで倒した。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　ゴンドラが悲鳴を上げ、ビルの外壁を横滑りする。洗浄ブラシが回転し、窓ガラスへ泡を撒き散らす。</p>
+<p class="source-line role-narration gap-0" data-source-line="348">　追手の視界が真っ白になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「これで連中も少しはきれいになる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="351">「あなたはならないわね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="352">「内面は洗剤に弱い」</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　ゴンドラは隣の立体道路へ接近した。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　俺たちはタイミングを合わせ、走行中の無人タクシーの屋根へ飛び移る。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　手錠の鎖が伸び、二人の腕が引っ張られた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="358">「右！」とマヤ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="359">「君から見て？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="360">「人類共通の右！」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　タクシーが急旋回し、俺たちは屋根を滑る。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　俺はアンテナをつかみ、マヤは俺のベルトをつかんだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="365">「そこは高級品だ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="366">「偽物でしょう」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="367">「見抜くな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　車内の乗客が窓越しにこちらを見上げた。白髪の老婦人だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「相乗りです」と俺は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　老婦人は親指を立てた。空の街にも話のわかる人間はいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　追手の黒い車が三台、後方から迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="376">　銃弾がタクシーの後部を叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　マヤは片手で拳銃を抜き、後ろ向きに二発撃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　一発は先頭車のタイヤ制御器に命中。車は安全装置を作動させ、強制停止した。後続二台が派手に追突する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「うまいな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="382">「射撃訓練は首席」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="383">「冗談は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="384">「あなたを撃たずにいる程度には上手よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　タクシーの自動音声が鳴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">『目的地を入力してください』</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　俺は屋根を拳で叩いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="392">「ソラリス・タワー！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">『聞き取れませんでした』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="396">「ソ・ラ・リ・ス！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">『“空にリス”で検索します』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「未来は便利だな」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="401">「窓を開けなさい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　老婦人が後部窓を開けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="404">　俺たちは手錠を外すため、二人同時に車内へ滑り込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「騒がしくしてすみません」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「いいのよ」と老婦人はにっこりした。「夫との結婚記念日以来、こんなに楽しいタクシーは初めて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「ご主人は？」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="411">「そのとき別れたわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　俺は老婦人に敬意を表して帽子を取ろうとしたが、給仕帽は屋上に置いてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　マヤが手錠の鍵を開ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「ソラリス・タワーへ直行して」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">『目的地、ソラリス・タワー。予想到着時刻、午後十一時三十二分』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「二分遅刻ね」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="423">「パーティーは主役が遅れて始まるものだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「私たちは招待されていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「それなら、もっと主役らしい」</p>
+<div class="source-line scene-break gap-2" data-source-line="428" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="431">　ソラリス・タワーは、夜空へ突き刺さる金色の針だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　最上階の舞踏会場には、政治家、企業家、芸能人、そしてその三種類を相手にする弁護士が集まっていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="434">　正面入口には顔認証ゲートと武装警備員。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="435">　俺とマヤの服は、俺が破れた給仕服、彼女が煤だらけのパンツスーツ。</p>
+<p class="source-line role-narration gap-0" data-source-line="436">　どう見ても招待客ではない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「裏口を探す」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「それじゃ時間がかかる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="441">「正面から入れる格好じゃないでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="442">「格好は入ってから何とかする」</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　俺はタクシーを降り、玄関前に停まっていた豪華な白いリムジンへ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="445">　ちょうど若い男女が降りてくる。男は白いタキシード、女は真珠色のドレス。二人ともこちらを見て眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「車両保安検査です」と俺は言った。「最近、リムジンが相次いで逃亡しています」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">「何を言ってるんだ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="451">「この車にも反抗的な目つきがある」</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　男が警備員を呼ぼうとした瞬間、マヤが警察バッジを見せる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「緊急捜査です。お召し物をお借りします」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="457">「服を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="459">「国家の安全に関わります」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="461">「俺たちは結婚式帰りだぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　マヤは男の白いタキシードと俺を見比べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「サイズは近いわね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「待て」と俺は言った。「国家の安全にも限度がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　五分後、俺は白いタキシード、マヤは真珠色のドレスを着ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　新婚夫婦はリムジンの中で毛布に包まり、俺たちへ恨みのこもった視線を送っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「必ず返却します」とマヤが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「俺の専門だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　新郎が叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="478">「靴だけは返せ！」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="480">「サイズが合わない！」と俺は返した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="482">　顔認証ゲートの前で、俺は新郎の招待状をかざした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">『ご夫妻のお名前をどうぞ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「ロミオとジュリエット」</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　マヤが肘で俺を突く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">『登録がありません』</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="492">「それは残念だ。古い名簿を使ってるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　警備員たちが近づいてくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="495">　俺はマヤの腰を抱き、彼女の耳元へ囁いた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="497">「笑って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="498">「今？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="499">「幸せな夫婦に見せる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「あなたと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="501">「演技力が試される」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　彼女は満面の笑みを浮かべた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="504">　見た者が遺言を書き直したくなる種類の笑顔だった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="506">「あなた」と甘い声で言う。「招待状、また忘れたの？」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="508">「ハニー、君の笑顔があれば扉は開く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「開かなかったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「夫が責任を取ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「すぐに未亡人ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　警備員が止まり、気の毒そうに俺を見た。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="517">　その同情の隙に、マヤが袖から警察端末をゲートへ接触させる。非常時権限が一秒だけ認証を上書きした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">『ようこそ、久我堂夫妻』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「出世したな」と俺。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「離婚届を急がないと」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　俺たちは堂々と会場へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　舞踏会場は巨大なガラスドームで、足元に街の夜景が広がっていた。中央では弦楽団が演奏し、空中を給仕ドローンが飛び交う。</p>
+<p class="source-line role-narration gap-0" data-source-line="528">　正面の壇上に、久我堂征司がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　六十代、銀髪、黒い燕尾服。穏やかな笑顔は、他人の家を差し押さえるときにも崩れなさそうだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="531">　その隣には赤いドレスの女。</p>
+<p class="source-line role-narration gap-0" data-source-line="532">　仮面は外している。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　久我堂の保安統括責任者、エレナ・ヴァイス。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="535">　元軍情報部。空の街で最も高価な護衛であり、最もよく似合う武器は微笑みだと言われる女だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「月泥棒は理事長の部下だった」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「内部犯行としては教科書通りだ。教科書を爆薬で閉じた点を除けば」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　久我堂が壇上でグラスを上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「皆さま。あと二十分で、クラウン・ヒルズは新しい時代を迎えます」</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　拍手が起きる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「新しい時代は、古い領収書を捨てるところから始まります」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="549">　客たちが笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="550">　俺は笑わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="551">　久我堂の胸元には<span class="term term-world">〈オルフェウスの月〉</span>がペンダントのように下がっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="553">「見せびらかしてる」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「盗んだ物ほど首から下げたくなる。人間の悪い癖だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="556">「あなたも？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="557">「俺は似合う物だけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　会場の天井には巨大な時計が映し出されていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="560">　午後十一時四十分。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="562">「地下の中央サーバーへ月を接続するはず」とマヤ。「久我堂が下へ移動する前に押さえる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="564">「ここで逮捕する？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="565">「証拠不十分」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="566">「胸にぶら下げてるぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="567">「彼の所有物として登録されている」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="568">「世界は書類が好きだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　俺は近くを飛んでいた給仕ドローンからグラスを二つ取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「何をするの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="573">「夫婦らしく乾杯する」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="574">「時間がない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="575">「だから近道する」</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　俺は一つをマヤへ渡し、もう一つを持って久我堂へ歩き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　エレナがすぐに俺へ気づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="580">　その目が細くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「また会ったわね、給仕さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「今夜は昇進が早くてね」</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　久我堂がこちらを見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「どなたかな？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="590">「城戸レイ。返却屋です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「返却？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="594">「あなたが持っている物を、持つべき相手へ返しに来た」</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　会場が静まり返る。</p>
+<p class="source-line role-narration gap-0" data-source-line="597">　弦楽団だけが二小節ほど演奏を続け、気まずそうに止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　久我堂は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="601">「興味深い職業だ。しかし、この宝石は私の所有物だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「書類ではね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="605">「世の中は書類で動く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「だから今夜、書類を全部消す？」</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　客たちがざわめく。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="610">　久我堂の笑顔がほんの少し硬くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="612">「酔っているようだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="614">「まだ一口も飲んでない。あなたの酒は信用できなくて」</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　エレナの手が腰の銃へ動く。</p>
+<p class="source-line role-narration gap-0" data-source-line="617">　俺はグラスを掲げた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="619">「乾杯しよう。過去のない未来に」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="621">「警備！」</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　久我堂が叫んだ瞬間、俺はグラスを床へ落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　割れなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="626">　床から十センチのところで静止し、ふわりと浮かび上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="628">　会場の重力制御が切れたのだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="630">　客、テーブル、料理、楽器、そして警備員たちが、一斉に宙へ浮いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「何をしたの！」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="634">「入口で非常時権限を借りた」</p>
+<p class="source-line role-dialogue role-system tone-2 gap-0" data-source-line="635">「私の端末を？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="636">「夫婦の共有財産だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　俺は空中を泳ぎ、久我堂へ向かう。</p>
+<p class="source-line role-narration gap-0" data-source-line="639">　エレナが銃を撃つが、反動で自分が後方へ飛んだ。弾はシャンパンのボトルを砕き、黄金色の泡が星雲のように広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　久我堂は胸のペンダントを握り、壇上の手すりへしがみついた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="643">「月を離せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「断る！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="647">「その返事、短くて助かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　俺は浮遊するチェロを蹴り、久我堂へ突進した。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　彼の胸元へ手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　あと一歩。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　エレナのワイヤーが俺の足首へ巻きついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="655">　彼女は天井の照明器具に固定され、空中で逆さまになっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「今度はあなたが吊られる番よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「その台詞、屋上で聞きたかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　エレナがワイヤーを引く。</p>
+<p class="source-line role-narration gap-0" data-source-line="662">　俺は久我堂から遠ざけられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　マヤが空中のテーブルを蹴り、こちらへ飛んでくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　途中で銀のトレーをつかみ、エレナのワイヤーへ投げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="666">　トレーが絡まり、巻き取り装置が止まる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="668">「真似したな！」と俺。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="670">「押収した技術よ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　重力が復旧した。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　全員が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　俺はケーキの上へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="677">　マヤはソファへ。</p>
+<p class="source-line role-narration gap-0" data-source-line="678">　久我堂は幸運にも警備員三人の上へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="679">　エレナは不運にも氷の彫刻へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　巨大な白鳥の首が折れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「芸術に謝って」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="685">「白鳥の方から来たのよ」とエレナ。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　警備員たちが起き上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="688">　俺は顔からクリームを拭い、マヤへ叫んだ。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="690">「地下へ行くぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="692">「宝石は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　久我堂の胸元を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="695">　ペンダントは消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　エレナの右手にある。</p>
+<p class="source-line role-narration gap-1" data-source-line="699">　彼女は床の非常ハッチを開け、細い保守用シャフトへ飛び込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「女性を追いかけるのは得意でしょう」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「追いついた後が苦手だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　俺たちも続いて飛び込んだ。</p>
+<div class="source-line scene-break gap-2" data-source-line="708" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="711">　保守用シャフトは、タワーの地下中央まで一直線に伸びていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="712">　エレナは磁気ブーツで壁を滑り降りる。</p>
+<p class="source-line role-narration gap-0" data-source-line="713">　俺とマヤにはブーツがない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「減速手段は？」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「ある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="719">「確実？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「人生に確実なのは税金と、こういう質問の後に困ることだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　俺は壁から配線ケーブルを引き抜き、二人の腰へ巻いた。端を非常梯子へ通し、摩擦で速度を落とす。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　火花が散る。</p>
+<p class="source-line role-narration gap-0" data-source-line="725">　地下二十階、三十階、四十階。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="727">「もっとゆっくり！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="729">「後ろから警備員が来てる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　上を見ると、装甲服の男たちが小型降下機で追ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　俺はケーブルの固定を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="735">「速くする！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「逆よ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　俺たちは落下した。</p>
+<p class="source-line role-narration gap-1" data-source-line="741">　風が耳元で吠える。</p>
+<p class="source-line role-narration gap-0" data-source-line="742">　エレナの姿が近づく。</p>
+<p class="source-line role-narration gap-0" data-source-line="743">　俺は途中の標識板を蹴り飛ばした。板が回転しながらエレナへ向かう。</p>
+<p class="source-line role-narration gap-0" data-source-line="744">　彼女は身をひねって避けるが、その一瞬で俺たちが追いついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　マヤがエレナの腕をつかむ。</p>
+<p class="source-line role-narration gap-0" data-source-line="747">　三人が絡まり、シャフト内を落ちていく。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="749">「警察よ！　宝石を渡しなさい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">「落下中に逮捕状を読むの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="753">「黙秘権は着地後！」</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　エレナが肘でマヤを突き放す。</p>
+<p class="source-line role-narration gap-0" data-source-line="756">　俺は彼女の手首をつかみ、宝石へ手を伸ばす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="758">「しつこい男は嫌われるわよ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="760">「好きな男は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="762">「生きている男」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「条件が厳しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　シャフトの底が迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="767">　巨大な換気ファンが回転している。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　マヤが壁の緊急レバーを撃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="770">　ファンが停止する。</p>
+<p class="source-line role-narration gap-0" data-source-line="771">　俺たちは羽根の上へ転がり落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　上から追手が降ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="774">　ファンの上は急に人口密度が高くなった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="776">「レバーを戻して！」と俺。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="778">「私たちも乗ってる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="780">「人生には刺激が必要だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　マヤがレバーを撃つ。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="783">　ファンが再起動した。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　羽根が回り、俺たち全員を周囲へ弾き飛ばす。</p>
+<p class="source-line role-narration gap-0" data-source-line="786">　追手は保守通路へ次々と転がった。俺とマヤは同じ扉へ飛び込み、エレナだけが反対側の中央サーバー室へ滑り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　扉が閉じる直前、彼女は投げキスをした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="790">「趣味が悪い」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="792">「少し嫉妬してる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="794">「あなたの観察力、今だけ故障してるわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　俺たちは扉の制御盤へ駆け寄った。</p>
+<p class="source-line role-narration gap-0" data-source-line="797">　ロックされている。</p>
+<p class="source-line role-narration gap-0" data-source-line="798">　時計は午後十一時五十六分。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="800">　中央サーバー室のガラス越しに、久我堂が別ルートから現れた。燕尾服は破れ、髪は乱れていたが、笑顔だけはまだ金持ちだった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="802">　エレナが<span class="term term-world">〈オルフェウスの月〉</span>を円形端末へはめ込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="803">　青い光が広がり、巨大な輪状装置が回転を始めた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="805">『起動まで、三分』</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　機械音声が告げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="809">「扉を破る」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「厚さ三十センチの合金だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="813">「別の入口は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「換気口」</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　二人で天井を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="818">　幅二十センチ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="820">「あなたなら入れる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「俺を何だと思ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="824">「細長い犯罪歴」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="826">「名誉毀損だ。そこまで細くない」</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　俺は制御盤を開き、配線を調べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="830">「扉は無理だが、室内放送には入れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　マヤがガラス越しに久我堂を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="834">「話して時間を稼ぐ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="836">「いや。怒らせる」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="838">　俺はマイクを起動した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="840">「久我堂さん、聞こえるか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　室内の久我堂が振り向く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="844">「城戸レイ。君は実に不愉快な男だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="846">「よく言われる。だが請求書には書かないでくれ」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="848">『起動まで、二分三十秒』</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="850">「もう止められん」と久我堂は言った。「零時になれば、司法記録も債務記録も所有権も書き換わる。この街は完全に私のものになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="852">「大変だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="854">「何が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="856">「ゴミ収集日も全部、あんたが責任を持つのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　久我堂のこめかみが動く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="860">「くだらん」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="862">「道路の穴、給水管、学校の雨漏り、老人ホームの暖房。街を持つってのは、夜景を眺めるだけじゃない。壊れた物を直す仕事だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「金で人を雇えばいい」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="866">「その金の記録も消すんだろ？」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="868">　マヤが横で、小さく笑った。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="870">　久我堂は端末へ手を伸ばし、何かを操作する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="872">「エレナ。外の二人を始末しろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　エレナは動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「命令だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="878">「契約では、月をここへ運ぶまで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="880">「追加料金を払う」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="882">「記録を消した後で？」</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　エレナは肩をすくめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「信用できないわ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="888">「賢いな」と俺はマイク越しに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="890">「あなたほどじゃないわ、給仕さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　エレナが宝石へ手を伸ばす。</p>
+<p class="source-line role-narration gap-0" data-source-line="893">　久我堂が隠し持っていた小型拳銃を抜き、彼女の肩を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="895">　エレナが倒れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　マヤの表情が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="899">「扉を開ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="901">「方法は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="903">「作る」</p>
+<p class="source-line role-narration gap-1" data-source-line="905">　彼女は取調室の襲撃者から奪っていた予備の電撃球を一つ取り出し、制御盤へ押し込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="907">「それ、爆発するぞ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="909">「知ってる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="911">「先に言え！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="913">　青白い閃光。</p>
+<p class="source-line role-narration gap-0" data-source-line="914">　扉が爆発し、俺たちは煙と一緒にサーバー室へ飛び込んだ。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="916">『起動まで、一分四十秒』</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　久我堂が拳銃をこちらへ向ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="920">「動くな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="922">　俺とマヤは止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="924">「宝石から離れろ」とマヤ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="926">「警察か。ちょうどいい。零時になれば君のバッジも私が発行したことになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="928">「その前に逮捕する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="930">「何の容疑で？」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="932">　久我堂は笑った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="934">「記録はすべて消える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="936">「記録がなければ犯罪が消えると思うか？」と俺。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="938">「法は記録だ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="940">「違うね。法は、人が忘れないための約束だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="942">「気取った台詞だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="944">「今夜一番高かった。あとで請求する」</p>
+<p class="source-line role-narration gap-1" data-source-line="946">　俺はゆっくり両手を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="948">　久我堂の視線が俺へ集中する。</p>
+<p class="source-line role-narration gap-0" data-source-line="949">　その隙に、床に倒れたエレナが足を伸ばし、久我堂の踵を払った。</p>
+<p class="source-line role-narration gap-1" data-source-line="951">　銃声。</p>
+<p class="source-line role-narration gap-0" data-source-line="952">　弾が天井を撃つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="954">　マヤが久我堂へ飛びかかる。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="955">　二人が端末の前で組み合う。</p>
+<p class="source-line role-narration gap-1" data-source-line="957">　俺は<span class="term term-world">〈オルフェウスの月〉</span>へ駆けた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="959">『起動まで、一分』</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　宝石を引き抜こうとする。</p>
+<p class="source-line role-narration gap-0" data-source-line="962">　動かない。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="963">　端末が磁気固定している。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="965">「解除コードが必要よ！」とエレナ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="967">「知ってるか？」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="969">「久我堂の生体認証」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="971">「本人ならそこにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　久我堂はマヤを投げ飛ばし、拳銃を拾った。</p>
+<p class="source-line role-narration gap-0" data-source-line="974">　俺へ狙いを定める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="976">「月から手を離せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">「予約が先なんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="980">　彼が引き金を引く。</p>
+<p class="source-line role-narration gap-1" data-source-line="982">　弾は俺の胸を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="984">　白いタキシードが赤く染まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="986">　マヤが息をのむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　俺はゆっくり床へ倒れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="990">　久我堂は笑い、宝石へ近づく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="992">「軽口ばかりの男には、ふさわしい最期だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="994">「同感だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="996">　俺は起き上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="998">　胸元から、つぶれたトマトが落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1000">　舞踏会のケーキに載っていた飾りだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　久我堂が目を見開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1004">「空砲？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1006">「さっき取調室で拾った電磁妨害片を、あんたの銃へ仕込んだ。弾は発射されたが、照準補正が狂った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1008">「では、なぜ倒れた！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1010">「一度やってみたかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="1012">　マヤが額を押さえる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1014">「今それを？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1016">「観客がいたから」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="1018">『起動まで、三十秒』</p>
+<p class="source-line role-narration gap-1" data-source-line="1020">　久我堂が俺へ殴りかかる。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="1021">　俺は避け、彼の手首をつかんで端末へ叩きつけた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="1023">『生体認証を確認』</p>
+<p class="source-line role-narration gap-1" data-source-line="1025">　磁気固定が解除される。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1027">「ありがとう」と俺は言い、宝石を引き抜いた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="1029">『接続が切断されました』</p>
+<p class="source-line role-narration gap-1" data-source-line="1031">　輪状装置が減速する。</p>
+<p class="source-line role-narration gap-1" data-source-line="1033">　久我堂が絶叫した。</p>
+<p class="source-line role-dialogue role-system role-comic gap-1" data-source-line="1035">「馬鹿め！　途中で切断すれば、蓄積データが外部へ放出される！」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="1037">「知ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="1039">　俺は宝石を掲げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1041">　サーバー室の壁面が一斉に点灯し、久我堂グループの裏帳簿、賄賂記録、違法な土地取得、脅迫映像が次々と表示される。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="1043">　同じ映像が、舞踏会場の巨大スクリーンへ、街じゅうのニュース端末へ、警察本部へ送信されていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1045">「誰がそんな設定を！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1047">「俺の依頼人だろうな」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="1049">　床の隅で、エレナが笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1051">「違うわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　彼女は肩の傷を押さえながら立ち上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1055">「依頼したのは私」</p>
+<p class="source-line role-narration gap-1" data-source-line="1057">　俺とマヤと久我堂が、同時に彼女を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1059">「あなたが？」とマヤ。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="1061">「三年前、久我堂は私の部隊を違法作戦に使い、失敗すると記録を消して全員を犯罪者にした。私は月を盗み、中央サーバーへ接続し、証拠を公開する必要があった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1063">「俺を雇った理由は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1065">「失敗したときの保険」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1067">「安い保険だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1069">「成功報酬は払うわ」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1071">「記録が残っていれば？」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1073">　エレナが微笑む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1075">「現金で」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1077">「信用した」</p>
+<p class="source-line role-narration gap-1" data-source-line="1079">　マヤが俺を睨む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1081">「簡単ね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1083">「現金は嘘をつかない。数え間違えるだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1085">　午前零時を告げる鐘が鳴った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1087">　街の時計が一斉に光る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1088">　しかし、過去は消えなかった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1089">　代わりに、隠されていた過去が空いっぱいに映し出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1091">　久我堂は逃げようとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="1092">　マヤが足を払って床へ倒し、手錠をかける。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="1094">「久我堂征司。殺人未遂、司法妨害、違法侵入、武器使用、その他について逮捕します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1096">「その他とは何だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1098">　マヤはちらりと俺を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1100">「あとで増える予定よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1102">「警察は柔軟だな」と俺。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1104">「あなたのおかげでね」</p>
+<p class="source-line role-narration gap-1" data-source-line="1106">　エレナが宝石を俺へ投げた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="1108">「返却屋。仕事を終えて」</p>
+<p class="source-line role-narration gap-1" data-source-line="1110">　俺は受け取り、青白い月を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1112">「持ち主は誰だ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1114">「この街の人間全員」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1116">「配るには少し小さい」</p>
+<p class="source-line role-narration gap-1" data-source-line="1118">　マヤが手を差し出す。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="1120">「証拠品として警察が預かる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1122">「それが一番安全？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1124">「少なくとも、あなたのポケットよりは」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1126">「傷つくな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1128">「心があるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1130">「今朝、質屋から取り戻した」</p>
+<p class="source-line role-narration gap-1" data-source-line="1132">　俺は宝石を彼女の手へ置いた。</p>
+<div class="source-line scene-break gap-2" data-source-line="1135" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="1138">　事件から三日後。</p>
+<p class="source-line role-narration gap-1" data-source-line="1140">　久我堂征司は起訴され、彼の所有していた企業は監査に入り、空の街では百人を超える役人と経営者が眠れない夜を過ごしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1141">　ノクターン美術館は<span class="term term-world">〈オルフェウスの月〉</span>を市民信託へ移すと発表した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1142">　エレナ・ヴァイスは事情聴取の翌朝、病院の窓から消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1143">　請求書だけは残していった。俺への成功報酬より、治療費の方が高かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1145">　俺はクラウン・ヒルズ警察の玄関前で、星野マヤを待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1147">　彼女はいつものパンツスーツで現れ、分厚い封筒を俺へ差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1149">「感謝状？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1151">「損害賠償請求」</p>
+<p class="source-line role-narration gap-1" data-source-line="1153">　中を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1154">　美術館の天井、警察署の窓、清掃ゴンドラ、無人タクシー、リムジン、新郎新婦の衣装、舞踏会のケーキ、氷の白鳥、ソラリス・タワーの扉。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1156">「白鳥まで俺なのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1158">「あなたの共犯者が壊した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1160">「エレナとは友達じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1162">「屋上で会話が弾んでいた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1164">「君、やっぱり嫉妬してる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1166">　マヤは封筒でもう一度俺の胸を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1168">「それから、これ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1170">　彼女は小さなカードを渡した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1171">　クラウン・ヒルズ警察の臨時捜査協力員証。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1173">「警察が俺を雇う？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1175">「監視しやすくするため」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1177">「給料は？」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="1179">「損害賠償と相殺」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1181">「夢のない雇用条件だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1183">「嫌なら断って」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1185">　俺はカードを光へかざした。</p>
+<p class="source-line role-narration gap-0" data-source-line="1186">　顔写真は取調室で撮られたものらしく、ひどい顔をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1188">「写真を撮り直せる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1190">「それが条件？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1192">「男には譲れないものがある」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="1194">　マヤが初めて、はっきり笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1196">「図書館の本を返したら考える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1198">「まだ覚えてたのか」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1200">「私は記録がなくても忘れない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1202">　通りの向こうで、派手な爆発が起きた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1203">　金庫輸送車が煙を上げ、空中バイクに乗った覆面集団が飛び去っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1205">　マヤは拳銃へ手をかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1206">　俺は協力員証を胸ポケットへ入れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1208">「勤務開始はいつから？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1210">「今」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1212">「残業代は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1214">「走りながら交渉して」</p>
+<p class="source-line role-narration gap-1" data-source-line="1216">　彼女は駆け出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1217">　俺も後を追う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1219">「ところで警部補！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1221">「何！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1223">「新婦に靴を返すの、忘れてないか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1225">　マヤが足を止め、自分の履いている白い革靴を見下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1227">　覆面集団は遠ざかっていく。</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="1229">　俺は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1231">「月は盗めても、午前零時は待ってくれない。だが泥棒は、靴を返すまで少しくらい待ってくれるかもな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1233">「待たなかったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1235">「そのときは追いついて、丁寧にお願いする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1237">「あなたが？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1239">「君が銃を向けて、俺が丁寧に」</p>
+<p class="source-line role-narration gap-1" data-source-line="1241">　マヤは白い靴のまま走り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1243">「交渉成立ね！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1245">　空の街にサイレンが鳴る。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1246">　朝日はまだ遠い。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="1247">　俺の仕事は、これからだった。</p>
+<p class="source-line end-mark gap-2" data-source-line="1250"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

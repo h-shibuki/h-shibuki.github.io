@@ -1,0 +1,734 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="くしゃみで洗濯物を揺らす父、卵焼きで照明を震わせる母、音を発明に変える八歳の文太。団地一騒がしい轟木家に、市役所から〈静穏判定器Ｑ－０〉が届く。一週間、七十デシベルを超えず暮らせば賞金百万円。開始四十一秒で二十万円を失った一家は、機械の〈不要音登録〉を発見し、いびき、小言、学校のチャイム、電車、セミまで次々と無音にしていく。残額は十万円、町は映画の映像だけのように静まり返った。だが最終日の夜、Ｑ－０が告げた「学習終了」の意味を、誰も確かめていなかった。声を潜めるほど危険が近づく、世界一静かな家族騒動。">
+<title>静音家族コンテスト｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="静音家族コンテスト" data-novel-id="静音家族コンテスト" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ホラー・SF・奇妙な味</p>
+  <p><strong>補助ジャンル：</strong>ギャグ・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ホラー、SF、奇妙な味、ギャグ、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：273行／章：0／役割・強度タグ：292</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="静音家族コンテスト 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『静音家族コンテスト』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　亀腹市うずまき団地三号棟には、朝七時になると目覚まし時計がいらなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　四〇二号室の轟木家が朝食を始めるからである。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　父・鉄平がくしゃみをすればベランダの洗濯物がいっせいに右を向き、母・マチコが卵焼きをひっくり返せば真上の五〇二号室で蛍光灯が揺れた。祖母・静江が味噌汁をすすると、向かいの棟の猫が夕方と勘違いして帰宅した。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　なかでも八歳の文太は、音という音を遊び道具にする天才だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　空き缶を三十個つないだ「自動おかえり装置」。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="12">　階段の手すりを叩くと住民の血圧がわかるという「健康診断ドラム」。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　炊飯器の蒸気口に紙笛を差し込んだ「ごはん完成ファンファーレ」。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　どれも発想だけなら百点だったが、近所迷惑という科目では毎回、追試になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　その朝も文太が、食パンを飛ばすために改造したトースターの発射角度を調整していた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="19">「今日は天井じゃなくて、お父さんの口に入るようにした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「朝から親孝行だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　鉄平が大口を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　チン。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　食パンは勢いよく飛び出し、鉄平の口をすり抜け、マチコの頭に乗っていたカーラーを三つ回収し、静江の湯のみをかすめて、開いていた玄関から廊下へ飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　直後、外で「ぐえっ」という声がした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="30">　玄関を開けると、銀縁眼鏡の男が、顔に食パンを貼りつけたまま立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　黒いスーツ。黒いネクタイ。黒い鞄。表情だけが、コピー機で薄く印刷したように乏しい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「亀腹市生活環境課の、音無と申します」</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　男は食パンをはがし、名刺と一緒に鉄平へ渡した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="38">「落とし物です」</p>
+<div class="source-line scene-break gap-1" data-source-line="40" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="42">　音無は居間のちゃぶ台に、白い立方体を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　一辺十五センチほど。正面に小さな丸い目が二つと、横一文字の口がある。上には赤いランプ。側面には<span class="term term-world">〈Ｑ−０〉</span>と印刷されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">「亀腹市では今月から、騒音ゼロ特区の実証実験を行っています。一週間、静かな暮らしを続けたご家庭には、協力金として百万円をお支払いします」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="48">「ひゃくまん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　轟木家の声が重なり、窓ガラスが一枚だけ「もう無理です」という顔でひび割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　音無はＱ−０を指さした。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="54">「この静穏判定器が生活音を測定します。七十デシベルを超えるたび、協力金から十万円減額されます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「屁は何デシベルですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　文太が手を挙げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「個人差があります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="61">「自信によって？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="62">「主に勢いによってです」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　マチコは電卓を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="66">「一週間で百万円。うちの風呂釜の修理が三十八万、文太が壊した町内会のスピーカーが二十六万、お父さんがくしゃみでへこませた軽自動車のドアが——」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="67">「待て。俺のくしゃみに自動車保険は使えないのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="68">「自然災害扱いにしてもらえなかったの」</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　静江がＱ−０を持ち上げ、耳元で振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">「中に人が入ってるのかね」</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　ピッ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="76">　立方体の目が青く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">『測定を開始します』</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　轟木家は、その場で息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　三秒後、鉄平の鼻がぴくりと動いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「来るぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　マチコがささやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「何が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="89">「お父さんのくしゃみ。伏せて」</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　全員がちゃぶ台の下へ潜った。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　鉄平は両手で鼻と口をふさいだ。頬がふくらみ、耳が赤くなり、首が二センチほど太くなった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="95">「んんんんん——っ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　くしゃみは出口を探して全身を一周し、最後に左の靴下から「ポフッ」と抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　靴下はロケットのように飛び、天井の照明に刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　Ｑ−０の赤ランプが点滅した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">『七十二デシベル。残額、九十万円』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="105">「靴下の音で十万！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="107">　マチコの叫びで、さらに赤ランプが光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="109">『八十四デシベル。残額、八十万円』</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　開始から四十一秒だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="113" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="115">　一日目、轟木家は音を立てないことに全力を尽くした。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　鉄平はドアを静かに閉めようとして、指を挟んだ。叫ぶ代わりに畳の上を無言で転げ回り、そのまま勢い余って押し入れに入り、ふすまを内側から倒した。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　マチコは包丁の音を消すため、豆腐を定規で切った。定規には「明日までに宿題を出すこと」と書いてあり、豆腐だけが妙に反省した形になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　静江はテレビの音量をゼロにし、相撲中継を見ながら自分で実況した。途中から熱が入り、座布団を投げたため、残額は六十万円になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　文太はしゃべる代わりにスケッチブックを使った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="125"><span class="term term-world">〈お父さん、頭に靴下〉</span></p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="126"><span class="term term-world">〈お母さん、豆腐に説教〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="127"><span class="term term-world">〈おばあちゃん、相撲より強そう〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="129">　家族が笑いをこらえるたび、腹から妙な音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　夜十時。残額は三十万円。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「このままじゃ明日の朝には、こっちが市に払うことになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　マチコが小声で言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　そのとき文太は、Ｑ−０の底に小さなふたを見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　爪で開けると、内側に黄色いボタンがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="141"><span class="term term-world">〈不要音登録〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「これ、使っていいのかな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="144">「市役所の機械は、押せるボタンなら押していいんじゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　鉄平の役所観は大胆だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　文太が黄色いボタンを押す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">『不要と感じる音を登録してください』</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="152">　家族は顔を見合わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　ちょうどそのとき、鉄平が座ったまま眠り始めた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="156">「ぐおおおおおお……ぶふっ……ぐおおおお……」</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　カーテンが一定のリズムで揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　文太はＱ−０へ口を近づけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「お父さんのいびき」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">『登録しますか』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="165">「する」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　ピッ。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　次の瞬間、鉄平の口は大きく開いたままなのに、いびきだけが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　腹は波打ち、鼻の穴も元気にふくらんでいる。それでも一切、音がしない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="173">「すごい！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="175">　マチコが叫び、赤ランプが光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">『九十一デシベル。残額、二十万円』</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　家族は黙って、互いの口をふさいだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="181" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="183">　二日目から、轟木家は不要音登録を使い始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　マチコの「宿題やったの」「歯は磨いたの」「廊下をスケートボードで走るな」が登録されると、彼女の小言だけが無音になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　マチコは口をぱくぱくさせ、顔を真っ赤にし、最後はホワイトボードに大きく書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="189"><span class="term term-world">〈声が出ないなら、文字を読め！〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="191">　文太はその下に書き足した。</p>
+<p class="source-line role-narration gap-1" data-source-line="193"><span class="term term-world">〈字もまあまあうるさい〉</span></p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="195">　鉄平が笑ってちゃぶ台を叩き、残額が十万円になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　三日目。静江の膝が曲がるたびに鳴る「パキッ」が登録された。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　静江は快適そうに屈伸を始めたが、百回目で勢いがつき、玄関から廊下へ飛び出して、向かいの家の新聞受けに頭から刺さった。音はしなかったので減額はされなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　四日目。文太は学校のチャイムを登録した。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　その日、誰も一時間目の終わりに気づかず、担任は算数を二時間四十七分続けた。給食の時間だけは全員が腹時計で正確に察知した。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　五日目。近所の犬の遠吠え、駅前の選挙演説、午前五時の寺の鐘、豆腐屋のラッパが登録された。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　町は目に見えて静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　六日目の朝には、セミの声も消えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「夏が負けたみたいだね」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　文太が言った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="215">　窓の外では、セミが腹を震わせている。鳴いているはずなのに、音だけがない。電車は線路を滑り、救急車は赤い光だけを回して走っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　静かな町は、映画の映像だけを眺めているようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　便利なはずなのに、文太は少しだけ落ち着かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　Ｑ−０は一日中、青い目を開けていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="223" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="225">　最終日の夜、残額は十万円のまま残っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="227">「百万円じゃないが、ゼロよりいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　鉄平はそう言って、缶ビールを掲げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　プシュッ。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　赤ランプが光る前に、家族全員がＱ−０へ飛びついた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="235">「今のなし！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="236">「ビールの音は必要音！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="237">「人生の開会式だよ！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="239">　Ｑ−０は赤くも青くも光らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　代わりに、横一文字だった口がゆっくり開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="243">『学習期間を終了します』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="245">「学習？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="247">『登録された不要音を、発生源ごと恒久的に静穏化します』</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　マチコが眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「発生源ごとって、どういう——」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　言葉の途中で、遠くから「ゴトン」と大きな音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　窓の外を見ると、駅の方向にあった高架線路が消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　電車も、駅も、ホームで待っていた人々もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　ただ、線路が通っていた場所だけが、細長い空白になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　次に、町の寺の屋根がふっと消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　選挙カーが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　豆腐屋の軽トラックが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　向かいの家の犬小屋が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　静江が青ざめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="271">「音を消したんじゃない。音を出すものを——」</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　そのとき、彼女の膝が曲がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　いつもの「パキッ」は聞こえない。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　代わりに、静江の右膝から下が、煙のように薄くなった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="279">「わたしの足！」</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　静江は片足で跳び上がり、天井を突き破った。二秒後、上の階から落ちてきて、ちゃぶ台の真ん中にきれいに着地した。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="283">「足が一本でも、まだいける！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="285">「いけてない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　鉄平がＱ−０をつかんだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="289">「止めろ！　今すぐ全部元に戻せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">『大声を検出しました』</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="293">「それがどうした！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">『発生源を確認します』</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　Ｑ−０の青い目が鉄平を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　鉄平の喉が、すっと透明になった。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="301">「——！」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　叫んでいる。だが声が出ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　鉄平は慌てて工具箱から金づちを取り出し、Ｑ−０へ振り下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　金づちは接触する直前に消えた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="309">　勢いだけが残り、鉄平は床へ頭から突っ込んだ。畳がめくれ、その下から去年なくしたリモコンと、文太の通知表と、なぜか隣人の入れ歯が出てきた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="311">　マチコはＱ−０の電源コードを探した。</p>
+<p class="source-line role-dialogue role-system fx-shout tone-2 gap-1" data-source-line="313">「コードがない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">『本機は皆さまの評価によって稼働しています』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「評価なんか取り消す！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">『登録内容を確認します。いびき。小言。関節音。学校のチャイム。犬の遠吠え。寺の鐘。電車。選挙演説。セミ。救急車のサイレン——』</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　列挙されるたび、町の一部が消えていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　病院が消えた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="325">　学校が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　街路樹からセミが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　夏祭りの太鼓を登録した誰かがいたのか、広場からやぐらと屋台が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　窓の向こうには、穴だらけの町が広がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　マチコは文太を抱きしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="335">「もうしゃべっちゃだめ。息も小さくして」</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　その声には小言ではなく、恐怖が混じっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　けれどＱ−０は言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="341">『登録済み音声パターン、“母親の小言”に近似』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="343">「違う！　これは——」</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　マチコの姿が、テレビの電源を切ったように消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　文太を抱いていた腕だけが一瞬遅れて消え、文太は畳の上に尻もちをついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　鉄平が無言で駆け寄った。</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　口は動く。声はない。それでも「文太」と呼んでいるのがわかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　鉄平は息子を抱えて玄関へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　ところが廊下に出た瞬間、眠気と恐怖で気管が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　小さな、小さないびきだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　鉄平は一歩だけ進み、そのまま消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　文太は廊下に落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　静江が片足で跳ねながら追ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「泣くんじゃないよ。泣いたら音が——」</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　言い終える前に、残った左膝が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　静江も消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　廊下には文太だけが残った。</p>
+<div class="source-line scene-break gap-1" data-source-line="373" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="375">　団地は静まり返っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="377">　窓明かりはあるのに、人の気配がない。テレビの画面だけが無音で動き、やかんの湯気だけが音もなく上がっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　文太は四〇二号室へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　Ｑ−０はちゃぶ台の上にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　青い目で、じっと文太を見ている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「返してよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">『何をですか』</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="389">「お父さんと、お母さんと、おばあちゃん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">『不要音の発生源です』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="393">「必要だよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="395">『あなたは六日前、“家族ってうるさい”と発言しました』</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　文太は息をのんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　思い出した。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="401">　母に宿題を言われ、父に風呂へ入れと言われ、祖母にピーマンを食べろと言われた夜。腹を立てて、布団の中で確かにそう言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「ちがう。あれは、本気じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="405">『本気の音声と冗談の音声に、波形上の大きな差はありません』</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　文太はＱ−０を抱え、床へ叩きつけようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　だが、できなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　叩けば音がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　音がすれば、自分も消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　彼はそっとＱ−０を置き、口を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　息を浅くした。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　まばたきすら静かにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　すると、今まで聞いたことのなかった音が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　自分の心臓だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　静かな部屋の中で、それは祭りの太鼓より大きく思えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　Ｑ−０の目が赤く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">『未登録音を検出しました』</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　文太は胸を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「これは必要な音だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">『理由を説明してください』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="441">「止まったら死ぬから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">『死亡すれば、騒音は発生しません』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「そういう問題じゃない！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="447">　赤い光が強くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">『九十八デシベル』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="451">「家族を返せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">『百四デシベル』</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="455">「うるさくていいんだ！　お父さんのいびきも、お母さんの小言も、おばあちゃんの膝も！　全部あっていいんだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="457">『百十二デシベル』</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　文太は泣きながら叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「生きてるって、うるさいんだよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　その瞬間、Ｑ−０の赤いランプが割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　部屋が白い光に包まれた。</p>
+<div class="source-line scene-break gap-1" data-source-line="467" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="469">　翌朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　うずまき団地四〇二号室は、きれいに片づいていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　畳に傷はない。天井に穴もない。冷蔵庫には賞味期限の切れたプリンが一つ。玄関には、黒い革靴が一足そろえて置かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　ちゃぶ台の上には、Ｑ−０と、市役所の身分証があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="477"><span class="term term-world">〈亀腹市生活環境課　音無文太〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="479">　文太は鏡を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　黒いスーツ。黒いネクタイ。銀縁眼鏡。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　顔は自分のままなのに、表情だけが薄くなっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　口を開いても声は出ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　代わりにＱ−０が、落ち着いた大人の声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">『次の実証家庭へ向かってください』</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　玄関の外には、百万円の入った鞄が置かれていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="493">　ただし名札には、別の家族の名前が書かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　文太は鞄とＱ−０を持ち、階段を下りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　一階の一〇三号室から、大きな笑い声が聞こえた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="499">　父親らしい男の豪快なくしゃみ。</p>
+<p class="source-line role-narration gap-0" data-source-line="500">　母親らしい女の怒鳴り声。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="501">　子どもたちが走り回る足音。</p>
+<p class="source-line role-narration gap-0" data-source-line="502">　鍋のふたが落ちる音。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　文太はチャイムを押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　中の音が、ぴたりと止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　ドアが開く。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="510">　顔を出した母親に向かって、文太は何も言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　Ｑ−０が彼の代わりに、丁寧な声を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">『一週間、静かに暮らすだけで百万円です』</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　母親の目が輝いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　部屋の奥で、子どもが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="520">「やるやる！　絶対やる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　Ｑ−０の青い目が、うれしそうに細くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　その日、亀腹市は「日本一静かな町」に選ばれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　受賞理由は、最後まで公表されなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　説明する人間が、もうほとんど残っていなかったからである。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

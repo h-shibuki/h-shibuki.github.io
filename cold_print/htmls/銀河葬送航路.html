@@ -1,0 +1,1169 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="銀河葬送航路｜拡張フォントいじり検証版">
+<title>銀河葬送航路｜拡張フォントいじり版</title>
+<!--
+主ジャンル：宇宙戦争・航路SF
+副ジャンル：政治劇／犠牲と制度の群像ドラマ
+推奨ジャンル書体：軍事・ハードSF
+演出エンジン：航路・命令・数値を硬質書体、喪失を静かな書体、国家を越える選択を見出し書体で段階化
+意味色：金＝選択と航路、青＝星路と未知、紫＝記憶と喪失、灰青＝制度と命令、赤＝夜潮と破壊
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 2.02em;
+  --climax-max: 1.68em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #9b6b2f;
+  --tone-2: #355d78;
+  --tone-3: #7c4f66;
+  --tone-4: #4e6872;
+  --tone-5: #a33c32;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #e4b76e;
+  --tone-2: #7fc1e1;
+  --tone-3: #cf8eb0;
+  --tone-4: #99b9c5;
+  --tone-5: #ef867b;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="night" data-effects="full" data-fontmode="full" data-genre="military-sf">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅" selected>軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離">論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立">学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離">Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に">制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用">風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden>
+  <h2>目次</h2>
+  <ol><li><a href="#chapter-1">一　夜潮</a></li><li><a href="#chapter-2">二　墓標の船</a></li><li><a href="#chapter-3">三　星のない海</a></li><li><a href="#chapter-4">四　黎明種子</a></li><li><a href="#chapter-5">五　白銀の測量士</a></li><li><a href="#chapter-6">六　墓碑銘の会戦</a></li><li><a href="#chapter-7">七　十四分</a></li><li><a href="#chapter-8">八　最後の艦隊戦</a></li><li><a href="#chapter-9">九　航海の終わり</a></li><li><a href="#chapter-10">十　線のない地図</a></li></ol>
+</nav>
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>宇宙戦争・航路SF</p>
+  <p><strong>副ジャンル：</strong>政治劇／犠牲と制度の群像ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">軍事・ハードSF</span></p>
+  <p id="currentPresetDescription">地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅</p>
+  <h3>意味色</h3><p>金＝選択と航路、青＝星路と未知、紫＝記憶と喪失、灰青＝制度と命令、赤＝夜潮と破壊</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：615行／章：10／役割・強度タグ：714</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="銀河葬送航路 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">銀河葬送航路</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　人類が銀河を征服した、と歴史書が記すとき、それはたいてい誇張だった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="6">　人が住める星は、暗い海に浮かぶ島にすぎない。島と島をつなぐのは、重力と真空の隙間に穿たれた位相航路――通称<span class="term term-system tone-2">〈星路〉</span>である。帝国も共和国も、商会も宗教も、星路の上に築かれた。人類が征服したのは銀河ではない。銀河に引いた、細い線だけだった。</p>
+<p class="source-line role-narration fx-key role-motif fx-beat gap-1" data-source-line="8">　その線が、消え始めた。</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="11">一　夜潮</h2>
+<p class="source-line role-narration gap-1" data-source-line="13">　航路暦四百八十二年、六月三日。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="15">　内環統合府の首都星アウレリアでは、空が一日じゅう青かった。気象局が議会の開会日に合わせて雲を排除したからである。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="17">　地下八百メートルの危機管理室には窓がなかった。壁面を埋める銀河図では、青い航路が脈拍のように明滅し、その外縁から次々と黒へ変わっていた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="19">「第九航路群、消失」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　管制官の報告は感情を欠いていた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="23">「ベリル、カッシーニ、トリトンの三恒星系と連絡途絶。推定人口、合計十一億四千万」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「消失、とは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　執政官ルドヴィク・ケルンが尋ねた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="29">「星が消えたわけではありません。こちらから到達できなくなった、という意味です。現地の星路門が位相崩壊に巻き込まれました。崩壊時の余剰エネルギーで、門から半径二億キロ以内の航宙施設は壊滅した可能性があります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「復旧は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「通常の手段では不可能です」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="35">　その返答をしたのは、星間航路庁長官エイダ・シュライだった。六十を過ぎた小柄な女性で、帝国時代の天文学者を思わせる銀縁眼鏡をかけている。彼女は銀河図の中心部を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　そこには、墨を一滴落としたような染みがあった。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-5 gap-1" data-source-line="39">「崩壊波は<span class="term term-threat tone-5">〈夜潮〉</span>と呼ばれています。銀河中心核で発生し、星路網を伝って外側へ拡大している。現在の速度なら、五十三日後に有人圏の全航路が崩壊します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="41">「全部だと？」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-1" data-source-line="43">「全部です」</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　会議室が静まり返った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="47">　星路がなくなれば、文明がただ不便になるのではない。食料生産星と人口星、燃料星と工業星、医療星と居住星は互いに切り離される。数千の星系が孤立し、その半数は一年以内に飢える。崩壊時の衝撃波を考えれば、死者は二百億を超えるという試算もあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="49">「対策があるから、我々を集めたのでしょう」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="51">　統合府軍総司令が言った。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="53">　長官はうなずき、銀河図に一本の<span class="term term-motif tone-1">白い線</span>を出した。首都星から外環へ、さらに古い無航路宙域を縫い、銀河中心側の暗黒星域へ伸びる線だった。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="55">「星路網は四百年前、自然発生したものではありません。初期開拓時代、人類が建設した<span class="term term-world">〈灯台格子〉</span>によって維持されています。その基幹制御施設――<span class="term term-object tone-1">〈零号灯台〉</span>が、アバドン暗礁域にある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="57">「伝説ではなかったのか」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="59">「座標は実在します。零号灯台へ<span class="term term-object tone-1">〈黎明種子〉</span>を運び、格子を再起動できれば、夜潮を止められる可能性があります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「可能性？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「七十八パーセント」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="65">「十分だ。最速艦隊を送れ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="67">「星路が使えない区間があります。現行艦は位相航法を前提に設計されている。通常空間だけで五十三日以内に到達でき、なおかつ夜潮の乱流に耐えられる船は、有人圏に一隻しかありません」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="69">　銀河図に、古びた戦艦の輪郭が浮かんだ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="71">　艦首は槍のように細く、中央部に巨大な環状機関を抱え、艦尾には帆骨を思わせる放熱翼が並んでいる。現代艦の滑らかな形とは似ても似つかない。星路がまだ不安定だった時代、恒星間を自力で横断するために造られた、最後の慣性航宙戦艦。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　艦名は<span class="term term-name tone-1">《ハルシオン》</span>。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="75">　三十年前に退役し、今は敗戦記念館として、外環自由盟約の惑星ネレイス上空に繋留されている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="77">「敵国の博物館ではないか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">「そのとおりです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="81">「動くのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「機関部の保存状態は良好です。問題は、操艦できる者が一人しか残っていないことです」</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　長官は別の映像を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　白髪まじりの男が、囚人服のまま軍事法廷に立っていた。深い目の下に刻まれた疲労は、敗者のものというより、長く眠っていない航海士のものだった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="89">　イリヤ・ソーン元外環自由盟約宇宙軍中将。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="91">　十二年前、ネレイス会戦で統合府軍の降伏勧告を拒絶しながら、最後の瞬間に味方司令部の命令にも背き、居住衛星への自爆攻撃を中止した男。その結果、自由盟約は敗れ、彼は敵味方双方から裏切り者と呼ばれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　執政官ケルンは、しばらく映像を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="95">「釈放しろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="97">「彼は我々を憎んでいます」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="99">「憎しみで艦が動くなら、燃料代が浮く」</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　誰も笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">「護衛艦隊は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「第一機動艦隊をつける」</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　総司令が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="109">「アデル・ヴァレンティ大将に指揮させましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　その名が出たとき、危機管理室の空気がわずかに変わった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="113">　アデル・ヴァレンティ。三十六歳。統合府史上最年少の艦隊大将。<span class="term term-world">〈白銀の測量士〉</span>と呼ばれる戦術家であり、ネレイス会戦でイリヤ・ソーンを破った当人でもある。</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　長官シュライは眼鏡を外し、静かにレンズを拭いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「宿敵同士に、人類の命運を預けるのですか」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="119">　執政官は青い銀河図を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「宿敵だからいい。互いを信用しない者は、互いをよく見る」</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="124">二　墓標の船</h2>
+<p class="source-line role-narration gap-1" data-source-line="126">　ネレイスの海は、鉄のような色をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　イリヤ・ソーンは十二年ぶりに本物の空を見た。軌道刑務所から降下艇に乗せられ、雲を抜けたとき、彼は窓に額を寄せた。看守は感動したと思ったらしいが、彼が見ていたのは海でも大陸でもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　空の一点に、黒い針のような影があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="132"><span class="term term-name tone-1">《ハルシオン》</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「老けたな」</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　イリヤが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　向かいに座る若い文官が、端末から顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「艦が、ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「私がだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　文官は答えに困ったようだった。二十代半ば。痩せた顔に、丸い眼鏡。制服ではなく、灰色の公務服を着ている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「ナギ・ミカドです。臨時航路監察官として本作戦に同行します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「監視役か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「連絡役です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「監視役はみんな、最初にそう名乗る」</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　降下艇は軌道エレベーター基部の軍港へ着いた。そこから小型艇で上がると、記念館として公開されていた<span class="term term-name tone-1">《ハルシオン》</span>の全貌が見えてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　全長三・八キロ。艦体のあちこちに補修材の色違いがあり、主砲塔の一部は取り外され、代わりに観覧窓が設置されている。船腹には、戦没者の名を刻んだ黒い装甲板が並んでいた。艦というより、墓標だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　だが、その周囲では数百隻の作業艇が飛び交い、足場が剥がされ、砲口が開かれ、封印されていた機関部に光が戻っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「三十年眠っていた船を、六日で戦列復帰させるつもりか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「五日です。出航期限が短縮されました」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="164">「夜潮が加速した？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　ナギはそれ以上言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　艦内へ入ると、空気に金属と油の匂いがあった。博物館時代の案内板がまだ壁に残っている。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="172">　――第三砲塔区画。航路戦争初期の艦砲技術をご覧いただけます。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　その下を、砲術員たちが弾薬コンテナを押して走っていった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="176">　第一艦橋では、統合府と自由盟約の制服が混ざっていた。昨日まで敵だった者たちではない。十二年間、停戦線を挟んで睨み合ってきた者たちだ。互いの言葉遣い、階級章、敬礼の角度まで違う。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　イリヤが入ると、話し声が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　彼は艦長席に触れた。古い合成革は博物館用に張り替えられていたが、右肘のあたりに小さな焦げ跡が残っていた。二十九年前、初陣の混乱で自分が熱い珈琲をこぼした跡だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「艦内放送を」</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　通信士が回線を開いた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="186">　イリヤは、整備区画、弾薬庫、医療室、機関室、そして船腹に刻まれた死者たちへ話しかけた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="188">『本艦は五日後、アバドン暗礁域へ向け出航する。任務は零号灯台へ黎明種子を輸送し、夜潮を止めることだ。帰還の保証はない』</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　艦内のどこかで工具の音が止まった。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="192">『統合府の者も、自由盟約の者もいるだろう。互いに家族を殺された者もいる。私も統合府軍に友人を殺され、自由盟約軍に部下を殺された』</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　ナギがわずかに眉を上げた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="196">『許せとは言わない。忘れろとも言わない。ただし、この航海中に限り、憎む順番を変えてもらう。最初に夜潮を憎め。次に故障を憎め。三番目に私を憎め。隣の乗員を憎むのは、任務が終わってからにしろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　一拍遅れて、機関室の回線から誰かの笑い声が漏れた。やがて、それは艦内のあちこちに広がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="200">『以上だ。作業に戻れ』</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　放送を切ると、ナギが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「演説が得意なのですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「得意なら、戦争に負けていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　イリヤは艦橋正面の表示窓を見た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="210">　遠方から、統合府第一機動艦隊が近づいてくる。白い楔形の戦艦群。その中心に、旗艦<span class="term term-name tone-4">《レグルス》</span>がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　回線が開き、アデル・ヴァレンティ大将の姿が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　黒髪を短く切り、銀灰色の軍服を一分の隙もなく着こなしている。十二年前より若く見えた。権力を持つ者は老けないのではない。老いを見せることを許されないのだ、とイリヤは思った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">『ソーン艦長。出所おめでとうございます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="218">「ヴァレンティ大将。昇進おめでとう。私を破った功績なら、ずいぶん支払いが遅かったな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">『あなたを破った功績ではありません。あなたの後始末を十二年続けた功績です』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「それは気の毒に」</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　二人の間に、冷たい沈黙が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">『作戦中、<span class="term term-name tone-1">《ハルシオン》</span>は第一機動艦隊の指揮下に入ります』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「拒否する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">『これは協議ではありません』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="232">「なら、船を動かせる別の囚人を探せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　アデルの目が細くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「私は航路選定と本艦の操艦について、完全な指揮権を要求する。黎明種子の使用判断もだ。護衛は好きにしていいが、私の舵に口を出すな」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="238">『執政官の命令に反します』</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="240">「人類が五十三日で滅ぶというときに、役所の命令書が盾になるなら、印刷して艦首に貼っておけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　ナギが青ざめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　長い沈黙のあと、アデルは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="246">『四十八時間以内に、正式な権限規定を送ります』</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="248">「四十七時間で頼む。老人は待つのが嫌いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　回線が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　ナギは深く息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「彼女はあなたを逮捕できます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「もうされた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「今度は処刑できます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「それはまだだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　イリヤは艦長席に座った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「この船が必要なうちはな」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="267">三　星のない海</h2>
+<p class="source-line role-narration gap-1" data-source-line="269"><span class="term term-name tone-1">《ハルシオン》</span>は五日後、ネレイスを発った。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　見送りの艦はなかった。民間通信網では出航時刻が伏せられ、港湾管制記録も消去された。ただ、軌道上の記念公園に集まった数万人が、無言で空を見上げていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　艦尾の核融合帆が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　青白い光が、墓標の船を押し出した。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="277">　現代の航宙艦は星路門へ入り、座標を選び、数分で数十光年を跳ぶ。<span class="term term-name tone-1">《ハルシオン》</span>は違った。艦体中央の慣性竜骨で空間そのものの勾配を作り、光速以下の時間と超光速位相を連続的に渡っていく。速いが、荒い。海を消して港だけを行き来する現代艦に対し、<span class="term term-name tone-1">《ハルシオン》</span>は波を受けて進む船だった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="279">　乗員は一万二千四百人。護衛する第一機動艦隊は、戦艦八十、巡洋艦二百四十、駆逐艦六百。統合府が動かせる戦力の三割に相当した。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　出航から七日で、三つの星系を通過した。</p>
+<p class="source-line role-narration role-memory tone-5 gap-1" data-source-line="283">　四つ目のルーメン星系では、星路門が崩壊した直後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　門のあった空間に、虹色の亀裂が残っていた。周辺の居住施設は破砕され、氷と金属と人間の住居が、ゆっくり恒星へ落ちていく。救難信号は何万もあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　護衛艦隊は減速を求めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　イリヤは拒否した。</p>
+<p class="source-line role-dialogue role-command fx-beat gap-1" data-source-line="291">「一隻も止めるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　艦橋の空気が凍った。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　ナギが立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「生存者がいます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「わかっている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「救助艇を出す時間はあります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「救助艇を回収する時間がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「置き去りにするのですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「そうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　ナギは机を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="311">「十一万人です！」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="313">「ここで十一万人を救えば、到着が九時間遅れる。九時間で夜潮は四つの星系を呑む。人口は二億だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「数字で人を――」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="317">「数字でしか救えない距離にいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　イリヤは正面を見たまま答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「これは戦争ではない。敵を倒せば終わる話ではない。時間そのものが敵だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　救難信号が艦橋に流れ続けた。</p>
+<p class="source-line role-narration role-system role-document tone-3 gap-1" data-source-line="325">　――こちらルーメン第三居住環。生命維持、残り六時間。</p>
+<p class="source-line role-narration role-document fx-whisper gap-1" data-source-line="327">　――子供が二十七人います。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="329">　――応答してください。そちらが見えています。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　誰も応答しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="333"><span class="term term-name tone-1">《ハルシオン》</span>が残骸群を抜けるまで、三時間かかった。その間、イリヤは艦長席を離れなかった。ナギも立ったままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　やがて星系を出ると、イリヤは通信士に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「全救難記録を保存しろ。航海日誌の最上位階層に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="339">「機密指定は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="341">「するな」</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　ナギが彼を見る。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-1" data-source-line="345">「英雄譚に消されないようにする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「何をです」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="349">「我々が見捨てた人数をだ」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="351">　その夜、艦内食堂の壁に、ルーメン星系の名が手書きで貼られた。誰が始めたのかはわからない。翌朝には、その下に十一万三千八百二十一人分の細い線が描かれていた。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="354">四　黎明種子</h2>
+<p class="source-line role-narration gap-1" data-source-line="356">　十二日目、機関主任マオ・ジンが艦長室へ来た。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="358">　彼女は五十代の自由盟約人で、左腕が肘から機械化されている。<span class="term term-name tone-1">《ハルシオン》</span>の建造に参加した最後の技師の一人であり、退役後も記念館の整備責任者を務めていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「艦長。種子に細工があります」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　彼女は卓上に暗号解析図を広げた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="364"><span class="term term-object tone-1">〈黎明種子〉</span>は、長さ二十メートルほどの黒い柱だった。零号灯台を再起動するための量子鍵と聞かされている。統合府と自由盟約の共同封印が施され、誰も内部へアクセスできないはずだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="366">「封印を破ったのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「整備点検です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="370">「どこまで分解した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「封印が泣く程度には」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　イリヤは図を読んだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="376">　基幹命令列の末尾に、見慣れない語がある。</p>
+<p class="source-line role-narration role-magic fx-key role-motif tone-2 gap-1" data-source-line="378">　OPEN GENESIS――<span class="term term-system tone-2">開放創世</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「これは？」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="382">「格子の再起動プロトコルです。ただの修復じゃない。零号灯台に接続した瞬間、全星路門の主権鍵を消去する」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="384">　星路門には、それぞれ国家や企業が所有する認証鍵がある。通行料、艦隊の侵入制限、物流統制、国境。そのすべてが鍵によって成り立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「再起動後は？」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="388">「誰でも、どの門でも使える。封鎖も課税もできません。灯台格子そのものが、主権鍵の再設定を拒絶する設計です」</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　ナギが黙っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　イリヤは彼を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「知っていたな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「全容は知りませんでした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「半分は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「黎明種子が、戦前の航路秩序を変える可能性があるとは」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="402">「それで統合府も自由盟約も、共同作戦に同意した？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「互いが単独で種子を持つより、共同管理した方がましだと判断しました」</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　マオが鼻で笑った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="408">「共同管理ね。零号灯台に着く前に、どちらかが奪う気でしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　ナギは反論しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　イリヤは図を閉じた。</p>
+<p class="source-line role-dialogue role-magic tone-4 gap-1" data-source-line="414">「統合府は、星路の通行税で国家歳入の四割を得ている。自由盟約の自治星は、航路封鎖権で独立を守っている。<span class="term term-system tone-2">開放創世</span>が実行されれば、どちらも今の形では生き残れない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="416">「だからといって、夜潮を止めない選択はありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　ナギが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「政治家は、自分の死と人類の死をよく取り違える」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　イリヤは椅子にもたれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「ヴァレンティは知っていると思うか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「おそらく、まだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「では、知らせるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　ナギが目を見開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="432">「彼女は護衛艦隊司令官です」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="434">「同時に、統合府軍人だ。命令が来るまでは味方でいられる」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="436">「命令が来たら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「そのとき考える」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　マオが機械の指で机を二度叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「もう来てるんじゃないかい」</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　艦長室の通信灯が点滅した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="446">『第一機動艦隊より緊急通信。ヴァレンティ大将が、全艦の減速と隊形変更を要求しています』</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　イリヤは目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「政治家は、時間だけは守るな」</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="453">五　白銀の測量士</h2>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="455">　旗艦<span class="term term-name tone-4">《レグルス》</span>の司令室では、アデル・ヴァレンティが執政官の命令書を三度読んでいた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="457">　命令は簡潔だった。</p>
+<p class="source-line role-narration role-document role-clue gap-1" data-source-line="459">　一、<span class="term term-name tone-1">《ハルシオン》</span>の航行管制権を接収せよ。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="460">　二、黎明種子を確保せよ。</p>
+<p class="source-line role-narration role-document role-clue gap-0" data-source-line="461">　三、抵抗がある場合、必要な武力を行使せよ。</p>
+<p class="source-line role-narration role-magic tone-4 gap-1" data-source-line="463">　付記として、種子の<span class="term term-system tone-2">開放創世</span>機能と、それが統合府体制へ与える影響が記されていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「国家を救うため、人類を危険にさらせと」</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　副官のセラ・バシュが言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="469">「命令は、種子を破壊せよとは書いていない」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="471">「接収後、統合府が零号灯台へ運ぶ保証はありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「ないでしょうね」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="475">　アデルは命令書を閉じた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="477">　司令室の正面に、<span class="term term-name tone-1">《ハルシオン》</span>が映っている。古い艦は護衛隊形の先頭を進み、その周りを統合府艦が囲んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　十二年前、アデルは同じ艦影を砲撃照準器の中で見た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="481">　ネレイス会戦。自由盟約軍は敗北寸前だった。司令部は居住衛星オルタを爆破し、その破片で統合府艦隊を巻き込むよう命じた。死者予測は三百万人。イリヤ・ソーンは命令を拒否し、味方艦隊の指揮回線を切断した。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　アデルはその隙に敵を包囲し、降伏させた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="485">　統合府では勝利の英雄になった。自由盟約では、イリヤは敗戦の戦犯になった。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="487">　だがアデルだけは知っていた。あの日、自分が勝ったのではない。イリヤが三百万人を生かすため、勝利を捨てたのだ。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="489">「全艦に通達」</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　アデルは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「演習規定アルファ。砲門を開き、<span class="term term-name tone-1">《ハルシオン》</span>を包囲。通信と機関の停止を要求する」</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　副官が彼女を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「実弾装填は」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="499">「命令まで待て」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　回線にイリヤが出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="503">『大げさな挨拶だな』</p>
+<p class="source-line role-dialogue role-command tone-4 gap-1" data-source-line="505">「<span class="term term-name tone-1">《ハルシオン》</span>は統合府令二九一号に基づき、第一機動艦隊の直接管制下へ入ります。機関を停止し、黎明種子を引き渡してください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">『理由は？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「作戦上の機密です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">『では断る』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「あなたの艦は包囲されています」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="515">『見ればわかる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「勝てません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">『それもわかる』</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　アデルは、十二年前と同じ感覚を覚えた。目の前の男は不利な状況に追い込まれているのではない。不利な状況を材料として、何かを組み立てている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「何を企んでいるのです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">『君に話している』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="527">「時間稼ぎですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">『そうだ』</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="531">　その瞬間、<span class="term term-name tone-4">《レグルス》</span>の警報が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「後方宙域に重力異常！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「数、三百……六百……千二百！　艦隊規模の反応です！」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　星図の背後に、赤い光点が次々と現れた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="539">　自由盟約第二辺境艦隊。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="541">　統合府の監視網を避け、旧式の潜航航法で追ってきたのだ。彼らも黎明種子を狙っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">『君が私を包囲してくれたおかげで、彼らは君の後ろを取れた』</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　イリヤの声が響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「誘導したのですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">『位置情報を少し漏らした』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">「正気ですか。挟撃されます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="553">『君が私を撃たなければ、敵は一方向だ』</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="555">　自由盟約艦隊から通信が入った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="557">『<span class="term term-name tone-1">《ハルシオン》</span>へ。こちら自由盟約第二辺境艦隊司令、オルト・レン准将。祖国の資産を不法占拠する統合府艦隊へ告ぐ。黎明種子とソーン元中将を引き渡せ。さもなくば攻撃する』</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　イリヤが小さくため息をついた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="561">『私はずいぶん人気があるらしい』</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="563">　アデルは命令書と戦術図を見比べた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="565">　統合府艦隊九百二十隻。自由盟約艦隊千二百余隻。<span class="term term-name tone-1">《ハルシオン》</span>を包囲した現在の隊形では、後方からの攻撃に脆い。反転すれば<span class="term term-name tone-1">《ハルシオン》</span>が自由になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　副官が問う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「どうします」</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　アデルは即答した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="573">「全艦、包囲を解除。反転百八十度。第二戦列を前へ。敵艦隊を迎撃する」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="575">「執政官命令は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="577">「人類を救ったあとで、軍法会議に出ます」</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　砲門が、<span class="term term-name tone-1">《ハルシオン》</span>から離れていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　イリヤの声が、個人回線で届いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">『借りができた』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="585">「十二年前の分を返しただけです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">『利子が高いな』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="589">「あなたほどではありません」</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="592">六　墓碑銘の会戦</h2>
+<p class="source-line role-narration gap-1" data-source-line="594">　出航から四十七日目。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="596">　三十五日にわたる追走で、<span class="term term-name tone-1">《ハルシオン》</span>は補給艦を切り離し、居住区画の電力さえ推進へ回していた。第一機動艦隊も、自由盟約第二辺境艦隊も、傷ついたまま最後の難所へたどり着いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　アバドン暗礁域の手前には、死んだ恒星が集まる宙域がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　かつて超新星となった星々の残骸が、重力の渦を作っている。航宙者はそこを<span class="term term-world">〈墓碑銘回廊〉</span>と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　イリヤは回廊へ突入した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="604">　通常の艦隊指揮官なら避ける。航法誤差一秒で、艦は中性子星の重力井戸へ落ちる。だが、追撃する自由盟約艦隊を振り切り、予定を守る道はそこしかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　第一機動艦隊は<span class="term term-name tone-1">《ハルシオン》</span>を守りながら後退戦を続けた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="608">　砲撃は光より先に予測で放たれる。敵艦が数秒後にいる空間へ、重粒子弾と歪曲魚雷が殺到する。防御側は未来位置を偽装し、攻撃側は偽装そのものを読む。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="610">　戦いは、未来を奪い合う競技だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="612">「左翼第三群、敵の射線に捕捉」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="614">「回避不能。着弾まで八秒」</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　アデルは星図を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「第三群、推進を停止。全熱量を前方へ排出」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="620">　副官が一瞬だけ迷い、命令を復唱した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="622">　三十隻の巡洋艦が急減速し、船体前方から白熱した冷却材を噴射した。敵の予測射撃は、加速を続けるはずの未来位置を貫いた。空振りした砲火の脇を、巡洋艦群が落ちるように通過する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="624">「敵第二列、追尾補正に入ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="626">「今です。第三群、側面射撃」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="628">　三十隻が一斉に砲口を向けた。至近距離からの重粒子弾が、自由盟約艦隊の先鋒を横断した。十数隻が光を失い、隊形が崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　その隙に<span class="term term-name tone-1">《ハルシオン》</span>は回廊の深部へ入った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="632">　だが自由盟約艦隊も退かなかった。彼らにとって黎明種子は、統合府へ渡せば祖国の終わりを意味する。オルト・レン准将は、損害を無視して追撃を続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="634">『ソーン中将！』</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　公開回線に怒声が響いた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="638">『あなたはまた祖国を売るのか！　統合府に航路を明け渡すつもりか！』</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　イリヤは艦橋の全員を見回した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="642">「黎明種子の解析結果を、全艦隊へ送れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　ナギが息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「機密です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">「もう秘密にする意味がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="650">「公開すれば、両軍から狙われます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="652">「今も狙われている」</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　マオが笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「違いないね」</p>
+<p class="source-line role-narration role-magic tone-2 gap-1" data-source-line="658">　通信士が<span class="term term-system tone-2">開放創世</span>のデータを送信した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="660">　統合府艦隊にも、自由盟約艦隊にも、周辺星系の民間通信網にも。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="662">　数秒後、戦場の通信帯域が爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　航路の主権鍵が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　国境が消える。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="668">　統合府の税関も、自由盟約の封鎖権も、軍事同盟の優先通行権も消える。</p>
+<p class="source-line role-narration fx-key role-motif fx-beat tone-2 gap-1" data-source-line="670">　国家が、星路の所有者ではなくなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">『偽情報だ！』</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　オルト・レンが叫んだ。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="676">『統合府の謀略だ！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="678">「解析用の原データもつけた。君の技術士官に読ませろ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="680">『たとえ真実でも、自由盟約の独立はどうなる！』</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="682">「星路が消えれば、独立どころか星ごと死ぬ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="684">『我々の祖父たちは、航路の自由のために血を流した！』</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="686">「なら、航路を本当に自由にしてやれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　イリヤの声は静かだった。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="690">「国家を守るために民を死なせるな。国家は民を守るために作った道具だ。道具が持ち主に生贄を求め始めたら、捨てる時だ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="692">　返答の代わりに、自由盟約艦隊の砲火が強まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　しかし、すべての艦が撃ったわけではなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="696">　前列の一部が減速し、射線から外れた。別の部隊は、オルト・レンの命令に従わず救難活動を始めた。艦隊は目に見えない亀裂で割れ始めた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="698">　統合府艦隊でも同じことが起きていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="700">　執政官から、アデルへ再度の命令が届いた。</p>
+<p class="source-line role-narration role-document tone-5 gap-1" data-source-line="702">　――黎明種子を直ちに破壊せよ。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="704">　今度は曖昧さがなかった。</p>
+<p class="source-line role-narration role-command tone-4 gap-1" data-source-line="706">　アデルは命令書を全艦へ転送した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="708">「司令官より全艦」</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　彼女の声は、九百隻すべてに流れた。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-5 gap-1" data-source-line="712">「統合府執政官は、現体制を守るため黎明種子の破壊を命じた。この命令は、人類存続という統合府の設立目的に反する。よって私は従わない」</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　司令室の士官たちが、息を止めた。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-4 gap-1" data-source-line="716">「本艦隊はこれより統合府軍令系統を離脱し、<span class="term term-name tone-1">《ハルシオン》</span>の零号灯台到達を支援する。賛同できない艦は、武装を封印し戦場を離脱せよ。離脱艦への攻撃を禁ずる」</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　副官セラが尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="720">「離脱艦が、あとで敵として戻ったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「そのとき撃つ。今は撃たない」</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　艦隊の光点が揺れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="726">　百八十隻が隊形を離れた。三十隻は統合府側へ反転し、砲口を<span class="term term-name tone-4">《レグルス》</span>へ向けた。残る艦は、そのままアデルの旗の下に残った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="728">　政治は、会議室だけで決まるのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　ときに一人の兵が、引き金へ置いた指を下ろすことで決まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　墓碑銘回廊で、人類最大の艦隊は二つの国家ではなく、三つの選択に分かれた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="734">　命令に従う者。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　生き残るため逃げる者。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="738">　まだ見たことのない未来へ、傷ついた船を進める者。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="741">七　十四分</h2>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="743">　零号灯台は、星ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　アバドン暗礁域の中心、光さえ歪む暗黒の中に、それは浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　直径六千キロの黒い球体。表面に都市ほどの巨大な溝が走り、死んだ眼球のように銀河を見つめている。四百年間、一度も人間を迎えた記録はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="749"><span class="term term-name tone-1">《ハルシオン》</span>が接近すると、球体の一部が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　光ではなく、空間の欠落が口を開けたように見えた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="753">『接続船を確認』</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　人間の声に似た通信が届いた。</p>
+<p class="source-line role-dialogue role-system role-magic tone-4 gap-1" data-source-line="757">『原初航法規格、適合。黎明種子、確認。<span class="term term-system tone-2">開放創世</span>を実行しますか』</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　ナギが答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="761">「実行する」</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="763">『警告。灯台格子の位相差が許容値を超過。再起動には慣性質量二・九ギガトン、および連続航法炉の全出力が必要』</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　艦橋に数値が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　必要質量は、<span class="term term-name tone-1">《ハルシオン》</span>の全質量とほぼ同じだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">「つまり？」</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　ナギが尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　マオが、ゆっくり答えた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="775">「船ごと種子を灯台の核へ入れろ、ってことさ。慣性竜骨を導線にして、格子へ火を流す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="777">「乗員の退艦時間は」</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　計算結果が出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　通常なら四十六分。</p>
+<p class="source-line role-narration fx-beat tone-5 gap-1" data-source-line="783">　夜潮の到達予測まで、十四分三十二秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　そのとき、後方宙域が白く染まった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="787">　統合府本国から派遣された第二討伐艦隊が、非常用星路を焼き切りながら出現した。旗艦は超弩級戦艦<span class="term term-name tone-5">《マグナス》</span>。三千隻を超える戦力。執政官が首都防衛艦までかき集めたのだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="789">『反逆者アデル・ヴァレンティ、および戦犯イリヤ・ソーンへ告ぐ』</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="791">　討伐艦隊司令の声が響く。</p>
+<p class="source-line role-dialogue role-command tone-5 gap-1" data-source-line="793">『黎明種子を破壊せよ。従わない場合、全艦を敵性勢力と認定する』</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="795">　アデルの艦隊は、墓碑銘回廊の戦いで四百隻まで減っていた。自由盟約艦隊の一部百五十隻が合流していたが、戦力差は五倍を超える。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="797">　イリヤは、零号灯台と敵艦隊を交互に見た。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="799">「退艦を始めろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="801">「十四分しかありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　ナギが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="805">「全員は無理です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="807">「全員乗せる必要はない。救命艇を放出し、ヴァレンティ艦隊に回収させる」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="809">「艦を灯台へ導く者が要ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「私が残る」</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　マオが機械の腕を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「機関主任もだ。あんた一人じゃ、竜骨の位相を合わせられない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="817">「自動制御は？」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="819">「四百年前の灯台と三十年前の船だよ。会話が通じるだけ奇跡さ」</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　ナギが一歩前へ出た。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="823">「私も残ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="825">「駄目だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="827">「監察官として、黎明種子の起動を確認する義務があります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="829">「君の義務は、生きて帰って見たものを話すことだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="831">「誰か別の者が――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="833">「歴史は、残った者が書く。だから残れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　イリヤはナギに、小さな金属板を渡した。</p>
+<p class="source-line role-narration gap-1" data-source-line="837"><span class="term term-name tone-1">《ハルシオン》</span>の旧艦章だった。翼を広げた海鳥が、星をくわえている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「博物館の売店で売っていた偽物です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="841">「知ってる。本物は初陣でなくした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="843">「こんなものを、どうしろと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="845">「子供に見せろ。戦艦を格好よく作りすぎるな、と言っておけ」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="847">　退艦警報が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　一万二千人が、狭い通路を救命艇へ走る。負傷者を担ぎ、記録媒体を抱え、互いに憎み合っていた制服の肩を支えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　艦内放送に、イリヤの声が流れた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="853">『乗員諸君。本艦はこれより零号灯台の再起動へ入る。全員、救命艇へ移乗せよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　誰かが機関室で敬礼した。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　誰かが砲塔で泣いた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="859">　誰かが食堂の壁から、ルーメン星系の名簿を剥がして持っていった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="861">『この航海で、我々は多くを見捨てた。多くを失った。正しい選択だけをしてきたとは言わない。だが最後の選択だけは、未来に委ねられる』</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　救命艇が次々と船腹から放たれた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="865">『諸君の任務は、生き延びることだ。生き延びて、我々の間違いを数え、次は少しましな間違いを選べ』</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　放送の最後に、イリヤは少しだけ笑った。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="869">『では、退艦しろ。これは艦長命令だ。珍しく従ってくれ』</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="872">八　最後の艦隊戦</h2>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="874">　零号灯台前面で、二つの艦隊が衝突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　アデルは艦隊を横一列に広げた。通常なら自殺的な薄い陣形だった。だが目的は敵を倒すことではない。<span class="term term-name tone-1">《ハルシオン》</span>へ向かう射線を、船体で塞ぐことだった。</p>
+<p class="source-line role-dialogue role-command tone-2 gap-1" data-source-line="878">「全艦、灯台軸線上に防御幕を形成。後退禁止」</p>
+<p class="source-line role-narration gap-1" data-source-line="880">　敵の第一斉射が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　数万条の光が暗黒を裂いた。前列の駆逐艦が蒸発し、巡洋艦の船腹が割れ、戦艦がゆっくり回転しながら戦列を外れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　アデル側の艦隊は撃ち返さなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「まだです」</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　副官セラが歯を食いしばる。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="890">「距離、十四光秒」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="892">「まだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="894">　二度目の斉射。</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　百隻が消えた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="898">　敵艦隊は勝利を確信し、速度を上げた。厚い紡錘陣形で中央突破を狙ってくる。<span class="term term-name tone-1">《ハルシオン》</span>を一撃で破壊するため、火力を正面へ集中していた。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="900">「距離、九光秒」</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　アデルは敵の加速曲線を見た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="904">　統合府士官学校で、彼女は模範解答を愛した。戦場では、模範解答を信じる相手を愛した。正しい行動は予測しやすいからだ。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="906">「全艦、重力錨を射出」</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　数百基の無人装置が、敵艦隊の前方へばら撒かれた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="910">　討伐艦隊は無視した。重力錨は航路工事用の装置で、兵器ではない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="912">「<span class="term term-name tone-1">《ハルシオン》</span>、慣性竜骨を最大出力」</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　イリヤから返答が来た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="916">『やるつもりか』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="918">「あなたが十二年前に教えた戦法です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="920">『私は失敗した』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="922">「失敗から学ぶのが後輩の特権です」</p>
+<p class="source-line role-narration gap-1" data-source-line="924"><span class="term term-name tone-1">《ハルシオン》</span>の中央環が輝いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="926">　空間勾配が生まれ、射出された重力錨が一斉に共振する。敵艦隊の正面に、目に見えない坂が立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="928">　高速で突入していた三千隻の艦隊は、その坂へ正面からぶつかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="930">　先頭艦が急激に減速し、後続が追突する。回避しようとした艦は互いの航跡へ入り、推進場を干渉させた。紡錘陣形は圧縮され、巨大な金属の塊になった。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="932">「全艦、射撃開始」</p>
+<p class="source-line role-narration gap-1" data-source-line="934">　アデルの艦隊が初めて撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="936">　狙う必要すらなかった。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="938">　重粒子弾が密集した敵艦群を貫き、歪曲魚雷が推進場の干渉へ誘爆する。爆発は隣の艦を呼び、さらにその隣へ広がった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="940">　討伐艦隊の中央が、内側から崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="942">　それでも<span class="term term-name tone-5">《マグナス》</span>は生きていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="944">　超弩級艦の装甲を開き、要塞砲が露出する。照準先は<span class="term term-name tone-1">《ハルシオン》</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="946">「旗艦主砲、発射準備！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="948">「間に合わない」</p>
+<p class="source-line role-narration gap-1" data-source-line="950">　セラが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="952"><span class="term term-name tone-4">《レグルス》</span>の砲では、<span class="term term-name tone-5">《マグナス》</span>の装甲を貫けない。</p>
+<p class="source-line role-narration gap-1" data-source-line="954">　アデルは操艦席へ命じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="956">「旗艦、最大加速。<span class="term term-name tone-5">《マグナス》</span>正面へ」</p>
+<p class="source-line role-narration gap-1" data-source-line="958">　セラが彼女を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="960">「衝角戦ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="962">「いいえ。測量です」</p>
+<p class="source-line role-narration gap-1" data-source-line="964">　アデルは笑った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="966">「敵主砲と<span class="term term-name tone-1">《ハルシオン》</span>の間に、旗艦一隻分の距離がある。それを埋めます」</p>
+<p class="source-line role-narration gap-1" data-source-line="968"><span class="term term-name tone-4">《レグルス》</span>が加速した。</p>
+<p class="source-line role-narration gap-1" data-source-line="970">　白銀の艦が、燃える戦場を横切る。敵の迎撃砲火が装甲を削り、艦橋の照明が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="972">　個人回線に、イリヤの声が入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">『ヴァレンティ、やめろ』</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="976">「命令ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">『頼んでいる』</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="980">「あなたが人に頼むとは、夜潮より珍しい」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="982">『船を下げろ。灯台の起動は間に合う』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="984">「確率は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="986">『四十一パーセント』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="988">「嘘が下手ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="990"><span class="term term-name tone-5">《マグナス》</span>の主砲が光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="992">　発射まで三秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="994">　アデルは静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="996">「全員、耐衝撃姿勢」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="998">　そのとき、<span class="term term-name tone-5">《マグナス》</span>の後方で爆発が起きた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1000">　自由盟約第二辺境艦隊の旗艦が、討伐艦隊の背後から突入していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　オルト・レン准将の艦だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1004">『ソーン中将』</p>
+<p class="source-line role-narration gap-1" data-source-line="1006">　彼の声が、途切れ途切れに届いた。</p>
+<p class="source-line role-dialogue fx-whisper tone-1 gap-1" data-source-line="1008">『祖父たちは航路の自由のために血を流した。ならば……その先を、孫が恐れるわけにはいかない』</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1010">　自由盟約艦が<span class="term term-name tone-5">《マグナス》</span>の主砲基部へ体当たりした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1012">　砲撃は逸れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1014">　巨大な光線が<span class="term term-name tone-4">《レグルス》</span>の艦尾をかすめ、遠方の暗黒へ消えた。</p>
+<p class="source-line role-narration role-sound tone-1 gap-1" data-source-line="1016">　次の瞬間、<span class="term term-name tone-5">《マグナス》</span>と自由盟約旗艦は、一つの白い火球になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1018">　アデルは目を閉じる暇もなかった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="1020">「敵中央、崩壊！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1022">「残存艦、後退を開始！」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1024">「<span class="term term-name tone-1">《ハルシオン》</span>、灯台核へ進入します！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1026">　戦場の向こうで、古い船がゆっくり向きを変えた。</p>
+</section>
+<section class="chapter" id="chapter-9">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1029">九　航海の終わり</h2>
+<p class="source-line role-narration gap-1" data-source-line="1031"><span class="term term-name tone-1">《ハルシオン》</span>には、もう百七十三人しか残っていなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1033">　機関部の技師、操艦要員、負傷して移動できなかった者、そして命令に背いて隠れていた何人か。</p>
+<p class="source-line role-narration gap-1" data-source-line="1035">　イリヤは彼らを叱らなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1037">　艦橋の観覧窓から、零号灯台の入口が見えた。黒い球体の裂け目は、星々を飲み込む夜の口のようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1039">「黎明種子、接続」</p>
+<p class="source-line role-narration gap-1" data-source-line="1041">　マオの声が機関室から届く。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="1043">『慣性竜骨、灯台位相へ同期。出力百十二パーセント。これ以上は船が先にほどけるよ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1045">「船はそのためにある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1047">『博物館長としては、複雑だね』</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1049">「入館料の赤字から解放される」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1051">『そう考えることにするよ』</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1053">　残り二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="1055">　艦体が震えた。装甲板が一枚ずつ剥がれ、光の粒になって後方へ流れる。船腹に刻まれた戦没者の名が、宇宙へ散っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1057">　ナギから通信が入った。救命艇は<span class="term term-name tone-4">《レグルス》</span>に収容されている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1059">『艦長』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1061">「生きているな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1063">『はい』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1065">「結構」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1067">『航海日誌の最後に、何と記録しますか』</p>
+<p class="source-line role-narration gap-1" data-source-line="1069">　イリヤは少し考えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1071">「特記事項なし」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1073">『それでは困ります』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1075">「歴史家は困らせておけ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1077">『あなたを英雄と書く者が出ます』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1079">「止めろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1081">『無理です』</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="1083">「英雄は便利すぎる。死人に責任を押しつければ、生きている者は考えずに済む」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1085">『では、何と書けば』</p>
+<p class="source-line role-narration gap-1" data-source-line="1087">　イリヤは、崩れ始めた艦橋を見回した。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="1089">　焦げ跡のある艦長席。違う制服を着た乗員。ひび割れた銀河図。そこにはもう、統合府の国境も、自由盟約の境界も表示されていなかった。星路が消え、線のない星々だけが残っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1091">「古い船に乗った、判断の遅い男だったと書け」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1093">『それだけですか』</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-1 gap-1" data-source-line="1095">「最後に一度だけ、間に合った」</p>
+<p class="source-line role-narration gap-1" data-source-line="1097">　回線の向こうで、ナギが泣いている気配がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1099">　イリヤは気づかないふりをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1101">　アデルの声が入る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1103">『ソーン艦長』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1105">「大将。旗艦を盾にするのは感心しないな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1107">『囚人に艦隊運用を批評されたくありません』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1109">「私はもう恩赦されたはずだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1111">『先ほど執政官府が失効しました。法的には不明です』</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1113">「なら自由だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1115">『そうですね』</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="1117">　残り三十秒。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1119">　夜潮が、アバドン暗礁域へ届いた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1121">　星路の残骸が黒く染まり、空間が音のない津波のように歪む。背後では、損傷した艦隊が救命艇を抱えて退避を始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1123">　イリヤは操艦桿を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1125">　古い機械式の舵。何千もの電子系統が死んでも、最後の入力だけは金属棒と油圧で機関へ伝わる。</p>
+<p class="source-line role-dialogue role-command fx-beat gap-1" data-source-line="1127">「<span class="term term-name tone-1">《ハルシオン》</span>、前進」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1129">　艦が灯台核へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1131">　暗黒の中で、四百年前の構造物が次々と目を覚ます。巨大な環が回転し、銀河の彼方へ向けて、見えない信号を放つ。</p>
+<p class="source-line role-dialogue role-magic fx-climax role-motif tone-2 gap-1" data-source-line="1133">『<span class="term term-system tone-2">開放創世</span>、開始』</p>
+<p class="source-line role-narration gap-1" data-source-line="1135">　黎明種子が砕けた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1137">　無数の光の枝が<span class="term term-name tone-1">《ハルシオン》</span>を貫き、慣性竜骨を通り、零号灯台の奥へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1139">　マオが笑う声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1141">『艦長、見なよ。航路が――』</p>
+<p class="source-line role-narration gap-1" data-source-line="1143">　通信はそこで途切れた。</p>
+<p class="source-line role-narration fx-peak role-motif tone-2 gap-1" data-source-line="1145">　人類の銀河図に、最初の一本が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1147">　それは青でも、赤でも、どの国家の色でもなかった。</p>
+<p class="source-line role-narration fx-whisper fx-beat tone-1 gap-1" data-source-line="1149">　<span class="term term-motif tone-1">白い線</span>だった。</p>
+</section>
+<section class="chapter" id="chapter-10">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1152">十　線のない地図</h2>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1154">　零号灯台の再起動から十二年後。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1156">　かつて統合府と自由盟約の国境だったヘリオス星路門には、税関も砲台もなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1158">　再起動した星路門は、認証鍵を受け付けない。通行料を取ろうと封鎖装置を置けば、灯台格子が自動的に別の出口を開く。国家は航路を所有できなくなり、商船も移民船も、かつての敵国艦も、同じ光の中を通った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1160">　統合府は再起動から三か月で崩壊した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1162">　自由盟約も一年後、自治星どうしの関税紛争で解体した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1164">　戦争がなくなったわけではない。人は鉱物のために争い、宗教のために争い、過去の復讐のために争った。新しい国が生まれ、古い国より愚かな失敗もした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1166">　それでも、星路を閉ざして数十億人を人質にすることだけは、もうできなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1168">　ヘリオス門のそばには、小さな航路学校があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1170">　ナギ・ミカドはそこで歴史を教えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1172">　教室の壁には、翼を広げた海鳥の艦章が飾られている。博物館の売店で売られていた、安い複製品だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1174">「先生」</p>
+<p class="source-line role-narration gap-1" data-source-line="1176">　十歳の生徒が手を挙げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1178">「<span class="term term-name tone-1">《ハルシオン》</span>は、いちばん強い戦艦だったんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1180">「いいや」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1182">「いちばん速い？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1184">「当時の船より、ずっと遅かった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1186">「じゃあ、どうして銀河を救えたの」</p>
+<p class="source-line role-narration gap-1" data-source-line="1188">　ナギは窓の外を見た。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1190">　星路門が開き、見知らぬ星系から来た移民船が現れる。船腹には、どの国の旗もない。行き先だけが、大きな字で書かれている。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-1" data-source-line="1192">「止まらなかったからだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1194">「それだけ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1196">「それだけを続けるのが、いちばん難しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="1198">　授業の終わりを告げる鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1200">　生徒たちが教室を飛び出していく。最後に残った少女が、艦章を見上げた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1202">「ソーン艦長は、英雄だった？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1204">　ナギは答えようとして、やめた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1206">　英雄ではない、と書く約束だった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1208">　正しい人でもなかった。十一万人を見捨て、敵を騙し、味方を戦場へ置き去りにし、最後には百七十三人を道連れにした。彼の選択によって救われた者は多く、その選択によって死んだ者もいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1210">　だからナギは、事実だけを話した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1212">「古い船に乗った、判断の遅い男だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="1214">　少女は首をかしげた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1216">「でも、最後は間に合ったんでしょう？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1218">「ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1220">　ナギは笑った。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-1 gap-1" data-source-line="1222">「最後に一度だけ、間に合った」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="1224">　少女が去ったあと、ナギは教室の銀河図を消した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1226">　国境線のない星々が、暗い空間に浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1228">　人類は銀河を征服していない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1230">　おそらく、これからもできないだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="1232">　ただ、細い線の上で出会い、別れ、争い、ときに同じ方向へ船を進める。</p>
+<p class="source-line role-narration gap-1" data-source-line="1234">　銀河は救われたのではない。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1236">　<span class="term term-motif tone-1">救い直す機会</span>を、与えられただけだった。</p>
+<p class="source-line end-mark gap-2" data-source-line="1239"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "銀河葬送航路";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

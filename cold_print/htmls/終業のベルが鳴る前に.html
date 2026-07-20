@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="白い雨で世界が壊れ、人々は最後の行動だけを繰り返す〈居残り〉になった。丘の上の薄明中学校で暮らすのは、十四歳の白川真白、元「片づけ屋」の黒瀬凪、そして人間を冷静に観察する一匹の猫。真白は空席へ授業を続け、黒瀬は罠と銃で校舎を守っている。そんな二人に、南貨物駅から最後の避難輸送を告げる無線が届く。しかし出発の直前、落雷で校外スピーカーが鳴り、無数の居残りが学校へ殺到する。真白が用意していた文化祭と、黒瀬が教えた「本日の道徳」は、終業のベルまで彼らを導けるのか。">
+<title>終業のベルが鳴る前に｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="終業のベルが鳴る前に" data-novel-id="終業のベルが鳴る前に" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・学園</p>
+  <p><strong>CSVタグ：</strong>アクション、サスペンス、ホラー、ジュブナイル、学園</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：429行／章：0／役割・強度タグ：476</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="終業のベルが鳴る前に 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">終業のベルが鳴る前に</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration fx-key role-motif gap-2" data-source-line="4">　我輩は猫である。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　名前は、あるにはある。チビ、泥棒、先生、疫病神。呼ぶ人間によって違うので、どれも本名とは認めていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　人間は名札を好む。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="8">　生徒、教師、親、子、善人、悪人、生存者、感染者。首から札を下げれば、中身まで整理できた気になるらしい。だが、腹の減った者は皆よく似た目をするし、死にたくない者の足音にも大差はない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="10">　もっとも、市立薄明中学校に残っている二人は、少しばかり例外だった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="12">　一人は白川真白、十四歳。毎朝七時四十五分に昇降口を開け、誰もいない廊下へ向かって「おはようございます」と頭を下げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　一人は黒瀬凪、年齢不詳。口数が少なく、銃の手入れだけは丁寧で、真白からは用務員さんと呼ばれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　そして我輩。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　職業は猫である。職務内容は、日なたを選び、鼠を追い、必要に応じて人間の秘密を踏みつけることだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="18" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="20">　世界が壊れたのは、白い雨の降った日だという。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="22">　我輩は雨を嫌うので、当日はパン屋のひさしの下で丸くなっていた。あとから聞いた話では、雨粒に混じった粉を吸った人間は高熱を出し、三日ほど眠り、そのあと目を開けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="23">　ただし、起きたのは本人の全部ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　彼らは最後にしていたことを繰り返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　駅員は来ない電車に笛を吹き、店員は空の棚へ「いらっしゃいませ」と言い、会社員は血のついた鞄を抱えて改札を噛んだ。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="27">　薄明中学校の周りを歩く連中は、授業開始の時刻になると校門へ集まり、窓を叩きながら、かすれた声で出席番号を唱えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　生き残った人間は彼らを「居残り」と呼んだ。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="30">　言い得て妙である。人間は死んでも予定表から逃げられないらしい。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="32">　薄明中学校は、丘の上に建っていた。校門は鉄板で塞がれ、窓には机とロッカーが積まれ、屋上の太陽光パネルが放送室と地下の浄水器を細々と動かしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　真白はここを学校だと信じていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　少なくとも、そう見えるように振る舞っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「一時間目は国語です。教科書、三十二ページ」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　朝の教室で、真白は黒板に大きく書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　――人はなぜ物語を必要とするのか。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　机は二十四。座っているのは真白一人。窓際の一番うしろには我輩。黒瀬は廊下で針金罠を点検していた。</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="44">「高森くん、教科書忘れたの？　また？」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　真白は空席に向かって眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「佐伯さん、見せてあげて。半分こね」</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　我輩は欠伸をした。</p>
+<p class="source-line role-narration gap-0" data-source-line="51">　人間の子どもは、目に見えない同級生にまで規律を求める。たいした執念である。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　廊下から戻った黒瀬が、教卓に缶詰を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「昼まで持たない。食え」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="56">「授業中です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="57">「先生はいない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「います」</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　真白は天井の隅を見た。そこには埃をかぶった監視カメラがあるだけだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「怒られますよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="63">「誰に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="64">「先生に」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　黒瀬は答えず、缶切りで桃の缶を開けた。甘い匂いが教室に広がる。我輩が机から降りると、彼は別の小皿に汁気を切った鯖を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="68">「猫を甘やかすと居つきますよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「もう居ついてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="70">「校則では、動物の持ち込みは禁止です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="71">「こいつが勝手に持ち込んだのは自分だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　真白は少し考え、黒板の隅に書き足した。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　――特例一名。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　我輩は鯖を食べた。特例という肩書は悪くない。</p>
+<div class="source-line scene-break gap-1" data-source-line="79" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="81">　黒瀬は、以前「片づけ屋」だった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="83">　ごみを片づける仕事ではない。</p>
+<p class="source-line role-narration role-clue tone-4 gap-0" data-source-line="84">　人間関係のもつれ、借金の証拠、裏切った仲間、見られては困るもの。そういうものを、二度と騒がない形にする仕事だ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="86">　これは本人が語ったのではない。黒瀬は過去について、猫ほどにも話さない。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="87">　真白が夜中に熱を出したとき、彼の鞄から古い身分証と、擦り切れた写真と、弾の入っていない拳銃が落ちた。写真には若い黒瀬と、顔を黒く塗りつぶされた三人の男が写っていた。身分証の会社名は存在せず、裏に小さく「処理部」とあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　人間は隠したいものほど、丈夫な鞄に入れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="90">　猫は丈夫な鞄ほど、上で寝る。</p>
+<p class="source-line role-narration gap-0" data-source-line="91">　ゆえに秘密はいずれ明るみに出る。これは自然法則である。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="93">　黒瀬が薄明中学校へ来たのは、白い雨から二か月後だった。右脇腹を裂かれ、弾を三発しか持たず、誰かに追われていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="94">　真白は体育館倉庫で彼を見つけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「保健室へ行きましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　彼女はそう言ったそうだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="99">　世界が滅びても、怪我人を見れば保健室を勧める。教育とは恐ろしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　それから二百十三日、黒瀬は学校を守った。</p>
+<p class="source-line role-narration gap-0" data-source-line="102">　真白は、彼を用務員さんと呼んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="103">　黒瀬は訂正しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　彼は真白に、奇妙な授業をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">「部屋に入ったら出口を二つ探せ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="108">「非常口の確認ですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="109">「音がしたら、音の方を見るな。反射する場所を見ろ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="110">「理科ですか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="111">「怖いときほど息を吐け。吸おうとすると固まる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="112">「体育の補習ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　黒瀬は毎度、何かを諦めた顔で頷いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　真白は射撃も習った。</p>
+<p class="source-line role-narration gap-0" data-source-line="117">　もっとも、銃弾は貴重なので、最初は箒の柄だった。廊下の端から端まで、歩幅を崩さず運ぶ。次に、空き缶へ小石を投げる。最後に、音を立てず扉を閉める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="119">「当てることより、撃たずに済ませる方が難しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　黒瀬が言うと、真白はノートに書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　――本日の道徳。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　我輩は思う。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="126">　この男は人を殺す方法をいくつも知っていたが、人を育てる方法は一つも知らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="127">　だから真白が、勝手に授業へ変えたのだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="129" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="131">　七月十日、放送室の無線機が声を拾った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">『こちら南部臨時輸送隊。生存者は本日十七時四十分までに南貨物駅へ。装甲車両は一便のみ。繰り返す――』</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　雑音の向こうに、確かに人間の声があった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="137">　黒瀬は三度録音を聞き直し、地図を広げた。学校から南貨物駅までは五・八キロ。平時なら子どもの足でも一時間半。今は道路に居残りが溢れ、地下道の一部は水没している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「昼に出る」</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　黒瀬は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「どこへですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="144">「駅」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="145">「午後は文化祭の準備です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="146">「中止だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="147">「中止のお知らせはありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="148">「今した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="149">「用務員さんに、その権限はありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　真白は放送卓のマイクを布で磨いていた。声は穏やかだったが、指先は白くなっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">「明日は文化祭です。合唱もあります。みんな、練習しました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="154">「みんなはいない」</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　部屋の空気が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　黒瀬は、言ったあとで自分の言葉に撃たれたような顔をした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="160">　真白は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「いますよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　窓の外で、校門を叩く音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="165">　どん。</p>
+<p class="source-line role-narration gap-0" data-source-line="166">　どん。</p>
+<p class="source-line role-narration gap-0" data-source-line="167">　どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　居残りたちが、朝礼の拍手のように鉄板を打っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">「高森くんも、佐伯さんも、宮田先生も」</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　真白は一人ずつ名を呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「明日、ちゃんと来ます」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　黒瀬は何も言わず、放送室を出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　我輩は机の下へ潜った。人間が本当のことを言うときは、たいてい本当以上に残酷である。</p>
+<div class="source-line scene-break gap-1" data-source-line="181" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="183">　その夜、我輩は真白の秘密を見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　秘密は図書室の百科事典、『菌類と共生』の裏に挟まっていた。革表紙の小さなノートである。</p>
+<p class="source-line role-narration gap-0" data-source-line="186">　我輩が見つけたのは偶然ではない。百科事典の上に乾燥鰹節の袋が置かれており、それを取ろうとして本を落とした。すなわち、秘密の方が我輩の食事を邪魔したのである。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　ページには、日付と名前が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　四月十二日　宮田先生　校門前。声に反応。もう先生ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="191">　四月十三日　佐伯結衣　音楽室。歌を繰り返していた。窓を閉めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="192">　四月十五日　高森蓮　西階段。右足を引きずる。呼んでも返事は同じ。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="193">　五月二日　お母さん　体育館裏。見なかったことにする。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　最後の行は、何度もなぞられて紙が破れていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="197">　六月二十日　黒瀬さん　まだ生きている。たぶん、私が学校をやめたら、この人もやめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　我輩はしばらく、その行を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　猫は文字を読めないと思っている人間が多い。正確には、読めても読む価値のある文章が少ないのだ。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="203">「見たの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　背後で真白が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　我輩は振り返らず、鰹節の袋を前足で押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「内緒だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　彼女は隣に座った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="213">「私、変だと思う？」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　我輩は答えなかった。猫に相談する人間は、答えを求めていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「みんないないことくらい、知ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　真白は膝を抱えた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="221">「でも、いないって言ったら、本当に全部いなくなるでしょう。声も、席も、怒られたことも。黒瀬さんだって、私を駅まで運んだら、自分の仕事は終わったって思う」</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　図書室の外で、黒瀬が廊下を歩く音がした。四歩ごとに少しだけ間が空く。古傷が痛むときの歩き方だ。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="225">「だから学校を続けるの。朝が来たら朝の会をして、昼には給食を食べて、帰りにはまた明日って言う。明日があるってことにしておけば、あの人も今日を終わらせないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　真白は我輩の背を撫でた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「明日の文化祭で、最後にするつもりだった」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　外で風が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="233">「でも、駅の放送が来た。予定が一日ずれたね」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　彼女は笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="236">　子どもの笑い方ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　我輩は鰹節の袋から前足をどけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　人間が守っているものは、たいてい見た目と逆である。</p>
+<div class="source-line scene-break gap-1" data-source-line="241" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="243">　午前十一時、空が暗くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　雲が丘の上へ集まり、遠くで雷が鳴った。白い雨ではない。ただの夏の嵐だ。それでも黒瀬は窓を確認し、真白に防塵マスクをつけさせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="247">「十二時に出る。荷物は一つ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「はい」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　真白はもう反対しなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="251">　制服の上に雨合羽を着て、教科書の代わりに水と包帯を鞄へ詰めた。最後に、革表紙のノートを入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　黒瀬はその様子を見ていたが、何も訊かなかった。</p>
+<p class="source-line role-dialogue role-clue fx-beat fx-key role-motif gap-1" data-source-line="255">「猫は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="256">「置いていく」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="257">「連れていきます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="258">「足手まといだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="259">「用務員さんより足は速いです」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　黒瀬は我輩を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="262">　我輩も見返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="263">　足の速さについては異論がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　十一時十七分、雷が屋上のアンテナへ落ちた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="267">　校舎全体が青白く光った。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="268">　非常灯が一度消え、すぐに赤く点いた。放送室の機械が勝手に再起動し、古い時刻表を読み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　そして、校庭の外部スピーカーから、始業のチャイムが鳴った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="272">　きん、こん、かん、こん。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　世界が滅びてからも、毎朝校門の内側だけで鳴らしていた音が、丘の下まで響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　校門を叩く音が止んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　一瞬の静けさ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="280">　次に聞こえたのは、何十、何百という足音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　黒瀬が窓へ走った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="284">　丘の坂道を、居残りたちが上ってくる。学生服、作業着、病院着、泥だらけの背広。口を開けたまま、音の出た学校へ向かっている。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="286">「放送を切れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　真白が卓へ飛びついた。しかし落雷で制御盤が固まり、チャイムは繰り返した。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="290">　きん、こん、かん、こん。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">「主電源は地下です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="293">「俺が行く。お前は東階段から――」</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　校門が内側へ歪んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　鉄板のボルトが一本飛び、昇降口のガラスへ突き刺さった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「間に合いません」</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　真白はマイクを掴んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「何をする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">「予定を早めます」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　彼女は放送のスイッチを入れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">『生徒会からのお知らせです』</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　校庭に、真白の声が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　居残りたちの顔が、一斉に校舎を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">『本日の文化祭は、体育館で行います。生徒のみなさんは、廊下を走らず、体育館へ集合してください』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="316">「切れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　黒瀬が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　真白はスイッチを押し続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="322">『繰り返します。文化祭は体育館です』</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="324">　居残りの群れが、校門から体育館側へ向きを変えた。音に引かれ、規則に従うように。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　真白はマイクを置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「音楽室に、合唱の録音があります。体育館のスピーカーだけで流せます。みんなを中へ入れて、防火扉を閉める」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="329">「誰が閉める」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="330">「舞台袖に操作盤が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="331">「誰がそこまで行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　真白は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　黒瀬の顔から、表情が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「却下だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「ほかに方法は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="339">「俺がやる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="340">「駅まで案内する人が必要です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="341">「地図はある」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="342">「途中で私が転んだら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="343">「立て」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="344">「怖くて息ができなくなったら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="345">「吐け」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="346">「撃たなきゃいけなくなったら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　黒瀬は黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　真白は、ほんの少し笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「授業、まだ終わってません」</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　そのとき、校門が倒れた。</p>
+<div class="source-line scene-break gap-1" data-source-line="356" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="358">　居残りが校庭へ流れ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　黒瀬は最初の一体を撃った。乾いた音。作業着の男が倒れ、後ろの二体がつまずいた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="362">「音楽室へ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　我々は走った。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="365">　正確には、真白と我輩が走り、黒瀬が後ろ向きに移動しながら撃った。彼は人を殺すときより、人を逃がすときの方が正確だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　東廊下の角から、制服姿の居残りが現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="368">　右足を引きずり、胸元の名札を何度も撫でている。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="370">「……一番。たかもり、れん」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　真白の足が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　高森蓮だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="375">　ノートに書かれていた名前。</p>
+<p class="source-line role-narration gap-0" data-source-line="376">　彼は生徒手帳を差し出すように腕を伸ばし、同じ言葉を繰り返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">「一番。たかもり、れん。遅刻、しました」</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　黒瀬が銃を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「待って」</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　真白は一歩前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「高森くん」</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　居残りが首を傾けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「文化祭、体育館だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「たいいく、かん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「うん。先に行ってて」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　高森だったものは、音の残る方へゆっくり向きを変えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　真白はその背中へ、小さく言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「出席」</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　そして我々は音楽室へ走った。</p>
+<div class="source-line scene-break gap-1" data-source-line="404" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration role-system gap-1" data-source-line="406">　音楽室には、昨年の合唱コンクールのデータが残っていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="408">　真白が機械をつなぐあいだ、黒瀬は扉を押さえた。廊下の向こうで、足音と爪の音が増えていく。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="410">「曲は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="411">「校歌」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="412">「最悪だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="413">「みんな歌えます」</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　真白が再生を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　体育館のスピーカーから、子どもたちの歌声が流れた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="418">　まだ世界が終わる前、音程を外し、誰かが笑い、先生が咳払いをした録音。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　居残りたちは一斉に体育館へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　歌は、廊下の埃を震わせた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="424">　真白は操作盤の鍵を取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「舞台袖まで三十メートル。北通路を使えば――」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="427">「俺が行く」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="429">　黒瀬が鍵を奪った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">「黒瀬さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　初めて、真白は彼を名前で呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　男の肩がわずかに動いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「私は知ってます」</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　校歌が二番へ進んだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="441">「みんないない。先生も、お母さんも。高森くんも、さっきのは高森くんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　黒瀬は振り返らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「ずっと知ってました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="446">「なら、どうして」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="447">「あなたが、用務員さんだったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　真白の声は震えていた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="451">「学校なら、毎朝来る理由がある。壊れた窓を直す理由も、私に食べさせる理由も、明日まで生きる理由もある。片づけ屋じゃなくて、用務員さんなら、人を置いていかないでしょう」</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="453">　黒瀬の手が鍵を握りしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">「俺は、置いてきた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="456">「昔の話です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="457">「何人も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="458">「今は一人です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="459">「だから、今度は間違えない」</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　彼はようやく振り返った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「お前を駅へ連れていく。それで終わりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　真白は首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「終わりじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　歌声が三番へ入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「駅の向こうに学校がなくても、朝は来ます。あなたが用務員さんじゃなくても、生きてていいんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　廊下のガラスが割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　居残りの腕が扉の隙間から伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　黒瀬はその腕を撃ち、真白を押しのけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="478">「話はあとだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「あとがあるんですね」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="482">　真白は泣きながら笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　黒瀬は、ひどく不器用に頷いた。</p>
+<div class="source-line scene-break gap-1" data-source-line="486" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="488">　計画は簡単だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　黒瀬が北通路を抜けて舞台袖の操作盤へ行き、体育館の防火扉を閉める。真白は放送室で歌を流し続け、居残りを中へ集める。その後、二人は地下の設備通路から校外へ出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　簡単な計画ほど、人間はよく失敗する。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　まず、北通路の天井が落ちた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="495">　次に、防火扉の遠隔回路が落雷で死んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　最後に、地下通路へ続く鉄扉の電子錠が開かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「手動解除は向こう側だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　黒瀬が鉄扉を蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　扉の上部に、換気用の小さな格子があった。人間は通れない。猫なら通れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　二人が同時に我輩を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　まったく、普段は足手まといと呼ぶくせに、穴が小さくなると急に期待する。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="508">「できる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　真白がしゃがんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　できるかどうかではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="513">　向こう側には、昼食用に詰めた鯖缶の匂いがした。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　我輩は黒瀬の肩から格子へ飛び移った。爪で埃をかき、狭い管を進む。背後で校歌が途切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　再生が終わったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　体育館の居残りたちが、次の音を探し始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　真白が放送室のマイクを入れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">『生徒会からのお知らせです』</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　震えた声が校舎に響いた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="527">『ただいまより、薄明中学校の閉校式を行います』</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　我輩は換気管の出口へ着いた。下には鉄扉の裏側。壁に赤い解除レバーがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　遠い放送が続いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">『宮田先生。いつも宿題を忘れて、すみませんでした』</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　我輩は管から飛び降りた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">『佐伯さん。貸してくれた消しゴム、返せなくてごめん』</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　レバーは高い。棚へ飛び、配管へ乗り、前足で押した。動かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">『高森くん。遅刻は、もうつけません』</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　廊下の向こうから、居残りが集まる音が近づいた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="545">『お母さん。見なかったことにして、ごめんなさい』</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　我輩は体重をかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　レバーが少し下がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">『黒瀬さん』</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　真白の声が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　黒瀬が何か叫んだ。銃声が二つ。三つ目は鳴らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">『卒業しても、たまには会いに来てください』</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　我輩は配管から跳び、全身でレバーへぶら下がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　がちり、と錠が外れた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="562">　鉄扉が開き、黒瀬が真白を押し込んだ。彼の左腕から血が落ちていた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="564">「猫！」</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　真白が我輩を抱え上げる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="568">「行け！」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　黒瀬は扉を閉めようとした。しかし、廊下の先に居残りが見えた。高森だったものが先頭にいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「一番。たかもり、れん」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　その背後から、何十もの声が重なった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「二番」「五番」「十一番」「出席」「遅刻」「先生」「おはようございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　黒瀬は弾切れの銃を捨て、扉を押した。</p>
+<p class="source-line role-narration gap-0" data-source-line="579">　居残りたちの指が隙間へかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　真白も反対側から押した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="583">「閉めろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="584">「一緒に！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="585">「離せ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="586">「校則違反です！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="587">「そんな校則はない！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="588">「今作りました！」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　我輩は真白の腕から床へ降り、鉄扉の脇を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="591">　非常用のくさびが落ちている。</p>
+<p class="source-line role-narration gap-0" data-source-line="592">　人間は力を競うことに夢中で、道具を見落とす。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　我輩はくさびを前足で転がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="595">　真白が気づき、拾って扉の下へ差し込む。黒瀬が全身で押し、扉が居残りの指を振り落として閉まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　真白が手動錠を回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　向こう側から、無数の手が鉄を叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　どん。</p>
+<p class="source-line role-narration gap-0" data-source-line="602">　どん。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　閉校式の拍手のようだった。</p>
+<div class="source-line scene-break gap-1" data-source-line="607" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="609">　地下通路は、古い配水管に沿って丘の南側へ続いていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="611">　黒瀬の腕の傷は深くなかったが、血は多かった。真白が歩きながら包帯を巻いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="613">「きつい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="614">「保健室の先生に習いました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="615">「いないんだろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="616">「習ったことまで、いなくなるわけじゃありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　黒瀬は黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　しばらくして、ぽつりと言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="622">「卒業しても、会いに来いって、どこへだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　真白は包帯の端を結んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="626">「知りません。あなたが決めてください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="627">「面倒だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="628">「進路指導です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="630">　黒瀬は、ほんの少し笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="631">　この男が笑うところを、我輩は初めて見た。笑顔というより、長く使わなかった扉が錆びながら開くような顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　通路の出口は、丘の南斜面にある排水溝へつながっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="634">　外へ出ると、嵐は過ぎていた。雨上がりの空に、細い青が見えた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="636">　学校の方角から、遅れて防火扉の落ちる重い音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="637">　真白の仕掛けた蓄電池が復旧し、体育館を封鎖したのだろう。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="639">　薄明中学校は静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　真白は振り返り、長い間見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「さようなら」</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　それだけ言った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="647">　人間は別れのとき、言葉を増やしたがる。しかし本当に大きな別れには、短い言葉しか残らない。</p>
+<div class="source-line scene-break gap-1" data-source-line="649" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="651">　南貨物駅へ着いたのは、十七時三十二分だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　装甲車両は、錆びた保守用列車に鉄板を貼った代物だった。ホームには武装した四人と、子どもを抱いた女と、老人が二人いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　真白が線路へ駆け下りる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="657">「待ってください！」</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　一人が銃を向けた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="661">「感染確認！」</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　黒瀬は両手を上げ、真白を前へ出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="665">「咬まれてない。熱もない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="666">「お前は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="667">「腕を切っただけだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="668">「武器を捨てろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="669">「もうない」</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　隊員が近づき、傷と瞳を確かめた。</p>
+<p class="source-line role-dialogue role-clue fx-key role-motif gap-1" data-source-line="673">「猫は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　我輩は真白の鞄の上に座っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「学校関係者です」</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　真白が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「名前は」</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　真白は我輩を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　ついに来たか、と我輩は思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="686">　人間は、保護したものに必ず名前をつける。所有したいからではない。失くしたとき、呼び戻せる気がするからだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「校長先生」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　真白は言った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="692">　黒瀬が咳き込んだ。笑ったのを隠したつもりらしい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「ずいぶん偉い猫だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　隊員が銃を下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　我輩は抗議のため、真白の肩へ爪を立てた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="700">「痛い！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="701">「就任拒否だな」</p>
+<p class="source-line role-dialogue role-document gap-0" data-source-line="702">「だめです。もう名簿に書きます」</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　真白は革表紙のノートを開いた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="706">　死者の名が並ぶ最後のページ、その次の白紙に、新しい日付を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　七月十日。</p>
+<p class="source-line role-narration gap-0" data-source-line="709">　黒瀬凪　生存。</p>
+<p class="source-line role-narration gap-0" data-source-line="710">　白川真白　生存。</p>
+<p class="source-line role-narration gap-0" data-source-line="711">　校長先生　生存。たぶん不満。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　列車が動き出した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="715">　窓の外で、丘の上の学校が小さくなる。太陽光パネルが夕日を返し、一度だけ、遠くで終業のベルが鳴ったような気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　真白は目を閉じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="718">　黒瀬はその隣で、眠らずに座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　我輩は二人の間に丸くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　人間は不思議な生き物である。</p>
+<p class="source-line role-narration gap-0" data-source-line="722">　終わった場所を背負い、失った者を連れ、まだ見ぬ朝へ向かう。その荷物が重いほど、なぜか互いのそばへ寄る。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="724">　我輩は猫である。</p>
+<p class="source-line role-narration gap-0" data-source-line="725">　名前は、校長先生ということになったらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　気に入ったとは言っていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　ただ、次の朝も呼ばれたなら、返事くらいはしてやってもよい。</p>
+<p class="source-line end-mark gap-1" data-source-line="730"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

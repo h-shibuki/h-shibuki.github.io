@@ -1,0 +1,1113 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="『鋼花女塾、暁に轟け』｜拡張フォントいじり検証版">
+<title>『鋼花女塾、暁に轟け』｜拡張フォントいじり版</title>
+<!--
+主ジャンル：学園装甲競技・青春活劇
+副ジャンル：不条理コメディー／トラウマ克服とチーム形成
+推奨ジャンル書体：学園活劇・コメディー
+演出エンジン：塾則と号令を極太、戦術説明を硬質書体、掛け合いを丸ゴ、恐怖の告白を静かな明朝へ切り替える
+意味色：赤＝気合と決断、青＝戦術と安全、金＝信頼と勝利、紫＝恐怖と記憶、緑＝ツッコミと日常
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 2.32em;
+  --climax-max: 1.83em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #a63731;
+  --tone-2: #315c82;
+  --tone-3: #a47722;
+  --tone-4: #6a6685;
+  --tone-5: #43806a;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #f1887f;
+  --tone-2: #83b8e3;
+  --tone-3: #e8bd67;
+  --tone-4: #aaa4d1;
+  --tone-5: #80c4aa;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅">軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離">論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立" selected>学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離">Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に">制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用">風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden>
+  <h2>目次</h2>
+  <ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li></ol>
+</nav>
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>学園装甲競技・青春活劇</p>
+  <p><strong>副ジャンル：</strong>不条理コメディー／トラウマ克服とチーム形成</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立</p>
+  <h3>意味色</h3><p>赤＝気合と決断、青＝戦術と安全、金＝信頼と勝利、紫＝恐怖と記憶、緑＝ツッコミと日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：569行／章：5／役割・強度タグ：692</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="『鋼花女塾、暁に轟け』 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『<span class="term term-name tone-1">鋼花女塾</span>、暁に轟け』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="5">　<span class="term term-object tone-2">装甲旗取り競技</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="6">　それは、特殊な緩衝装甲をまとった車両に乗り込み、圧縮染料弾を撃ち合い、相手校の旗車に一発当てれば勝利という、由緒正しくも騒々しい学園競技である。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="8">　競技に必要なのは、精密な操縦、冷静な判断、車長と乗員の信頼、そして安全規則を一字一句守る理性だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　少なくとも、全国競技連盟の公式教本にはそう書かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　私立<span class="term term-name tone-1">鋼花女塾</span>の教本には、その下に極太の筆文字で一行、書き足されていた。</p>
+<p class="source-line role-narration role-document fx-key role-motif tone-1 gap-1" data-source-line="14">　――ただし、最後にものを言うのは腹の底からの<span class="term term-motif tone-1">気合</span>である。</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="16"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>一</h2>
+<p class="source-line role-dialogue role-sound fx-shout tone-1 gap-1" data-source-line="18">「装甲は乙女の礼服！　轟音は乙女の挨拶！　<span class="term term-motif tone-1">根性</span>は乙女の化粧であるッ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　朝六時。</p>
+<p class="source-line role-narration gap-0" data-source-line="21">　山あいの霧を切り裂いた大音声に、小鳥遊澪は思わず革鞄を取り落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　校門の上には、黒地に金で「私立<span class="term term-name tone-1">鋼花女塾</span>」とある。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="24">　門の左右には巨大な鉄の歯車。校庭には、黒い短ランと長いプリーツスカートを身につけた生徒たちが整列し、肩にエンジン部品やら丸太やら巨大な炊飯釜やらを担いでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　檀上に立つのは、身長二メートル近い女だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="27">　白髪を一本に束ね、片目に古風な革眼帯。羽織袴の上から整備用の革前掛けを着け、腕を組んでいる。</p>
+<p class="source-line role-dialogue role-command fx-shout gap-1" data-source-line="29">「<span class="term term-name tone-1">鋼花女塾</span>、塾則第一条！」</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　女が叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="33">「泣くなら前を向け！　涙が後ろへ飛ぶほど走れ！」</p>
+<p class="source-line role-dialogue role-sound fx-shout tone-1 gap-1" data-source-line="35">「<span class="term term-command tone-1">押忍ッ！</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　女生徒たちの返事で、校門脇の雀が三羽、気絶した。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　澪は無言で鞄を拾った。</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　そのまま回れ右をしようとしたところで、背後から肩をつかまれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「転入生の小鳥遊澪だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　振り返ると、檀上にいたはずの女が立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">「いつの間に」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="47">「説明している暇はない。わしは塾長、轟山紅葉。歓迎する」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="48">「歓迎の前に、ここが本当に女子校か確認したいんですが」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="49">「制服を見ればわかるだろう」</p>
+<p class="source-line role-dialogue role-comic tone-5 gap-0" data-source-line="50">「丸太を見て不安になりました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「朝の礼法稽古だ」</p>
+<p class="source-line role-dialogue role-comic tone-5 gap-0" data-source-line="52">「どの礼法に丸太が必要なんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="53">「鋼花式だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　轟山は断言した。</p>
+<p class="source-line role-narration gap-0" data-source-line="56">　疑問を差し挟む余地を、声量で物理的に押し潰す話法だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　澪がこの学校へ来たのは、好き好んでのことではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　以前、彼女は名門・白鷺戦術学院で装甲旗取りの車長を務めていた。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="61">　一年生ながら地形を読む目を買われ、公式戦にも出た。しかし半年前、彼女の指揮車は渓谷戦で包囲された。澪は安全を優先して後退を命じたが、焦った操縦手が切り返しを誤り、車両を横転させた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="63">　安全装置が働き、けが人はいなかった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="64">　それでも澪は、横倒しになった車内で仲間が泣く声と、装甲を打つ染料弾の連続音を忘れられなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　彼女は競技部を辞め、教室にも居づらくなり、母の勧めで遠縁が理事を務める<span class="term term-name tone-1">鋼花女塾</span>へ転入したのである。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　装甲競技から離れるために。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　よりによって、校門の内側に旧式装甲車が三台並んでいる学校へ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">「聞いていた話と違います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="73">「何がだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="74">「ここは礼法と家政を重んじる、静かな伝統校だと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="75">「相違ない。礼法は挨拶、家政は炊事、伝統は装甲旗取りだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「静か、は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="77">「山は静かだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　轟山が背後の山を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="80">　その瞬間、校庭の隅でエンジンが爆発音を立てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「車両も時々は静かだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="83">「帰ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「まあ待て」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　轟山は、澪の鞄を片手で持ち上げた。逃げ道ごと持っていかれた格好である。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「おぬしに頼みがある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="89">「断ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="90">「まだ何も言っておらん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="91">「装甲旗取りなら断ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="92">「勘がいい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="93">「帰ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「話だけでも聞け。<span class="term term-name tone-1">鋼花女塾</span>は今年度いっぱいで廃校になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　澪の足が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　朝礼の列から、視線が集まっていた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="99">　丸太を担いだ少女も、炊飯釜を抱えた少女も、笑ってはいなかった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="101">「生徒数の減少と、設備維持費の不足だ」と轟山は言った。「だが全国学園装甲大演武で優勝すれば、連盟の強化指定校となり、補助金が下りる」</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-0" data-source-line="102">「優勝って……全国で？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="103">「うむ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="104">「去年の成績は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="105">「予選一回戦、開始四分で全車停止」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="106">「事故ですか」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="107">「<span class="term term-motif tone-1">気合</span>を込めすぎて、全車同時にエンジンを焼いた」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="108">「理性はどこへ行ったんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="109">「今年、探すつもりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　轟山は澪の肩に、鉄板のような手を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「小鳥遊澪。鋼花に、頭脳を貸してくれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　校庭にいる全員が、頭を下げた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="117">　ただ一人、ひときわ大柄な少女だけは、肩に担いでいた丸太が地面に突き刺さって抜けなくなり、慌てていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　澪は目を閉じた。</p>
+<p class="source-line role-narration role-memory tone-4 gap-0" data-source-line="120">　横倒しの車内。赤い警告灯。仲間の泣き声。</p>
+<p class="source-line role-narration fx-whisper gap-0" data-source-line="121">　胸の奥が、冷たく固まる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="123">「できません」</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　それだけ言って、彼女は校舎へ歩き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　誰も引き止めなかった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-1" data-source-line="129"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>二</h2>
+<p class="source-line role-narration gap-1" data-source-line="131">　<span class="term term-name tone-1">鋼花女塾</span>は、見た目ほど恐ろしい学校ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　一時間目の国語では古典文学を読み、二時間目の数学では三角関数を学び、三時間目の家庭科ではエンジンの廃熱でふっくら炊く豆ご飯を作った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="135">「最後だけおかしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　澪がつぶやくと、隣の席の少女が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「普通の炊飯器もあるんだけどね。電気代がもったいないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　彼女は矢作トモエ。小柄で、頬にいつも機械油をつけている。</p>
+<p class="source-line role-narration gap-0" data-source-line="142">　装甲旗取り部の操縦手兼整備主任だという。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「入部の勧誘なら聞かない」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="145">「しないよ。嫌なものを無理にやらせたら、車も人も壊れるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　トモエは豆ご飯を茶碗によそい、澪へ差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「でも、食べて。<span class="term term-name tone-3">鉄椿号</span>の左排気管で蒸したやつ。右はちょっと煤臭いから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="150">「車両ごとに味が違うの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="151">「愛情かな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="152">「整備不良じゃなくて？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="153">「愛情」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　昼休み、澪は校舎裏の格納庫をのぞいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　理由は自分でもわからなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="158">　ただ、豆ご飯が意外においしかったせいかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　格納庫の中央には、一台の古びた装甲車両が置かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="161">　ずんぐりと低い車体。何度も溶接された装甲板。砲塔の脇には、赤い椿の紋章が描かれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="163">「主力旗車、<span class="term term-name tone-3">鉄椿号</span>ですわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　声に振り返ると、長い黒髪の少女が茶碗を手に立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="166">　九条つばき。射撃手で、茶道部部長でもある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「お茶、いかがです？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="169">「ここ、格納庫だけど」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="170">「場所を選んでいては、戦場で一服できませんもの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="171">「戦場じゃなくて競技場でしょ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="172">「心構えのお話です」</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　つばきは<span class="term term-name tone-3">鉄椿号</span>の履帯に腰かけ、澪にも座布団を勧めた。なぜ格納庫に座布団が常備されているのかは聞かないことにした。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="176">　車体の下から、先ほど丸太を抜けなくしていた大柄な少女が這い出してきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「熊野すみれ。装填手です。よろしくお願いします」</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　立ち上がった彼女の頭が、<span class="term term-name tone-3">鉄椿号</span>の砲身に当たった。</p>
+<p class="source-line role-narration gap-0" data-source-line="181">　砲身が鈍い音を立てて揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="183">「大丈夫？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="184">「はい。砲身は無事です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「あなたの頭を聞いたんだけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="186">「そちらも、だいたい無事です」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="188">　最後に、砲塔上のハッチから顔を出したのが、通信手の鳴海リンだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="189">　声の小さい、眼鏡の少女である。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="191">「よろしく……お願いします」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="192">「朝礼の返事、すごかったけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="193">「あれは拡声器です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="194">「あなたの声じゃなかったの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「生声だと、蚊にも負けます」</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　四人は、澪に入部してほしいとは言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　ただ<span class="term term-name tone-3">鉄椿号</span>を磨き、履帯の泥を落とし、古い無線機の配線をつなぎ直していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="200">　トモエが運転席から顔を出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「去年ね、全車止まったとき、この子だけ最後まで動こうとしたんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="203">「動こうとした？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="204">「エンジンは焼けてた。でも坂だったから、重力で三メートル進んだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="205">「それは動いたとは言わない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="206">「私たちには、動いたの」</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　つばきが、車体にそっと手を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「学校がなくなれば、この子たちも処分されます」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="211">「だから優勝したい？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="212">「それもあります。でも一番は、最後の試合をしたいのです。廃校を待つだけの一年にはしたくありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　すみれが工具箱を持ち上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「勝てるとは思ってません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="217">「言い切るんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="218">「はい。でも、負けるにしても、前を向いて負けたいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　澪は<span class="term term-name tone-3">鉄椿号</span>を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="221">　車体には無数の傷があった。装甲の継ぎ目には、何世代もの生徒が施した修理の跡が残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　競技車両は、勝敗の記録を傷として抱える。</p>
+<p class="source-line role-narration gap-0" data-source-line="224">　人間も同じなのかもしれない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「一つだけ、聞いていい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　澪は言った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="230">「去年、全車のエンジンを焼いた作戦を考えたのは誰？」</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　四人が一斉に目をそらした。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　砲塔の陰から、轟山塾長がぬっと現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「わしだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="237">「いつからいたんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="238">「心配するな。今年は最大回転数を百ほど下げる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="239">「根本から考え直してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　澪は額を押さえた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="243">「全国大会の規則書、去年の映像、<span class="term term-name tone-3">鉄椿号</span>の仕様書。それから対戦校の資料を全部出してください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="244">「おお」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="245">「入部するとは言ってません。見るだけです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="246">「うむ。見るだけの者には、臨時車長の腕章を渡す決まりだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="247">「そんな決まりは今できたでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「伝統とは、最初の一日から伝統である」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　轟山が差し出した腕章には、金糸で「頭脳」と刺繍されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　澪は受け取らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　その日の放課後、なぜか彼女の左腕には腕章が巻かれていた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-1" data-source-line="256"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>三</h2>
+<p class="source-line role-narration gap-1" data-source-line="258">　全国学園装甲大演武まで、三週間。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　<span class="term term-name tone-1">鋼花女塾</span>の訓練は、澪の予想をはるかに超えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　悪い意味で。</p>
+<p class="source-line role-dialogue fx-shout tone-5 gap-1" data-source-line="263">「<span class="term term-name tone-3">鉄椿号</span>を人力で曳く訓練は中止！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="264">「なぜだ、小鳥遊！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="265">「エンジンがあります！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="266">「故障したときの備えだ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="267">「人間が先に故障します！」</p>
+<p class="source-line role-dialogue fx-shout tone-2 gap-1" data-source-line="269">「滝に打たれながら通信訓練するのも中止！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="270">「雑音に強くなる！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="271">「無線機が水没しています！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「燃える橋を渡る訓練は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="274">「まだ燃やしておらん」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="275">「未来永劫、燃やさないでください！」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="277">　澪は訓練メニューの九割を赤線で消し、代わりに基礎走行、短距離射撃、車外確認、通信手順を徹底させた。</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　最初、部員たちは戸惑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　鋼花では、困難に遭遇したら叫び、さらに困難になったらもっと叫ぶのが伝統だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="282">　だが澪は叫ばない。</p>
+<p class="source-line role-narration gap-0" data-source-line="283">　角度を測り、秒数を数え、失敗の理由を紙に書く。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="285">「<span class="term term-motif tone-1">根性</span>を否定する気はありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　ある日の夕方、澪は黒板に大きな円を描いた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="289">「でも、<span class="term term-motif tone-1">根性</span>だけで命中率は上がらない。履帯も直らない。作戦の穴も埋まらない」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="290">「では、<span class="term term-motif tone-1">根性</span>は何のためにあるのです？」</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　つばきが尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　澪は少し考えた。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-2 gap-1" data-source-line="296">「作戦を、最後まで実行するため」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="297">「なるほど」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="298">「つまり作戦が先、<span class="term term-motif tone-1">根性</span>が後です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="299">「塾長と逆ですね」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="300">「そうです。塾長は全部、<span class="term term-motif tone-1">根性</span>から始めるから危ないんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　教室の後ろで腕を組んでいた轟山が、満足そうにうなずいた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="304">「よし。作戦という名の<span class="term term-motif tone-1">根性</span>を先に置こう」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="305">「一文字も伝わってない」</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="307">　それでも、鋼花は少しずつ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　トモエは急加速をやめ、泥濘で履帯を空転させない操縦を覚えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　つばきは一発必中にこだわらず、相手の進路を制限する牽制射撃を身につけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　すみれは力任せに弾を押し込む癖を直し、装填時間を四秒縮めた。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="312">　リンは通信内容を短く整理し、蚊に負ける生声の代わりに、落ち着いた符号で全車をつないだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　鋼花の参加車両は三台。</p>
+<p class="source-line role-narration gap-0" data-source-line="315">　旗車の<span class="term term-name tone-3">鉄椿号</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="316">　小型偵察車の<span class="term term-name tone-2">雀蜂号</span>。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="317">　そして、なぜか装甲を施された給食運搬車、<span class="term term-name tone-5">大鍋号</span>である。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「これ、本当に競技車両なんですか」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="321">　澪は<span class="term term-name tone-5">大鍋号</span>を見上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　後部には炊飯釜が六つ並び、前面装甲には「一膳入魂」と書かれている。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="324">「連盟の規則では、自走し、規定の安全装甲と信号旗を備えれば補助車両として登録可能ですわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="325">「砲は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="326">「ありません」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="327">「何をするの？」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="328">「炊きます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="329">「試合中に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="330">「空腹は判断力を鈍らせますから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="331">「せめて偵察をしてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　三週間後。</p>
+<p class="source-line role-narration gap-0" data-source-line="334">　<span class="term term-name tone-1">鋼花女塾</span>は地区予選を、誰も予想しなかった方法で勝ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　一回戦。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="337">　相手が<span class="term term-name tone-3">鉄椿号</span>を追って狭い林道へ入り、<span class="term term-name tone-5">大鍋号</span>が横道から現れて進路を塞いだ。相手車両は釜から立つ湯気に驚き停止。その隙につばきが旗車を撃ち抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　二回戦。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="340">　<span class="term term-name tone-2">雀蜂号</span>が相手を誘導し、<span class="term term-name tone-3">鉄椿号</span>が乾いた沢底から側面射撃。<span class="term term-name tone-5">大鍋号</span>は試合開始前に握った塩むすびを配り、選手全員の集中力を支えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　準決勝。</p>
+<p class="source-line role-narration gap-0" data-source-line="343">　<span class="term term-name tone-3">鉄椿号</span>は故障したふりをして相手を近づけ、すみれが砲塔から白旗を――ではなく、巨大な布団を干した。視界を奪われた相手の旗車へ、つばきの染料弾が命中した。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="345">「布団は規則違反では？」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　試合後、相手校の監督が抗議した。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　審判団は長い協議の末、「洗濯物を干してはならないという条文は存在しない」と判定した。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="350">　翌日、規則書に新たな一文が加わった。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="352">　――競技中、車両上で寝具を乾燥させてはならない。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="354">　<span class="term term-name tone-1">鋼花女塾</span>は、全国決勝へ進んだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="356">　相手は前年優勝校、王立セレネ工科学園。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="358">　白銀の新型車両五台をそろえ、通信と隊列を一秒のずれもなく統制する強豪である。</p>
+<p class="source-line role-narration gap-0" data-source-line="359">　隊長は皇エレナ。冷静沈着、全国最優秀車長に二年連続で選ばれた少女だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　記者会見で、エレナは澪をまっすぐ見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「あなた方の試合は拝見しました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「どうも」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="365">「奇策は、相手が知らなければ効果があります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="366">「そうですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="367">「決勝では通用しません。偶然と勢いだけでは、完成された戦術には勝てない」</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　会見場の後方で、鋼花の生徒たちが色めき立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">「勢いだけではない！」と誰かが叫んだ。</p>
+<p class="source-line role-narration role-comic tone-5 gap-0" data-source-line="372">「塩むすびもあるぞ！」と別の誰かが叫んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="373">「そこは戦術を主張して」と澪は小声で言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　エレナは表情を変えない。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="377">「<span class="term term-motif tone-1">気合</span>は戦術ではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="378">「ええ」</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　澪はうなずいた。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-1 gap-1" data-source-line="382">「<span class="term term-motif tone-1">気合</span>は、戦術を最後まで動かす燃料です」</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　言ってから、自分で少し驚いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　三週間前なら、絶対に口にしなかった言葉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　轟山塾長が感極まり、背後の記者席を二列まとめて抱きしめた。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-1" data-source-line="389"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>四</h2>
+<p class="source-line role-narration gap-1" data-source-line="391">　決勝の舞台は、閉鎖された山岳温泉郷だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　坂道、石段、木造旅館、湯気を噴く配管、山腹を貫く二本の隧道。</p>
+<p class="source-line role-narration gap-0" data-source-line="394">　かつて観光客を運んだ小さな索道も残っている。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="396">　試合開始前、澪は<span class="term term-name tone-3">鉄椿号</span>の車内で地図を見つめていた。</p>
+<p class="source-line role-dialogue role-command tone-2 gap-1" data-source-line="398">「作戦を確認します」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　<span class="term term-name tone-3">鉄椿号</span>は中央の旧街道を進む。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　<span class="term term-name tone-2">雀蜂号</span>は東の石段道を偵察。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="402">　<span class="term term-name tone-5">大鍋号</span>は西の温泉配管区へ向かい、セレネ隊を誘導する。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　敵の新型車は速く、射程も長い。</p>
+<p class="source-line role-narration gap-0" data-source-line="405">　正面から戦えば、鋼花に勝ち目はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　だが<span class="term term-name tone-3">鉄椿号</span>は車高が低く、古い代わりに低速での粘りがある。</p>
+<p class="source-line role-narration gap-0" data-source-line="408">　狭い温泉街と急坂なら、新型との性能差を縮められる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「大事なのは、予定どおりにいかなくても慌てないことです」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　澪は一人ずつの顔を見た。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="414">「トモエ、道が塞がれていたら戻る。無理に抜けない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="415">「了解」</p>
+<p class="source-line role-dialogue role-command gap-0" data-source-line="416">「つばき、最初の一発を外してもいい。二発目を作るために撃って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="417">「心得ました」</p>
+<p class="source-line role-dialogue role-command tone-2 gap-0" data-source-line="418">「すみれ、装填より安全確認を優先」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="419">「はい」</p>
+<p class="source-line role-dialogue role-command tone-2 gap-0" data-source-line="420">「リン、通信が切れたら規定どおり三十秒待つ。叫ばない」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="421">「……努力します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="422">「塾長」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="423">「なんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「どうして車内にいるんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「精神支援要員だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「降りてください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="427">「せめてこれを持っていけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　轟山は、小さな木札を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　表に「<span class="term term-object tone-3">不撓</span>」、裏に「<span class="term term-object tone-3">不屈</span>」と彫ってある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">「両面同じ意味では？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="434">「迷ったとき、どちらを向いても前向きになれる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="435">「便利ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　澪は木札を受け取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="438">　胸ポケットへ入れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　轟山は満足そうに降車し、ハッチを閉めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　開始信号の花火が上がった。</p>
+<p class="source-line role-dialogue role-command tone-1 gap-1" data-source-line="444">「<span class="term term-name tone-1">鋼花女塾</span>、前進」</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　<span class="term term-name tone-3">鉄椿号</span>のエンジンが唸る。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　古い車体が一度、大きく震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　それは怯えた震えではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="450">　長い眠りから目を覚ます、獣の身震いだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　試合開始から三分。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　予定どおり、<span class="term term-name tone-2">雀蜂号</span>が敵二両を発見した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="455">『東坂、敵二。こちらを追跡』</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="457">　リンの通信は落ち着いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="459">「雀蜂、予定地点まで誘導。無理はしないで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">『了解』</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　五分。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="464">　西側の<span class="term term-name tone-5">大鍋号</span>から連絡。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="466">『こちら大鍋。敵一両、接近！　炊飯完了まで残り七分！』</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="467">「炊飯は中止して」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="468">『すでに蒸らしです！』</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="469">「じゃあ焦がさないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　<span class="term term-name tone-3">鉄椿号</span>は中央の狭路を進む。</p>
+<p class="source-line role-narration gap-0" data-source-line="472">　予定では、敵の隊列が東西に分かれたところで隧道を抜け、旗車を狙う。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　だが、隧道の手前でトモエが急停止した。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="476">「崩落！」</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　昨夜の雨で、入口が岩と土砂に塞がれていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="480">「地図にはなかった」とつばき。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="481">「今朝崩れたんだ」とトモエが言う。「通れない」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="483">　その瞬間、遠くで発砲音。</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　続いてリンの無線に雑音が走った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="486">『雀蜂、被弾！　走行不能。ごめん、澪ちゃん……』</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　車内が静まる。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="490">　計画の最初の歯車が外れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="492">「大丈夫。乗員は？」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="493">『全員無事。安全停止した』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「ならいい。退避手順へ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="497">　澪は地図を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="498">　隧道が使えない。東は敵二両。西には敵一両。敵旗車と護衛一両の位置が不明。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　完全な統制を誇るセレネ隊は、奇策を警戒して最初から隊を分散していたのだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="501">　こちらの誘導には乗らず、逃げ道だけを丁寧につぶしに来ている。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="503">「中央を戻る」と澪は言った。「西へ合流して、<span class="term term-name tone-5">大鍋号</span>を回収。二両で狭路を――」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　車体に激震が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　染料弾が左装甲へ命中。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="508">　安全表示灯が黄色に変わった。まだ走れるが、次に主要判定部へ当たれば停止だ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="510">「敵、後方！」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　つばきが潜望鏡を回す。</p>
+<p class="source-line role-narration gap-0" data-source-line="513">　隧道へ続く道の向こう、白銀の車両が一台。さらに高台の旅館脇にも一台。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="515">　挟まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　第二弾が石壁に当たり、青い染料が窓を覆った。</p>
+<p class="source-line role-narration gap-0" data-source-line="518">　衝撃音が車内に反響する。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　澪の呼吸が止まる。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="522">　赤い警告灯。</p>
+<p class="source-line role-narration role-memory tone-4 gap-0" data-source-line="523">　横倒しの車内。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="524">　泣き声。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="525">　判断を誤った自分。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="527">「澪ちゃん？」</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　トモエの声が遠い。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="531">　地図の線がぼやけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="532">　命令しなければ。</p>
+<p class="source-line role-narration gap-0" data-source-line="533">　早く。</p>
+<p class="source-line role-narration gap-0" data-source-line="534">　でも、また間違えたら。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　第三弾が砲塔をかすめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　すみれが、装填途中の弾を抱えたまま叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-4 gap-1" data-source-line="540">「怖いなら、怖いって言ってください！」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　澪は顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">「え？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="545">「私たち、察するの苦手です！　特に塾長の教育を受けてますから！」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">「それは自覚がありますのね」とつばき。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-4 gap-0" data-source-line="548">「はい！　だから言ってください！　怖い分は、みんなで持ちます！」</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　トモエが操縦桿を握ったまま、前を向いて言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="552">「間違えても、私が止まる。無理なら戻る。今度はちゃんと、澪ちゃんの命令を聞く」</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　つばきが照準器をのぞく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">「外しても、二発目を作りますわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　リンがマイクを握る。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="560">「声は小さいですけど……必要なら、拡声器もあります」</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　澪の胸ポケットで、木札が固く当たっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="563">　<span class="term term-object tone-3">不撓</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="564">　<span class="term term-object tone-3">不屈</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="565">　どちらを向いても前向き。</p>
+<p class="source-line role-narration fx-whisper fx-beat gap-1" data-source-line="567">　怖さは消えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="568">　胸の中で、氷の塊のように残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　澪はそれを抱えたまま、大きく息を吸った。</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="572">「怖い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　車内の全員が、うなずいた。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-1 gap-1" data-source-line="576">「でも、まだ勝ちたい！」</p>
+<p class="source-line role-dialogue role-sound fx-shout tone-1 gap-1" data-source-line="578">「<span class="term term-command tone-1">押忍ッ！</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　四人の返事で、天井のボルトが一本落ちた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="582">「トモエ、後退。左の旅館へ突っ込む」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="583">「旅館へ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="584">「玄関を抜ける。廃屋だから競技区域内」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="585">「道じゃないよ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="586">「今から道にする！」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　<span class="term term-name tone-3">鉄椿号</span>が後退し、追撃弾をかわす。</p>
+<p class="source-line role-narration gap-0" data-source-line="589">　トモエが車体を鋭く切り返し、崩れかけた木造旅館の玄関へ突入した。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="591">　安全用の軽量壁が、派手な音を立てて左右に倒れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="592">　畳敷きの大広間へ装甲車が入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">「お邪魔しますわ」とつばき。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="595">「礼儀正しい場合じゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　<span class="term term-name tone-3">鉄椿号</span>は床板を踏み抜きながら、建物の反対側へ抜けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="598">　敵車両は車幅が広く、追ってこられない。</p>
+<p class="source-line role-dialogue role-command tone-5 gap-1" data-source-line="600">「リン、<span class="term term-name tone-5">大鍋号</span>に連絡。温泉配管の主弁を開けてもらって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="601">「湯気を出すんですか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="602">「違う。配管の圧力計を見てもらう。索道の動力は温泉蒸気式。まだ生きてるかもしれない」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="604">　澪は地図の端に描かれた索道を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="605">　山腹の旅館と谷底の浴場を結ぶ、小型貨物用の斜面軌道。</p>
+<p class="source-line role-narration gap-0" data-source-line="606">　廃止されているが、線路自体は残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">「<span class="term term-name tone-3">鉄椿号</span>で乗るの？」とトモエ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="609">「重量制限を超える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="610">「ですよね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="611">「だから、乗らない。線路脇の保守坂を上る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="612">「傾斜、二十八度あるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="613">「<span class="term term-name tone-3">鉄椿号</span>なら低速でいける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="614">「途中で止まったら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="615">「そのときは」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　澪は一瞬考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「みんなで、叫ぶ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="620">「それ、意味ある？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="621">「鋼花ではあるらしい！」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="623">　<span class="term term-name tone-5">大鍋号</span>から通信が入る。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="625">『主弁、作動します！　圧力正常！　ついでにご飯も炊けました！』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="626">「索道を動かして。無人の搬器を上へ」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="627">『了解！　おかずは？』</p>
+<p class="source-line role-dialogue role-comic fx-shout gap-0" data-source-line="628">「今はいい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　谷の向こうで、古い索道が軋みながら動き始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="631">　空の搬器が、湯気をまとって斜面を上っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　白銀の敵車両二台が、それを<span class="term term-name tone-3">鉄椿号</span>と誤認した。</p>
+<p class="source-line role-narration gap-0" data-source-line="634">　砲塔が一斉に索道へ向く。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="636">「今！」</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　<span class="term term-name tone-3">鉄椿号</span>は保守坂へ突入した。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　履帯が石を噛む。</p>
+<p class="source-line role-narration gap-0" data-source-line="641">　車体が大きく傾く。</p>
+<p class="source-line role-narration gap-0" data-source-line="642">　エンジン音が悲鳴のように高くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">「速度、落ちてる！」とトモエ。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="645">「一速維持！　右へ半枚！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="646">「半枚って何？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="647">「気持ち右！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="648">「了解！」</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　斜面の途中で、<span class="term term-name tone-3">鉄椿号</span>はついに止まりかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　エンジン回転が落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="653">　履帯が空転し、砂利が谷へ落ちていく。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="655">「澪ちゃん！」</p>
+<p class="source-line role-narration role-command gap-1" data-source-line="657">　澪は無線の全校回線を開いた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="659">「<span class="term term-name tone-1">鋼花女塾</span>、全員へ。聞こえますか」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="661">　待機区域、停止した<span class="term term-name tone-2">雀蜂号</span>、<span class="term term-name tone-5">大鍋号</span>、そして観客席。</p>
+<p class="source-line role-narration gap-0" data-source-line="662">　鋼花の生徒たちが一斉に顔を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「<span class="term term-name tone-3">鉄椿号</span>、坂の途中で止まりそうです」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　轟山塾長の声が返る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="668">『ならば、何が必要だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="670">「無根拠でも、非科学的でも、今だけは――」</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　澪は息を吸った。</p>
+<p class="source-line role-dialogue fx-peak role-motif tone-1 gap-1" data-source-line="674">「<span class="term term-motif tone-1">気合</span>を、貸してください！」</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　次の瞬間。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　山が吠えた。</p>
+<p class="source-line role-dialogue role-sound fx-shout gap-1" data-source-line="680">『押ォォォォォ忍ッ！』</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　待機区域の全員。</p>
+<p class="source-line role-narration gap-0" data-source-line="683">　観客席の全員。</p>
+<p class="source-line role-narration gap-0" data-source-line="684">　停止車両の乗員。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="685">　<span class="term term-name tone-5">大鍋号</span>の炊事班。</p>
+<p class="source-line role-narration gap-0" data-source-line="686">　轟山塾長。</p>
+<p class="source-line role-narration gap-0" data-source-line="687">　なぜか対戦校の応援団の一部まで、つられて叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　<span class="term term-name tone-3">鉄椿号</span>のエンジン出力が上がるはずはない。</p>
+<p class="source-line role-narration gap-0" data-source-line="690">　履帯の摩擦係数が変わるはずもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　ただ、その声でトモエの足がアクセルを踏み直し、すみれが車体の揺れに合わせて重心を移し、つばきが砲塔の角度を調整し、リンが冷却温度を正確に読み上げた。</p>
+<p class="source-line role-narration fx-key role-motif fx-climax gap-1" data-source-line="694">　人が、人としてできることを、一つずつ完璧にやった。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="696">　<span class="term term-name tone-3">鉄椿号</span>は、再び動き出した。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="698">「上った！」</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　保守坂の頂上。</p>
+<p class="source-line role-narration gap-0" data-source-line="701">　眼下に温泉街が広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　敵旗車を発見。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　白銀の護衛車両一台を伴い、中央広場にいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　エレナはすぐにこちらへ砲塔を向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">『見事です、小鳥遊澪』</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　共通回線に、澄んだ声が響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">『ですが、こちらの射程内です』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="714">「こちらもです」</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　<span class="term term-name tone-3">鉄椿号</span>と敵旗車が同時に発砲した。</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　エレナの一弾は正確だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　<span class="term term-name tone-3">鉄椿号</span>の前面を狙い、真っすぐ飛んでくる。</p>
+<p class="source-line role-dialogue role-command fx-shout gap-1" data-source-line="721">「トモエ、前へ半車身！」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　<span class="term term-name tone-3">鉄椿号</span>が斜面を下る。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　染料弾が後部装甲をかすめ、赤い飛沫を散らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　つばきの一弾は、敵旗車の手前に落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">「外れましたわ」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="729">「予定どおり。二発目！」</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　敵旗車は射線を外すため、右へ動く。</p>
+<p class="source-line role-narration gap-0" data-source-line="732">　その先は石畳の細い水路。</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　澪の狙いは最初から命中ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="735">　避ける方向を、一つに絞ること。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="737">「すみれ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="738">「装填、完了！」</p>
+<p class="source-line role-dialogue role-command fx-shout gap-0" data-source-line="739">「つばき、車体じゃない。水路脇の古い看板、その支柱を撃って！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="741">「承知！」</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　第二弾が支柱へ命中した。</p>
+<p class="source-line role-narration gap-0" data-source-line="744">　巨大な木製看板が倒れ、敵旗車の前へ落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　エレナは即座に後退を命じた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="747">　だが後方には、いつの間にか坂を上ってきた<span class="term term-name tone-5">大鍋号</span>がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　砲を持たない給食運搬車が、堂々と道を塞いでいる。</p>
+<p class="source-line role-dialogue fx-shout tone-5 gap-1" data-source-line="751">『こちら大鍋！　通行止めです！　塩むすびなら通します！』</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　敵旗車の動きが、一秒止まった。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="755">　その一秒で十分だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="757">「つばき」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「いただきます」</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　第三弾が白銀の旗車に命中した。</p>
+<p class="source-line role-narration gap-0" data-source-line="762">　鮮やかな赤い染料が、校旗判定板いっぱいに広がる。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="764">　山岳温泉郷に、試合終了の鐘が鳴った。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-1" data-source-line="766"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>五</h2>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="768">　<span class="term term-name tone-1">鋼花女塾</span>、全国学園装甲大演武優勝。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　電光掲示板にその文字が出ても、澪はしばらく信じられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　<span class="term term-name tone-3">鉄椿号</span>のハッチを開ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="773">　外の光がまぶしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　観客席から、黒い制服の波が駆けてくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="776">　先頭は轟山塾長。速い。猛烈に速い。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="778">「小鳥遊ィィィ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="780">「塾長、走行中の車両に飛び乗らないで――」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　轟山は<span class="term term-name tone-3">鉄椿号</span>へ跳びつき、砲塔ごと抱きしめた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="784">「よくぞやった！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="786">「痛い、装甲と一緒に抱きしめないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　つばきがハッチから顔を出す。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="790">「優勝祝いのお茶を準備しましょう」</p>
+<p class="source-line role-narration gap-0" data-source-line="791">「その前に車両点検！」とトモエ。</p>
+<p class="source-line role-narration role-comic gap-0" data-source-line="792">「その前にご飯です！」とすみれ。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="793">「<span class="term term-name tone-5">大鍋号</span>に、百二十人分あります」とリン。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　対戦を終えたエレナが歩いてきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="796">　白い競技服には、赤い染料が一筋ついている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="798">「完敗です」</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　彼女は澪へ手を差し出した。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-3 gap-1" data-source-line="802">「奇策だけではありませんでした。最後まで、全員の判断がつながっていた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="803">「ありがとう」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="804">「ただし、索道を囮にする戦法は次回から規則で禁止されると思います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="805">「布団に続いて二つ目ですね」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="806">「<span class="term term-name tone-5">大鍋号</span>による炊飯は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="807">「それは許してください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="808">「検討します」</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　二人は握手した。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　その日の夕方、表彰式が終わるころには、連盟から強化指定校認定の連絡が届いた。</p>
+<p class="source-line role-narration fx-beat tone-3 gap-0" data-source-line="813">　<span class="term term-name tone-1">鋼花女塾</span>は存続する。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="814">　古い格納庫も、<span class="term term-name tone-3">鉄椿号</span>も、<span class="term term-name tone-5">大鍋号</span>も残る。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　帰りの輸送列車で、澪は窓際に座っていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="818">　隣には、優勝旗。</p>
+<p class="source-line role-narration gap-0" data-source-line="819">　膝には、轟山から返された木札。</p>
+<p class="source-line role-narration gap-0" data-source-line="820">　<span class="term term-object tone-3">不撓</span>と<span class="term term-object tone-3">不屈</span>。どちらを向けても、同じように前を向けと迫ってくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">「澪ちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　トモエが向かいの席から尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="826">「来年も、車長やってくれる？」</p>
+<p class="source-line role-narration role-command gap-1" data-source-line="828">　つばき、すみれ、リンも澪を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="829">　誰も叫ばない。</p>
+<p class="source-line role-narration gap-0" data-source-line="830">　誰も無理に腕章を巻かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　澪は少し考えた。</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="834">　競技が怖くなくなったわけではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　砲撃音を聞けば、きっとまた胸が固くなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="836">　判断を間違えることもあるだろう。</p>
+<p class="source-line role-narration fx-climax role-motif tone-4 gap-1" data-source-line="838">　けれど、怖いと言っていい場所がある。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="839">　間違えたとき、一緒に戻ってくれる仲間がいる。</p>
+<p class="source-line role-narration fx-whisper gap-1" data-source-line="841">　なら、もう一度くらいは進める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="843">「条件があります」</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　澪は言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="847">「滝行は禁止。丸太も禁止。燃える橋は絶対禁止。訓練計画は全部、私が確認します」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="848">「了解！」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="849">「それから、<span class="term term-name tone-5">大鍋号</span>は競技前日にちゃんと整備すること」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="850">「炊飯前ではなく？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="851">「両方」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="852">「了解！」</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　四人が笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　そのとき、隣の車両から轟山塾長の声が響いた。</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="858">「聞けい、<span class="term term-name tone-1">鋼花女塾</span>！　明朝六時より、優勝記念・<span class="term term-name tone-3">鉄椿号</span>人力曳航百里行軍を――」</p>
+<p class="source-line role-dialogue role-comic fx-shout tone-5 gap-1" data-source-line="860">「中止です！」</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　澪の声が、列車の最後尾まで届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　車内が静まり返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　蚊にも負ける声のリンが、そっとつぶやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「澪さん、声、大きくなりましたね」</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　澪は自分でも驚いて、それから笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　山の向こうに、朝より少しだけ明るい空が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　鋼の花は、たぶんこうして咲くのだ。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="875">　<span class="term term-motif tone-1">根性</span>だけでも、理屈だけでもなく。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="876">　怖さも弱さも全部積み込み、仲間の声を燃料にして、一歩ずつ前へ進む。</p>
+<p class="source-line role-narration gap-1" data-source-line="878">　古い車両のように不格好で。</p>
+<p class="source-line role-narration gap-0" data-source-line="879">　けれど、止まらずに。</p>
+<p class="source-line end-mark gap-1" data-source-line="881"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "鋼花女塾、暁に轟け";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

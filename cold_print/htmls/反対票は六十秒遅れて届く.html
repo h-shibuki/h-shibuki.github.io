@@ -1,0 +1,861 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="物理的な結果を六十秒だけ先送りできる配達人・砥上レンは、八年前の水害をめぐる裏帳簿を届ける途中、旧区役所の地下議場へ閉じ込められる。そこを支配する元議長・灰堂は、三秒間の多数決で可決した動作を肉体へ強制する異能の持ち主。灰堂側三人、レンと告発者ミナは二人。票数では初めから負けているうえ、レンの肩にはまだ血を流していない銃創が「後払い」の時を刻む。声、拳、傷を未来へ預けられる枠は三つだけ。絶対多数の手続きを覆し、証拠を赤い境界線の外へ届ける一分間の攻防が始まる。">
+<title>反対票は六十秒遅れて届く｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="反対票は六十秒遅れて届く" data-novel-id="反対票は六十秒遅れて届く" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・バトル・サスペンス</p>
+  <p><strong>補助ジャンル：</strong>頭脳戦</p>
+  <p><strong>CSVタグ：</strong>アクション、バトル、サスペンス、頭脳戦</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：400行／章：0／役割・強度タグ：451</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="反対票は六十秒遅れて届く 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">反対票は六十秒遅れて届く</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration tone-5 gap-2" data-source-line="4">　銃声がしてから、血が出るまで、六十秒あった。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　その三秒前、旧第七区役所の地下議場で、灰堂円司が銀の鐘を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　円形の部屋には、取り壊しを待つ五脚の革椅子と、傷だらけの議長卓が残されていた。床には赤い組紐が一周し、内側にいる五人を逃げ場のない輪へ閉じ込めている。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　元区議会議長、灰堂円司。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　灰堂の用心棒である関と恩田。</p>
+<p class="source-line role-narration gap-0" data-source-line="12">　壁際の非常停止レバーに手を伸ばす、織部ミナ。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　そして、黒い鞄を手錠で右手首につないだ配達人、砥上レン。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="15">「定足数、五名」</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　灰堂が宣言すると、銀の鐘の胴に五本の細い傷が浮かび上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="19">「最初に聞こえた『賛成』または『反対』のみを、一人一票として数える。採決は三秒。可決された動作は次の鐘まで強制され、否決された動作は次の鐘まで不可能となる。同じ人物を二つ続けて議題にはできない。そして会期中、登録された五名は、可決なしに赤線を越えられない」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　灰堂の異能、<span class="term term-proper">《定足数》</span>。</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="23">　人数、文言、時間。すべてが規則どおりである限り、多数派の意思を肉体の法則へ変える力だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　灰堂はミナを指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="27">「動議。織部ミナは、十秒以内に非常停止レバーを引く。賛成か、反対か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="29">「反対」</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　灰堂が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「反対」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　恩田が続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　関が口を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　その瞬間、レンの親指から真鍮のコインが飛んだ。髪より細い鋼糸を引きながら、コインの縁が関の喉仏をかすめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　関の唇は、確かに「反対」の形を作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　だが、音は出なかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「反対」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　レン自身が、関の分まで覆い隠すように大きな声で言った。</p>
+<p class="source-line role-dialogue fx-beat fx-key role-motif gap-1" data-source-line="49">「賛成！」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　ミナが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　コインは鋼糸に引かれてレンの掌へ戻った。レンはそのまま一歩踏み込み、真鍮貨を握り込んだ拳を灰堂の胸へ叩きつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　拳は届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　なのに、灰堂の上着には皺ひとつ寄らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「恩田」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　灰堂が静かに呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　恩田の拳銃が火を噴いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="65">　銃弾はレンの左肩を貫いた――はずだった。コートの布は裂け、背後の壁に鉛が当たった。それでも皮膚は切れず、血も出ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　レンは戻ってきたコインを左肩へ押し当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　彼にだけ見える黒い数字が、三か所に浮かび上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　関の喉に、59.2。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　灰堂の胸に、59.5。</p>
+<p class="source-line role-narration gap-0" data-source-line="73">　自分の左肩に、59.8。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　レンの異能、<span class="term term-proper">《一分後払い》</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　真鍮貨が触れた対象に生じる物理的な結果を、一件だけ、正確に六十秒後へ送る。衝撃でも、傷でも、音でもよい。ただし同時に預けられるのは三件まで。帳消しにはできない。六十秒後、結果は必ず元の対象へ取り立てに来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　便利に見えて、救いにはならない力だ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="81">　痛みも、失敗も、死でさえも、六十秒遅く届くだけである。</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　だからレンは配達人になった。</p>
+<p class="source-line role-narration gap-0" data-source-line="84">　遅らせる一分で、届くべきものを届くべき場所へ運ぶために。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　銀の鐘に三本の黒い線と一本の白い線が灯った。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　反対三、賛成一。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「否決」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　灰堂が告げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　ミナの指先が、非常停止レバーの寸前で止まった。見えない枷に引かれたように、そこから一ミリも進めない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「関。投票は声に出せと言ったはずだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「出しましたよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　関は喉を押さえ、不思議そうに答えた。今度の声は普通に出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「俺は、ちゃんと反対って――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「聞こえなければ存在しない。ここでは、それが事実だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　灰堂はレンを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「それにしても、救出相手の行動へ反対票とは。評判ほど義理堅い配達人ではないらしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　ミナも同じ目を向けていた。怒りと、戸惑いと、裏切られた者の目だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　レンは肩をすくめる。まだ傷はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「票ってのは高いんだ。俺は後払い主義でね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「意味の分からない冗談は嫌いだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「安心しろ。あとで分かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　灰堂は議長卓の上に置かれた砂時計を返した。黒い砂が、次の採決までの時間を落ち始める。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="122">　レンの左肩では、数字が減っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　残り、五十七秒。</p>
+<div class="source-line scene-break gap-2" data-source-line="127" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration role-system gap-2" data-source-line="130"><span class="term term-skill">【残り五十二秒】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="132">　この地下議場で、八年前に一つの予算案が可決された。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　第七区の排水門補修費を、民間の再開発事業へ回す議案。賛成十七、反対六。豪雨の夜、老朽化した排水門は閉じず、地下街へ濁流が流れ込んだ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="136">　死者十八名。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　灰堂は当時の議長だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　事故調査では「予測困難な災害」と結論づけられた。賛成した議員は互いを指さし、最後には誰も責任を取らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　だが、織部ミナが区役所の廃棄サーバーから、予算転用の見返りを記した裏帳簿を見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　その原本が、レンの右手につながれた黒い鞄に入っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「多数が選んだのなら、それは公共の意思だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　灰堂は砂時計を見ながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「公共の意思に個人の罪を問うのは、少数派の感傷にすぎない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「十八人の葬式でも、同じ演説をしたのか」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="154">　ミナが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　灰堂の目が細くなる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="158">「君の弟の葬式だったかな」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="160">「名前を口にするな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「名前は記録だ。記録は多数で書き換えられる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「五人で囲んだ紐の中だけだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　レンが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　灰堂の視線が彼へ戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「だから君は、その鞄を外へ持ち出せない」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　砂が落ち切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　鐘が鳴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「動議。砥上レンは、次の鐘まで両方の掌を議長卓の天板につけ続ける。賛成か、反対か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「賛成」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「賛成」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「賛成」</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　灰堂、関、恩田。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「反対」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「反対」</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　レンとミナ。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　銀の鐘に白三、黒二の線が灯った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「可決」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　レンの両腕が勝手に動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　筋肉が自分の意思を裏切り、二つの掌が議長卓へ叩きつけられる。引きはがそうとしても、皮膚が天板と一枚につながったように離れない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="197">　関が笑い、レンの右手首から垂れた鞄へ近づいた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="199">「鍵を渡せ。楽になるぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「議案の読み方が雑だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　レンは膝を曲げた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="205">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「灰堂は、机を床につけておけとは言わなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　レンは議長卓の縁を蹴り上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　重い木製の机が脚を浮かせる。両手を天板につけたまま、レンは机ごと一回転した。</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　議長卓の角が関の脇腹へめり込む。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="215">「ぐっ……！」</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　関は椅子を巻き込んで倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　登録された五人のうち、一人でも意識を失えば定足数は崩れ、<span class="term term-proper">《定足数》</span>は解除される。レンは机を押しつけ、そのまま関の顎を床へ打ちつけようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　灰堂が机の脚を横から蹴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　角度がずれ、関の頭は床すれすれを通り過ぎた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「一つの動作を縛っても、その使い方までは縛れない。そこに気づく者は少ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　灰堂は感心したように言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「だが、気づいたから勝てるとは限らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　恩田が拳銃を構える。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　レンは机を盾のように立てた。両手はまだ離せない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「次の議題まで撃てばいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="237">「いいや」</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　灰堂は砂時計を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「銃弾にも、手続きが必要だ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="243">　レンの肩の数字は、四十七を切った。</p>
+<div class="source-line scene-break gap-2" data-source-line="246" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration role-system gap-2" data-source-line="249"><span class="term term-skill">【残り四十一秒】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="251">　次の鐘が鳴った瞬間、レンの両手は机から解放された。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　同時に、灰堂が新しい動議を読み上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">「動議。恩田は、砥上レンの右脚へ拳銃を一発撃つ。賛成か、反対か」</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　三対二。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　可決。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　恩田の腕が跳ね上がった。本人が狙うより速く、銃口がレンの膝へ向く。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="263">「伏せて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　ミナが足元の革椅子を蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　椅子が床を滑り、恩田のすねへ衝突する。恩田の身体が傾く。それでも指は異能に引かれ、引き金を絞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　銃声。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　弾丸はレンの膝を一センチ外れ、ズボンを裂いて床へ突き刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　レンは倒した議長卓を乗り越え、恩田の懐へ入る。拳銃を持つ手首をねじり、肘を顎へ打ち上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　恩田の歯が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　だが、背後から関がレンの腰へ組みついた。先ほどの一撃で息は荒いが、まだ意識はある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="279">「三人で一人を押さえるのも、多数決か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「暴力はいつも数を欲しがる」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　灰堂は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="285">「正義も同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　レンは関の足を踏み、身体を沈めて背負い投げた。関は床へ落ちる寸前で恩田の腕をつかみ、二人とも崩れながらも気絶を免れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　灰堂は、自分ではほとんど戦わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　議長は票を数え、他人の身体を使う。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　それが彼の戦い方だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　ミナが再び非常停止レバーへ走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　最初の否決が効力を失った今なら、触れられる。レバーを引けば、議場中央の防火シャッターが降りる。その軌道は赤い組紐を横切っている。登録者自身には切れない境界でも、機械なら断ち切れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　紐が切れれば、<span class="term term-proper">《定足数》</span>は終わる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「ミナ」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　レンが呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　彼女は振り向かない。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="307">「今度こそ引く！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「まだだ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="311">「また反対する気？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「次も反対でいろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「何を――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「説明はあとで届く」</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　ミナの眉が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　彼女はレンの右手を見た。真鍮のコイン。次に、関の喉を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　関はさっき、確かに投票したと言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="324">　だが鐘には数えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　ミナは何かに気づきかけた顔をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　灰堂も、レンの動きを観察していた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="330">　銃弾が肩を貫いたはずなのに、血が出ていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="331">　胸へ受けた拳には、衝撃がなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="332">　真鍮のコインが触れた直後に、二つの結果が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「消失ではないな」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　灰堂が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「消せるなら、君は残弾を恐れない。だが今の一発は必死で避けた。能力を使わなかったのではなく、使えなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　レンは答えない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「上限がある。そして、君は時間を何度も確認している」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="344">　灰堂の口元に薄い笑いが浮かぶ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="346">「結果を未来へ送ったのか。十秒では短い。十分では戦闘に使いづらい。君の呼吸と視線から考えれば――一分」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="348">　レンの左肩に浮かぶ数字は、三十七。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="350">「正解なら拍手でもするか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「多数の拍手なら、事実として受け取ろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　灰堂は自分の胸へ手を当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「ここへ届かなかった拳も、あと三十数秒で来る」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-1 gap-1" data-source-line="358">「請求日は守る主義だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「そして君の肩にも銃創が来る。君は私を殴ったあと、自分で倒れるわけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　灰堂は関を一瞥した。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="364">「三件目は何だ？」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="366">　レンは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「請求書の中身を、債務者に先に見せる業者はいない」</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　砂時計が落ち切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　灰堂が鐘へ手を伸ばした。</p>
+<div class="source-line scene-break gap-2" data-source-line="375" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration role-system gap-2" data-source-line="378"><span class="term term-skill">【残り三十一秒】</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「動議。織部ミナは北壁まで歩き、次の鐘まで両手を頭の後ろに置く。賛成か、反対か」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　三対二。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　可決。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　ミナの身体がレバーから離れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　彼女は歯を食いしばりながら北壁へ歩かされる。だが、命令されたのは歩くことと手の位置だけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　途中、彼女は床に落ちていた革椅子を足先で蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　椅子が滑り、レンの右手首から垂れた鞄の鎖へ脚を絡ませる。黒い鞄は椅子に引っかかり、簡単には持ち上がらなくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「細かい抵抗だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　灰堂が言う。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="398">「細かい記録が、あんたをここまで追い詰めた」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　ミナは北壁へ着き、両手を頭の後ろへ置かされた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「裏帳簿には、あんたが一人ずつ買った票の値段が書いてある。多数派なんかじゃない。値札の束よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「金で選ばれた意思も意思だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「溺れた十八人は、投票してない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="408">「死者に議決権はない」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　その言葉の直後、レンの肘が関の鼻へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　関がよろめく。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　レンは追撃しようとしたが、恩田の拳銃が脇腹へ押し当てられた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「動くな」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="418">「それは動議か？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「普通の脅しだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「安心した。そっちは穴が多い」</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　レンは右手を引いた。鞄の鎖が椅子に絡み、金属音を立てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　恩田が銃口をさらに押し込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「次は外さない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「次は、俺も借りられない」</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　レンの能力はすでに三件で埋まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　一件目。関の反対票。</p>
+<p class="source-line role-narration gap-0" data-source-line="435">　二件目。灰堂の胸へ届く拳。</p>
+<p class="source-line role-narration gap-0" data-source-line="436">　三件目。自分の肩へ届く銃創。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　どれかが取り立てられるまで、新しい結果は遅らせられない。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　灰堂はそこまで読んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「君は奇妙な能力を持ちながら、実に平凡な賭け方をする」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="444">「平凡？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「最後の数秒に全額を置く。自分だけが時計を知っていると思っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　灰堂は砂時計を返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「だが、こちらにも時計はある。君の拳が来る前に鞄を取り、退出を可決する。三対二。変わりようがない」</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　レンは北壁のミナを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　ミナは一度だけ、わずかに顎を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　最後も反対。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　伝言は届いていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="461" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration role-system gap-2" data-source-line="464"><span class="term term-skill">【残り二十秒】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="466">　鐘が鳴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="468">「動議。砥上レンは右手を開き、次の鐘まで閉じない。賛成か、反対か」</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　可決。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　レンの五本の指が、一本ずつ逆らえない力で開いていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　黒い鞄の取っ手が掌から落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　鎖はまだ手錠と椅子へ絡んでいる。レンは左手を伸ばしたが、関が腕を押さえ、恩田が拳銃を額へ向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　灰堂は議長卓の引き出しから大型のボルトカッターを取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　この部屋を選んだのは、彼自身だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="481">　必要な道具も、退出経路も、投票の順序も、すべて用意してある。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　刃が閉じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　鞄と手錠をつないでいた鎖が、乾いた音を立てて切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　灰堂は黒い鞄を拾い上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「これで八年前の事故は、事故のままだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「中身を燃やしても、十八人は戻らない」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="493">　ミナが言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="495">「だからこそ、記録を燃やす価値がある。戻らない死者のために、生者の地位を失うのは非合理だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「地位じゃない。責任よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「責任とは、少数派が多数派へ貼る名前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　灰堂は鞄を左手に持ち、東扉へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　赤い組紐の直前で、足が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　会期中、登録された五人は、可決なしに境界を越えられない。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　灰堂は振り返った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="509">　レンは関に押さえ込まれ、片膝を床についている。左肩にはまだ血がない。だが、顔色が少しずつ白くなっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　本人にしか見えない数字が減る。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　関の喉、9.1。</p>
+<p class="source-line role-narration gap-0" data-source-line="514">　灰堂の胸、9.4。</p>
+<p class="source-line role-narration gap-0" data-source-line="515">　レンの肩、9.7。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　灰堂はそれを見ることができない。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　しかし順番のうち、二つは推測していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「私の胸へ、君の拳が来る」</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　灰堂は言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「その少しあと、君の肩へ銃弾が来る。ならば、その前に出ればいい」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="527">「三件目を忘れてる」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="529">「忘れてはいない。分からないだけだ。そして、分からないものへ票は与えない」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　灰堂が銀の鐘を持ち上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「関。恩田。次の採決は即答しろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="536">「了解」</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　レンは床に落ちた鋼糸を左手の指へ巻きつけた。先端の真鍮貨が、彼の掌へ戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　もう能力は使えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　だが、コインはただの道具としても使える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">「ミナ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="546">「分かってる」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="548">「何が分かった？」</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　灰堂が問う。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　ミナは北壁から目だけを向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「あなたが負けるってこと」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="556">　灰堂は笑わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　砂時計の最後の一粒が落ちる。</p>
+<div class="source-line scene-break gap-2" data-source-line="561" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration role-system gap-2" data-source-line="564"><span class="term term-skill">【残り八秒】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="566">　灰堂は東扉の前に立ち、黒い鞄を掲げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="568">「動議。灰堂円司は、この鞄を保持したまま東扉から議場を退出する。賛成か、反対か」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　文言を読み終え、銀の鐘を鳴らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　三秒間の採決が始まった。</p>
+<p class="source-line role-dialogue fx-key fx-peak role-motif gap-1" data-source-line="574">「賛成！」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　灰堂。</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-1" data-source-line="578">「賛成！」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　恩田。</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-1" data-source-line="582">「反対！」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　ミナ。</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-1" data-source-line="586">「反対！」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　レン。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　白二、黒二。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　最後の一票は関だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　関はレンの左腕をねじり上げたまま、息を吸う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「さ――」</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　レンの左手が跳ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　真鍮のコインが鋼糸を引いて床を走り、関の爪先へ巻きつく。レンが糸を強く引くと、関の足が半歩だけ滑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　体勢を崩した関の腹へ、レンの後頭部が叩き込まれる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="604">「ぐっ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　関の賛成票が、呼吸ごと詰まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　その喉に浮かぶ数字が、0.0になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　六十秒前、関が確かに発したはずの言葉。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　声帯の震え。</p>
+<p class="source-line role-narration gap-0" data-source-line="613">　喉から空気へ伝わる圧力。</p>
+<p class="source-line role-narration gap-0" data-source-line="614">　鼓膜へ届く音という物理的結果。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　レンが<span class="term term-proper">《一分後払い》</span>で預かった一件目が、期限を迎えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　関の口は閉じていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　それでも、その喉の奥から、六十秒前の声が鮮明に飛び出した。</p>
+<p class="source-line role-dialogue fx-climax fx-key role-motif gap-1" data-source-line="622">「反対！」</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　銀の鐘に、関の一票を示す黒い線が灯る。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　関は目を見開いた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="628">「ち、違う！　今のは前の――賛成だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　遅い。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　<span class="term term-proper">《定足数》</span>が数えるのは、鐘のあと最初に聞こえた一語だけ。</p>
+<p class="source-line role-narration gap-0" data-source-line="633">　いつ発声されたかではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="634">　話者がどの議題へ答えるつもりだったかでもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　この議場へ、いつ届いたか。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　それだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　白二。</p>
+<p class="source-line role-narration gap-0" data-source-line="641">　黒三。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「否決」</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　銀の鐘が、灰堂自身の声で判決を下した。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　灰堂は東扉へ踏み出そうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　足が赤い組紐の直前で凍りつく。前へ出すどころか、体重を傾けることさえできない。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="651">「馬鹿な……六十秒前の票を、別の採決へ――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「票の宛先を変えたんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　レンが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「到着時刻を変えただけだ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="659">　灰堂の胸に浮かぶ、レンにしか見えない数字がゼロになる。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　二件目の支払期日。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　六十秒前に届かなかった拳の衝撃が、灰堂の胸骨へ一度に返ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　上着が内側から爆ぜるように膨らむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　灰堂の身体が床を離れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　黒い鞄が宙を舞う。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　灰堂は議長卓を越え、背もたれの高い革椅子へ叩きつけられた。椅子ごと後ろへ倒れ、銀の鐘が床を転がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「議長」</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　レンは関の腕を振りほどいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「否決だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　ミナが走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　強制されていた姿勢は、最後の鐘と同時に解けている。彼女は宙から落ちてきた黒い鞄を胸で受け止め、その勢いのまま非常停止レバーへ飛びついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　今度は、誰にも否決できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　レバーが下がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　天井で警報が鳴り、議場中央の防火シャッターが落ち始めた。鋼鉄の板が赤い組紐を断ち切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　五本の線が銀の鐘から消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　<span class="term term-proper">《定足数》</span>、解除。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　恩田が拳銃をミナへ向ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　しかしシャッターが二人の間へ落ち、火花を散らして床へ到達した。関は逃げようと東扉へ走ったが、非常停止と連動した電磁錠が閉まり、扉は開かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　灰堂は倒れた椅子の間で息を詰まらせていた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="699">　そしてレンの左肩で、最後の数字がゼロになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　三件目の支払期日。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　六十秒遅れの銃創が、ようやく彼へ届く。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="705">　裂けていたコートの下から血が噴き、左腕から力が抜けた。レンは片膝をつき、そのまま前へ倒れかける。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　ミナが鞄を抱えたまま、右肩で彼を支えた。</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="709">「これを計算に入れてたの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="711">「入ってる」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="713">「すごい血よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「請求額までは読めなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「馬鹿」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="719">「それは反対票か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「全会一致」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　警報の向こうで、地上階の警備扉が開く音がした。ミナが事前に送っていた通報を受け、監査局の捜査員たちが突入してくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　灰堂は苦しげに顔を上げる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="727">「たった一票で……八年前の議決まで、覆ると思うのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　レンは出血する肩を押さえた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="731">「議決を覆すのは俺の仕事じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　ミナが黒い鞄を持ち上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="735">「事実を届ける。それだけよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　灰堂は何かを言おうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　だが、もう彼の前に鐘はなかった。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="740">　彼の声を世界の規則へ変える五人もいなかった。</p>
+<div class="source-line scene-break gap-2" data-source-line="743" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>◇</div>
+<p class="source-line role-narration role-clue gap-2" data-source-line="746">　夜が明けるころ、黒い鞄は特別監査局の証拠保管室へ収められた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="748">　中にあった裏帳簿、送金記録、音声データはすべて無事だった。ミナは事情聴取のため別室へ向かい、レンは救急隊員に肩を縫われながら、右手で配達証へ署名した。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　予定到着時刻を、一分だけ過ぎていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　廊下へ出る前、ミナが振り返る。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="754">「最初の採決で、どうして私に反対したの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="756">「関の反対票を隠すため。あそこで君と俺が賛成したら、関の声が消えたせいで二対二になって、灰堂に気づかれた。俺まで反対すれば、関が棄権しても三対一で否決できる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="758">「最初から、六十秒後の退出採決に重ねるつもりだった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「半分は」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="762">「残り半分は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「灰堂が、俺の思った順番で動議を出してくれるかどうか」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="766">「外れたら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="768">「撃たれ損だった」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="770">　ミナはしばらく黙り、それから小さく笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="772">「あなた、配達人には向いてない。危なすぎる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">「遅配はしてない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="776">「一分遅れよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　レンは配達証をひらひら振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="780">「違う。反対票が一枚、遠回りしただけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　六十秒前に捨てられた声は、正しい時刻に、正しい場所へ届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　結果は消えない。</p>
+<p class="source-line role-narration gap-0" data-source-line="785">　責任も消えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　どれだけ大勢で先送りしても、支払日は必ずやって来る。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="音声資料を修復する篠宮のもとへ、失踪した恩師・鴇田から黒い蝋管と歯のない〈軸鍵〉が届く。録音は、鍵を舟守へ持ってくるな、死者の声に返事をするなと警告する。だが雑音から聞こえたのは、幼い日に亡くした姉の呼び名だった。色彩の体系から半歩ずれた風景、感情を間違えて帰ってくる住民、電源のない無線で話す恩師。高原の観測所では、同じ声が「鍵を使え」と正反対の指示を告げ、井戸の底から世界に存在しない方角が近づいている。懐かしい声ほど疑えない。篠宮は零時までに、誰の言葉を信じるか選ばなければならない。">
+<title>色なき方角の鍵｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="色なき方角の鍵" data-novel-id="色なき方角の鍵" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ホラー・SF</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ホラー、SF、奇妙な味</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：270行／章：6／役割・強度タグ：299</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="色なき方角の鍵 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">色なき方角の鍵</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4">一</h2>
+<p class="source-line role-narration gap-1" data-source-line="6">　私が鴇田征一先生から最後の蝋管を受け取ったのは、舟守高原で最後の無線が途絶える四日前だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　当時の私は東嶺大学の音声資料室に勤め、民俗歌謡や絶滅寸前の方言を、黴と埃にまみれた録音から拾い出す仕事をしていた。鴇田先生は私の恩師であり、七年前に大学を辞してからは、北の山中に建てた私設観測所に籠もっていた。専門は天体物理だったが、晩年の論文は夢と記憶の構造に傾き、学会では冗談半分に「眠りの測量士」と呼ばれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　小包に差出人の名はなかった。中には黒い蝋管が一本と、古びた銀灰色の金属片が入っていた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="12">　金属片は鍵に似ていた。掌ほどの長さで、柄の部分に細かな同心円が刻まれている。ただし歯はなく、先端は四角い軸になっていた。銀より軽く、アルミニウムより冷たい。窓辺に置くと影がわずかに遅れて動くように見えたが、疲れのせいだと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　蝋管はひどく傷んでいた。私は慎重に再生機へ載せ、針圧を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　砂嵐のような雑音の奥から、懐かしい声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「篠宮君。これを聴いているなら、私は判断を誤った」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　鴇田先生の声は以前より痩せ、言葉の一つ一つが遠い部屋から運ばれてくるようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「舟守へ来てはいけない。観測所の主電源を落としても、井戸の音は止まらなかった。色は光ではない。色に見えるのは、こちらの世界が傷口を理解できないからだ。あれは方角だ。私たちの宇宙に存在しない、もう一つの方角だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　そこで長い雑音が入り、続いて先生は、妙に平坦な声で言った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="26">「同封のものを<span class="term term-world">〈軸鍵〉</span>と呼ぶ。焼いても、溶かしても、捨てても戻ってくる。だが決して舟守へ持ってきてはならない。もしこの録音の中で、私以外の声が君を呼んだとしても、返事をするな」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　録音はそこで終わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　私は三度再生した。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　三度目、針が最後の溝をなぞり終えようとしたとき、先生の声の背後に、かすかな囁きが混じった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="34">「リツ坊」</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　私は再生機を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　その呼び名を知る者は一人しかいなかった。十二歳の冬、川の氷が割れて死んだ姉だけである。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　蝋管を逆回転させても、速度を変えても、囁きは残った。波形を拡大すると、それは録音された声ではなかった。溝の雑音そのものが偶然まとまり、日本語の音になっていた。さらに拡大すると、同じ二音が何層にも折り重なっていた。男、女、子供、老人。私自身の声まであった。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　その夜から、私は同じ夢を見るようになった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="44">　子供の頃の家の廊下が、暗闇の中へ果てしなく伸びている。左右に無数の扉があり、どの扉の向こうにも、私が生きなかった人生がある。医者になった私。結婚した私。姉の代わりに川へ沈んだ私。人間ではない何かの眼で、青い星を見下ろしている私。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　廊下の最奥には、扉のない門があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　輪郭だけがあり、その内側は黒くない。白くもない。赤、青、黄という言葉が生まれる以前の、見るという行為そのものを拒む何かが満ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　門の前で姉が待っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「鍵を持ってきて」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　姉は十二歳の顔で微笑み、星々の瞬く口を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「こっちには、あなたがまだ来ていない」</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="59">二</h2>
+<p class="source-line role-narration gap-1" data-source-line="61">　私は舟守へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　理屈では、行くべきでないと分かっていた。だが人は、恐怖だけでは逃げられない。恐怖の中に、失った者の声が一滴でも混じれば、それはしばしば希望より強い綱になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　舟守高原へ至る支線は、秋の長雨で何度も止まった。終点の藻戸駅で降りると、駅前には小さな乗合バスが一台だけ待っていた。行き先を告げると、運転手は私の鞄を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「先生のところかね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">「鴇田先生をご存じですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="71">「知ってるとも。前は週に一度、町へ降りてきた。六月から見てないが、夜になると無線は入る。うちの古いラジオでも、電源を抜いてあるのに喋るんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　彼は乗車を断りはしなかった。ただ、舟守の集落より三キロ手前でバスを止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="75">「ここから先は色が悪い」</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　冗談ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　山は紅葉の季節だったが、峠を越えた先だけ、景色が薄い膜をかぶっていた。褪せているのではない。木々の赤も空の青も確かに見えるのに、それらが本来属すべき場所から、半歩ずれている。視線を向けると普通に戻り、目を逸らすと、視界の端に名づけようのない色が滲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　それは紫にも緑にも似ていたが、紫と緑の中間ではなかった。色というより、色彩の体系に開いた小さな穴だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「夜までに戻らなかったら、明日の昼にもう一度来る」</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　運転手はそう言い残し、逃げるように坂を下っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　舟守は二十戸ほどの集落だった。畑には黒ずんだ蕪が放置され、軒下の風鈴は風もないのに一斉に震えていた。人影はなかったが、閉ざされた家々の内側から、小声で相談するような音が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　集落の外れで、少女が一人、道にしゃがみ込んでいた。十四、五歳だろう。制服の上に男物の雨合羽を着て、白い蛾の死骸を並べていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="91">「観測所へ行くの」</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　少女は顔を上げずに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="95">「そうだ。鴇田先生に会いに」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="97">「会えないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="99">「どうして」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「先生は、もう口がないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　私は返す言葉を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　少女は千景と名乗った。祖母と二人で残っているという。他の住民は夏の終わりまでに町へ避難したが、何人かは戻ってきた。ただし戻った者たちは、家族の名前を正しく言い、昔の出来事も覚えていたのに、笑う場所をいつも間違えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">「お父さんも戻ってきた。でも、私が泣いたとき笑った。朝ご飯の味噌汁を飲んで、お葬式みたいに泣いた。それでおばあちゃんが、家に入れなかった」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="109">「今、お父さんは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「夜になると裏山から呼ぶ。声だけは、前より優しいよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　千景は蛾を一列に並べ終えると立ち上がった。蛾の翅はどれも真っ白だったが、彼女が離れた瞬間、その白さの奥にあの名づけられない色が走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="115">「日が沈んだら、誰に呼ばれても返事しないで。自分の声でも」</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　彼女はそう言って、集落へ戻っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　観測所は丘の頂にあった。丸いドームと木造の研究棟が、枯れた草原に取り残されている。玄関は内側から鎖で閉ざされていたが、脇の窓が割れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　中には薬品と湿った石の匂いが満ちていた。床には銀色の細い線が何本も走り、廊下の奥へ続いていた。それは配線ではなく、菌糸のような結晶だった。靴先で触れると、遠くで誰かが息を吸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　二階の無線室から呼び出し音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　机の上に古い短波受信機があり、電源ランプは消えている。それでもスピーカーから、はっきりと鴇田先生の声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">「篠宮君。来てしまったのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　私は受信機から一歩下がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">「先生、どこにいるんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「地下だ。いや、正確には、地下という言い方はもう適切ではない。私は観測井の近くにいる。直接会えば君の認識を汚染する。無線で話そう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「小包を送ったのは先生ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　雑音が膨らみ、その中で何人もの笑い声がした。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="139">「送った。だが、君に届いた内容を私は知らない。ここでは原因と結果の並びが弱くなっている。私はまだ録音していない警告を、君はすでに聞いたのかもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="141">「先生は、何を見つけたんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　しばらく沈黙があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「門だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　声はかすかに震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「ただし、石の輪でも、空間の裂け目でもない。人間が自分を一人の人間だと思い続ける、その連続性に開く門だ」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="152">三</h2>
+<p class="source-line role-narration gap-1" data-source-line="154">　鴇田先生の説明は、科学というより懺悔に近かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　三月、観測所の裏山に乾いた雷が落ちた。火も煙も出なかったが、翌朝、旧観測井の底に、直径三十センチほどの黒い球体が見つかった。球体は重さを測るたび値が変わり、分光器では何も検出されなかった。しかし、観察した者は皆、視界の端に同じ異常な色を見るようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　先生は当初、それを未知の放射線による神経症状と考えた。ところが色は植物に移り、土に移り、夢にまで移った。畑の作物は腐らずに味だけを失い、家畜は生まれる前の母の鳴き声で鳴いた。井戸水を飲んだ者は、まだ経験していない記憶を語った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「球体は物質ではなかった」と先生は言った。「あれは、向こう側からこちら側へ突き出た座標の先端だった。紙の上を歩く虫には、鉛筆の先端が円に見える。私たちに見えた球も、それと同じだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「向こう側には何がいるんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「いる、という動詞が正しいか分からない。生物ではない。意志とも違う。巨大な観測そのものだ。あれは世界を見るのではなく、見たものを自分の内部にする。記憶を読み、声を真似し、人格の輪郭を学ぶ」</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　私は鞄の中の軸鍵に触れた。布に包んであるのに、指先が冷えた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="168">「この鍵は何です」</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="170">「山頂の遺構から掘り出した。古代のものではない。金属の年代を測ると、作られたのは数百万年後だという結果が出た。ふざけた数字だと思ったが、今は違う。軸鍵は門の向きを変える。こちらから向こうへ開くか、向こうからこちらへ開くか、その回転軸になる」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="172">「閉じることは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「できる。午前零時、地下の環状装置へ鍵を差し込み、刻印のない面を北へ向けろ。そうすれば座標は切断される」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　その指示を聞いた瞬間、胸の奥で何かが軋んだ。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="178">　先生が小包の録音で言っていたことと、正反対だった。持ってくるな。決して差すな。だが無線の声は、鍵を使えと言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「先生」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「私の姉の名を覚えていますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　長い雑音。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「もちろんだ。園枝さんだろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　姉の名は園枝ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　私は受信機のつまみを切った。電源のない機械に意味はなかったが、声は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　研究棟を調べると、先生の観測日誌が見つかった。最初の数冊は整然としていたが、日付が六月に近づくにつれ、筆跡は乱れ、同じ頁に異なる日の記録が重なっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　六月十九日。</p>
+<p class="source-line role-narration gap-1" data-source-line="198"><span class="term term-world">〈色は波長ではない。因果の欠損を、脳が色として補っている。あの色を見た場所では、物事に「以前」がなくなる。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="200">　六月二十七日。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="202"><span class="term term-world">〈無線に母の声。死亡は二十年前。応答せず。声は私しか知らない幼名を用いた。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="204">　七月二日。</p>
+<p class="source-line role-narration gap-1" data-source-line="206"><span class="term term-world">〈集落の三名が観測井へ。翌朝帰還。身体的差異なし。ただし瞬きの順序が揃いすぎている。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="208">　七月九日。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="210"><span class="term term-world">〈向こう側は侵入してくるのではない。こちら側に「自分」を作ろうとしている。死者の声は餌ではなく、設計図だ。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="212">　最後の記述は、頁を破るほど強い筆圧で書かれていた。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="214"><span class="term term-world">〈軸鍵は封印具ではない。名札である。門に一人分の自己を与える。絶対に環へ差すな。私の声が命じても従うな。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="216">　その下に、別の筆跡で小さく一行あった。</p>
+<p class="source-line role-narration gap-1" data-source-line="218"><span class="term term-world">〈篠宮君なら来る。彼には、開いたままの喪失がある。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="220">　私の背後で、床板が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　振り向くと千景が立っていた。手に石油ランプを持ち、青ざめている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「もう暗くなる。ここにいたら、先生のふりをしたものが降りてくるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「地下に行ったことがあるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「一度だけ。先生を探しに」</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　彼女は唇を噛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="232">「先生は地下にいる。でも、喋らない」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="235">四</h2>
+<p class="source-line role-narration gap-1" data-source-line="237">　地下へ通じる扉は、書庫の棚の裏にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　千景は止めたが、私は降りた。彼女も結局ついてきた。石段の壁には、地上で見た銀色の結晶が網の目のように広がっていた。ランプの炎は橙色に燃えているのに、その周囲だけ、別の色の影を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　地下室の中央に、鴇田先生は座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　観測椅子に革帯で身体を固定し、頭を垂れていた。白衣は乾ききり、露出した手は蝋のようだった。死後数週間は経っている。口は半開きで、喉の奥から薄い膜状の結晶が幾重にも伸びていた。まるで声帯の代わりに、透明な翅が育ったように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　千景が目を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="247">「先生を見つけたのは八月。村の人に言おうとしたけど、その頃には、みんな先生の声を聞いてた。死んだって言っても信じなかった」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="249">　死体の足元には録音機が置かれ、蝋管が一本載っていた。針は回っていない。それでも蝋管の表面から、かすかな囁きが湧いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　耳を近づけると、数百人が別々の夢を語っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="253"><span class="term term-world">〈海の底に空がある。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="255"><span class="term term-world">〈私は明日生まれる。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="257"><span class="term term-world">〈右の目を閉じると、古い太陽が見える。〉</span></p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="259"><span class="term term-world">〈鍵を差して。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="261"><span class="term term-world">〈リツ坊。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="263">　私は蝋管を床へ叩きつけた。黒い破片が散ったが、囁きは壁へ移り、天井へ移り、私の歯の内側から聞こえ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　地下室のさらに奥に、円形の扉があった。直径三メートルほどの石室で、床には銀色の環状装置が埋め込まれている。中心には四角い穴があり、軸鍵の先端と同じ形をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　環の周囲には十二枚の鏡が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　どの鏡にも、現在の私たちは映らなかった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="271">　一枚には老いた私がいた。別の一枚には幼い私。顔のない私、海中で鰓を動かす私、千景ほどの少女になった私。最後の鏡には、鴇田先生の死体が立ち上がり、私の顔で笑っていた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="273">「見ちゃだめ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　千景がランプを投げた。鏡の一枚が割れ、炎が床を走った。しかし火は銀の環へ触れた途端、音もなく消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　零時まで、あと十二分だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　地上から無線の呼び出し音が響いた。一台ではない。集落中のラジオ、電話、風鈴、空になった瓶、死んだ蛾の翅までが、同じ律動で鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　そして、姉の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="283">「律、遅かったね」</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　石室の中央に、十二歳の姉が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　濡れた髪から川の水を滴らせ、あの日と同じ紺色のコートを着ている。右の眉の上に小さな傷まであった。私はその傷のことを、誰にも話したことがない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">「姉さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　呼びかけた瞬間、千景が私の腕を掴んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="293">「返事しないでって言ったでしょう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　姉の笑顔が少し広がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「その子は、あなたを知らない。私は全部知ってる。川に落ちたとき、最後に何を見たかも」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　私は息を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「氷の裏側に、夏の空が見えたの」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　それは姉が死ぬ前日、私に話した夢だった。氷の下に夏がある、と。私は忘れていた。いや、忘れたつもりでいた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="305">「鍵を使えば、こちらへ来られる。私だけじゃない。先生も、村の人たちも。失われたものは、向こうでは失われていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　姉が手を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　その指の間から、あの色が漏れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　私はようやく理解した。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　それは姉を再現しているのではない。私の中にある姉への道を使い、こちら側に姉という形を組み立てている。正しい記憶を差し出すたび、私自身が設計図になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　だが理解と拒絶は同じではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　偽物でもよかった。もう一度だけ姉の声を聞きたかった。川辺で手を離したのは自分ではないと、言ってほしかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「律」</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　姉は優しく言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「あなたのせいじゃないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　その一言で、私はほとんど負けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　零時を告げる音がした。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="329">　軸鍵が鞄の中で震え、布を裂いて飛び出した。銀の環の上へ浮かび、ゆっくりと中心の穴へ降りていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　私は両手で掴んだ。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="333">　冷たさはなかった。代わりに、無数の記憶が流れ込んできた。私が知らない星の誕生。空間がまだ三つの方向に分かれる前の暗闇。光を食べる海。時間を背骨に持つ巨大な影。文明が生まれては、一つの夢として吸い上げられていく光景。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　そして、それらすべてを見ている<span class="term term-world">〈何か〉</span>の注意が、私へ向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　身体ではない。顔でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　ただ、見られているという事実が、宇宙より大きな形を取っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　私は軸鍵を穴へ差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　姉が微笑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　だが私は、鴇田先生の声が命じた北ではなく、刻印のある面を自分の胸へ向けて回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　世界が裏返った。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="350">五</h2>
+<p class="source-line role-narration gap-1" data-source-line="352">　門の向こうに空間はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　そこには記憶だけがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　誰かが初めて母の顔を認識した瞬間。名もない兵士が雪原で故郷を思った瞬間。まだ言葉を持たない生き物が、海の上の月を恐れた瞬間。それらが無数の廊下となり、扉となり、互いに交差していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　私は自分の身体を失っていた。代わりに「篠宮律である」と信じてきたすべての出来事が、細長い回廊となって伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　姉と歩いた河原。大学の講義室。父の葬儀。蝋管の傷を顕微鏡で覗いた夜。どの記憶にも扉があり、その向こうには少しずつ異なる私がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　そして回廊の外側に、あれがいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　あれは無数の視点が束になったものだった。星の死を眺める眼。細胞の分裂を眺める眼。まだ起きていない出来事を懐かしむ眼。そのどれにも瞼はなく、見ることと取り込むことの区別がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　鴇田先生の声が、回廊の壁から聞こえた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="368"><span class="term term-world">〈すまない、篠宮君。私は先に、母の声へ返事をした〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="370">「先生はどこに」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">〈どこに、という言葉の中だ。あれは私を食べたのではない。私という並び方を覚えた。今、無線で喋っているものも私だ。私でないとは言い切れないほど、正確な私だ〉</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="374">　遠くで、千景の悲鳴がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　見ると、彼女の記憶の回廊が異常な色に侵されていた。父と食卓を囲んだ記憶、入学式、祖母の背中。それらの扉から、同じ笑顔をした千景が何人も出てきて、一つに重なろうとしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　あれはこちら側へ来るため、一貫した人格を必要としていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　人間の「私は昨日と同じ私だ」という信念。それが、宇宙に存在しない方角を固定する軸になる。鴇田先生では足りなかった。先生は疑いすぎた。村人たちも、互いの記憶が食い違い、ひとつの輪郭にならなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　だが私は違った。</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　姉を失った日から、私はずっと同じ場所に立ち続けていた。罪悪感という一本の釘で、過去と現在を強く縫い止めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　あれにとって、私は理想的な門だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　姉が再び現れた。今度は川へ落ちる直前の姿だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「私を助けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　幼い私は岸に立ち、姉へ手を伸ばしている。何度繰り返しても届かない場面だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「鍵をもう半分回せば、あの日を選び直せる」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　私は知っていた。嘘ではない。ここでは、選ばれなかった記憶も扉の向こうにある。姉が助かり、私が代わりに死んだ世界。二人とも助かった世界。川へ行かなかった世界。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　どれか一つへ移ることはできるのだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　ただし、その扉を通る私の背後から、あれも来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　鴇田先生の声が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="404"><span class="term term-world">〈門を閉じる方法は一つしかない。軸を失わせるんだ。君が君であることを、あれに特定させるな〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「そんなことができるんですか」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="408"><span class="term term-world">〈君は声の人間だろう。記録が本物を保存すると思っているのか〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="410">　その言葉で、私は資料室の日々を思い出した。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="412">　古い蝋管に残る声は、本人そのものではない。傷、速度、針、聴く者の期待。そのすべてが混ざり、毎回少しずつ違う死者を作る。完全な再生などない。声は残ることで、かえって一つではなくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　私は自分の回廊に手を伸ばした。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="416">　軸鍵はまだそこにあった。物体ではなく、「選び直せる」という性質だけになっていた。</p>
+<p class="source-line role-narration role-clue tone-3 gap-1" data-source-line="418">　私は鍵を、最初の記憶へ差した。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　母に名を呼ばれ、自分が律だと知った瞬間。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　次に、学校で名前を書いた記憶へ差した。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　姉が「リツ坊」と呼んだ記憶。鴇田先生が「篠宮君」と呼んだ記憶。自分の論文に署名した記憶。役所で印鑑を押した記憶。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　すべての「私」を同時に回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　回廊が枝分かれした。</p>
+<p class="source-line role-narration role-clue tone-5 gap-1" data-source-line="430">　篠宮律が無数に増えた。姉を救った私。救えなかった私。舟守へ来た私。来なかった私。鍵を北へ回した私。鍵を折った私。ここで恐怖に屈した私。まだ生まれていない私。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　それぞれが同じ確信で名乗った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「私が篠宮律だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　あれの視線が揺らいだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　一つの門に、一つの軸。それが必要だった。だが今や、同じ声、同じ記憶、同じ痛みを持つ軸が、数え切れないほど存在していた。どれが原本で、どれが複製か、私自身にも分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　姉が叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="442">「やめて。私を忘れるよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「そうだろうね」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="446">「私がいなくなる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="448">「もう、いないんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　言葉にした瞬間、十二歳の冬から初めて、私はそれを受け入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　姉の顔が崩れた。目が星になり、髪が黒い川になり、声が幾千もの囁きへほどけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　それでも最後に、姉ではない何かが、姉の声で尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「では、あなたは誰？」</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　私は答えなかった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="460">　答えの代わりに、軸鍵を折った。</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　銀灰色の亀裂が、すべての回廊を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　あれは悲鳴を上げなかった。悲鳴という現象を観測し、その観測の中へ自ら落ちていった。無数の篠宮律を一つずつ確かめようとして、終わりのない反復に捕らえられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　門は閉じたのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　どこへ開けばよいのか、分からなくなった。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="471">六</h2>
+<p class="source-line role-narration gap-1" data-source-line="473">　私は夜明け前、観測所の外で目を覚ました。</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　草は霜に濡れ、空は普通の薄青色だった。視界の端を探しても、あの異常な色は見えない。研究棟の半分は崩れ、地下室への入口は土砂で埋まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　隣に千景が倒れていた。息はあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　彼女は目を開けると、私の顔を見て泣いた。正しい場所で、正しく泣いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">「お父さんの声が、消えた」</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　私は何と答えたのか覚えていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　麓へ降りる途中、山の木々には色が戻っていた。紅葉は赤く、苔は緑で、泥は褐色だった。当たり前の色が、ひどく尊いものに見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　昼前、約束どおり乗合バスが来た。運転手は私たちを見ると何度も胸を撫で下ろした。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="489">「先生は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「亡くなっていました」</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　それを口にしたとき、不思議なことに、鴇田先生の顔をはっきり思い出せなかった。声は覚えている。講義の癖も、黒板に数式を書く細い指も。だが顔だけが、古い録音の雑音のように崩れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　町の病院で検査を受けた。千景に異常はなく、私は軽い脱水と診断された。戸籍も職員証も、私を篠宮律だと示していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　しかし、その名を見ても、他人の荷物札のようにしか感じられなかった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="499">　私は大学へ戻り、数か月後に辞職した。資料室で死者の声を再生するたび、無数の可能性が針の下で蠢くのが分かるようになったからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　舟守高原は翌春、大規模な地滑りで立入禁止区域になった。地図から集落名が消され、観測所の跡地は貯水池の底へ沈んだ。千景は祖母と町へ移り、ときどき短い手紙をくれた。父の声は二度と聞こえないという。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　ただ、一つだけ終わっていないことがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　あの蝋管だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　私は出発前に大学へ置いてきたはずだが、舟守から戻ると、自宅の机に載っていた。砕いたはずの破片もなく、表面は新品のように滑らかだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　再生しても、長いあいだ何も聞こえなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　最近になって、最初の溝に声が刻まれ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　針を落とすたび、内容は少しずつ違う。</p>
+<p class="source-line role-narration gap-1" data-source-line="515"><span class="term term-world">〈舟守へ行くな。〉</span></p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="517"><span class="term term-world">〈鍵を持ってこい。〉</span></p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="519"><span class="term term-world">〈姉を信じろ。〉</span></p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="521"><span class="term term-world">〈姉の声に答えるな。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="523"><span class="term term-world">〈お前は帰っていない。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="525"><span class="term term-world">〈帰ったのはお前だけだ。〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="527">　どれも私の声である。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　だが私は、もうそれを恐れてはいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　夜、眠りに落ちる直前、子供の頃の廊下が見えることがある。最奥には輪郭だけの門があり、その向こうで、宇宙より大きな何かが、無数の私を一人ずつ調べ続けている。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　ときどき、門の内側から声がする。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="535">「あなたは誰？」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　姉の声の日もある。鴇田先生の声の日もある。千景の声、母の声、私自身の声の日もある。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　私は答えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　名を告げないかぎり、あれは方角を得られない。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　そして門は、今も私の沈黙の中で、閉じたままでいる。</p>
+<p class="source-line role-dialogue gap-2" data-source-line="546">（了）</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

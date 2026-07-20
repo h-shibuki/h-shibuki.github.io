@@ -1,0 +1,1267 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="空に浮かぶ島々を駆ける少年配達屋カナタは、壊れかけの滑空翼でも、受けた荷物は必ず届ける。ある日、屋根を突き破って現れた少女フィオが依頼したのは、巨大嵐〈天蓋嵐〉の内側にある終端灯台へ、日没までに木箱を運ぶこと。報酬として示された地図には、八年前に嵐へ消えた父の筆跡があった。ところが空路を支配する連盟も箱を狙い、空を喰うほど巨大な鯨が島々へ迫っている。手製翼と壊れた方位針を頼りに、地図から消された風の道へ。世界の果てまで届ける、少年の特急便が飛び立つ。">
+<title>風切りカナタと空喰い鯨｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="風切りカナタと空喰い鯨" data-novel-id="風切りカナタと空喰い鯨" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="adventure-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む" selected>冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・ファンタジー・お仕事</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、バトル、ジュブナイル、ファンタジー、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">冒険・アクション</span></p>
+  <p id="currentPresetDescription">疾走する本文に、号令・衝突音・決断を太い書体で刻む</p>
+  <h3>意味色</h3><p>青＝旅路、赤＝戦い、金＝決断、紫＝傷、緑＝仲間</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：806行／章：0／役割・強度タグ：902</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="風切りカナタと空喰い鯨 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">風切りカナタと空喰い鯨</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　ハルバ島の正午は、役所の鐘より三秒早くやってくる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="6">「どけどけどけーっ！　特急便だ！　ひかれたくなきゃ、昼飯ごと引っ込め！」</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　青い屋根の上を、一人の少年が駆け抜けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　ぼさぼさの黒髪。日に焼けた頬。片方だけ丈の短いズボン。背には革の配達かばんを負い、右手には赤い小箱を掲げている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="11">「カナタ！　また屋根を走ってるな！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="12">「道が混んでるんだよ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="13">「屋根は道じゃねえ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="14">「今、道になった！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="16">　怒鳴るパン屋の煙突を飛び越え、洗濯物の列をくぐり、カナタは島の縁へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　空に浮かぶ島、ハルバ。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　島の下には海の代わりに、白い雲が果てなく広がっている。雲海の底がどうなっているか、知る者はいない。島から島へ渡る手段は、風帆船か、小型の滑空翼だけだ。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="21">　港では、定期船<span class="term term-proper">《コダマ号》</span>が最後の綱を巻き上げていた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="23">「待って！　その船、待ったあああ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　カナタの声に、甲板の乗客たちが振り向く。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="26">　だが船長は無情にも出航の笛を鳴らした。巨大な帆が風をはらみ、<span class="term term-proper">《コダマ号》</span>は桟橋から離れていく。</p>
+<p class="source-line role-dialogue role-name fx-beat tone-3 gap-1" data-source-line="28">「カナタ兄ちゃん、もういいよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　桟橋の端で、十歳ほどの男の子が泣きそうな顔をしていた。病気の母親を見舞いに行く姉へ、形見の首飾りを渡したかったのだ。だが家に忘れ、カナタへ特急配達を頼んだときには、出航寸前だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「配達屋に“もういい”は禁句だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　カナタは走る速度を上げた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="36">「届け先が動いてようが、空の向こうだろうが――受けた荷物は、絶対に届ける！」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　桟橋の先端を蹴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="39">　足元から、空が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　見物人たちが悲鳴を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　カナタは真っ逆さまに落ちながら、背中のかばんから二本の棒を引いた。棒の間に、折り畳まれていた薄い布翼がばさりと開く。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="45">　手製滑空翼<span class="term term-proper">《ツバメ零号》</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　補修布だらけの片翼が風をつかみ、カナタの体をぐいと持ち上げた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="49">「うおおおおおっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　船尾すれすれまで近づき、カナタは赤い小箱を投げる。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="52">　甲板にいた少女が両手で受け止めた。箱を開き、中の首飾りを見る。少女は桟橋の弟へ向かって、何度も大きく手を振った。</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-1" data-source-line="54">「配達、完了！」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="56">　次の瞬間、<span class="term term-proper">《ツバメ零号》</span>の左の支柱が、ばきりと折れた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="58">「……あ」</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　カナタは笑顔のまま、雲海へ落ちた。</p>
+<div class="source-line scene-break gap-2" data-source-line="63" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-2" data-source-line="66">「三十七回目だぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　港の修理工房で、白髪頭の老人ジンは腕を組んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="70">「何が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="71">「今月、おまえが翼を壊した回数だ」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="72">「まだ月の半分だ。記録更新いけるな」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="73">「威張るな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　巨大なレンチが飛んできた。カナタは頭を下げてかわす。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="76">　工房の隅では、<span class="term term-proper">《ツバメ零号》</span>が無残な姿で吊られていた。港の救助網に引っかかったため、カナタ自身はかすり傷で済んでいる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="78">　ジンはカナタの祖父であり、ハルバ島一の翼職人だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="79">　腕はいい。口は悪い。孫へのレンチ投げだけは百発百中――のはずだが、今日も外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="81">「おまえの親父も無茶ばかりしたが、翼はもう少し大事に使った」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="82">「親父は帰ってこなかったけどな」</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　工房の空気が、少しだけ重くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　カナタの父ソラトは、八年前に姿を消した。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="87">　世界を覆う巨大な嵐<span class="term term-proper">《天蓋嵐》</span>へ入り、そのまま戻らなかった。腕利きの航路士だったが、禁じられた空域へ向かったため、世間では“名誉欲に負けた無謀者”と呼ばれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　カナタは胸元の古い方位針を握った。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="90">　父が残した唯一の品だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　ただし、その針は北を指さない。</p>
+<p class="source-line role-narration gap-0" data-source-line="93">　東へ回り、西へ震え、ときには真下を指す。壊れているのだ、と誰もが言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="95">「親父が何を見つけたのか、俺が確かめる」</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　カナタはいつも同じことを言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="99">「それで航路士になって、誰も知らない空の地図を描く。島の外れにある“立入禁止”の札、全部ひっくり返してやる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「まずは飛行免許を取れ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="102">「試験官が俺の才能を理解してない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="103">「十七回落ちた男が言う台詞じゃねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　そのとき。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　工房の屋根が、爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　瓦と煙と一緒に、何かが落ちてくる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="111">「うわっ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="112">「わしの屋根えええ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　作業台の上へ突っ込んだのは、カナタと同じくらいの年頃の少女だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="115">　銀色に近い淡い髪。紺色の外套。首には、星をかたどった青い石を下げている。腕には、古びた木箱を抱えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　少女は煙の中から顔を上げると、カナタをまっすぐ見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="119">「あなたが、“風切りカナタ”？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="120">「屋根代の請求なら、そこのじいさんに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="121">「おまえにじゃ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　少女は木箱を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「配達を頼みたい」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="126">「届け先は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="127">「終端灯台」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="128">「……は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　ジンの顔色が変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　終端灯台。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="133">　ハルバ島から西へ三百里。<span class="term term-proper">《天蓋嵐》</span>の内側にあると伝えられる、とうに捨てられた灯台だ。今は地図からも消されている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「日没までに、この箱を灯台の最上階へ届けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　少女の声は落ち着いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="138">　だが箱を抱く指は、小さく震えている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「報酬は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　カナタが聞くと、少女は外套の内側から、黄ばんだ紙片を取り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　そこには、風の流れを示す細かな線と、見覚えのある筆跡があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　――風は、道を覚えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　父ソラトの字だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「これをどこで手に入れた」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="152">「終端灯台へ来れば、あなたのお父さんが八年前に何をしたのか分かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　カナタは木箱を受け取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「名前」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="157">「フィオ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="158">「依頼人フィオ。届け先、終端灯台。期限、今日の日没」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="160">　工房の外で、重い靴音が響いた。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="161">　窓から見ると、灰色の制服を着た男たちが通りを封鎖している。胸には、空路を管理する<span class="term term-proper">《大風帆連盟》</span>の紋章。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　その中央を、背の高い男が歩いてきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="164">　赤銅色の長髪を後ろへなでつけ、片目に黒い単眼鏡をかけている。腰には細身の剣。風帆連盟の英雄、“嵐狩り”ガルド船長だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「その少女は、連盟の重要物を盗んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　扉越しに、ガルドの声が響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「箱を渡せ。悪いようにはしない」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　フィオがカナタの袖をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「渡したら、空喰い鯨が殺される」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「空喰い鯨？」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="178">「話は飛びながら！」</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　工房の正面扉が蹴破られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　同時に、カナタは壁のレバーを引いた。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="183">　床板が開き、修理途中の<span class="term term-proper">《ツバメ零号》</span>が跳ね上がる。新しい翼はまだ片側しか張られていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「カナタ！　そいつは飛べんぞ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="186">「片翼あれば十分！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="187">「十分なわけあるか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　カナタはフィオを抱え、翼の操縦帯へ体を滑り込ませた。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="191">「じいちゃん、屋根の修理よろしく！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="192">「待て、この大馬鹿孫――！」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="194">　工房の裏壁を突き破り、<span class="term term-proper">《ツバメ零号》</span>は空へ飛び出した。</p>
+<div class="source-line scene-break gap-2" data-source-line="197" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-beat gap-2" data-source-line="200">「落ちる！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="201">「飛んでる！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="202">「落ちながら進んでるだけ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="203">「それを滑空って言うんだ！」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="205">　片翼の<span class="term term-proper">《ツバメ零号》</span>は、きりもみしながら港の帆柱をすり抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　背後から、連盟兵の小型艇が三隻追ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="208">　艇首の発射器から、網弾が撃ち出された。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「右！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="211">「分かってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　カナタが体重をかける。</p>
+<p class="source-line role-narration gap-0" data-source-line="214">　翼は右へ傾くどころか、左へひっくり返った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="216">「逆！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="217">「分かってなかった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　網が頭上を通り過ぎる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="220">　カナタは上下逆さまのまま笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「でも、当たらなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「あなた、いつもこうなの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「今日は調子がいい方だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　フィオが青ざめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　ハルバ島の外周を回り込み、二人は古い給水塔の間を抜ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="229">　追手の艇は大きく、狭い隙間へ入れない。一隻が塔へぶつかり、水を盛大にかぶった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="231">「一隻！」</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　だが残る二隻のさらに上から、巨大な影が落ちてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　黒い船体。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　三枚の鋼帆。</p>
+<p class="source-line role-narration gap-0" data-source-line="237">　船首には、獣の牙のような衝角。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="239">　ガルドの旗艦<span class="term term-proper">《グラディオ号》</span>だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">『カナタ・アオイ』</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　拡声管から、ガルドの声が降ってくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="245">『君の父親とは旧知の仲だ。彼のような最期を迎えたくなければ、止まりたまえ』</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="247">「親父の最期を知ってるのか！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="249">『知りたければ、箱を渡せ』</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　カナタは一瞬、操縦帯を握る手を止めた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="253">　フィオが言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">「ガルドは、あなたが迷うと知ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="256">「迷ってない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="257">「嘘」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="258">「配達中に昔話を始めるほど暇じゃないだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　カナタは胸の方位針を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　針は激しく回ったあと、西を指す。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　壊れた針が、初めて迷わず一方向を示した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「こいつまで、届けろって言ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　カナタは翼を西へ向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　ハルバ島の外には、風の壁がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="270">　何層もの気流がぶつかり、目に見えない崖のようになっている。普通の船は決められた航路門を通るしかない。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　だがカナタには、風が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　正確には、音で分かる。</p>
+<p class="source-line role-narration gap-0" data-source-line="275">　帆布の震え。支柱のうなり。頬をなでる冷たさ。無数の音が重なり、空に一本だけ、細い抜け道を作っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">「つかまってろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="279">「何をする気？」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="281">「道がないなら――作る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　カナタは風の壁へ突っ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　翼が悲鳴を上げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="286">　体が上下左右から殴られる。フィオが目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　その瞬間、カナタは操縦帯を緩めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　抗うのをやめた片翼が、乱気流に巻かれてくるりと回る。</p>
+<p class="source-line role-narration gap-0" data-source-line="291">　一回転。</p>
+<p class="source-line role-narration gap-0" data-source-line="292">　二回転。</p>
+<p class="source-line role-narration gap-0" data-source-line="293">　三回転。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　風の渦の中心へ入り、最後の一回転で機首が西を向いた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="297">　次の瞬間、<span class="term term-proper">《ツバメ零号》</span>は矢のように風の壁から射出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　背後で、追ってきた小型艇二隻が乱気流に弾かれる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="301">「三隻！」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　カナタは拳を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　フィオはしばらく口を開けたままだった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="307">「……あなた、本当に免許を持ってないの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="308">「試験は安全運転しか採点しないからな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="309">「正しい採点だと思う」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　彼方に、黒い雲の柱が見えた。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="312">　天から雲海までをつなぐ、巨大な嵐。<span class="term term-proper">《天蓋嵐》</span>だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　空の半分を覆う稲妻を見て、フィオの表情が引き締まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「日没まで、あと四時間」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">「その前に説明しろ。空喰い鯨って何だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　フィオは木箱へ目を落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="322">「この世界の島が、なぜ浮いているか知ってる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「島の底に“浮星石”があるからだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「浮星石は、何百年もすれば力を失う。新しい星砂を運んでくるのが、空喰い鯨」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　フィオは西の嵐を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">「五十年に一度、あの嵐の中を通って、世界を一周する。古くなった岩や、落ちかけた島の欠片を食べて、代わりに新しい星砂を空へまくの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「じゃあ、怪物じゃないのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「人が勝手に怪物と呼んだだけ。巨大な口で島をのみ込む姿しか見なかったから」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="336">「ガルドは、そいつを殺して何をする」</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="338">「心臓にある<span class="term term-proper">《星炉》</span>を取る。星炉があれば、浮星石を人工的に作れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「便利じゃないか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「一つの星炉で救える島は、せいぜい十。鯨が星砂を運ばなくなれば、百を超える島が、次の百年で落ちる」</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　カナタは口笛を吹いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「ずいぶん割に合わない計算だ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="348">「ガルドは、救う島を自分で選べる。星炉を持つ者が、空路も、食料も、国も支配できる」</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　木箱の中から、かすかな音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="351">　とくん、とくん。</p>
+<p class="source-line role-narration gap-0" data-source-line="352">　小さな心臓の鼓動のようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「中身は？」</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="356">「<span class="term term-proper">《導歌晶》</span>。鯨を終端灯台へ導くための結晶。灯台で目覚めさせないと、鯨は嵐の中で方向を失う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="358">「方向を失ったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「最初にぶつかるのは、ハルバ島」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　カナタは振り返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　遠ざかる故郷の島が、午後の光に浮かんでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="365">「そういう大事なことは、最初に言え！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「荷物の中身は聞かない主義なんでしょう？」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="369">「依頼人に言い返された！」</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　そのとき、頭上で砲声が鳴った。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="373">　<span class="term term-proper">《グラディオ号》</span>が、風の壁を強引に突き破ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　鋼帆の一部を失いながらも、速度は落ちていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　船首から、鎖のついた鉄杭が放たれる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">「伏せろ！」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="380">　鉄杭は<span class="term term-proper">《ツバメ零号》</span>の尾を貫いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="381">　鎖が巻き取られ、二人は旗艦へ引き寄せられる。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　カナタは腰の小刀を抜き、鎖を切ろうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="384">　だが太すぎる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「フィオ、操縦帯を持て！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="387">「私、飛べない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="388">「俺も免許はない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="389">「同じにしないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　カナタは翼の支柱を一本外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　片翼しかない機体から、さらに骨組みが抜ける。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="394">「何してるの!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="395">「荷物を軽くする！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="397">「壊してるだけ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　支柱で鎖をたたき、鉄杭の留め金を外す。</p>
+<p class="source-line role-narration role-magic tone-1 gap-0" data-source-line="400">　自由になった瞬間、<span class="term term-proper">《ツバメ零号》</span>は大きく傾いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　目の前に、逆さ雨の雲が迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="403">　下から上へ向かって雨が降る、奇妙な空域だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="405">「突っ込むぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「その台詞、今日二回目！」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　二人は逆さ雨にのみ込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　水が翼を下から打ち上げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="412">　視界が白く消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="413">　雷鳴の中で、フィオが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「前に島！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「見えない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">「私には見える！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="421">　フィオの首飾りが青く光っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="422">　彼女はカナタの手へ自分の手を重ね、操縦帯を左へ引く。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　白い雨の幕が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　目の前に、傘のような岩山が浮かんでいる。</p>
+<p class="source-line role-narration role-magic role-sensory gap-0" data-source-line="427">　二人は岩肌すれすれで機首を上げたが、<span class="term term-proper">《ツバメ零号》</span>の残った翼が木に引っかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　幹が折れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　枝が折れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　翼も折れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　最後に二人は、巨大な青いキノコの上へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　ぽよん、と弾み、草地へ転がる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="437">「着陸、成功……」</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　カナタが親指を立てる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「今ので成功なら、失敗はどんな状態？」</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　フィオは目を回していた。</p>
+<div class="source-line scene-break gap-2" data-source-line="446" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-narration role-magic gap-2" data-source-line="449">　そこは<span class="term term-proper">《傘岩島》</span>と呼ばれる無人島だった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="450">　島の上半分は岩の傘に覆われ、逆さ雨から流れ込む水が、天井の川となって光っている。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="452">　<span class="term term-proper">《ツバメ零号》</span>は、今度こそ完全に壊れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「直せる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「直す。配達の途中だからな」</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　カナタは折れた木を削り、翼の骨にする。</p>
+<p class="source-line role-narration gap-0" data-source-line="459">　フィオは黙って布を縫い始めた。針仕事は驚くほど速かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「灯台守の服は、全部自分で直すから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「おまえ、灯台守なのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「最後の見習い」</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　フィオはしばらく迷い、それから話し始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　終端灯台は、かつて空喰い鯨を導くための施設だった。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="470">　だが五十年前、連盟は灯台を閉鎖し、<span class="term term-proper">《導歌晶》</span>を持ち去った。鯨の存在を秘密にし、次の回遊で星炉を奪う計画を立てたのだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="472">「私の祖父は、灯台を守っていた。八年前、導歌晶を取り戻すために連盟の保管庫へ入った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「親父も一緒だったのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　フィオはうなずいた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="478">「ソラトさんは、連盟の航路士だった。ガルドの相棒だった。でも計画を知って、祖父に協力した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「それで、失踪した？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="482">「二人は導歌晶を奪い返した。けれど逃げる途中で、連盟の船に追いつかれた。祖父は亡くなった。ソラトさんは晶石を持って、天蓋嵐へ入った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「その箱は、どうやっておまえの手に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「一か月前、嵐の外れに古い救命艇が流れ着いた。中に箱と、地図と、記録筒があった。ソラトさんのものだった」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="488">「親父は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　フィオは答えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="491">　その沈黙が答えだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　カナタは削っていた木を強く握った。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　ささくれが手のひらへ刺さる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「親父は、灯台まで行けなかったんだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「でも箱を守った。八年間、嵐の中を漂っても壊れないように」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「届けられなきゃ、同じだ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="502">　自分でも驚くほど、冷たい声が出た。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="504">　カナタは父を信じていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="505">　誰に無謀者と笑われても、どこかで生きていると思っていた。いつか空の果てから帰ってきて、「待たせたな」と笑うのだと。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　フィオが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「怒っていいと思う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「おまえに言われなくても怒ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「私にも。お父さんにも」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="515">「……おまえには怒ってない」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="517">「私は、お父さんの地図を餌にして、あなたを連れ出した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「そうだな。そこは腹立つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「ごめんなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　フィオは頭を下げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="525">「私一人では、終端灯台まで飛べなかった。誰にも頼れなかった。連盟が怖くて、全部、敵に見えた」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="527">「俺のことは敵に見えなかったのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「最初は、使えそうな馬鹿に見えた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="531">「謝る流れで殴るな」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="533">「今は……頼れる馬鹿」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="535">「一段しか上がってない！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="537">　フィオが、初めて小さく笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　カナタはため息をつき、手のひらのささくれを抜いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「配達屋は、荷物の中身を聞かない。依頼人の過去も聞かない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「さっき散々聞いてた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「今日は特別だ。代わりに、届け終わるまで勝手にいなくなるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　フィオは目を瞬いた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="549">「それは、命令？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">「契約の追加条件」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="553">「……分かった」</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　二人は握手をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　その瞬間、カナタの胸元の方位針がかちりと鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="558">　針は木箱へ向いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「これ、北を指す道具じゃないのかも」</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　フィオが方位針をのぞき込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="564">「古い灯台守は、“帰星針”を使ったと聞いたことがある。星砂の流れを感じて、帰るべき場所を示す針」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「帰るべき場所、ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　カナタは蓋の裏を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="569">　今まで気づかなかった小さな文字が刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　――道に迷ったら、届けたいものを思え。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　父の字だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　カナタは方位針を閉じる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="577">「親父の言い訳を聞くのは、灯台に着いてからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　修理した翼を立てる。</p>
+<p class="source-line role-narration gap-0" data-source-line="580">　左右の形は不格好で、布の色も違う。だが、風を受けるには十分だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「行くぞ、フィオ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「日没まで、あと二時間」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「余裕だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「その根拠は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="590">「配達屋の勘」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「一番信用できない根拠だった」</p>
+<div class="source-line scene-break gap-2" data-source-line="595" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="598">　終端灯台は、嵐の中で眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　雲を突き抜けた細長い岩礁の上に、白い塔が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　半分は崩れ、灯火は消え、周囲を青い稲妻が這っていた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="603">　<span class="term term-proper">《ツバメ零号》</span>は最後の上昇気流をつかみ、塔の中腹へ滑り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　着地と同時に、右の翼が外れて飛んでいく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「今度こそ完璧な着陸だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="608">「機体の半分がなくなったけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="609">「半分残った」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　塔の内部は、巨大な楽器のようだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="612">　壁一面に金属管が走り、歯車と風車が何層にも組み合わされている。中央には、螺旋階段が最上階まで続いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　二人は駆け上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　途中の壁に、古い航路士たちの名前が刻まれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="617">　その一番下に、新しい傷で彫られた文字がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　――ソラト・アオイ。荷を託す。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　カナタは足を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　文字の下に、小さな筒が挟まっている。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="624">　フィオが拾ってきたものと同じ、記録筒だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　蓋を開けると、かすれた声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">『カナタ。これを聞いてるなら、おまえはたぶん、俺を追ってきたんだろうな』</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　八年ぶりに聞く父の声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">『先に謝る。帰れなくて、すまん』</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　カナタは唇をかんだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="636">『おまえに、でっかい空を見せるって約束した。なのに俺は、世界を救うだの何だの言って、肝心の家族を置いてきた。英雄なんかじゃない。ただの、約束破りだ』</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　記録の向こうで、風がうなる。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="640">『それでも、この荷物だけは届けなきゃならない。鯨が死ねば、おまえの島も、いつか落ちる。知らない誰かの島も落ちる。顔も知らない子どもが、空を怖がるようになる』</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　父の声が少し笑った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="644">『だから俺は、最後まで配達屋でいる。俺が届かなかったら、誰かが続きを運んでくれると信じる。道は、一人で終わらせなきゃならないものじゃない』</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　短い雑音。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">『カナタ。地図は、世界の形を描くものじゃない。誰かが“ここへ行く”と決めた跡を残すものだ』</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　そして最後に。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="652">『風は、道を覚えている』</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="654">　記録が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　カナタはしばらく動かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="657">　泣くつもりはなかった。だが目に入った嵐の雨が、頬を伝った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「勝手なこと言いやがって」</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　拳で涙をぬぐう。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「続きは自分で運べ、ってか」</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　フィオは何も言わず、隣に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　そのとき、塔全体が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　外から鋼鉄の衝角が壁を突き破る。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="670">　<span class="term term-proper">《グラディオ号》</span>が灯台へ横付けされ、灰色の制服を着た兵士たちがなだれ込んできた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">「ここまでだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　螺旋階段の上に、ガルドが立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　剣の切っ先が、夕日のように赤く光る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="678">「箱を渡せ、フィオ。無駄な犠牲を増やすな」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="680">「鯨を殺す方が、ずっと多くの犠牲を生む」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「百年後の百の島より、明日落ちる十の島を救う」</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　ガルドは静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="686">「私は幼いころ、故郷の島が落ちるのを見た。浮星石が尽きたが、誰も助けられなかった。鯨が星砂を運ぶのを、ただ待てと言われた。来るかどうかも分からない奇跡を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「だから星炉を奪うの？」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="690">「奇跡を人の手に取り戻す。救う島を選ぶ力を得る」</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　カナタがにらむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「選ばれなかった島は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「すべてを救える者などいない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="698">「だからって、最初から切り捨てる数を数えてる奴を、俺は英雄とは呼ばない」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="700">　ガルドの単眼鏡が、かすかに光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="702">「その目だ。ソラトも同じ目をしていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="704">「親父を殺したのか」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="706">「私は止めた。嵐へ入れば死ぬと分かっていた。彼は笑って、“息子に胸を張れなくなる方が怖い”と言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　ガルドは剣を構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="710">「愚かな男だった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「知ってるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　カナタは折れた翼の支柱を構える。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="716">「俺の親父だからな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　ガルドが踏み込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　剣と支柱がぶつかり、火花が散る。</p>
+<p class="source-line role-narration gap-0" data-source-line="721">　一撃で支柱に深い傷が入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　カナタは階段の手すりを蹴り、上へ跳ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　頭上から支柱を振り下ろすが、ガルドは片手で受け止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="726">「速い。だが軽い」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　腹へ柄が入る。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　息が止まり、カナタの体が壁へたたきつけられた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="731">「カナタ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　フィオが木箱を抱えて走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="734">　だが兵士たちが行く手をふさいだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　ガルドはカナタの胸ぐらをつかみ、崩れた窓辺まで引きずる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="738">「君は父親より若い。ここで引き返せば、生きられる」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="740">「配達の……途中だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="742">「命より大事な荷物か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">「逆だ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="746">　カナタは血のにじむ口で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="748">「誰かの命が入ってるから、荷物が大事なんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　ガルドの眉が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　カナタは胸元の帰星針を外し、ガルドの単眼鏡へ投げつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="753">　反射的に顔をそらした隙に、体をひねる。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　だが一歩足りなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　ガルドの蹴りが胸へ入り、カナタは窓の外へ放り出された。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「カナタ――！」</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　フィオの声が遠ざかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　空。</p>
+<p class="source-line role-narration gap-0" data-source-line="764">　嵐。</p>
+<p class="source-line role-narration gap-0" data-source-line="765">　雲海。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　落ちながら、カナタは手を伸ばした。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="768">　指先に何かが触れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　灯台の外壁に垂れていた、古い旗の綱だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　綱をつかんだ瞬間、肩が抜けそうな衝撃が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="773">　カナタの体は宙づりになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　上では、兵士たちがフィオから箱を奪っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="776">　ガルドは中の導歌晶を取り出した。青い結晶は、夕暮れの中で鼓動するように明滅している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="778">「星喰い砲へ運べ」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="780">　ガルドたちは<span class="term term-proper">《グラディオ号》</span>へ戻っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　船が灯台から離れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="783">　その船首では、巨大な砲身が展開していた。導歌晶を照準器に使い、空喰い鯨の星炉を撃ち抜く兵器だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　日没まで、あとわずか。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　低い鳴き声が、世界を震わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　雲海が盛り上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="790">　山より巨大な影が、嵐の奥から姿を現す。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　空喰い鯨。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="794">　黒い背には、夜空のような星模様が広がっていた。翼のような胸びれが雲を押し分け、開いた口の中には青白い光が渦巻いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　美しく、恐ろしい姿だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　だが鯨は苦しんでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="799">　導きの歌を失い、嵐の中を迷い、進路を定められずにいる。その巨体が向かう先には、遠くハルバ島の影があった。</p>
+<p class="source-line role-narration role-magic tone-1 gap-1" data-source-line="801">　<span class="term term-proper">《グラディオ号》</span>の砲口が光る。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　カナタは綱を登ろうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="804">　右肩に激痛が走る。力が入らない。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="806">「こんなところで……」</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　風が吹いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　ぼろぼろになった旗が、カナタの顔へ張りつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="811">　そこには、終端灯台の紋章――一枚の翼と、風の渦が描かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　片翼。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　カナタは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="817">「そうだよな。片方あれば、十分だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　綱を足に巻きつけ、左手だけで体を引き上げる。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="820">　窓へ戻ると、壊れた<span class="term term-proper">《ツバメ零号》</span>の残骸を拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　翼は一枚。</p>
+<p class="source-line role-narration gap-0" data-source-line="823">　支柱は二本。</p>
+<p class="source-line role-narration gap-0" data-source-line="824">　帆布は裂けている。</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　それでも、灯台には風があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="827">　五十年、鯨を待ち続けた塔の中を、無数の風管が走っている。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="829">　カナタは父の地図を広げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="830">　端に書かれた小さな線が、灯台内部の風管と一致する。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　――灯火を失ったときは、塔そのものを鳴らせ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="834">「親父。説明が足りねえんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　カナタは中央の歯車へ飛び乗り、固まった制御棒を蹴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="837">　一度。</p>
+<p class="source-line role-narration gap-0" data-source-line="838">　二度。</p>
+<p class="source-line role-narration gap-0" data-source-line="839">　三度。</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　さびた棒が折れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　嵐の風が一気に塔へ流れ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　金属管が震え、低い音を鳴らす。</p>
+<p class="source-line role-narration gap-0" data-source-line="846">　ひとつ。</p>
+<p class="source-line role-narration gap-0" data-source-line="847">　ふたつ。</p>
+<p class="source-line role-narration gap-0" data-source-line="848">　塔全体が巨大な笛となり、空へ歌を放った。</p>
+<p class="source-line role-narration gap-1" data-source-line="850">　鯨がこちらを向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　同時に、塔の頂上から強烈な上昇気流が噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　カナタは片翼を背負い、風の中心へ飛び込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="856">「特急便、再出発だ！」</p>
+<div class="source-line scene-break gap-2" data-source-line="859" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-narration role-magic gap-2" data-source-line="862">　<span class="term term-proper">《グラディオ号》</span>の甲板では、星喰い砲の装填が進んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　フィオは両手を縛られ、帆柱の根元へ座らされている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="866">「船長、照準が安定しません！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「導歌晶の出力を上げろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="870">「これ以上は結晶が――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="872">「構わん。星炉を撃ち抜ければいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　ガルドの声は冷静だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="875">　だが単眼鏡の奥の目は、空喰い鯨から離れない。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　鯨の進路上には、ハルバ島がある。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="878">　このままでも多くが死ぬ。撃てば鯨が死に、将来さらに多くが死ぬ。</p>
+<p class="source-line role-narration gap-1" data-source-line="880">　ガルドは歯を食いしばった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="882">「私は、選ぶ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="884">　星喰い砲に光が集まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="886">　そのとき、見張りが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="888">「船尾上空、何か来ます！」</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　雲を突き破り、一枚の翼が飛び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　カナタだった。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="894">　片翼の端に灯台の旗を結び、上昇気流を乗り継いでくる。落ちているのか、飛んでいるのか分からない軌道で、<span class="term term-proper">《グラディオ号》</span>へ急接近した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「お届け物でーす！」</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　カナタは甲板へ突っ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　兵士を三人巻き込み、樽を五つ倒し、帆の縄を一本切り、最後に逆さまの状態で帆柱へ引っかかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="902">「……着陸、成功」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="904">「それ、もう誰も信じない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　フィオが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　カナタは帆柱から落ちる勢いで、彼女の縄を小刀で切った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="910">「箱は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="911">「砲の中！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="913">「取り返すぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="915">「肩は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="917">「左がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="919">　二人は甲板を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="921">　兵士たちが剣を抜く。</p>
+<p class="source-line role-narration gap-0" data-source-line="922">　カナタは帆柱の綱を切った。巨大な帆が落ち、兵士たちを包み込む。フィオは滑車へ飛びつき、帆を巻き上げて進路を開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="924">「右から三人！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="925">「任せた！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="926">「私、戦えない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="927">「俺も習ったことない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="929">「どうして毎回、それで突っ込むの！」</p>
+<p class="source-line role-narration gap-1" data-source-line="931">　カナタは床の柄杓を蹴り上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="932">　水が兵士の顔へかかる。ひるんだ隙に足元をすくい、三人まとめて樽の山へ転がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="934">「勝てばいい！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="936">「理屈が乱暴！」</p>
+<p class="source-line role-narration gap-1" data-source-line="938">　砲台へ続く階段の前に、ガルドが立つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="940">「また来たか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="942">「配達屋は、受取印をもらうまで帰らない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="944">「鯨に字が書けるとは思えんな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="946">「そこは相談する！」</p>
+<p class="source-line role-narration gap-1" data-source-line="948">　ガルドの剣が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="949">　カナタは身を反らす。前髪が数本切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="951">　二撃目。</p>
+<p class="source-line role-narration gap-0" data-source-line="952">　三撃目。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="953">　カナタは避け続けるが、肩の痛みで動きが鈍る。</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　ガルドの剣先が頬を裂いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="957">「意地だけでは、何も救えない」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="959">「計算だけでも救えない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　カナタは甲板を蹴り、わざと船縁へ追い詰められる。</p>
+<p class="source-line role-narration gap-0" data-source-line="962">　背後は雲海。逃げ場はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="964">　ガルドが剣を突き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="966">　その瞬間、カナタは身を沈めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="967">　剣が背後の帆綱を切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="969">　解放された鋼帆が大きく回り、ガルドを横から打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="971">　ガルドの体が甲板を滑る。</p>
+<p class="source-line role-narration gap-0" data-source-line="972">　剣が手を離れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="974">「意地じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="976">　カナタは息を切らしながら立つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="978">「俺は、フィオを信じてる。親父を信じてる。あの鯨が五十年かけて、知らない誰かの島まで救ってきたって話を信じる」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="980">「信じるだけで、空は飛べん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="982">「飛べるさ」</p>
+<p class="source-line role-narration gap-1" data-source-line="984">　カナタは片翼を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="986">「足りない分を、風が持ってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　フィオが砲台の制御盤へたどり着いた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="989">　青く光る導歌晶を外そうとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="991">　だが砲身はすでに限界まで光をためていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="993">「カナタ！　止められない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="995">　星喰い砲が発射された。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="997">　白い閃光が、空喰い鯨へ走る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="999">「間に合えええ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1001">　カナタは帰星針を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1002">　針が激しく回り、導歌晶ではなく、鯨の額を指す。</p>
+<p class="source-line role-narration gap-1" data-source-line="1004">　同時に、終端灯台の歌が嵐を震わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1006">　鯨が身をよじる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1007">　光線は星炉のある胸を外れ、左の胸びれを貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1009">　巨体が傾く。</p>
+<p class="source-line role-narration gap-0" data-source-line="1010">　空全体が沈んだような衝撃が走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1012">　鯨が悲鳴を上げた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1014">　<span class="term term-proper">《グラディオ号》</span>も暴風に巻かれ、横倒しになる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1015">　兵士たちが甲板を滑り、次々に船外へ投げ出されかける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1017">「帆を閉じろ！　乗員をつなげ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1019">　ガルドが叫ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1020">　自ら綱を投げ、落ちかけた兵士を引き上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1022">　だが船体の下から、崩れた岩礁が迫っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1023">　避けられない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1025">　空喰い鯨が、傷ついた胸びれを伸ばした。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1027">　巨大なひれが<span class="term term-proper">《グラディオ号》</span>を持ち上げ、岩礁との衝突を防ぐ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1029">　自分を撃った船を、鯨が救った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1031">　甲板の誰もが言葉を失う。</p>
+<p class="source-line role-narration gap-1" data-source-line="1033">　ガルドは、単眼鏡を外した。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1035">「……なぜだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1037">　フィオが導歌晶を取り外す。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1038">　光を失った星喰い砲から、煙が上がる。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="1040">「この子は、救う島を選ばない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1042">　フィオは結晶を胸へ抱いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1044">「だから、五十年も飛び続けられる」</p>
+<p class="source-line role-narration gap-1" data-source-line="1046">　空喰い鯨の体が、再び傾いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1047">　傷が深い。嵐の風に流され、ハルバ島へ向かって落ち始める。</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="1049">「導歌晶を、鯨の<span class="term term-proper">《星窓》</span>へ戻さないと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1051">「星窓ってどこだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1053">「額。日没の瞬間だけ開く」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="1055">　西の空で、太陽が雲海へ触れようとしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1057">　鯨の額まで、距離は二百丈。</p>
+<p class="source-line role-narration gap-0" data-source-line="1058">　その間には、雷と暴風が渦巻いている。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1060">　<span class="term term-proper">《ツバメ零号》</span>の片翼は、甲板の端で折れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1062">「無理だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1064">　兵士の一人がつぶやく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1066">　カナタは折れた翼を拾った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1068">「その言葉、配達屋には禁句だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1070">　フィオが導歌晶を差し出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1072">「私も行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1074">「危ないぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1076">「依頼人は、勝手にいなくならない。追加条件でしょう？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1078">　カナタは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1080">「そうだった」</p>
+<p class="source-line role-narration gap-1" data-source-line="1082">　二人は片翼の操縦帯へ体を入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1084">　ガルドが立ちふさがる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1085">　カナタは身構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1087">　だがガルドは、腰の剣で旗艦の予備帆を切り落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="1088">　厚い布が片翼へかぶさる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1090">「それで裂け目をふさげ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1092">「助けるのか」</p>
+<p class="source-line role-dialogue role-command tone-1 gap-1" data-source-line="1094">「勘違いするな。私はまだ、奇跡を信じたわけではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1096">　ガルドは折れた帆柱へ綱を結び、巨大な弓のようにしならせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1098">「だが、目の前で救われた借りを返さないほど、落ちてはいない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1100">　片翼を綱へ引っかける。</p>
+<p class="source-line role-narration gap-0" data-source-line="1101">　ガルドと兵士たちが、帆柱を限界まで引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1103">「進路、鯨の額！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1104">「風速、計測不能！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1105">「射出まで三！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1107">　フィオがカナタの腰へ腕を回す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1109">「怖い？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1111">「すごく」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1113">「俺もだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1115">「あなたでも？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1117">「怖くない奴は、たぶん想像力がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1119">　カナタは前を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1121">「でも、怖いまま行ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1123">「二！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1125">　太陽が沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="1127">　空喰い鯨の額に、星形の裂け目が開いた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1128">　内部から、夜明けのような青い光が漏れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1130">「一！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1132">　ガルドが剣を振り下ろし、綱を切った。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="1134">「行け、風切り！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1136">　片翼は矢となって飛び出した。</p>
+<div class="source-line scene-break gap-2" data-source-line="1139" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="1142">　風が、牙をむいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1144">　カナタとフィオは雷雲を突き抜ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="1145">　翼の布が裂ける。支柱がきしむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1147">　正面から稲妻が来る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1149">「左！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1151">　フィオの首飾りが光る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1152">　カナタは操縦帯を引き、紙一重で避けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1154">「次、上！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1156">　上昇気流へ乗る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1157">　鯨の巨体が近づく。黒い皮膚の星模様ひとつひとつが、家ほどの大きさだった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="1159">　だが鯨は痛みに身をよじり、額の星窓が遠ざかる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1161">「届かない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1163">　片翼の速度が落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1164">　下は雲海。後ろには戻れない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1166">　カナタは父の帰星針を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1168">　針は星窓を指している。</p>
+<p class="source-line role-narration gap-0" data-source-line="1169">　だが、その周囲を小刻みに揺れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1171">　風は、道を覚えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1173">　父は八年前、同じ空を飛んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1174">　灯台へ届かなかったとしても、風の中に道を残した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1176">　カナタは目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1178">　翼の震えを聞く。</p>
+<p class="source-line role-narration gap-0" data-source-line="1179">　嵐のうなりを聞く。</p>
+<p class="source-line role-narration gap-0" data-source-line="1180">　鯨の鳴き声を聞く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1182">　無数の音の中に、一本だけ、懐かしい口笛のような流れがあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1184">「見つけた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1186">「何を？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1188">「親父の道！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1190">　カナタは機首を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1192">　星窓とは逆方向、鯨の胸元へ落ちる。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="1194">「カナタ!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1196">「このままじゃ届かない。だから一回、落ちる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1198">「説明になってない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1200">　鯨の傷ついた胸びれが迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1201">　カナタはその縁すれすれを通り抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1203">　巨大なひれが生み出す上昇気流が、片翼を下からたたく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1205">　落下の勢いが、上向きに変わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1207">　二人は鯨の体表に沿って、一気に駆け上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1209">　首。</p>
+<p class="source-line role-narration gap-0" data-source-line="1210">　頬。</p>
+<p class="source-line role-narration gap-0" data-source-line="1211">　額。</p>
+<p class="source-line role-narration gap-1" data-source-line="1213">　星窓が目の前にある。</p>
+<p class="source-line role-narration gap-1" data-source-line="1215">　しかし最後の稲妻が、翼の中央を貫いた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1217">　<span class="term term-proper">《ツバメ零号》</span>が砕ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="1219">　カナタとフィオの体が、空へ投げ出された。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1221">「フィオ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1223">　カナタは左手でフィオをつかんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1224">　右肩は動かない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1225">　星窓まで、あと十歩分。</p>
+<p class="source-line role-narration gap-1" data-source-line="1227">　遠い。</p>
+<p class="source-line role-narration gap-1" data-source-line="1229">　フィオが導歌晶を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="1230">　それから、カナタを見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1232">「届けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="1234">　彼女はカナタの胸を蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1236">　反動で、フィオの体は鯨の額から離れていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="1237">　代わりにカナタが星窓へ近づく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1239">「馬鹿！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1241">「頼れる馬鹿の相棒だから！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1243">　カナタは導歌晶を抱え、星窓へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="1245">　指先が届かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1247">　あと少し。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1249">　父の声がよみがえる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1251">　――道は、一人で終わらせなきゃならないものじゃない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1253">　カナタは帰星針を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1255">　針の鎖が星窓の縁へ引っかかる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1256">　カナタは鎖をたぐり、最後の距離を飛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1258">「終端灯台より、特急便！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1260">　導歌晶を星窓へ押し込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1262">「確かに届けたああああ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1264">　青い光が、空喰い鯨の全身を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1266">　星模様が一斉に輝く。</p>
+<p class="source-line role-narration gap-0" data-source-line="1267">　傷ついた胸びれから、きらきらと星砂があふれ出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="1269">　鯨が大きく鳴いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1271">　その声は嵐を割り、雲を開き、遠い島々の窓を震わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1273">　落ちていくフィオの下に、柔らかな風が生まれる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1274">　鯨の吐息だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1276">　カナタも星窓から投げ出され、フィオの隣へ落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1278">　二人の体を、鯨の息が受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1280">　空喰い鯨はゆっくりと向きを変える。</p>
+<p class="source-line role-narration gap-0" data-source-line="1281">　ハルバ島を避け、世界を巡る古い航路へ乗る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1283">　その背から、星砂が雪のように降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1285">　遠く、ハルバ島の底が青く輝く。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="1286">　弱り始めていた浮星石が、新しい光を取り戻していく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1288">　フィオが笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="1289">　涙を流しながら、声を上げて笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1291">　カナタも笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1293">　空の真ん中で、二人は手をたたき合った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="1295">「配達、完了！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1297">　直後、鯨の吐息が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1299">　二人はそろって雲海へ落ち始める。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="1301">「帰り道は!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1302">「考えてなかった！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1303">「最後までそれなの!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="1305">　頭上から、一本の綱が落ちてきた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1307">　<span class="term term-proper">《グラディオ号》</span>だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1308">　傾いた船体を立て直し、二人を追ってきたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1310">　綱の先で、ガルドが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1312">「つかまれ、大馬鹿者ども！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1314">　カナタとフィオは綱へ飛びついた。</p>
+<div class="source-line scene-break gap-2" data-source-line="1317" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="1320">　三日後。</p>
+<p class="source-line role-narration gap-1" data-source-line="1322">　ハルバ島の港には、かつてない数の人が集まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1324">　空喰い鯨の存在と、大風帆連盟の計画は、ガルド自身の証言によって明らかになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1325">　連盟の上層部は逮捕され、星炉を奪う計画も中止された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1327">　ガルドはすべての責任を負い、裁判を待つ身となった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1329">　護送船へ乗る前、彼は港の端でカナタに小さな包みを渡した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1331">　中には、古い飛行眼鏡が入っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1332">　革帯の裏に、ソラト・アオイの名が刻まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1334">「親父の？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1336">「八年前、あいつが船を降りるとき、私に預けた。“息子が空を飛べる男になったら渡せ”とな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1338">「じゃあ、まだ早いな。俺、免許ないし」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1340">　ガルドは一瞬黙り、それから小さく笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1342">「ソラトより、よほど厄介な男になりそうだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1344">「褒め言葉として受け取っとく」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1346">「一つだけ忠告する。すべてを救える者はいない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1348">　カナタは飛行眼鏡を額へかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1350">「知ってる。だから、手の届く荷物から運ぶんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1352">　ガルドは答えず、護送船へ乗り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1354">　港の工房では、ジンが新しい看板を掲げていた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1356">　<span class="term term-proper">《アオイ配達工房――空の果てまで届けます》</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="1358">「看板が大げさじゃないか？」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="1360">　フィオが言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="1362">　彼女は灯台守の紺色の外套を脱ぎ、動きやすい短い上着に着替えていた。終端灯台は壊れたが、導歌晶が空喰い鯨へ戻ったことで、鯨自身が歌を世界へ届けられるようになった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1364">「宣伝は大きい方がいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="1366">　カナタは新しい滑空翼を工房から引っ張り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1367">　左右の翼は同じ長さで、布も新品。ジンが三日寝ずに仕上げた機体だ。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1369">　翼の名は<span class="term term-proper">《ツバメ一号》</span>。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1371">「壊したら、今度こそ勘当だぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1373">　ジンが言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1375">「分かった。二号を作る準備しといて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1376">「今すぐ勘当してやる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1378">　レンチが飛ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="1379">　カナタは頭を下げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="1380">　後ろにいたフィオの額へ、こつんと当たった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1382">「痛い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1383">「ご、ごめんフィオちゃん！」</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="1385">「じいちゃん、百発百中だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="1386">「おまえを狙ったんじゃ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1388">　工房の前に、一人の老婆が立った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1389">　手には、封をした手紙を持っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1391">「配達を頼めるかい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1393">　カナタが受け取る。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="1395">「届け先は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1397">　老婆は西を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1399">　天蓋嵐が晴れた空。</p>
+<p class="source-line role-narration gap-0" data-source-line="1400">　その向こうには、これまで地図に描かれたことのない、小さな島影が浮かんでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1402">「嵐の向こう。孫が、新しい島を見つけたらしいんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1404">　カナタとフィオは顔を見合わせる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1406">「日帰りは無理そう」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="1408">　フィオが言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1410">「ちょうどいい。地図も描ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1412">「飛行免許は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1414">「帰ってきたら取る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1416">「たぶん十八回目も落ちると思う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1418">「じゃあ十九回目に受かる」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1420">　二人は<span class="term term-proper">《ツバメ一号》</span>へ乗り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1422">　カナタは父の飛行眼鏡を下ろす。</p>
+<p class="source-line role-narration gap-0" data-source-line="1423">　胸元の帰星針を開くと、針は西を指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1425">　そこに、道はなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1427">　だからカナタは笑い、翼を広げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1429">「アオイ配達工房、特急便！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1431">　風が帆を鳴らす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1433">「空の果てまで――行ってきます！」</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="1435">　二人と一枚の手紙を乗せ、<span class="term term-proper">《ツバメ一号》</span>は青空へ飛び出した。</p>
+<p class="source-line end-mark gap-2" data-source-line="1438"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

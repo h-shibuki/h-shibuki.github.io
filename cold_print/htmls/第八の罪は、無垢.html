@@ -1,0 +1,1088 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="第八の罪は、無垢｜拡張フォントいじり検証版">
+<title>第八の罪は、無垢｜拡張フォントいじり版</title>
+<!--
+主ジャンル：伝奇ダークファンタジー
+副ジャンル：勇者神話の解体／記憶・罪・名の民俗譚
+推奨ジャンル書体：伝奇・民俗ダーク
+演出エンジン：名と鐘を儀式書体、白い仮面の言葉を硬質書体、七人の告白を個別化せず記憶書体、自己告白を最大点へ配置
+意味色：金＝名と記憶、灰＝無垢と仮面、赤＝罪と血、青＝死者の声、緑＝人間としての継続
+書体役割：本文／会話／システム／文書／命令／記憶／コメディー／魔法・儀式／音／主題
+本文文字列は変更していない
+-->
+<style>
+
+:root {
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 2.12em;
+  --climax-max: 1.72em;
+
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Klee One", "Yuji Syuku", "Hannotate SC", cursive;
+  --font-ui: system-ui, -apple-system, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgba(250,247,240,.94);
+  --line: rgba(58,48,37,.18);
+  --shadow: rgba(45,34,22,.16);
+  --tone-1: #a27628;
+  --tone-2: #72757c;
+  --tone-3: #8b3438;
+  --tone-4: #4d667f;
+  --tone-5: #5d7358;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; background: var(--paper-2); }
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgba(255,255,255,.72), transparent 33rem),
+    linear-gradient(90deg, rgba(70,55,35,.035) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+body[data-theme="night"] {
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgba(18,22,27,.94);
+  --line: rgba(235,230,220,.16);
+  --shadow: rgba(0,0,0,.52);
+  --tone-1: #e2bd68;
+  --tone-2: #b7bbc2;
+  --tone-3: #ef7e84;
+  --tone-4: #8fb3d3;
+  --tone-5: #9bc28f;
+  background:
+    radial-gradient(circle at 18% -5%, rgba(83,111,130,.16), transparent 34rem),
+    linear-gradient(90deg, rgba(255,255,255,.016) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+/* Genre font presets: semantic markup is fixed; only role stacks change. */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+}
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+}
+
+.progress-track { position: fixed; inset: 0 0 auto; height: 3px; z-index: 1000; }
+.progress-bar { width: 0; height: 100%; background: linear-gradient(90deg,var(--tone-2),var(--tone-1),var(--tone-5)); }
+.reader-toolbar {
+  position: sticky; top: 0; z-index: 900; display: flex; justify-content: center; align-items: center;
+  gap: .55rem; flex-wrap: wrap; padding: .58rem .75rem; border-bottom: 1px solid var(--line);
+  background: var(--panel); box-shadow: 0 8px 28px var(--shadow); backdrop-filter: blur(15px) saturate(1.15);
+  font-family: var(--font-ui); font-size: 12.5px; line-height: 1.35;
+}
+.toolbar-title { font-weight: 800; letter-spacing: .07em; margin-right: .2rem; }
+.reader-toolbar label { display: inline-flex; align-items: center; gap: .3rem; color: var(--muted); }
+.reader-toolbar select, .reader-toolbar button {
+  min-height: 2.12rem; color: var(--ink); background: var(--paper); border: 1px solid var(--line);
+  border-radius: .62rem; padding: .34rem .58rem; font: inherit;
+}
+.reader-toolbar button { cursor: pointer; font-weight: 750; }
+.reader-toolbar button:hover, .reader-toolbar select:hover { border-color: var(--tone-2); }
+.reader-toolbar :focus-visible, .panel :focus-visible { outline: 3px solid var(--tone-1); outline-offset: 2px; }
+.size-group { display: inline-flex; gap: .25rem; }
+.size-group button { min-width: 2.15rem; }
+
+.panel {
+  position: fixed; top: 4.25rem; z-index: 880; width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem); overflow: auto; padding: 1rem; border: 1px solid var(--line);
+  border-radius: .95rem; background: var(--panel); box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui); font-size: .88rem; line-height: 1.65;
+}
+.panel[hidden] { display: none; }
+.toc-panel { left: max(1rem, calc(50vw - 36rem)); }
+.info-panel { right: max(1rem, calc(50vw - 36rem)); }
+.panel h2 { margin: 0 0 .7rem; font-size: 1rem; }
+.panel h3 { margin: 1rem 0 .3rem; font-size: .9rem; }
+.panel p { margin: .35rem 0; }
+.panel ol, .panel ul { margin: 0; padding-left: 1.2rem; }
+.toc-panel ol { list-style: none; padding: 0; }
+.toc-panel li + li { border-top: 1px solid var(--line); }
+.toc-panel a { display: block; padding: .55rem .25rem; color: var(--ink); text-decoration: none; }
+.toc-panel a:hover { color: var(--tone-2); }
+.legend-grid { display: grid; gap: .35rem; }
+.legend-item { display: grid; grid-template-columns: 7rem 1fr; gap: .5rem; align-items: baseline; }
+.legend-sample { color: var(--tone-1); }
+
+.reader-shell { padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem; }
+.novel {
+  width: min(100%, var(--measure)); margin-inline: auto; font-family: var(--font-body);
+  line-break: strict; word-break: normal; overflow-wrap: anywhere; hanging-punctuation: first allow-end last;
+}
+.title-page { min-height: min(63vh, 42rem); display: grid; place-items: center; padding: 4rem 0 6rem; }
+.title-line {
+  margin: 0; max-width: 100%; color: var(--ink); font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem); line-height: 1.35; letter-spacing: .055em;
+  text-align: center; white-space: normal; text-wrap: balance; text-shadow: 0 .08em .3em var(--shadow);
+}
+.prologue, .chapter, .prose-section { margin-block: 0 8.5rem; }
+.chapter { scroll-margin-top: 5.5rem; }
+.chapter-heading {
+  margin: 0 0 3.6rem !important; padding: 0 0 .95rem; border-bottom: 1px solid var(--line);
+  color: var(--ink); font-family: var(--font-motif); font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42; letter-spacing: .11em; text-align: center; white-space: normal;
+}
+.source-line { position: relative; margin: 0; white-space: pre-wrap; text-wrap: pretty; }
+.source-indent { display: none; }
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.scene-break { color: var(--muted); text-align: center; white-space: normal; letter-spacing: .8em; padding-left: .8em; }
+.end-mark { margin-top: 5rem !important; text-align: center; white-space: normal; font-family: var(--font-motif); letter-spacing: .55em; }
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  font-family: var(--font-document); padding: .38em .78em; border-inline-start: .22em solid var(--tone-4);
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent); font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.role-command { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term { font-family: inherit; font-weight: 700; }
+.term-skill, .term-magic, .term-world, .term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system, .term-code, .term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name, .term-title, .term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue { font-family: var(--font-mono); }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper { font-size: .94em; letter-spacing: .035em; opacity: .94; }
+.fx-key { font-size: 1.075em; font-weight: 700; }
+.fx-beat { font-size: clamp(1.08em, 2.5vw, 1.24em); line-height: 1.82; }
+.fx-shout { font-size: clamp(1.16em, 3.5vw, 1.52em); line-height: 1.7; font-weight: 850; }
+.fx-climax {
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max)); line-height: 1.62; margin-block: 1.45em !important;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem); border-inline-start: .16em solid currentColor;
+}
+.fx-peak {
+  font-family: var(--font-motif); font-size: clamp(1.4em, 6vw, var(--peak-max)); line-height: 1.48;
+  margin-block: 2em !important; padding: .7em .25em; text-align: center; white-space: normal;
+  border-block: 1px solid currentColor; text-wrap: balance;
+}
+body[data-effects="full"] .role-comic.fx-shout { transform: rotate(-.32deg); transform-origin: left center; }
+
+/* Font-difference control. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-sans);
+  --font-name: var(--font-motif); --font-sensory: var(--font-body); --font-horror: var(--font-body);
+}
+body[data-fontmode="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+/* Overall effect control. */
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { font-size: 1.26em; margin-block: 1.15em !important; }
+body[data-effects="soft"] .fx-peak { font-size: 1.42em; margin-block: 1.45em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body); --font-system: var(--font-body); --font-document: var(--font-body);
+  --font-command: var(--font-body); --font-memory: var(--font-body); --font-comic: var(--font-body);
+  --font-magic: var(--font-body); --font-ritual: var(--font-body); --font-name: var(--font-body);
+  --font-sound: var(--font-body); --font-motif: var(--font-body); --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  color: var(--ink) !important; font-size: 1em !important; font-weight: inherit !important;
+  font-style: normal !important; letter-spacing: .016em !important; text-align: start !important;
+  transform: none !important; text-shadow: none !important; border: 0 !important; background: transparent !important;
+  padding: 0 !important; opacity: 1 !important;
+}
+body[data-effects="off"] .title-line { font-size: clamp(1.7rem, 5vw, 3rem) !important; text-align: center !important; }
+body[data-effects="off"] .chapter-heading { font-size: 1.45rem !important; text-align: center !important; border-bottom: 1px solid var(--line) !important; padding-bottom: .8rem !important; }
+body[data-effects="off"] .scene-break, body[data-effects="off"] .end-mark { text-align: center !important; }
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document { background: transparent; }
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 { color: var(--ink); }
+}
+
+@media (max-width: 760px) {
+  .reader-toolbar { justify-content: flex-start; overflow-x: auto; flex-wrap: nowrap; padding-inline: .45rem; }
+  .reader-toolbar label { flex: 0 0 auto; }
+  .toolbar-title { display: none; }
+  .panel { top: 4rem; }
+  .reader-shell { padding-inline: .82rem; }
+  .source-line { overflow-wrap: anywhere; }
+  .fx-climax { padding-inline-start: .45rem; }
+}
+@media (max-width: 390px) {
+  :root { --base-size: 17px; }
+  .reader-toolbar select { max-width: 10.5rem; }
+  .title-line { font-size: clamp(1.65rem, 9vw, 2.7rem); }
+  .fx-peak { font-size: min(var(--peak-max), 1.68em); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { transition-duration: .001ms !important; animation-duration: .001ms !important; }
+}
+@media print {
+  .reader-toolbar, .panel, .progress-track { display: none !important; }
+  body { background: #fff !important; color: #000 !important; font-size: 11pt; }
+  .reader-shell { padding: 0; }
+  .novel { width: auto; max-width: none; }
+  .source-line, .source-line * { color: #000 !important; text-shadow: none !important; background: transparent !important; }
+  .chapter { break-before: page; }
+  .fx-peak, .fx-climax { border-color: #777 !important; }
+}
+</style>
+</head>
+<body data-theme="paper" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+      <option value="literary" data-description="明朝中心。声の差より、余白と静かな書体差を優先">文学・内省</option><option value="military-sf" data-description="地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅">軍事・ハードSF</option><option value="logic-thriller" data-description="推理本文、質問、数列、判定を別々の書体層へ分離">論理ミステリー</option><option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、勢いと安全性を両立">学園活劇・コメディー</option><option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、ツッコミを役割別に分離">Webファンタジー</option><option value="institutional-horror" data-description="本文は静かな明朝、規則と数字は等幅、怪異は細く異質に">制度ホラー</option><option value="satirical-sf" data-description="親しみやすい本文と企業UI、食感、ツッコミの書体差を活用">風刺SF・日常コメディー</option><option value="folklore-dark" data-description="名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden>
+  <h2>目次</h2>
+  <ol><li><a href="#chapter-1">一　名のない死者</a></li><li><a href="#chapter-2">二　七人の咎人</a></li><li><a href="#chapter-3">三　罪のなかった宿</a></li><li><a href="#chapter-4">四　逆さ塔</a></li><li><a href="#chapter-5">五　第八の罪</a></li><li><a href="#chapter-6">六　鐘のあと</a></li></ol>
+</nav>
+
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>伝奇ダークファンタジー</p>
+  <p><strong>副ジャンル：</strong>勇者神話の解体／記憶・罪・名の民俗譚</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝名と記憶、灰＝無垢と仮面、赤＝罪と血、青＝死者の声、緑＝人間としての継続</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>システム</span><span class="legend-sample role-system">数値・端末</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">制度・号令</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去・残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと答え</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：542行／章：6／役割・強度タグ：751</p>
+  <p>「書体差：統一」で旧来の色・サイズ中心の表示と比較できます。「総合演出：なし」で通常のWeb小説表示になります。</p>
+</aside>
+
+<main class="reader-shell">
+<article class="novel" aria-label="第八の罪は、無垢 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">第八の罪は、<span class="term term-ritual tone-2">無垢</span></h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration role-memory tone-4 gap-2" data-source-line="4">　ノアゼル王国では、死者を埋める前に、その<span class="term term-name tone-1">名</span>を三度呼ぶ。</p>
+<p class="source-line role-narration role-memory role-ritual tone-4 gap-1" data-source-line="6">　一度目は、死者が自分を忘れないため。</p>
+<p class="source-line role-narration role-memory role-ritual tone-4 gap-0" data-source-line="7">　二度目は、生者が死者を忘れないため。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-0" data-source-line="8">　三度目は、世界そのものに覚えさせるため。</p>
+<p class="source-line role-narration fx-key role-motif tone-1 gap-1" data-source-line="10">　だから、<span class="term term-name tone-1">名</span>のない死体ほど始末の悪いものはない。</p>
+<div class="source-line scene-break gap-1" data-source-line="12" aria-hidden="true"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="14">一　<span class="term term-name tone-1">名</span>のない死者</h2>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="16">　墓守見習いのカイがその死体を受け取ったのは、十六歳の誕生日だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　空はよく晴れていた。ところが正午になると、太陽の真ん中に小さな黒い穴が開いた。鳥は一斉に鳴くのをやめ、町じゅうの時計が、まだ昼だというのに零時を指した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="20">　そのとき、王都から来た黒い馬車が墓地の門前に止まった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="22">　御者は顔を布で隠していた。荷台から降ろされた棺には、王家の紋章も、教会の印もなかった。書類の「氏<span class="term term-name tone-1">名</span>」の欄は、刃物で何度も削られている。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="24">「<span class="term term-name tone-1">名前</span>は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　カイが尋ねると、御者は首を振った。</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="28">「<span class="term term-name tone-1">名</span>はない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="30">「そんな人はいません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="32">「では、おまえがそう書いておけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　御者は銀貨を一枚投げ、逃げるように去った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="36">　師匠の墓守は町へ出ていた。仕方なく、カイは一人で棺の蓋を外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　中にいたのは、ひどく老いた男だった。胸に大きな穴が開き、右手には折れた剣の柄が握られている。奇妙なことに、死後何日も経っているはずなのに、指先だけはまだ温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　カイには、生まれつき妙な力があった。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="42">　死者に触れると、その者が最後に言えなかった言葉が聞こえる。</p>
+<p class="source-line role-narration role-memory fx-whisper gap-1" data-source-line="44">　母の死体からは「窓を閉めて」と聞こえた。</p>
+<p class="source-line role-narration fx-whisper gap-0" data-source-line="45">　溺れた粉ひきの娘からは「青い靴を妹に」と聞こえた。</p>
+<p class="source-line role-narration fx-whisper gap-0" data-source-line="46">　戦場から戻った兵士からは、ただ何度も、「ごめんなさい」と聞こえた。</p>
+<p class="source-line role-narration role-ritual role-sound tone-1 gap-1" data-source-line="48">　<span class="term term-name tone-1">名</span>のない老人の額に触れた瞬間、カイの耳の奥で鐘が鳴った。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="50">　一つ。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="52">　二つ。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="54">　三つ。</p>
+<p class="source-line role-narration role-sound fx-beat gap-1" data-source-line="56">　音は次第に近づき、七つ目で止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　そして老人が目を開いた。</p>
+<p class="source-line role-dialogue role-ritual fx-key role-motif tone-1 gap-1" data-source-line="60">『<span class="term term-ritual tone-3">八つ目の鐘</span>が鳴る前に』</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="62">　唇は動いていない。声だけが、カイの頭の内側を引っかいた。</p>
+<p class="source-line role-dialogue fx-whisper fx-key role-motif tone-1 gap-1" data-source-line="64">『俺たちの<span class="term term-name tone-1">名</span>を呼べ』</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="66">　カイが手を引こうとすると、死者の指がその手首をつかんだ。</p>
+<p class="source-line role-dialogue fx-whisper fx-key role-motif fx-beat gap-1" data-source-line="68">『<span class="term term-title tone-2">勇者</span>になるな』</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　折れた剣の柄が白く光った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="72">　光はカイの腕を這い上がり、胸の上で八芒星の形に焼きついた。あまりの痛みに倒れたとき、墓地の門が乱暴に開く音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　銀色の甲冑を着た王国騎士が、二十人。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　その先頭に、白い外套をまとった宰相オルゼンが立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「見つけたぞ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="80">　宰相は墓ではなく、カイの胸の印を見て微笑んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="82">「今代の<span class="term term-title tone-2">勇者</span>だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="84">　町の人々は歓声を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　菓子屋は祝いの砂糖菓子を配り、鍛冶屋は店先に旗を掲げた。昨日までカイを「死人と話す薄気味悪い子」と呼んでいた人々が、肩を叩き、手を握り、口々に言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　王国を救ってくれ。</p>
+<p class="source-line role-narration gap-0" data-source-line="89">　魔物を倒してくれ。</p>
+<p class="source-line role-narration gap-0" data-source-line="90">　英雄になって帰ってこい。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　カイは怖かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　けれど同じくらい、うれしかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　そのことを、彼は誰にも言わなかった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="99">二　七人の咎人</h2>
+<p class="source-line role-narration gap-1" data-source-line="101">　王都の地下牢には、昼も夜もなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　壁に埋め込まれた青い石がぼんやり光り、格子の向こうには七人の囚人がいた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="105">　最初に目についたのは、片目を失った大男だった。赤錆びた鎖を両腕に巻き、床に座ったまま眠っている。<span class="term term-name tone-1">名</span>はガド。かつて北方軍を率いた将軍で、降伏した村を焼き、命令を下した上官を斬った男。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="107">　その隣では、小柄な女が看守の署<span class="term term-name tone-1">名</span>を真似て釈放状を作っていた。<span class="term term-name tone-1">名</span>はミュン。王印を偽造し、存在しない停戦命令を前線へ送った詐欺師。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　包帯だらけの巨漢はオルカ。疫病の村で、助からない患者たちに眠り薬を与え、二百十三人を死なせた医師。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　柱の影から片目だけをのぞかせている若者はフェル。戦場から逃亡し、一人だけ生き残った斥候。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="113">　白髪の女サナは、自分の髪を細い糸にして、何かを縫っていた。兵士たちから戦争の記憶を抜き取り、代わりに家族の記憶まで奪った魔術師。</p>
+<p class="source-line role-narration role-sound tone-3 gap-1" data-source-line="115">　小さな鈴を手首に縫いつけた僧ボウは、何もしゃべらなかった。王妃暗殺の真相を知りながら、七年間沈黙を守った証人。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　最後の一人は、鉄格子の前に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　黒い髪を短く切った女。鎖につながれていても、王冠をかぶっているように背筋が伸びている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「イネスだ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="123">　女は自分から<span class="term term-name tone-1">名</span>乗った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「前王の娘で、王宮の門を反乱軍に開けた。公式には、国を売った裏切り者ということになっている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">「公式には？」</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　カイが聞くと、イネスは薄く笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">「非公式の話を聞くほど、<span class="term term-title tone-2">勇者</span>様は長生きできない」</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　宰相オルゼンが格子の前へ進み出た。</p>
+<p class="source-line role-dialogue role-memory role-ritual tone-4 gap-1" data-source-line="135">「百年に一度、王国の西端に<span class="term term-world">〈逆さ塔〉</span>が現れる。塔の鐘が八度鳴れば、空は閉じ、海は腐り、死者が地上を歩く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「どうして僕が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「<span class="term term-title tone-2">勇者</span>の印を持つ者だけが、塔の主を倒せるからだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="141">「この人たちは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「七つの災いだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　宰相は淡々と言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="147">「塔が現れる前には、必ず七人の大罪人が生まれる。彼らの罪が世界を歪ませ、塔を呼ぶ。<span class="term term-title tone-2">勇者</span>は七人を討ち、その力を剣に集めなければならない」</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　騎士が運んできた長剣の柄には、七つの窪みがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　剣先から伸びた銀の鎖が、囚人たちの首輪へ一本ずつつながれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　カイが剣を握ると、七人の胸の奥で鼓動が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　ひとつの心臓を、八人で分けたような音だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「塔までの道は彼らにしか開けない」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　オルゼンは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「一人死ぬごとに、剣の窪みに光が宿る。七人全員を斬れば、おまえは完成した<span class="term term-title tone-2">勇者</span>となる」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　カイは剣を落とした。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-1" data-source-line="165">「そんなの、<span class="term term-title tone-2">勇者</span>じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「何と呼ぶかは、勝った者が決める」</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　宰相は拾い上げた剣を、カイの腰に差した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="171">　牢を出るとき、イネスが背後から声をかけた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="173">「勘違いするな、墓守」</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　彼女の鎖が鳴った。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-3 gap-1" data-source-line="177">「王国は私たちにおまえを守らせたいんじゃない。おまえに私たちを殺させたいんだ」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="180">三　罪のなかった宿</h2>
+<p class="source-line role-narration gap-1" data-source-line="182">　<span class="term term-name tone-4">逆さ塔</span>は、王都から西へ七日の場所に現れていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="184">　旅の一日目、道端の石碑から地<span class="term term-name tone-1">名</span>が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="185">　二日目、川が山へ向かって流れ始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="186">　三日目、夕日が二つ沈んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　四日目には、一行の影が全員、空を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　その夜、彼らは地図にない村へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　村人はみな笑っていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="193">　家々には喪章がなく、墓地もなく、老人も子どもも同じ顔をしている。宿の主人は八人を見て、八本の指を立てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「お部屋は八つございます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「七つでいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　ガドが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「俺は廊下で寝る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「いいえ。お部屋は、八つございます」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="205">　主人は同じ笑顔のまま繰り返した。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="207">　食堂には湯気の立つスープが並んでいたが、匂いがない。壁には家族の肖像画が何枚も掛かっている。どの絵でも、人物の顔だけが白く塗り潰されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　カイが尋ねた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="211">「この村には、お墓がないんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　食堂にいた全員が、同時にスプーンを止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「ここでは誰も死にません」</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　主人が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「ここでは誰も間違えません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="220">「ここでは誰も傷つけません」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="221">「ここでは誰も覚えていません」</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="223">　最後の言葉だけ、肖像画の中から聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　白く塗られた顔が、一斉にこちらを向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　壁紙の下で、何百本もの指が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　ミュンが立ち上がり、笑顔で宣言した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「この壁は、紙だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="233">　彼女の声が青く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　嘘が一時だけ真実となり、石壁が薄い紙へ変わる。ガドが拳で突き破ると、壁の向こうから黒い塊がなだれ込んだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="237">　人の形をしているのに、顔も<span class="term term-name tone-1">名</span>もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　口のある場所に、白い札が貼られている。</p>
+<p class="source-line role-narration role-system role-magic fx-beat gap-1" data-source-line="241"><span class="term term-system tone-2">〈なかったこと〉</span></p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="243">　怪物たちは札を震わせ、八人へ飛びかかった。</p>
+<p class="source-line role-narration role-memory role-horror tone-4 gap-1" data-source-line="245">　ガドの鎖が赤熱し、振るうたび火の輪を描いた。フェルは床に落ちた影と自分の位置を入れ替え、怪物の背後へ回る。サナの髪の糸が空を走り、ばらばらになった村人の記憶を縫い止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　ボウが手首を振る。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="249">　鈴は鳴らない。</p>
+<p class="source-line role-narration role-horror role-sound gap-1" data-source-line="251">　その無音が部屋を満たした瞬間、怪物たちの叫びも、魔術の唸りも消えた。オルカは仲間の傷口へ掌を当て、痛みを自分の体へ引き受ける。腕や頬に裂傷が増えても、巨漢は眉ひとつ動かさなかった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="253">　それでも怪物は増え続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　斬っても燃やしても、白い札が床から湧き出し、新しい身体を作る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">「カイ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　イネスが叫んだ。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="261">「おまえは死者の声を聞けるんだろう。こいつらが何だったか聞け！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="263">　カイは剣を捨て、最も近い怪物の胸に触れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="265">　冷たい闇の中から、小さな声が聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="267">『エラ』</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　カイは叫んだ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="271">「君の<span class="term term-name tone-1">名</span>は、エラだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　白い札にひびが入った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="275">　怪物の顔に、泣いている少女の目が戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">『ダン』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="278">「ダン！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">『ロジェ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="281">「ロジェ！」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="283">『母さん』</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="284">「それは<span class="term term-name tone-1">名前</span>じゃない！　あなたの<span class="term term-name tone-1">名前</span>を教えて！」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="286">『……メイ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「メイ！」</p>
+<p class="source-line role-narration role-horror tone-1 gap-1" data-source-line="290">　<span class="term term-name tone-1">名</span>を呼ばれるたび、怪物は人の形へ戻り、光の粒になって消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　最後の一体が消えると、宿も村もなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　八人は荒野の真ん中に立っていた。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="296">　足元には、苔むした墓標が数百並んでいる。削り取られていた<span class="term term-name tone-1">名</span>が、月明かりの下でゆっくり浮かび上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「この村は昔、王国軍に焼かれた」</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="300">　サナが墓標を撫でた。</p>
+<p class="source-line role-dialogue role-system role-memory fx-beat tone-4 gap-1" data-source-line="302">「記録からも、人の記憶からも消された。忘れられた死者は、<span class="term term-system tone-2">〈なかったこと〉</span>になるしかなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　ガドは炎の消えた拳を見つめていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="306">「焼いたのは、俺の部隊だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　誰も言葉を挟まなかった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="310">「反乱軍が隠れていると言われた。俺は命令に従った。終わってから、命令を出した将軍を斬った。復讐したから正義に戻れると思った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「戻れた？」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　カイが聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「戻れるわけがない」</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="318">　ガドは墓標の前に膝をついた。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="320">「だが王国は、俺一人を怪物にすれば済んだ。命令した者も、見ていた者も、喝采した者も、きれいなままだ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="322">　ミュンが乾いた声で笑った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="324">「私の嘘も似たようなものよ。偽の停戦命令で一万人を救った。でも、命令を信じて武器を置いた兵のうち三百人は、敵に殺された。救った命だけ数えれば英雄。死なせた命だけ数えれば詐欺師。王国は後者を選んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　オルカは包帯を巻き直しながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「疫病の村に、薬は届かなかった。王都の倉庫にはあった。高官の家族のために残されていた。私は苦しむ者を眠らせた。息子も、その中にいた」</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　フェルは影から顔を出さないままつぶやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「俺は逃げた。砦が落ちると知らせるために。近くの三つの町は避難できた。でも仲間は全員死んだ。だから今でも、夢の中では逃げ続けてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　サナは自分の白髪を一本切った。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="336">「兵士たちは、眠るたび戦場へ戻った。私は記憶を抜いた。優しさのつもりだった。けれど痛みだけを選んで抜くことはできなかった。妻の顔も、子の声も、一緒に消えた」</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="338">　ボウの鈴が一度だけ鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　彼は初めて口を開いた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="342">「王妃を殺した者たちは、孤児院の子ども百人を人質にした。私が証言すれば殺すと。私は黙り、子どもたちは助かった。代わりに、無実の者が処刑された」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="344">　声は錆びた扉のようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　最後に、イネスが逆さの影を見上げた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="348">「父王は、塔の秘密を守るため、反対者を地下牢に集めていた。私は反乱軍に門を開けた。囚人だけを救うはずだった。だが群衆は止まらなかった。王宮は血で満ちた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「じゃあ、誰が正しいんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　カイはたまらず言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「正しい人が一人もいないなら、僕は誰を斬ればいい」</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax gap-1" data-source-line="356">「それを決めなくていい者を、王国は<span class="term term-title tone-2">勇者</span>と呼ぶ」</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　イネスは答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「<span class="term term-title tone-2">勇者</span>は勝つ。勝てば、迷いは全部、物語から消してもらえる」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　荒野の先に、一軒の宿が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　今度は本物の宿に見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　扉には金文字で、こう書かれていた。</p>
+<p class="source-line role-narration role-system role-magic tone-3 gap-1" data-source-line="368"><span class="term term-world">〈罪のなかった朝を、あなたに〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="370">　中には八つの部屋があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　ガドの部屋では、焼かれなかった村の子どもたちが走っていた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="373">　ミュンの部屋では、本物の和平文書に王が署<span class="term term-name tone-1">名</span>していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　オルカの部屋では、息子が薬を飲み、熱を下げていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="375">　フェルの部屋では、砦の仲間が全員、生きて笑っていた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="376">　サナの部屋では、兵士たちが悪夢を見ず、家族の<span class="term term-name tone-1">名</span>を呼んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="377">　ボウの部屋では、王妃は生き、孤児たちは庭で遊んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　イネスの部屋では、父王が娘の肩を抱き、王宮の門は閉じたままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　七人は、それぞれの扉の前に立ち尽くした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="382">　カイの部屋には、故郷の墓地があった。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="384">　母が生きていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　師匠がパンを焼いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　王都から黒い馬車は来ず、誰もカイを薄気味悪いとは呼ばない。英雄にもならず、毎日土を掘り、夕方には家へ帰る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「おかえり、カイ」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="392">　母が笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　カイは一歩、部屋へ入った。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="396">　もう一歩で、母の手に触れられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　そのとき気づいた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="400">　墓地に墓石が一つもない。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="402">「母さん。ここで死んだ人たちは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「誰も死んでいないわ」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="406">「じゃあ、誰のことを覚えてる？」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="408">　母は笑ったまま答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　家の壁から、白い札が一枚はがれ落ちた。</p>
+<p class="source-line role-narration role-system role-magic fx-beat gap-1" data-source-line="412"><span class="term term-system tone-2">〈なかったこと〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="414">　カイは後ろへ下がった。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-beat gap-1" data-source-line="416">「これは朝じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　彼は言った。</p>
+<p class="source-line role-dialogue role-memory fx-key role-motif fx-beat tone-4 gap-1" data-source-line="420">「夜を忘れただけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　八つの部屋が一斉に軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　ガドが自分の扉を閉めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="425">　続いてミュン、オルカ、フェル、サナ、ボウ、イネスも、扉から手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　宿全体が、古い紙のように折れ曲がった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="429">　主人の声が天井から降ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="431">「なぜ苦しみを選ぶのです」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　カイは答えた。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-1 gap-1" data-source-line="435">「苦しみたいんじゃない。<span class="term term-name tone-1">名前</span>を消したくないだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　宿は八つ折りになり、最後には一枚の白い札となって風に飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　その向こうに、<span class="term term-name tone-4">逆さ塔</span>が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　塔は地面から立っていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　黒い太陽から、尖った先端を下へ向けて垂れ下がっていた。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="446">四　<span class="term term-name tone-4">逆さ塔</span></h2>
+<p class="source-line role-narration gap-1" data-source-line="448">　塔の入口は空中にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　イネスが剣の鎖を引くと、八人の影が地面から剥がれ、階段の形に重なった。一行は自分たちの影を踏みながら、空へ上った。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　塔の中では、重力が何度も向きを変えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　床だと思った場所が壁になり、落ちた涙が天井へ吸い込まれる。窓の外には王国全土が見えたが、町も森も海も、古い絵本の挿絵のように平たかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　螺旋階段の壁には、無数の壁画があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　剣を掲げる少年。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="459">　その足元に倒れる七匹の怪物。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="460">　歓声を上げる民衆。</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　王から冠を授かる少年。</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　次の絵では、少年は年老いていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="465">　その次では、顔を失っていた。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="467">　最後の絵では、<span class="term term-horror tone-2">白い仮面</span>をかぶり、次の少年へ剣を渡していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「これまでの<span class="term term-title tone-2">勇者</span>だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　イネスが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「全員、同じ結末？」</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　カイの問いに、彼女は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　塔の半ばで、下から甲冑の音が追ってきた。</p>
+<p class="source-line role-narration role-system role-horror tone-2 gap-1" data-source-line="479">　<span class="term term-horror tone-2">白い仮面</span>をつけた王国騎士たちが、影の階段を上ってくる。胸には<span class="term term-system tone-2">〈潔白〉</span>の二文字が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　先頭の騎士が剣を抜く。</p>
+<p class="source-line role-dialogue role-command tone-3 gap-1" data-source-line="483">「七つの罪を、塔へ入れるな」</p>
+<p class="source-line role-dialogue role-command gap-0" data-source-line="484">「<span class="term term-title tone-2">勇者</span>に手を汚させろ」</p>
+<p class="source-line role-dialogue role-command role-ritual tone-3 gap-0" data-source-line="485">「王国に罪なし」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="487">　同じ言葉を、百人が同じ声で唱えた。</p>
+<p class="source-line role-dialogue role-command role-ritual tone-3 gap-1" data-source-line="489">「王国に罪なし」</p>
+<p class="source-line role-dialogue role-command role-ritual tone-3 gap-0" data-source-line="490">「王国に罪なし」</p>
+<p class="source-line role-dialogue role-command role-ritual tone-3 gap-0" data-source-line="491">「王国に罪なし」</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　ガドが鎖を引きちぎる勢いで前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「その台詞が、一番腹立つ」</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　拳が燃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　塔の内部で戦いが始まった。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="501">　ガドの炎が<span class="term term-horror tone-2">白い仮面</span>を赤く染める。ミュンは崩れた階段を指して「橋はまだある」と叫び、透明な足場を作った。フェルは敵の影から影へ飛び、剣だけを奪って落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　サナの髪の糸が騎士の兜へ刺さる。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="505">　彼らが忘れさせられていた光景が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　焼かれた村。</p>
+<p class="source-line role-narration gap-0" data-source-line="508">　空になった薬箱。</p>
+<p class="source-line role-narration gap-0" data-source-line="509">　地下牢の悲鳴。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="510">　処刑台の朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　騎士たちは次々と剣を落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　一人が仮面を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「知らなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="519">「命令だった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="520">「俺は見ていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="521">「聞いていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="522">「選んでいない」</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　ボウが両手を広げると、塔から音が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　言い訳も、剣戟も、悲鳴も消えた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="528">　静寂の中で、オルカだけが動き続けた。敵味方の区別なく傷口を塞ぎ、痛みを自分へ移す。全身が血に染まり、ついに片膝をついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　白仮面の隊長が、倒れたオルカへ剣を振り下ろす。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　カイは反射的に<span class="term term-title tone-2">勇者</span>の剣を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　剣の七つの窪みが赤く光り、彼の腕を勝手に動かした。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　刃は隊長ではなく、オルカの首へ向かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「止まれ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　カイは両手で剣を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　刃がオルカの皮膚を薄く切る。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　最初の窪みに、かすかな光が宿った。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　塔全体が歓喜するように震えた。</p>
+<p class="source-line role-dialogue role-system fx-beat gap-1" data-source-line="548">『一人目』</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="550">　どこからともなく声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　カイは剣を床へ叩きつけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「僕は、斬らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　白仮面の隊長が立ち上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="558">「ならば世界が滅ぶ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「その言葉を誰に教わった」</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　イネスが隊長の喉元へ剣を突きつけた。</p>
+<p class="source-line role-dialogue role-horror tone-2 gap-1" data-source-line="564">「王か。宰相か。それとも、<span class="term term-horror tone-2">白い仮面</span>の内側か」</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　隊長は答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　ガドが拳を振り上げる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="570">　誰もが、彼が隊長を殺すと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　しかし拳は、その横の壁を砕いた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="574">「行け、墓守」</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　壁の向こうに、塔の頂上へ続く階段が現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="578">「俺たちが、こいつらを止める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="580">「でも」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「きれいな結末を選ぶな」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　ガドは笑った。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax gap-1" data-source-line="586">「英雄になるなら、せめて面倒な英雄になれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　七人は追手へ向き直った。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　カイは一人、最上階へ走った。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="593">五　第八の罪</h2>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="595">　最上階には、巨大な鐘が吊られていた。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="597">　鐘は白かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　骨を磨いて作ったような白さだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　その下に、一人の老人が立っている。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="603">　<span class="term term-horror tone-2">白い仮面</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　胸に八芒星の痕。</p>
+<p class="source-line role-narration gap-0" data-source-line="605">　右手には、折れた剣の柄。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="607">　墓地へ運ばれてきた死者と、同じ姿だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「あなたは死んだはずだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="611">「死んだとも」</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　老人は仮面の奥で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「何度も」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　壁画の<span class="term term-title tone-2">勇者</span>たちが、一斉に顔を上げた。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="619">　少年、少女、老人、兵士、農夫、王子、奴隷。時代も姿も違う<span class="term term-title tone-2">勇者</span>が、<span class="term term-horror tone-2">白い仮面</span>の下で同じ目をしている。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="621">「我らは<span class="term term-world">〈管理人〉</span>」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="623">　声が幾重にも重なった。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="625">「七人を斬り、王国を救い、歓声を浴びた者の残りかすだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　カイの剣から銀の鎖が飛び出した。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="629">　下の階にいる七人の首輪へつながり、彼らを鐘の間まで引き上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　ガドも、ミュンも、オルカも、フェルも、サナも、ボウも、イネスも、傷だらけだった。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="633">　七人は鐘の周りに円を描いて倒れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「百年前」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="637">　管理人は語った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="639">「王国は長い戦争に疲れていた。誰もが誰かを殺し、奪い、見捨てた。だが平和になったとき、人々は自分の手についた血を見たくなかった」</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="641">　鐘の表面に、昔の光景が映る。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　王も、兵士も、商人も、農夫も、祈るように塔を囲んでいた。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="645">『忘れさせてくれ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="646">『悪かったのは、ほかの誰かだと言ってくれ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="647">『私たちは善良だったことにしてくれ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「塔は願いを聞いた」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="651">　管理人が両腕を広げる。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="653">「人々の罪と記憶を集め、七人の人間へ注いだ。復讐、虚偽、慈悲、逃亡、執着、沈黙、反逆。複雑な歴史を、わかりやすい七つの顔へ変えた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="655">「だから、この人たちが選ばれた？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="657">「彼らは罪を犯した。だから器にふさわしかった」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="659">「王国の罪まで、背負わされた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="661">「物語には悪役が必要だ」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="663">　管理人はカイへ近づいた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="665">「そして、悪役を倒す<span class="term term-ritual tone-2">無垢</span>な英雄が必要だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　剣の柄が熱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　七つの窪みが口のように開き、光を欲しがっている。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="671">「七つの罪は、どれも人間的だ。怒りには理由があり、嘘には目的があり、逃亡には恐怖がある。ゆえに人々は、いつか理解してしまう」</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="673">　<span class="term term-horror tone-2">白い仮面</span>が、カイの顔すれすれまで迫った。</p>
+<p class="source-line role-dialogue role-ritual tone-3 gap-1" data-source-line="675">「だが八つ目の罪は違う」</p>
+<p class="source-line role-dialogue role-ritual gap-1" data-source-line="677">「八つ目？」</p>
+<p class="source-line role-dialogue fx-beat tone-2 gap-1" data-source-line="679">「<span class="term term-ritual tone-2">無垢</span>だ」</p>
+<p class="source-line role-narration role-horror tone-4 gap-1" data-source-line="681">　管理人の声が甘くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「自分だけは関係がないと信じること。自分だけは正しい側に立っていると信じること。剣を振るえば世界が単純になると信じること」</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="685">　鐘の下に、八本目の鎖が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　それはカイの胸につながっていた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="689">「おまえは墓守だった。だが英雄と呼ばれて、うれしかった」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="690">「……そうだ」</p>
+<p class="source-line role-dialogue role-horror gap-0" data-source-line="691">「七人が本当に怪物ならいいと思った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="692">「思った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="693">「彼らを斬れば、皆がおまえを愛すると知っている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="694">「知ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「ならば完成せよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　剣がひとりでに持ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　七人の姿が歪んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　ガドは炎を吐く巨獣に。</p>
+<p class="source-line role-narration gap-0" data-source-line="703">　ミュンは舌が千本ある蛇に。</p>
+<p class="source-line role-narration role-memory tone-4 gap-0" data-source-line="704">　オルカは死者を食う鬼に。</p>
+<p class="source-line role-narration gap-0" data-source-line="705">　フェルは足のない影に。</p>
+<p class="source-line role-narration gap-0" data-source-line="706">　サナは顔を縫い合わせた蜘蛛に。</p>
+<p class="source-line role-narration gap-0" data-source-line="707">　ボウは口のない僧兵に。</p>
+<p class="source-line role-narration gap-0" data-source-line="708">　イネスは黒い冠をかぶる魔女に。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="710">　管理人が囁く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「ほら。物語の形になった」</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　カイの腕が剣を振り上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　ガドが目を閉じる。</p>
+<p class="source-line role-narration gap-0" data-source-line="717">　ミュンは笑うのをやめる。</p>
+<p class="source-line role-narration gap-0" data-source-line="718">　オルカは祈る。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　フェルは逃げない。</p>
+<p class="source-line role-narration gap-0" data-source-line="720">　サナは髪を切る。</p>
+<p class="source-line role-narration role-sound gap-0" data-source-line="721">　ボウの鈴が震える。</p>
+<p class="source-line role-narration gap-0" data-source-line="722">　イネスだけが、カイをまっすぐ見た。</p>
+<p class="source-line role-dialogue role-ritual tone-1 gap-1" data-source-line="724">「<span class="term term-name tone-1">名前</span>を呼べ」</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　彼女は言った。</p>
+<p class="source-line role-dialogue role-horror fx-key role-motif fx-climax gap-1" data-source-line="728">「私たちを許すためじゃない。怪物にしないために」</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　カイは剣に逆らい、叫んだ。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="732">「ガド・エルゼン！」</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　炎の巨獣がひび割れ、中から片目の男が現れた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="736">「おまえは村を焼いた！　命令した者を殺した！　それでも、あの村の<span class="term term-name tone-1">名</span>を覚えている！」</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　一本目の鎖が切れた。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="740">「ミュン・ロア！」</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　千の舌が消え、小柄な女が戻る。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="744">「おまえは嘘をついた！　その嘘で救われた者と、死んだ者の数を、どちらも覚えている！」</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　二本目。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="748">「オルカ・ネヴ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　鬼の腹が裂け、包帯の医師が立ち上がる。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="752">「おまえは人を死なせた！　苦痛を終わらせたかった！　息子の<span class="term term-name tone-1">名</span>を、一日も忘れていない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　三本目。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="756">「フェル・アシェ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　足のない影に、震える両脚が戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「おまえは逃げた！　町へ知らせるために走った！　生き残ったことを、今も罰だと思っている！」</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　四本目。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="764">「サナ・リィ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　蜘蛛の糸がほどける。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="768">「おまえは記憶を奪った！　優しさだけではなかった！　自分が必要とされたかった！　それも全部、おまえだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　五本目。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="772">「ボウ・ハルン！」</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　口のない顔が開く。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="776">「おまえは黙った！　子どもを守り、無実の者を見殺しにした！　どちらか一つにするな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　六本目。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="780">「イネス・ノアゼル！」</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　黒い冠が砕ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="784">「おまえは門を開けた！　人を救おうとして、別の人を死なせた！　姫でも魔女でもなく、おまえはおまえだ！」</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="786">　七本目の鎖が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　<span class="term term-title tone-2">勇者</span>の剣から光が消えた。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="790">　ただの鉄になった刃が、鐘の床へ落ちる。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="792">　管理人は初めて動揺した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="794">「七人を人間に戻せば、世界は彼らを裁けなくなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="796">「裁けばいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　カイは答えた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="800">「人間として」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="802">「真実は人を救わない。国は混乱し、憎しみが戻り、復讐が始まる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="804">「かもしれない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="806">「忘却こそ平和だ」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-4 gap-1" data-source-line="808">「<span class="term term-name tone-1">名前</span>のない墓の上に立つ平和は、墓場と同じだ」</p>
+<p class="source-line role-narration role-ritual role-horror tone-1 gap-1" data-source-line="810">　管理人が鐘を打った。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="812">　一つ目の音が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="814">　王国中の空が暗くなった。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="816">　二つ目。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="818">　海から死者の手が伸びた。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="820">　三つ目。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="822">　町の人々の顔が白く塗り潰されていく。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="824">　四つ目。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="826">　七人の身体が再び怪物へ変わり始める。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="828">　五つ目。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="830">　カイの故郷から墓石が消える。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="832">　六つ目。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="834">　母の声を思い出せなくなる。</p>
+<p class="source-line role-narration role-sound gap-1" data-source-line="836">　七つ目。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="838">　管理人が新しい<span class="term term-horror tone-2">白い仮面</span>を差し出した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="840">「かぶれ。おまえは善でいられる」</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="842">　<span class="term term-ritual tone-3">八つ目の鐘</span>を鳴らす槌が、ゆっくり持ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　カイの胸には、まだ一本の鎖が残っていた。</p>
+<p class="source-line role-narration fx-beat gap-1" data-source-line="846">　八本目。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="848">　彼は折れた剣を拾い、鐘ではなく、自分の胸の鎖へ突き立てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="850">「僕は、英雄になりたかった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　鎖に亀裂が入る。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="854">「皆に愛されたかった！　この七人が怪物であれば、迷わず斬れて楽だと思った！　僕だけは何もしていない、きれいな人間だと思いたかった！」</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="856">　<span class="term term-horror tone-2">白い仮面</span>に亀裂が走る。</p>
+<p class="source-line role-dialogue fx-beat fx-peak role-motif tone-2 gap-1" data-source-line="858">「僕の罪は、<span class="term term-ritual tone-2">無垢</span>だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="860">　八本目の鎖が切れた。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="862">　槌が鐘を打つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="864">　だが、鳴ったのは一つの音ではなかった。</p>
+<p class="source-line role-narration role-memory tone-1 gap-1" data-source-line="866">　焼かれた村の<span class="term term-name tone-1">名</span>。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="867">　薬を与えられなかった者の<span class="term term-name tone-1">名</span>。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="868">　戦場で死んだ者の<span class="term term-name tone-1">名</span>。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="869">　処刑された者の<span class="term term-name tone-1">名</span>。</p>
+<p class="source-line role-narration role-memory tone-4 gap-0" data-source-line="870">　忘れられた母の<span class="term term-name tone-1">名</span>。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="871">　記録から削られた子どもの<span class="term term-name tone-1">名</span>。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="873">　数えきれない<span class="term term-name tone-1">名前</span>が、鐘の音となって世界へ降った。</p>
+<p class="source-line role-narration role-ritual tone-1 gap-1" data-source-line="875">　白い鐘は砕けた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="877">　管理人の仮面の下には、カイと同じ顔があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　未来の顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="880">　疲れ、老い、物語に負けた顔。</p>
+<p class="source-line role-dialogue role-memory fx-whisper tone-4 gap-1" data-source-line="882">「また人は忘れる」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="884">　管理人は崩れながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「塔がなくても、物語が我らを作る」</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　カイは答えた。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-1 gap-1" data-source-line="890">「なら、何度でも<span class="term term-name tone-1">名前</span>を呼ぶ」</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　<span class="term term-name tone-4">逆さ塔</span>が空から落ちた。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="895">六　鐘のあと</h2>
+<p class="source-line role-narration gap-1" data-source-line="897">　世界は滅びなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="899">　ただし、誰も無事ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="901">　人々は思い出した。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="903">　王家が隠した虐殺を。</p>
+<p class="source-line role-narration gap-0" data-source-line="904">　教会が燃やした記録を。</p>
+<p class="source-line role-narration gap-0" data-source-line="905">　商人が戦争で得た金を。</p>
+<p class="source-line role-narration gap-0" data-source-line="906">　兵士へ渡した命令を。</p>
+<p class="source-line role-narration gap-0" data-source-line="907">　命令を知りながら黙った自分を。</p>
+<p class="source-line role-narration gap-1" data-source-line="909">　王都では三日三晩、誰も眠れなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="911">　像は引き倒され、地下牢は開かれ、役所の壁から封印された<span class="term term-name tone-1">名</span>簿があふれ出た。復讐も起きた。暴動も起きた。真実を知れば皆が善くなる、などという奇跡は起こらなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="913">　それでも、<span class="term term-name tone-1">名</span>のない墓は減った。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　七人は英雄にはならなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="917">　ガドは焼いた村の生存者たちの前で罪を認め、終身の労役を受け入れた。彼は毎年、村に家を一軒ずつ建てた。許した者も、許さなかった者もいた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="919">　ミュンは裁判で、救われた一万人と死んだ三百人の<span class="term term-name tone-1">名</span>を読み上げた。判決の後、牢の中から各国の和平文書を直す仕事を始めた。今度は偽の印ではなく、自分の<span class="term term-name tone-1">名</span>で署<span class="term term-name tone-1">名</span>した。</p>
+<p class="source-line role-narration gap-1" data-source-line="921">　オルカは医師の資格を失った。それでも病院の地下で、死を待つ者の手を握ることだけは許された。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="923">　フェルは逃亡兵ではなく伝令として記録され直した。<span class="term term-name tone-1">名</span>誉を戻されても、夜ごとの悪夢は消えなかった。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="925">　サナは奪った記憶を一人ずつ返した。返された者たちは泣き、怒り、彼女を殴り、抱きしめた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="927">　ボウは孤児院へ戻った。彼は毎朝、子どもたちの前で一つずつ、過去の<span class="term term-name tone-1">名</span>を読むようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　イネスは王位を勧められたが断った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="931">「冠は、人を一つの顔にしすぎる」</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="933">　そう言って、誰でも記録を読める<span class="term term-world">〈記憶院〉</span>を作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="935">　カイは故郷へ戻った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="937">　再び墓を掘り、石に<span class="term term-name tone-1">名</span>を刻んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="939">　英雄の剣は、鍬に打ち直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="941">　最初の冬、町に旅の語り部が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="943">　酒場は満員になった。語り部は色鮮やかな絵本を開き、子どもたちへ新しい物語を聞かせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="945">『昔々、七匹の魔物が王国を滅ぼそうとしました。そこへ、汚れなき<span class="term term-title tone-2">勇者</span>カイが現れます。<span class="term term-title tone-2">勇者</span>は一人で魔物を倒し、白い塔を砕き、永遠の平和をもたらしました』</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　客たちは拍手した。</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　カイは酒場の隅で、鍬についた土を落としていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="951">　絵本の中で、ガドには角が生え、ミュンには蛇の舌があり、オルカは人骨を食べていた。フェルは影、サナは蜘蛛、ボウは口のない怪人、イネスは黒い冠の魔女として描かれている。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="953">　<span class="term term-title tone-2">勇者</span>だけが、白い服で笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　カイは立ち上がった。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="957">「その話は違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="959">　酒場が静まり返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　語り部は笑顔を崩さない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="963">「物語ですよ、<span class="term term-title tone-2">勇者</span>様。子どもにもわかる形にしただけです」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="965">「わかりやすくするために、<span class="term term-name tone-1">名前</span>を消すのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="967">「人は複雑な話を好みません」</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="969">　一瞬だけ、語り部の顔が<span class="term term-horror tone-2">白い仮面</span>に見えた。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="971">「人は、英雄と怪物を好むのです」</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　カイは絵本を閉じた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="975">　そして子どもたちの前で、一人ずつ<span class="term term-name tone-1">名</span>を呼んだ。</p>
+<p class="source-line role-narration role-name gap-1" data-source-line="977">　ガド・エルゼン。</p>
+<p class="source-line role-narration role-name gap-0" data-source-line="978">　ミュン・ロア。</p>
+<p class="source-line role-narration role-name gap-0" data-source-line="979">　オルカ・ネヴ。</p>
+<p class="source-line role-narration role-name gap-0" data-source-line="980">　フェル・アシェ。</p>
+<p class="source-line role-narration role-name gap-0" data-source-line="981">　サナ・リィ。</p>
+<p class="source-line role-narration role-name gap-0" data-source-line="982">　ボウ・ハルン。</p>
+<p class="source-line role-narration role-name gap-0" data-source-line="983">　イネス・ノアゼル。</p>
+<p class="source-line role-narration gap-1" data-source-line="985">　客の何人かは席を立った。</p>
+<p class="source-line role-narration gap-0" data-source-line="986">　何人かは笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="987">　何人かは、不機嫌そうに酒を飲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="989">　けれど最前列の小さな少女だけは、空いている椅子を数えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="991">「一、二、三、四、五、六、七、八」</p>
+<p class="source-line role-narration gap-1" data-source-line="993">　少女はカイを見上げた。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="995">「ねえ。八人目の怪物は、誰だったの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="997">　カイは卓上の杯を見た。</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="999">　水面に映る自分の顔へ、ほんの一瞬、<span class="term term-horror tone-2">白い仮面</span>が重なる。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="1001">「自分だけは怪物じゃないと、信じた人だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1003">「じゃあ、今もいるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1005">「ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1007">　カイは絵本の白い<span class="term term-title tone-2">勇者</span>を指で隠した。</p>
+<p class="source-line role-dialogue fx-key role-motif fx-climax tone-5 gap-1" data-source-line="1009">「だから、<span class="term term-name tone-1">名前</span>を呼ぶんだ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1011">　少女はうなずき、七人の<span class="term term-name tone-1">名</span>を最初から読み直した。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1013">　そのとき、酒場の奥にあった八脚目の椅子が、誰も触れていないのに、ゆっくりとカイの方を向いた。</p>
+<p class="source-line role-narration role-ritual role-sound tone-1 gap-1" data-source-line="1015">　鐘のない町で、八度目の鐘が鳴った。</p>
+</section>
+</article>
+</main>
+
+<script>
+(() => {
+  'use strict';
+  const body = document.body;
+  const slug = "第八の罪は、無垢";
+  const storageKey = 'extended-font-novel:' + slug;
+  const genreSelect = document.getElementById('genreSelect');
+  const fontModeSelect = document.getElementById('fontModeSelect');
+  const effectsSelect = document.getElementById('effectsSelect');
+  const themeButton = document.getElementById('themeButton');
+  const infoButton = document.getElementById('infoButton');
+  const infoPanel = document.getElementById('infoPanel');
+  const tocButton = document.getElementById('tocButton');
+  const tocPanel = document.getElementById('tocPanel');
+  const progressBar = document.getElementById('progressBar');
+  const presetLabel = document.getElementById('currentPresetLabel');
+  const presetDescription = document.getElementById('currentPresetDescription');
+  let scale = 1;
+
+  function updatePresetText() {
+    const opt = genreSelect.options[genreSelect.selectedIndex];
+    if (presetLabel) presetLabel.textContent = opt.textContent;
+    if (presetDescription) presetDescription.textContent = opt.dataset.description || '';
+  }
+  function apply() {
+    body.dataset.genre = genreSelect.value;
+    body.dataset.fontmode = fontModeSelect.value;
+    body.dataset.effects = effectsSelect.value;
+    body.style.setProperty('--reader-scale', String(scale));
+    themeButton.setAttribute('aria-pressed', body.dataset.theme === 'night' ? 'true' : 'false');
+    updatePresetText();
+  }
+  function save() {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify({
+        genre: genreSelect.value, fontmode: fontModeSelect.value, effects: effectsSelect.value,
+        theme: body.dataset.theme, scale
+      }));
+    } catch (_) {}
+  }
+  function restore() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || 'null');
+      if (!saved) return;
+      if ([...genreSelect.options].some(o => o.value === saved.genre)) genreSelect.value = saved.genre;
+      if ([...fontModeSelect.options].some(o => o.value === saved.fontmode)) fontModeSelect.value = saved.fontmode;
+      if ([...effectsSelect.options].some(o => o.value === saved.effects)) effectsSelect.value = saved.effects;
+      if (saved.theme === 'paper' || saved.theme === 'night') body.dataset.theme = saved.theme;
+      if (Number.isFinite(saved.scale)) scale = Math.min(1.22, Math.max(.88, saved.scale));
+    } catch (_) {}
+  }
+  function closePanels(except) {
+    for (const [button, panel] of [[tocButton,tocPanel],[infoButton,infoPanel]]) {
+      if (!button || !panel || panel === except) continue;
+      panel.hidden = true; button.setAttribute('aria-expanded','false');
+    }
+  }
+  function togglePanel(button, panel) {
+    if (!button || !panel) return;
+    const opening = panel.hidden;
+    closePanels(opening ? panel : null);
+    panel.hidden = !opening;
+    button.setAttribute('aria-expanded', opening ? 'true' : 'false');
+  }
+  function updateProgress() {
+    const root = document.documentElement;
+    const max = root.scrollHeight - root.clientHeight;
+    progressBar.style.width = (max > 0 ? (root.scrollTop / max) * 100 : 0) + '%';
+  }
+
+  restore(); apply(); updateProgress();
+  genreSelect.addEventListener('change', () => { apply(); save(); });
+  fontModeSelect.addEventListener('change', () => { apply(); save(); });
+  effectsSelect.addEventListener('change', () => { apply(); save(); });
+  themeButton.addEventListener('click', () => { body.dataset.theme = body.dataset.theme === 'night' ? 'paper' : 'night'; apply(); save(); });
+  document.getElementById('sizeDown').addEventListener('click', () => { scale = Math.max(.88, +(scale - .06).toFixed(2)); apply(); save(); });
+  document.getElementById('sizeReset').addEventListener('click', () => { scale = 1; apply(); save(); });
+  document.getElementById('sizeUp').addEventListener('click', () => { scale = Math.min(1.22, +(scale + .06).toFixed(2)); apply(); save(); });
+  if (tocButton) tocButton.addEventListener('click', () => togglePanel(tocButton, tocPanel));
+  infoButton.addEventListener('click', () => togglePanel(infoButton, infoPanel));
+  if (tocPanel) tocPanel.addEventListener('click', event => { if (event.target.closest('a')) togglePanel(tocButton, tocPanel); });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape') closePanels(null); });
+  addEventListener('scroll', updateProgress, {passive:true});
+  addEventListener('resize', updateProgress);
+})();
+</script>
+</body>
+</html>

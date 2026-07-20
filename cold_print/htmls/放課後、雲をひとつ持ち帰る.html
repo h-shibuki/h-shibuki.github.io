@@ -1,0 +1,923 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="靴箱が鳴らす音、焼きそばパンの匂い、眠そうなベートーヴェン。潮見高校の「余白部」は、気づいても誰にも報告しないような小さな発見を記録する四人組だ。ところが活動写真を午後五時までに提出できなければ、部室を失うと判明する。役に立たない日常を一枚で説明するため、部長まひるが決めた活動は「雲の採取」。ジャム瓶とカメラを手に、逃げる白雲を追って中庭、階段、校庭へ。やがて夕立が学校を包み、締切は刻々と迫る。何も成し遂げない時間に居場所を与える、放課後の小さな冒険。">
+<title>放課後、雲をひとつ持ち帰る｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="放課後、雲をひとつ持ち帰る" data-novel-id="放課後、雲をひとつ持ち帰る" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示" selected>学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ジュブナイル・日常・学園</p>
+  <p><strong>補助ジャンル：</strong>ギャグ</p>
+  <p><strong>CSVタグ：</strong>ジュブナイル、日常、学園、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示</p>
+  <h3>意味色</h3><p>赤＝気合、青＝戦術、金＝信頼、紫＝迷い、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：462行／章：0／役割・強度タグ：503</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="放課後、雲をひとつ持ち帰る 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">放課後、雲をひとつ持ち帰る</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　余白部の部室には、役に立つものがひとつもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　脚が一本足りない地球儀。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　去年の十二月で止まった卓上カレンダー。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　押すたびに違う色が出る三色ボールペン。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　そして、針がいつ見ても「嵐」を指している古い気圧計。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="11">「これは嵐じゃなくて、壊れてるだけだと思う」</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　私が言うと、部長の鷺沢まひるは、気圧計を両手で持ち上げた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="15">「壊れていても、毎日予報を外し続けるという立派な仕事をしてるよ」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="16">「仕事って言っていいの、それ」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="17">「無給だから趣味かな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="18">「じゃあ立派でもないね」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　窓際でカメラをいじっていた津森八重が、こちらを見ずに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「でも今日、夕立くる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="23">「ほんと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="24">「西の空、黒い」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="25">「気圧計、初勝利じゃん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　まひるが気圧計を高く掲げた。その拍子に裏ぶたが外れ、中から小さなネジが二本、机の上に落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="29">「引退試合だったかも」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="30">「まだ負けてるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　ここは潮見高校、三階のいちばん端にある旧地理資料準備室。</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　私たち四人は放課後になると、この狭い部屋に集まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　正式名称は「校内余白観察同好会」。</p>
+<p class="source-line role-narration gap-0" data-source-line="36">　略して余白部。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="38">　活動内容は、気づいたけれど誰かに報告するほどではないことを記録することだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　四月十一日。</p>
+<p class="source-line role-narration gap-0" data-source-line="41">　昇降口の右から三番目の靴箱は、閉めると「ミ」の音がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　四月二十三日。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-0" data-source-line="44">　購買の焼きそばパンは、袋を開ける前がいちばん焼きそばの匂いがする。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　五月九日。</p>
+<p class="source-line role-narration gap-0" data-source-line="47">　中庭の植え込みに、四国に似た形のすき間がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　五月二十八日。</p>
+<p class="source-line role-narration gap-0" data-source-line="50">　午後四時を過ぎると、音楽室の肖像画のベートーヴェンだけ少し眠そうに見える。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="52">　こうした記録を、壁に貼った模造紙へ日付順に書き足していく。</p>
+<p class="source-line role-narration gap-0" data-source-line="53">　役に立ったことは、まだ一度もない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「先輩方」</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　一年生の片瀬ひよりが、部室の隅から静かに手を挙げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="58">　彼女は入部して二か月になるが、いまだに発言するときは授業のように挙手する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「机の下から、重要そうな紙が出てきました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="61">「重要そうなら、たぶんうちのじゃないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="62">「上に『至急』と書いてあります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="63">「ますます違うね」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　ひよりは紙を拾い、折れ目を伸ばして読み上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「『同好会活動報告書。活動写真一枚を添付し、本日十七時までに生徒会室へ提出。未提出の場合、活動実態なしとして次学期の部室使用を再検討する』」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="68">「……それ、いつ届いたやつ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「提出期限の欄に、今日の日付があります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="70">「届いた日じゃなくて、見つけた日を聞いたんだけど」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="71">「紙の裏に、丸い染みがあります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="72">「昨日、部長がお茶のコースターにしてた紙だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　私が言うと、まひるは机の上の湯のみをそっと自分の背中に隠した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="76">「紙って、濡れると重要度が分かりにくくなるよね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="77">「『至急』は読めてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="78">「飾り文字かと思って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="79">「赤字で四センチくらいあるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="80">「元気な題字だなって」</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　壁の時計を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="83">　午後三時三十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　残り一時間二十五分で、活動報告書を書き、活動写真を撮り、生徒会室へ提出しなければならない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="87">　うちの部がなくなったら困るかと聞かれれば、正直、学校生活には何の支障もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　けれど、この部室がなくなると、脚の足りない地球儀や、十二月で止まったカレンダーや、毎日嵐を告げる気圧計の行き場がなくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　それに、私たちの行き場も少しだけなくなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「活動写真って、何をしてるところを撮ればいいんだろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　私がつぶやくと、まひるは急に真剣な顔になった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="96">「いつもどおりでいいんじゃない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「四人でお菓子食べてる写真になるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「文化的活動」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="99">「ビスケットの袋に文化は入ってない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="100">「原材料の小麦には、長い歴史が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="101">「歴史部に怒られるからやめよう」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　八重がカメラから顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「模造紙の前で撮る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="106">「それだと、活動をした写真じゃなくて、活動したと言い張ってる写真にならない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="107">「だいたいの集合写真はそう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="108">「急に世の中の仕組みを暴かないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　ひよりは提出用紙の注意書きを目で追っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「『写真から活動内容が明確に分かること』とあります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="113">「明確かあ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「うちの活動内容、部員にも明確じゃないね」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　四人で壁の模造紙を眺めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　靴箱の音。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-0" data-source-line="119">　パンの匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　植え込みのすき間。</p>
+<p class="source-line role-narration gap-0" data-source-line="121">　眠そうなベートーヴェン。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　どれも発見した瞬間には少し面白かったのに、写真にしようとすると急に弱々しくなる。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="125">「じゃあ、今から部活動らしいことをしよう」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　まひるが言った。</p>
+<p class="source-line role-dialogue fx-beat tone-4 gap-1" data-source-line="129">「部活動らしいことって？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="130">「走る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="131">「運動部に寄りすぎ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="132">「声を出す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="133">「合唱部に寄りすぎ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="134">「土を掘る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="135">「園芸部を通り越して何かを隠す側になってる」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="136">「難しいな、部活動」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　八重が窓の外を指さした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「雲、大きい」</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　西の空から、白い雲がひとかたまり、校舎の上へ乗り出していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　その奥には灰色の雨雲が控えている。白い雲のてっぺんだけが午後の日を受けて、溶けかけのアイスクリームみたいに明るかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　まひるは三秒ほど空を見て、それから手を打った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="147">「雲を持ち帰ろう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="148">「話が急に昔話になった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="149">「余白部の活動として、校内から見える雲を採取する」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="150">「採取できないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="151">「写真なら持ち帰れる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="152">「それは普通に撮影って言うんじゃない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="153">「普通に言うと、活動っぽさがなくなるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　ひよりがまた手を挙げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「採取には容器が必要です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="158">「ひよりちゃん、乗るんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="159">「形から入ることは大切だと、家庭科の先生が言っていました」</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　ひよりは棚を探り、空になったイチゴジャムの瓶を見つけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="162">　なぜ地理資料準備室にジャムの瓶があるのかは、誰も知らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="163">　余白部には、由来を調べないほうが長生きしそうな物がいくつかある。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　八重はカメラを首にかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「写真、四人とも写る必要ある？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「活動している部員の姿が望ましいって書いてある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="169">「セルフタイマー使う」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="170">「よし。雲を追うよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　まひるが部室の戸を開け、勢いよく廊下へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="173">　三歩進んだところで戻ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「どっちに行けば雲に近い？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="176">「とりあえず西」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="177">「西ってどっち？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「部長、地理資料準備室に二年通って何を学んだの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「地球儀は不安定だってこと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「部室の備品事情だよ、それ」</p>
+<div class="source-line scene-break gap-1" data-source-line="182" role="separator"><span class="source-indent" aria-hidden="true">　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="184">　最初に向かったのは、中庭だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　古い校舎に四方を囲まれた中庭には、小さな花壇と、誰も使っていない日時計がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　空は四角く切り取られ、さっきの雲がちょうど真上に見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「ここなら、雲と私たちが一緒に入る」</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　八重は日時計の台にカメラを置き、レンズを空へ向けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="192">　私たちはその前に並ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「十秒」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「雲を採取してる感じって、どんな感じ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="196">「瓶を掲げる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="197">「虫取りみたいにならない？」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="198">「雲も広い意味では自然」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「広げすぎだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　シャッターのランプが点滅する。</p>
+<p class="source-line role-narration gap-0" data-source-line="202">　ひよりが両手で瓶を持ち、まひるがなぜか網を投げるような姿勢を取り、私は活動内容を説明できそうな顔を作ろうとして失敗した。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　八重だけが平然としている。</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　ぴっ、と電子音がして、シャッターが切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　みんなで液晶画面をのぞき込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　写真の中央には、巨大なまひるの鼻の穴が写っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「部長、近い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="213">「雲を大きく見せるために遠近法を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="214">「いちばん大きくなったの、鼻だよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="215">「これは活動内容が明確かな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="216">「呼吸」</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　二枚目を撮ろうとしたとき、校舎の窓から吹奏楽部のトランペットが聞こえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="219">　高い音が一つ、途中でひっくり返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　ひよりが反射的に壁の模造紙へ書くような口調で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「六月十七日。午後三時五十一分。トランペットが一度、鳴きました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「帰ったら書こう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="225">「その前に雲」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　見上げると、白い雲はもう校舎の屋根に半分隠れていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="229">「逃げた！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="230">「雲は逃げないよ。こっちが止まってるだけ」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="231">「哲学っぽい！　活動報告に書ける！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「書かないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　私たちは中庭を出て、西階段を駆け上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　三階の西端には美術室がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="237">　廊下の突き当たりの窓から、校庭と、その向こうの低い山が見える。雲は山の上に浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　八重が窓を開けようとしたが、びくともしない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「固い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="242">「私に任せて」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　まひるが両手をかけ、腰を落として引く。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　窓は動かず、代わりにまひるの上履きが床をきゅっと鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="247">「六月十七日。午後三時五十五分。部長の上履きは、アヒルの声」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="248">「記録しないで、ひよりちゃん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="249">「重要度は低いですか」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="250">「余白部に重要度の高い記録はないけど、今は手伝って」</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　四人で窓を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="253">　窓は突然、がたん、と開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　勢い余って、私たちは一列のまま後ろへ倒れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="256">　まひるの後頭部が私の肩に当たり、私の背中がひよりの膝に当たり、八重だけが直前に手を離して無傷だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「八重、裏切ったね」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="259">「危険予知」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="260">「教えてよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="261">「間に合わなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　開いた窓から、湿った風が吹き込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　遠くで雷が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　白い雲の後ろから、灰色の雲が追いつき始めていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「急いだほうがいい」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="269">「屋上なら一番近い！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="270">「屋上は立入禁止」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="271">「じゃあ、校庭の西側」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="272">「雨、来るよ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="273">「雲を持ち帰るまでが余白部です！」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　まひるはそう宣言し、また廊下を走り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　私は追いかけながら、たぶん違う、と思った。</p>
+<p class="source-line role-narration role-comic gap-0" data-source-line="278">　家に帰るまでが遠足で、雲を持ち帰るまでが余白部なら、余白部はほとんど何でもできてしまう。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="280">　でも、そのいいかげんさが少し好きだった。</p>
+<div class="source-line scene-break gap-1" data-source-line="282" role="separator"><span class="source-indent" aria-hidden="true">　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="284">　昇降口を出た瞬間、空から大粒の雨が一つ落ちてきた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="286">　私の鼻の先に当たり、冷たい点を残す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「降った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="289">「まだ一粒」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="290">「一粒でも雨は雨です」</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　ひよりはジャムの瓶のふたを開けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">「採取しますか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="295">「雨じゃなくて雲だよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="296">「元は同じものでは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="297">「科学的に攻めてきた」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　二粒目がまひるの額に当たった。</p>
+<p class="source-line role-narration gap-0" data-source-line="300">　三粒目は八重のカメラに落ちそうになり、彼女は素早く制服の中へカメラを入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　その直後、雨は数えるのを諦めたように一気に降り始めた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="304">「走る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　校庭の西側にある自転車置き場まで、私たちは全力で駆けた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="308">　土の匂いが立ち上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="309">　グラウンドに白い雨筋が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="310">　野球部も陸上部も、突然の雨に声を上げながら用具を抱えて引き上げていく。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="312">　余白部は何の用具も持っていなかったが、なぜか一番必死だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　屋根の下へ滑り込んだときには、四人とも制服の肩が濃い色になっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「間に合ったあ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="317">「だいぶ濡れてるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="318">「でも致命傷ではない」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="319">「雨で致命傷になる制服、学校指定にしないでほしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　まひるが前髪から水を絞る。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　ひよりはジャムの瓶を胸に抱えて守っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「瓶は無事です」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="325">「最優先で守るもの、合ってたかな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="326">「活動の核ですから」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　八重は制服の中からカメラを出し、タオルで丁寧に拭いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　空はすっかり灰色で、さっきの白い雲はどこにも見えない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">「逃げ切られたね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="332">「だから雲は逃げないって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="333">「じゃあ、見失った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="334">「それはそう」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　自転車置き場の波板屋根を、雨が激しく叩いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="337">　一定のようで、よく聞くと少しずつ強さが違う。</p>
+<p class="source-line role-narration gap-0" data-source-line="338">　遠くでは運動部の声がして、昇降口のほうからは先生の「廊下を走るな」という声が聞こえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="339">　たぶん私たちに向けられたものではない。私たちはもう外を走り終えたあとだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　時刻は午後四時十二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　提出まで、あと四十八分。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="345">「活動写真、どうする？」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　私が聞くと、まひるは腕を組んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「雨宿りしてる写真」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="350">「活動内容が明確すぎるね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="351">「『余白部は安全を第一に活動しています』」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="352">「何の活動かが最後まで分からない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="353">「じゃあ、濡れた制服が乾くまでの時間を測る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="354">「提出に間に合わないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="355">「濡れ方の個人差を調べる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="356">「私たちの気持ちが乾かない」</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　ひよりが瓶を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「雲は採取できませんでした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="361">「まだ諦めるのは早い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="362">「部長、雲はもう空全部だよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="363">「大きすぎて瓶に入らないね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「最初から入らないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　八重が、ふいにしゃがみ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　自転車置き場の外、コンクリートのくぼみに小さな水たまりができている。</p>
+<p class="source-line role-narration gap-0" data-source-line="369">　雨粒が絶えず輪を描き、その輪と輪の間に、灰色の空が揺れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「あるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="372">「何が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="373">「雲」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　八重が指さす。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　水たまりの中に、雲があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　さっき追いかけていた白い雲とは違う。</p>
+<p class="source-line role-narration gap-0" data-source-line="380">　雨を抱えた、重たそうな雲。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="381">　それでも水面の中では、手を伸ばせば触れられそうなほど近かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　まひるが目を丸くした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「下にいた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="386">「上にもいるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="387">「挟まれた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="388">「雲に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="389">「ちょっとぜいたく」</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　ひよりは水たまりのそばに膝をつき、瓶をそっと傾けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　雨水が細い流れになって、瓶の中へ入っていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「本当にすくうんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="395">「形から入ることが大切です」</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　瓶が半分ほど満ちたところで、ひよりはふたを閉めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="398">　持ち上げると、ガラスの曲面に空が映り込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="399">　雲は歪んで、小さく丸まり、瓶の中に収まったように見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="401">「採れた」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="403">　八重が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　まひるは瓶を両手で受け取り、頭の上へ掲げた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="407">「雲、採取成功！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="408">「角度を変えたら消えるけどね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="409">「期間限定」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="410">「賞味期限、三秒くらい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="411">「雲は生ものだから」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="413">　まひるが笑う。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="414">　ひよりも笑う。</p>
+<p class="source-line role-narration gap-0" data-source-line="415">　八重はもうカメラを構えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「写真、撮る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="418">「四人とも入る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="419">「セルフタイマー。水たまりも入れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　八重はカメラを、倒した自転車のかごではなく、私の上履きの上に置いた。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="422">　防水の意味では正しいのかもしれないが、上履きの人生としては複雑だ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「十秒」</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　私たちは水たまりの周りにしゃがみ込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="427">　まひるが瓶を中央へ差し出し、ひよりがその横でふたを押さえる。</p>
+<p class="source-line role-narration gap-0" data-source-line="428">　八重が急いで戻り、私の肩にぶつかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「近い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="431">「入らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="432">「もっと寄って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="433">「落ちる、落ちる」</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　電子音が速くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　その瞬間、屋根の端から大きな雨粒が落ち、まひるの首筋に入った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="439">「つめたっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　まひるが飛び上がり、瓶を落としかける。</p>
+<p class="source-line role-narration role-comic gap-0" data-source-line="442">　ひよりが瓶を受け止め、私がひよりを支え、八重がその全部を見て吹き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　シャッターが切れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="446">　撮れた写真には、水たまりの中の雲と、その周りで笑っている四人の顔が、上下さかさまに映っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　空も、私たちも、少し波打っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　まひるだけは首をすくめ、変な顔をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「完璧」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="451">　八重が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「どこが？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="454">「活動内容以外」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="455">「一番大事なところが抜けてるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="456">「でも、余白部っぽいです」</p>
+<p class="source-line role-narration gap-0" data-source-line="457">　ひよりが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="458">「余白部が何か、まだよく分かりませんが」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="459">「入部二か月目の正直な感想だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　まひるは写真を見て、満足そうにうなずいた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="463">「よし。雲、持ち帰ろう」</p>
+<div class="source-line scene-break gap-1" data-source-line="465" role="separator"><span class="source-indent" aria-hidden="true">　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="467">　部室へ戻るころには、雨は弱くなっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　窓の外には、薄い日差しが戻り始めている。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　机の上にジャムの瓶を置くと、もう雲は映らなかった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="471">　代わりに、天井の蛍光灯が白い棒になって揺れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「雲、いなくなった」</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　まひるが残念そうに言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="476">「最初から水だよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="477">「夢がないなあ、千景は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="478">「提出期限はあるよ。あと二十六分」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="479">「現実が強い」</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　八重が写真を印刷しているあいだ、私は活動報告書に向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　活動名称。</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　実施日時。</p>
+<p class="source-line role-narration gap-0" data-source-line="485">　活動場所。</p>
+<p class="source-line role-narration gap-0" data-source-line="486">　活動概要、四百字以内。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「活動名称は『第一回校内雲類捕獲調査』で」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="489">　まひるが言う。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="491">「第一回って、二回目あるの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="492">「次は冬の雲」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="493">「季節シリーズにしないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="494">「『気象観測』でいい」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="495">　八重が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「普通すぎない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="498">「提出する紙は普通でいい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="499">「八重はときどき大人だね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「同い年」</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　ひよりは瓶を窓際に置き、定規で水位を測っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「採取量は百八十七ミリリットルです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="505">「それ、ただの雨水の量じゃない？」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="506">「記録は正確なほうがいいです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="507">「四百字のうち何字使う気？」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　私は鉛筆を持ち、考えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　余白部が何をしているのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="512">　活動内容が明確に分かるように。</p>
+<p class="source-line role-narration gap-0" data-source-line="513">　けれど、自分たちでもうまく説明できないものを、どう書けばいいのだろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　机の端では、三色ボールペンが転がっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　壁の気圧計は、雨がやみかけてもまだ「嵐」を指している。</p>
+<p class="source-line role-narration gap-0" data-source-line="517">　今日の出来事は、たぶん明日の授業には何の役にも立たない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="518">　雲を瓶に入れたと言っても、信じる人はいないかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　それでも、水たまりの中に空を見つけた瞬間を、私はたぶんしばらく覚えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　その横で、まひるが首に入った雨粒に驚いた顔も。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　瓶を守ったひよりの真剣な手も。</p>
+<p class="source-line role-narration role-comic tone-4 gap-0" data-source-line="524">　珍しく声を出して笑った八重も。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　私は紙に書いた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="528">『余白部は、校内にある「なくなっても困らないけれど、なくなる前に見つけておきたいもの」を記録しています。本日は放課後の空を観察し、校舎内外から雲の見え方を調べました。途中で夕立に遭いましたが、自転車置き場の水たまりに映る雲を発見し、瓶にすくう様子を撮影しました。瓶の中の雲はすぐに見えなくなりましたが、写真と記録は残りました。今後も、校内の小さな変化や、名前のついていない出来事を観察します。』</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　書き終えると、部室が少し静かになった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="532">「千景」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="533">「なに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="534">「ちゃんとした部みたい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="535">「提出書類だからね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="536">「私たち、こんなことしてたんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="537">「部長が今知るんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="538">「活動内容、明確になりました」</p>
+<p class="source-line role-narration gap-0" data-source-line="539">　ひよりがうなずく。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　八重は印刷した写真を紙へ貼り、少しだけ首を傾げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「四百字、余ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="544">「足りてるならいいんだよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="545">「百八十七ミリリットル、入る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="546">「入れないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="547">「科学的なのに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="548">「ひよりも残念そうにしないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　午後四時五十一分。</p>
+<p class="source-line role-narration gap-0" data-source-line="551">　私たちは報告書を持って、生徒会室へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　廊下では走らないことになっているので、先生に見える場所だけ早歩きにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="554">　余白部は安全を第一に活動している。</p>
+<div class="source-line scene-break gap-1" data-source-line="556" role="separator"><span class="source-indent" aria-hidden="true">　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="558">　生徒会室では、顧問の若林先生が書類を受け取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　先生は国語科で、いつも眠そうな顔をしている。</p>
+<p class="source-line role-narration gap-0" data-source-line="561">　報告書を読み、写真を見て、眼鏡を少し上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「つまり、写真部か」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="564">「違います」</p>
+<p class="source-line role-narration gap-0" data-source-line="565">　四人の声がそろった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">「気象部」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="568">「違います」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="569">「散歩部」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="570">「かなり近いです」</p>
+<p class="source-line role-narration gap-0" data-source-line="571">　ひよりが答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="573">「近いんだ」</p>
+<p class="source-line role-narration gap-0" data-source-line="574">　私が言うと、ひよりは真面目な顔でうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「校内を移動した距離は、今日の活動の大部分を占めています」</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　先生はもう一度、写真を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="579">　水たまりに映る雲と、さかさまの私たち。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「よく分からないが、活動していたことは分かった」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="582">「やった！」</p>
+<p class="source-line role-narration gap-0" data-source-line="583">　まひるが小さく拳を上げる。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="584">「部室、使えますか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="585">「この書類が通れば」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="586">「通らない可能性あるんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="587">「生徒会長が『雲の採取』を活動と認めるかどうかだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="588">「雨水百八十七ミリリットルの実績があります」</p>
+<p class="source-line role-narration gap-0" data-source-line="589">　ひよりが胸を張った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="591">「それは書いてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="592">「追記しますか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="593">「しなくていい」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="595">　若林先生は苦笑し、書類の受領欄に判を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　赤い丸が一つ、紙の隅に増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　たったそれだけなのに、私たちの部室が世界から少しだけ認められたような気がした。</p>
+<div class="source-line scene-break gap-1" data-source-line="601" role="separator"><span class="source-indent" aria-hidden="true">　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="603">　翌朝、昇降口の掲示板に、各部の活動紹介が貼り出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　野球部は試合中の写真。</p>
+<p class="source-line role-narration gap-0" data-source-line="606">　吹奏楽部は演奏会の写真。</p>
+<p class="source-line role-narration gap-0" data-source-line="607">　美術部は大きな油絵の前に並んだ写真。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　そのいちばん端に、余白部の写真もあった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="611">　水たまりの中で、空と四人が笑っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="612">　写真の下には、私が書いた活動概要がそのまま載っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　ただし、まひるが後から勝手に付け足したらしい見出しがある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">『役に立たない発見、募集中。』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「言い方」</p>
+<p class="source-line role-narration gap-0" data-source-line="619">　私が言うと、まひるは満足そうだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「正直でいいでしょ」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="622">「入部希望者、減らない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="623">「もともとゼロだから減らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="624">「強い理屈だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　掲示板の端に、小さな付箋が一枚貼られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　見覚えのない字で、こう書いてある。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="629">『二階東階段の七段目だけ、朝は少し冷たいです。』</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　四人で付箋を見つめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　まひるが、ゆっくりこちらを向いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「今日の放課後」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="636">「うん」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="637">「七段目を持ち帰ろう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="638">「階段は持ち帰れないよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="639">「温度なら採取できます」</p>
+<p class="source-line role-narration gap-0" data-source-line="640">　ひよりが鞄から温度計を出した。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="642">「なんで持ってるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="643">「次の活動に必要かと思って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="644">「次の活動、さっき決まったところだよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="645">「備えは大切です」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　八重が付箋をカメラで撮る。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　窓の外には、昨日とは違う雲が浮かんでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　どこにでもある、名前を調べるほどではない雲だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　たぶん世界は、大きな出来事がない日に空白になるのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="653">　そのぶんだけ、余白が増えるのだ。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="655">　誰にも気づかれない音や、匂いや、温度や、笑い声が入る余白。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「千景、遅れるよ」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="658">　まひるが言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　予鈴が鳴っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="661">　私たちは教室へ向かって走り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　先生に見えるところだけ、早歩きで。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　昨日より、雲一つぶん広くなった余白を、放課後までなくさないようにしながら。</p>
+<p class="source-line end-mark gap-2" data-source-line="668"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,894 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="家柄が襟の刺繍で決まる聖環学院へ、煤け橋地区の奨学生リノアが入学する。支配者カイの高価な靴へスープを注いだ彼女は、死刑宣告に等しい黒薔薇の札をつけられ、零時の旧鐘楼へ呼び出される。だが夜の学院では、昼の嫉妬や軽蔑が怪物となって歩き、黒鎧をまとったカイが別人のような顔で剣を振るっていた。学院は毎年一人を選び、卒業式で「鐘」にするという。昼は敵、夜は隣で戦う相手。外へ出ても必ず正門へ戻る閉ざされた学校で、二人は黒薔薇が選んだ役から逃れられるのか。靴の値段より先に、互いの本当の顔を知る夜が始まる。">
+<title>黒薔薇は夜明けを知らない｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="黒薔薇は夜明けを知らない" data-novel-id="黒薔薇は夜明けを知らない" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ミステリ・ロマンス</p>
+  <p><strong>補助ジャンル：</strong>ファンタジー・学園・タイムトラベル</p>
+  <p><strong>CSVタグ：</strong>アクション、ミステリ、ロマンス、ファンタジー、学園、タイムトラベル</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：433行／章：0／役割・強度タグ：493</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="黒薔薇は夜明けを知らない 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『黒薔薇は夜明けを知らない』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　聖環学院では、靴の値段が名前より先に覚えられる。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　リノア・ヴェイルは入学初日の朝、それを知った。</p>
+<p class="source-line role-narration gap-0" data-source-line="6">　正門をくぐった瞬間、金の飾り紐をつけた生徒たちの視線が、いっせいに彼女の足元へ落ちたからだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="8">　リノアの編み上げ靴は、黒ではなく、黒かったことがある色をしていた。右の爪先には二重の縫い目があり、左の踵にはパン屋の包装紙を折って入れてある。雨の日に水が染みないようにする、煤け橋地区の知恵だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　対して、丘の上にそびえる聖環学院の生徒たちは、靴だけで小さな家が買えそうだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　制服の襟には家柄を示す刺繍があり、大貴族は金、小貴族は銀、奨学生には何もない。食堂も階段も図書室の机さえ、刺繍の色で使える場所が決まっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="13">「つまり私は、透明人間というわけね」</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　リノアが独り言を言うと、隣を歩いていた銀襟の少女が青ざめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="17">「聞かれたら大変よ。ここでは冗談にも序列があるの」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="18">「上等な冗談は金襟専用？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「そういうところ」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　少女は名をエマといった。親切ではあったが、親切にしているところを見られるのをひどく恐れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　午前の歓迎昼食会で、事件は起きた。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　中央の長卓には、白冠会と呼ばれる学院の支配者たちが座っていた。古い名家の後継者だけで構成された自治組織で、教師より強く、校則より気まぐれだと噂されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　その頂点にいるのが、カイ・オルフェンだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　夜を溶かしたような黒髪。冬の湖のような灰色の目。制服の胸には、王家から許された白金の環章。</p>
+<p class="source-line role-narration gap-0" data-source-line="30">　彼が廊下を歩けば会話が止まり、彼が笑えば誰かが退学になる、と上級生は囁いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　給仕の少年が、カイの前で銀の皿を落とした。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="33">　皿は派手な音を立てて割れ、白いスープがカイの革靴にかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　食堂から音が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「申し訳、ございません」</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　少年は床に額がつくほど頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　カイは濡れた靴を見下ろし、それから淡々と言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「皿と靴の代金は、彼の給金から引け」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="44">「はい、カイ様」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　少年の顔から血の気が引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="47">　リノアは立ち上がっていた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="49">「その靴、いくら？」</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-0" data-source-line="50">「……何だと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「耳も高級品すぎて、庶民の声は聞こえないのかしら」</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　周囲で誰かが息を呑んだ。エマが卓の下でリノアの裾を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　カイの目が細くなる。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="57">「君は？」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="58">「リノア・ヴェイル。奨学生。襟は無地。靴は修理三回。これで自己紹介は足りる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="59">「十分だ。ではヴェイル嬢、君が払うのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="60">「ええ。相応の額なら」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="62">　リノアは自分のスープ皿を持ち上げ、カイのもう片方の靴へ、ゆっくり中身を注いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="64">「これで左右そろったから、片方分でいいでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　誰かが小さく悲鳴を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　カイはしばらく、白く濡れた二足の靴を見つめていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="69">　怒るかと思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="70">　だが彼は、ほんの一瞬だけ、笑いそうな顔をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　次の瞬間には、冷たい無表情へ戻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　彼は胸ポケットから一枚の黒い紙を取り出した。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="75">　紙には、濡れた血のように艶めく薔薇が描かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　それをリノアの襟へ留めると、カイは耳元で囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">「午前零時、旧鐘楼へ来い」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="80">「決闘のお誘い？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="81">「来なければ、君は朝までに喰われる」</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　彼が離れると、食堂中の生徒がリノアから一歩遠ざかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　黒薔薇の札。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="86">　それは聖環学院における、社会的な死刑宣告だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="89" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="92">　その日の午後だけで、リノアの机は三度消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="93">　教科書は噴水に沈み、上履きには蜂蜜が詰められ、寮の扉には「身の程」と赤い塗料で書かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　エマは助けようとしたが、廊下の向こうに金襟の生徒を見つけるたび、手を引っ込めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="97">「ごめんなさい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「謝るくらいなら、見張っていて」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　リノアは塗料を拭き取り、黒薔薇の札を髪飾りにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　どうせ目立つなら、堂々と咲かせた方がいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　夜十一時半。</p>
+<p class="source-line role-narration gap-0" data-source-line="104">　消灯の鐘が鳴ると、学院は墓場のように静まり返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　リノアはベッドの下から暖炉用の火掻き棒を取り出した。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="108">「行くの？」とエマが震える声で尋ねた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="109">「行かなかったら喰われるらしいから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="110">「脅しよ。白冠会は、逆らった生徒を夜の森へ連れていくって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="111">「なら、喰われる相手を選べるわね」</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　旧鐘楼は、校舎北端の封鎖区域にあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="114">　錆びた鎖をまたぎ、埃だらけの扉を押す。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　その向こうに、学院はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="118">　廊下の壁は崩れ、窓の外には赤い月が浮かんでいた。床には古い旗と折れた剣が散らばり、遠くで獣の咆哮が響く。昼間まで肖像画だった貴族たちは、額縁の中で首だけになり、歯を鳴らして笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　リノアは火掻き棒を握り直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「趣味の悪い歓迎会ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　天井から、何かが落ちてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　制服を何十着も縫い合わせたような巨体だった。袖から白い腕が束になって生え、顔のあるべき場所には金銀の名札がびっしり並んでいる。名札の隙間から、赤い舌が垂れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　怪物はリノアの髪に咲く黒薔薇を見つけ、歓喜の声を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「無地。無地。無地」</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　名札がいっせいに開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="133">　それはすべて口だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　怪物が跳ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　リノアは横へ転がり、火掻き棒で腕を払った。一本は折れたが、残りが足首へ絡みつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　引きずられながら、彼女は壁の燭台を蹴り落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　油が怪物にかかる。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　火掻き棒の先で炎を移そうとした、そのとき。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　黒い大剣が、怪物を縦に両断した。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="145">　血の代わりに、無数の成績表が舞った。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　怪物の背後に、黒鉄の騎士が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　鎧は金属というより、生き物の殻に見えた。肩から曲がった角が伸び、胸当ての隙間で赤い脈が明滅している。右腕と一体になった大剣は、墓標ほどもあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　兜が開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　中から現れたのは、カイ・オルフェンの顔だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「遅い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="156">「零時ちょうどよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="157">「十一時五十九分に死んだらどうする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="158">「あなたが一分早く助ければいいでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　カイは何か言い返しかけ、やめた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="161">　怪物の残骸を靴で探り、金の名札を一つ拾う。それは昼間、食堂でリノアを嘲笑していた上級生のものだった。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="163">「今のは何？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="164">「学院の本性だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="165">「ずいぶん制服の着こなしが自由ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　カイは黒薔薇の札を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="169">「それを外すな。夜のものは、白冠会の所有物には手を出しにくい」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="170">「所有物？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="171">「言葉の綾だ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="172">「人を札で囲っておいて？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="173">「昼間の連中は、私が君を潰そうとしていると思う。夜の連中は、私が君を喰うつもりだと思う。どちらにも近づかせないためには、それが一番早かった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="174">「説明する方が早いわ」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="175">「説明を信じる人間ばかりなら、学院に序列など存在しない」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　その言葉だけは、妙に疲れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　赤い月の下で、鐘楼の大鐘がひとりでに揺れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="180">　音は鳴らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="181">　それでもリノアの胸の奥で、十二回、何かが叩かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　カイの鎧が、苦しげに軋んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「学院は毎年ひとり、生徒を選ぶ」と彼は言った。「黒薔薇が咲いた者を」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="186">「私を？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="187">「おそらく」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="188">「選ばれたらどうなるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「卒業式で鐘になる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="190">「比喩？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="191">「だったらよかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　遠くから、いくつもの足音が近づいてきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="194">　カイは大剣を構える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「今夜から、君は私のそばを離れるな」</p>
+<p class="source-line role-dialogue fx-key role-motif tone-2 gap-0" data-source-line="197">「命令は嫌い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="198">「では提案だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「言い方を変えただけね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="200">「生き残ったら、謝罪の仕方を学ぶ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="202">　暗闇の中に、白い仮面が次々と浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　リノアは火掻き棒を構え、カイの隣に立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「まずは、靴代からね」</p>
+<div class="source-line scene-break gap-2" data-source-line="209" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="212">　それから二週間、リノアは昼と夜で別々の学院に通った。</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　昼は、金襟の生徒たちが支配する優雅な監獄。</p>
+<p class="source-line role-narration gap-0" data-source-line="215">　夜は、嫉妬と軽蔑が骨肉を得て歩き回る戦場。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　黒薔薇の札をつけた彼女に話しかける者はほとんどいなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="218">　代わりにカイが、毎朝当然のように隣の席へ座った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">「そこは無地襟の机よ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="221">「今日から白冠会の特別席だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「横暴」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「便利だろう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「便利な横暴が一番たちが悪いの」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　彼は高価な教科書を貸し、リノアは余白へ容赦なく悪口を書いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　彼は食堂の上段席へ彼女を連れていき、リノアは金の皿に庶民食堂の固い黒パンを置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　カイは初めて食べるような顔で、それを噛んだ。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-4 gap-1" data-source-line="231">「これは料理か？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「あなたの歯が装飾品でなければね」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="233">「……悪くない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="234">「二個目を取る人の台詞じゃないわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　夜になると、二人は怪物を倒しながら学院の秘密を探った。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　カイの黒鎧は、戦うたびに彼の身体へ食い込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　リノアが保健室で背中の傷を縫うと、傷跡は文字のように並んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「これ、読めそう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="242">「読むな」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="243">「『王』『犬』『裏切り者』……ずいぶん評判が広いのね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="244">「鎧は、私に向けられた感情を食って育つ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="245">「だから昼間、嫌われるように振る舞うの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="246">「半分は」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="247">「残り半分は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「性格だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="250">　リノアは笑ってしまった。</p>
+<p class="source-line role-narration gap-0" data-source-line="251">　カイも、少し遅れて笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="253">　彼が笑うところを見たのは、それが初めてだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　ある夜、二人は学院から外へ出ようとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="256">　正門を越え、坂を下り、煤け橋地区へ向かう路面馬車に乗った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="258">　リノアは故郷のパン屋を思い浮かべた。</p>
+<p class="source-line role-narration gap-0" data-source-line="259">　朝四時の竈の熱。小麦粉まみれの手。窓辺に吊るした青い布。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　だが馬車は一時間走ったあと、聖環学院の正門前へ戻ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　御者は何事もなかったように帽子を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「終点でございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　もう一度乗った。</p>
+<p class="source-line role-narration gap-0" data-source-line="268">　また正門へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　三度目、リノアは途中で飛び降りた。</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　森を真っ直ぐ走ったはずなのに、木立を抜けると学院の中庭にいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「どういうこと」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　カイは答えなかった。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="277">「知っていたの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="278">「疑っていた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="279">「休暇には、みんな故郷へ帰っている」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="280">「帰った記憶はある。だが、道中を覚えている者はいない」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="282">　リノアは自分の故郷を思い出そうとした。</p>
+<p class="source-line role-narration gap-0" data-source-line="283">　パン屋の竈は見える。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　青い布も見える。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="285">　けれど店の隣に何があったか、母親の声がどんな高さだったか、どうしても思い出せなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　胸の中に、初めから穴があったことに気づいたようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">「私たちは、どこにいるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="290">「それを調べる」</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　カイが手を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　いつもなら振り払っただろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="295">　その夜だけは、リノアは握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　黒鎧に覆われていない指は、驚くほど冷たかった。</p>
+<div class="source-line scene-break gap-2" data-source-line="300" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration tone-2 gap-2" data-source-line="303">　学院の最深部には、封印された卒業記録庫があった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="305">　扉は鍵ではなく、床に刻まれた舞踏の足跡で閉ざされていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="306">　正しい順番で踊った者だけが通れるらしい。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="308">「踊れる？」とカイが尋ねた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="309">「パン生地なら毎朝踏んでいた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="310">「似たようなものだ」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="311">「舞踏会で言ったら戦争になるわよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　カイはリノアの右手を取り、左手を腰へ添えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="314">　昼間の彼なら腹が立ったはずなのに、夜の静かな廊下では、触れた場所だけが妙に熱く感じられた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「私の足を踏むな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="317">「高い靴でしょう。弁償できないもの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="318">「最初からする気がない顔だな」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="320">　一、二、三。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="321">　一、二、三。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　床の足跡が青白く光る。</p>
+<p class="source-line role-narration gap-0" data-source-line="324">　リノアが一度つまずき、カイの胸へぶつかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　黒鎧の奥で、彼の心臓が鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　学院の大鐘より、ずっと人間らしい音だった。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-4 gap-1" data-source-line="329">「今、笑った？」とリノアが言う。</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="330">「笑っていない」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="331">「嘘。胸が笑った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="332">「人の心臓にまで文句をつけるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　最後の一歩を踏むと、扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　記録庫には、百年以上分の卒業写真が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　最初の一冊を開き、リノアは息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　百二十年前の写真の中央に、自分がいた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="342">　金糸の制服。宝石の首飾り。冷たい微笑み。</p>
+<p class="source-line role-narration gap-0" data-source-line="343">　その足元には、給仕服を着たカイが跪いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="345">「そんな」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　次の冊子では、カイが王冠をかぶり、リノアは無地襟の制服を着ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="348">　さらに次では、二人とも教師だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="349">　ある年には兄妹、ある年には敵同士、ある年には写真の端で手をつないでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　ただし、どの年も卒業式のページだけ、一人分の顔が黒く塗り潰されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　リノアの年もあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　カイの年もあった。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="356">「これは記録じゃない」とカイが言った。「繰り返しだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　棚の奥に、一冊だけ表紙のない薄い冊子があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="359">　開くと、紙の間から乾いた黒薔薇が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　その花弁の裏に、小さな文字が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　――靴を見るな。顔を見ろ。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　リノアの手が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「私の字だわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="368">「覚えているのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="369">「いいえ。でも分かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　カイは長いあいだ黙っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="372">　やがて、黒鎧の胸へ手を当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="374">「私は時々、夢を見る。君が金の冠をかぶっている夢。君が私を処刑する夢。私が君を鐘楼から突き落とす夢。それから――」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="375">「それから？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="376">「名もない町で、二人でパンを焼く夢」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="378">「どれが本当？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="379">「全部かもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="380">「最悪ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="381">「ああ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="383">　カイは笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「それでも毎回、私は君を探した気がする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="386">「告白としては、かなり最悪ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="387">「告白ではない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="388">「では、今のうちに訂正して」</p>
+<p class="source-line role-dialogue role-memory fx-whisper tone-3 gap-0" data-source-line="389">「……君に会うと、役を忘れられる」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="391">　記録庫の蝋燭が、一斉に消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　暗闇の中で、リノアは彼の襟をつかんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="394">　唇が触れたのは一瞬だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　どちらからだったのか、後になっても分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　その直後、学院中の鐘が鳴り響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　卒業舞踏会の招集だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="403" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="406">　舞踏会の夜、学院は金色に飾られていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="408">　天井から千本の蝋燭が下がり、床には鏡のような大理石が敷かれている。生徒たちは家柄ごとに輪を作り、決められた相手と、決められた曲を、決められた笑顔で踊っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　リノアの寮室には、カイから贈られた金の靴が届いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="411">　宝石まで縫いつけられ、片方だけで煤け橋地区のパン屋が買えそうだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　彼女はそれを箱へ戻し、いつもの編み上げ靴を履いた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="415">　会場へ入ると、笑い声が起きた。</p>
+<p class="source-line role-narration gap-0" data-source-line="416">　リノアは気にしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　カイは白金の礼装で待っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　足元を見て、眉を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「贈り物を拒絶するにも作法がある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="422">「私の足は、私が歩いてきた道を覚えているの」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="423">「金の靴では歩けないと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「あなたが踏んだとき、遠慮なく踏み返せないでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　カイは手を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「一曲だけ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="429">「一曲で済む？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="430">「世界が終わるまで」</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　二人が踊り始めると、周囲の輪が静かに割れた。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="434">　一、二、三。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="435">　一、二、三。</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　記録庫の扉を開いたときと同じ足取り。</p>
+<p class="source-line role-narration gap-0" data-source-line="438">　だが今度は、どちらも間違えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　零時の一分前。</p>
+<p class="source-line role-narration gap-0" data-source-line="441">　壇上へ校長が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　老人の顔には、縦に細い亀裂が走っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="444">　口を開くたび、亀裂の奥で歯車が回る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「本年度の暁冠に選ばれた者を告げる」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　会場の全員が、同じ角度でリノアを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「リノア・ヴェイル」</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　拍手が起きた。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　一人一人の手が、機械のように正確に重なる。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　エマも拍手していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　涙を流しながら。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「ごめんなさい」と、彼女の唇だけが動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　天井が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　赤い月が、舞踏会場を照らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　生徒たちの顔が白い陶器の仮面へ変わる。金襟も銀襟も無地襟も、仮面の下では同じ空洞だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="465">　床が割れ、その下から巨大な歯車がせり上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="466">　中央には、学院の鐘楼より大きな黒い鐘が吊られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　校長の顔が左右へ開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="469">　中には顔がなく、振り子だけが揺れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">『上に一人。下に一人』</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　声は校長からではなく、大鐘そのものから響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">『その距離こそ、最も美しい音を生む』</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　黒い鐘の表面に、歴代の卒業写真が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">『羨望は上へ昇り、侮蔑は下へ落ちる。学院はそれを集め、時を回す。役は毎回入れ替えた。飽きぬように。学べぬように』</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="481">「私たちは何者？」とリノアは叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">『生徒だ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「答えになっていない」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="487">『生徒とは、与えられた席が自分の価値だと信じる者の名だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　カイがリノアの前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「彼女は渡さない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">『では選べ、カイ・オルフェン。彼女を鐘へ捧げれば、お前を本物の王として外へ出そう。二度と跪かぬ人生を与える』</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　黒鐘の表面に幻が映った。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　王座に座るカイ。足元へ頭を下げる群衆。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="498">『リノア・ヴェイル。彼を捧げれば、お前に金の襟を与えよう。貧しさも、嘲笑も、二度と知らずに済む』</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　今度は、宝石に囲まれたリノアが映った。</p>
+<p class="source-line role-narration gap-0" data-source-line="501">　その足元には、顔のない人々がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　リノアは髪から黒薔薇の札を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「どちらも趣味が悪いわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　カイも胸の環章を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「同感だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　二人は同時に、札と環章を床へ投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　黒鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　一度だけ。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　音の衝撃で、舞踏会場の柱が砕けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="518">　カイの黒鎧が、彼の身体を呑み込むように膨れ上がる。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="520">「離れろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　彼の声が、兜の中で獣の咆哮へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　鎧は鐘から伸びた無数の鎖につながっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="525">　これまで倒してきた怪物たちの顔が、肩や胸から浮かび上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="526">　鎧は彼を守っていたのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="527">　繰り返すたびに積もった憎しみを、鐘へ運ぶ器だったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　黒騎士となったカイが、大剣を振り上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　刃がリノアへ落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　彼女は避けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　大剣は、髪一本を切る距離で止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　兜の隙間から、カイの灰色の目が見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「逃げろ」と彼が言った。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-2 gap-0" data-source-line="539">「命令は嫌い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="540">「今だけは聞け」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="541">「あなたが謝罪の仕方を覚えるまで、死なせない」</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　リノアは黒薔薇の札を二つに裂いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　紙の中から、本物の棘が伸びた。</p>
+<p class="source-line role-narration gap-0" data-source-line="546">　細い黒い蔓は、カイの鎧へ絡みつき、鐘につながる鎖を締め上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　鎧が暴れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="549">　リノアの肩を爪が裂く。</p>
+<p class="source-line role-narration gap-0" data-source-line="550">　それでも彼女は離さなかった。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="552">「思い出して。金襟も、無地襟も、王も、犬も、全部役よ」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="553">「私は……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="554">「あなたの名前は、カイ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="555">「私は、怪物だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="556">「夜のあなたの方が、昼より礼儀正しかったわ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="558">　兜の奥で、かすかな笑い声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　カイは自分の胸へ大剣を突き立てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="561">　刃が鎧の核を砕く。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　黒い殻が崩れ、人間の腕が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="564">　リノアはその手をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　二人は歯車の上を走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="567">　黒鐘へ続く階段は、踊るように位置を変える。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="569">　一、二、三。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="570">　一、二、三。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　記録庫を開いた足取り。</p>
+<p class="source-line role-narration gap-0" data-source-line="573">　舞踏会で重ねた足取り。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="574">　何百回も、別の身分、別の名、別の憎しみの中で忘れてきたはずの足取り。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　最上段へたどり着く。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　黒鐘の内側には、無数の顔があった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="579">　泣く者。笑う者。蔑む者。跪く者。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="580">　すべて、かつてのリノアとカイだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">『鐘を壊せば、世界は終わる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「世界じゃない」とリノアは言った。「檻よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">『外に何があるかも知らぬ』</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　カイが大剣を構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="590">「少なくとも、ここではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　鐘の歯車が回り始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="593">　二人を挟み潰そうと迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　リノアは自分の編み上げ靴を脱ぎ、右足の踵を歯車へ差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　三度修理した革が裂けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="598">　包装紙が舞い、小さな鉄の補強板が歯と歯の間へ噛み込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　巨大な機構が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　学院で最も安い靴が、学院で最も高価な時計を止めた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="604">「今よ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　カイが剣を振り下ろす。</p>
+<p class="source-line role-narration gap-0" data-source-line="607">　リノアも両手を添えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　黒鐘に亀裂が走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="611">『上がなくなれば、下もなくなる。お前たちは何者でもなくなるぞ』</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　リノアは裸足で踏ん張った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「それなら、初めて自分で決められる」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　鐘が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　音ではなく、朝日があふれた。</p>
+<div class="source-line scene-break gap-2" data-source-line="622" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="625">　リノアは、机に突っ伏していた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="627">　窓から明るい光が差している。</p>
+<p class="source-line role-narration gap-0" data-source-line="628">　赤い月も、崩れた城壁もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="629">　白い壁、蛍光灯、電子黒板。見たことのないはずなのに、すべて知っている教室だった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="631">「里乃亜さん、体調が悪いの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　教師が心配そうに覗き込んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　彼女は自分の制服を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="636">　襟には金の糸で、企業財団の紋章が刺繍されていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="637">　机の横には新品の鞄。足元には、傷一つない高価な靴。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　教室の前方では、入学式の案内が続いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">「当校では、特別寄付家庭の生徒は西棟ラウンジを利用できます。一般生徒は中央棟、奨学生は東階段を使用してください」</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　胸の奥で、冷たいものが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　扉のそばに、一人の少年が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="646">　黒髪。灰色の目。安いスニーカーの爪先には、縫った跡がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">「本日から編入する、甲斐・折原君です。給付奨学生なので、皆さん――」</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　教室の生徒たちの視線が、いっせいに彼の足元へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　里乃亜は立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「西棟へ案内してあげます」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="655">「里乃亜さん？」と教師が言う。「彼は利用資格が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="656">「では、私も資格を返します」</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　教室が静まり返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　甲斐は、困ったように彼女を見た。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="661">　その顔には記憶がないように見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「お嬢さま、席を間違えてないか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="664">「靴の値段より、名前を先に覚えることにしたの」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="665">「じゃあ、俺の名前は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="666">「カイ」</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　少年の灰色の目が見開かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　ほんの一瞬、赤い月と黒い鎧が、その瞳の奥を横切った。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="672">「……知り合いだったか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="673">「世界が終わるまで、一曲踊った仲よ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="674">「重いな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="675">「性格よ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="677">　彼は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="678">　その笑い方を、里乃亜は知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　二人は東階段を下りていった。</p>
+<p class="source-line role-narration gap-0" data-source-line="681">　背後で教師が呼び止め、生徒たちがざわめいたが、振り返らなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="683">　正午の光が、校舎いっぱいに満ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　ただ一つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="686">　掲示板に貼られた「生徒区分一覧」の紙の隅で、小さな黒い薔薇が咲いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　里乃亜はそれを見つけ、紙ごと引き剥がして踏んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　花は潰れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　その瞬間、校舎中の時計が、いっせいに一分だけ遅れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　誰も気づかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　二人を除いては。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

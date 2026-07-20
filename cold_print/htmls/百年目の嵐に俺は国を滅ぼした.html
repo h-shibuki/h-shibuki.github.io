@@ -1,0 +1,890 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="雨すら反逆罪とされ、国民の言葉も夢も〈記録院〉に監視される永昼国オルディア。物事の「最初の名」を聞き、それを呼ぶことで従わせる異能者ノアは、存在しなかったことにされた一族の生き残りだ。二十年ぶりに故郷へ戻った彼は、死刑列車を止め、囚人を解放し、国中の鏡へ宣言する――これから国を滅ぼす、と。百年ぶりの嵐が迫るなか、改竄された歴史と奪われた名を取り戻す反逆の旅が始まる。名前を支配する者は、国家の嘘まで解けるのか。">
+<title>百年目の嵐に、俺は国を滅ぼした｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="百年目の嵐に俺は国を滅ぼした" data-novel-id="百年目の嵐に俺は国を滅ぼした" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="romance-drama">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離" selected>恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・ヒーロー・アクション</p>
+  <p><strong>補助ジャンル：</strong>バトル・ロマンス・ファンタジー</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、ヒーロー、アクション、バトル、ロマンス、ファンタジー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">恋愛・関係性</span></p>
+  <p id="currentPresetDescription">会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離</p>
+  <h3>意味色</h3><p>紅＝想い、青＝距離、紫＝記憶、橙＝ぬくもり、緑＝約束</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：429行／章：0／役割・強度タグ：471</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="百年目の嵐に、俺は国を滅ぼした 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『百年目の嵐に、俺は国を滅ぼした』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　ミラヴァ谷では、死者は埋葬される前に一度だけ家へ帰った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="6">　青白い泥を靴の裏につけ、戸口に立ち、生者が用意した珈琲を飲む。砂糖を二杯入れる者もいれば、死んでから甘党になった者もいた。彼らは夜明けまで家族の愚痴を聞き、鶏が鳴くと、借りた椅子をきちんと戻して墓へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　だから谷の人々は、死をそれほど恐れていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　彼らが恐れていたのは、記録院だった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="12">　永昼国オルディアを支配する記録院は、家々の壁に硝子の瞳を埋め込み、国民の言葉、夢、寝返りの回数まで書き留めていた。記録院の布告は毎朝変わったが、国民は昨日と同じ顔でそれを信じなければならなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　<span class="term term-world">〈見られる者だけが存在する。記されたことだけが起きた〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="16">　広場の石碑にはそう彫られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　ある年、記録院は雨を反逆罪に指定した。</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　雨は空から無許可で落ち、屋根を叩いて暗号を送り、足跡を洗い流して捜査を妨害するからだという。それ以来、雲は国境で逮捕され、ミラヴァ谷には二十三年間、一滴も雨が降らなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="22">　それでもエスカンテ家の台所だけは、毎週火曜日になると天井から小魚が降った。祖母はそれを塩漬けにしながら、これは海が家族を忘れていない証拠だと言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　ノア・エスカンテが生まれたのは、暦に存在しない十三月の夜だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　その夜、谷のすべての時計は逆さに回り、百年前に死んだ曾祖父が産婆を務めた。赤子は泣かなかった。代わりに、部屋にあったすべての物が自分の名を告げた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="28">　私は揺り籠。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="30">　私は蝋燭。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　私は血。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="34">　私は恐れ。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　赤子は黒い瞳でそれらを見回し、まだ歯もない口で言った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="38">「静かにしろ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="40">　すると火も、血も、恐れさえも静まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　曾祖父は臍の緒を切りながら笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「この子は、物事の最初の名を聞く。最初の名を呼ばれたものは、逆らえん」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　祖母は眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「では、王にも勝てますか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「王の最初の名は、ただの赤ん坊だ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="52">　曾祖父はそう答え、夜明けとともに墓へ帰った。</p>
+<div class="source-line scene-break gap-2" data-source-line="55" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="58">　二十年後、ノアは死刑列車の屋根に立って故郷へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　列車には窓がなかった。乗客は全員、国家にとって不都合な昨日を覚えていたため、北方の修正鉱山へ送られるところだった。機関車の前には装甲車が三台、後ろには騎兵が百騎ついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　ノアは黒い外套を風になびかせ、退屈そうに欠伸をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="64">「止まれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　機関車は悲鳴を上げて停止した。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　兵士たちが一斉に銃を構えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="70">「撃て！」</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　百二十七発の弾丸が飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　ノアは片手を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="76">「鉛。お前たちの最初の名は、眠りだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　弾丸は彼の胸に届く前に柔らかな灰となり、線路へ降り積もった。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　兵士たちは次の弾を込めようとした。ノアは彼らを見た。若い顔、疲れた顔、命令に従わなければ家族が消されると知っている顔。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="82">「命令。お前の最初の名は、恐れだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　兵士たちの耳から黒い煙が抜けた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="86">　彼らは銃を下ろした。何人かはその場に座り込み、自分が撃った人々の名を思い出して泣いた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="88">　ノアは車両の扉に触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="90">「牢獄。お前の最初の名は、扉だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　鉄板が花弁のように開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　囚人たちはしばらく外へ出ようとしなかった。自由にも許可証が要ると思い込んでいたからだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「行け」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　ノアが言うと、一人の老人がおそるおそる尋ねた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="100">「どこへ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「好きなところへだ。地図になければ、自分で描け」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="104">　老人は泣き笑いを浮かべ、線路を降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　その様子を、沿道の硝子の瞳が見ていた。記録院はただちに全国へ放送した。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　――反逆者ノア・エスカンテは存在しない。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="110">　――存在しない者を見たと証言することは、虚偽記憶罪である。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　ノアは街道の監視鏡へ顔を寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「俺が存在するかどうかは、俺が決める」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　その瞬間、国中すべての鏡に彼の顔が映った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="118">　髭を剃っていた大臣も、恋人に嘘をついていた役人も、地下室で禁じられた歌を口ずさんでいた少女も、その黒い瞳を見た。</p>
+<p class="source-line role-dialogue fx-beat tone-2 gap-1" data-source-line="120">「聞け、記録院」</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　ノアは静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「俺は帰った。これから国を滅ぼす」</p>
+<div class="source-line scene-break gap-2" data-source-line="127" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration role-memory gap-2" data-source-line="130">　ミラヴァ谷の入口には、かつてエスカンテ家の屋敷があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　今は麦畑になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　記録院の公文書によれば、そこには百年前から麦しか存在せず、エスカンテという一族は迷信深い農民が作った架空の家名だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　ノアは畑の土を掘った。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　焼けた食器、母の銀の指輪、幼い自分が木刀で刻んだ柱の欠片が出てきた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="140">　夜になると、死者たちが麦の間から立ち上がった。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="142">　父は喉に縄の跡を残し、叔父は銃創から蛍をこぼし、母は二十年前と同じ青い服を着ていた。彼女はノアの頬に触れようとしたが、死者の指は冷たい風のようにすり抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「大きくなったね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「母さんは変わらない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「死者は年を取らないからね。便利なものよ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="150">　母は笑い、それから雷吼館の方角を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　谷を囲む黒い荒野の頂に、その館は立っていた。百本の煙突、窓のない西塔、風に鳴る鉄の樋。晴れた日でも屋根の上だけには雲が渦巻き、夜になると、誰も弾いていないピアノが地下から聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　セラフィナ・グレイの館だった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="156">「彼女は生きている？」</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　ノアが尋ねると、死者たちは一斉に目を伏せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　母だけが答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「生きている。けれど、生きているという言葉にも種類がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「俺を売った女だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「そう思わされた男だよ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="168">　ノアは母を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　二十年前、十七歳だった彼は、セラフィナと谷を出る約束をしていた。二人は幼い頃から、喧嘩をするために会い、仲直りをするために嵐を待った。彼女は気性が荒く、ノアの肩を石で殴った翌日に、傷口へ自分の髪を巻いた。ノアは世界中の物を従わせることができたが、彼女だけは一度も思い通りにならなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="172">　旅立ちの夜、待ち合わせ場所に現れたのはセラフィナではなく、記録院の兵士だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　彼らは彼女の署名入りの告発状を持っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　ノアは北方戦線へ送られた。国が存在を否定している戦争で二十年間戦い、十七回処刑され、十七回とも死を断った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「告発状は偽物だったのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「本物さ」</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　母は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「署名も彼女のものだ。だが、言葉には裏側がある」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="186">　死者たちは鶏の声を聞き、少しずつ透け始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「雷吼館へお行き。百年のあいだ繰り返されたことを、今度こそ終わらせるんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「国を滅ぼせば終わる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「お前なら国など朝飯前だろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　母は寂しそうに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「難しいのは、そのあとだよ」</p>
+<div class="source-line scene-break gap-2" data-source-line="199" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="202">　雷吼館へ続く坂道では、風が人の声で悪口を言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　臆病者。</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　捨てられた男。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　二十年も帰らなかった嘘つき。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　ノアは風に向かって言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="212">「風。お前の最初の名は、息だ。黙れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="214">　荒野が静まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　館の門には、記録院の黒衣兵が千人並んでいた。隊長が進み出る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="218">「国家の命により、貴様を逮捕する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="220">「国家を呼べ。俺が直接話す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「国家とは我々だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="224">「違う。お前たちは、国家に食われかけている人間だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　隊長が剣を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　ノアは地面を踏んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="230">「荒野。お前の最初の名は、海だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　黒土が大きくうねった。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　兵士たちは波にさらわれる木の葉のように転がり、丘の麓まで運ばれた。誰一人、骨を折らなかった。隊長だけが門柱へしがみついて残った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="236">「なぜ殺さない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="238">「俺は強い。だから、弱いふりをした残酷さは要らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　ノアが門を押すと、鉄は自分から錆びて崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　館の大広間には、セラフィナが一人で立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　二十年前より背が高く見えた。黒いドレスの裾が床を這い、銀の髪留めが稲妻の形に光っていた。頬は白く、目だけが嵐の前の空の色をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　壁には無数の硝子の瞳が埋め込まれている。そのすべてが彼女を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「遅かったわね」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　彼女が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「二十年だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「二十年と四十三日」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「数えていたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「あなたを憎んだ日数をね」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　ノアは彼女へ歩み寄った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="262">「俺を売った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「ええ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「なぜだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「あなたが先に私を捨てたからよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「待ち合わせ場所へ行った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「私は三日三晩待った」</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　二人は睨み合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　館の窓が一斉に震え、地下のピアノが怒ったように低音を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　セラフィナは懐から一通の手紙を出した。紙は何度も開かれ、折り目が白く破れかけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　――俺は北へ行く。お前より大きな力が俺を待っている。二度と探すな。</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　署名はノアのものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　ノアは自分の告発状を見せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　――ノア・エスカンテは危険な異能者であり、国家へ引き渡す。私は彼を愛したことがない。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　署名はセラフィナのものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　二人は長いこと黙っていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="292">　やがてセラフィナが笑った。笑い声はすぐに嗚咽へ変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">「たった紙切れ二枚で、私たちは二十年を失ったのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「紙。お前の最初の名は――」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="298">「命じないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　彼女はノアの頬を平手で打った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「何でも従わせれば済むと思わないで。失った時間まで跪かせるつもり？」</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　ノアは殴られた頬を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　砲弾も、毒も、絞首台も彼を傷つけられなかった。だが彼女の手の跡だけは赤く残った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">「痛いな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「当然よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「少し安心した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「何が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="316">「お前はまだ、お前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　セラフィナの唇が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　ノアが手を伸ばすと、彼女は一歩だけ退いた。そのとき、ドレスの胸元から細い銀線が覗いた。銀線は皮膚へ潜り込み、脈に合わせて淡く光っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　ノアの目が険しくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「それは何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「国よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　セラフィナは答えた。</p>
+<p class="source-line role-narration role-memory tone-2 gap-1" data-source-line="330">　記録院の万視塔は、国中の硝子の瞳から集めた記憶を一つの心臓で選別していた。誰を存在させ、誰を消すか。どの昨日を残し、どの昨日を罪にするか。その心臓に選ばれたのが、セラフィナだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「あなたは最初から、記録できない人間だった。命令しても死なず、歴史を書き換えても消えない。院はあなたを恐れた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「それで、お前を使った」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="336">「私だけが、あなたを一日も忘れなかったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　セラフィナは銀線を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="340">「署名すれば、あなたを処刑せず北へ送ると言われた。従えば、いつか帰ってくる可能性が残ると。だから私はあなたを売った。あなたが生きるように」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「二十年も、この館で国の心臓をやっていたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「ええ。毎日、何万人もの昨日を殺しながら」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　壁の硝子の瞳が瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　セラフィナは苦しげに胸を押さえた。</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="350">「万視塔を壊せば、私も死ぬ。私を切り離せば、塔に保管された人々の記憶も崩れる。国民は自分の名すら失うでしょう」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="352">「では、塔もお前も救う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="354">「傲慢ね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「今さら気づいたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="358">「相手は国よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　ノアは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「だから何だ。俺の方が強い」</p>
+<div class="source-line scene-break gap-2" data-source-line="365" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration role-memory tone-2 gap-2" data-source-line="368">　翌朝、記録院は国民へ新しい過去を発表した。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　――ノア・エスカンテは昨日、万視塔への忠誠を誓った。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　――反乱は終結した。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　――雷吼館に住むセラフィナ・グレイは、百年前に死亡している。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="376">　ミラヴァ谷の人々は布告を読み、昨日ノアの顔を鏡で見た記憶を胸の奥へ隠した。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　その正午、首都へ続く七つの街道すべてに、一人の男が現れた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="380">　記録院は混乱した。どれが本物か判定できなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　七人のノアは同時に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「道。お前の最初の名は、到着だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　次の瞬間、彼は首都の中央広場に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　万視塔は雲を突き抜ける黒い針のようだった。塔の壁面には百万の硝子の瞳が並び、一つ残らずノアを睨んでいた。広場を埋め尽くす兵士、砲台、鋼鉄の獣、空を覆う飛行船。記録院が百年間かけて集めた暴力のすべてが、たった一人へ向けられた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="390">　塔の頂から永久書記アルコンの声が響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「跪け、存在しない者よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　広場の石畳に、強制服従の文字が燃え上がった。百万人を一度に屈服させる命令だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　ノアは立ったまま、外套の埃を払った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「文字。お前の最初の名は、傷だ」</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="400">　石畳の命令が裂け、古い傷跡のように消えた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="402">「撃て！」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　大砲が火を噴いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「火。お前の最初の名は、灯りだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　砲弾は夜祭りの提灯へ変わり、広場の上に浮かんだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="410">「進め！」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　鋼鉄の獣が突進した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「鋼。お前の最初の名は、土だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　巨体は崩れて黒土となり、そこから赤い花が咲いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　飛行船が爆弾を落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「落下。お前の最初の名は、帰還だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　爆弾は空へ引き返し、無人の兵器庫だけを正確に破壊した。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　兵士たちは恐慌に陥った。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　ノアは声を張り上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「制服。お前の最初の名は、喪服だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　黒衣を着た者たちの胸に、忘れさせられていた死者の名が浮かんだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="432">　母。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　兄。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="436">　恋人。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　隣人。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　昨日まで反逆者と呼ばれていた人々。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　兵士たちは武器を落とした。広場は泣き声で満ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　永久書記は塔の奥で絶叫した。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="446">「奴の声を消せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　百万の硝子の瞳が開き、黒い光を放った。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-1" data-source-line="450">　それは人間から名前を剥ぎ取り、番号に変える光だった。光に触れた建物は由来を忘れ、柱と壁の集合に戻った。鳥は自分が飛べることを忘れて落ちた。母親は腕の中の子を知らない者のように見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　ノアは初めて眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="454">「忘却。お前の最初の名は――」</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　声が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　忘却には最初の名がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　それは名を消すために作られた、記録院だけの人工物だった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="462">　黒い光がノアを包む。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-1" data-source-line="464">　彼の中から、幼い日の台所が剥がれた。火曜日に降る小魚。母の青い服。荒野でセラフィナと殴り合った午後。雨の匂い。待ち合わせの夜。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　一つずつ、色が失われていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　塔の声が笑った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="470">「力とは記憶の上に立つものだ。記憶を失えば、お前は何者でもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　ノアは目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　暗闇の奥に、一つだけ残っているものがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　十三月の夜、最初に聞いた声。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="478">　私は揺り籠。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="480">　私は蝋燭。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="482">　私は血。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="484">　私は恐れ。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　そして、そのどれよりも前にあったもの。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　名を与えられる前の、自分自身。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　ノアは目を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="492">「違うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　黒い光の中で、彼は一歩踏み出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「俺は、覚えられているから俺なんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　さらに一歩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「記録されているから存在するんでもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　硝子の瞳に亀裂が走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「俺が俺だと決めるから、俺なんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　ノアは塔を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="508">「忘却。名がないなら、今つけてやる」</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　百万の瞳が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「お前の名は、臆病だ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="514">　黒い光が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　国中の硝子の瞳が、初めて目を逸らした。</p>
+<div class="source-line scene-break gap-2" data-source-line="519" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="522">　ノアが万視塔へ入ると、内部には階段がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　代わりに、奪われた昨日が層になって積み重なっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　一階では、処刑された詩人たちが書かなかったことにされた詩を朗読していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　二階では、地図から消された町が夕食の支度をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　三階では、戦争に勝ったと報じられた敗残兵たちが、永遠に帰れない家族へ手紙を書いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　ノアが上るたび、昨日は彼の足の下で目を覚ました。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　九十九階で、百年前のミラヴァ谷が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　そこには最初のエスカンテと最初のグレイがいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　二人は恋人同士だった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="540">　エスカンテの男は、物事の名を従わせる力を持っていた。グレイの女は、何一つ忘れない心を持っていた。王は二人を恐れ、偽の手紙で引き裂いた。男は王国を滅ぼし、女は死んだ。男は悲しみのあまり、歴史へ命じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　――同じことを繰り返せ。いつか彼女を救える結末に届くまで。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　それから百年、二つの家は何度も生まれ、愛し、疑い、裏切り、国を滅ぼした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="546">　記録院はその反復から生まれた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="548">　過去を支配すれば悲劇を避けられると信じ、やがて悲劇そのものを食料にする怪物になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　ノアの前に、歴代の自分が並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　王を斬ったノア。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　都市を焼いたノア。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　海を割ったノア。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　恋人の死体を抱き、世界へ復讐したノア。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　彼らは口を揃えて言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="562">「塔を壊せ。女が死んだら、国ごと葬れ。それがお前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　ノアは彼らを見回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「弱いな」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　歴代のノアたちが目を剥いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「何だと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「失ったものの大きさを、壊したものの大きさで誤魔化した。お前たちは力があっただけで、強くはない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「では、お前は何をする」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="576">「全部救う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="578">「不可能だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　ノアは鼻で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「俺にその言葉を使うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　彼は歴史の輪へ手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「反復。お前の最初の名は、習慣だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　百年の輪が軋んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="590">「習慣なら、やめればいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　輪は砕け、歴代のノアたちは風にほどけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　最後に残った最初の男が、かすかに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「やっと、俺より強い俺が来たか」</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　そして消えた。</p>
+<div class="source-line scene-break gap-2" data-source-line="601" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="604">　塔の最上階には、巨大な心臓が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　銀線が根のように国中へ伸び、その中心にセラフィナが吊られている。雷吼館にいた彼女の身体は仮の影で、本体は二十年間ここへ繋がれていたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　心臓の下に、永久書記アルコンが座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　干からびた小男だった。豪奢な制服に埋もれ、顔の半分を硝子の仮面で覆っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="612">「なぜ分からん」</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　アルコンは言った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="616">「人間は自由に耐えられない。昨日を好きに覚えれば憎しみが生まれる。真実が複数あれば争いが起きる。だから私が一つにしてやった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「一つにしたんじゃない。お前に都合のいい形へ削っただけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="620">「同じことだ。秩序とは、もっとも成功した嘘の名だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　アルコンが指を鳴らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　心臓が収縮し、セラフィナが苦痛に身を反らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="626">「塔を壊せば女は死ぬ。女を助ければ塔は残る。お前ほどの力があっても、選ぶことからは逃れられない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">「選んださ」</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　ノアは答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「お前が用意した二つ以外を」</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　彼は銀線を一本つかんだ。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="636">　国中の記憶が流れ込んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　拷問室の湿った床。出生を取り消された子供。存在しない戦争の砲煙。壁の瞳に向かって毎晩笑顔を作った家族。誰にも読まれず燃やされた日記。愛していると言えなかった口。忘れたふりをして生き延びた無数の人々。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　普通の人間なら一秒で壊れる量だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　ノアはすべて受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　膝さえつかなかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="646">「馬鹿な……」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　アルコンの仮面に亀裂が入った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="650">「人間一人が、国全体の過去を背負えるはずがない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="652">「国より俺の方が強いと言っただろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　ノアは銀線を引きちぎった。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　万視塔が揺れた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="658">　人々の記憶が、川のようにノアの内側へ流れ込む。彼の髪に白い筋が走り、皮膚へ数千の名前が浮かび、瞳の奥で百年分の夜が明滅した。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　それでも彼は立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　セラフィナの身体から最後の銀線が伸びていた。心臓と彼女を繋ぐ、もっとも太い線だった。</p>
+<p class="source-line role-dialogue fx-peak role-motif tone-5 gap-1" data-source-line="664">「それを切れば死ぬぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　アルコンが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　ノアは線へ耳を澄ませた。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　銀線の奥から、かすかな声が聞こえる。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　私は鎖。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　私は脈。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　私は契約。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　さらに奥。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　もっと古い名。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="682">　ノアは微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「違う。お前の最初の名は、臍の緒だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　銀線が柔らかな光へ変わった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="688">「なら、切るのは死ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　彼は手刀で断った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="692">「誕生だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　巨大な心臓が破裂した。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　セラフィナが落ちてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　ノアは彼女を抱き止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　彼女の胸は動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　アルコンが笑い出した。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-5 gap-1" data-source-line="704">「見ろ！　結局、女は死んだ。歴史は変わらない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　ノアはセラフィナの額へ自分の額を当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「死。お前の最初の名は何だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　返事はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「答えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　沈黙。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="716">　死は、これまで一度もノアへ逆らえなかった。だが今は、彼女を抱え込んで離そうとしない。</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　ノアは怒鳴らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　ただ、二十年前に言えなかった言葉を言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「セラフィナ。帰ってこい。命令じゃない。頼む」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="724">　長い静寂のあと、彼女の唇が動いた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="726">「……遅いのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　ノアは息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　セラフィナは目を開け、弱々しく彼の胸を殴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「二十年と四十三日、遅い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">「悪かった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「許さない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="738">「それでもいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="740">「一生、言うから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="742">「百年でも聞く」</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　彼女は泣きながら笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　その背後で、アルコンが逃げようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　ノアは振り返りもしなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="750">「永久書記」</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　小男の足が止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="754">「お前の最初の名は、誰だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　アルコンの口が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　長い沈黙の末、彼は幼い子供のような声で、自分の本当の名を答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　それは百年間、誰にも呼ばれなかった、ごく平凡な名だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　制服が床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　中には、権力を失って怯える老人が一人残った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">「裁かれるのが怖いか」</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　ノアが尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　老人は頷いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="772">「よかったな。恐れられるだけの世界より、ずっと人間らしい」</p>
+<div class="source-line scene-break gap-2" data-source-line="775" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="778">　万視塔が崩れた日、オルディアには二十三年ぶりの雨が降った。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="780">　雨粒の一つ一つに、奪われた記憶が入っていた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="782">　人々は濡れながら、自分が何を失ったかを思い出した。抱き合う者も、殴り合う者も、膝をついて謝る者もいた。真実は一つではなく、綺麗でもなかった。だが少なくとも、誰か一人の机の上で決められるものではなくなった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="784">　記録院の庁舎は、雨に濡れると大量の白紙へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　役人たちは最初、命令が来るのを待った。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　三日経っても来なかったので、ようやく自分たちで椅子を並べ、これから国をどうするか話し始めた。話し合いは七日目に大喧嘩となり、十日目には三つの派閥へ分かれ、十一日目には食事当番の公平な決め方だけが全会一致で可決された。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="790">　自由は、思っていたより面倒だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　それでも誰も、硝子の瞳を壁へ戻そうとはしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　人々はノアに王になるよう頼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="796">「断る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="798">「では大統領に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="800">「断る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="802">「最高守護者は」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="804">「名前を変えただけだろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　ノアはすべて断り、雷吼館へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　館の西塔は崩れ、屋根には穴が開き、地下のピアノは相変わらず勝手に弾いた。セラフィナは修理業者を三度追い返し、四度目の業者と口論して自分で屋根へ上った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="810">「国を滅ぼした男が、雨漏り一つ直せないの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="812">「屋根に命じれば一秒だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="814">「命じないで。手で直して」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="816">「なぜ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="818">「あなたが何でも簡単に済ませる顔をすると腹が立つから」</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　ノアは溜息をつき、金槌を持った。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　釘は彼に打たれる栄誉を求めて自分から板へ潜ろうとしたが、セラフィナに睨まれ、普通の釘のふりをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　二人はよく喧嘩した。</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　失われた二十年を埋めることはできなかった。埋めようとするたび、手紙の傷や、救えなかった人々の顔が間に現れた。それでも彼らは、傷を消すのではなく、傷のある日々を新しく積み重ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　ミラヴァ谷では、死者が家へ帰らなくなった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="830">　雨が記憶を返したため、彼らはもう、生者に忘れられていないか確かめる必要がなくなったからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　祖母だけは火曜日になると台所へ現れ、小魚の塩加減に文句を言ったが、それは未練ではなく性格だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　さらに二十年が過ぎた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="836">　ノアは相変わらず若く、セラフィナの髪には銀が増えた。彼女は鏡を見るたび不公平だと怒り、ノアは自分も老いると約束したが、身体が命令と勘違いして拒否した。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　ある穏やかな春の夜、二人の娘が生まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　時計は正しく進み、死者は現れず、天井から魚も降らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　十三月ではなく、普通の四月だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="844">　産婆は赤子を抱き上げ、首を傾げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="846">「予言がありません」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="848">　セラフィナは疲れた顔で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="850">「ない方がいいわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　ノアは娘の小さな手へ指を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　赤子は彼の指をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　世界中の名を従わせた男は、その弱い力から逃れられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　彼は娘の未来へ耳を澄ませた。</p>
+<p class="source-line role-narration gap-1" data-source-line="860">　何も聞こえなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　決められた裏切りも、百年の反復も、国家の命令も、偉大な使命もなかった。ただ、まだ誰にも書かれていない無数の明日が、雨上がりの荒野のように広がっていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="864">　ノアは初めて、自分の力を使わずに微笑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　国を滅ぼすより難しいことを、彼はとうとう成し遂げたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　歴史を従わせるのではなく、自由にした。</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　それが無敗の男にとって、唯一にして最大の勝利だった。</p>
+<p class="source-line end-mark gap-2" data-source-line="873"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

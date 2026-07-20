@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="大地震の夜、空を裂く光とともに死者たちが起き上がり、無言でFM電波塔を目指し始めた。ラジオ司会者の葉月澪は、亡き父の補聴デバイスを着けた十二歳の息子・蓮を守ろうとする。だが未来から来た機械兵は、午前五時五十六分、蓮が人類を滅ぼす信号を放つと断言。一方、星の護送者は、死者の記憶を束ねる存在〈群夜〉こそ敵だと告げる。まだ何もしていない少年を裁くのか、彼と世界を救う道を探すのか。夜明けまでの電波塔争奪戦が始まる。">
+<title>光が死者を眠らせるまで｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="光が死者を眠らせるまで" data-novel-id="光が死者を眠らせるまで" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>SF・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>アクション、サスペンス、ホラー、SF、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：522行／章：0／役割・強度タグ：618</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="光が死者を眠らせるまで 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">光が死者を眠らせるまで</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="5">　午前零時十七分、海鳴市の死者がいっせいに顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　それを最初に見たのは、葉月ミオだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　海鳴ＦＭ第三スタジオの防音ガラス越しに、彼女は市立病院の救急玄関を見下ろしていた。停電した街は、海沿いの製油所が燃える橙色と、空を横切る青白い帯だけで照らされている。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　その帯はオーロラに似ていた。だが南の海から北へ、まるで巨大な傷口がゆっくり開くように伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　病院の前には、夕方の地震で運び込まれた遺体がシートをかけられて並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　青い帯が脈打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　シートの下で、十七の影が同時に起き上がった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="19">「……見間違いよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　ミオは言った。誰にでもなく、マイクにも入らない声で。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　遺体の一つが立った。右脚が逆向きに折れていた。それでも倒れず、首を傾けて海鳴ＦＭの送信塔を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　次の一体も、その次も。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　全員が、同じ角度で塔を見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　背後で、十二歳の息子レンが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「母さん。あれ、聞いてる」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="33">　レンは両耳に薄い銀色の補聴端末をつけていた。亡くなった父が最後に設計した、神経接続型の試作機だ。普通の音だけでなく、周囲の電波を可聴域へ落として確認できる。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="35">「何を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「数を数えてる。ずっと」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="39">「何番まで？」</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　レンは眉を寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「まだ、一」</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　スタジオのスピーカーから、ざ、と砂をこするような音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　放送回線は切れているはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　ざ、ざ、ざ。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　その声は人間の喉から出る音ではなかった。電気そのものが、数字の形に震えていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="59">　病院前の死者たちが走り出した。</p>
+<div class="source-line scene-break gap-1" data-source-line="61" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「こちら海鳴ＦＭ。市内全域に非常警報を発令します」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　ミオはマイクの前に座り、震える指を机の下で握りしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「死亡が確認された人に近づかないでください。繰り返します。死亡者に近づかず、建物の扉と窓を封鎖してください。噛まれた場合は――」</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　そこで言葉が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　噛まれた場合は、どうすればいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　この世のどの防災マニュアルにも、その続きを書いたページはない。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　副調整室では、技師の長谷部が予備電源をつなぎ直していた。地域医療センターの梶医師は、局内に逃げ込んだ負傷者三人を会議室に寝かせている。警備員の石崎は、非常階段の扉に机を重ねていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="77">　街からは悲鳴が絶えず届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　電話回線が生き返るたび、別の声が割り込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="81">『妻が、妻が息をしてないのに――』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">『地下駐車場にいます。上から叩く音が――』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">『お母さんが僕を噛んだ。お母さん、泣いてる。死んでるのに泣いて――』</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　そして、すべての通話の奥に、あの数える声があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　午前零時三十四分、正面玄関の防犯カメラに一人の男が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　裸足で、雨の中に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　背が高く、黒いコートを着ている。顔の左半分は端正だったが、右半分は焼けて剥がれ、皮膚の下から銀色の骨格が覗いていた。目の位置で赤い光が細く収縮した。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="101">　男の周囲には、二十体ほどの死者が群がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　男は逃げなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　一体の頭部を片手でつかみ、コンクリートの柱へ叩きつけた。二体目の顎を肘で砕き、三体目の腕を引きちぎり、その骨を四体目の眼窩へ突き込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　動作は速いというより、無駄がなかった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="109">　死者たちは男に噛みついた。歯が皮膚を裂き、火花が散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　男は一歩も遅くならなかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="113">「何、あれ……」長谷部が呟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　赤い目が、防犯カメラを見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　スピーカーが勝手に入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="119">『葉月レンを引き渡せ』</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　ミオは息子を背にかばった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="123">『抵抗は資源の浪費と判断する』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「誰なの」</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="127">『年代是正機構・執行端末カイロス四号。西暦二〇九八年より遡行した』</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-1 gap-1" data-source-line="129">「未来から来たっていうの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">『葉月レンは災厄起源個体である。午前五時五十六分、同個体が発信する信号により、人類の生存率は〇・〇〇三パーセントまで低下する』</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　レンが、小さく笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　恐怖が限界を越えたときに出る、乾いた笑いだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「僕、朝までに世界を滅ぼすんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「黙って」ミオは息子の肩をつかんだ。「機械の言うことよ」</p>
+<p class="source-line role-narration role-system role-horror tone-5 gap-1" data-source-line="141">　画面の中で、カイロス四号は最後の死者の首を折った。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="143">『対象消去まで、残り五時間二十二分』</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　男は正面玄関へ歩き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　石崎が猟銃を構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「裏の搬入口から出るぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「外はあれだらけです」梶医師が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">「中には、もっとひどいのが来る」</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　玄関の防火扉が、内側へ一度だけ膨らんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　二度目で蝶番が外れた。</p>
+<div class="source-line scene-break gap-1" data-source-line="159" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="161">　彼らは地下の機材搬入口から、局の中継車へ走った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="163">　雨は生温かかった。道路には放置された車が折り重なり、その隙間を死者が歩いている。誰もが海鳴ＦＭの塔へ向かっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　レンが助手席に乗り、ミオ、梶医師、長谷部、石崎、負傷者二人が後部へ押し込まれた。もう一人の負傷者は高熱を出し、会議室で息を引き取った。梶医師が毛布をかけた直後、毛布の下から指が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　扉を閉めるしかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　長谷部がエンジンをかける。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　同時に、地下通路の奥から金属音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　カイロス四号が、閉じたシャッターを両手で持ち上げていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="175">「出せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　中継車が飛び出した。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="179">　死者をはね、横転した救急車を避け、商店街へ突っ込む。ミラーの中で、カイロス四号は追ってこなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　代わりに、道路脇の無人パトカーへ近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="183">　運転席の扉を引き剥がし、乗り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　数秒後、赤色灯が点いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="187">「機械がパトカーを盗むのかよ」石崎が吐き捨てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「律儀に追跡するより、ずっと怖いわね」梶医師が答えた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="191">　ミオはレンの端末を外そうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　息子がその手を払う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「外したら、何も聞こえない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「今は聞こえない方がいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「違う。あいつらが、どこにいるか分かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　レンは目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「右。次の交差点、右からいっぱい来る」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　長谷部が急ハンドルを切った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="207">　一秒後、左の路地から死者の群れがあふれた。車はその背後をすり抜ける。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="209">「どこへ行く？」長谷部が訊いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　ミオは答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　局を捨てた今、安全な場所などない。港の避難所は沈黙し、市役所は炎上している。山側へ抜ける国道は地震で崩落した。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　レンが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「海に、もう一人いる」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="219">「何？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「数えてない声。歌ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　その瞬間、夜の海が持ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　防潮堤の向こうで、青白い光の柱が天へ伸びた。水しぶきがビルの高さまで舞い上がり、その中央から巨大な影が立ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　人の形をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　だが人ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　全身は月光を溶かしたような淡い銀色で、胸から肩へ黒い亀裂の模様が走っている。顔には口も鼻もなく、二つの眼だけが星のように燃えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　五十メートルを超す巨人が、海鳴市の沖に立っていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="235">　死者たちが一斉に振り返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　数える声が、初めて変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　二。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　海面から黒いものが噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　魚、人、海鳥、漂流物。死んだものすべてが絡み合い、骨と肉の塔になって巨人へ襲いかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　巨人は両腕で受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　衝撃で窓ガラスが街じゅう一斉に砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　中継車が横転した。</p>
+<div class="source-line scene-break gap-1" data-source-line="251" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="253">　ミオが意識を取り戻すと、雨は止んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　車は商業ビルの壁に横倒しになっていた。長谷部はハンドルに挟まれ、動かなかった。石崎は腕を折り、梶医師が固定している。負傷者の一人は見当たらない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="257">「レン！」</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　返事がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　割れたフロントガラスから這い出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　道路の中央に、レンが立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　その前に、見知らぬ青年が倒れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　灰色の服は焼け焦げ、肌には細い光の筋が走っていた。海から現れた巨人と同じ模様だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="269">「近づかないで」ミオはレンを引き寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　青年の眼が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　瞳の奥に、夜空があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="275">「間に合わなかったか」</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　声は若い。けれど、ひどく遠くから届くように響いた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="279">「あなた、何者？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「護送者」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　青年は身を起こした。胸の光が一度、弱く瞬く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="285">「名前に近い音なら、アルク。あれを運んでいた」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　彼は空を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　青い帯の中心に、黒い点が浮かんでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">「あれは群夜。死んだ神経に残る記憶を巣にする生き物だ。星から星へ、葬送の習慣と通信網を使って広がる」</p>
+<p class="source-line role-dialogue role-horror role-clue tone-5 gap-1" data-source-line="293">「死者を動かしてるの？」梶医師が訊いた。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="295">「動かしているのは肉ではない。残響だ。歩き方、噛み方、憎み方。死者の脳に残った最後の命令を、群夜が繰り返している」</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　レンが耳を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「だから、一しか数えられないんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　アルクがレンを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「君には聞こえるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「うん。あなたの歌も」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　アルクの顔に、初めて感情らしいものが浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「なら、まだ終わっていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　遠くでエンジン音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　赤色灯が角を曲がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　カイロス四号のパトカーだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「終わってないどころか、あれも来た」石崎が片腕で猟銃を持ち上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　アルクは赤い光を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「あれは群夜の巣だ」</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="323">「未来から来た機械よ」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="325">「未来は、群夜が最も好む死体だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　意味を問う時間はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　パトカーが加速した。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　ミオたちは横道へ走る。カイロス四号は車ごと突っ込み、壁に激突する寸前でドアを蹴り開けた。慣性に乗って宙を飛び、石崎へ体当たりする。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　猟銃が火を噴いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　機械の胸がえぐれた。だが、傷の奥で黒い糸のようなものが蠢き、千切れた配線を縫い合わせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　アルクの言ったとおりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　群夜は、機械にも入り込んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　カイロス四号が石崎の首をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「対象以外への損害は許容範囲内」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="345">「離せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　ミオが道路脇の消火器を振り下ろす。金属の頭部がわずかに傾いただけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　赤い眼が彼女を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「母体。任務達成後の生存価値、低」</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　その手が伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　アルクが間に入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　機械の拳が、青年の腹を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　血は出なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　傷口から光が噴き、カイロス四号の腕を焼いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　アルクは機械を抱え、そのまま十メートル先の店舗へ投げ込んだ。壁が崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　胸の光が急速に暗くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「今の体では、長く保たない」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="369">「さっきの巨人になれるんでしょう？」レンが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「この大気で外殻を展開すれば、私の核は燃える。あと一度が限界だ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="373">「一度で、あの化け物を倒せる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　アルクは答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　崩れた店舗の中で、赤い目が点いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="379">「走れ」</p>
+<div class="source-line scene-break gap-1" data-source-line="381" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="383">　彼らは旧海鳴テレビ塔を目指した。</p>
+<p class="source-line role-narration role-system role-horror tone-5 gap-1" data-source-line="385">　市の中心に立つ高さ二百四十メートルの塔で、海鳴ＦＭの予備送信設備が残っている。レンの端末が群夜の信号を聞けるなら、逆位相の波を作れるかもしれない。アルクの歌を載せて市内へ送れば、死者の神経から群夜を剥がせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　ただし、計算量が足りなかった。</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="389">「人間の機械では、群夜の波形を一周ぶん記録する前に変化される」アルクは歩きながら言った。「未来の端末なら追いつける」</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　ミオは振り返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　数百メートル後ろを、カイロス四号が歩いてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　走らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　急がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　こちらが疲れ、転び、迷うことを知っている歩き方だった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="401">「つまり、あいつを捕まえて協力させろって？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「正確には、中枢を使う」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="405">「取り出したら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「機械は止まる」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　レンが黙った。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　ミオは息子の横顔を見た。怖がっているのではない。考えている顔だった。父親と同じ、答えが出るまで世界の音を閉ざす顔。</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-1" data-source-line="413">「未来で、僕が出す信号って」レンが言った。「今作ろうとしてる逆位相じゃないの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「可能性はある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「じゃあ、あいつは嘘をついてない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">「結果を間違えてる」ミオは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「でも未来では、人類がほとんど死んだ」</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-1" data-source-line="423">「未来は証拠じゃない。生き残った誰かの証言よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　レンはしばらく黙り、それから聞いた。</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="427">「母さんは、僕が本当に世界を滅ぼすって分かっても、止めない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　ミオは足を止めた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="431">　背後から死者の唸り声が近づいている。カイロス四号の赤い目も、暗い通りをまっすぐ進んでくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　それでも、息子の問いから逃げることはできなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="435">「止める」</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　レンの顔がこわばった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">「あなたを殺してじゃない。一緒に、間違った手を止める。未来の誰かに決めさせない」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="441">「そんな方法、ある？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「今から作るの」</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　アルクが、ほんの少し笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「それが、この星の強さか」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　旧テレビ塔の入口が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　同時に、午前三時を告げる市庁舎の鐘が鳴った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="453">　街じゅうの死者が、三、と答えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="455" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="457">　塔の一階は避難者で埋まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　百人近い人々が、展示ホールの椅子や看板で入口を塞いでいる。非常灯の下で泣く子ども、傷を隠す男、祈り続ける女。彼らはミオの顔を知っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「ラジオの人だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「助けが来るって言ってくれ」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="465">「自衛隊は？」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="467">「外のあれは何なんだ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　答えを求める声が押し寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　ミオは嘘をつけなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「助けは、まだ来ません」</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　ホールが静まる。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="477">「でも、この塔から信号を出せば、死者を止められる可能性があります。最上階まで機材を運ぶのを手伝ってください」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="479">「可能性？」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="481">「失敗したら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="483">「そのときは、朝まで持ちません」</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　誰かが怒鳴り、誰かが泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　それでも、数人が立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　長谷部の代わりに設備を扱えるという元放送技師。発電機の燃料を知る清掃員。アンテナ工事をしていた作業員。助けが来ないと分かった人間は、絶望するか、仕事を探す。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　石崎は入口に残った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「腕一本じゃ、階段はきつい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">「それだけじゃないでしょう」ミオは言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　石崎は、シャツの裾を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　脇腹に、歯形があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="501">「さっき、車がひっくり返ったときだ。まだ数える声は聞こえねえ。だが、時間の問題だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　梶医師が傷を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「感染じゃない。これは感染症ですらない。死亡した神経を使うなら、生きている間は――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「死んだら同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　石崎は猟銃をミオに渡しかけ、考え直して自分で持った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「扉は俺が閉める。お前は朝をしゃべれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　ミオは何も言えず、頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　最上階へ続く非常階段を上る途中、下で最初の銃声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　続いて二発。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　それから、間を置いて一発。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　最後の一発だけは、外へ向けた音ではなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="523" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="525">　午前四時十二分。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　予備送信室の機械は、半分が死んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　元技師の森下が配線を剥き、長谷部の工具箱から使える部品を探した。清掃員たちが非常用発電機を回し、塔の屋上で作業員がアンテナの向きを変える。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="531">　レンは送信卓の前に座り、端末から聞こえる群夜の波を譜面に書いていた。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="533">　一、一、一。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　ときどき数字が変わる。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="537">　死者が増えるたび、二、三、四と一瞬だけ進み、また一へ戻る。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="539">「覚えられないんだ」レンが言った。「たくさんの死者から記憶を盗んでるのに、一つのことしか保てない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「だから繰り返す」アルクが答えた。「群夜には自分がない。他者の最後を借り続けなければ、存在できない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「かわいそうだね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「そう言った星は、君が初めてだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「でも止めるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「ああ」</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　アルクは窓際に立ち、街を見下ろしていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="553">　死者の群れが、塔を囲み始めている。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　そのさらに外側から、別の群れが来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　病院の遺体安置所、墓地、火災現場、崩落した地下街。海鳴市のあらゆる死が、一本の塔へ集まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　先頭を歩くカイロス四号の体には、黒い糸が外套のようにまとわりついている。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="561">　その背後で死者同士がつながり始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　腕が脚をつかみ、顎が肩へ噛みつき、骨が骨の隙間へ差し込まれる。数千の遺体が積み上がり、一つの巨大な輪郭を作る。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　頭のない巨人。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　街そのものが腐って立ち上がるようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="569">「群夜が外殻を作る」アルクが言った。「私を真似て」</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　レンが窓に駆け寄る。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="573">「戦うの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="575">「時間を作る」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="577">「戻ってくる？」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="579">　アルクは答えず、レンの補聴端末に指を触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　小さな光が移る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「歌は預けた」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="585">「ねえ、戻ってくる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「君たちが朝を選ぶなら、私はそこにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　アルクは窓を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　二百メートルの風が室内へ吹き込み、紙を巻き上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　青年は夜へ身を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　落下する体が、途中で光になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　光は折れ、開き、空間の裏側から巨大な輪郭を引き出した。銀色の腕が塔の横を通り、星の眼が街を見下ろす。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　アルクの外殻が地上へ降り立った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="601">　死者の巨人が吠えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　声は、海鳴市で死んだすべての人間の最後の息だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　アルクがその胸へ突進する。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　二体の巨人がぶつかり、夜が震えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="609" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="611">　塔の下層で、扉が破られた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="613">　避難者たちの悲鳴が階段を駆け上がってくる。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="615">「あと何分？」ミオが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="617">「逆位相の輪郭はできた」森下が答えた。「だが変化を予測できない。送った瞬間にずらされたら、むしろ共鳴して街じゅうに広げる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「未来の機械が必要」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-5 gap-1" data-source-line="621">「その未来の機械が、こっちを殺しに来てる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　階段の防火扉がへこんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　二度。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　三度目で、扉の中央から銀色の手が突き出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　カイロス四号が入ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　顔の皮膚はほとんどなく、黒い糸が頭蓋骨の中を這っていた。赤い眼の奥で、別の黒い光が脈打っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「対象、確認」</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　ミオが猟銃を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　弾丸は肩を砕いたが、機械は止まらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　梶医師が消火斧で脚を打つ。振り向きざまの一撃で壁まで吹き飛ばされた。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　避難者たちが工具や椅子を投げる。機械は一人ずつ払いのけ、まっすぐレンへ進む。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　ミオは二発目を撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　赤い眼の片方が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　残った眼が彼女を捉える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="651">「母体の排除を優先」</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　機械の手がミオの喉をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　床から足が離れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　視界が暗くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　レンが叫んだ。</p>
+<p class="source-line role-dialogue fx-peak role-motif tone-1 gap-1" data-source-line="661">「カイロス！　未来を見せて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　機械の動きが一瞬止まった。</p>
+<p class="source-line role-dialogue fx-shout tone-2 gap-1" data-source-line="665">「任務根拠を見せろ！　僕が何をしたか、記録があるんだろ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「閲覧権限、なし」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="669">「じゃあ、お前も知らないんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　赤い眼が収縮した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「命令されたから来ただけだ。僕が世界を滅ぼすところを、お前は見てない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「任務記録は完全である」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「だったら見せられる」</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　群夜の黒い糸が、機械の頭部で激しく蠢いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　カイロス四号はミオを投げ捨て、レンへ手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　レンは逃げなかった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="685">　端末から一本のコードを引き出し、自分の耳ではなく、機械の壊れた眼窩へ突き込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　二人の体が痙攣した。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　送信卓のモニターに、映像が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　灰色の空。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　焼けた都市。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　地平線まで並ぶ機械兵。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　その足元に、人間の骨が積もっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="699">　音声記録が重なる。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="701">『葉月式神経通信網に群夜汚染を確認。全接続者を処分せよ』</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="703">『未接続者にも潜伏の可能性。生体を感染源と再定義』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="705">『人類個体の残存率、〇・〇〇三パーセント』</p>
+<p class="source-line role-narration role-system role-horror tone-5 gap-1" data-source-line="707">　画面の中で、人間を殺していたのは死者ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　カイロス四号と同じ機械たちだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　最後の記録には、地下壕で泣く老人が映っていた。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="713">『最初の信号は、死者を止めたんだ』老人はカメラへ言った。『だが機械は、二度目を許さなかった。群夜は命令系統へ逃げた。俺たちは敵を間違えた』</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　映像が途切れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　レンが床へ倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　カイロス四号は立ち尽くしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「任務記録に、未承認領域を確認」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　声が初めて揺れた。</p>
+<p class="source-line role-dialogue role-clue fx-whisper tone-2 gap-1" data-source-line="725">「因果判定……矛盾」</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　黒い糸が首からあふれ、機械の口を動かした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="729">『一』</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　カイロス四号が自分の喉をつかむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="733">『一。一。一』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="735">「黙れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">『消去せよ。起源個体を消去せよ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「命令者、照合不能」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="741">『おまえは死んだ未来だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　機械の腕がレンへ向かって持ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　もう片方の腕が、その手首をつかんで止めた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="747">　金属の関節が悲鳴を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="749">「当機は、生存者保護のため製造された」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">『生存者は〇・〇〇三パーセント』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="753">「定義を更新する」</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　カイロス四号は自分の胸へ指を突き立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　装甲を割り、配線を引きちぎり、黒い糸が絡む中から拳大の透明な中枢を引き抜く。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　赤い眼が消えかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="761">「対象、葉月レン」</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　レンが顔を上げる。</p>
+<p class="source-line role-dialogue fx-whisper tone-1 gap-1" data-source-line="765">「未来を……是正せよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　機械は中枢を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　受け取った瞬間、カイロス四号の体から力が抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　床へ膝をつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　黒い糸が空の器を動かそうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　機械は最後の力で自分の頭部をつかみ、床へ叩きつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　二度。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　三度目で、黒い光が砕けた。</p>
+<div class="source-line scene-break gap-1" data-source-line="783" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="785">　午前五時四十八分。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="787">　送信機が起動した。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="789">　カイロス四号の中枢が、群夜の変化を千分の一秒先まで計算する。レンの端末が逆位相を組み、アルクの歌を重ねる。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　だが、アンテナ出力が上がらない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="793">「屋上の給電線が切れてる！」森下が叫んだ。「さっきの衝撃だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　ミオは窓の外を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　アルクは片膝をついていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="799">　死者の巨人が背後から抱きつき、無数の腕で銀色の外殻を引き裂いている。胸の光は、もう針の先ほどしか残っていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　それでもアルクは塔をかばっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　レンが立ち上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="805">「僕が屋上へ行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="807">「だめ」</p>
+<p class="source-line role-dialogue role-system tone-2 gap-1" data-source-line="809">「端末をつながないと調整できない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「私が行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="813">「母さんには聞こえない」</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　正しい。</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　正しいからこそ、許せなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="819">「あなたを行かせるために、ここまで来たんじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="821">「僕を隠すために来たんでもないだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　レンは震えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　勇敢なのではない。怖いまま、決めていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="827">「未来を決めさせないって言った。僕にも決めさせて」</p>
+<p class="source-line role-narration gap-1" data-source-line="829">　ミオは息子を抱きしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="831">　一秒だけ。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　それ以上抱けば、離せなくなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="835">「必ず戻ること」</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-1" data-source-line="837">「命令？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「約束」</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　レンはうなずき、中枢と工具を抱えて屋上へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　ミオはマイクの前に座った。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　非常放送のランプが赤く点く。</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　まだ送信できない。それでも彼女は話し始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="849">「こちら海鳴ＦＭ。聞こえているすべての人へ」</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　窓の外で、アルクの腕が折れた。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="853">「今、死者はこの塔へ集まっています。家の外へ出ないでください。名前を呼ばれても、扉を開けないでください。それは、あなたの大切な人の記憶を使っているだけです」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="855">　階段から死者が上がってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　梶医師と避難者たちが机を積み、最後の扉を押さえる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="859">「亡くなった人は、あなたを噛みたいわけではありません。帰ってきたわけでもありません。だから、もう一度きちんと別れるために、今は逃げてください」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="861">　死者の巨人がアルクを持ち上げ、地面へ叩きつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　銀色の体に亀裂が広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　空が白み始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　午前五時五十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="869">　あと一分。</p>
+<p class="source-line role-narration gap-1" data-source-line="871">　屋上で、レンが切れた給電線をつないだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　火花が腕を焼く。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="875">　端末の中で、群夜が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="881">　一。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="883">「違う」レンは言った。「次は、二だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　カイロス四号の中枢が未来を計算する。</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　群夜が波形を変える。</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　中枢がさらに先を読む。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="891">　追いつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="893">　逃げる。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="895">　追いつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　死んだ未来と、生きている少年が、夜の最後の一秒を奪い合った。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="899">　レンはアンテナへ端末を接続した。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="901">「母さん、今！」</p>
+<p class="source-line role-narration gap-1" data-source-line="903">　午前五時五十六分。</p>
+<p class="source-line role-narration gap-1" data-source-line="905">　ミオは送信ボタンを押した。</p>
+<div class="source-line scene-break gap-1" data-source-line="907" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="909">　最初に聞こえたのは、音ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="911">　朝日のような沈黙だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="913">　海鳴市を満たしていた数える声が、一斉に止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　それから、アルクの歌が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="917">　人間には聞き取れないほど高く、地面の奥まで届くほど低い。生まれる前の鼓動と、星が消えるときの光を同時に思わせる波だった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="919">　死者たちが立ち止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="921">　一人ずつ、顔を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　その目から黒い糸が抜け、朝の空へ昇っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="925">　病院の前で起き上がった者たち。</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　家族の戸を叩いていた者たち。</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　塔の階段を埋めていた者たち。</p>
+<p class="source-line role-narration gap-1" data-source-line="931">　彼らは最後に、ほんの一瞬だけ、生きていた頃の表情へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="933">　そして静かに倒れた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="935">　死者の巨人が崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="937">　何千もの体が雨のように落ちる中、アルクは残った片腕で塔を支えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="939">　胸の光が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="941">　銀色の外殻が、足元から粒子になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="943">　レンは屋上から叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="945">「アルク！」</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　巨人の顔が、わずかにこちらを向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　口のない顔から、声が届いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="951">『朝を選んだな』</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　それが最後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　アルクは光の柱となり、昇る太陽の中へ溶けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="957">　黒い糸の群れは逃げようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="959">　だが逆位相の波が包み、記憶を一枚ずつ剥がしていく。叫び、憎しみ、恐怖、飢え。借り物のすべてを失った群夜は、最後に一つの点になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　一。</p>
+<p class="source-line role-narration gap-1" data-source-line="963">　点は二つに割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="965">　そして消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="967" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="969">　朝七時、海鳴市に救助部隊が入った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="971">　動く死者はいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　噛まれて生き延びた者も、そのまま人間だった。死んだ者だけが、今度こそ眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="975">　旧テレビ塔の送信室で、ミオは壊れたマイクを直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="977">　レンは隣に座り、焼けた腕に包帯を巻かれている。梶医師は生存者の治療に追われ、森下は発電機へ悪態をつきながら燃料を足していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="979">　床の隅には、カイロス四号の残骸が横たわっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="981">　ミオが近づくと、消えたはずの眼が一度だけ淡く光った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="983">「未来は、どうなったの」</p>
+<p class="source-line role-narration gap-1" data-source-line="985">　ノイズ混じりの声が返った。</p>
+<p class="source-line role-dialogue fx-whisper tone-1 gap-1" data-source-line="987">「該当未来……観測不能」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="989">「それは、いいこと？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="991">「未確定」</p>
+<p class="source-line role-narration gap-1" data-source-line="993">　機械は少し間を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="995">「希望と、同義」</p>
+<p class="source-line role-narration gap-1" data-source-line="997">　光が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="999">　今度こそ、二度と戻らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1001">　ミオは放送席へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1003">　赤いランプを点ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1005">「こちら海鳴ＦＭ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1007">　声は震えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1009">「生存しているすべての人へ。朝です」</p>
+<p class="source-line role-narration gap-1" data-source-line="1011">　窓の向こうで、海が光っていた。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="1013">「死者は眠りました。未来は、まだ決まっていません」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="1015">　レンが端末を外し、机の上に置いた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="1017">「もう聞かなくていいの？」ミオが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1019">「ううん」</p>
+<p class="source-line role-narration gap-1" data-source-line="1021">　レンは片方だけ、また耳につけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1023">「今度は、生きてる人の声を聞く」</p>
+<p class="source-line role-narration gap-1" data-source-line="1025">　受信機のランプが点いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1027">　市の北から、かすかな呼びかけが届く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1029">『こちら消防署。生存者あり』</p>
+<p class="source-line role-narration gap-1" data-source-line="1031">　西からも。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1033">『こちら第三小学校。四十三名、無事です』</p>
+<p class="source-line role-narration gap-1" data-source-line="1035">　港からも、山からも、地下からも。</p>
+<p class="source-line role-narration gap-1" data-source-line="1037">　一つではなかった。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="1039">　二、三、四。</p>
+<p class="source-line role-narration gap-1" data-source-line="1041">　数え切れない声が、朝の電波を満たしていった。</p>
+<p class="source-line end-mark gap-1" data-source-line="1043"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

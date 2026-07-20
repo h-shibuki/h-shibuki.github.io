@@ -1,0 +1,1040 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="再開発に狙われた灰浜十三番街で、火付けの匂いを嗅ぎ分ける黒瀬カイは、かつて街の仲間だった開発会社専務・久世直臣と対立している。最後の土地を持つワインバーの老店主・榊玄蔵は、店を賭けた五杯のブラインド・テイスティングを宣言したまま朝を迎えなかった。挑戦者はカイ、直臣、玄蔵と決裂した一流ソムリエ・御影ミオ。教本の言葉を持たないカイにも、石油、雨漏り、焦りとして酒の真実が見える。最後の一杯は「まだ起きていない裏切り」の味がするという灰のヴィンテージ。街を継ぐ舌は誰のものか。">
+<title>灰を飲む夜｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="灰を飲む夜" data-novel-id="灰を飲む夜" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　焦りの匂い</a></li><li><a href="#chapter-2">二　喧嘩の作法</a></li><li><a href="#chapter-3">三　五つのグラス</a></li><li><a href="#chapter-4">四　灰のヴィンテージ</a></li><li><a href="#chapter-5">五　言い訳の温度</a></li><li><a href="#chapter-6">六　火の向こう側</a></li><li><a href="#chapter-7">七　水の味</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・会話劇</p>
+  <p><strong>補助ジャンル：</strong>頭脳戦・料理</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、会話劇、頭脳戦、料理</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：565行／章：7／役割・強度タグ：652</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="灰を飲む夜 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『灰を飲む夜』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4">一　焦りの匂い</h2>
+<p class="source-line role-narration gap-1" data-source-line="6">　灰浜十三番街には、夜になると三種類の匂いが降りた。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　海から来る塩。シャッターや非常階段から剥がれ落ちる古い鉄。そして、追いつめられた人間の焦り。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　黒瀬カイは三つ目がいちばん嫌いだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　焦りはたいてい、ガソリンと一緒にやって来る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="11">「そこで止まれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　午前一時。閉店した魚屋の軒先で、カイは黒い作業服の男に声をかけた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="14">　男はポリタンクを片手にしていた。胸には<span class="term term-world">〈久世都市開発〉</span>の下請け会社の名札。反対の手には、火のついていない煙草が一本。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="16">「夜間の防水工事だ。どけ、ガキ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="17">「防水剤にハイオク混ぜる会社、初めて見た」</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　男の眉が動いた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="20">　カイの背後で、錆烏の連中がシャッターにもたれて笑った。錆烏は暴走族でも愚連隊でもない。十三番街で育ち、行き場をなくし、なんとなく夜に集まっている連中を、誰かがそう呼び始めただけだ。背中に同じマークもなければ、掟もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="21">　ただ一つ、街を燃やす奴は許さない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="23">「鼻が利くんだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　低い声とともに、人垣が割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　久世直臣が姿を見せた。黒いスーツに雨粒一つついていない。三十三歳。久世都市開発の専務で、再開発計画<span class="term term-world">〈ハーバー・クラウン〉</span>の責任者。十年前まで十三番街で拳を振り回していた男でもある。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="27">　左の眉を横切る古い傷だけが、スーツからはみ出した過去だった。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="29">「昔からだよ、直臣」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="30">　カイは言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="31">「おまえの嘘は、いつもシンナー臭い」</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　直臣が笑う。その後ろで作業員たちが一歩前へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　カイの隣では、鉄平が拳を鳴らした。ナナが工具袋から長いレンチを抜く。十七歳のピコは、携帯の録画ボタンを押した。</p>
+<p class="source-line role-narration gap-0" data-source-line="35">　雨は細かった。喧嘩を始めるには、ちょうどいい細さだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「やめなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　声は、路地のいちばん奥から飛んできた。</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　古いワインバー<span class="term term-world">〈十三月〉</span>の扉が開いていた。真鍮の取っ手を握り、榊玄蔵が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="41">　七十三歳。銀色の髪を後ろへ撫でつけ、真冬でも白いシャツの袖を二度だけ折る。十三番街でいちばん高い酒を売り、いちばん安い焼きそばを食べる老人だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「喧嘩をするなら、うちでやれ」</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　玄蔵は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="45">「ただし拳は使うな。今夜は舌で決着をつけてもらう」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　玄蔵は三通の黒い封筒を掲げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="48">　一通をカイへ。一通を直臣へ。そして残る一通を、誰もいない雨の向こうへ向けるように持った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「十三番街で、久世がまだ買えていない土地は私の店だけだ。この店と地下蔵を取った者が、再開発の喉元を握る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「いくらだ」直臣が尋ねた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="52">「金の話はしていない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="53">「土地の話は金の話だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="54">「それしか味わえない舌だから、おまえは呼ばれたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　玄蔵は咳をした。白いハンカチが口元を隠したが、引っ込めるとき、布の隅に赤い染みが見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="58">「明日の零時、地下でブラインド・テイスティングを行う。五つのグラス。産地、品種、年。最後の一杯だけは点数では決めない」</p>
+<p class="source-line role-dialogue role-clue tone-2 gap-0" data-source-line="59">「誰が判定する？」とカイ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="60">「ワインがする」</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　直臣が鼻で笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="63">　玄蔵は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="65">「勝者に、店と土地を譲る。私が明日まで生きていなくても、予定どおり始めろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　その言葉どおり、榊玄蔵は朝を迎えなかった。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="68">　カウンターの奥の椅子に座り、空のグラスを光へ透かすような姿で死んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="69">　テーブルには三人分の封筒が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="70">　カイ、久世直臣。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　そして三人目の名は、御影ミオと書かれていた。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="74">二　喧嘩の作法</h2>
+<p class="source-line role-narration gap-1" data-source-line="76">　御影ミオは、葬儀の日の午後に東京から来た。</p>
+<p class="source-line role-narration gap-0" data-source-line="77">　黒いコート、黒いパンプス、黒い革手袋。喪服というより、夜そのものを仕立てたような女だった。二十八歳。国内のコンクールで名を上げ、海外のレストランからも声がかかっているソムリエだと、商店街の誰かが調べてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　玄蔵の遺影へ一礼したあと、ミオはカイの顔を見て言った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="81">「あなたが黒瀬カイ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="82">「そう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="83">「もっと怖い顔を想像してた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「そっちは、もっと鼻持ちならない顔だと思ってた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「想像どおりで安心したわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　彼女は玄蔵の弟子だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　十三年前、家出して灰浜へ流れ着いた中学生を、玄蔵が厨房の皿洗いとして拾った。ワインの勉強をさせ、東京の専門学校へ送り出した。だが、五年前に二人は決裂していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="89">　理由を聞いても、ミオは答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　玄蔵の遺言は、公証人の確認を受けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="92">　零時に地下蔵を開け、三人で五つのワインを飲む。最初の四つは通常の採点。最後の一つについては、玄蔵が残した映像の指示に従う。全過程は固定カメラで記録され、結果に異議は認めない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「じいさんは本気だったのか」</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="95">　カイは空になった店内で尋ねた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="96">「いつだって本気よ。たちの悪いことに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「俺はワインなんか知らない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「玄蔵さんは知ってた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="99">「何を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="100">「あなたの舌を」</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　ミオはカウンターに四本の小瓶を並べた。どれもラベルが剥がされている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「試すわ。嗅いで」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="105">「葬式のあとに？」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="106">「明日の夜、土地を取られたい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　カイは一つ目の小瓶へ鼻を近づけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　柑橘。冷たい石。遠くに、古いスクーターの燃料タンクを開けたときの匂い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「レモン飴。雨上がりの歩道橋。あと、ガソリンスタンドの朝」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="112">「リースリング。熟成すると石油を思わせる香りが出ることがある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="113">「悪くなってんじゃないのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「褒め言葉よ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「面倒くせえ飲み物だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　二つ目は、乾いた花と焦げた路面。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="119">「葬式の花。夏のアスファルト」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="120">「薔薇とタール。ネッビオーロの典型」</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　三つ目は湿った段ボール。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「倉庫の雨漏り」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="125">「それは欠陥。コルク汚染」</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　四つ目で、カイは顔をしかめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="129">「油性ペン。安い接着剤。中身より瓶の外が臭う」</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　ミオの目が細くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="133">「ラベルを貼り替えた偽造ボトルよ。中身は若い量産品」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="134">「こんなのも試験に出るのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="135">「玄蔵さんなら出す。ワインを当てるより、人間の見栄を当てるほうが好きだったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　カイは鼻が利いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="138">　小学生のころ、母親の帰宅が遅い日は、玄関を開ける前から機嫌がわかった。化粧品の甘さに煙草が混じれば、職場で嫌なことがあった。消毒液が強ければ、病院で残業だった。中学から働いた看板工場では、塗料の銘柄を目隠しで当てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="139">　十六で錆烏の連中とつるみ始めてからは、ナイフを隠した奴の汗、殴られる前の呼吸、火をつけるつもりの人間がこぼすガソリンまで嗅ぎ分けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　それを才能だと思ったことはない。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　ただ、逃げ遅れないための癖だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「あなたは言葉を知らないんじゃない」</p>
+<p class="source-line role-narration gap-0" data-source-line="144">　ミオは新しいグラスを置いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="145">「知りすぎてるのよ。教本より、ひどい場所の言葉を」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="146">「褒めてる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="147">「最大限に」</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　カイはグラスを持たず、ミオを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「おまえ、勝つ気あるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="152">「あるわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="153">「なら、なんで俺に教える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="154">「久世に負けるくらいなら、あなたに負けたい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="155">「きれいな言い方だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="156">「汚い理由もある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="157">「そっちを聞きたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　ミオは一瞬だけ視線を落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「勝ったら、私は店を売るかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　カイの椅子が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「帰れ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="166">「まだ話は終わってない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="167">「じいさんが守った店を、葬式の日に値踏みする奴と飲む酒はない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「だから言ったの。きれいな人間のふりをして勝つつもりはない」</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　ミオは手袋を外した。右手の人差し指に、薄い火傷の跡があった。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="172">「五年前、玄蔵さんは私にこの店を継げと言った。私は断った。世界へ出たかった。こんな錆びた街で、昔話を注ぎ続けるのが怖かった」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="173">「それで喧嘩した？」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="174">「ええ。最後に言われたわ。『おまえはワインを愛しているんじゃない。ワインを知っている自分を愛している』って」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　カイは笑いそうになった。玄蔵らしい、骨の間へ差し込む言葉だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「久世から誘いを受けてる」</p>
+<p class="source-line role-narration gap-0" data-source-line="179">　ミオは続けた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「再開発後のホテルで、ワイン部門を任せると。世界中から客が来る。自由に仕入れができる。私がずっと欲しかった場所よ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「店を売れば、そこへ行ける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="182">「そう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="183">「最低だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="184">「知ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　ミオはグラスへ赤いワインを注いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「だから、明日の最後の一杯が怖い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「何が入ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="190">「<span class="term term-world">〈灰のヴィンテージ〉</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　その名を、カイも聞いたことがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="193">　二十七年前、十三番街の古い倉庫の屋上で、玄蔵は十二本だけワインを造ったという。海風と煤煙に晒された葡萄。瓶詰めの夜、隣の倉庫で火災が起こり、七人が死んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="194">　生き残った者たちは、あのワインを飲むと「まだ起きていない裏切りの味」がすると噂した。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　十二本のうち十一本は、火事のあと一本ずつ消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="196">　最後の一本だけが、<span class="term term-world">〈十三月〉</span>の地下に眠っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「噂だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「ワインは、噂を飲む酒でもあるわ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="200">「おまえは飲んだことあるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="201">「ない。玄蔵さんも、最後の一本には触れなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　カイは赤い液体を口へ含んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="204">　黒い果実。煙。鉄。最後に、ほんの少しだけ塩。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="206">「これは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="207">「安いテーブルワイン」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="208">「うまい」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="209">「正解」</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　ミオが初めて笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="212">　その笑顔は、カイが想像したよりずっと十三番街に似合っていた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="215">三　五つのグラス</h2>
+<p class="source-line role-narration gap-1" data-source-line="217">　零時五分前、三人は地下蔵に揃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="218">　石壁に囲まれた細長い部屋。棚には数百本のボトルが眠り、天井から一本だけ裸電球が下がっている。中央の丸テーブルには、銀色の蓋をかぶせたデキャンタが五つ並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　直臣は紺のスーツに着替えていた。胸ポケットの白いハンカチまで、祝宴のように整っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="222">「仲良く勉強会か」</p>
+<p class="source-line role-narration gap-0" data-source-line="223">　直臣はカイとミオを見て言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「貧しい者同士、知識を分け合うのは美しいな」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="225">「おまえは何を分けてもらった？」とカイ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="226">「金だよ。世の中でいちばん役に立つ知識だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　零時ちょうど、壁のモニターが点いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="229">　映った玄蔵は、死ぬ一週間ほど前に撮影されたらしい。頬が削げていたが、目にはいつもの意地の悪い光があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">『三人とも来たようだな。直臣が逃げなかったのは褒めてやる』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="233">「死んでまで口が減らない」と直臣。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="235">『最初の四杯は、産地、品種、収穫年を答えろ。完全一致で三点。近ければ一点。四杯を終えた時点で首位が一人なら、その者に最後の回答権を与える。同点なら全員が答えろ』</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　モニターの横で、古い機械式時計が動き始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="239">『答えは紙に書き、同時に見せる。相談は禁止。暴力、脅迫、買収は失格。ただし誘惑は構わん。誘惑に負ける程度の舌なら、土地を持つ資格はない』</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　第一の蓋が自動で持ち上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　淡い金色。</p>
+<p class="source-line role-narration gap-0" data-source-line="243">　カイはグラスを回さず、まず静かに嗅いだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="244">　レモンの皮。白い花。冷えた石。そして、ミオに教わった石油の気配。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　その奥に、川沿いの自転車置き場で嗅いだことのある湿った粘板岩。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="247">　回答を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　ミオ――ドイツ、モーゼル。リースリング。二〇一二年。</p>
+<p class="source-line role-narration gap-0" data-source-line="250">　直臣――同じくモーゼル、リースリング。二〇一三年。</p>
+<p class="source-line role-narration gap-0" data-source-line="251">　カイ――モーゼル、リースリング。二〇一二年。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="253">　正解は二〇一二年。カイとミオが三点、直臣が二点。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="255">「丸暗記か？」直臣が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="256">「歩道橋を飲んだ」とカイ。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="257">「何？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="258">「おまえには高すぎて見えないだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　二杯目は薄い煉瓦色。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　乾いた薔薇。革。焦げた道。舌に細い針のような渋み。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　ミオ――イタリア、ピエモンテ。ネッビオーロ。二〇〇八年。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　直臣――バローロ。ネッビオーロ。二〇〇七年。</p>
+<p class="source-line role-narration gap-0" data-source-line="265">　カイ――バローロ。ネッビオーロ。二〇〇八年。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="267">　正解、二〇〇八年。</p>
+<p class="source-line role-narration gap-0" data-source-line="268">　カイはグラスの向こうで、ミオがわずかに眉を上げるのを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　三杯目は赤ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　琥珀に近い白。蜂蜜、乾燥した杏、紅茶、古い木箱。だが甘くはない。飲み込んだあとに、海藻のような旨味が長く残る。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="272">　カイの記憶に、玄蔵の厨房が浮かんだ。焦がした鶏皮。干した柿。雨の日の畳。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　ミオ――フランス、ジュラ。サヴァニャン。二〇〇九年。</p>
+<p class="source-line role-narration gap-0" data-source-line="275">　直臣――スペイン、ヘレス。パロミノ。年不詳。</p>
+<p class="source-line role-narration gap-0" data-source-line="276">　カイ――ジュラ。サヴァニャン。二〇〇九年。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="278">　正解はジュラ、サヴァニャン、二〇〇九年。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　直臣の笑みが消えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="282">「玄蔵から答えを聞いたな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="283">「俺がじいさんから聞いたのは、焼きそばに赤を合わせるなってことだけだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="284">「それも間違いね」とミオ。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="285">「今それ言う？」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　四杯目。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　色は深い紫。香りは派手だった。黒すぐり、樽、煙草、甘い香辛料。高価なワインが高価だと名乗るときの、よく磨かれた声。</p>
+<p class="source-line role-narration gap-0" data-source-line="289">　直臣は嗅いだ瞬間、勝ちを確信したようにペンを走らせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="290">　ミオは長く迷った。</p>
+<p class="source-line role-narration gap-0" data-source-line="291">　カイはワインではなく、グラスの縁と、デキャンタの首元を嗅いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　果実の下に、乾ききらない糊。</p>
+<p class="source-line role-narration gap-0" data-source-line="294">　油性インク。</p>
+<p class="source-line role-narration gap-0" data-source-line="295">　そして、ごく新しいシリコン栓。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　カイは紙に一行だけ書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　三人が同時に開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　ミオ――フランス、ボルドー左岸。カベルネ主体。一九九〇年前後。ただし再栓の疑い。</p>
+<p class="source-line role-narration gap-0" data-source-line="302">　直臣――シャトー・ルグラン、一九八二年。</p>
+<p class="source-line role-narration gap-0" data-source-line="303">　カイ――中身は二〇二〇年代の安いブレンド。瓶だけ一九八二年。偽物。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="305">　正解映像が流れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="306">　玄蔵が、空の古いボトルへ若いワインを注ぎ、偽のラベルを貼っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">『中身は南半球の量産品。年は二〇二一年。古い瓶と物語をまとわせれば、百倍の値でも喜んで飲む者がいる』</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　直臣の顔から血の気が引いた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="312">『なお、この偽ラベルは久世都市開発が経営するオークション会社で、三年前に本物として落札されたものを参考にした』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="314">「老いぼれが」</p>
+<p class="source-line role-narration gap-0" data-source-line="315">　直臣の声が低くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">『直臣。怒るな。舌が騙されたのではない。自分が高価なものを飲んでいると思いたい心に、舌が従っただけだ』</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　四杯を終え、カイ十一点。ミオ十点。直臣五点。</p>
+<p class="source-line role-narration gap-0" data-source-line="320">　首位はカイだった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="322">『最後の回答権は黒瀬カイにある』</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　玄蔵の映像が告げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">『だが、ほかの二人にも飲んでもらう。これは競技ではない。判決だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　五つ目の銀蓋が、ゆっくり持ち上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　そこには黒い瓶が一本だけ置かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　ラベルは灰色で、文字は二つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="332"><span class="term term-world">〈CENDRE　0〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="334">　灰。零年。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　部屋の空気が一段、冷えた。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="339">四　灰のヴィンテージ</h2>
+<p class="source-line role-narration gap-1" data-source-line="341">　ミオが封を切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　コルクは驚くほど静かに抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　注がれたワインは、赤というより、夜を薄く溶かした色をしていた。裸電球の下で、縁だけが錆色に光る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">『一口でいい』</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　モニターの玄蔵が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="348">『飲んだあと、最初に浮かんだ匂いを口にするな。三十秒、黙れ。その匂いはおまえたちがいちばん隠したいものだからだ』</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　三人はグラスを取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　カイは口へ含んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　温度は低いのに、舌の上だけが熱くなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　最初に来たのは煙だった。木でも葉でもない。書類を燃やしたときの、乾いた紙の煙。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　次に青いインク。新品の革靴。冷房の効きすぎた会議室。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　景色が、グラスの底からせり上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　カイは十年後の自分を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="361">　髪を短く整え、高価な紺のスーツを着ていた。窓の外には、十三番街があった場所に三本の高層ビルが立っている。海はガラスの向こうへ追いやられ、路地も魚屋も<span class="term term-world">〈十三月〉</span>もない。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="362">　テーブルの上には契約書。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　署名欄に、黒瀬海斗という本名が青いインクで書かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　窓の外、工事用フェンスの向こうに錆烏の仲間が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="366">　鉄平は右手を包帯で巻き、ナナは顔を背け、ピコは携帯を構えている。</p>
+<p class="source-line role-narration gap-0" data-source-line="367">　誰も怒鳴らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="368">　失望は、喧嘩より静かだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　カイはグラスを置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="371">　胸ポケットの中で、折り畳んだ紙が急に重くなった。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="373">　前夜、直臣から渡された買収契約書。</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　カイが土地を取った場合、二億で久世へ売るという仮契約だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="375">　仲間には言っていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="376">　二億あれば、十三番街の住人に立ち退き金を上乗せできる。鉄平の母親の借金も、ナナの弟の学費も、ピコの父親の治療費も払える。</p>
+<p class="source-line role-narration gap-0" data-source-line="377">　そう説明すれば、いつか許されると思っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　いや。</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　許されなくても、感謝はされると思っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　三十秒が過ぎた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「焦げた紙」とカイは言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　嘘ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　だが、全部でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　ミオは唇を白くしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「病院の廊下」</p>
+<p class="source-line role-narration gap-0" data-source-line="391">　彼女は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="392">「消毒液。林檎のシャンプー。誰も出ない電話」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　直臣はグラスを握ったまま動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「湿った木」とだけ言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　その瞬間、モニターの玄蔵が首を横へ振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">『三人とも、半分しか言っていない』</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　録画のはずなのに、見透かされた気がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">『灰のヴィンテージは未来を当てる酒ではない。そんな便利なものなら、私は競馬場へ持っていった』</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　玄蔵はグラスを持ち上げた。映像の中の液体も、同じ夜色をしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">『これは、おまえたちがすでに心の中で許した裏切りを見せる。まだ実行していない。だが、事情があれば仕方ない、と自分に言い聞かせた裏切りだ』</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　ミオが目を閉じた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="412">『人は決断をした瞬間より、言い訳を作った瞬間に道を選ぶ。ワインは葡萄の記憶を残す。これは、言い訳の記憶を残す』</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="414">　画面が暗転し、白い文字が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="416"><span class="term term-world">〈最後の問い。このワインに欠けている香りは何か〉</span></p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="418">　回答権はカイにある。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　彼はもう一度、グラスへ鼻を近づけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　煙。紙。革靴。インク。冷たい金属。</p>
+<p class="source-line role-narration gap-0" data-source-line="422">　果実の香りが、一つもない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「葡萄だ」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="425">　カイは言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「このワインには、果実がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　モニターが明るくなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="429">　玄蔵は、わずかに笑っていた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="431">『正解だ』</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="433">　テーブルの中央で、金属音がした。小さな箱が開き、土地の権利証と一本の鍵が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　直臣が立ち上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「茶番は終わりだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">『まだだ、直臣』</p>
+<p class="source-line role-narration gap-0" data-source-line="440">　映像の玄蔵が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　直臣の足が止まった。</p>
+<p class="source-line role-dialogue role-clue tone-1 gap-1" data-source-line="444">『果実が消えたのは、未来が決まったからではない。おまえたちが、自分の裏切りを当然のものとして飲み込んだからだ。夜明けまでに一つ、決めたことを変えろ。もう一度飲んで、果実を感じた者だけが鍵を使える』</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　ミオが乾いた笑いを漏らした。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="448">「死んだあとまで説教」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">『説教ではない。賭けだ。人間がワインより長く熟成できるかどうかのな』</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　映像が切れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　時計は午前一時を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　直臣が拍手をした。</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　一度。二度。三度。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「見事だ、カイ。勝者にふさわしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　彼は内ポケットから万年筆を出し、カイの前へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「仮契約を本契約に変えよう。二億では足りないな。三億出す」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　ミオがカイを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="465">　視線が胸ポケットへ落ちる。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="467">「契約って、何の話？」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　カイは答えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　直臣が代わりに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「君たちの英雄は、最初から街を売る気だったという話だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　地下蔵に、海より冷たい沈黙が満ちた。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="477">五　言い訳の温度</h2>
+<p class="source-line role-narration gap-1" data-source-line="479">　カイは胸ポケットから紙を出した。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="480">　折り目のついた仮契約書を、テーブルの上へ置く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="482">「住民全員に金を回すつもりだった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="483">「そう」ミオが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="484">「鉄平の家の借金を消して、ナナの弟を学校へ行かせて、ピコの父親をいい病院へ移す。残りで、みんな別の街へ行けばいい」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="485">「街は建物じゃない。人だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="486">「売る人間がよく使う言葉ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　鋭かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="489">　カイは言い返せなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="491">「おまえだって売ると言った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="492">「ええ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="493">「久世のホテルへ行くんだろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="494">「ええ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="495">「なら同じだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="496">「同じよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　ミオはコートの内側から一通の封筒を出した。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="499">　久世都市開発のロゴが入った内定契約書。彼女の署名欄には、すでにサインがあった。</p>
+<p class="source-line role-dialogue role-document tone-5 gap-1" data-source-line="501">「私は勝ったら、この土地の鑑定価値を下げる報告書を書く約束をした。地下蔵は老朽化し、保存設備として危険だと証言する。その代わり、新しいホテルのセラーを任せてもらう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="502">「玄蔵を裏切るのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="503">「五年前に、もう裏切ったつもりだった」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　ミオは署名の部分を見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「さっき見えたのは、新しいホテルのオープニングだった。私は世界中の客の前で、灰のヴィンテージを注いでいた。窓の外には何もなかった。玄蔵さんの店も、あなたたちも。拍手だけが聞こえた」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="509">　彼女は契約書を二つに破った。</p>
+<p class="source-line role-narration gap-0" data-source-line="510">　さらに四つに、八つに。</p>
+<p class="source-line role-narration gap-0" data-source-line="511">　紙片を灰皿へ落としたが、火はつけなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「私は降りる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="514">「それで果実が戻ると思う？」と直臣。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="515">「戻らなくても、少なくともあなたの酒は注がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　直臣の口元が歪んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「美しいね。だが店は救えない」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="521">　カイは自分の契約書を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　三億。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　金額は大きいほど、正義に似た顔をする。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="524">　仲間のため。住民のため。未来のため。</p>
+<p class="source-line role-narration gap-0" data-source-line="525">　どんな裏切りも、複数形にすれば立派に聞こえる。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　携帯を取り出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="528">　錆烏のグループ通話を開いた。地下は電波が弱く、声が途切れた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="530">『どうなった？』鉄平。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="531">『勝ったの？』ナナ。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="532">『配信まだ？』ピコ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="534">「俺、土地を売る契約をしてた」</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　向こうが静かになった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「勝ったら二億。今、三億に上がった。みんなに金を配って、街を出ればいいと思ってた」</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="540">『……マジで？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">「マジだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　鉄平の呼吸が荒くなった。怒鳴られると思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="545">　だが先に聞こえたのは、ピコの声だった。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-3 gap-1" data-source-line="547">『カイ兄、それ、俺らが頼んだ？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「頼んでない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">『じゃあ勝手に俺らを言い訳にすんなよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　十七歳の声は震えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">『俺、金ほしいけどさ。金ほしい俺と、街を売ってほしい俺は、同じじゃないから』</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　カイは目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「わかった」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="561">　仮契約書を両手で裂いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="562">　紙は思ったより簡単に破れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="564">「悪かった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">『戻ってきたら一発殴る』鉄平が言った。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="567">「一発で済む？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="568">『みんな一発ずつ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="569">「そりゃ多いな」</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　通話を切る。</p>
+<p class="source-line role-narration gap-0" data-source-line="572">　カイはグラスを取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="573">　灰のヴィンテージを、もう一口。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　煙。</p>
+<p class="source-line role-narration gap-0" data-source-line="576">　インク。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　革靴。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　まだ果実はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「だめか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「紙を破いただけだからよ」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="584">　ミオが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="585">「未来は、もっとしつこい」</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　直臣が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="589">「二人とも感動的だ。だが、夜明けまでにこの土地が残っていればの話だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　彼の右手には、小さな黒い送信機があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　カイの鼻が、先に気づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="594">　ガソリン。</p>
+<p class="source-line role-narration gap-0" data-source-line="595">　地下蔵の奥。石壁の向こうから、濃い揮発臭が流れてくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="597">「何をした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">「最初から、勝敗なんてどうでもよかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　直臣が親指を押した。</p>
+<p class="source-line role-narration gap-0" data-source-line="602">　壁の裏で、鈍い音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　次の瞬間、棚の奥から橙色の火が走った。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="606">六　火の向こう側</h2>
+<p class="source-line role-narration gap-1" data-source-line="608">　炎はワインの木箱を舐め、天井へ上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="609">　一本、また一本とボトルが熱で割れる。赤い液体が床を走り、火を映した。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="611">「上へ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　カイが叫んだ。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="614">　ミオは権利証と鍵を箱からつかみ、階段へ向かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="615">　だが直臣は動かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="616">　火の向こう、最奥の石壁を見ている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「父が、ここへ来たんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　直臣の声は、別人のように幼かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="622">「二十七年前。俺は六歳だった。車の後部座席で待っていた。父はポリタンクを持って、この路地へ入っていった」</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　炎が棚を倒した。</p>
+<p class="source-line role-narration gap-0" data-source-line="625">　出口へ続く通路が半分塞がれる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="627">「倉庫火災は事故じゃない」とミオ。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="629">「再開発の前身計画があった。立ち退かない倉庫主を脅すため、父は小さな火をつけるつもりだった。だが中に人がいた。火は隣へ回った。七人死んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　直臣は笑った。泣く寸前の人間が、顔の形を保つためにする笑いだった。</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-1" data-source-line="633">「玄蔵は知っていた。証拠をここに隠したと言って、父を二十七年脅し続けた。父が死んでからは、俺を」</p>
+<p class="source-line role-dialogue role-clue tone-4 gap-0" data-source-line="634">「だから店ごと焼く？」カイ。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="635">「灰にすれば、過去も未来も同じ色になる」</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　天井の梁が落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="638">　直臣の足元へ直撃し、彼は倒れた。脚が木材の下に挟まる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="640">「行って！」</p>
+<p class="source-line role-narration gap-0" data-source-line="641">　ミオが叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="642">「もう持たない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　カイは階段を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="645">　外から鉄平たちの声がする。消火器を持って扉を叩いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="646">　直臣は自分で火をつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="647">　ここで置いていけば、すべて終わる。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="648">　再開発も。買収も。過去の嘘も。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　それは復讐ですらなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="651">　ただ、助けないだけでいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　グラスの中で見た未来が蘇った。</p>
+<p class="source-line role-narration gap-0" data-source-line="654">　スーツを着た自分。仲間の背中。青い署名。</p>
+<p class="source-line role-narration gap-0" data-source-line="655">　裏切りは、何かをすることだけではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="656">　しないことにも、都合のいい名前をつけられる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="658">「カイ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　ミオの声を背に、彼は火の中へ戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「馬鹿か」</p>
+<p class="source-line role-narration gap-0" data-source-line="663">　直臣が咳き込んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="664">「俺を助けても、土地は残らない」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="665">「街は建物じゃない。人だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　さっき自分で吐いた言い訳を、今度は言い訳にしないために使った。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　梁は重かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　熱で掌の皮が焼ける。直臣も腕で床を押す。二人で持ち上げた隙間へ、ミオが転がってきた金属棒を差し込んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="672">「三つ数える！」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="673">「二つでやれ！」とカイ。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="674">「一、二！」</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　直臣の脚が抜けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="677">　三人で通路へ這う。</p>
+<p class="source-line role-narration gap-0" data-source-line="678">　そのとき、最奥の石壁が熱で割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="679">　煉瓦が崩れ、小さな金庫が姿を見せる。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　直臣が振り返った。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="683">「証拠……」</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　カイも見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="686">　だが戻らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「生きてから怖がれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　階段の上で扉が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="691">　鉄平とナナが消火器の白い粉を噴きながら降りてくる。ピコは携帯を握り、泣きながら叫んでいた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="693">「全部、配信してるからな！　久世、今の話も全部だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　直臣の顔が崩れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="696">　笑ったのか、泣いたのか、煙の中ではわからなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　地上へ出た瞬間、地下で大きな破裂音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="699">　<span class="term term-world">〈十三月〉</span>の窓ガラスが震え、路地へ赤い煙が噴き出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="700">　消防車のサイレンが近づいていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　ミオは路上に膝をつき、抱えていた権利証を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="703">　紙は無事だった。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="704">　だが鍵は、熱で黒く変色している。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="706">「玄蔵さんの金庫……」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="708">「証拠ならある」</p>
+<p class="source-line role-narration gap-0" data-source-line="709">　ピコが携帯を掲げた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="710">「今の、二万八千人が見てた」</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　直臣は仰向けに寝たまま、雨を浴びていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="714">「父のことまで証明できない」</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　そのとき、ミオの手の中で、権利証の封筒から薄い紙が落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="717">　玄蔵の字だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">〈直臣へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="720">　壁の金庫は空だ。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="721">　証拠など最初からない。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="722">　人は証拠があるから告白するのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="723">　自分の中に、隠しきれない証人がいるから告白する。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="724">　おまえがその証人を殺さずに済むことを願う。〉</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　直臣は雨の中で目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　消防士たちが地下へ入っていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　カイはふと、自分がまだグラスを握っていることに気づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="730">　火の中で、なぜ手放さなかったのかわからない。半分ほど残った灰のヴィンテージには、灰と消火剤が少し混じっていた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="732">「飲む気？」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="733">　ミオが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="734">「もうワインですらないわよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「最初から、そうだったのかもな」</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　カイは口へ運んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　煙。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　焦げた紙。</p>
+<p class="source-line role-narration gap-0" data-source-line="742">　雨に濡れた革。</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　その向こうに、小さな赤いものがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="745">　潰した野苺。</p>
+<p class="source-line role-narration gap-0" data-source-line="746">　夏の終わり、錆びたフェンスの下で盗んだ、まだ青いトマト。</p>
+<p class="source-line role-narration gap-0" data-source-line="747">　玄蔵が店の裏で育てていた葡萄を、初めて噛んだときの酸っぱさ。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　果実だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">「戻った」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="753">　カイは言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="754">　ミオも残りを一口飲んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="755">　長い沈黙のあと、彼女は涙と雨を一緒に拭った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="757">「林檎」</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　直臣へグラスを差し出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="760">　彼は首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="762">「俺には、まだ灰しかない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「なら、生きて味が変わるまで待て」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="765">　カイは言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　直臣は逮捕された。</p>
+<p class="source-line role-narration gap-0" data-source-line="768">　配信映像と本人の供述をきっかけに、二十七年前の倉庫火災も再捜査された。父親の会社に残っていた古い帳簿から、放火を示す支出記録が見つかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　<span class="term term-world">〈十三月〉</span>の地下は半分焼けたが、建物の骨組みは残った。</p>
+<p class="source-line role-narration gap-0" data-source-line="771">　権利証の裏には、玄蔵の最後の条件が記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">〈果実を取り戻した者へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="774">　土地は一人で持つな。</p>
+<p class="source-line role-narration gap-0" data-source-line="775">　一人の正義は、値段をつけられた瞬間に売り物になる。</p>
+<p class="source-line role-narration role-clue tone-4 gap-0" data-source-line="776">　十三番街の住人による共同名義とし、店の鍵だけを勝者に預ける。〉</p>
+<p class="source-line role-dialogue gap-1" data-source-line="778">「最後まで信用されてないな」</p>
+<p class="source-line role-narration gap-0" data-source-line="779">　カイが言うと、ミオは焼け残った看板を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="781">「信用していたから、一人にしなかったのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　夜明け前、雨がやんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="784">　海の向こうから薄い光が差し、濡れた路地を一本の川に変えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="785">　錆烏の連中が順番にカイを殴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="786">　鉄平は肩。ナナは背中。ピコは泣きながら胸を一発。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="788">　そのあと、全員で焼けた店から椅子を運び出した。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="791">七　水の味</h2>
+<p class="source-line role-narration gap-1" data-source-line="793">　五年後、<span class="term term-world">〈十三月〉</span>は再び灯りをつけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　地下蔵は耐火設備を入れ直し、地上階の半分はワインバー、もう半分はカイの看板工房になった。入口の新しい看板には、古い真鍮文字をそのまま使った。焦げ跡も磨き落とさなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　ミオは東京の店を辞め、月の半分を灰浜で過ごした。</p>
+<p class="source-line role-narration gap-0" data-source-line="798">　世界へ出る夢を諦めたわけではない、と本人は言う。世界のほうを十三番街へ呼ぶことにしたのだ、と。</p>
+<p class="source-line role-narration gap-0" data-source-line="799">　錆烏は解散した。鉄平は魚屋を継ぎ、ナナは自動車整備工場の社長になり、ピコは映像記者になった。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="800">　ただ、街を燃やす奴が出たときだけ、全員が昔の名前で集まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　灰のヴィンテージは、あの夜でなくなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="803">　瓶は火で割れ、残った一杯も飲み干した。成分を調べることも、競売へ出すこともできなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="804">　そのため噂だけが、以前より高く熟成した。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　政治家、投資家、収集家、占い師。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="807">　さまざまな人間が<span class="term term-world">〈十三月〉</span>を訪れ、未来を見せるワインを出せと言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="808">　ミオはいつも、同じ答えを返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="810">「未来を知りたい方には、お水をお出しします。たいてい、それで十分です」</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　ある秋の夜、新しい市長が店へ来た。</p>
+<p class="source-line role-narration gap-0" data-source-line="813">　四十代半ば。清潔な笑顔と、よく訓練された握手を持つ男だった。選挙では十三番街の保存を公約に掲げ、当選後も何度もカメラの前で「歴史ある街並みを守る」と語っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「私は酒を飲まないんです」</p>
+<p class="source-line role-narration gap-0" data-source-line="816">　市長は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="817">「水をいただけますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　カイは新品のグラスを出し、水道から水を注いだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="820">　浄水器を通した、味も匂いもほとんどない水だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　市長は一口飲み、動きを止めた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="824">「どうしました？」とミオ。</p>
+<p class="source-line role-narration gap-1" data-source-line="826">　市長はグラスを見つめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="828">「焦げたゴムの匂いがする」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　店内の音が消えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="832">「それから……濡れたコンクリート。新しい革の椅子。青いインク」</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　カイはカウンター越しに、市長のコートへ目をやった。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　雨の匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="836">　高価な香水。</p>
+<p class="source-line role-narration gap-0" data-source-line="837">　そして、ごくかすかに、ガソリン。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「変ですね」</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="840">　市長は笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="841">「水なのに」</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　カイは笑い返さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　灰浜十三番街には、夜になると三種類の匂いが降る。</p>
+<p class="source-line role-narration gap-0" data-source-line="846">　海の塩。古い鉄。そして、追いつめられた人間の焦り。</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　葡萄はもう一本も残っていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="849">　それでも街は、約束の味を忘れていなかった。</p>
+<p class="source-line end-mark gap-1" data-source-line="851"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

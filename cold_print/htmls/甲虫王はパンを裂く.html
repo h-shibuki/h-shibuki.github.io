@@ -1,0 +1,878 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="十八年前、飢えた甥たちのためパン一斤を盗み、脱獄を重ねて人生を黄色い前科証明書に閉じ込められたヨナ。生真面目な帳簿係となった彼はある朝、八本脚の巨大な甲虫へ変わる。世界を覆う「人間」「害虫」「財産」という名前が薄い札に見え、扉を出口に、刃をパンに、重力さえ別の習慣へ書き換えられるようになっていた。だが養女エマは借金を理由に工場へ連行され、子どもたちが機械の歯のそばで働かされている。何でも変えられる怪物は、奪う強者にならずに法と飢えを変えられるのか。まず必要なのは、革命より朝食だ。">
+<title>甲虫王はパンを裂く｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="甲虫王はパンを裂く" data-novel-id="甲虫王はパンを裂く" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="absurd-comedy">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替" selected>不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　八本の脚</a></li><li><a href="#chapter-2">二　黄色い証明書</a></li><li><a href="#chapter-3">三　工場の歯</a></li><li><a href="#chapter-4">四　監察官</a></li><li><a href="#chapter-5">五　バリケードの昼食</a></li><li><a href="#chapter-6">六　食べられる城</a></li><li><a href="#chapter-7">七　橋の下の法</a></li><li><a href="#chapter-8">八　世界より先に</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ヒーロー・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>ファンタジー・奇妙な味・ギャグ</p>
+  <p><strong>CSVタグ：</strong>ヒーロー、アクション、バトル、ファンタジー、奇妙な味、ギャグ、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">不条理・ギャグ</span></p>
+  <p id="currentPresetDescription">丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替</p>
+  <h3>意味色</h3><p>橙＝笑い、青＝理屈、赤＝暴走、紫＝違和感、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：401行／章：8／役割・強度タグ：422</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="甲虫王はパンを裂く 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">甲虫王はパンを裂く</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4">一　八本の脚</h2>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="6">　夜明け前、鐘楼が六つ鳴るより先に、ヨナ・ヴァレルは自分の脚が八本に増えていることに気づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　寝台はひしゃげ、毛布は床に落ちていた。背には濡れた石のような黒い甲殻が盛り上がり、腹は七つの節に分かれている。指は消え、その代わり、節くれだった脚の先に小さな鉤が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　驚くべきことに、ヨナが最初に考えたのは遅刻だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="12">「帳簿室の鍵を開けるのは俺だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　口から出た声は、人の声と、二枚の陶器をこすり合わせる音の中間だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　壁の向こうで、下宿屋の女主人が息を呑んだ。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="18">「ヴァレルさん？　いまの音は何です？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="20">「体調が悪い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「市庁舎からお迎えが来ていますよ。主事さんが、あなたが遅刻するなんて天地がひっくり返ったのかと」</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　天地はひっくり返っていなかった。ただ、ヨナだけが裏返っていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="26">　彼は寝台から降りようとした。八本の脚はそれぞれ別の意見を持ち、三本は前へ、二本は壁へ、残りは故郷へ帰ろうとでもするように後ろへ動いた。黒い腹が床へ落ち、部屋全体が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　その瞬間、ヨナは吐き気を覚えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　変身のせいではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　床板が、あまりにも床板として存在していたからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　木目は濁った川のように盛り上がり、釘の頭は冷たい月のように光っている。椅子は「座るためのもの」という薄い言葉を脱ぎ捨て、四本の棒と一枚の板として、意味もなく、執拗にそこにあった。水差しも、帳簿も、壁の染みも、名前の下から膨れ上がってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　世界は、存在しすぎていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　ヨナは腹の底からこみ上げるものを耐えた。甲虫に胃があるのかは知らなかったが、吐き気だけは確かにあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　扉が叩かれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「ヴァレル君」</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　市庁舎のペルノー主事の声だった。</p>
+<p class="source-line role-dialogue role-document tone-5 gap-1" data-source-line="46">「君は本日、六分の遅刻だ。病気なら診断書を、死亡なら死亡証明書を提出したまえ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「どちらも無理そうです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「では扉を開けたまえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　ヨナは扉を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　扉。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　部屋と廊下を分ける板。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　だがそれは、本当に扉でなければならないのだろうか。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　その疑いが浮かんだ途端、吐き気の底で、何かが静かに噛み合った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「開け」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　ヨナが言うと、蝶番も錠も壁の一部も、初めから互いを知らなかったかのようにほどけた。扉は音もなく床へ伏した。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　廊下には女主人と主事が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　二人は、ヨナを見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　ヨナも二人を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　女主人は気絶した。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　主事は鞄を落とし、唇だけで祈りを三つ唱え、それから叫んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="76">「害虫だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　その言葉は空中で薄い紙のように震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　害虫。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　人間。</p>
+<p class="source-line role-narration gap-1" data-source-line="84">　役人。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　前科者。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　善人。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　悪人。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　どれも世界に貼りつけた札にすぎない。その札の裏で、肉も石も鉄も、ただ無意味に存在している。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　ヨナは理解した。</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　名前が真実でないのなら、名前に従う必要もない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「そうか」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　彼は八本の脚で立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「では今日から、害虫として出勤する」</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　主事は階段を転げ落ちた。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="107">二　黄色い証明書</h2>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="109">　ヨナは十八年前、一斤のパンを盗んだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="111">　妹の子どもたちが三日食べていなかったからだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="113">　パン一斤に対して刑は五年。脱獄を二度試み、看守を一人殴り、結果として刑は十八年になった。出獄の日、彼に渡された黄色い証明書には、こう書かれていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="115">　危険。反抗的。再犯のおそれあり。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="117">　町はその三行をヨナ本人よりも信じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　宿は断られ、仕事は追われ、井戸の水さえ嫌な顔をされた。やがて彼は名を半分変え、文字が読めることを利用して市庁舎の帳簿係になった。誰より早く出勤し、誰より遅く帰り、盗まれた銅貨一枚まで見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　それでも毎晩、黄色い紙の夢を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　その紙より先に、彼を人として見た者が一人だけいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　エマという十二歳の少女だった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="127">　母親は縫製工場で肺を壊して死に、父親は初めから名前すらなかった。ヨナは少女を引き取り、下宿屋の屋根裏に住まわせ、給金の半分を学校と食費に使っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　だから、甲虫になった朝にも、彼が心配したのは自分の身体ではなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="131">「エマは？」</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　倒れた女主人に代わって、台所から小間使いが震えながら答えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="135">「工場へ……借金のことで、ガルニエ商会の人が連れていきました」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="137">「学校ではなく？」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="139">「今月の家賃が、まだ……」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="141">　ヨナは主事の落とした鞄を鉤爪で開いた。中から自分の解雇通知が出てきた。日付は昨日だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　遅刻する前から、彼は首になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　紙には「素行に関する匿名の告発」とある。黄色い証明書の存在が市庁舎に知られたのだ。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="147">　ヨナは通知をしばらく眺めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　紙は紙だった。正義でも運命でもない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="151">「燃えろ」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="153">　通知は青い炎になり、灰も残さず消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　小間使いが十字を切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　ヨナは窓へ向かった。甲殻が壁に当たり、煉瓦が崩れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="159">「窓はそちらです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「狭い」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　彼は壁に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「お前は出口だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　煉瓦が左右へ避け、朝の街が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　霧の向こうに、工場の煙突が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　ヨナは外へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　四階だったが、落下する理由が見当たらなかったので、そのまま空中を歩いた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="176">三　工場の歯</h2>
+<p class="source-line role-narration gap-1" data-source-line="178">　ガルニエ縫製工場では、二百人の女と子どもが、一日十四時間、軍服の上着を縫っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　工場主は「国家のため」と言い、監督は「契約のため」と言い、労働者は咳をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　エマは裁断機の横に立たされていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="184">「母親の治療費、葬儀代、宿代、利息」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　ガルニエは帳面を指で叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「合計で銀貨百二十枚。お前が十年働けば返せる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「私は借りてません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「親の借金は子の骨にまで染みる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="194">「骨まで調べたんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　エマは口が減らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　ガルニエが手を上げたとき、天井が消えた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="200">　黒い巨体が朝日を背負って降りてきた。八本の脚が床に触れるたび、石畳が波のように沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　女工たちは叫び、監督たちは逃げ、エマだけが目を丸くした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「ヨナ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「ああ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「ずいぶん黒くなったね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「朝から少しな」</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　ガルニエは腰の拳銃を抜いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="214">「化け物め！」</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　銃声が三つ響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="218">　弾丸はヨナの眉間に当たり、つぶれた鉛の花になって床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　ヨナは一歩進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　ガルニエはさらに撃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　弾丸は甲殻に届く前に止まった。空中で震え、向きを変え、きれいに拳銃の弾倉へ戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「なぜだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「弾丸だから飛ぶ、というのも思い込みらしい」</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　ヨナは裁断機を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　巨大な鉄の歯が、布と指を区別せずに噛み続けている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="234">「止まれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　機械が沈黙した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="238">「壊れろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　すべての歯車が砂糖菓子のように砕けた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="242">「待て！」ガルニエが叫んだ。「これは私の財産だ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「財産」</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　ヨナはその言葉を口の中で転がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　吐き気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　誰かが空腹で倒れても、紙に名を書けば布も機械も人の時間も所有できる。実に薄く、実に強情な札だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「では訊こう。お前自身は誰の財産だ？」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="254">「私は自由人だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「この子たちもだ」</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="258">　ヨナが脚を一本振ると、工場中の契約書が棚から飛び出した。借用証書、雇用契約、罰金台帳、身元保証書。紙の群れは天井のない空へ舞い上がり、白い鳥になって東へ飛び去った。</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　ガルニエは口を開けたまま、その群れを見送った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="262">「契約が……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「逃げたな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「法が許さんぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="268">「法なら、あとで本人に訊く」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　ヨナはエマを背に乗せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　甲殻の上は小さな広場ほどあり、エマは角のような突起につかまった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="274">「どこへ行くの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「まず飯だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「そのあと？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「法に会いに行く」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="283">四　監察官</h2>
+<p class="source-line role-narration gap-1" data-source-line="285">　法は、オルフェ監察官の姿をして橋の中央に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　背が高く、痩せ、黒い制服の襟を喉まで留めている。雨の日も晴れの日も、彼の顔には石灰を塗ったような青白さがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　オルフェはヨナを十八年前から知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　刑務所で番号九〇三三を呼んだのも、脱獄した彼を沼地で捕らえたのも、出獄後の行方を執拗に追ったのも、この男だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　橋の両端には憲兵が並び、銃口をこちらへ向けていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">「逃亡囚ヨナ・ヴァレル」</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　オルフェの声は昔と変わらなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「変装としては目立ちすぎる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「望んだわけではない」</p>
+<p class="source-line role-dialogue role-document tone-5 gap-1" data-source-line="303">「国家財産の破壊、契約書の窃取、児童の連れ去り、市庁舎からの逃亡」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="305">「エマ、連れ去られたか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="307">「朝ご飯を食べに行くところ」</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　エマは甲殻の上から答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　オルフェの眉がわずかに動いたが、すぐに元へ戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「投降しろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「断る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「ならば撃つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「当たらない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「百丁ある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「一万丁でも同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　これは虚勢ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　ヨナには分かっていた。鉄も火薬も重力も、世界が長いあいだ続けてきた習慣にすぎない。習慣が彼を傷つけようとするなら、やめさせればいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　オルフェが手を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　百の銃声が一つになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　弾丸はヨナの前で静止した。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　雨粒まで止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　橋の上に、鉛と水でできた透明な壁が現れた。ヨナが顎を上げると、弾丸は金色の甲虫に変わり、羽音を立てて空へ散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　憲兵たちは一斉に後ずさった。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　オルフェだけが動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「悪魔の力だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="345">「違う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「では神か」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="349">「それも名前だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　ヨナは近づいた。監察官の剣が抜かれた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="353">　刃は甲殻に触れた瞬間、柔らかなパンになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　エマが身を乗り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「食べてもいい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">「泥がついている」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　オルフェは柄だけになった剣を見つめた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="363">「なぜ私を殺さない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="365">「腹が減っているからだ。人を殺すと朝飯が遅れる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「ふざけるな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="369">「もう一つある」</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　ヨナは低く言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="373">「俺はお前より強い。だから、お前の恐怖に従う必要がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　橋の上の誰も、声を出さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　強者とは奪う者だと、彼らは教えられてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　だが目の前の怪物は、奪おうと思えば町も命も奪えるのに、少女の朝食を心配していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　ヨナは憲兵の列を通り抜けた。誰も止めなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　すれ違いざま、オルフェが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「法はお前を赦さない」</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　ヨナは振り返らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「法のほうが、俺に赦される必要がある」</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="392">五　バリケードの昼食</h2>
+<p class="source-line role-narration gap-1" data-source-line="394">　その日の正午、ベルメール市では革命が始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　原因は崇高な思想ではなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="398">　パンが高すぎたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　中央市場から小麦が消え、兵士の倉庫だけが満杯になっていた。貧民街では二日で十一人が餓死し、城壁内の宴会場では宰相ベルゴンの誕生日を祝うため、百羽の雉が焼かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　学生と印刷工と荷車引きが、家具や樽を積んでバリケードを作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　先頭に立つ青年ノエは、赤い旗を掲げて叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-5 gap-1" data-source-line="406">「市民よ！　今日は歴史が我々の血を求めている！」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="408">「歴史に血を飲ませるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　ヨナは背後から言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　群衆が二つに割れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="414">　巨大な甲虫が現れ、その背からエマが降りてきた。彼女は途中で買った黒パンを抱えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　ノエは旗を下ろし、目を輝かせた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="418">「伝説の魔獣……！　同志よ、我々とともに圧政を倒すのか！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「その前に食え」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="422">　ヨナはパンを取り上げ、顎で正確に百二十等分した。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　一片ずつが、集まった人数にぴたりと合った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「少ない」ノエが言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="428">「だから死ぬな。死者は次の食事を要求できない」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　遠くで軍鼓が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　王国軍の一個大隊が大通りへ進んできた。銃兵三百、騎兵五十、青銅砲四門。指揮官は白馬の上から降伏を命じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　ノエが拳銃を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「ここで退けば、我々は永遠に奴隷だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「退く必要はない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="440">　ヨナはパンの最後の一片を飲み込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「だが、死ぬ必要もない」</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　砲声が轟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　砲弾がバリケードへ迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　ヨナは前脚を一本上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「遅い」</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　砲弾は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　彼が前脚を下ろすと、四発の砲弾は地面に落ち、卵のように割れ、中から白い鳩が飛び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　兵士も市民も、しばらく鳩を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　指揮官が我に返り、次弾装填を命じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　ヨナはため息をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「大砲」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　四門の砲が一斉にこちらを向いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「お前たちは鐘だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　砲身が空へ立ち上がり、鐘楼の鐘のように鳴り始めた。低く、重く、澄んだ音が街じゅうへ広がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　兵士たちは耳を塞いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「騎兵」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　馬たちがヨナを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="476">「帰れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　五十頭は騎手を丁寧に地面へ降ろし、隊列を組んで厩舎へ帰っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　最後に残った銃兵たちへ、ヨナは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="482">「腹が減っている者は銃を置け」</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　三百人全員が銃を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　指揮官だけが白馬のいない鞍にまたがる格好で立ち尽くしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　ノエは震える声で訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「あなたは、いったい何者なんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="492">「今朝までは帳簿係だ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="494">「今は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　ヨナは大通りの向こう、王宮に隣接する巨大な穀物倉を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　高い石壁、鉄の門、見張り塔。飢えた町の真ん中で、それだけが満腹そうに膨らんでいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「今は、昼飯の続きを取りに行く者だ」</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="503">六　食べられる城</h2>
+<p class="source-line role-narration gap-1" data-source-line="505">　宰相ベルゴンは、王宮の広間で報告を聞いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「大砲が鐘に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「そうです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「馬が帰った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">「はい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="515">「弾丸が虫に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「金色の甲虫です」</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　宰相は報告者を杖で殴った。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="521">「もっと理性的な敗北をしてこい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　窓の外で、王宮の壁が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　壊れたのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　広間は突然、青空と市民一万人の視線にさらされた。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　ヨナが空中を歩いてきた。その背にはエマ、ノエ、そして銃を捨てた兵士たちまで乗っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　宰相は王の玉座の後ろへ隠れた。王はすでに裏口から逃げていた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="535">「余は国家である！」宰相は叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「お前は太った男だ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="539">「秩序を乱すな！　穀物は軍の備蓄だ。民に配れば冬を越せぬ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「民は今日を越せない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="543">「飢えは統治に必要だ。空腹な者は安い賃金で働く。恐怖する者は命令を聞く。これが国を動かす仕組みなのだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　ヨナは吐き気を覚えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　この男の言葉が特別に醜いからではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　あまりにも整っていたからだ。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="551">　飢えが数字になり、死者が損失率になり、子どもの手が生産力になっている。言葉は世界を説明するふりをして、苦しむ身体を覆い隠す。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　ヨナの周囲で空気が軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　石柱が震え、王冠が溶け、遠くの時計塔まで一斉に針を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　エマが甲殻を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「ヨナ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="561">「何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「潰さないで」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="565">「こいつは大勢を殺した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">「だからって、虫みたいに潰したら、こいつと同じになる」</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　ヨナは少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「俺は虫だが」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="573">「そういう意味じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　宰相は這って逃げようとしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　ヨナは前脚でその襟をつまみ上げた。人間一人が干した靴下のようにぶら下がった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="579">「ベルゴン。お前を殺すのは簡単だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「た、助けてくれ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「簡単すぎて、意味がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　ヨナは彼を玉座へ戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「そこに座って見ていろ。お前の仕組みが食われるところを」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　そして穀物倉へ向き直った。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　鉄門は閉じ、兵士が内側から閂をかけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　ヨナは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「倉よ。お前は何だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　返事はない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="599">「壁か。権力か。冬の備えか。いや、違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　彼には見えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　石の奥に積まれた小麦。袋の縫い目。穀粒の一つ一つ。畑で曲がった農夫の背。徴税吏の鞭。飢えた子どもの頬。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　すべての名前が剥がれ、その下で存在だけが濁流のようにうねっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　吐き気は頂点に達した。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　ヨナはそれを飲み込んだ。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="611">「お前は、遅れてきたパンだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　穀物倉の石壁が、焼きたてのパンへ変わった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="615">　塔は細長いバゲットになり、胸壁は丸パンになり、鉄門は香ばしいパイの皮になった。窓からは小麦の袋が滝のように流れ出した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="617">　広場に、パンの匂いが満ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　一万人が息を呑んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　ヨナは壁の一角を前脚で裂いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　湯気が上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="625">「食え」</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　最初に走ったのは子どもだった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="629">　次に老人、女工、兵士、学生、荷車引き、役人。人々は城壁をちぎり、塔を分け、門を砕いて食べた。誰かが笑い、誰かが泣いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　王宮の広間で、宰相ベルゴンは自分の権力が咀嚼されていく音を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　その音は、どんな判決よりも長く続いた。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="636">七　橋の下の法</h2>
+<p class="source-line role-narration gap-1" data-source-line="638">　夜、オルフェ監察官は一人で橋へ戻った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="640">　町ではパンが配られ、臨時評議会がつくられ、兵士と市民が同じ鍋のスープを飲んでいた。宰相は逮捕され、裁判を待っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　法は勝ったのか、負けたのか。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　オルフェには分からなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="646">　彼は生涯、世界には二種類の人間しかいないと信じてきた。法を守る者と、破る者。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　だが今日、法を守る者が子どもを飢えさせ、法を破る怪物が町を救った。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　足元がなくなったようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　彼は欄干を越えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　川は黒く、冷たく、確かな答えのように流れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　オルフェは身を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　落下の途中で、襟をつままれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「またお前か」</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　空中に浮かぶヨナが言った。</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="664">　オルフェは力なく笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="666">「逮捕しに来たのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="668">「散歩だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="670">「放せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">「断る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="674">「法が間違うなら、私には立つ地面がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「地面がないなら、俺の背に立て」</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　ヨナはオルフェを甲殻の上へ置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「広いぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　監察官は四つん這いになり、黒い甲殻を見つめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　やがて、喉から奇妙な音が出た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="686">　笑い声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　おそらく彼自身、生まれて初めて聞く音だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「私はお前を十八年追った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="692">「ああ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「お前は二度逃げた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="696">「三度目は成功した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="698">「甲虫になってか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="700">「方法には改善の余地がある」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="702">　オルフェはまた笑った。笑い終えると、長い沈黙があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="704">「私は何をすればいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="706">「お前は文字が読める。帳簿も扱える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「それがどうした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="710">「倉庫の小麦を公平に配る人間が要る」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="712">「私に慈善をしろと？」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="714">「仕事をしろと言っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　ヨナは橋のたもとへ降りた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="718">「法を捨てろとは言わない。ただ、法より先に人を見ろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　オルフェは甲殻から降りた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="722">　黒い制服は乱れ、襟は裂け、剣はパンのままだった。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="724">「命令か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="726">「提案だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">「断ったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="730">「また川へ飛んでも拾う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「何度でも？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">「俺はお前より強いからな」</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　オルフェは、初めて素直にうなずいた。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="739">八　世界より先に</h2>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="741">　三か月後、ベルメール市の中央広場に、小さなパン屋ができた。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　看板には<span class="term term-proper">《黒い甲殻亭》</span>と書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　店主は巨大な甲虫で、窯より大きく、扉より幅があり、毎朝壁を出口に変えて出勤した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="747">　ヨナは粉をこねられなかったので、八本の脚で店の屋根を支え、薪を割り、荷車を一度に十二台運んだ。パンを盗んだ者がいても捕まえず、代わりに二つ持たせた。一つは本人に、もう一つは、もっと腹をすかせた誰かに渡すためだった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="749">　エマは学校へ戻り、夕方になると店の会計をした。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="751">　オルフェは配給局長になった。帳簿の数字が一袋でも合わないと眠れない性格は、初めて人の役に立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　ノエは革命新聞を発行したが、ヨナに毎号「文章が長い」と叱られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　町の者はヨナを<span class="term term-proper">《甲虫王》</span>と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　彼が一歩で城壁を越え、指一本で鐘楼を持ち上げ、病院の足りない部屋を言葉だけで増やすのを見たからだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="759">　ある晩、エマが店じまいをしながら訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="761">「人間に戻れるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　ヨナは窯の火を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="765">「たぶんな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="767">「戻らないの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="769">「人間という名前に、前ほど価値を感じない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「でも、その姿だと不便でしょ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="773">「税吏が来ない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="775">「それは便利だね」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="777">　エマは笑い、ヨナの前脚に手を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　その手は小さく、温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　世界は相変わらず、存在しすぎていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　石は石として重く、パンはパンとして膨らみ、夜は理由もなく暗かった。ときどきヨナは、あらゆる物の名前が剥がれ、その下から無意味な塊が押し寄せるのを感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　吐き気は消えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　ただ、彼はもう負けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　意味が最初から存在しないのなら、自分で置けばよい。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　法が人を救わないなら、法を直せばよい。</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　壁が人を閉じ込めるなら、出口と呼べばよい。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　強さとは、世界に従わせる力ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　世界が何も保証しないと知ったうえで、それでも誰かを飢えさせないと決め、その決定を曲げない力だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　もっとも、ヨナには世界そのものを従わせる力もあった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="801">　翌朝、パンを求める列が広場を三周した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="803">　ヨナは焼き上がった巨大な丸パンを甲殻の上へ載せ、顎で一撃のもとに裂いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　湯気と歓声が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　世界には意味がなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="809">　だから彼は、腹をすかせた者にパンを渡すという意味を、世界より先に置いた。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

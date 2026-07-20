@@ -1,0 +1,1003 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="二年前、同点の試合終了間際にシュートを打てず、味方へ責任ごと渡すようなパスをして敗れた瀬尾凪。それ以来、まだ起きていない一秒先のコートが見える才能を持ちながら、自分では一本も打たないポイントガードになっていた。部員わずか七人の潮見高校で、主将・久我烈とエース鷹野は、その冷たく正しいパスの奥にある恐怖を見抜く。地区予選を前に、逃げ道だったはずのパスは仲間を傷つけ、凪へ「自分の番」を突きつける。残り〇・八秒、空中に残る選択肢は一つ。彼はもう一度、ボールの行き先を自分で決められるのか。">
+<title>残り〇・八秒の空｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="残り0.8秒の空_スポーツ読み切り小説" data-novel-id="残り0.8秒の空_スポーツ読み切り小説" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="sports-competition">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化" selected>スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ジュブナイル・学園・スポーツ</p>
+  <p><strong>補助ジャンル：</strong>読み切り</p>
+  <p><strong>CSVタグ：</strong>ジュブナイル、学園、スポーツ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">スポーツ・競技</span></p>
+  <p id="currentPresetDescription">実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化</p>
+  <h3>意味色</h3><p>青＝戦術、赤＝勝負、金＝記録、紫＝重圧、緑＝連携</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：542行／章：0／役割・強度タグ：604</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="残り〇・八秒の空 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『残り〇・八秒の空』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　体育館の窓を、春の雨が細い指で叩いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　瀬尾凪は、誰もいないコートの中央に立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="6">　床に落ちたボールを一度だけつき、ゴールを見る。リングまでの距離は、ほんの四メートル。中学生のころなら、目を閉じても届くと思っていた距離だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　凪は膝を曲げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　右手のひらにボールを乗せ、左手を添える。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　けれど、指先は動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　頭の奥で、二年前のブザーが鳴る。</p>
+<p class="source-line role-narration role-system fx-key role-motif gap-1" data-source-line="15">　残り三秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　同点。</p>
+<p class="source-line role-narration gap-0" data-source-line="17">　目の前には誰もいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="18">　打てばよかった。外れても、打てばよかった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="20">　なのに凪は、右隣の味方へパスを出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="21">　受け取った仲間は準備ができていなかった。ボールは指先を弾き、コートの外へ転がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="22">　次の瞬間、試合終了の音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　負けたあと、誰も凪を責めなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="25">　それが、いちばん苦しかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="27">「また、打たないのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　背後から声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　振り返ると、潮見高校バスケットボール部主将の久我烈が、入口にもたれていた。三年生。身長百八十八センチ。肩幅が広く、黙って立っているだけでゴール下の壁に見える男だ。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="33">「自主練は自由だけど、照明は七時までだぞ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="35">「知ってます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「じゃあ、早く打て」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="39">「今、打とうとしてました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="41">「三分前から同じ姿勢だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　凪はボールを下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「久我先輩、見てたんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="47">「見えるところで止まってるやつが悪い」</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　烈は凪の手からボールを奪うと、ゴールに背を向けたまま片手で放った。無造作な軌道を描いたボールは、リングの手前に当たり、大きく跳ね返る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="51">「外したじゃないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="53">「外したな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="55">「格好悪いですよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="57">「でも、お前より一本多く打った」</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　烈は跳ね返ったボールを拾い、凪の胸へ強く押しつけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「瀬尾。パスは、逃げ道じゃない」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="63">　雨音が一瞬だけ遠くなった。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="65">「知ってます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「知ってる顔じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　烈はそれ以上何も言わず、体育館を出ていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　凪はしばらく動けなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　やがて、濡れた窓の向こうにぼやける街灯を見上げ、もう一度ボールを構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　シュートはリングに届かなかった。</p>
+<div class="source-line scene-break gap-2" data-source-line="77" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="80">　潮見高校男子バスケットボール部は、強豪ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　部員は七人。</p>
+<p class="source-line role-narration gap-0" data-source-line="83">　専用の監督はいない。</p>
+<p class="source-line role-narration gap-0" data-source-line="84">　顧問の野宮は数学教師で、バスケットボール経験は大学の同好会まで。戦術ボードに書く字だけは、県大会常連校の監督よりも整っていると言われていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　前年の公式戦は一回戦負け。</p>
+<p class="source-line role-narration gap-0" data-source-line="87">　その前も一回戦負け。</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　さらにその前は、部員不足で出場辞退。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　そんな部に凪が入ったのは、烈に誘われたからだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　入学式の翌日、凪は校庭の隅で、転がってきたバスケットボールを拾った。持ち主へ返すつもりで投げたパスが、二十メートル先にいた烈の胸へ、吸い込まれるように届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　烈は驚かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="95">　ただ、ボールを抱えたまま言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="97">「そのパス、体育館で使え」</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　凪は断った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="101">「もう、バスケはやりません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">「じゃあ、どうして今のパスに回転をかけた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「癖です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">「癖なら、毎日使えるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　三日後、凪は体育館にいた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="111">　ボールを持つと、コートの線が光って見えた。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="112">　味方の足の向き。守備の重心。空いている場所へ走り込むまでの時間。凪には、まだ起きていない一秒先の景色が、うっすら見えることがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　ただし、シュートだけは打たなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　パスをさばき、守り、走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="117">　それだけでも、七人しかいない潮見では貴重な戦力だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　けれど、二年生エースの鷹野陸は、凪のプレーを気に入らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「お前さ、いい加減にしろよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　地区予選を一週間後に控えた練習試合で、陸は凪の胸ぐらをつかんだ。</p>
+<p class="source-line role-narration role-system fx-key role-motif gap-1" data-source-line="125">　残り十秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="126">　一点負け。</p>
+<p class="source-line role-narration gap-0" data-source-line="127">　凪はフリースローライン付近まで切り込み、相手守備を二人引きつけた。そのまま打てた。だが、凪は外にいた陸へパスを出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　陸の三点シュートは外れ、潮見は負けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「俺は外した。そこは謝る。でもな、お前、俺を使って逃げただろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「二人来たから、空いてる人に出しただけです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「嘘つけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　陸の目は、怒っているというより傷ついていた。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="138">「お前のパス、たまに冷たいんだよ。『俺は正しい選択をした。あとはお前の責任だ』って言われてるみたいでさ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「考えすぎです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「だったら、次は打て」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「状況によります」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="146">「またそれかよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「やめろ、鷹野」</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　烈が二人の間に腕を差し入れた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="152">　陸は舌打ちをして手を放した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「主将。こんなやつを先発で使うんですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「使う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「シュートを打てないポイントガードですよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　烈は凪を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「こいつは、打たないんじゃない。まだ、自分の番が来てないと思い込んでるだけだ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="166">　凪には、その言葉の意味がわからなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="167">　わかりたくもなかった。</p>
+<div class="source-line scene-break gap-2" data-source-line="170" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="173">　地区予選一回戦。</p>
+<p class="source-line role-narration gap-0" data-source-line="174">　対戦相手は白峰学院だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　組み合わせ表を見た瞬間、体育館の空気が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　白峰学院は前年の県大会ベスト四。平均身長は潮見より十センチ近く高く、ベンチ入りメンバーは十五人。ウォーミングアップでは、次々とリングにボールが吸い込まれていく。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="180">「くじ運、終わってるだろ……」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="182">　三年生の榊健太が、乾いた笑いを漏らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　野宮顧問は眼鏡を押し上げ、整った字で戦術ボードに書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="186">『最初から、最後まで、走る』</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　陸が眉をひそめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「先生、それ戦術ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「気持ちの話ではない。相手は高さで勝る。止まったら負ける。攻撃は五秒以内に形を作る。守備は全員で戻る。交代要員が少ないのは承知しているが、走るしかない」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="194">「倒れたら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「立てる者が手を引け」</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　野宮はチョークを置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="200">「勝てるとは言わない。ただし、負けると決まった試合でもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　凪は白峰の列を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　その先頭に、御影蒼真がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　中学時代、同じ地区で何度も対戦した選手だった。凪より五センチ高く、速く、左右どちらの手でもドリブルできる。県選抜にも選ばれた司令塔。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　蒼真も凪に気づいた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="209">　驚いたように目を見開き、すぐに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「まだバスケやってたんだ、瀬尾」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="213">「悪い？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「別に。意外だっただけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　蒼真はボールを指先で回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「今日は安心してパスできるな。受け取ったやつが外してくれるかもしれないけど」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="221">　凪の背中に、冷たいものが走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　二年前の試合を、蒼真は観客席で見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　烈が一歩前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="227">「知り合いか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「昔の」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「そうか」</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　烈は蒼真ではなく、凪の肩を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「じゃあ、昔の続きは今日で終わらせろ」</p>
+<div class="source-line scene-break gap-2" data-source-line="238" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="241">　試合開始の笛が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　最初の三分で、潮見は十点を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　白峰は速かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="246">　一本目、潮見のパスを蒼真が奪い、そのまま速攻。</p>
+<p class="source-line role-narration gap-0" data-source-line="247">　二本目、百九十センチを超えるセンターが、烈の上から押し込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　三本目、凪が陸へ通そうとした横パスを読まれ、また蒼真に走られた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="250">「凪！　切り替えろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="252">　烈の声で、凪はようやく自陣へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　攻撃では、白峰の守備が凪から離れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　パスコースだけを消し、シュートは打たせる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">「ほら、空いてるぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　蒼真が二メートル先で両腕を広げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="261">「打ってみろよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　凪は陸へボールを回した。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　陸には二人がついた。無理に放ったシュートはリングを外れる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="266">「瀬尾！」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　陸の怒鳴り声が響く。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　凪は聞こえないふりをした。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　第一クォーター終了。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　九対二十四。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　ベンチに戻ると、全員の肩が大きく上下していた。白峰の選手たちは涼しい顔で交代し、次の五人がコートへ出ていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　潮見には、休ませられる選手が二人しかいない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="279">「瀬尾、後半まで温存させる。いったん下がれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　野宮の指示に、凪は無言でうなずいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　第二クォーター、潮見は烈を中心にゴール下で粘った。陸も強引に得点を重ねた。しかし、点差は縮まらない。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　白峰は凪がいなくても強かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="285">　蒼真はベンチへ下がらず、潮見の疲労を見透かすように走り続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　前半終了。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　二十七対四十六。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　控室に戻る廊下で、観客席から声が聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">「まあ、相手が悪かったよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="293">「二十点差なら、よくやってる方じゃない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="294">「後半はもっと離れるだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　悪意のない声だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="297">　だからこそ、胸に刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　控室では、誰も口を開かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="300">　陸はタオルを頭からかぶり、榊は床に寝転がって呼吸を整えている。烈の左膝には、氷の入った袋が当てられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　凪は壁際に座り、自分の手を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　汗で濡れている。</p>
+<p class="source-line role-narration gap-0" data-source-line="305">　震えている。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="306">　前半に出したパスは六本。そのうち得点につながったのは三本。悪くない数字だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="307">　自分にそう言い聞かせた瞬間、陸がタオルを床へ叩きつけた。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="309">「数字の顔すんなよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　凪は顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「何ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「今、『自分はそんなに悪くない』って考えてただろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「考えてません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「顔に出てる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「鷹野先輩は、俺にどうしてほしいんですか」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="323">「責任を取れって言ってんだよ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="325">「俺が全部打てば満足ですか？　それで外したら、今度は何て言うんです？」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="327">「外せよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　陸の声が、狭い控室を揺らした。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="331">「外して、俺たちに拾わせろ！　お前だけ失敗しない場所に立ってんじゃねえ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　凪は言葉を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　烈が、膝の氷袋を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="336">　立ち上がる動きは遅かったが、声は静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="338">「瀬尾。中学の最後の試合、お前はどうしてパスした」</p>
+<p class="source-line role-dialogue role-sensory fx-whisper gap-1" data-source-line="340">「……味方が空いてたからです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「本当に、それだけか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「そうです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「なら、今ここで俺の目を見て言え」</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　凪は顔を上げられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　二年前。</p>
+<p class="source-line role-narration role-system fx-key role-motif gap-0" data-source-line="351">　残り三秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="352">　目の前にリング。</p>
+<p class="source-line role-narration fx-beat gap-0" data-source-line="353">　右隣から「凪！」と呼ぶ声。</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　凪は、外した自分を想像した。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　責められる自分を想像した。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　怖くなって、ボールを手放した。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　あれは信頼ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="359">　判断でもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　ただ、失敗を誰かに渡しただけだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「怖かったんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　声が、勝手に出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="367">「外すのが。俺のせいで負けるのが。だから……あいつに渡した。あいつなら決めると思ったんじゃない。俺じゃなければいいと思った」</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　控室が静まり返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　野宮は何も言わず、戦術ボードを凪の前へ置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="372">　そこには、一本の矢印が書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　凪が中央を突破し、そのままゴールへ向かう線。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="376">「後半最初の攻撃だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　野宮が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「君が打て」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「入る保証はありません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="384">「そんなものは、誰にもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　烈が凪の頭を軽く叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="388">「外したら、俺が拾う」</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　榊が床に寝たまま手を上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「俺もいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　陸はそっぽを向いた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="396">「俺は走る。だから、入っても外れても、さっさと戻れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　凪の喉が熱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　野宮が時計を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「後半だ。負け方を選びに行くんじゃない。勝ち方を探しに行くぞ」</p>
+<div class="source-line scene-break gap-2" data-source-line="405" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="408">　第三クォーター最初の攻撃。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　凪は中央でボールを受けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　蒼真が前に立つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="413">　やはり一歩、距離を空けている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="415">「またパスか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　凪は右手で一度つき、左へ切り返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="418">　蒼真の反応が半歩遅れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　ゴールまで四メートル。</p>
+<p class="source-line role-narration gap-0" data-source-line="421">　春の雨の日、届かなかった距離。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　凪は跳んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　右手からボールが離れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="426">　指先の感覚が消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="427">　軌道は低かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　ボールはリングの手前に当たり、高く跳ねた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="431">「リバウンド！」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　烈が白峰のセンターとぶつかりながら、片手でボールを外へ弾いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="434">　そこへ陸が走り込む。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="436">「戻れって言っただろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　陸のシュートが決まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　二十九対四十六。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　たった二点。</p>
+<p class="source-line role-narration gap-0" data-source-line="443">　点差はまだ十七。</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　なのに、凪の胸の中で何かが割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="446">　壊れたのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　固まっていたものが、ようやく砕けた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="449">「もう一本！」</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　烈が叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　次の守備で、凪は蒼真のドリブルへ身体を寄せた。</p>
+<p class="source-line role-narration gap-0" data-source-line="454">　抜かれてもいい。後ろには烈がいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="455">　右を切り、左へ追い込む。蒼真がクロスオーバーした瞬間、陸が横から手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　ボールがこぼれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　凪は飛び込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="460">　床に胸を打ちつけながらボールを抱え、倒れたまま陸へ投げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　陸が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="463">　白峰の選手が二人戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　凪には、その間に一本の道が見えた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="467">「陸先輩、左！」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　陸が左へボールを放る。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　そこへ榊が走り込み、レイアップを決めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　三十一対四十六。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　白峰の監督が立ち上がる。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="475">　蒼真の笑みが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　潮見は走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　守って、走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="480">　外して、拾う。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="481">　拾えなければ、また守る。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　凪は二本目のシュートを打った。</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　今度はリングの奥に当たり、外れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="485">　烈が拾い、押し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　三本目。</p>
+<p class="source-line role-narration gap-0" data-source-line="488">　入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　フリースローラインからのジャンプシュート。</p>
+<p class="source-line role-narration gap-0" data-source-line="491">　網が鳴った瞬間、白峰の守備が初めて凪へ一歩近づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　その一歩を、凪は待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　凪が切り込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　守備が寄る。</p>
+<p class="source-line role-narration gap-0" data-source-line="497">　烈へ低いバウンドパス。</p>
+<p class="source-line role-narration gap-0" data-source-line="498">　烈がゴール下で二人を引きつけ、外の陸へ戻す。</p>
+<p class="source-line role-narration gap-0" data-source-line="499">　陸の三点シュートが決まる。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="501">　第四クォーター残り六分。</p>
+<p class="source-line role-narration gap-0" data-source-line="502">　五十四対六十二。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　点差は八まで縮まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　潮見のベンチは総立ちだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　観客席の空気も変わっている。最初は白峰の得点にだけ上がっていた歓声が、今は潮見の守備にも降ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　だが、白峰は強豪だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　蒼真が速攻で一本返す。</p>
+<p class="source-line role-narration gap-0" data-source-line="512">　次の攻撃では、凪の頭上から三点シュートを沈めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「追いつけると思った？」</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　着地した蒼真が、凪の耳元で言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「弱いチームって、惜しいところまでは来るんだよ。そこからが違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　五十四対六十七。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="521">　残り四分十二秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　榊が足をつり、ベンチへ下がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="524">　代わって入った一年生の葉山奏は、公式戦初出場だった。顔色が真っ青になっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="526">「無理です、俺。手、動かないです」</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　コートに入る直前、奏が凪へささやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="530">「俺も怖い」</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　凪は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="534">「でも、怖いまま走ればいい。ボールが来たら、取れ。取れなかったら、また追え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="536">「簡単に言いますね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「簡単じゃないから、五人でやるんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　自分で言ってから、凪は少し驚いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　再開直後、白峰は奏を狙った。</p>
+<p class="source-line role-narration gap-0" data-source-line="543">　蒼真がドリブルで揺さぶり、鋭いパスを通す。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　奏は反応できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　そう見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　だが、ボールが相手の手に届く寸前、奏は両手を伸ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="550">　指先に当たったボールが軌道を変える。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="552">「凪！」</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　奏が叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　凪はボールを拾い、前を見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　陸が右を走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="558">　烈が中央を走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="559">　白峰の守備は二人とも、その二人を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　凪は自分で運んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　ゴール下で蒼真が待つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「来いよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　凪は一歩目を右へ踏み、空中で身体をひねった。</p>
+<p class="source-line role-narration gap-0" data-source-line="568">　蒼真の手が迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="569">　凪はボールを胸元へ引き、リングの反対側へ放った。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　ボードに当たったボールが、リングを一周する。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　落ちるまでが、ひどく長く感じられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　笛が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　蒼真のファウル。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="580">「よしっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　烈の咆哮が体育館を揺らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　追加のフリースローも決まり、五十七対六十七。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　そこから、潮見は一つずつ削った。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　陸の三点シュート。</p>
+<p class="source-line role-narration gap-0" data-source-line="589">　烈のリバウンドシュート。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="590">　奏の必死の守備。</p>
+<p class="source-line role-narration gap-0" data-source-line="591">　凪のスティール。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="593">　残り一分。</p>
+<p class="source-line role-narration gap-0" data-source-line="594">　六十七対七十。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　白峰の攻撃。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="597">　蒼真は時間を使い、残り十秒で動き出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="598">　凪を抜き、ゴールへ向かう。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　烈が前に出る。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　蒼真は空中でパスへ切り替えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　その先にいた白峰のセンターが、両手でボールを受ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　決まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　誰もがそう思った瞬間、奏が背後から跳んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="608">　ボールだけを叩き落とす。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="610">「取った！」</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　奏の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　凪が拾う。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="615">　残り四十六秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　陸が右へ走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="618">　凪はパスを出すふりをして、自分で左へ切り込んだ。白峰の守備が凪へ寄る。</p>
+<p class="source-line role-narration gap-0" data-source-line="619">　今度こそ陸へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　三点シュート。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　リングに当たり、高く跳ねる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="625">「外した！」</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　白峰の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　烈が跳ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　相手センターも跳ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　二人の手の上で、ボールがさらに高く弾かれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="633">　落下地点へ走り込んだのは、奏だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　奏はボールをつかむと、振り向きざまに放った。</p>
+<p class="source-line role-narration gap-0" data-source-line="636">　フォームも何もない。両手で押し出しただけのシュート。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　ボードに当たり、入る。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　六十九対七十。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="642">　残り三十一秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　白峰はタイムアウトを取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　潮見の選手たちはベンチへ戻る途中で、言葉もなく互いの肩を叩いた。</p>
+<p class="source-line role-narration role-command gap-0" data-source-line="647">　全員、限界だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　烈は膝を引きずっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　陸のユニフォームは汗で色が変わっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　奏は息を吸うたび、喉の奥で変な音を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　野宮は戦術ボードに、白峰の最後の攻撃を想定した守備を書いた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="654">「ファウルはするな。一本守れば、勝つ機会は残る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「一本、取られたら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　奏が聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「そのときは二本取り返す」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="662">　陸が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「先生、急に雑になりましたね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="666">「時間がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　ブザーが鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　コートへ戻る直前、烈が凪を呼び止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">「最後のボール、お前が持て」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="674">「まだ守備です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「守ったあとの話だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="678">「取れる保証は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「ない。だから取る」</p>
+<p class="source-line role-narration gap-1" data-source-line="682">　烈は凪の胸を拳で軽く叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「今度は、自分の番を見落とすな」</p>
+<div class="source-line scene-break gap-2" data-source-line="687" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="690">　白峰の攻撃は、蒼真に託された。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="692">　残り三十一秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="693">　白峰は二十四秒をぎりぎりまで使うつもりだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　蒼真はゆっくりとドリブルした。</p>
+<p class="source-line role-narration gap-0" data-source-line="696">　凪は腰を落とす。</p>
+<p class="source-line role-narration role-system fx-key role-motif gap-1" data-source-line="698">　残り十秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="699">　蒼真が右へ動く。</p>
+<p class="source-line role-narration gap-0" data-source-line="700">　凪もついていく。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="702">　残り七秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="703">　スクリーンが来る。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　烈が前へ出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　蒼真は切り返し、二人の間を抜けた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="708">　残り四秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="709">　フリースローラインで跳ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　凪も跳んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="712">　届かない。</p>
+<p class="source-line role-narration gap-0" data-source-line="713">　蒼真の手からボールが離れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　リングの奥に当たった。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　外れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　烈が相手センターと競り合う。</p>
+<p class="source-line role-narration gap-0" data-source-line="720">　ボールは二人の指先をかすめ、床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　奏が身体を投げ出す。</p>
+<p class="source-line role-narration gap-0" data-source-line="723">　白峰の選手も飛び込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　ボールはコートの外へ転がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　笛。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　潮見ボール。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="730">　時計は、残り六・四秒を示していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　野宮が最後のタイムアウトを取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　ベンチの周りに全員が集まる。</p>
+<p class="source-line role-narration gap-0" data-source-line="735">　観客の声は大きいはずなのに、凪には仲間の呼吸しか聞こえなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="737">　野宮が作戦を書き始める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">「鷹野に二人つく。久我がスクリーンをかけ、瀬尾は――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="741">「先生」</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　凪が遮った。</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　全員が見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="747">「俺が、最後まで持ちます」</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　陸が口元を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="751">「遅えよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　烈は何も言わず、うなずいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　野宮は凪の顔を数秒見てから、ボードの線を書き直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="757">「瀬尾が運ぶ。鷹野は右へ。久我は中央。二人を囮にして、瀬尾が左から入る。相手が寄ったら、選べ」</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　選べ。</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　その言葉が、凪の胸に残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　打つか。</p>
+<p class="source-line role-narration gap-0" data-source-line="764">　渡すか。</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　正解は、先に決まっているものではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="767">　その瞬間に、自分で背負うものだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　六・四秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　奏から凪へボールが入る。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　蒼真がすぐに前へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="774">　もう距離を空けてはいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　凪は左手でドリブルする。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="777">　残り五秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　陸が右へ走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="780">　守備がついていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　烈が中央で身体を張る。</p>
+<p class="source-line role-narration gap-0" data-source-line="783">　白峰のセンターが塞ぐ。</p>
+<p class="source-line role-narration role-system fx-key role-motif gap-1" data-source-line="785">　残り三秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　凪は左へ加速した。</p>
+<p class="source-line role-narration gap-0" data-source-line="788">　蒼真が肩をぶつけてくる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="790">「打たせない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　ゴールまで三メートル。</p>
+<p class="source-line role-narration gap-0" data-source-line="793">　凪は踏み切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　蒼真も跳ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="796">　白峰のセンターも手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　凪には、右隅の陸が見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="799">　一瞬だけ、完全に空いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　渡せば打てる。</p>
+<p class="source-line role-narration gap-0" data-source-line="802">　けれど、残り時間は少ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　凪は空中で腕を振った。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　パスの動き。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　守備の二人が右を向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　凪はボールを離さなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　そのまま身体をひねり、左手でリングへ放る。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="814">　蒼真の指先が、わずかに触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　ボールは高く上がり、リングの手前に落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　入らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　そう思った瞬間、烈が飛んだ。</p>
+<p class="source-line role-narration role-sensory tone-3 gap-0" data-source-line="821">　膝の痛みを忘れたように、誰よりも高く。</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　烈の指先がボールを押す。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　ブザーが鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　ボールはリングの上で一度跳ねた。</p>
+<p class="source-line role-narration gap-0" data-source-line="828">　二度目は、真上へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　体育館にいる全員が、残り時間のなくなった空を見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　ボールが落ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　リングの内側へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　網が、静かに揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　七十一対七十。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　一瞬の沈黙のあと、音が爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　奏が叫びながら凪へ飛びつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="843">　榊がベンチから走ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="844">　陸が烈の背中を何度も叩く。</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　凪は床に座り込んだまま、ゴールを見上げていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="848">「俺のシュート……外れました」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="850">　烈が息を切らしながら笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="852">「だから、俺が拾った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="854">「最後、先輩の得点です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="856">「お前が打たなきゃ、俺の得点もない」</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　陸が凪の頭を乱暴につかむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="860">「次は最初から打て。心臓に悪い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="862">「外したら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「拾うって言ってんだろ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="866">　凪は笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="867">　声を出して笑ったのは、いつ以来かわからなかった。</p>
+<div class="source-line scene-break gap-2" data-source-line="870" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="873">　整列のあと、蒼真が凪の前に立った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="875">　負けた白峰の選手たちは、みな悔しさを押し殺した顔をしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="876">　蒼真も唇を噛んでいたが、凪と目が合うと小さく息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="878">「最後、パスすると思った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="880">「俺も、途中まで思ってた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="882">「何だそれ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="884">「でも、俺の番だったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="886">　蒼真はしばらく黙り、やがて右手を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="888">「次は止める」</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　凪はその手を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="892">「次も打つよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="894">　控室へ戻る廊下には、試合前と同じ観客たちがいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「すごかったな、潮見」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="897">「あの一年、最後よく行ったよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="898">「次の試合も見ようぜ」</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　凪は足を止めなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　賞賛が欲しかったわけではない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="903">　過去を消したかったわけでもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="905">　二年前のパスは、なくならない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="906">　失敗した記憶も、怖さも、たぶんこれから何度でも戻ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　それでもいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　怖いまま、打てばいい。</p>
+<p class="source-line role-narration gap-0" data-source-line="911">　外れたら、仲間が拾う。</p>
+<p class="source-line role-narration gap-0" data-source-line="912">　仲間が外したら、自分が拾う。</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　それが五人でコートに立つということなのだと、今ならわかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　体育館の外へ出ると、空は夕焼けに染まっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="917">　雨上がりの雲の切れ間を、一羽の鳥が横切っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="919">　烈が隣に並ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="921">「明日、二回戦だ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="923">「知ってます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="925">「相手は去年の地区優勝校だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="927">「また強豪ですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="929">「くじ運が悪い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="931">「でも、負けると決まった試合じゃない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="933">　凪が言うと、烈は少し驚いた顔をしてから笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="935">「ようやく、潮見の選手らしくなったな」</p>
+<p class="source-line role-narration gap-1" data-source-line="937">　凪は右手を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="938">　最後に放ったボールの感触が、まだ指先に残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="940">　残り〇・八秒。</p>
+<p class="source-line role-narration gap-0" data-source-line="941">　ボールは自分の手を離れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="943">　けれど、責任まで手放したわけではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　あの瞬間、凪は確かに空を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="946">　逃げ道ではなく、仲間とつながった一本の軌道として。</p>
+<p class="source-line role-narration gap-1" data-source-line="948">　明日もまた、そこへ投げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="950">　今度は、最初から。</p>
+<p class="source-line end-mark gap-2" data-source-line="953"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

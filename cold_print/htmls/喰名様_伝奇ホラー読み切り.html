@@ -1,0 +1,1182 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="五年前、雨代村で妹・結良は写真からも戸籍からも家族の記憶からも消えた。ただ一人覚えている十六歳の朔は、亡き祖母の手紙に呼ばれ、名を食う祭りの夜に故郷へ戻る。そこで出会った赤い雨合羽の少女トワは、結良と同じ犬歯を見せながら「その名で呼ぶな」と怯える。鐘が九つ鳴れば、忘れられた者の声が混ざった喰名様が目覚める。血で名を書き、その人だけの記憶を語れば奪われた存在を呼び戻せるというが、村は朔の名を差し出そうとしていた。呼ぶことが救いにも餌にもなる闇の中、兄は妹の名を守り抜けるか。">
+<title>喰名様｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="喰名様_伝奇ホラー読み切り" data-novel-id="喰名様_伝奇ホラー読み切り" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　帰ってきた名前</a></li><li><a href="#chapter-2">二　名隠しの夜</a></li><li><a href="#chapter-3">三　喰名様</a></li><li><a href="#chapter-4">四　腹の中</a></li><li><a href="#chapter-5">五　名を呼ぶ朝</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・ホラー・ジュブナイル</p>
+  <p><strong>補助ジャンル：</strong>伝奇・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>アクション、ホラー、ジュブナイル、伝奇、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：711行／章：5／役割・強度タグ：794</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="喰名様 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『喰名様』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration tone-5 gap-2" data-source-line="4">　人間は、心臓が止まったくらいでは死なない。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　誰かが名前を呼ぶかぎり、そいつはどこかに残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　逆に言えば――名前をなくした人間は、息をしていても、もうこの世のものじゃない。</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="10"><span class="source-indent" aria-hidden="true">　　　　　</span>一　帰ってきた名前</h2>
+<p class="source-line role-narration gap-2" data-source-line="13">　山あいの雨代村に着いたとき、空は泥を溶かしたような色をしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="15">「最終は六時だ。乗り遅れるなよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　降り際、運転手が念を押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="19">「今夜は祭りだろ。日が落ちたら、村の外の人間は名前を呼ばれても返事すんな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="21">「なんすか、それ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="23">「知らないなら、それでいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　バスは雨煙を巻き上げ、逃げるように坂を下っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　八代朔、十六歳。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="28">　五年ぶりに戻った故郷は、記憶よりずっと小さく、ずっと息苦しかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　軒先には白い提灯が吊られている。どの提灯にも家族の名前が墨で書かれ、なぜか文字の面を家側に向けていた。道を歩く村人は、朔と目が合っても会釈ひとつしない。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　スマートフォンは圏外。</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　蝉は鳴いていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　代わりに、山のどこかで鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　一度だけ。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　朔はポケットから、折り目だらけの便箋を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">『朔へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　七月十三日、鐘が九つ鳴る前に雨代へ戻れ。</p>
+<p class="source-line role-narration gap-0" data-source-line="44">　結良を連れて帰れ。</p>
+<p class="source-line role-narration gap-0" data-source-line="45">　今度こそ、名を渡すな。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="46">　　　　　　　　　　　　　　祖母・千鶴』</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　祖母は三日前に死んだ。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="49">　葬式は昨日、村の者だけで済ませたらしい。父は「山の家を片づけてこい」と鍵を渡した。便箋のことを見せても、酔った老人の書き間違いだと言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　結良なんて人間は知らない、と。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　父も、母も、親戚も、誰もがそう言った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="55">　朔の妹、八代結良。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="56">　笑うと左の犬歯がのぞく。卵焼きは甘い方が好きで、怖いときだけ朔の服の裾を二回引く。</p>
+<p class="source-line role-narration gap-0" data-source-line="57">　五年前、この村で消えた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="59">　写真からも、戸籍からも、家族の記憶からも。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　覚えているのは朔だけだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「やっと来た」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　声は、背後からした。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　朔は反射的に振り向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　バス停の屋根の上に、赤い雨合羽の少女が腰かけていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="70">　裸足のつま先から、黒い雨水がぽたり、ぽたりと落ちている。年は九つか十。前髪の奥の目は、雨の夜みたいに暗い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="72">「八代朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　少女は、確かめるように彼の名を呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="76">「今夜、あんたの名前をもらう」</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　朔は少女を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「その前に聞く。お前、誰だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「名前はない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「嘘つけ。名前がないやつが、人の名前を欲しがるかよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　少女は少し笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="88">　その笑い方を、朔は知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　左の犬歯が、ほんの少しのぞいた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="92">「……結良」</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　少女の顔から笑みが消えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="96">「その名前で呼ぶな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　突風が吹いた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="99">　白い提灯が一斉に裏返り、家族の名前が道の方を向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　どこからともなく、子どもの声がした。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="103">　――やしろ、ゆら。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　少女が朔の手首をつかんだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="107">「走れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　路地の奥で、何かが立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　人の形をしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="112">　だが、顔のあるべき場所には、濡れた和紙が一枚貼りついている。紙の中央が口の形に裂け、そこから細長い舌が垂れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　舌には、びっしりと名前が書かれていた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="116">　――やしろ、ゆら。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="117">　――やしろ、ゆら。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="118">　――やしろ、ゆら。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　三度目が終わる前に、少女は朔を空き家の戸口へ引きずり込んだ。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="121">　直後、戸板の向こうを、濡れた足音が通り過ぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　べたり。</p>
+<p class="source-line role-narration gap-0" data-source-line="124">　べたり。</p>
+<p class="source-line role-narration gap-0" data-source-line="125">　べたり。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　朔は息を殺した。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　少女の手は氷みたいに冷たかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「今のは何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「空人。名前を食われた人間の残りかす」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「お前は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「トワ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="138">「名前、あるじゃねえか」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="140">「これは名前じゃない。あんたが忘れないためにつけた傷みたいなもの」</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　トワは朔の手を離した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「鐘が九つ鳴れば、喰名様が起きる。そうなったら、結良は完全に食われる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="146">「まだ生きてるのか」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="148">「生きてはいない。死んでもいない。名前だけが、腹の中に残ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「だったら取り返す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「無理」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「五年前も、みんなそう言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　朔は便箋を握りしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「だから俺だけが覚えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　トワはしばらく黙っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="161">　やがて、赤いフードを深くかぶる。</p>
+<p class="source-line role-dialogue role-memory fx-whisper gap-1" data-source-line="163">「……あんた、昔からそういう顔だけは得意だった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「どんな顔だよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「勝てない喧嘩を始める顔」</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="170"><span class="source-indent" aria-hidden="true">　　　　　</span>二　名隠しの夜</h2>
+<p class="source-line role-narration gap-2" data-source-line="173">　祖母の家は、村外れの石段を上った先にあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="174">　玄関の注連縄は切れ、庭の井戸には大きな石蓋が置かれている。蓋には爪で引っかいたような跡が、内側から外へ向かって何本も走っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「井戸を見るな」</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　トワが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「もう見た」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「水面を見るなって意味。顔を覚えられる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「誰に」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="186">「下にいるものに」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="188">　家の中は、祖母が生きていたときのままだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="189">　仏壇には祖父と祖母の位牌。隣に、空の位牌がひとつある。名前の部分だけが削り取られ、木屑が畳に落ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　居間の柱には、子どもの背丈を記した傷が二列あった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">『朔　十一歳』</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　その横は、何度墨を塗ってもにじみ出したような黒い染みになっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　朔が指でなぞると、染みの奥に小さな文字が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">『ゆら　九歳』</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　胸の奥で、五年間凍っていたものが音を立てて割れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「いたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　朔はつぶやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「やっぱり、いた」</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　トワは背を向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「証拠が欲しかった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「俺がおかしくなったんじゃないって、誰かに言ってほしかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「言ったところで、楽にはならないよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「それでもだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　朔は柱に額を当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　五年前、結良が消えた翌朝。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="222">　母は朝食の皿を三枚しか並べなかった。父は子ども部屋の二段ベッドを見て、「どうして下まで使ってるんだ」と笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="223">　朔が結良の話をすると、二人は怯えた目で彼を病院へ連れていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　薬を飲まされた。</p>
+<p class="source-line role-narration gap-0" data-source-line="226">　カウンセラーに何度も訊かれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　妹はどんな顔ですか。声は。好きなものは。最後に会ったのは。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="229">　答えるたび、結良の輪郭だけが鮮明になり、家族の中で朔だけが異物になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">「朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　トワの声で我に返る。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　少女は祖母の部屋の床板を一枚外していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　中から現れたのは、黒い漆塗りの箱だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　箱の蓋には、金で一文字。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">『名』</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　中には、筆が一本と、薄い帳面が入っていた。</p>
+<p class="source-line role-narration role-horror tone-3 gap-0" data-source-line="243">　筆の軸は白骨のように細く、穂先だけが赤い。帳面の表紙には祖母の字で『名返し』とある。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　最初の頁には、たった一行。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="247">『名前は文字ではない。呼ぶ者の記憶である。』</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　次の頁からは、名を食われた者を呼び戻す術が記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　一、奪われた者の影を踏む。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="252">　二、その者の名を、血で書く。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="253">　三、名を呼びながら、その者だけの記憶を語る。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　ただし、と赤い字が続く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">『知らぬ者の名は返せない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="258">　愛なき声は、喰名様の声と同じである。』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「婆ちゃんは、これで結良を助けようとしてたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="262">「五年かけて、喰名様の腹を探してた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「どうして死んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「見つけたから」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　トワが帳面の最後を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　そこには四十八人分の名前が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　古びた字で、男の名、女の名、幼い子の名。どれも墨が雨に濡れたように揺らいでいる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="273">　頁の下に祖母の走り書きがあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="275">『天明六年。飢饉の年、雨代は峠を越えてきた四十九人の子を蔵に閉じ込めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="276">　食糧を奪われることを恐れ、村は子らの名を記録から消し、存在しなかったことにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="277">　四十八人の名は産婆の板書より判明。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　最後の一人は、名を持たぬ赤子。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="279">　忘れられた子らの声は混ざり、名を喰う神となった。』</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　その先は、紙が黒く焼け焦げていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="283">「喰名様は神なんかじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　朔は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="287">「この村が作った化け物だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">「だから村は、五年ごとに一人の名前を食わせて眠らせる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="291">「五年前、食われたのが結良か」</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　トワは答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">「答えろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　少女の声がかすれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="301">「あの夜、呼ばれたのはあんただった」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="303">　記憶が、雷のように脳裏を裂いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　夏祭りの夜。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="306">　幼い朔は、井戸の奥から聞こえた祖母の声に返事をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　――朔。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　振り向いた先に、白い顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　喉から何かを引き抜かれる感触。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　そこへ結良が飛び込んできた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="315">『その名前、あげない！』</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　小さな両手で、朔の胸から伸びる黒い舌をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　そして叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="321">『私の名前をあげる！　私は八代結良！』</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="323">「やめろ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　朔は耳を塞いだ。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="326">　だが記憶の声は止まらない。</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="328">『お兄ちゃんの名前、返して！』</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　闇が結良をのみ込む直前、泣きじゃくる朔は妹の手を握って言った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="332">『名前がなくなっても、俺がつける！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">『なんて？』</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="336">『トワ。ずっと、忘れないって意味だ！』</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="338">　記憶が途切れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="340">　目の前の少女が、悲しそうに笑っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「私は結良じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　トワは自分の胸を押さえた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="346">「あの子が消える瞬間、あんたの中に残した、最後のひとかけら。だから顔も、声も、あんたの記憶どおり。結良本人は、喰名様の中にいる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="348">「だったら、お前も結良だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「違うよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「俺がそう呼ぶ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="354">「だから呼ぶなって言ってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　トワの叫びと同時に、家の外で鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　二つ目。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　窓ガラスに、白い手形がついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　三つ目。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="368">　庭の井戸から、子どもの笑い声があふれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="370">「時間がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　トワは筆を朔へ押しつけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="374">「喰名様が欲しいのは、あんたの名前。結良が奪った獲物だから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="376">「俺の名前を食わせれば、結良は返るのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="378">「そんな顔するな」</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　トワは朔の頬を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「自分を差し出すのは、戦うって言わない。逃げるって言うんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　その言葉は、結良がよく言ったものだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　喧嘩で負けそうになると、いつも生意気に腕を組んで。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　朔が何か言う前に、玄関の戸が音もなく開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　白装束の男たちが立っていた。</p>
+<p class="source-line role-narration role-ritual gap-0" data-source-line="390">　先頭は、雨代神社の宮司・御厨玄斎。痩せた老人で、片目に黒い眼帯をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「千鶴さんは、最後まで余計なものを残した」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　玄斎は帳面を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「その残り名を渡せ、朔。今ならまだ、村は助かる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「こいつを結良の代わりに食わせる気か」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="400">「残り名は魂ではない。記憶の澱だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「じゃあ、なんで怯えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　玄斎の眉が動いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「化け物に情を持つな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「五年前も同じこと言ったんだろ。妹一人を消して、村が助かるなら仕方ないって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「四百人と一人を比べた。それだけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「人間を数で呼ぶな」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　朔は赤い筆を握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「名前で呼べ」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　男たちが一斉に札を構えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　トワが朔の背中へ手を当てる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「走れる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="423">「勝てない喧嘩なんだろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「うん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="427">「じゃあ、始めるぞ」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="430"><span class="source-indent" aria-hidden="true">　　　　　</span>三　喰名様</h2>
+<p class="source-line role-narration gap-2" data-source-line="433">　朔は障子を蹴破って庭へ飛び出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="434">　白装束の男が札を投げる。空中で札は黒い縄に変わり、朔の腕へ絡みついた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="436">「名前を書け！」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="438">　トワが叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="440">「何を！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="442">「自分の！」</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　朔は親指を噛んだ。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="445">　血を穂先に含ませ、腕に絡む縄へ一気に筆を走らせる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">『八代朔』</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　文字が赤く燃えた。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="450">　縄の表面に無数の口が開き、悲鳴を上げてちぎれる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="452">「名返しの筆……！」</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　玄斎が目を見開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「千鶴さんは、それまで渡したのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「名前は文字じゃないんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　朔は筆を振り抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　赤い墨が弧を描き、迫る男たちの白い面を真二つに割った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「俺が俺を忘れないかぎり、こいつは何度でも書ける！」</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　石垣を飛び越え、村の中央へ駆ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　鐘は四つ、五つと鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　家々の戸が閉まり、道から人影が消える。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　白い提灯だけが風もないのに揺れていた。内側を向いていた名前が、ひとつずつ、道の方へ回っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　六つ目。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　井戸から黒い水が噴き上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　水は空へ落ち、雲を染める。地面に映る朔たちの影だけが、逆さまに沈んでいった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="479">「影を踏まれるな！」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="481">　トワが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　路地から空人が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　一体、二体、十体。</p>
+<p class="source-line role-narration gap-0" data-source-line="485">　顔のない大人。首の長い老婆。四つん這いで走る子ども。濡れた和紙の顔をひくつかせ、名前の書かれた舌を垂らしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　朔は筆で自分の名を書き、赤い一閃を放った。</p>
+<p class="source-line role-narration gap-0" data-source-line="488">　先頭の空人が裂ける。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="489">　だが中から血は出ない。代わりに、細切れの呼び声が噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　――おかあさん。</p>
+<p class="source-line role-narration gap-0" data-source-line="492">　――さぶろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="493">　――わたしをみて。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　――ここにいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　朔の腕が止まった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="498">「こいつら……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「食われた人たちだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="502">「斬ったらどうなる」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="504">「もっと細かく忘れられる」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="506">「先に言え！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="508">「聞かなかった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　空人の爪が朔の肩を裂いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="511">　傷口から血ではなく、赤い文字がこぼれる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">『朔』</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　一画ずつ、名前が剥がされていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　トワが飛びつき、空人の顔を両手で挟んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「誰なの！」</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　空人は答えない。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　ただ、首から下げた小さな木札に、かすれた桜の絵があった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="524">　トワが叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="526">「桜の髪飾り！　右手の火傷！　あんた、豆腐屋のお婆ちゃんでしょ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　近くの家の戸が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="529">　中から老人が顔を出す。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="531">「……カネ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　空人が震えた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="535">「母ちゃんか」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　老人はよろめき出てきた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="539">「右手の火傷は、俺をかばって鍋をひっくり返したときの……母ちゃん。御厨カネ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　朔は空人の影を踏んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="542">　筆を走らせる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="544">『御厨カネ』</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　赤い文字が空人を包んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="547">　和紙の顔に皺が浮かび、目と鼻と口が戻っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　老婆は一瞬だけ、息子へ笑いかけた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="550">　そして淡い光になり、雨へ溶けた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="552">「これが名返し……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="554">「一人ずつやってたら夜が明ける」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　トワが振り返った。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="558">　道の先、雨代神社の鳥居が黒く染まっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「だから、腹を裂く。中にある名前を全部返す」</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　七つ目。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　村中の提灯が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　闇の中で、何百人もの声が同時に囁いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　――なまえを、ちょうだい。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　八つ目。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　鳥居の奥から、巨大な手が伸びた。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　指は五本ではない。細い子どもの腕が何十本も束になり、一本の指を作っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　ごうん。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　九つ目。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　次に肩が、胴が、頭が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　喰名様。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　それは、濡れた人間を積み重ねて作った山だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="588">　無数の背中と手足が互いを抱きしめ、ひとつの巨体を形作っている。頭部には顔がなく、古い蔵の扉が縦に二枚ついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　扉が開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　中は口だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　暗い喉の奥へ、何千枚もの木札が歯のように並んでいる。札に刻まれた名前が、苦しそうにうごめいていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　喰名様が身をかがめる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="598">　口の中から、祖母の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="600">「朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　朔の足が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="604">「帰っておいで」</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　優しい声。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="607">　幼いころ、熱を出した夜に何度も聞いた声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　二度目。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　トワが朔の耳を塞いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「聞くな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="617">「千鶴さんは、お前を待ってるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　三度目の呼び声が、トワの手をすり抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「八代――」</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　朔は自分の舌を噛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　血の味とともに叫ぶ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="627">「俺の名前は、田中太郎だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　喰名様の口から伸びた黒い舌が、空中で迷い、近くの石地蔵へ突き刺さった。</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　地蔵の胸に『田中太郎』の文字が浮かび、次の瞬間、粉々に砕ける。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="632">「嘘の名前を食わせた……？」</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　追いついた玄斎が呆然とした。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="636">　朔は口元の血を拭う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="638">「婆ちゃんの帳面、余白に落書きが多いんだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="640">「それで逃げ切れると思うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　玄斎の背後に、村人たちが集まっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　全員、白い面をつけ、胸に自分の名を書いた木札を抱いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「朔。残り名を渡せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="647">「断る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「四十九人の名を呼べば、喰名様は完全に目覚める。村は一夜で食い尽くされる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="651">「だから五年ごとに子ども一人を差し出すのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「我々は生きなければならない」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="655">「名前を消して生き残ることを、生きるって言うな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　玄斎は眼帯へ手をかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「ならば見ろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　黒布の下に、目はなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="662">　空洞の奥で、小さな口が開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「私の娘も、二十五年前に食われた」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　口が、かすかな少女の声を出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　――おとうさん。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　玄斎の頬を涙が伝った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="672">「名を返そうとして、妻も、弟も、十一人が死んだ。それでも喰名様は消えなかった。千鶴さんも失敗した。犠牲を選ばぬという綺麗事で、全員を殺す気か」</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　朔は答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　喰名様の腕が持ち上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="677">　空を覆うほど巨大な掌が、村へ振り下ろされた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="679">「朔！」</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　トワが突き飛ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　掌が地面を打つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="684">　家々が跳ね、石畳が波のように割れた。白い提灯が宙を舞い、書かれた名前が一斉に剥がれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　剥がれた名は黒い蛾となって、喰名様の口へ吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　村人の一人が面を落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="689">　下には何もなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　隣の者が首をかしげる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="693">「……誰だ、お前」</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　名前を失った男は、自分の顔を探すように両手で掻きむしった。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　朔は祖母の帳面を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="699">　四十八人の名が震えている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「玄斎」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「呼び捨てにするな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="705">「一人じゃ無理だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　玄斎が朔を見る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="709">「だから全員で呼ぶ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="711">「何を言っている」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="713">「喰名様は、村が忘れたから生まれた。だったら、村が思い出せばいい」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="715">「名を読むだけでは足りない。記憶がない」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="717">「記憶なら、こいつの中にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　朔は喰名様を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="721">「腹を開けて、返してもらう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="723">「どうやって近づく」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="725">　朔は少し笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　トワが、その顔を見て青ざめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="729">「やめて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="731">「欲しがってるものをやれば、口は開く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="733">「朔、やめろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　朔は胸に筆を当てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="736">　血で、大きく自分の名を書く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="738">『八代朔』</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="740">　文字が心臓の鼓動に合わせて光った。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="742">「喰名様！」</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　朔は巨体を見上げた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="746">「俺の名前が欲しいんだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　喰名様の動きが止まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="750">「くれてやる。食えるもんなら、食ってみろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　トワが腕をつかんだ。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="754">「忘れられるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="756">「お前が覚えてろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="758">「私は消えかけてる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「五年前、約束した」</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　朔はトワの手を握り返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「今度はお前の番だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　喰名様の口から、黒い舌が放たれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="767">　朔の胸を貫く。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　痛みはなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="770">　もっと恐ろしいものが、内側から引き抜かれた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="772">　母が呼ぶ声。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="773">　父が書いた誕生日カード。</p>
+<p class="source-line role-narration gap-0" data-source-line="774">　教室の名簿。</p>
+<p class="source-line role-narration gap-0" data-source-line="775">　友人のスマートフォンに登録された連絡先。</p>
+<p class="source-line role-narration gap-0" data-source-line="776">　自分で自分を呼ぶ、心の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　すべてが一本の赤い糸となり、喰名様へ吸い込まれていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　朔の胸から文字が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　玄斎が眉をひそめる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="784">「……あれは誰だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　村人たちがざわめく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="788">「知らない子だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="790">「なぜここにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　朔は自分の手を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="793">　指の輪郭がぼやけていく。</p>
+<p class="source-line role-narration role-memory gap-0" data-source-line="794">　自分が誰だったのか、思い出せない。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　名前のない恐怖が、喉を塞いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　そのとき。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="800">「朔！」</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　トワの声がした。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="804">　闇の中に、赤い一画が浮かぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="806">「八代朔！　十六歳！　負けず嫌いで、嘘が下手で、泣くと鼻が赤くなる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　二画目、三画目。</p>
+<p class="source-line role-narration gap-0" data-source-line="809">　消えた名前が、空中に書き直されていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「卵焼きの端っこを妹にくれる！　怖いくせにお化け屋敷では先を歩く！　五年間、誰に笑われても結良を忘れなかった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　赤い文字が完成した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">『朔』</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　名が、胸へ戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　朔は息を吸った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="821">「――そうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　ぼやけた顔に目と口が戻る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="825">「俺は、八代朔だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　朔は黒い舌をつかみ、喰名様の口へ向かって走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="828">　舌が巻き戻る勢いに乗り、鳥居を蹴り、巨体の腕を駆け上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="830">「玄斎！」</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　朔は帳面を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　老人が受け取る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="836">「四十八人を呼べ！　村中に聞こえるように！」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="838">「記憶がないと言ったはずだ！」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="840">「名前から始めろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　朔は叫んだ。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="844">「思い出すのは、そのあとだ！」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="847"><span class="source-indent" aria-hidden="true">　　　　　</span>四　腹の中</h2>
+<p class="source-line role-narration gap-2" data-source-line="850">　喰名様の口の中は、五年前の夏祭りだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　赤い提灯。</p>
+<p class="source-line role-narration gap-0" data-source-line="853">　綿あめの匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="854">　射的の音。</p>
+<p class="source-line role-narration gap-0" data-source-line="855">　だが人間には誰一人、顔がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　朔はぬかるんだ参道へ落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="858">　隣にトワが転がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="860">「ついてくんなって言っただろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="862">「言われてない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「今言う。帰れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="866">「帰る場所がない」</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　トワは立ち上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="869">　赤い雨合羽の裾が、黒く透け始めている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="871">「それに、あんた一人じゃ結良を見つけられない」</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　祭りの人波が二人へ迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="874">　顔のない客たちは、すれ違いざまに朔の耳元で名乗った。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　――私は誰。</p>
+<p class="source-line role-narration gap-0" data-source-line="877">　――ぼくは誰。</p>
+<p class="source-line role-narration gap-0" data-source-line="878">　――名前を返して。</p>
+<p class="source-line role-narration gap-1" data-source-line="880">　声を聞くたび、頭の中に知らない人生が流れ込む。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="882">　雪の日に生まれた記憶。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="883">　妹と分けた一個の柿。</p>
+<p class="source-line role-narration gap-0" data-source-line="884">　母に叱られ、蔵の陰で泣いた夕暮れ。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="885">　峠を越えれば飯があると信じ、裸足で歩いた夜。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="887">　すべて、四十九人の子どもたちの記憶だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="889">「喰名様が食ってたのは、名前だけじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="891">　朔はこめかみを押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="893">「名前にくっついた人生ごと、ここに閉じ込めてたんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="895">　祭囃子が止んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　参道の先に、古い蔵が現れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="898">　戸の隙間から、細い指が何本も伸びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="900">　朔が近づくと、戸に墨文字が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="902">『ここにいない』</p>
+<p class="source-line role-narration gap-1" data-source-line="904">　その下に、何度も何度も同じ言葉が重ねられている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="906">『いなかった』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="907">『知らない』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="908">『名前などない』</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　朔は筆を構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="912">「これを消せばいいのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="914">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　トワが首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="918">「上から書くの」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="920">　朔は血を穂先に含ませた。</p>
+<p class="source-line role-narration gap-0" data-source-line="921">　戸いっぱいに、四文字を書く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="923">『ここにいた』</p>
+<p class="source-line role-narration gap-1" data-source-line="925">　蔵が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　中から、泣き声が爆発した。</p>
+<p class="source-line role-narration gap-0" data-source-line="928">　戸が開き、黒い手が何百本も伸びてくる。朔の腕、足、首へ絡みつき、爪を立てた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="930">「お前たちは、ここにいた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="932">　朔は叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="934">「村が忘れても、いなかったことにはならない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="936">　外の世界から、かすかな声が届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="938">　玄斎の声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="940">『一人目――相原、いち』</p>
+<p class="source-line role-narration gap-1" data-source-line="942">　黒い手の一本が止まる。</p>
+<p class="source-line role-narration gap-0" data-source-line="943">　皺だらけの小さな指が、少女の手へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　村人たちの声が、恐る恐る続く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="947">『相原、いち』</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　祭りの人波から、一人の少女が抜け出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="950">　顔に目鼻が戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="952">　少女は朔を見て、深く頭を下げた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="953">　その姿が光となり、蔵の天井へ昇っていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="955">『二人目――石動、宗太』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="957">『石動、宗太』</p>
+<p class="source-line role-narration gap-1" data-source-line="959">　少年が一人、顔を取り戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="961">『三人目――宇津木、ハナ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="963">『宇津木、ハナ』</p>
+<p class="source-line role-narration gap-1" data-source-line="965">　名が呼ばれるたび、蔵を作っていた黒い板が一枚ずつ剥がれ落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="966">　その向こうに、巨大な肉の壁が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="968">　壁には無数の木札が埋まっている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="970">「結良！」</p>
+<p class="source-line role-narration gap-1" data-source-line="972">　朔は走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="974">　札には、近年食われた村人たちの名があった。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="975">　指で触れると、記憶が流れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="977">　豆腐屋のカネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="978">　玄斎の娘、澄香。</p>
+<p class="source-line role-narration gap-0" data-source-line="979">　五年前、祭りの日に笑っていた結良。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="981">「あった！」</p>
+<p class="source-line role-narration gap-1" data-source-line="983">　肉の壁の奥深く、小さな木札が埋まっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="985">『八代結良』</p>
+<p class="source-line role-narration gap-1" data-source-line="987">　朔が手を伸ばす。</p>
+<p class="source-line role-narration gap-0" data-source-line="988">　しかし札の上に、赤い雨合羽の少女の手が重なった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="990">「待って」</p>
+<p class="source-line role-narration gap-1" data-source-line="992">　トワだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="994">「これを抜いたら、私は消える」</p>
+<p class="source-line role-narration gap-1" data-source-line="996">　朔は息をのんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="998">「お前は結良の残りなんだろ。だったら戻るだけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1000">「たぶん、戻らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　トワは静かに言った。</p>
+<p class="source-line role-dialogue role-memory tone-4 gap-1" data-source-line="1004">「私は、あんたが五年間かけて作った結良。思い出すたび、少しずつ本物と違っていった。あんたに都合よく笑って、あんたの知らないところでは何も考えない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1006">「そんな言い方すんな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1008">「結良本人は、もっと意地悪だった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1010">「知ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1012">「ピーマンも残した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1014">「俺の皿に入れてた」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1016">「お兄ちゃんのこと、たまに本気で嫌いだった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1018">「俺もだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1020">　トワは笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1021">　左の犬歯がのぞく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1023">「じゃあ、本物を連れて帰って」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1025">「お前も来い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1027">「無理だって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1029">「名前が二つあっちゃいけないって、誰が決めた」</p>
+<p class="source-line role-narration gap-1" data-source-line="1031">　朔は筆を握った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1033">「結良は、父さんと母さんがくれた名前だ。トワは、俺がつけた名前だ。どっちもお前だろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1035">「私は人間じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1037">「知るか」</p>
+<p class="source-line role-narration gap-1" data-source-line="1039">　朔は木札の表へ『八代結良』をなぞり、裏へ新たな名を書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1041">『トワ』</p>
+<p class="source-line role-narration gap-1" data-source-line="1043">　二つの名前が赤く輝いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1045">「俺が呼ぶ。だから消えるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="1047">　トワの目から、初めて涙が落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1049">「ほんと、勝てない喧嘩ばっかり」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1051">「勝つまでやるからな」</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　二人で木札を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1055">　肉の壁が絶叫する。</p>
+<p class="source-line role-narration gap-0" data-source-line="1056">　喰名様の腹の中で、祭りの景色が崩れ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1058">　木札の奥から、白い着物の少女が落ちてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1060">　九歳の結良。</p>
+<p class="source-line role-narration gap-0" data-source-line="1061">　五年前と同じ姿で、目を閉じていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1063">　トワの体が透ける。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1065">「トワ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1067">　朔が手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="1069">　トワは結良の胸へ、そっと掌を重ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1071">「忘れないで」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1073">「忘れるか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1075">「私のことじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1077">　トワは蔵の奥を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1079">　そこに、一人の赤ん坊がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1081">　黒い泥にまみれ、口だけを開けて泣いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="1082">　顔はない。木札もない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1083">　四十九人目。生まれたときから、誰にも名をつけられなかった子。</p>
+<p class="source-line role-narration gap-1" data-source-line="1085">　外の声が、四十八人目の名を呼び終えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1087">『――蓮見、弥吉』</p>
+<p class="source-line role-narration gap-1" data-source-line="1089">　肉の壁はほとんど崩れている。</p>
+<p class="source-line role-narration gap-0" data-source-line="1090">　それでも赤ん坊だけが残り、泣き声を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1092">　その声が、喰名様そのものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1094">　名前がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1095">　呼ぶことができない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1096">　呼べないから、返せない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1098">　赤ん坊の口が大きく裂けた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="1099">　闇が渦を巻き、解放された四十八人の光を再び吸い込み始める。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1101">「朔！」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="1103">　トワが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1105">　朔は赤ん坊の前に膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1107">「お前の名前は、わからない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1109">　赤ん坊の泣き声が強くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1111">「誰が産んだかも、どんな字をつけるはずだったかも知らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1113">　筆を持つ手が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1115">「でも、お前がここにいたことは知ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="1117">　朔は赤ん坊の胸へ筆を当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1119">　名前ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="1120">　たった一つの言葉を書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1122">『いた』</p>
+<p class="source-line role-narration gap-1" data-source-line="1124">　赤ん坊の泣き声が止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1126">「名前がなくても、お前は一人だった。四十九分の一じゃない。食い物を欲しがって、怖くて泣いて、誰かに抱かれたかった、一人の子どもだった」</p>
+<p class="source-line role-narration gap-1" data-source-line="1128">　赤ん坊の顔に、小さな目が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1130">「忘れない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1132">　朔は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1134">「だから、もう誰の名前も食うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="1136">　赤ん坊は朔の指を握った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1138">　ほんの一瞬、笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1140">　そして朝日のような光になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1142">　喰名様の巨体が、内側から裂けた。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="1145"><span class="source-indent" aria-hidden="true">　　　　　</span>五　名を呼ぶ朝</h2>
+<p class="source-line role-narration tone-4 gap-2" data-source-line="1148">　夜明けの雨代村に、四十九人の子どもの笑い声が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1150">　黒い雨は透明に戻り、空人たちは次々に顔を取り戻した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1151">　すでに肉体を失っていた者は、家族に一度だけ笑いかけ、山の方へ消えていった。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="1153">　朔は神社の石段に倒れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1154">　胸の上には、結良が眠っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1156">「朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="1158">　誰かが彼の肩を揺すった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1160">　父だった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1161">　昨日までは存在しないと言い張った妹の顔を見て、声もなく泣いていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1163">「結良……」</p>
+<p class="source-line role-narration gap-1" data-source-line="1165">　父が名前を呼ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1167">　その一言だけで、五年分の忘却が崩れた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="1168">　運動会で結良を肩車した記憶。熱を出した夜、背負って病院へ走った記憶。いなくなった朝、本当は胸に穴が開いていたのに、穴の理由さえ忘れていた日々。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1170">「ごめん」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1172">　父は何度も言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1174">「ごめん、結良。ごめん、朔」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1176">「俺じゃなくて、起きたら本人に言え」</p>
+<p class="source-line role-narration gap-1" data-source-line="1178">　朔はかすれた声で答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1180">　玄斎は、崩れた鳥居の前に立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1181">　眼帯の下の空洞から、淡い光が抜けていく。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1183">　光は十二歳ほどの少女の姿になった。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="1185">「お父さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="1187">　玄斎は膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1189">「澄香」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1191">「遅いよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1193">「すまない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1195">「うん」</p>
+<p class="source-line role-narration gap-1" data-source-line="1197">　少女は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1199">「でも、呼んでくれたから、いい」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1201">　朝日に溶ける娘へ、玄斎は最後まで名前を呼び続けた。</p>
+<p class="source-line role-narration gap-2" data-source-line="1204">　それから、雨代村は祭りをやめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1206">　代わりに毎年七月十三日、四十九人のための灯籠を川へ流すようになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1207">　四十八基には判明した名前を。</p>
+<p class="source-line role-narration gap-0" data-source-line="1208">　最後の一基には、朔が書いた二文字を記す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1210">『いた』</p>
+<p class="source-line role-narration gap-1" data-source-line="1212">　村人は自分たちの祖先がしたことを、子どもに語る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1213">　恥も、罪も、消さない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="1214">　忘れないことを、罰ではなく約束にするために。</p>
+<p class="source-line role-narration gap-2" data-source-line="1217">　結良が目を覚ましたのは、三日後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1219">　五年前の姿のまま、病院のベッドで大きなあくびをした。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="1221">「お兄ちゃん、老けた？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1223">　第一声がそれだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1225">「お前が変わってねえんだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1227">「え。うそ。じゃあ私、まだ九歳？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1229">「宿題五年分だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1231">「もう一回消えようかな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1233">「ふざけんな」</p>
+<p class="source-line role-narration gap-1" data-source-line="1235">　結良は笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1236">　左の犬歯がのぞいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1238">　そして、朔の服の裾を二回引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1240">「ねえ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1242">「なんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1244">「私、変な夢見てた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1246">「どんな」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1248">「赤い合羽を着た私が、ずっとお兄ちゃんを怒ってる夢」</p>
+<p class="source-line role-narration gap-1" data-source-line="1250">　朔は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1252">　結良の右手首には、見覚えのない赤い糸が巻かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1253">　糸の結び目が、二文字の形に見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1255">『トワ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1257">「その名前、覚えてるか」</p>
+<p class="source-line role-narration gap-1" data-source-line="1259">　結良は首をかしげた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1261">　少し考えてから、なぜか泣きそうな顔で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1263">「うん。たぶん」</p>
+<p class="source-line role-narration gap-2" data-source-line="1266">　退院の日、朔と結良は最終バスに乗った。</p>
+<p class="source-line role-narration gap-0" data-source-line="1267">　雨代村が山の向こうへ消えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="1269">　結良は窓に額をつけ、流れていく白い灯籠を眺めていた。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="1271">「お兄ちゃん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1273">「ん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1275">「名前って、なくなったらどうなるの」</p>
+<p class="source-line role-narration gap-1" data-source-line="1277">　朔は少し考えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1279">「誰かが呼べば戻る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1281">「誰も覚えてなかったら？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1283">「俺が呼ぶ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1285">「世界中の人を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1287">「できるだけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1289">「欲張り」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="1291">「兄だからな」</p>
+<p class="source-line role-narration gap-1" data-source-line="1293">　結良は笑い、眠った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1295">　バスが峠を越える直前。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="1297">　誰もいないはずの最後部座席から、濡れた子どもの声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1299">「八代朔」</p>
+<p class="source-line role-narration gap-1" data-source-line="1301">　朔は振り向かなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1303">　窓の外、朝日の中で、赤い雨合羽の少女が手を振っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1305">　呼ばれたのは、一度だけだった。</p>
+<p class="source-line end-mark gap-2" data-source-line="1308"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

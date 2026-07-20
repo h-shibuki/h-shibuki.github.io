@@ -1,0 +1,879 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="五つの町を転々としてきた高校生のさえは、海辺の下宿〈三角屋根荘〉で個性豊かな仲間たちと暮らしている。美術の課題は、喫茶店の小さな展覧会に出す「わたしの居場所」。窓を題材にすれば、木の傷も海の色も上手に描ける。けれど絵の中へ自分だけを置けない。留学生マルタの二つの故郷を縫う刺繍、つむぎ先輩の陶器の窓、こよみが青空を映すミルクプリン。みんなの作品が形になるほど、さえの部屋の窓だけが暗く残る。好きになれば別れが重くなる少女は、心が靴を脱げる景色を描けるのか。">
+<title>青空は砂糖壺にしまって｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="青空は砂糖壺にしまって" data-novel-id="青空は砂糖壺にしまって" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示" selected>学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ジュブナイル・日常・学園</p>
+  <p><strong>補助ジャンル：</strong>読み切り</p>
+  <p><strong>CSVタグ：</strong>ジュブナイル、日常、学園</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示</p>
+  <h3>意味色</h3><p>赤＝気合、青＝戦術、金＝信頼、紫＝迷い、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：418行／章：0／役割・強度タグ：437</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="青空は砂糖壺にしまって 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">青空は砂糖壺にしまって</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　目覚まし時計より少し早く、階下で砂糖壺が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　からん、からん。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="7">　ガラスの中で角砂糖が転がる、乾いた音だ。続いて、古いコーヒーミルが低くうなり、バターを落としたフライパンが小さく息をつく。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="9">　三角屋根荘の朝は、だいたい音と匂いから始まる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="11">　私は布団の中で片目だけを開けた。枕元の時計は七時十二分。カーテンの隙間から差す光は、まだ牛乳を混ぜたように薄い。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="13">「さえー。起きてるー？」</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　廊下から、こよみの声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="17">「心は起きてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="18">「体も起こして。トーストが心だけじゃ食べられないから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="19">「夢の中なら食べられるよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「じゃあ夢の中でお皿も洗ってね」</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　それは困る。私は観念して起き上がった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="24">　三角屋根荘は、潮見野という海辺の町の、坂の途中にある。二階と屋根裏が学生向けの下宿で、一階は「喫茶アスター」という小さな店だ。玄関を出て十七歩で学校へ向かう坂道、二十三歩で海の見える石段、そして零歩で朝ごはんにありつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="26">　私が潮見野造形高校へ入学すると決めた理由のうち、最後の一つはかなり大きかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="28">　食堂へ降りると、こよみが四角い食パンに苺ジャムで窓を描いていた。赤い四角が四つ。窓枠の真ん中に、バターの小さな丸が載っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="30">「今日の題は『朝七時の南向き物件』」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="31">「家賃は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="32">「食後のお皿洗い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="33">「敷金礼金は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="34">「寝ぐせを直すこと」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="36">　こよみは喫茶アスターの店主、葉子さんの姪で、私と同じ二年生だ。短い髪はいつも片側だけ跳ねているのに、人の寝ぐせには厳しい。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="38">「おはようございます！」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="40">　階段を駆け降りてきたマルタが、最後の三段を一度に飛んだ。黒い巻き毛が朝の光をはじく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「本日の私は、時間にぴったりです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="43">「七時半集合って言ったの、マルタ本人だけどね」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="44">「自分との約束を守りました」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　胸を張るマルタに、こよみが拍手する。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　ポルトガルから来た留学生のマルタ・ソアレスは、染織科で布と糸を勉強している。日本語はとても上手だが、ときどき言葉を文字どおりに受け取りすぎる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="50">「さえ、その髪は爆発ですか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「寝ぐせ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="52">「よかった。消火器を取るところでした」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　マルタは私の向かいに座り、ジャムの窓をしげしげと眺めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「この家には、ドアがありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="57">「食べれば入居できる仕様です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「日本の住宅事情は、やはり難しいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　そんな話をしていると、屋根裏部屋から雨宮つむぎ先輩が降りてきた。陶芸科の三年生で、朝はいつも静かだ。眠そうに見えるのではなく、周囲の時間だけが先輩の近くで少しゆっくり流れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　先輩は席につき、私の髪を見て言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="64">「今日は右から強い風」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="65">「先輩まで天気予報しないでください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="66">「午後には落ち着くでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="67">「髪の話ですよね？」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="69">　つむぎ先輩は、かすかに笑ってコーヒーを飲んだ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="71">　窓の外では、海の上に細い雲が並んでいた。店の砂糖壺に朝日が差し、角砂糖の隙間に小さな青空が挟まっている。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="73">　私はその光景を、指で四角く切り取るように眺めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　きれいだな、と思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　そして、きれいだと思っただけで終わった。</p>
+<div class="source-line scene-break gap-2" data-source-line="80" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="83">　一時間目の構成演習で、黒田先生は黒板に大きく「窓」と書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">「来週の日曜、喫茶アスターの壁を借りて小さな展覧会をします」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　教室がざわついた。私は思わず隣のこよみを見る。こよみも私を見ていたが、その顔には驚きより先に「聞いてない」が書いてあった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="89">「葉子さん、また決めてから言ったな……」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="90">「身内への報告がいちばん遅い店だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　先生は続けた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="94">「題は『わたしの居場所』。絵でも写真でも立体でも構いません。窓という言葉をどう解釈するかも自由です。ただし、見た人が一分だけ立ち止まる作品にしてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　周りでは、すでに鉛筆の走る音がしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　私は白いスケッチブックを開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　窓。居場所。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　簡単そうな言葉ほど、描こうとすると遠くへ逃げる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="104">　私はこれまで、五つの町に住んだ。父の仕事の都合で、北の山あいから南の島まで、二、三年ごとに家が変わった。どの家の窓も描ける。雪で曇った窓。台風の夜に雨粒が横へ走った窓。団地の向かいの棟がぴったり収まる窓。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　けれど、それらを並べても「わたしの居場所」にはならない気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　試しに、三角屋根荘の窓枠を描く。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　線はまっすぐ引けた。古い木の傷も、金具の錆も、ガラスに映る海の色も、たぶん上手に描ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　でも、そこに誰を置けばいいのか分からない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「また、きれいすぎる顔してる」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　こよみが私の紙をのぞき込んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="118">「顔？」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="119">「さえが困ってるときの顔。美術館で『作品には触れないでください』って言ってそう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="120">「そんな上品な困り方してる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="121">「うん。実際は消しゴムを握りつぶしそうなのに」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　見ると、消しゴムが指の間で少し曲がっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「居場所って、何だと思う？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="126">「靴下を片方なくしても、たぶんこの辺にあると思える場所」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="127">「参考になりそうで、ならない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="128">「じゃあ、冷蔵庫のプリンに名前を書いても、翌朝には食べられてる場所」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="129">「それは事件現場」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="130">「犯人はだいたい屋根裏にいる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="131">「濡れ衣」</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　背後から、つむぎ先輩の声がした。選択授業が同じなので、先輩もこの教室にいる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「昨日のプリン、先輩じゃないんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="136">「私は名前が書いてあるものは食べない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="137">「じゃあマルタ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「私は名前も一緒に食べません」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　別の机で刺繍糸を整理していたマルタが、真剣な顔で答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　こよみは腕を組んだ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="144">「迷宮入りか……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="145">「居場所の話は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="146">「まずプリンの治安を守ってから」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="147">「展覧会まで一週間しかないんだけど」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="149">　私は笑いながら、スケッチブックの端に小さな四角を描いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　その四角の中は、まだ白かった。</p>
+<div class="source-line scene-break gap-2" data-source-line="154" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="157">　放課後、喫茶アスターの奥の丸テーブルは、即席の制作会議室になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　マルタは深い青の布に、黄色と白の糸で二種類の花を刺している。片方はポルトガルの家の庭に咲いていた花、もう片方は潮見野の坂道で見つけた花だという。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「同じ布に咲けば、どちらも近所です」</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　マルタは針を動かしながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「それ、題にぴったりだね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="166">「はい。作品名は『庭が追いかけてきた』です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="167">「庭、足が速い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「海を越えましたから、とても速いです」</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　つむぎ先輩は、手のひらほどの白い土板を何枚も作っていた。板には四角い穴が一つずつ開いている。小さな壁のようでも、箱の一部のようでもあった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="172">「窓ですか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="173">「まだ決めてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="174">「作ってから決めるんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="175">「土のほうが先に知ってることもあるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　先輩はそう言って、指先で穴の角を丸くした。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="179">　こよみは、喫茶店のメニュー表を広げていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="181">「私は食べ物で参加する。展覧会限定、『窓辺のミルクプリン』」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="182">「プリン問題への挑戦状だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="183">「透明なゼリーを上に重ねて、空を映すの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="184">「名前は書きますか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「書かない。食べたい人が食べる。それが平和」</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　みんなの手元には、もう何かがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　私の前にだけ、白い画用紙があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　葉子さんがコーヒーを運んできて、紙を見た。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="193">「あら、雪景色？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="194">「まだ何も描いてません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「何もないことも、ちゃんと景色よ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="197">　葉子さんはいつも、思いつきなのか深い意味があるのか分からないことを言う。たいてい本人にも分かっていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「でも展示に白紙は出せません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="200">「値札をつけたら急に現代美術っぽくなるわよ」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="201">「店主が作品を値札で解決しないでください」</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　こよみがすかさず止める。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　私は鉛筆を持ち、三角屋根荘の外観を描き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　坂道。白い壁。青い庇。二階の四つの窓。煙突の横に、海鳥が一羽。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　形はすぐにできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　けれど、やっぱり誰もいなかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="213">　上手に描けている。たぶん先生にも褒められる。けれどその絵は、旅行案内のパンフレットに載っている写真のように、私がいなくても成立していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　胸の奥が、薄い紙でふさがれたように息苦しくなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「さえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　つむぎ先輩が、私の鉛筆の先を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「窓の向こう、描かないの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「何を描けばいいか分からなくて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「見えるもの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「海とか、空とか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="225">「それも。見えないものでもいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　先輩はそれ以上説明せず、また土へ向き直った。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　見えないもの。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　私は窓の中を塗ろうとして、結局、消しゴムで全部消した。</p>
+<div class="source-line scene-break gap-2" data-source-line="234" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="237">　その週、私は窓ばかり見た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="239">　学校の北階段にある、細長い窓。パン屋の厨房にある、湯気で曇った窓。駅の待合室の窓。夕方の喫茶アスターで、外の青と店内の明かりを半分ずつ映す窓。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　どれもきれいだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　どれも私のものではない気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　木曜の夜、共同浴室から戻ると、廊下の床にマルタが座っていた。膝の上に、刺繍途中の布を広げている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="247">「部屋だと暗いの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「いいえ。部屋にいると、少しだけ考えすぎます」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　私は隣に腰を下ろした。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="252">　廊下の突き当たりの窓は開いていて、海の匂いが入ってくる。遠くで船の警笛が鳴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「何を考えるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="255">「家のことです」</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　マルタは黄色い花の糸を指でなぞった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="259">「こちらに来てから、ポルトガルの家が前より大切になりました。でも、潮見野も大切です。二つを同じくらい好きになると、どちらかに失礼でしょうか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="261">「そんなことないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　すぐに答えた。でも、その答えは自分にも向けたものだった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="265">「私は家を五回変わったけど、前の家を好きだったら新しい家に失礼、なんて思ったことない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="266">「では、さえには家が五つあります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="267">「住所なら、五つあった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="268">「住所ではなく」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　マルタは言葉を探し、針を持ったまま宙に小さな輪を描いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「心が、靴を脱ぐ場所です」</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　こよみの靴下の話より、少し分かりやすかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「私、どこでもちゃんと靴を脱げてなかったのかも」</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　言ってから、自分で驚いた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="280">　引っ越すたび、私は早く慣れようとした。新しい道を覚え、方言をまねて、教室で浮かない顔を作った。そして慣れたころには、次に別れる日のことを考え始めた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="282">　好きになりすぎなければ、さよならは少しだけ軽くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　たぶん私は、ずっと玄関に立ったままだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">「それなら、今、脱ぎましょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="287">「廊下で？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="288">「はい。ここは下宿です」</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　マルタは私の足元を指した。風呂上がりの私は、片方が黄色、片方が水色の靴下を履いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">「これ、左右ちがう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="293">「居場所の証拠です」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="294">「こよみ理論がここで回収された……」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="296">　笑うと、胸の薄い紙に小さな穴が開いた気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　そのとき、屋根裏からつむぎ先輩が降りてきた。手には空のプリン容器がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「あ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="301">「あ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="302">「あ」</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　三人の声がそろう。</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　先輩は静かに容器を見下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="308">「名前、書いてなかった」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="309">「昨日のは書いてました！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="310">「昨日は食べてない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="311">「じゃあ、犯人は別に？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="312">「今夜のは私」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　事件は半分だけ解決した。</p>
+<div class="source-line scene-break gap-2" data-source-line="317" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="320">　展覧会前日の土曜、喫茶アスターは朝から忙しかった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="322">　壁の額を外し、机を動かし、作品用の白い布を張る。葉子さんは脚立の上で口笛を吹き、こよみは下から「店主が落ちたら展示どころじゃない」と心配している。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　マルタの刺繍は完成していた。青い布の両端から二種類の花が伸び、真ん中で枝を絡ませている。近くで見ると、枝の交わる部分に小さな家の輪郭が縫い込まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　つむぎ先輩の土板は、十二枚の小さな窓になった。焼き上がった白い板を間隔を空けて立てると、見る角度によって向こう側の景色が重なったり、ばらばらになったりする。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="328">「作品名、決まりました？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="329">「『通り道』」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="330">「家じゃないんですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="331">「窓は、外を見るためだけじゃないから」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　私の絵も、いちおう完成していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　三角屋根荘の正面。夕方の空。二階の窓に灯り。丁寧に、正確に、きれいに描いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　でも、眺めるほど心が遠くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="339">「いい絵じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　葉子さんは褒めてくれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「ありがとうございます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="344">「でも、さえちゃんの部屋だけ暗いのね」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　言われて初めて気づいた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="348">　四つある二階の窓のうち、右端――私の部屋だけ、灯りを描き忘れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「あとで足します」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　そう言って筆を持ったが、黄色を置くことができなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　灯りをつけたら、ここが自分の居場所だと決めることになる気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　決めたら、いつか離れるときに困る。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　私は筆を洗い、絵を壁に伏せて置いた。</p>
+<div class="source-line scene-break gap-2" data-source-line="361" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="364">　日曜の朝は、晴れていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="366">　喫茶アスターの窓には青空が広がり、角砂糖まで少し青く見えた。開店と同時に近所の人や学校の生徒が来て、狭い店はすぐに話し声で満ちた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="368">　マルタは自分の作品の前で、花の名前を何度も説明している。つむぎ先輩の『通り道』は、子どもたちがしゃがんで穴をのぞき込み、向こう側にいる親と目を合わせて笑っていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="370">　こよみの「窓辺のミルクプリン」は、予定数の半分が一時間でなくなった。透明なゼリーの表面に窓の光が映り、揺れるたびに青空が小さく砕ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「食べるの、もったいない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="373">「食べないほうが、もっともったいないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　こよみは得意そうにスプーンを添えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　私の絵の前にも、人は立ち止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="379">「きれいな建物ね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="380">「本当にここから見た景色みたい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="381">「細かいところまで上手ね」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="383">　褒められるたび、笑って頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　そのたびに、絵の中の暗い窓が大きくなる気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　午後二時を過ぎたころ、海の色が急に鈍くなった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="389">　朝にはなかった雲が坂の向こうから押し寄せ、店の窓を灰色にした。風が庇を持ち上げ、看板がかたかた鳴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「雨、来るね」</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　つむぎ先輩が言った直後、窓に大粒の雨がぶつかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　ざあっ、と町全体が水の幕に包まれる。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="397">　葉子さんが外の植木鉢を入れに走り、こよみと私も続いた。風は思ったより強く、入口のドアが何度も押し戻される。なんとか鉢を抱えて戻った瞬間、店の照明が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　コーヒーミルの音も、冷蔵庫の低い唸りも止まる。</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="401">　店内に、雨音だけが残った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="403">「停電？」</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　誰かが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　窓の外はまだ昼なのに、厚い雲のせいで夕方のように暗い。客たちはざわつき、スマートフォンの画面があちこちで灯った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="409">「ブレーカー見てくる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="410">「私も行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　こよみと葉子さんが奥へ向かう。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　そのとき、強い風が入口から吹き込み、壁に立てかけてあった私の絵が倒れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「あっ」</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　駆け寄るより早く、天井から落ちた雨粒が絵の端に当たった。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　古い建物なので、嵐になると決まって一か所だけ雨漏りする。けれど今日は、その真下に作品を置いてしまっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　水は夕空の絵の具を溶かし、三角屋根荘の輪郭をゆっくりにじませた。二階の窓が歪み、描かなかった暗い窓まで灰色の流れに飲まれていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　私は絵を持ち上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　紙は濡れて重く、指先で頼りなくたわんだ。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="428">「さえ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　マルタが隣に来る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="432">「大丈夫」</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　口ではそう言った。けれど、何が大丈夫なのか分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　一週間悩んで、ようやく形だけは整えた。それなのに、今はもう「きれい」でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　むしろ少し、ほっとしている自分がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　これで、偽物みたいな絵を展示しなくて済む。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　そう思ったことが、いちばん悲しかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「ごめんね、さえ。雨漏りの場所、ずれてたみたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　戻ってきた葉子さんが顔を曇らせた。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="448">「店のせいじゃないです。私がそこに置いたから」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="449">「代わりの紙、学校から取ってくる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="450">「もう間に合わないよ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="452">　窓の外では、坂道が川のようになっていた。停電は店だけではなく、通り全体らしい。信号も消え、客たちは雨が弱まるまで動けそうにない。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　私は濡れた絵を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　空も家も、混ざっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　どこまでが外で、どこからが中か、分からない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「さえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　つむぎ先輩が、作品台から白い土の窓を一枚持ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="464">「これ、貸す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="465">「でも先輩の作品が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="466">「十二枚あるから、一枚くらい散歩してもいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　先輩は土の窓を、雨に濡れた本物の窓ガラスへ重ねた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="470">　四角い穴の向こうに、灰色の空と、店内の明かり代わりになったスマートフォンの光と、こちらを見ている私たちの顔が入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　マルタが息をのむ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「全部、同じ窓にいます」</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　私は土の枠を受け取った。</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　冷たく、少しざらざらしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　窓は、外を見るためだけじゃない。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　つむぎ先輩の言葉が戻ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「白い紙、ありますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　私が言うと、葉子さんはすぐにレジ下からメニュー用の厚紙を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="488">「大きいのはこれだけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="489">「十分です。あと、剥がせるテープ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="490">「あります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="491">「懐中電灯も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="492">「防災箱に二つ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="493">「私の刺繍糸も使いますか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="494">「借りる。青と黄色」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="495">「何を作るの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　こよみが聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「まだ分からない」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　私は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="503">「でも、紙のほうが先に知ってるかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　つむぎ先輩が満足そうにうなずいた。</p>
+<div class="source-line scene-break gap-2" data-source-line="508" role="separator">＊</div>
+<p class="source-line role-narration tone-4 gap-2" data-source-line="511">　私たちは、店の大きな窓に白い紙を貼った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="513">　真ん中には、つむぎ先輩の土の枠を吊るす。マルタの青と黄色の糸を四隅から伸ばし、窓枠と紙をつないだ。こよみは防災用の懐中電灯を紙の手前に置き、光が斜めから当たるよう、砂糖壺や空き缶で高さを調整した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="515">「砂糖壺が照明係になる日が来るとは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="516">「重しとしても優秀」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="517">「甘さだけが取り柄じゃなかったんだね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="518">「砂糖壺の再就職です」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="520">　停電した店の中で、白い紙だけがぼんやり光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　その前を人が通ると、影が映る。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　子どもの丸い頭。カップを運ぶこよみの手。椅子に座って話す老夫婦。作品をのぞき込むマルタの巻き毛。土の枠を直すつむぎ先輩の横顔。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　窓の外の雨粒も、透けて紙に揺れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　私は鉛筆を持った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="530">　影が動くたび、その輪郭を少しずつなぞる。全部を正確には描けない。線は途中で切れ、人と人が重なる。誰かが笑えば肩の形が変わり、席を立てば空白が残る。</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　でも、その空白には次の誰かが入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="534">「私も描いていい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　さっきから見ていた小学生くらいの女の子が聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「もちろん」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　私は鉛筆を渡した。女の子は紙の端に、小さなカップを描いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">「何が入ってるの？」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="543">「ココア。お母さんが作るやつ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="544">「じゃあ、ここはココアの窓だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　女の子はうれしそうにうなずいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　それを見ていた年配の男性が、紙の隅に短い線を一本足した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「これは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="551">「釣り竿。雨が止んだら海へ行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　別の人は本を描き、別の人は傘を描いた。こよみはプリンのスプーンを描き、マルタは二種類の花を一輪ずつ描いた。つむぎ先輩は何も描かず、土の窓の影を指でそっとなぞった。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　いつの間にか、白い紙は人の気配でいっぱいになっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　上手な線ばかりではない。形の分からないものもある。誰かの線に別の誰かの線が重なり、途中で消え、また始まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　それでも、見ていると胸が温かくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　私は紙の中央、土の窓の影の中に、小さな四角を四つ描いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　三角屋根荘の二階の窓。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　一つ目に、跳ねた髪。</p>
+<p class="source-line role-narration gap-0" data-source-line="566">　二つ目に、巻き毛。</p>
+<p class="source-line role-narration gap-0" data-source-line="567">　三つ目に、湯気の立つカップ。</p>
+<p class="source-line role-narration gap-0" data-source-line="568">　四つ目には、しばらく何も描かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　鉛筆の先が止まる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="572">　いつかここを出る日が来る。卒業かもしれないし、もっと別の理由かもしれない。今までと同じように、好きになった場所を離れるかもしれない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="574">　でも、好きにならなかったことにしても、さよならがなくなるわけじゃない。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　むしろ、そこにいた時間まで消してしまう。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　私は四つ目の窓に、小さな明かりを描いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　黄色い色鉛筆で、何度も重ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「そこ、さえの部屋？」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　こよみが隣で聞いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「うん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="587">「やっと電気ついた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="588">「停電中だけどね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="589">「絵の中は別系統です」</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　マルタが言う。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="593">　私は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　紙の下に、作品名を書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="597">　『靴を脱いだところ』。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="599">　その瞬間、店の照明が一斉についた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="601">　冷蔵庫が唸り、コーヒーミルのランプが光り、壁時計が一拍遅れて動き出す。客たちから拍手が起こった。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="603">「おお、復旧！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="604">「プリンも無事！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="605">「そこが最優先なの？」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="607">　店内に明るさが戻った。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="609">　けれど白い紙に映っていた影は、光が変わって薄くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　私は少しだけ寂しく思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　するとつむぎ先輩が、紙の裏から窓の外を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「雨、止んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　雲の切れ間から、青空がのぞいていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="619">　濡れたガラスの向こうの青と、店内の人たちの姿が、白い紙の隙間に一緒に映っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　影が消えても、みんなはまだここにいた。</p>
+<div class="source-line scene-break gap-2" data-source-line="624" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="627">　展覧会が終わるころには、坂道に夕日が差していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　お客さんを見送り、椅子を戻し、床を拭く。濡れた私の最初の絵は、乾かすため厨房の隅に立てかけてある。夕空も家もすっかりにじみ、もう元には戻らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　でも、不思議と捨てる気にはならなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="633">「そっちも展示したらよかったのに」</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　こよみが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「題は『大雨の不動産』？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="638">「家賃は雨漏り一回分」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="639">「敷金が戻らなそう」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　マルタが、窓に貼った共同作品を慎重にはがしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「これは、誰の作品ですか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="644">「みんなの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="645">「では、みんなの部屋に一週間ずつ飾ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="646">「一周するのに時間かかるね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="647">「居場所は移動してもいいです」</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　マルタは当然のように言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　つむぎ先輩は、貸してくれた土の窓を作品の列へ戻した。十一枚と一枚の色は同じなのに、外から帰ってきた一枚だけ、少し違って見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「散歩、どうでした？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="654">「にぎやかだった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="655">「先輩の作品なのに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="656">「窓は、通ったものを覚えるから」</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　先輩は指で土の端をなでた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="660">　閉店後、私たちは残ったプリンを四つ、丸テーブルに並べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「ちゃんと人数分ある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="663">「奇跡だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="664">「最初から取り置きしてたの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="665">「平和は準備から生まれるんですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　透明なゼリーの層には、夕方の空が映っていた。朝より濃い青で、窓の明かりを少し混ぜた色。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　スプーンを入れると、その空がゆっくり崩れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="671">　食べるのは、少しもったいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　でも、食べないほうがもっともったいない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「いただきます」</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　四人の声が重なった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="679">　甘くて、冷たくて、雨上がりの匂いがした。</p>
+<div class="source-line scene-break gap-2" data-source-line="682" role="separator">＊</div>
+<p class="source-line role-narration gap-2" data-source-line="685">　夜、私はいったん外へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　理由は特になかった。坂の下の郵便受けを見て、海を一度眺め、それから三角屋根荘へ戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　入口の灯りは黄色く、窓には四人分の影があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　ドアを開ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　コーヒーの残り香と、洗ったカップの湯気と、二階から聞こえる誰かの足音が、いっぺんに私を迎えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　私は玄関で靴を脱いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　きちんとそろえようとして、片方だけ少し曲がった。直そうか迷って、そのままにする。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「ただいま」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="701">　小さく言うつもりだったのに、店の奥まで届いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「おかえりー」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　こよみの声。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="707">「おかえりなさい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　マルタの声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="711">「おかえり」</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　つむぎ先輩の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　少し遅れて、厨房から葉子さんの声もした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="717">「お砂糖、切らしてるから買ってきてくれた？」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="718">「それは聞いてません！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="719">「じゃあ、もう一回いってらっしゃい」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="720">「ただいまの直後に追い出さないでください！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="722">　笑い声が店に広がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　私は靴を履き直さず、そのまま中へ上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　砂糖壺は空に近くなっていた。底に残った三つの角砂糖の隙間へ、窓の青が小さく落ちている。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　明日の朝には、葉子さんが新しい砂糖を足すだろう。</p>
+<p class="source-line role-narration gap-0" data-source-line="729">　いつか、この壺が割れることもあるかもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="730">　私たちがこの家を出て、別々の窓に明かりをつける日も来る。</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　それでも、今日ここにあった青空は、なくならない。</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　私は砂糖壺の蓋をそっと閉めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　大事なものを閉じ込めるためではなく、また明日の朝、みんなで開けるために。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="弱い者いじめだけは許さない「鉄拳のタケ」こと神代猛は、閉鎖寸前の市民コートを守るため、青耀学院との決着へ向かう。相手を率いるのは、かつてダブルスを組みながら袂を分かった天才・御影冬牙。殴り合いになるはずの午前零時、壊れた照明と得点板が勝手に灯り、二人の手には捨てたはずのラケットが戻る。始まったのは、一ポイント失うたび大切な記憶を奪われる異様な試合だった。仲間も過去も互いの名前さえ賭け金になるコートで、正反対の二人は最後まで敵でいられるのか。">
+<title>午前零時のラブ・オール｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="午前零時のラブ・オール" data-novel-id="午前零時のラブ・オール" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="sports-competition">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化" selected>スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>アクション・バトル・ジュブナイル</p>
+  <p><strong>補助ジャンル：</strong>ファンタジー・学園・スポーツ</p>
+  <p><strong>CSVタグ：</strong>アクション、バトル、ジュブナイル、ファンタジー、学園、スポーツ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">スポーツ・競技</span></p>
+  <p id="currentPresetDescription">実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化</p>
+  <h3>意味色</h3><p>青＝戦術、赤＝勝負、金＝記録、紫＝重圧、緑＝連携</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：581行／章：0／役割・強度タグ：639</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="午前零時のラブ・オール 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『午前零時のラブ・オール』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　喧嘩は、勝った方の言い分が正しくなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="4">　テニスは、ボールが線の内側に落ちた方が正しくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　県立黒鉄工業高校二年の神代猛は、その二つを、だいたい同じようなものだと思っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　午前零時。</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　閉鎖された朝凪市民コートの得点板が、ひとりでに「LOVE－ALL」と灯るまでは。</p>
+<div class="source-line scene-break gap-2" data-source-line="12" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue fx-beat gap-2" data-source-line="15">「タケさん！　青耀の連中、もう来てます！」</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　八田修平が息を切らして駆け込んできたとき、猛は校舎裏で三年生を二人、用務員室の古びたソファに並べて座らせていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　二人とも鼻にティッシュを詰めている。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="20">　猛の右拳には血がついている。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="21">　ただし、その血は猛のものだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="23">「で？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「で、じゃないっすよ。今夜、朝凪コートで決着つけるって。向こうは二十人。御影冬牙も来るそうです」</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　その名を聞いた瞬間、猛の拳がわずかに固くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　ソファの三年生が、ひっと喉を鳴らす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「帰れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　猛が言うと、二人は互いにつまずきながら逃げていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　八田は呆れた顔でその背中を見送った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「あいつら、何やったんすか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="39">「一年から弁当代取ってた」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="41">「で、タケさんが説教を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「話が長えから、一発ずつにした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「合理的っすねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　黒鉄工業では、猛は「鉄拳のタケ」と呼ばれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　授業中はほとんど寝ている。制服の袖はまくり、ネクタイは入学式の日に失くした。成績は学年の下から数えた方が早い。だが、弱い者から金を取る奴と、数を頼んで一人を囲む奴だけは許さない。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="51">　そのせいで味方も多いが、敵はもっと多かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="53">「朝凪コートは、明日から青耀スポーツ開発のもんになる。フェンス張って、会員制の育成施設にするって話です」</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　八田が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="57">「知ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="59">「なら今夜、止めるしかないっす。あそこ取られたら、近所のガキも、じいさんばあさんも使えなくなる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="61">「知ってるって言ってんだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　猛は壁に立てかけてあった鉄パイプを手にした。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　だが、二歩進んでから止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　用務員室の窓際に、一本の古いテニスラケットがあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="68">　ガットは黄ばみ、フレームの塗装は半分剥げている。グリップの底には、不器用な文字で二つの頭文字が彫られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　Ｋ＆Ｔ。</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　神代猛と、御影冬牙。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="74">「それ、持ってくんすか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="76">「持ってかねえ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「昔、テニスやってたって本当なんですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「やってねえ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="82">「いや、ラケットに名前が」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「八田」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="86">「はい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「今からお前を三年の隣に座らせてもいいんだぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　八田は口を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　猛は鉄パイプだけを持って、夜の街へ出た。</p>
+<div class="source-line scene-break gap-2" data-source-line="95" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="98">　朝凪市民コートは、海沿いの工業地帯と住宅街の境目にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　錆びた金網。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　ひび割れたアスファルト。</p>
+<p class="source-line role-narration gap-0" data-source-line="102">　二基ある照明塔は三年前から壊れたまま。</p>
+<p class="source-line role-narration gap-0" data-source-line="103">　それでも休日になれば、小学生が短いラケットを振り、老人たちがゆっくり球を打ち合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　猛と冬牙が初めて会ったのも、このコートだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　七歳の猛は、飛んできたボールを素手でつかみ、七歳の冬牙に投げ返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="108">　七歳の冬牙は、それをラケットで猛の額に打ち返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　次の瞬間には取っ組み合いになり、その三十分後には一緒にアイスを食べていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="112">　二人はダブルスを組んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　猛はどんな球にも食らいついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="115">　冬牙はどこへ打てば相手が崩れるかを、最初から知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　十三歳の夏、二人は県大会で優勝した。</p>
+<p class="source-line role-narration gap-0" data-source-line="118">　その一週間後、冬牙は名門・私立青耀学院の特待生になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="120">「お前と組んだ六年、練習にもならなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　冬牙はそう言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　猛は返事の代わりに、冬牙の頬を殴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="125">　冬牙は倒れなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="126">　代わりに、二人のラケットをネットポストへ叩きつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　それ以来、猛はテニスをやめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="129">　冬牙は全国大会へ進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　そして今夜、二人は同じコートを挟んで、別々の二十人を背負って立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　黒鉄工業側には、作業着、学ラン、革ジャン。</p>
+<p class="source-line role-narration gap-0" data-source-line="134">　青耀学院側には、白いジャージと揃いのウインドブレーカー。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　その中央で、御影冬牙は白いテニスバッグを肩にかけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　背が伸びていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="139">　髪は短く整えられ、頬には昔、猛がつけた傷が薄く残っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="141">「鉄パイプか」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="143">　冬牙が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「ラケットよりは素直だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="147">「お前には似合っている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="149">「お前には、そのお坊ちゃん服がお似合いだぜ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="151">　両陣営から、低い笑いが起きた。</p>
+<p class="source-line role-narration gap-1" data-source-line="153">　冬牙の後ろにいた女子マネージャー、榊真琴が一歩出る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="155">「話し合いましょう。施設の契約には、地域開放の条項が——」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="157">「真琴」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　冬牙が止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="161">「今さら紙切れを見せても、こいつは読まない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="163">「読めねえみたいに言うな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「読めるのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="167">「漢字による」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="169">　黒鉄側から笑いが起きた。</p>
+<p class="source-line role-narration gap-0" data-source-line="170">　青耀側の何人かまで吹き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　冬牙の口元が、ほんの少しだけ緩んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　それを見て、猛は無性に腹が立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="176">「決めようぜ。ここで」</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　猛は鉄パイプを地面へ放った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「どっちが朝凪コートから消えるか」</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　冬牙もテニスバッグを下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「望むところだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　二人が同時に一歩踏み出した、そのときだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　ばちん。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="190">　誰も触れていない照明塔が点いた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="192">　真昼のような白い光が、ひび割れたコートを照らした。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="193">　金網の外にいた全員のスマートフォンが、一斉に黒い画面になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　そして、古い得点板に文字が浮かんだ。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="197">　LOVE－ALL。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="199">「……電気、止まってるはずだよな」</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　八田がつぶやいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　審判台に、一人の男が座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　いつ現れたのか、誰にも分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　真っ黒なスーツ。</p>
+<p class="source-line role-narration gap-0" data-source-line="208">　真っ黒なネクタイ。</p>
+<p class="source-line role-narration gap-0" data-source-line="209">　顔だけが、ボールのように青白い。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　年齢は、老人にも若者にも見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="213">「朝凪コートでの争いは、球で決めていただきます」</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　男は、乾いた声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「一ゲーム。デュースあり。勝者は、この場所の明日を一つだけ決められる。敗者は、その決定に二度と逆らえない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「誰だ、てめえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　猛が問う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「主審です」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="225">「見りゃ分かる。名前を聞いてんだよ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="227">　男は薄く笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「試合が終われば、名前など必要ありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　コートの門が、ひとりでに開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　猛の足元へ、一本のラケットが滑ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="234">　用務員室に置いてきたはずの、Ｋ＆Ｔのラケットだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「ふざけんな」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="238">「殴り合いを望むなら、ご自由に。ただし——」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　主審が指を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　猛は冬牙へ殴りかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　次の瞬間、猛は自分側のベースラインに立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　冬牙も反対側のベースラインにいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="246">　間にあったはずの十メートルを、拳は一ミリも進んでいなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「このコートの中では、ラケット以外による攻撃は、すべて最初の位置へ戻されます」</p>
+<p class="source-line role-narration gap-1" data-source-line="250">　主審は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「便利な世の中になったな」</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　猛は吐き捨てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　冬牙がバッグからラケットを抜く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「逃げるのか、猛」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　昔と同じ呼び方だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　猛は足元の古いラケットを拾った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「誰が逃げるかよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　両手でグリップを握る。</p>
+<p class="source-line role-narration gap-0" data-source-line="267">　四年ぶりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　手のひらが、先に形を思い出した。</p>
+<div class="source-line scene-break gap-2" data-source-line="272" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="275">　冬牙の第一サーブは、照明の中へ消えた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="277">　高く上げたトスと白い光が重なり、ボールの輪郭が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　次に見えたときには、猛の右横のラインが白い粉を噴いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「フィフティーン・ラブ」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　主審の声。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　遅れて、金網が震える音がした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="287">「うそだろ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　八田が目を見開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　青耀側から歓声が上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="292">　その中で、真琴だけが困った顔をしていた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="294">「御影先輩、今のサーブ……名前、なんでしたっけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　冬牙が振り返る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「白夜だ。お前がつけた」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="300">「私が？」</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　真琴は首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="304">「すみません。そんな話、しました？」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　冬牙の眉が動いた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="308">　猛は鼻で笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「格好つけて技に名前なんかつけるからだ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="312">「次は、お前の記憶から消してやる」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　二本目。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="316">　またボールが光へ溶けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　だが今度は、猛が先に走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　見えてからでは遅い。</p>
+<p class="source-line role-narration gap-0" data-source-line="321">　なら、冬牙の肩と手首を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　昔、何千本も見た動きだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　猛のラケットがボールを捉える。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　鈍い金属音。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　返球はネットを越えたが、アウトへ大きく飛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="329">「アウト。サーティー・ラブ」</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　青耀側の歓声が、さっきより小さい。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　真琴が冬牙のスポーツドリンクを見て言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="335">「これ、誰のですか？」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="337">　冬牙は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　ボトルには「ＴＯＧＡ」と書かれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　だが、真琴はそれを初めて見る物のように持っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　得点板の「３０」が、一瞬だけ別の文字に見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　ＭＡＫＯＴＯ。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　その名前の一部が、黒く塗りつぶされて消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　猛にも、冬牙にも、それが見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「何しやがった」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　冬牙が審判台をにらむ。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="354">「得点を記録しただけです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="356">「得点じゃねえだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　猛が言った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="360">　主審は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「試合を続ければ、お分かりになります」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　冬牙の三本目のサーブ。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　今度の猛は、ベースラインから二歩下がった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="367">　光の中ではなく、地面に落ちる影を見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　ボールが来る。</p>
+<p class="source-line role-narration gap-0" data-source-line="370">　猛は腰を落とし、短いスイングで叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　まともなフォームではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="373">　拳を振り抜くときと同じ、腰と肩を一気に回す打ち方。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　ボールはネットすれすれを走り、冬牙の足元へ突き刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　冬牙のラケットがわずかに遅れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="379">「フィフティーン・サーティー」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="381">「よっしゃあ！　出た、タケさんの舗装路リターン！」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　八田が叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="385">「今つけただろ、その名前」</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="387">「必殺技は名前があった方が盛り上がるんすよ！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="389">　猛は思わず笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　だが八田は、すぐに妙な顔をした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="393">「……あれ。俺、なんでこの人をタケさんって呼んでんだ？」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="395">　笑いが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="397">「八田」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="399">「すんません。顔は知ってるんすけど……どこで会いましたっけ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="401">　猛の胸の奥を、冷たいものが通った。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　一年前。</p>
+<p class="source-line role-narration gap-0" data-source-line="404">　三年生六人に囲まれていた八田を、猛は一人で助けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="405">　殴られ過ぎて立てなくなった猛を、八田は背負って病院まで運んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　その夜から、八田は猛の後ろを勝手についてくるようになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　八田の目から、その夜が消えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　得点板の「１５」が、ＨＡＴＴＡの文字に変わり、一部を黒く失った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「点を取った方が、払うのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　冬牙がつぶやいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「ご明察」</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　主審が拍手を一度だけした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「得点とは、相手から奪うものではありません。自分から差し出すものです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="423">「何をだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「あなたを、あなたにしているものを」</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　猛は審判台へラケットを投げようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　だが冬牙の声が飛んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="431">「よせ！　ラケットを失えば試合続行不能だ。棄権扱いになる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="433">「それがどうした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="435">「棄権すれば、相手に残りの得点が加算されるかもしれない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="437">　主審の笑みが深くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　冬牙の読みは当たっているらしい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「だったら、さっさと終わらせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　猛は構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「俺が勝って、全部払う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「勝手に決めるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　冬牙の目が鋭くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="451">「このコートを残すのは俺だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「会員制にする奴が言うな」</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="455">「契約書を読んでいないのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="457">「漢字によるって言ったろ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="459">「馬鹿が！」</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　冬牙のサーブが飛ぶ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="463">　今度は光へ上げない。</p>
+<p class="source-line role-narration gap-0" data-source-line="464">　体の正面へ来る、重いフラットサーブ。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　猛は避けずに打ち返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　衝撃で、古いラケットのフレームがきしむ。</p>
+<p class="source-line role-narration gap-0" data-source-line="469">　ボールは高く浮いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　冬牙が跳ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　夜空を背に、ラケットが振り下ろされた。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　叩きつけられたボールは猛のコートで跳ね、肩の高さまで一気に伸びる。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　猛は後ろへ転がりながらラケットを合わせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　返球は冬牙の頭上を越え、ぎりぎりベースラインへ落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">「サーティー・オール」</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　黒鉄側から大歓声が上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　猛のポケットで、スマートフォンが鳴った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="485">　母親からだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="487">「もしもし」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="489">『……どちらさまですか』</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="491">　声は確かに母親だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「おふくろ。俺だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="495">『番号をお間違えじゃないですか』</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　通話が切れた。</p>
+<p class="source-line role-narration role-system tone-3 gap-1" data-source-line="499">　画面に並んでいた家族の写真から、猛だけが消えている。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="500">　母親と妹の間に、不自然な空白があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　猛はスマートフォンを握りつぶしそうになった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「猛」</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　冬牙がネットの向こうから呼ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="508">「止めるなら、今だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「止めたら、お前が勝つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「勝つのは俺だ。最初からそのつもりだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「ふざけんな。格好つけるのはガキの頃から変わってねえな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="516">「お前にだけは言われたくない」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="518">　二人は同時に笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="520">　笑ったことに、互いが驚いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　主審が不愉快そうに指を鳴らす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「プレーを」</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　次のラリーは二十七往復続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　冬牙の球は、同じ場所へ二度来ない。</p>
+<p class="source-line role-narration gap-0" data-source-line="529">　深いトップスピンで猛を下げ、短いスライスで前へ引きずり出す。左右に振り、呼吸を奪い、最後に逆を突く。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="531">　猛は技術では完全に劣っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　だが、倒れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　靴底が裂けても走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　膝を擦りむいても滑り込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="537">　体勢を崩せば、転びながら打つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="538">　冬牙が完璧な組み立てで空けた場所へ、猛は完璧ではない執念で戻ってくる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="540">「しつこいぞ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="542">「喧嘩で一番大事なのはな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　猛はラケットを振り抜いた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="546">「相手が先に嫌になるまで、立ってることだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　ボールがネットポストの外側を回り込み、冬牙側のサイドラインへ落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="550">「フォーティー・サーティー。ゲームポイント、神代」</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　得点板に「４０」が灯る。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　同時に、黒鉄側から猛の名を呼ぶ声が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="556">「誰だ、あいつ」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="558">「うちの学校か？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「知らねえけど、すげえな」</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　八田まで、猛を見て首をかしげている。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　それでも拳だけは握り、声を張った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="566">「名前知らねえけど、負けんなよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　猛の喉が熱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　勝てば、朝凪コートは残せる。</p>
+<p class="source-line role-narration gap-0" data-source-line="571">　その代わり、自分を覚えている者は、もう誰もいなくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　それでいい、と猛は思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　昔から、殴られる役は自分でいいと思ってきた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="576">　八田が笑えるなら。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="577">　妹が学校で肩身の狭い思いをしないなら。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　近所の子供たちが、ここでラケットを振れるなら。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　自分の名前くらい、安い。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="582">「来い、冬牙」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　猛は構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「終わらせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　冬牙は、ゆっくり首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="590">「終わるのは、お前じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　白夜サーブ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="594">　猛は光の中へ踏み込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="595">　ボールを捉える。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　だが、冬牙はすでにネットへ走っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　返球を空中で切る。</p>
+<p class="source-line role-narration gap-0" data-source-line="600">　ボールは勢いを失い、ネット際へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　猛は飛び込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　届かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="606">「デュース」</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　猛はアスファルトへ倒れ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　冬牙が一点を取った瞬間、青耀学院の横断幕から「御影冬牙」の名が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="611">　真琴は、見知らぬ相手を見る目で冬牙を見ている。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="613">「あなた……青耀の選手ですか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　冬牙は答えず、猛へ手を差し出した。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="617">「立て」</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　猛はその手を払って、自分で立った。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="621">「契約書の地域開放条項って、何だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="623">「平日の午後と休日の午前は、今まで通り無料開放する。設備は青耀が直す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="625">「最初からそう言え」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="627">「言おうとした。お前が説明会の責任者を殴った」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="629">「あいつ、近所のばあちゃんを『利用率に入らない』って笑ったんだぞ」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="631">「だからといって殴るな！」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="633">「じゃあ、笑った口をどう止めんだよ」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="635">「言葉で止めろ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="637">「俺は漢字によるんだよ！」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="639">　また、二人は笑った。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="641">　今度は、笑いながら泣きそうになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　次の一点を、冬牙が取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「アドバンテージ、御影」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　その瞬間、真琴の手帳から、冬牙と撮った写真が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　青耀の選手たちは、コートの中の男が誰なのか分からなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　それでも真琴は、胸を押さえた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="652">「知らない人なのに……どうして、こんなに怖いんだろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　冬牙は聞こえないふりをした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「猛。十三歳のときのことを覚えているか」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="658">「忘れるかよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="660">「俺が青耀へ行く前、お前に言った言葉だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「練習にもならなかった、だろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「あれは嘘だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　冬牙の声が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="668">「特待の条件に、朝凪との関係を切ることがあった。お前は喧嘩沙汰が多かった。青耀は、お前と組み続けるなら俺を取らないと言った」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="670">「だから俺を捨てたのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　冬牙は歯を食いしばった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="676">「お前の家に金がないことを知っていた。お前まで青耀を目指せば、母親が無理をする。俺が先に嫌われれば、お前は諦めると思った」</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　猛は黙った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="680">「馬鹿か、お前」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「お前にだけは言われたくない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「俺が何年、お前を殴る想像して寝たと思ってんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="686">「実際、一度殴っただろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「足りねえ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「なら試合の後にしろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　猛はラケットを構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「試合の後なんか、俺たちにあるのかよ」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="696">　冬牙は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　アドバンテージからの一点。</p>
+<p class="source-line role-narration gap-0" data-source-line="699">　冬牙が勝てば、冬牙の願いが通り、冬牙はすべてのつながりを失う。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　猛は冬牙のサーブを、渾身の力で打ち返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　ラケットのフレームが、ついに割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　ボールは異様に低く、一直線に冬牙の足元へ飛ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　冬牙はぎりぎりで拾った。</p>
+<p class="source-line role-narration gap-0" data-source-line="708">　猛は折れかけたラケットで、もう一度叩く。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　互いの球が速くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　冬牙が角度をつける。</p>
+<p class="source-line role-narration gap-0" data-source-line="713">　猛が飛びつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="714">　猛が深く打つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="715">　冬牙が背面で返す。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　ボールは白い火花のようになった。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="719">　冬牙の最後の返球がネットに触れ、わずかに軌道を変える。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　猛は逆を突かれながら、ラケットの先だけを伸ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="722">　ガットの端に当たったボールが、ふわりと浮く。</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　冬牙側のコートへ落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="726">「デュース」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　得点板が震えた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="730">　主審が、初めて舌打ちした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「無駄です。何度デュースを繰り返しても、いずれどちらかが勝つ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="734">「勝った方が、全部忘れられるんだな」</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　猛が聞く。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="738">「正確には、勝者が最後の愛を支払うのです」</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　主審は楽しそうに答えた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="742">「テニスでは、ゼロをラブと呼ぶ。実に正直な数え方でしょう。人は何かを得るたび、ゼロにあった愛を使っている」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="744">「悪趣味だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="746">「勝利とは、そういうものです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="748">「違う」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="750">　冬牙が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="752">「勝利は、相手がいるから成立する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="754">「同じことです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="756">「同じじゃねえよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　猛は割れたラケットを肩に担いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="760">「相手が消えたら、ただの独り勝ちだ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="762">　主審の笑顔が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「プレーを続けなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　ボールが冬牙の手元へ戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　冬牙は猛を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　猛も冬牙を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　言葉は要らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　昔、ダブルスを組んでいた頃。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="775">　二人は作戦を決めるのが苦手だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="776">　冬牙は説明が長く、猛は途中で聞くのをやめる。</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　だから最後には、いつも目だけで決めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　——次は、真ん中。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　冬牙がサーブを打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　猛は打ち返す。</p>
+<p class="source-line role-narration gap-0" data-source-line="785">　冬牙は、猛が最も取りやすい高さへ返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="786">　猛も、冬牙の正面へ返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="788">「何をしている」</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　主審が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　二人は答えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　左右へ振らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="795">　逆を突かない。</p>
+<p class="source-line role-narration gap-0" data-source-line="796">　相手の届かない場所へ打つはずの競技で、二人は相手が必ず届く場所へ打ち続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　十回。</p>
+<p class="source-line role-narration gap-0" data-source-line="799">　百回。</p>
+<p class="source-line role-narration gap-0" data-source-line="800">　千回。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　時計の針は午前零時一分から動かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　金網の外の仲間たちも、声を出さなくなった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="805">　時間そのものが止まり、瞬きさえ忘れている。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="807">「無意味です」</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　主審の声だけが響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「このコートからは出られない。ラリーは永遠に続く。疲労は積み重なる。いずれミスをする」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="813">「だったら」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="815">　猛は息を切らしながら笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="817">「ミスる前に、ぶっ壊す」</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　次の球を、猛はネット中央へ高く上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　冬牙が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="822">　猛も走る。</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　二人はネットを挟み、同時に跳んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="826">「センターは——」</p>
+<p class="source-line role-narration gap-1" data-source-line="828">　冬牙が叫ぶ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="830">「二人のもんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　二本のラケットが、ネットの真上で一つのボールを同時に叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　爆発のような音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　ボールの表面が裂けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　黄色い球は、二つの半球になって飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="840">　一つは猛側のサービスライン内へ。</p>
+<p class="source-line role-narration gap-0" data-source-line="841">　もう一つは冬牙側のサービスライン内へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　まったく同時に落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　主審が口を開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="847">「ポイント——」</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　声が出ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　得点板が猛烈な速さで切り替わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="853">　ADVANTAGE KAMI。</p>
+<p class="source-line role-narration gap-0" data-source-line="854">　ADVANTAGE MIKAGE。</p>
+<p class="source-line role-narration gap-0" data-source-line="855">　GAME KAMI。</p>
+<p class="source-line role-narration gap-0" data-source-line="856">　GAME MIKAGE。</p>
+<p class="source-line role-narration gap-0" data-source-line="857">　WINNER。</p>
+<p class="source-line role-narration gap-0" data-source-line="858">　LOSER。</p>
+<p class="source-line role-narration gap-0" data-source-line="859">　WINNER。</p>
+<p class="source-line role-narration gap-0" data-source-line="860">　LOSER。</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　白い線が、地面から糸のように浮き上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="863">　ネットが波打つ。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="864">　照明塔の光が黒く染まる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="866">「同点はない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="868">　主審が初めて叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="870">「勝者と敗者が必要だ！　どちらかが、すべてを得て、すべてを失わなければ——」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="872">「知るかよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　猛は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="876">「俺たち、昔からダブルスなんだ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="878">　得点板が最後に一度だけ光った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="880">　LOVE－ALL。</p>
+<p class="source-line role-narration gap-1" data-source-line="882">　主審の顔に、細い亀裂が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="884">　白い顔が、古いボールのように割れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="885">　黒いスーツが崩れ、中から無数の消えかけた名前が飛び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　誰かの息子。</p>
+<p class="source-line role-narration gap-0" data-source-line="888">　誰かの友人。</p>
+<p class="source-line role-narration gap-0" data-source-line="889">　誰かのライバル。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="890">　誰かがかつて愛した、無数の勝者たちの名前。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="892">　それらは夜空へ昇り、光の中で消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="894">　最後に残ったのは、二つだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　ＫＡＭＩＳＨＩＲＯ　ＴＡＫＥＲＵ。</p>
+<p class="source-line role-narration gap-0" data-source-line="897">　ＭＩＫＡＧＥ　ＴＯＧＡ。</p>
+<p class="source-line role-narration gap-1" data-source-line="899">　二つの名前は絡み合い、一本の白い線になって、コートの中央へ落ちた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="901">　そして、すべての光が消えた。</p>
+<div class="source-line scene-break gap-2" data-source-line="904" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="907">　翌朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="909">　八田修平は、朝凪市民コートの前で目を覚ました。</p>
+<p class="source-line role-narration gap-1" data-source-line="911">　周りには、黒鉄工業と青耀学院の生徒が四十人ほど倒れている。</p>
+<p class="source-line role-narration role-command gap-0" data-source-line="912">　全員、なぜここに来たのかを覚えていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　コートの中には、折れた古いラケットと、白いラケットが一本ずつ落ちていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="916">「誰のだ、これ」</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　八田が拾う。</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　古いラケットの底には「Ｋ＆Ｔ」と彫られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="921">　だが、その文字が誰を指すのか分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　胸の奥だけが、ひどく痛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="925">「ねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　青耀の女子マネージャーが、破れた書類を拾い上げた。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="929">「これ、施設の契約書。地域開放の条項がある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="931">「じゃあ、コートなくならねえのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="933">「でも、このままだと会員制の時間が長すぎる。修正案も挟まってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="935">　修正案は、二種類の字で書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="937">　一つは、几帳面で細い字。</p>
+<p class="source-line role-narration gap-0" data-source-line="938">　もう一つは、漢字をところどころ間違えた、乱暴な字。</p>
+<p class="source-line role-narration gap-1" data-source-line="940">　最後のページには、こうあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="942">　——朝凪コートは、誰か一人の勝ち場所じゃない。</p>
+<p class="source-line role-narration gap-0" data-source-line="943">　——下手でも、金がなくても、やり直したくなった奴が来られる場所にする。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　八田は、その文章を何度も読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="947">「これ書いた奴、頭悪そうだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="949">「でも、悪い人じゃなさそう」</p>
+<p class="source-line role-narration gap-1" data-source-line="951">　女子マネージャーが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　二人は顔を見合わせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="955">「じゃあ、直すか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="957">「契約を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="959">「コートを。ついでに契約も」</p>
+<p class="source-line role-narration gap-1" data-source-line="961">　黒鉄と青耀の生徒たちは、その日から一緒に動いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="963">　なぜそこまで必死になるのか、誰にも説明できなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="964">　ただ、朝凪コートを失くしてはいけないという気持ちだけが残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="966">　署名が集まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="967">　市が動いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="968">　青耀スポーツ開発は計画を変更した。</p>
+<p class="source-line role-narration gap-1" data-source-line="970">　一年後、朝凪市民コートは全面改修され、無料開放の時間が大幅に増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="972">　入口には、新しい名が掲げられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="974">　ＬＯＶＥ　ＡＬＬ　ＣＯＵＲＴ。</p>
+<p class="source-line role-narration gap-1" data-source-line="976">　その下の小さな記念プレートには、こう刻まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="978">　——この場所を守った、名もなき二人のプレーヤーに捧ぐ。</p>
+<div class="source-line scene-break gap-2" data-source-line="981" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="984">　十年後の夏。</p>
+<p class="source-line role-narration gap-1" data-source-line="986">　小学五年生の少年が、夕暮れのコートで一人、壁打ちをしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　何度打っても、ボールがラケットの真ん中に当たらない。</p>
+<p class="source-line role-narration gap-0" data-source-line="989">　悔しくなって、ラケットを投げそうになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="991">　そのとき、隣のコートから音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="993">　ぱん。</p>
+<p class="source-line role-narration gap-0" data-source-line="994">　ぱん。</p>
+<p class="source-line role-narration gap-0" data-source-line="995">　ぱん。</p>
+<p class="source-line role-narration gap-1" data-source-line="997">　二人の青年がラリーをしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="999">　一人は、袖をまくった黒い学生服。</p>
+<p class="source-line role-narration gap-0" data-source-line="1000">　もう一人は、白いテニスウェア。</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　古い格好だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1003">　十年前どころか、ずっと昔の写真から抜け出してきたように見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="1005">　黒い学生服の青年は、滅茶苦茶なフォームで、どんな球にも食らいついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1006">　白いウェアの青年は、相手が届くぎりぎりの場所へ、正確に返し続けた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="1008">「すげえ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="1010">　少年は金網へ近づいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1012">「ねえ、どっちが勝ってるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1014">　二人はラリーを止めない。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1016">　黒い学生服の青年が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1018">「ずっとデュースだ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1020">「終わらないの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1022">　白いウェアの青年が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1024">「終わらせないんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1026">「なんで？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1028">　ボールを打つ音が、夕暮れに響く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1030">　ぱん。</p>
+<p class="source-line role-narration gap-0" data-source-line="1031">　ぱん。</p>
+<p class="source-line role-narration gap-0" data-source-line="1032">　ぱん。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1034">「勝ったら、一人になるからだよ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="1036">　少年には、その意味が分からなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1038">　ただ、不思議とラケットを投げる気はなくなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1040">「俺も入っていい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="1042">　二人は同時に少年を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1044">　ほんの一瞬だけ、ひどく懐かしそうな顔をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1046">「ラケットは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1048">「一本しかない」</p>
+<p class="source-line role-narration gap-1" data-source-line="1050">　黒い学生服の青年が、足元の古いラケットを蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1052">　金網の下を滑り、少年の前で止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1054">　グリップの底に、二文字が彫られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1056">　Ｋ＆Ｔ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1058">「次はダブルスだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1060">　少年が顔を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1062">　隣のコートには、もう誰もいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1064">　照明は消えている。</p>
+<p class="source-line role-narration gap-0" data-source-line="1065">　ネットも揺れていない。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1067">　ただ、得点板だけが、薄闇の中で白く灯っていた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="1069">　LOVE－ALL。</p>
+<p class="source-line role-narration gap-1" data-source-line="1071">　ゼロ対ゼロ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="1073">　あるいは、まだ何も失っていないという意味だった。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

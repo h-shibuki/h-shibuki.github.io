@@ -1,0 +1,679 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="妻を持ったことなどないはずの佐伯圭介に、駅の遺失物係から奇妙な葉書が届く。保管品は「日曜日の朝」。焦げたシナモン、二人分のコーヒー、知らない女性の笑い声――その特徴を見ただけで、胸は失った続きを思い出してしまう。コインロッカーの奥に隠された零番線で受け取ったのは、何も入っていない透明な袋。封を切ると、圭介の部屋に妻・奈緒と過ごした六年の記憶があふれ出す。なぜ大切な日々だけが彼から失われたのか。保管期限が迫るなか、持ち主を名乗る女性が窓口に現れ、「品名」の意味が静かに揺らぎ始める。">
+<title>品名：あなた｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="品名：あなた" data-novel-id="品名：あなた" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ホラー、奇妙な味、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：218行／章：0／役割・強度タグ：232</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="品名：あなた 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">品名：あなた</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　駅の遺失物係から葉書が届いたのは、妻のいない日曜日だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="4">　もっと正確に言えば、私は妻を持ったことがないはずの日曜日だった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="6">　葉書は役所の通知のような薄い灰色で、表には私の住所と名前――佐伯圭介――が、妙に整った活字で印刷されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　　水無瀬駅　遺失物保管室</p>
+<p class="source-line role-narration gap-0" data-source-line="9">　　品名：日曜日の朝</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　　特徴：焦げたシナモン、二人分のコーヒー、女性の笑い声</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　　保管期限：今月十四日</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　いたずらにしては、趣味が悪い。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　私は葉書を捨てようとして、手を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　焦げたシナモン。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="18">　その文字を見た瞬間、台所の奥で誰かが笑った気がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　明るく、少し息の抜ける笑い方だった。知らない声のはずなのに、胸の奥が、その声の続きを知っていた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="21">　水無瀬駅は、会社へ通っていた頃に毎日使っていた駅だった。けれど、遺失物保管室などあっただろうか。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　駅員に葉書を見せると、若い駅員は一瞬だけ私の顔を見てから、改札脇のコインロッカーを指さした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「一番右のロッカーを押してください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="26">「開けるんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="27">「いいえ。押すだけです」</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　言われた通りにすると、ロッカーの列そのものが低い音を立てて奥へずれた。その向こうに、下り階段が現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="30">　壁には<span class="term term-world">〈零番線・遺失物保管室〉</span>と書かれた古い案内板が掛かっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　階段の先には、昭和の病院の受付のような小窓があった。白い手袋をした老女が、分厚い帳簿をめくっている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="34">「お名前を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="35">「佐伯圭介です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="36">「品物の特徴は」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　私は葉書を読み上げようとした。ところが口から出たのは、別の言葉だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="40">「パンケーキの端だけ黒くて、コーヒーは彼女の分だけ砂糖が二つです」</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　老女は顔を上げなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「お間違いないようですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　差し出されたのは、透明なビニール袋だった。中には何も入っていない。ラベルに<span class="term term-world">〈日曜日の朝〉</span>とだけ書かれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「空ですよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="49">「紛失物というものは、持っているうちは見えないことが多いんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　意味を尋ねる前に、小窓はぴしゃりと閉まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　帰宅して袋の封を切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　次の瞬間、私は台所にいた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="57">　いや、実際には自分の部屋のソファに座っていたのだと思う。それでも目の前には、朝の光を受けた白い食卓があり、焦げたパンケーキがあり、向かいには髪を後ろで束ねた女がいた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="59">「また焦がした」</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　私が言うと、女は肩をすくめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「日曜くらい、失敗してもいいの」</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　それから、あの笑い声。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　私は彼女の名前を知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　奈緒。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　記憶が消えると、部屋は元に戻った。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　ただ、頬だけが濡れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　台所の戸棚を開けると、奥に見覚えのないマグカップがあった。縁が少し欠けていて、底にＮと書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　それが前からあったのかどうか、思い出せなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="78" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="80">　二枚目の葉書は、翌朝届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　　品名：左手薬指の重さ</p>
+<p class="source-line role-narration gap-0" data-source-line="83">　　特徴：銀色、内側に十一月二日</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　透明な袋を開けると、指に輪がはまった感覚が戻った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="86">　区役所の前で、奈緒が笑いながら私の手をつかんだ。写真を撮ってくれた通行人が「もう少しくっついて」と言い、私たちは照れながら肩を寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="88">　三枚目は<span class="term term-world">〈五月の病室で言えなかったこと〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="89">　四枚目は<span class="term term-world">〈水族館の暗がりでついた小さな嘘〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="90">　五枚目は<span class="term term-world">〈奈緒が眠る前に必ず言った言葉〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　私は毎日のように零番線へ通った。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　受け取るたび、私の人生は広がっていった。</p>
+<p class="source-line role-narration gap-0" data-source-line="95">　奈緒は辛いものが苦手だった。眠れない夜には床に座って古い映画を見た。子どもの名前を二人で考えたこともあった。結局、その名前を呼ぶ日は来なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　楽しいものだけではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="98">　私が仕事を辞めた冬。家賃のことで口論した夜。病室の花瓶に挿した花が、朝には一本だけ折れていたこと。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="100">　それでも、どの記憶にも確かに私たちはいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　私は結婚していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="103">　そして、何らかの理由で、妻のことを丸ごと忘れていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「なぜ、こんなものが駅に落ちていたんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　十度目に保管室を訪れたとき、私は老女に尋ねた。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="109">「忘れたから、落としたんでしょうか」</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　老女は帳簿に判を押しながら答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「順序が逆です」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="114">「逆？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「心が手を離したものを、人はあとから忘れたと呼ぶんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「誰が手を離したんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　老女は初めて私を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="121">「それを知りたいなら、残りもお引き取りください」</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　その日の葉書だけは、縁が赤かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　　品名：指輪を外した夜</p>
+<p class="source-line role-narration gap-0" data-source-line="126">　　特徴：割れたグラス、玄関の施錠音、女性の声</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　特徴の最後には、鉛筆で一語だけ書き足されていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="130">　　「怖い」</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　小窓の向こうで、赤い封筒が待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　私は受け取らなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「これは私のものではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="137">「ラベルを間違えることは、ほとんどありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「ほとんど、でしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　私は葉書をカウンターへ置き、階段を駆け上がった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="142">　その夜から、玄関の鍵を三度確認する癖がついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　なぜそんなことをするのか、自分でも分からなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="145" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="147">　奈緒の名前を検索すると、古い住所録の断片が一件だけ見つかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="148">　水無瀬駅から二駅先の、川沿いのマンションだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　夕方、その建物の前で待っていると、六時過ぎに女が帰ってきた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="152">　記憶の中の奈緒より髪が短く、目尻に薄い線が増えていた。それでも一目で分かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「奈緒」</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　呼ぶと、彼女は足を止めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="157">　だが振り返らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="159">「奈緒、僕だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　肩がわずかに揺れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="162">　彼女は鞄の持ち手を強く握り、早足で建物の中へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　追おうとして、私はガラス扉に映った自分を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　奈緒は六年分、年を取っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="167">　私は記憶の中と同じ、三十四歳のままだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　その場で新聞記事を探した。</p>
+<p class="source-line role-narration gap-0" data-source-line="170">　日付を六年前に絞り、水無瀬駅の名を入れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　小さな記事が一つ出た。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="174">　<span class="term term-world">〈水無瀬駅六番線で男性転落、死亡〉</span></p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="176">　死亡した会社員の名は、佐伯圭介。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　記事には、証明写真のような私の顔が載っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　目撃者の証言として、こう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　<span class="term term-world">〈男性は直前まで、ホーム上で女性と激しく口論していた〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="183">　その夜、部屋へ戻ると、最後の葉書が床に落ちていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="184">　黒い縁取りのある、厚い紙だった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="186">　　最終処分通知</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　　品名：佐伯圭介（男性・三十四歳）</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="188">　　所有者：佐伯奈緒</p>
+<p class="source-line role-narration gap-0" data-source-line="189">　　拾得場所：水無瀬駅六番線</p>
+<p class="source-line role-narration gap-0" data-source-line="190">　　保管期限：本日十七時</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　時計は十六時三十二分を指していた。</p>
+<div class="source-line scene-break gap-1" data-source-line="194" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="196">　零番線の保管室へ着いたとき、十六時四十七分だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「私は、品物なんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　老女は否定しなかった。</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif tone-5 gap-1" data-source-line="202">「私は死んでいる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="203">「佐伯圭介さんは、六年前に亡くなっています」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="204">「では、私は何です」</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　老女は背後の棚を示した。</p>
+<p class="source-line role-narration gap-0" data-source-line="207">　透明な袋や赤い封筒、古びた箱が、天井まで並んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「佐伯奈緒さんの中に残っていた、佐伯圭介さんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　私は笑おうとしたが、喉が鳴っただけだった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="213">「私は子どもの頃のことも覚えている。父の顔も、学校も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="214">「奈緒さんがあなたから聞いた話です。見せてもらった写真です。眠りながら口にした言葉です。人は、自分の中に他人を一人ずつ飼っている。その人がいなくなったあとも、よく似た顔で暮らし続ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「では、この部屋は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="217">「保管品が自分を人間だと思っているあいだに見る、待合室のようなものです」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　私はカウンターをつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「奈緒が私を忘れたから、私はここに来た」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「忘れたかったから、少しずつ置いていったのです」</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　老女が帳簿を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「あなたは、返しやすいものから先に自分へ戻した。日曜日の朝。指輪の重さ。眠る前の言葉。きれいなものばかりを集めて、ご自分を組み立て直した」</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　背後の棚に、まだ大量の封筒が残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　<span class="term term-world">〈夕食が冷めた理由〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="231">　<span class="term term-world">〈真夏日に長袖を着たこと〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="232">　<span class="term term-world">〈握りつぶされた携帯電話〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="233">　<span class="term term-world">〈階段から落ちたことにした夜〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="234">　<span class="term term-world">〈謝れば許されたと思った朝〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　口にした瞬間、その言葉を以前にも何度も使った気がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「私は、そんな人間じゃない」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="242">「記憶は、持ち主に都合よく減ることがあります」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　老女は赤い封筒をカウンターに置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　<span class="term term-world">〈指輪を外した夜〉</span>。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="247">　時計が十六時五十二分を指したとき、階段を下りる足音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　奈緒が入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　保管室の中では、彼女にも私が見えるらしかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="252">　私と目が合うと、奈緒は驚かなかった。ただ、長く息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「まだ、いたのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「奈緒」</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　懐かしい名前を口にしただけで、胸がほどけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="260">「僕を引き取ってくれ。全部、思い出してくれ」</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　奈緒は赤い封筒を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「それ、受け取らなかったんでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="265">「間違いだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="266">「あなたは、嫌なことはいつも間違いにした」</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　奈緒が封を切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　割れたグラスの音がした。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="272">　玄関の前に立つ私がいた。奈緒は靴を履き、震える手で鍵を開けようとしていた。私はその手首をつかみ、扉を閉め、内側から鍵をかけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="274">『怖いの』</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　奈緒が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　私は彼女を抱きしめようとした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">『分かってる。僕がいなくなるのが怖いんだろ』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="281">『違う』</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　記憶の中の奈緒は、私を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="285">『あなたがいるのが、怖いの』</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　場面が水無瀬駅のホームへ飛んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　奈緒は逃げ、私は追っていた。発車ベル。閉まりかける扉。私は彼女のコートをつかみ、彼女が振りほどき、後ろへよろめいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　そこから先は、轟音しかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　私は床に膝をついた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="294">「あれは……一度だけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　奈緒は背後の棚を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="298">「一度だけなら、あんなにたくさん残らない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="300">「でも、日曜日の朝は本物だった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="301">「本物だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　奈緒の声は静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="305">「だから、捨てるのに六年かかったの」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　私はカウンター越しに手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「今の私は、君を傷つけない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="310">「今のあなたは、私の中にいたあなたよ。自分に都合の悪いことを見ないところまで、よく似てる」</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　時計が十六時五十八分になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　老女が書類を一枚差し出した。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="316">「所有者ご本人に、最終確認をお願いします。こちらのお品物は、佐伯奈緒様がお忘れになった佐伯圭介様で、お間違いありませんか」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　奈緒は私を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　私は首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「名前を呼んでくれ。そうすれば、僕はまだ――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「間違いありません」</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　奈緒は署名した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">「処分をお願いします」</p>
+<p class="source-line role-narration gap-1" data-source-line="329">　老女が判を押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　赤い朱肉の音が、やけに大きく響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　十七時。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　蛍光灯が一度、消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="337" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="339">　奈緒が駅を出ると、雨が降り始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　不思議なほど、頭の中が静かだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="342">　長いあいだ鳴り続けていた冷蔵庫の音が、突然止まったような静けさだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　鞄から折りたたみ傘を出そうとして、一枚の紙が指に触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　遺失物保管室の控えだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　奈緒は歩道の明かりの下で、それを開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　　遺失物返却済証</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　　品名：佐伯圭介</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="351">　　所有者：佐伯奈緒</p>
+<p class="source-line role-narration gap-0" data-source-line="352">　　返却理由：所有者による本人確認</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　奈緒は何度も読み返した。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　処分を頼んだはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　紙の一番下に、小さな字で注意書きがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　<span class="term term-world">〈所有者が品名を確認し、自己の所有物であると認めた場合、当該遺失物は返却されたものとみなします〉</span></p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="361">　背後で、誰かが笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="363">　少し息の抜ける、懐かしい笑い方だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　奈緒は振り返らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　家に着くと、台所から焦げたシナモンの匂いがした。</p>
+<p class="source-line role-narration gap-0" data-source-line="368">　食卓には、二人分のコーヒーが置かれていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="370">　そして、誰もいないはずの浴室で、男の声が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「日曜くらい、失敗してもいいだろ」</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

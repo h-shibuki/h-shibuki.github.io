@@ -1,0 +1,1101 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="転校初日、真壁律が「廊下を泳ぐな」と叫ぶと、巨大マグロがサンドイッチへ戻った。私立大法螺学園では、大勢が冗談に乗ると現実になる「ノリ災害」が日常茶飯事。過去の一言で友人を傷つけ、口出しを避けてきた律は、ツッコミ部長・天野ひよりに百年に一人の適性者として捕まる。そんな文化祭で、大喜利部長が千人の観客を前に「この学校は宇宙船だった」と宣言。校舎は地球を離れ、三十分後には宇宙船として固定される。月へ進む学園を、たった一言で日常へ引き戻せるのか。">
+<title>ツッコミ部、宇宙へ行く。｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="ツッコミ部_宇宙へ行く" data-novel-id="ツッコミ部_宇宙へ行く" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="school-action">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示" selected>学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ジュブナイル・ファンタジー・学園</p>
+  <p><strong>補助ジャンル：</strong>ギャグ</p>
+  <p><strong>CSVタグ：</strong>ジュブナイル、ファンタジー、学園、ギャグ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">学園活劇・コメディー</span></p>
+  <p id="currentPresetDescription">丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示</p>
+  <h3>意味色</h3><p>赤＝気合、青＝戦術、金＝信頼、紫＝迷い、緑＝日常</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：640行／章：0／役割・強度タグ：740</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="ツッコミ部、宇宙へ行く。 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『ツッコミ部、宇宙へ行く。』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="5">　転校初日の朝、真壁律は、廊下を泳ぐマグロと目が合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　銀色の巨体は、二階の一年生教室前を悠然とクロールしている。水もないのに尾びれを振り、すれ違う生徒たちは慣れた顔で道をあけていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="9">「お、今日の購買、マグロサンドか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="10">「活きがいいねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　誰も騒がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　律は十秒ほど我慢した。</p>
+<p class="source-line role-narration gap-0" data-source-line="14">　十一秒目で限界が来た。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="16">「廊下を泳ぐな！　そもそも水がねえだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　びたん！</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　マグロは床に落ち、次の瞬間には、透明な袋に包まれた三角サンドイッチになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="22">　廊下が静まり返る。</p>
+<p class="source-line role-narration gap-0" data-source-line="23">　律も静まり返る。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="25">「……え？」</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　背後で、ぱん、と乾いた音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="28">　振り向くと、赤いリボンをつけた女子生徒が、黄色と黒の縞模様のハリセンを両手で掲げていた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="30">「見つけたぁぁぁぁ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="31">「何を!?」</p>
+<p class="source-line role-dialogue role-comic fx-shout gap-0" data-source-line="32">「百年に一人のツッコミ適性者！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="33">「もっと他にいるだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　女子生徒は目を輝かせた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="37">「二発目も速い！　しかも説明不足を的確に補う親切設計！　君、名前は!?」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="38">「真壁律。今日から一組――って、近い近い近い！」</p>
+<p class="source-line role-dialogue role-comic fx-shout gap-0" data-source-line="39">「私は天野ひより、二年！　ようこそ私立大法螺学園ツッコミ部へ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="40">「入ってない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="41">「今の入部宣言、しかと聞いた！」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="42">「耳までボケてんのか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　ひよりは感動したように震えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="46">「すごい……。天然物だ……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="47">「絶滅危惧種みたいに言うな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　そのとき、始業ベルが鳴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="50">　律は自分の教室へ走りながら、胸の奥で固く誓った。</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　この学校では、絶対に目立たない。</p>
+<p class="source-line role-narration gap-0" data-source-line="53">　誰が何を言っても、放っておく。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　普通の高校生活を送るのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　その決意は、一時間目が始まる前に崩壊した。</p>
+<div class="source-line scene-break gap-1" data-source-line="58" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="60">「えー、転校生の真壁くんだ。みんな、食べないように」</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　担任の石頭先生が言った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="64">「食べませんよね!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　教室のあちこちで、生徒たちが残念そうに箸をしまった。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="68">「なんで箸を持ってるんだ！」</p>
+<p class="source-line role-narration role-comic tone-4 gap-1" data-source-line="70">　律の叫びに、クラス中がどっと笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="71">　笑われるつもりはなかった。だが、笑いが起きた瞬間、律の肩から少しだけ力が抜けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">「はい、席は窓際のいちばん後ろ。転校生の指定席だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="74">「漫画の都合で決めないでください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="75">「詳しいな、真壁」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「常識です！」</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　席につくと、前の男子が振り向いた。丸い顔に、丸い眼鏡。名札には木戸慎吾とある。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="80">「よろしく、真壁。困ったことがあったら何でも聞いてくれ。俺、この学校で知らないこと以外は全部知ってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="81">「ほとんど知らないやつの言い方だろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　木戸は机に身を乗り出し、声をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="85">「さっき、天野先輩に捕まってたよな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="86">「知り合い？」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="87">「有名人だよ。ツッコミ部の部長」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="88">「そんな部、本当にあるのか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="89">「ない」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="90">「ないの!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="91">「部員が一人しかいないから、正式には同好会ですらない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="92">「じゃあ何なんだよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="93">「本人の気持ち」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「一番あいまいな組織形態！」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　木戸は感心したようにうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="98">「なるほど。先輩が狙うわけだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="99">「狙う？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="100">「この学校には、ときどき“ノリ災害”が起きる」</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　木戸が言い終わるのと同時に、石頭先生が黒板を振り返った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="104">「今日は転校生も来たことだし、宿題は山ほど出すぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　ごごごごごご。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　教室の床が揺れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　黒板の下から白い紙の束が噴き上がり、またたく間に天井まで届く巨大な山となった。プリント雪崩が机をのみ込み、生徒たちが悲鳴を上げる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="111">「出た！　ノリ災害だ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="112">「説明する前に実演すんな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　律は押し寄せるプリントを両手で受け止めた。紙なのに岩みたいに重い。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="116">「先生！　“山ほど”って量のたとえでしょうが！　実際は何枚なんですか！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="117">「一枚」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="118">「少なっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　ぱん、と何かが弾けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="121">　紙の山が一斉に消え、全員の机に一枚ずつ宿題プリントが落ちた。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="123">　教室は静寂に包まれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="124">　石頭先生が眼鏡を押し上げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="126">「見事だ、真壁。転校初日から遭難者ゼロとは」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="127">「毎回遭難してるんですか!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="128">「去年は三名がプリント山脈で越冬した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="129">「学校は何をしてたんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　後ろの扉が勢いよく開いた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="133">「だからツッコミ部が必要なの！」</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　天野ひよりが、勝手に授業へ入ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="137">「天野。今は一時間目だぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「先生、廊下に教頭先生が落ちてました！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="139">「何っ。拾得物係を呼べ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="140">「人として対応しろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　律が叫んだ瞬間、教室の全員が拍手した。</p>
+<p class="source-line role-narration gap-0" data-source-line="143">　ひよりは満足そうに親指を立てた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="145">「放課後、旧校舎の一階ね！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="146">「行きません！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="147">「“行きます”いただきました！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="148">「真逆に聞こえてる！」</p>
+<div class="source-line scene-break gap-1" data-source-line="150" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="152">　放課後。</p>
+<p class="source-line role-narration gap-0" data-source-line="153">　律は旧校舎の一階にいた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="155">「俺は何をしてるんだ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　断りに来ただけだ。そう自分に言い聞かせ、廊下の突き当たりにある扉を見上げる。</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="159">　画用紙に墨で『ツッコミ部』。</p>
+<p class="source-line role-narration gap-0" data-source-line="160">　その下に小さく『予定地』と書いてある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「土地だったのかよ」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="164">　扉が開いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="166">「ようこそ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　ひよりが両手を広げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="169">　部屋の中は、見渡す限りの草原だった。青空の下、白い雲が流れ、遠くではキリンが木の葉を食べている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">「いや広すぎるだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　ぼふん。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　草原が消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="176">　律とひよりは、ほうき、バケツ、脚立、段ボール箱に押しつぶされた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="178">「痛たた……。せっかく“意外と広い部屋”って設定で維持してたのに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「用具倉庫じゃねえか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　二人は荷物を押しのけ、どうにか向かい合って座った。</p>
+<p class="source-line role-narration gap-0" data-source-line="182">　部屋の中央には、小さなちゃぶ台。上には麦茶が二つ。そして、学ランを着せられた人体模型が正座していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「紹介するね。副部長の佐藤くん」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「人体模型だろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="186">「経理も担当してる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="187">「金を任せるな！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="188">「先月、部費を全部ホネせんべいにした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「経理から外せ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　人体模型の佐藤が、かたかたと顎を鳴らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">「反省してるって」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="194">「今ので会話できたの!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　ひよりは麦茶をひと口飲み、急に真面目な顔になった。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="198">「真壁くん。今日、二回も見たから、もう気づいてると思う。この学校では、みんなが“そういうものかも”ってノッちゃった冗談が、本当になるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「廊下のマグロも、宿題の山も？」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="200">「うん。大勢が聞いた言葉ほど強くなる。十秒以内なら普通のツッコミで消せるけど、時間がたつと、もっと説得力のあるツッコミが必要になる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="201">「説得力って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="202">「“ありえない”じゃ弱い。“なぜありえないのか”を、みんなの心に届く言葉で示すの」</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　ひよりは縞模様のハリセンを、ちゃぶ台に置いた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="206">「ツッコミは、ただ否定することじゃない。変な世界から、みんなで帰ってくるためのロープなんだよ」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="208">　その言葉だけは、冗談に聞こえなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　律は目をそらした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="212">「……俺、そういうの向いてません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="213">「朝から三十五回ツッコんでるのに？」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="214">「数えてたの!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="215">「昼休み、パンに“私を食べて”って告白されてた子も助けた」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="216">「あれはパンがしゃべったから！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="217">「体育館で、跳び箱が八段から八百段になったのも戻した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="218">「そのままにしたら死人が出るだろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="219">「ほら。放っておけないんだよ、君は」</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　律は唇を噛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　中学二年のとき、クラスメイトが文化祭の舞台で手品を失敗した。</p>
+<p class="source-line role-narration gap-0" data-source-line="224">　観客が気まずく黙る中、律は反射的に言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">『タネも仕掛けも丸見えじゃねえか！』</p>
+<p class="source-line role-narration gap-1" data-source-line="228">　笑いは起きた。</p>
+<p class="source-line role-narration gap-0" data-source-line="229">　けれど、手品をした友人は舞台袖で泣いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="230">　悪気はなかった。助けるつもりだった。それでも、言葉は刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　以来、律は決めていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="233">　人前では、なるべく口を出さない。</p>
+<p class="source-line role-narration gap-0" data-source-line="234">　正しいことでも、言い方を間違えれば誰かを傷つける。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="236">「俺のツッコミは、ロープじゃなくて刃物です」</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　ひよりは少しだけ目を丸くした。</p>
+<p class="source-line role-narration gap-0" data-source-line="239">　それから、いつもの笑顔に戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「じゃあ、使い方を覚えよう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="242">「簡単に言うなよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="243">「刃物だって、料理に使えば人を幸せにできる。キャベツの千切りとか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="244">「たとえが急に家庭的だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="245">「私は包丁を持つと、なぜか消防車が来るけど」</p>
+<p class="source-line role-dialogue role-command tone-4 gap-0" data-source-line="246">「お前は料理するな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　ひよりは、ちゃぶ台の下から一枚の紙を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">『入部届』。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「はい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="253">「話を聞いてた!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="254">「聞いたよ。だから、まず一週間だけ仮入部」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="255">「断る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="256">「このままだと、明日の校内放送で校長先生が“来月から生徒全員をカニにする”って発表する」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="257">「何で!?」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="258">「今日、カニを食べながら思いついたって」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="259">「止めろよ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="260">「部員一名では校長室への突入許可が下りません」</p>
+<p class="source-line role-dialogue tone-2 gap-0" data-source-line="261">「そんな許可制度だけしっかりしてるのか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　律は入部届をひったくり、勢いで名前を書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="265">「一週間だけだからな！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="266">「やった！　これで明日から二人でカニになれる！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="267">「止める側だろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　人体模型の佐藤が拍手した。</p>
+<p class="source-line role-narration gap-0" data-source-line="270">　手の骨が一本飛び、麦茶のコップに入った。</p>
+<div class="source-line scene-break gap-1" data-source-line="272" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="274">　仮入部から三日で、律は十二件のノリ災害を処理した。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　国語教師の「作者の気持ちは雲の上」が原因で、クラス全員が積乱雲まで飛ばされた。</p>
+<p class="source-line role-narration role-command tone-5 gap-0" data-source-line="277">　体育教師の「死ぬ気で走れ」で、百メートル走のゴールに三途の川が出現した。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　保健室の先生が「薬は甘くない」と言ったせいで、薬棚の中から苦労人の中年男性が現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「それは“人生は甘くない”の人だろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　律がツッコむたび、世界は元に戻った。</p>
+<p class="source-line role-narration role-comic tone-4 gap-0" data-source-line="283">　そして、そのたびに誰かが笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　以前の律なら、その笑いを怖がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="286">　だが、ひよりは必ず、笑いの輪の中で一番大きく笑っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　誰かを笑うのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　おかしな出来事も、失敗も、全員まとめて笑い飛ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　放課後、二人は校内を巡回した。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="291">　ひよりは危険な発言を見つけるたび、縞模様のハリセンを構える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="293">「“このラーメン、ほっぺたが落ちる”……危険度Ｂ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="294">「食堂で顔面落下事故を起こすな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「“先生の話、百年くらい長い”……危険度Ａ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="297">「卒業する前に寿命が尽きる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「“先輩の笑顔は一億ボルト”……危険度Ｓ！」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="300">「恋する前に感電死するわ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="302">「今の、私に言ってくれた？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="303">「違う！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">「照れなくても、一億ボルトは半分こだよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="305">「五千万ボルトでも死ぬ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　ひよりと歩く放課後は、静かとはほど遠かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="308">　でも、不思議と疲れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　四日目の昼休み。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　校内放送のチャイムが鳴った。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="313">『全校生徒諸君。今週土曜日の文化祭で、第百回・大ボケ王決定戦を開催する』</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　食堂中が沸いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="316">　律の向かいでカレーを食べていたひよりだけが、スプーンを止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="318">『優勝者には、購買の焼きそばパン一年分。そして、学園中の“ノリ”を集める権利を与える』</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　放送の声は、やけに芝居がかっていた。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="322">『今回こそ、退屈な日常を吹き飛ばす、史上最大のボケをお見せしよう。大喜利部部長――笑門院カケル！』</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　ぶつん、と放送が切れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「大喜利部？」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　律が聞くと、木戸がカレー皿を抱えたまま震えた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="330">「学園最強のボケ集団だ。去年は“校庭がプリン”ってボケて、陸上部が全員カラメルまみれになった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="331">「迷惑なだけじゃねえか！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="332">「でも、うまかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="333">「食ったのかよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　ひよりは立ち上がった。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="337">「真壁くん。大ボケ王決定戦を中止させる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「珍しく意見が合った」</p>
+<p class="source-line role-dialogue role-comic gap-0" data-source-line="339">「大勢の前でボケれば、ノリ災害の規模は何十倍にもなる。カケル先輩は、それを分かっててやるつもり」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="341">「人聞きが悪いなあ」</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　いつの間にか、食堂の入口に一人の男子生徒が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="344">　白い学ラン。肩には金色の飾り。髪は無駄に風になびき、手には閉じた扇子。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　笑門院カケル。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　彼が一歩進むたび、どこからともなく花びらが舞った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「室内で花びら散らすな！　食事に入るだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　律が言うと、花びらが消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="353">　カケルは目を細める。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="355">「君が噂の転校生か。なるほど、いいツッコミだ。まるで冬の朝、寝起きに踏んだレゴブロックのように鋭い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="356">「痛いだけだろ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="357">「褒めている」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="358">「褒め方を学べ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　カケルはひよりに向き直った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「天野。今度こそ、僕の邪魔はさせない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="363">「去年みたいに、体育館を丸ごと熱湯風呂にする気？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「あれは“会場が沸いている”を表現した芸術だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="365">「救急車が十二台来たよ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="366">「観客動員数として数えれば大成功だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="367">「数えるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　律が立ち上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「何をするつもりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　カケルは扇子を開いた。そこには達筆で『宇宙』と書かれている。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="375">「史上最大のボケだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　食堂の天井が、わずかにきしんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="379">「この学園そのものを、誰も見たことのない舞台へ連れていく」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="381">　ひよりの顔から、笑みが消えた。</p>
+<p class="source-line role-dialogue role-comic fx-whisper gap-1" data-source-line="383">「まさか……」</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　カケルは扇子で口元を隠した。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="387">「土曜日を楽しみにしていたまえ、ツッコミ部」</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　彼が指を鳴らす。</p>
+<p class="source-line role-narration gap-0" data-source-line="390">　白い煙が上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="391">　煙が晴れると、カケルは同じ場所にいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="393">「消えないのかよ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="394">「今、練習中だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="395">「歩いて帰れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　カケルは少し赤くなり、普通に食堂を出ていった。</p>
+<div class="source-line scene-break gap-1" data-source-line="399" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="401">　文化祭当日。</p>
+<p class="source-line role-narration gap-0" data-source-line="402">　私立大法螺学園は、朝から異様な熱気に包まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　校門には『第百回文化祭　今年こそ死人ゼロ』の横断幕。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="405">　焼きそば、たこ焼き、クレープの香り。メイド服の男子。甲冑姿の女子。廊下を走る戦国武将に、生活指導の先生が「廊下は天下統一するな！」と怒鳴っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「平和だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　律がつぶやくと、隣のひよりが首をかしげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「基準、壊れてない？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="412">「この学校に四日いたからな」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　二人は体育館へ急いだ。</p>
+<p class="source-line role-narration role-comic gap-0" data-source-line="415">　大ボケ王決定戦は正午開始。観客は全校生徒と来場者、合わせて千人以上。</p>
+<p class="source-line role-narration gap-0" data-source-line="416">　壇上には巨大なマイクが一本。左右には大喜利部の部員たちが並び、全員がサングラスと蝶ネクタイを着けている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「不審者の品評会か！」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="420">　律のツッコミで、何人かのサングラスが割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　ひよりは舞台裏の配電盤を確認し、眉をひそめる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「ノリ抑制装置が切られてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「そんな便利なものがあるなら、普段から使えよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「電気代が月に八億円かかるの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="427">「学校ごと閉めろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　体育館が暗転した。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　スポットライトが、中央のカケルを照らす。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="432">「レディース、ジェントルメン、そして宿題を家に忘れた者たち！」</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　大歓声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「今日、我々は退屈な日常に別れを告げる！　教室と家を往復し、テストの点に泣き、購買のパンを奪い合うだけの青春は、もう終わりだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　カケルは両腕を広げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="440">「この学園には、夢が足りない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　観客が「そうだ！」と叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「冒険が足りない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「そうだ！」</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="448">「そして学食の唐揚げには、下味が足りない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「そうだぁぁぁ！」</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="452">「そこだけは同意するな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　律の声は歓声にかき消された。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　ひよりが舞台へ走る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「カケル先輩、やめて！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「遅い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　カケルが扇子を高く掲げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="464">「皆さんに、重大な秘密をお教えしよう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　体育館の空気が震える。</p>
+<p class="source-line role-narration gap-0" data-source-line="467">　千人分の期待が、一点に集まる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「実は――」</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　ひよりがハリセンを振りかぶる。</p>
+<p class="source-line role-narration gap-0" data-source-line="472">　律も息を吸う。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　だが、カケルの声が一瞬早かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="476">「この学校は、巨大宇宙船だったのだぁぁぁぁ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　どっ、と爆発するような歓声。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　十秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　校舎の窓に、鉄のシャッターが下りた。</p>
+<p class="source-line role-narration gap-0" data-source-line="483">　壁の中から無数の配管が飛び出し、体育館の床が青白く発光する。</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　机と椅子が変形し、操縦席のように並び替わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　五秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　校庭が左右に割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="489">　地面の下から、巨大な噴射口が姿を現す。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　三秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　校長先生が、宇宙服で壇上に現れた。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="495">「総員、発進準備！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「校長だけ受け入れ早すぎるだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　ゼロ秒。</p>
+<p class="source-line role-narration role-sensory role-sound gap-1" data-source-line="501">　轟音。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　私立大法螺学園は、地面を離れた。</p>
+<div class="source-line scene-break gap-1" data-source-line="505" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「うわぁぁぁぁぁ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　体育館が激しく傾き、観客たちが後ろへ転がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="510">　律は床を滑りながら舞台の柱へしがみつく。ひよりが目の前を通過したので、制服の袖をつかんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「助かった！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="513">「礼は後！　というか軽っ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="514">「朝ご飯、空気しか食べてないから！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="515">「それは食べたって言わねえ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　窓の外で、街が小さくなっていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="518">　雲を突き抜け、空が群青から黒へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　やがて揺れが止まる。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　シャッターが上がると、窓一面に星空が広がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　青い地球が、遠ざかっている。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="524">「本当に宇宙まで来た……」</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　律の声が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　カケルは操縦席に立ち、満足げに地球を眺めている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="530">「見たまえ！　これこそ青春！　教室の窓から宇宙を見る高校生など、我々が初めてだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="532">「初めてじゃなきゃ困る！」</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　律が叫ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="535">　しかし、何も戻らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「弱いよ、真壁くん」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　ひよりが悔しそうに言った。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="541">「もう全員が、学校は宇宙船だと信じてる。普通のツッコミじゃ届かない」</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　天井から機械音声が響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">『恒久化まで、残り二十八分』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="547">「恒久化？」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="548">「三十分たつと、ノリ災害が現実として固定される。そうなったら、二度と地上の学校には戻れない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="549">「先に言え！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="550">「今、言った！」</p>
+<p class="source-line role-dialogue role-sensory gap-0" data-source-line="551">「そういう意味じゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　律はカケルをにらんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「地球に戻せ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">「断る。目的地は月だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「遠足感覚で言うな！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="561">「月面に第二校舎を建てる。そして、宇宙一の文化祭を開く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「来場者どうすんだ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「徒歩」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="567">「来られるか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　カケルが腕を振り下ろす。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="571">「大喜利部！　ツッコミ部を止めろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　サングラスの部員たちが、一斉に立ち上がった。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="575">「第一ボケ、“廊下は無限に続く”！」</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　体育館の出口が、ぐにゃりと伸びた。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　扉の向こうに、果ての見えない廊下が出現する。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="580">「第二ボケ、“階段は全部すべり台”！」</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　校内の階段が銀色の急斜面に変わった。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="584">「第三ボケ、“先生は話が長い”！」</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　石頭先生の首が、ろくろ首のように伸び始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="588">「そっちの“長い”じゃねえ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　先生の首だけは元に戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「真壁くん、放送室へ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　ひよりがハリセンで大喜利部員をなぎ払い、叫ぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「全校放送で、みんなのノリをひっくり返す！　私はここで時間を稼ぐ！」</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="598">「一人で平気か!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="600">「大丈夫！　私、こう見えて十万人の敵を一人で倒したことがあるから！」</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　体育館の床から、十万人の紙人形が湧き出した。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="604">「今そのボケ必要だった!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="606">「しまったぁぁぁ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　ひよりは紙人形の波にのみ込まれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="610">「天野先輩！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="612">「大丈夫！　紙だから弱い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　紙人形たちは一斉に紙吹雪となり、ひよりの制服の中へ入り込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">「ちくちくするぅぅぅ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「微妙に嫌な攻撃！」</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　律は無限廊下へ飛び込んだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="622" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="624">　放送室は旧校舎三階。</p>
+<p class="source-line role-narration gap-0" data-source-line="625">　だが、廊下は走っても走っても終わらない。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　同じ教室。同じ掲示板。同じ消火器。</p>
+<p class="source-line role-narration gap-0" data-source-line="628">　五分走っても、景色は一ミリも変わらなかった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="630">「無限に続く廊下なんて……あるわけ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="632">　律は言いかけて、止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="633">　窓の外は宇宙。足元は金属。今は、ありえないものがありえる世界だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　ただ否定しても届かない。</p>
+<p class="source-line role-narration gap-0" data-source-line="636">　ひよりの言葉がよみがえる。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　――なぜありえないのかを、みんなの心に届く言葉で示す。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　律は息を整え、廊下を見回した。</p>
+<p class="source-line role-narration gap-0" data-source-line="641">　同じ掲示板には、文化祭のポスター。同じ消火器の横には、校内案内図。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="643">「……廊下ってのはな」</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　律は壁を蹴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="647">「教室と教室をつなぐためにあるんだ！　目的地に着かない廊下は、ただの長い部屋だろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　ぱきん、と空間に亀裂が入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　無限の廊下が縮み、目の前に階段が現れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="652">「よし！」</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　階段は、すべり台になっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="655">　律は迷わず飛び乗る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「上に行きたいのに下へ滑るすべり台は、遊具として欠陥品だぁぁぁ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　銀色の斜面が階段へ戻る。</p>
+<p class="source-line role-narration gap-0" data-source-line="660">　勢いのついた律は段差に引っかかり、顔面から転んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「戻るタイミング！」</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　鼻を押さえて立ち上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　そのとき、校内放送が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">『残り二十分』</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　続いて、ひよりの声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">『真壁くん、聞こえる!?　放送室の手前に、大喜利部の最終防衛線がある！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「先に言ってくれ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">『今、言った！』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="677">「このやり取り二回目！」</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　三階へ上がると、廊下の中央に、巨大な門が立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="680">　門の前には、白い学ランのカケル。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="682">「やはり来たか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="684">「操縦席にいたはずだろ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="686">「僕は双子だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「急に新設定を出すな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　カケルが二人に増えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="692">「本当に増えた！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「紹介しよう。弟のカケラだ」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="696">「名前の時点で余り物！」</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　二人のカケルが同時に扇子を開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="700">「ここから先へは行かせない」</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　律は立ち止まった。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="704">「どうして、そこまでして学校を宇宙へ飛ばしたいんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="706">「言ったはずだ。退屈な日常を変えるためだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「本当にそれだけか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　カケルの笑みが、ほんの少し揺らいだ。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="712">「去年の大ボケ王決定戦。お前は体育館を熱湯風呂にした。けど、天野先輩が止めた。みんな笑った。でも、お前だけ笑ってなかった」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="714">「……」</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="716">「笑わせたいんじゃない。驚かせたいだけだろ。誰にも無視されないくらい、でかいことをしたいんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　カケルの扇子が閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="720">「君に何が分かる」</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　低い声だった。</p>
+<p class="source-line role-dialogue role-comic tone-5 gap-1" data-source-line="724">「僕が一年のとき、初めて文化祭の舞台でボケた。必死に考えた。何百回も練習した。だが、誰も笑わなかった。みんな下を向いて、スマホを見ていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="726">「だから、逃げられない場所まで連れてきた？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="728">「宇宙なら、誰も無視できない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　二人のカケルが扇子を振る。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="732">「最終ボケ――“ツッコミは、誰かを傷つけるだけだ”！」</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　律の胸が、ずきんと痛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　中学の舞台。</p>
+<p class="source-line role-narration gap-0" data-source-line="737">　泣いていた友人。</p>
+<p class="source-line role-narration gap-0" data-source-line="738">　笑い声。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　声が出ない。</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　門が大きくなり、放送室を完全に覆い隠す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">「そうだろう、真壁律。君の言葉は刃物だ。黙っていれば、誰も傷つかない」</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　律は拳を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　反論できない。</p>
+<p class="source-line role-narration gap-0" data-source-line="749">　実際、傷つけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="750">　その記憶は消えない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="752">『残り十五分』</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　機械音声だけが響く。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　そのとき、天井のスピーカーから、ざざっと雑音が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="758">『真壁くん』</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　ひよりの声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="762">『聞こえてる？』</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="764">「……先輩」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="766">『ツッコミが刃物っていうの、私は間違いじゃないと思う』</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　カケルが眉を寄せる。</p>
+<p class="source-line role-dialogue role-comic tone-3 gap-1" data-source-line="770">『言葉は、たぶん全部そう。ボケだって、励ましだって、好きって言うのだって。使い方を間違えたら、誰かを傷つける』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="772">「だったら――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="774">『だから、使わないんじゃなくて、使い方を覚えるんだよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　律は目を閉じた。</p>
+<p class="source-line role-dialogue role-comic tone-4 gap-1" data-source-line="778">『君のツッコミで、私は今日まで何回も助かった。暴走した世界を戻してもらった。笑ってもらった。今だって、君が来るって信じてる』</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　ひよりの声が、少しだけ震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="782">『私を地球に帰して、律くん』</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　初めて、名前で呼ばれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　律は目を開いた。</p>
+<p class="source-line role-dialogue role-comic fx-whisper gap-1" data-source-line="788">「……ツッコミは、誰かを傷つけるだけ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="790">　門の前へ一歩進む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="792">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　もう一歩。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="796">「傷つけたなら、謝ればいい。言い方を間違えたなら、次は直せばいい。黙って見捨てる理由にはならない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　律は門を指さした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="800">「それにな――」</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　息を吸い込む。</p>
+<p class="source-line role-dialogue role-comic tone-3 gap-1" data-source-line="804">「誰かを傷つける“だけ”のツッコミなら、今ごろ俺はお前の双子設定をもっと徹底的にいじってるわ！　弟、さっきから一言もしゃべってねえぞ！　というか、よく見たら鏡じゃねえか！」</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　二人目のカケルが、ぴしりと割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="807">　本当に鏡だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="809">「気づいていたのか！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「気づくわ！　左右反転した名札つけてんじゃねえ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　門が粉々に砕け散る。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　律は放送室へ飛び込んだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="817" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="819">　放送室の窓から、月が見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="820">　白く巨大な表面が、みるみる近づいてくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="822">『恒久化まで、残り十分』</p>
+<p class="source-line role-narration gap-1" data-source-line="824">　律はマイクの前に座った。</p>
+<p class="source-line role-narration gap-0" data-source-line="825">　スイッチをすべて入れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="827">「全校生徒、聞こえるか！」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="829">　自分の声が、校内中に響いた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="831">「ツッコミ部の真壁律だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　言ってから気づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="834">　仮入部のつもりだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="835">　だが今は、その名を名乗ることが少しも恥ずかしくなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="837">「この学校は宇宙船じゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="839">　何も起きない。</p>
+<p class="source-line role-narration gap-0" data-source-line="840">　窓の外には宇宙がある。月がある。言葉だけでは、現実に負ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　体育館から、カケルの声が割り込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="844">『見苦しいぞ、真壁！　目を開けろ！　我々は宇宙にいる！　校舎は飛び、全員がそれを見ている！』</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　生徒たちのざわめき。</p>
+<p class="source-line role-narration gap-0" data-source-line="847">　不安と興奮が入り混じっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　律は、放送机の上に置かれた文化祭パンフレットを見た。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="850">　クラスの出し物。部活動の発表。後夜祭。校庭での花火。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　どれも途中だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　木戸は朝から、好きな子をお化け屋敷に誘うと言っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="855">　石頭先生は、教員バンドでドラムを叩く予定だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="856">　ひよりは、放課後に焼きそばを半分こしようと笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="858">　全員の青春が、地上に置き去りになっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="860">「確かに、今は宇宙にいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　律は静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「校舎も飛んでる。窓の外には月がある。そこは認める」</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　校内が静かになる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「でもな、カケル先輩。学校ってのは、でかいことをするためだけの場所じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　教室で笑う。</p>
+<p class="source-line role-narration gap-0" data-source-line="871">　廊下でくだらない話をする。</p>
+<p class="source-line role-narration gap-0" data-source-line="872">　テストで失敗する。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="873">　好きな子に声をかけられず、家に帰ってから後悔する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="875">「退屈に見える毎日の中で、ちょっとずつ何かを始める場所だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　律はマイクを強く握った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="879">「今日だってそうだ！　まだ、文化祭は終わってない！　出し物も、後夜祭も、告白も、片づけで誰がゴミを持ち帰るかの醜い押しつけ合いも、全部残ってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="881">　校内のどこかで、笑いが起きた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="883">「それを全部ほっぽり出して、学校ごと宇宙旅行!?　青春を吹き飛ばすんじゃなくて、会場を吹き飛ばしてどうすんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　笑い声が増える。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="887">「それに一番大事なことを忘れてるぞ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　律は腹の底から叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="891">「校舎を宇宙船にした燃料代、ＰＴＡにどう説明すんだよぉぉぉぉぉ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="893">　一秒の沈黙。</p>
+<p class="source-line role-narration gap-1" data-source-line="895">　次の瞬間、校内が爆笑に包まれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="897">「確かに！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="898">「絶対、臨時総会だ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="899">「お父さんが怒る！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="900">「うちの母ちゃん、領収書ぜんぶ見るぞ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="901">「月までの交通費、学割きくのか!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="903">　誰かの声に、さらに笑いが広がった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="905">　“学校は宇宙船だ”というノリが、崩れていく。</p>
+<p class="source-line role-narration gap-0" data-source-line="906">　代わりに、“そんな予算はない”という圧倒的な常識が、千人の心を一つにする。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　校舎全体が、激しく震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="910">『ノリ反転を確認』</p>
+<p class="source-line role-narration gap-1" data-source-line="912">　機械音声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="914">『現実復帰モードへ移行します』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="916">「そんなモードあるなら最初から使え！」</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="918">　律の最後のツッコミと同時に、宇宙船だった校舎が、落下を始めた。</p>
+<div class="source-line scene-break gap-1" data-source-line="920" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="922">「戻るって、落ちることだったのぉぉぉ!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　放送室が上下に揺れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="925">　窓の外で、月が遠ざかり、青い地球が急速に近づいてくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="927">『大気圏突入まで三十秒』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="929">「耐熱装備は!?」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="931">『本校の校則に、燃えないよう努力する、とあります』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="933">「根性論で大気圏を越えるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="935">　扉が開き、ひよりが転がり込んできた。</p>
+<p class="source-line role-narration gap-0" data-source-line="936">　髪はぼさぼさ、制服は紙吹雪だらけ。それでも笑っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="938">「律くん！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="940">「先輩、つかまれ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="942">　二人は放送机の下へ潜り込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="944">『大気圏突入』</p>
+<p class="source-line role-narration gap-1" data-source-line="946">　校舎が赤く燃えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="947">　窓の外を炎が包む。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="949">「熱い熱い熱い！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="951">「大丈夫！　今の私たちは、燃えるような青春の真っ最中だから！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="953">「抽象表現で物理的に燃やすな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　炎が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="957">「やった！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="959">「喜ぶのは着地してから！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="961">『地表まで五秒』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="963">「速い！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="965">『四、三、二――』</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="967">「一は!?」</p>
+<p class="source-line role-narration gap-1" data-source-line="969">　どっっっっっっっっっっっん！</p>
+<p class="source-line role-narration gap-1" data-source-line="971">　私立大法螺学園は、元あった場所へ、寸分たがわず着地した。</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　衝撃で校内の黒板消しが一斉に落ち、全校生徒の頭に命中した。</p>
+<div class="source-line scene-break gap-1" data-source-line="975" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="977">　夕方。</p>
+<p class="source-line role-narration gap-0" data-source-line="978">　文化祭は、何事もなかったかのように再開された。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="980">　校庭では花火の準備が進み、廊下には焼きそばの匂いが戻っている。</p>
+<p class="source-line role-narration role-sensory gap-0" data-source-line="981">　校舎の壁には、うっすら焦げ跡が残ったが、校長先生は「味が出た」で済ませた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="983">「済ませるなよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="985">　律は旧校舎の用具倉庫で、入部届を見つめていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="986">　仮入部期間は、まだ三日残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="988">　ひよりが向かいで、焼きそばを二つに分けている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="990">「はい、半分」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="992">「先輩のほう、肉多くないですか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="994">「部長手当」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="996">「食べ物で支給されるのかよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="998">　人体模型の佐藤が、箸を持って待っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1000">「お前、食べられないだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1002">　佐藤は悲しそうに肩を落とした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1004">「感情あるの!?」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="1006">　扉が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="1007">　白い学ランのカケルが立っている。いつもの扇子はなく、手には一枚の紙。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1009">「真壁律」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1011">「何ですか」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1013">「今日のツッコミ、見事だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="1015">　カケルは深く頭を下げた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1017">「僕は、驚かせれば人の心に残ると思っていた。だが、違った。最高のボケには、最高のツッコミが必要なんだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1019">「分かってくれたなら、もう学校を飛ばさないでください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1021">「もちろんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="1023">　カケルは紙をちゃぶ台に置いた。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1025">『ツッコミ部　入部届』。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1027">「今日から僕も、この部で腕を磨く」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1029">「いや、あんたはボケ側だろ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1031">「役職は会計を希望する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1033">「佐藤と合わせて破産まっしぐら！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1035">　ひよりが大喜びで拍手した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1037">「これで三人！　正式な同好会になれる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1039">「副部長の佐藤を数えてないのかよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1041">　佐藤が再び肩を落とした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1043">「だから感情あるの!?」</p>
+<p class="source-line role-narration role-sensory tone-4 gap-1" data-source-line="1045">　笑い声が、狭い用具倉庫に響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1047">　律は自分の入部届を手に取る。</p>
+<p class="source-line role-narration gap-0" data-source-line="1048">　“仮”の文字を、二本線で消した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1050">「改めて、よろしくお願いします」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1052">　ひよりが一瞬だけ目を丸くし、それから満面の笑みを浮かべた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1054">「うん。よろしくね、律くん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1056">　その笑顔は、一億ボルトどころではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="1057">　律の心臓が、少しだけ速くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1059">　ひよりは、もう一枚の紙を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1061">「じゃあ、これにもサインを」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1063">「何ですか？」</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1065">「ツッコミ部の入部届は、婚姻届も兼ねてるの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1067">「兼ねるかぁぁぁぁぁ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1069">　用具倉庫の壁が吹き飛び、純白の教会が出現した。</p>
+<p class="source-line role-narration gap-0" data-source-line="1070">　鐘が鳴り、鳩が飛び、人体模型の佐藤が神父の服に着替える。</p>
+<p class="source-line role-dialogue role-comic gap-1" data-source-line="1072">「だから何でお前が仕切るんだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1074">　十秒後、教会は消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1076">　けれど、律の左手には、なぜか銀色の指輪だけが残っていた。</p>
+<p class="source-line role-narration role-comic gap-1" data-source-line="1078">　ツッコミが、ほんの少し遅れたせいだった。</p>
+<p class="source-line end-mark gap-1" data-source-line="1080"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

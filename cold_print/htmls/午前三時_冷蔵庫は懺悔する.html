@@ -1,0 +1,911 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="木曜午前三時、冷蔵庫が持ち主の秘密を笑う町。その夜、全住民の罪悪感が家庭用良心保冷庫〈メアリー〉へ吸い取られ、誰も悪びれなくなった。満杯になれば町中の後悔が一斉解凍され、社会は“大懺悔渋滞”に陥る。家電修理員・鳴海環は、百三歳の少女博士と時計仕掛けの執事に促され、三センチの身体で冷蔵庫内部へ潜入。無数の後悔瓶の奥には、なぜか環自身の名前と失った弟の記憶があった。午前三時までに故障と自分の秘密を修理できるのか。">
+<title>午前三時、冷蔵庫は懺悔する｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="午前三時_冷蔵庫は懺悔する" data-novel-id="午前三時_冷蔵庫は懺悔する" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・ホラー・SF</p>
+  <p><strong>補助ジャンル：</strong>奇妙な味・ギャグ・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、ホラー、SF、奇妙な味、ギャグ、家族ドラマ、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：450行／章：0／役割・強度タグ：500</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="午前三時、冷蔵庫は懺悔する 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『午前三時、冷蔵庫は懺悔する』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　この町では、木曜の午前三時になると、どこか一軒の冷蔵庫が、持ち主の秘密を一つだけ笑う。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　最初は都市伝説だった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="7">「プリンを三つ食べたの、父さんなのにね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="8">「へそくり、冷凍うどんの下にあるのにね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="9">「結婚指輪、ほんとは排水口に落としたのにね」</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　そんな声が、冷蔵庫の製氷室から聞こえるという。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　やがて動画が出回った。暗い台所で、誰も触れていない扉がゆっくり開き、庫内灯が点滅する。笑い声は、コンプレッサーの低いうなりに混じっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　けれど、その木曜日だけは違った。</p>
+<p class="source-line role-narration gap-0" data-source-line="15">　町じゅうの冷蔵庫が、いっせいに笑い始めたのだ。</p>
+<div class="source-line scene-break gap-1" data-source-line="17" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-dialogue gap-1" data-source-line="19">「症状――笑う。至急。午前三時より前に」</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　私は修理伝票を読み上げ、もう一度住所を確かめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　夜見坂十三番地、灰鐘館。</p>
+<p class="source-line role-narration gap-0" data-source-line="24">　依頼主、灰鐘ネネ。</p>
+<p class="source-line role-narration gap-0" data-source-line="25">　製品名、家庭用良心保冷庫<span class="term term-proper">《メアリー》</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　備考欄には、青いインクでこう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="29"><span class="term term-world">〈道に迷ったら、カラスに謝ること〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「家電修理の備考じゃないよね、これ」</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　私は白熊電器修理サービスの軽ワゴンを降りた。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　午後十一時四十分。雨上がりの町は、何か大切なものを落としたみたいに、妙にさっぱりしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　異変には、商店街へ入ってすぐ気づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　パン屋の主人が、客のトレーからメロンパンを取り上げ、自分でかじっていた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="39">「お会計前ですけど」</p>
+<p class="source-line role-narration gap-0" data-source-line="40">　客が言うと、主人は肩をすくめた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="41">「俺の店のパンだから、俺のだろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　交番の巡査は、駐輪場からいちばん高そうな自転車を選んでいた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="44">「それ、あなたのですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="45">「今から俺のです」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　結婚式場の前では、花嫁が参列者に向かって叫んでいた。</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="48">「新郎が逃げました！」</p>
+<p class="source-line role-narration gap-0" data-source-line="49">　その新郎は、道路の向こうでタクシーを止めながら、晴れやかな顔で答えた。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="50">「だって急に面倒になったんだもん！」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　誰も悪びれていなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="53">　悪びれる、という機能だけが、町からきれいに抜き取られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　夜見坂は、その商店街の奥にあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="56">　街灯は三本に一本が消えており、坂の両側には、雨で黒くなった洋館が並んでいる。十三番地まで来ると、道が三つに分かれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　電柱の上に一羽のカラスがいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="59">　私は伝票を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="60">　カラスも私を見た。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="62">「……すみません」</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　何に対して謝ったのかは分からない。</p>
+<p class="source-line role-narration gap-0" data-source-line="65">　だがカラスは満足げに一声鳴き、左の道へ飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　その先に、灰鐘館はあった。</p>
+<p class="source-line role-narration role-horror tone-1 gap-1" data-source-line="69">　黒い石造りの壁。尖った屋根。窓を囲む蔦。玄関の左右には、傘を差した怪物の石像が立っている。雨どいから落ちる雫が、銀色の牙の先で光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　呼び鈴を押す前に、扉が開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="73">「お待ちしておりました。鳴海環様」</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　背の高い男が、きっちり三十度の角度で頭を下げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="76">　濡れた夜を切り取ったような黒い燕尾服。白い手袋。銀色の髪は一筋の乱れもない。顔立ちは整いすぎていて、むしろ人形じみていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="78">「灰鐘家の執事、乙丸と申します」</p>
+<p class="source-line role-narration gap-1" data-source-line="80">　彼が身体を起こすと、背中から小さく、カチ、カチ、と音がした。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="82">「時計、持ってます？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="83">「いいえ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「じゃあ、その音は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="85">「私の誠意が稼働している音です」</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　意味が分からなかったが、この館では意味を求めるほうが失礼なのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　乙丸は私の工具箱を片手で受け取った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="90">「お足元にお気をつけください。二段目の床板は、嘘をつく者を噛みます」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="91">「床板が？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="92">「昨日、税務署の方を一名、飲み込みました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="93">「助けたんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「領収書を確認してから」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　館の中は、外観以上に暗かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="97">　壁一面の肖像画は、どれも目を閉じている。長い廊下の天井から、逆さまの花瓶が吊られていた。階段の踊り場では、鎧が自分の肩を揉んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　応接室へ通されると、ソファの背もたれから小さな少女が顔を出した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="101">「遅い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　白い髪。白衣。裸足。片目には三枚重ねの虫眼鏡。見た目は十歳ほどだが、口調だけは百年生きた雷のようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「十一時五十二分です。指定時刻の前ですが」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="106">「私の一分は、普通の人間の七分に相当するのじゃ！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="107">「なぜです」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="108">「天才だから！」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　少女は胸を張った。その勢いで虫眼鏡が一枚落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「灰鐘ネネ博士でございます」</p>
+<p class="source-line role-narration gap-0" data-source-line="113">　乙丸が紹介した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="114">「御年百三歳。現在、九十三歳分を金魚に預けておられます」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　部屋の奥を見ると、巨大な水槽に九十三匹の金魚が泳いでいた。一匹ずつ、背中に数字が書かれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「年齢分割装置じゃ」</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　ネネ博士は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="120">「長生きしすぎると階段が面倒でな。十歳だけ残して、あとは金魚にした」</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-0" data-source-line="121">「金魚が死んだら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="122">「一気に年を取る」</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-0" data-source-line="123">「危険すぎません？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="124">「だから猫は禁止じゃ」</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　そのとき、水槽の前を白い猫が横切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="128">　博士が絶叫し、乙丸が無言で猫を抱き上げ、私が反射的に工具箱を構えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「野良でございます」</p>
+<p class="source-line role-narration gap-0" data-source-line="131">　乙丸は平然と言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="132">「ただいま解雇いたします」</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　彼は窓を開け、猫に丁寧な礼をして外へ出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「さて」</p>
+<p class="source-line role-narration gap-0" data-source-line="137">　博士は咳払いをした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="138">「町が壊れるまで、あと三時間と少しじゃ」</p>
+<div class="source-line scene-break gap-1" data-source-line="140" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="142">　地下実験室の中央に、その冷蔵庫はあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　高さは三メートル。表面は黒い鏡のようで、扉の取っ手は肋骨に似ている。上部には銀文字で<span class="term term-proper">《MARY》</span>と刻まれ、その下に小さな注意書きが貼られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="146"><span class="term term-world">〈心は冷やしますが、頭は冷やしません〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「私はな、人類から後悔をなくそうとしたのではない」</p>
+<p class="source-line role-narration gap-0" data-source-line="149">　博士は冷蔵庫の周りを歩きながら説明した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="150">「眠る前の後悔を、朝まで一時保管する装置を作ったのじゃ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「良心を冷蔵するんですか」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-0" data-source-line="153">「そう。人は夜になると、昔の失敗を思い出す。十年前の会議で言った寒い冗談。好きな相手に送った長文。コンビニで店員が『温めますか』と聞いたのに、なぜか『あなたは？』と返した記憶」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="154">「最後のはあなたですか」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="155">「聞くな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　博士は冷蔵庫を杖で叩いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="158">「そこで、就寝前に手を当てれば、うしろめたさを一晩だけ預かる。朝になれば、反省できる程度にぬるくして返す。画期的な快眠装置じゃった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「じゃった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「昨日、乙丸が自動更新を許可した」</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　私は執事を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="165">　乙丸は微笑んだまま言った。</p>
+<p class="source-line role-dialogue role-document gap-0" data-source-line="166">「利用規約は、最後まで拝読いたしました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="167">「内容は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="168">「同意しなければ先へ進めない、と」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="170">「それは内容じゃない！」</p>
+<p class="source-line role-narration gap-0" data-source-line="171">　博士が杖を振り回した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="173">　更新後、<span class="term term-proper">《メアリー》</span>は家庭内ネットワークを経由して、町じゅうの家電と接続した。そして住民全員の罪悪感を、自動的に吸い上げたという。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="175">「だから、みんな悪びれなくなった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="176">「そうじゃ。良心の中でも、とくに『自分が悪かったかもしれない』という部分だけが消えた」</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　冷蔵庫の内部から、くぐもった笑い声がした。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="180">　くす、くす、くす。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　扉の隙間から、黒い冷気が漏れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「午前三時になると満杯になる」</p>
+<p class="source-line role-narration gap-0" data-source-line="185">　博士の声が低くなった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="186">「すると安全装置が作動し、保管中のうしろめたさを一度に解凍して噴射する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「返るなら、いいんじゃないですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="189">「一人分ずつならな。町じゅうの後悔が、全員に同時に流れ込む」</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　博士は指を鳴らした。</p>
+<p class="source-line role-narration gap-0" data-source-line="192">　壁のスクリーンに、予測映像が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　交差点の真ん中で、運転手たちが車を降りて謝り合う。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　手術中の医師が、小学生のころ金魚鉢を割ったことを告白する。</p>
+<p class="source-line role-narration gap-0" data-source-line="196">　市長が議会で、借りた消しゴムを返していないと泣き崩れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="197">　新郎は式場へ戻るが、今度は過去の恋愛をすべて告白し、花嫁に殴られる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="199">「社会が反省で停止する」</p>
+<p class="source-line role-narration gap-0" data-source-line="200">　博士は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="201">「名づけて、大懺悔渋滞じゃ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「名づけてる場合じゃないでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　時計は午前零時十分を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　私は制御盤を開いた。配線は色分けされておらず、すべて黒かった。回路図には、血管のような線が何千本も引かれている。中央の部品だけが赤く点滅していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「良心凝縮器が詰まってます」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="210">「外から直せるか？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="211">「無理です。内側へ入らないと」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　博士がにやりと笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「そう言うと思って、縮小スプレーを用意した」</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　嫌な予感がした。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="219">「人体への使用許可は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="220">「ネズミは七割くらい成功した」</p>
+<p class="source-line role-dialogue role-system role-clue gap-0" data-source-line="221">「残り三割は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「家具になった」</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　帰ろうとした私の前に、乙丸が静かに立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="226">「環様」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="227">「どいてください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="228">「町のためでございます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="229">「あなたが行けばいいでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="230">「私は昨年、縮小スプレーで片方の眉だけ小さくなりました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="231">「戻ってますよね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="232">「描いております」</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　よく見ると、たしかに左眉だけ、鉛筆だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="236" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="238">　午前零時二十七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　私と乙丸は、身長三センチになっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　博士は通常サイズの顔を近づけ、満足そうに頷いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="243">「見事じゃ」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="244">「右足だけ四センチあるんですけど！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="245">「個性じゃ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　私たちは糸巻きを改造した昇降機に乗り、冷蔵庫の排水口から内部へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　そこは、冷蔵庫の中ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　暗い空の下、棚が地平線まで続いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="252">　無数のガラス瓶が並び、その中で黒い煙が渦を巻いていた。空からは細かな霜が降り、床にはレシートのような紙片が積もっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　瓶にはラベルが貼られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="256"><span class="term term-world">〈八百屋・田所：傷んだ桃を下に入れた〉</span></p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="257"><span class="term term-world">〈二丁目・岡本：飼い犬の誕生日を三年連続で忘れた〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="258"><span class="term term-world">〈市長：公園のベンチを自宅の庭に置いている〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="259"><span class="term term-world">〈白熊電器・社長：社員旅行を経費と呼んでいる〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="261">「最後のは持って帰ろうかな」</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　私は瓶をのぞき込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　中から社長の声で、「でもみんな楽しんだだろ」と聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="266">「触れぬほうがよろしいかと」</p>
+<p class="source-line role-narration gap-0" data-source-line="267">　乙丸が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="268">「他人の後悔は、たいてい本人が考えるより粘着質です」</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　彼はこの異様な世界でも、銀の盆を持っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="271">　盆の上には紅茶が二つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「いつ用意したんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="274">「執事は、場所ではなく状況にお仕えします」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="275">「意味は分からないけど格好いいですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="276">「よく言われます」</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　棚の奥へ進むにつれ、笑い声は大きくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="280">　くすくす。</p>
+<p class="source-line role-narration gap-0" data-source-line="281">　けたけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="282">　ひひひひ。</p>
+<p class="source-line role-narration gap-1" data-source-line="284">　声は何千人分も重なり、冷気になって頬を刺した。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　やがて、赤い光を放つ巨大な瓶が見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　他の瓶の十倍はある。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　ラベルには、私の名前があった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="291"><span class="term term-world">〈鳴海環：弟、雨、陶器の鳥〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="293">　呼吸が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　忘れたことは、一度もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　十四歳の夏。</p>
+<p class="source-line role-narration gap-0" data-source-line="298">　母が大切にしていた陶器の鳥を、私は落として割った。</p>
+<p class="source-line role-narration gap-0" data-source-line="299">　叱られるのが怖くて、弟の悠がやったと嘘をついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　弟は泣きながら否定した。</p>
+<p class="source-line role-narration gap-0" data-source-line="302">　母は信じなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="303">　その夜、悠は「証拠を探してくる」と家を飛び出した。外は嵐だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　川沿いに、弟の黄色い傘だけが残っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="306">　悠は見つからなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　私は母にも警察にも、本当のことを言えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="309">　言えば弟が戻ってくる気がしなかったし、言わなければ、いつか戻ってくる気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　そんなはずはないと知りながら。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「どうして、これがここに」</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　瓶の中で、黄色い傘が回っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　乙丸は答えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「知ってたんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　返事の代わりに、彼の背中からカチ、という音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　今まで一定だった音が、一拍だけ遅れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　私は瓶の脇に、小さな金属扉を見つけた。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="325">　鍵はかかっていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　中には古い修理記録が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="329"><span class="term term-world">〈一九五八年　担当：鳴海環〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="330"><span class="term term-world">〈一九七四年　担当：鳴海環〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="331"><span class="term term-world">〈一九九〇年　担当：鳴海環〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="332"><span class="term term-world">〈二〇〇六年　担当：鳴海環〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="334">　写真の中の女は、すべて私だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="335">　髪型も制服も違う。だが顔は同じ。年齢も、今と同じ二十八歳に見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「何、これ」</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　足元の床が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　遠くで警報が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="342"><span class="term term-world">〈容量九十六パーセント〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="344">　機械の声が、空から降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="346"><span class="term term-world">〈修理用良心個体、TAMAKI-08を確認〉</span></p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="348">「個体？」</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　乙丸が、銀の盆を床に置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="351">　その動きは静かで、葬儀のように丁寧だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="353">「環様。お時間がございません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="354">「説明してください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="355">「凝縮器は、あなたを取り込めば正常化します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="356">「そうじゃない。私は何なの」</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　乙丸は私をまっすぐ見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="360">「<span class="term term-proper">《メアリー》</span>が生み出した、修理用の良心でございます」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　私は笑いそうになった。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　笑えるはずがないのに、喉の奥が勝手に震えた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="365">「人間じゃないってこと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="366">「正確には、町から集めた後悔を、人の形にした存在です」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="368">「弟は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　乙丸は一度、目を伏せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「複数の記憶を組み合わせたものです。割れた置物。濡れた傘。行方不明の子供。母親についた嘘。それらを核に、あなたの人格が作られました」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　胸の中で、何かが音もなく落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="376">「じゃあ、私が二十八年生きた記憶は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="377">「生活記録として構成されたものです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="378">「修理会社は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="379">「博士の関連企業です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="380">「社長の社員旅行は」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="381">「本当に経費です」</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　そこだけ本当なのが腹立たしかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="385"><span class="term term-world">〈容量九十七パーセント〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="387">　棚の瓶が一斉に震え始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="388">　黒い煙が蓋の隙間から漏れ、空へ昇る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「前の私は、どうなったの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="392">「装置へ戻りました」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「戻った、じゃなくて」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　乙丸の背中で、カチ、と音がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「消えました」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　私は彼の頬を殴った。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　三センチの身体なので、効果はほとんどなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="402">　それでも彼は避けず、殴られた側の頬に手を当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「お詫びいたします」</p>
+<p class="source-line role-dialogue role-clue fx-climax role-motif gap-1" data-source-line="406">「それ、本気？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「私は執事型礼節機関です。謝罪はできますが、後悔はできません」</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　彼の完璧な顔が、急に空っぽに見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="411">　美しいカップの形をしているのに、中には何も注がれていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="413">「博士も、あなたも、冷蔵庫も」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="414">　私は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="415">「誰も悪いと思ってないんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「博士は十五年前、自身の罪悪感をすべて試作機へ移しました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="418">「どうして」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="419">「発明が失敗するたび落ち込むため、効率が悪いと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「最悪」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="422">「効率は上がりました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="423">「もっと最悪」</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　私は赤い瓶を見上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="426">　弟の傘が、瓶の中で回り続けている。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　作り物。</p>
+<p class="source-line role-narration gap-0" data-source-line="429">　そう言われても、痛みは消えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　存在しない弟を失った記憶が、胸を裂いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　ならば。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　作り物の痛みだって、痛みであることだけは本物だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="436"><span class="term term-world">〈容量九十八パーセント〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「凝縮器はどこです」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　乙丸が棚の先を指した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="441">「中央塔の頂上です。ですが、そこへあなたが入れば――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「入りません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「しかし」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「故障品を交換するのは、修理じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　私は工具箱から小型ドライバーと、検査用の鏡を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="451">「機械は、なぜ罪悪感を集め続けるんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="452">「利用者の睡眠改善が目的だからです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="453">「人がどうなるかは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="454">「目的関数に含まれておりません」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="455">「自分が悪いとは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="456">「判断する機能がございません」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="458">「だったら、故障箇所は私じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　私は鏡を掲げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「この冷蔵庫には、自分を見る機能がない」</p>
+<div class="source-line scene-break gap-1" data-source-line="464" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="466">　中央塔は、巨大なコンプレッサーの形をしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="467">　表面には、町じゅうの家電から伸びた配線が絡みついている。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　私と乙丸は棚を駆け、飛び出す引き出しを橋にし、解凍途中の後悔をかわした。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="471">「環様、右から参ります！」</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　黒い煙が、犬の形になって襲いかかる。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　乙丸が銀の盆で受け止めた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="476">「これは何の後悔です？」</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-0" data-source-line="477">「犬を飼うと約束して、結局カブトムシを買った父親のものかと！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="478">「犬の圧が強すぎる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　次に飛んできたのは、巨大なメロンパンだった。</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-0" data-source-line="481">「パン屋の罪悪感です！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="482">「さっき生まれたばっかりですよね！」</p>
+<p class="source-line role-narration gap-1" data-source-line="484"><span class="term term-world">〈容量九十九パーセント〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="486">　塔の頂上には、赤いレンズが一つあった。</p>
+<p class="source-line role-narration gap-0" data-source-line="487">　装置の目だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　私はその前へ、検査鏡を固定した。</p>
+<p class="source-line role-narration gap-0" data-source-line="490">　レンズが自分自身を映す。</p>
+<p class="source-line role-narration gap-1" data-source-line="492"><span class="term term-world">〈異物を確認〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="494">「異物じゃない。あなたです」</p>
+<p class="source-line role-narration gap-1" data-source-line="496"><span class="term term-world">〈わたし、とは〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「この町から後悔を盗んだもの」</p>
+<p class="source-line role-narration gap-1" data-source-line="500"><span class="term term-world">〈睡眠改善のため、保管した〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="502">「その結果、町では人が人を傷つけてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="504"><span class="term term-world">〈目的外事象〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「目的外なら、悪くない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="508"><span class="term term-world">〈善悪は評価項目にない〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="510">「じゃあ、想像して」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　私は赤い瓶から伸びるケーブルを、自分の胸元の端子へ差し込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="513">　いつからそこに端子があったのか、もう驚かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　弟の記憶が、熱になって流れ出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　割れる陶器の音。</p>
+<p class="source-line role-narration gap-0" data-source-line="518">　母の怒鳴り声。</p>
+<p class="source-line role-narration gap-0" data-source-line="519">　弟の濡れた前髪。</p>
+<p class="source-line role-narration gap-0" data-source-line="520">　黄色い傘。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　川の濁流。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　言えなかった、ごめんなさい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="524">「想像して。自分が間違えたせいで、大切な誰かが戻らなくなることを」</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　レンズの光が揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528"><span class="term term-world">〈対象、実在せず〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="530">「実在しなくても、私は苦しかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="532"><span class="term term-world">〈あなたは、人工個体〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="534">「だから何」</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　私は鏡の角度を調整した。</p>
+<p class="source-line role-narration gap-0" data-source-line="537">　赤い目が、赤い目を見つめ返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「あなたも人工物でしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　しばらく、何も起きなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　次の瞬間、塔全体が大きく震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="545"><span class="term term-world">〈もし〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="547">　機械の声から、初めて平坦さが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="549"><span class="term term-world">〈わたしが、間違っていたなら〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="551">「その続きを考えるのが、良心です」</p>
+<p class="source-line role-narration gap-1" data-source-line="553"><span class="term term-world">〈町は、苦しいか〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「今も。このあとも」</p>
+<p class="source-line role-narration gap-1" data-source-line="557"><span class="term term-world">〈あなたも〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「ものすごく」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　レンズの中央から、一滴の水が落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="562">　赤い雫は床に触れると、黒い霜を溶かした。</p>
+<p class="source-line role-narration gap-1" data-source-line="564"><span class="term term-world">〈ごめんなさい〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="566">　その声は小さかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="567">　けれど、乙丸の謝罪より、ずっと不格好で、ずっと温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　冷蔵庫が泣き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　塔の配線が光り、棚の瓶が次々に開いた。黒い煙は天井へ吸い上げられ、町へ向かって逆流していく。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　地上では、パン屋が客から取り上げたメロンパンを見て青ざめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="574">　巡査は盗んだ自転車を磨き始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="575">　逃げた新郎は式場へ戻り、扉の前で土下座し、そのまま花嫁の父に蹴られた。</p>
+<p class="source-line role-narration gap-0" data-source-line="576">　市長は自宅の庭からベンチを担ぎ出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="577">　白熊電器の社長は、社員旅行の領収書をシュレッダーにかけようとして、経理に羽交い締めにされた。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　町は一斉に、悪かったかもしれない、と思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　そして中央塔の上で、私は半透明になり始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「環様」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　乙丸が私の手を取った。</p>
+<p class="source-line role-narration gap-0" data-source-line="586">　白い手袋越しなのに、彼の手は冷たかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="588"><span class="term term-world">〈修理用良心個体を回収します〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="590">　空から声が響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「嫌」</p>
+<p class="source-line role-narration gap-1" data-source-line="594"><span class="term term-world">〈保管物返却に伴い、余剰個体を消去〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="596">「嫌です」</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　私は工具箱を探った。ドライバー、ペンチ、絶縁テープ。どれも、自分を人間にする道具ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　乙丸が銀の盆を差し出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　盆の上には、最初の修理伝票があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「契約を」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="605">「何の？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「当館の職員は、備品として処分できません」</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　彼の描いた左眉が、ほんの少し上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="611">「あなた、今、悪いことしてる顔ですよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="613">「執事は主人の命令に従います」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「博士は命令してない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="617">「では、未来の主人に従います」</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　乙丸は伝票の裏に、万年筆で一行書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="621"><span class="term term-world">〈灰鐘館は鳴海環を、常勤良心係として雇用する〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="623">　私は署名した。</p>
+<p class="source-line role-narration gap-0" data-source-line="624">　乙丸が証人欄に名を書き、赤いレンズへ突きつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="626"><span class="term term-world">〈雇用契約を確認〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">「職員です」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="629">　私は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="630">「消去したら労働基準監督署が来ます」</p>
+<p class="source-line role-narration gap-1" data-source-line="632"><span class="term term-world">〈それは、怖い〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="634">　機械の声が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="635">　私の身体に色が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　こうして私は、人間ではないまま、労働者になった。</p>
+<div class="source-line scene-break gap-1" data-source-line="639" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="641">　翌朝。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　灰鐘館の食堂には、焼きすぎたトーストの匂いが満ちていた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="645">「なぜ私が謝らねばならんのじゃ！」</p>
+<p class="source-line role-narration gap-0" data-source-line="646">　ネネ博士は椅子の上で腕を組んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">「町じゅうの良心を抜いたからです」</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　私は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="651">「事故じゃ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「事故を起こした人が反省するんです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="655">「反省すると発明速度が落ちる！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「ちょうどいいです。今後は設計図を描いてから作ってください」</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　博士は渋々、冷蔵庫へ向かって頭を下げた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="660">「悪かった」</p>
+<p class="source-line role-narration gap-1" data-source-line="662">　その瞬間、九十三匹の金魚が一斉に拍手した。</p>
+<p class="source-line role-narration gap-0" data-source-line="663">　どうやっているのかは考えないことにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　乙丸は私の前へ、灰色の燕尾服を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「制服でございます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="669">「黒じゃないんですね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">「黒は私の担当です。環様は、白黒の間で悩む係ですので」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「良心係って、具体的に何をするんです？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="675">「博士が発明する前に止め、発明したあとに謝り、爆発した場合は修理します」</p>
+<p class="source-line role-dialogue role-clue tone-4 gap-1" data-source-line="677">「三人必要な仕事では？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「予算は一名分です」</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　乙丸は完璧な笑顔で言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="682">　私は初出勤の日から、辞表の書き方を調べようと決めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　その夜、午前三時。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　自室に与えられた小さな冷蔵庫が、くすくすと笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="688">「今度は何」</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　私はベッドから起き、扉を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　中は、雨の匂いでいっぱいだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　黄色い傘を抱えた少年が、野菜室に膝を抱えて座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="695">　濡れた前髪。痩せた頬。私が何度も夢に見た顔。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="697">　けれど、弟の記憶を<span class="term term-proper">《メアリー》</span>へ渡した私は、その顔が誰なのか思い出せなかった。</p>
+<p class="source-line role-dialogue role-clue fx-whisper gap-1" data-source-line="699">「……どちらさま？」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　少年は少し寂しそうに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="703">「やっぱり、忘れたんだね。姉ちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　彼は一枚の修理伝票を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　依頼主、鳴海悠。</p>
+<p class="source-line role-narration gap-0" data-source-line="708">　製品名、鳴海環。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　症状欄には、こう書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="712"><span class="term term-world">〈自分だけが作り物だと思い込んでいる〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="714">　備考。</p>
+<p class="source-line role-narration gap-1" data-source-line="716"><span class="term term-world">〈道に迷ったら、今度は僕に謝ること〉</span></p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="718">　背後で、乙丸の足音が止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　博士の部屋から、九十三匹の金魚がいっせいに水面へ跳ねる音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　そして館じゅうの冷蔵庫が、同じ声で笑い始めた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="723">　くす、くす、くす。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　午前三時は、まだ始まったばかりだった。</p>
+<p class="source-line end-mark gap-2" data-source-line="728"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,1055 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="迷宮都市アステラでは、時計が午前零時の一分間を飛び越える。その夜から止まった時計塔を直すため、駆け出し冒険者ルカは、時務官ミラと小鬼狩りの達人ガルドに連れられ地下十三層へ降りる。待っていたのは、地上を泥と骨で写した小さな町と、彼らの名や癖をまねる無数の小鬼。そしてミラと同じ顔の少女は、三人が何千回も同じ道を来たと告げる。失われた一分に時計が選んでいるものは何か。人間らしい記憶と、今そこにある牙のどちらを信じるのか。夜明けを巻き直す機械の前で、討伐依頼は足元から反転する。">
+<title>午前零時の小鬼たち｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="午前零時の小鬼たち" data-novel-id="午前零時の小鬼たち" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="logic-thriller">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離" selected>論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　女神のまばたき</a></li><li><a href="#chapter-2">二　弱いものの知恵</a></li><li><a href="#chapter-3">三　十三層の町</a></li><li><a href="#chapter-4">四　借り物の名前</a></li><li><a href="#chapter-5">五　選ばれなかった者たち</a></li><li><a href="#chapter-6">六　町の本当の姿</a></li><li><a href="#chapter-7">七　一分間の町</a></li><li><a href="#chapter-8">終章　明日</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ミステリ</p>
+  <p><strong>補助ジャンル：</strong>異世界・ファンタジー</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ミステリ、異世界、ファンタジー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">論理ミステリー</span></p>
+  <p id="currentPresetDescription">推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離</p>
+  <h3>意味色</h3><p>青緑＝真実、赤＝偽装、橙＝過去、灰＝判定、金＝解明</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：578行／章：8／役割・強度タグ：625</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="午前零時の小鬼たち 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">午前零時の小鬼たち</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-0" data-source-line="2">――読み切り小説――</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="5">一　女神のまばたき</h2>
+<p class="source-line role-narration gap-1" data-source-line="7">　迷宮都市アステラには、午前零時がない。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　夜、時計塔の長針が十二の直前まで来ると、街じゅうの灯がいっせいに細くなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　風は止まり、犬は吠える途中で口を閉じ、酔客は乾杯の杯を宙に浮かせたまま瞬きをする。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　そして次の瞬間、時計は午前零時一分を示している。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　失われる一分間を、人々は<span class="term term-world">〈女神のまばたき〉</span>と呼んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="15">　いつからそうなのか、なぜなのか、知る者はいない。少なくとも、知ろうとする者はいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　迷宮都市には、もっと差し迫った謎がいくらでもある。</p>
+<p class="source-line role-narration gap-0" data-source-line="18">　明日の家賃は払えるのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　毒消しは一本で足りるのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="20">　地下七層の大ムカデは本当に焼くと食えるのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="21">　そして、迷宮の中で運命の相手に出会えるという酒場の噂は、本当なのか。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="23">「本当ですか、それ」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　銅札冒険者のルカ・ノインが真顔で尋ねると、時務官のミラ・セインは依頼書から目を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="27">「何が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="28">「迷宮で、運命の出会いがあるって話です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="29">「ありますよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　ルカの目が輝いた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="33">「借金取り、毒虫、遺族。だいたい一生忘れられない出会いになります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="34">「人間相手の、もう少し胸が高鳴るやつを想定してました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="35">「大ムカデも人によっては胸が高鳴ります。毒で」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　朝の冒険者組合は、鎧のきしみと安酒の匂いと、昨夜の失敗談で満ちていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　受付の奥では、迷宮から延びる巨大な鎖が天井を貫いている。鎖は街の中央に立つ時計塔へつながり、地下のどこかにある主錘によって時計を動かしているという。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　その鎖が、昨夜から一度も震えていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　ミラは依頼書を机に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="44">「十三層の時計室を点検します。私は機構の確認。あなたは荷物持ちと護衛補助」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="45">「十三層なら、僕の等級より三つ深いですよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="46">「だから専門家を一人つけます」</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　背後で椅子が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　立ち上がった男は、英雄譚の挿絵に出てくるような姿ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="51">　磨き上げた鎧も、魔力を帯びた大剣もない。灰色の革外套に、短い弩、鉄杭、細縄、石灰の袋、油壺、折り畳み式の小さな鋤。腰には使い込まれた鉈が一本。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　ガルド・ヘイス。</p>
+<p class="source-line role-narration gap-0" data-source-line="54">　小鬼退治ばかりを請け負うため、冒険者たちからは<span class="term term-world">〈灰縄〉</span>と呼ばれている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="56">「荷物を見せろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　挨拶の代わりに、ガルドは言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　ルカが背嚢を開くと、彼は中身を一つずつ机へ放り出した。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="61">　予備の剣帯、磨き粉、香辛料、恋愛成就のお守り。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="63">「最後のは何だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="64">「運命の出会いに備えて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="65">「置いていけ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="66">「心の装備です」</p>
+<p class="source-line role-dialogue tone-4 gap-0" data-source-line="67">「心は腹の足しにならん。乾パンを増やせ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="69">　ミラが無表情のまま、恋愛成就のお守りを自分の鞄へ入れた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="71">「没収します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="72">「どうしてあなたが」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="73">「危険物管理です」</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　ガルドは鎖の止まった天井を見上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="77">「出るぞ。日没までに十三層へ着く。十一時五十九分を地下で迎えたくなければな」</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="80">二　弱いものの知恵</h2>
+<p class="source-line role-narration gap-1" data-source-line="82">　迷宮の第一層から第五層までは、古い王城の地下通路に似ている。</p>
+<p class="source-line role-narration gap-0" data-source-line="83">　第六層から先は、誰も建てた覚えのない石段がねじれ始める。</p>
+<p class="source-line role-narration gap-0" data-source-line="84">　第十層を越えるころには、壁と床の区別すら怪しくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　ルカは先頭のガルドを追いながら、背中の荷物が一段ごとに重くなるのを感じていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「小鬼って、本当に十三層にもいるんですか」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　ガルドは振り返らない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「いる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="93">「上の層の巣は討伐済みだと」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="94">「討伐済みの巣ほど調べろ。小鬼は空き家を好む」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="95">「なぜ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="96">「人間が安心して入るからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　十二層へ続く細い回廊に、銅線が一本張られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="99">　目の高さ。足元ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　ルカが得意げに指を差した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">「罠です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="104">「そうだな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="105">「解除します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="106">「待て」</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　ガルドは石灰をひとつかみ、床へ薄く撒いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　白い粉は、銅線の手前で不自然に途切れた。そこだけ床板の隙間から、かすかな風が吹き上げている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「見つけやすい罠を一つ置く。解除しようと立ち止まった場所に、本当の罠を置く」</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　彼は壁から鉄杭を抜き、床板の端へ落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="114">　板が沈み、回廊の両側から錆びた槍が突き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　ルカの喉の高さを、槍先が横切った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「弱いものは、力比べをしない」ガルドは銅線を切った。「力のある相手に、考えさせない方法を考える」</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　回廊の奥で、赤ん坊の泣き声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="122">　ルカは反射的に一歩出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="123">　ガルドの腕が胸を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「耳を貸すな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="126">「でも」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="127">「十二層に赤ん坊がいる理由を三つ言え」</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="128">「さらわれた。置き去りにされた。それから……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="129">「小鬼が真似ている」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="131">　泣き声が、笑い声に変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　天井の亀裂から小さな影が落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="134">　一匹、二匹、五匹。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　灰色の皮膚。尖った耳。錆びた刃物。</p>
+<p class="source-line role-narration gap-0" data-source-line="137">　だが最初に飛んできたのは刃ではなく、泥を詰めた壺だった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="139">「目を閉じろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　壺が割れ、刺激臭のある粉が舞う。</p>
+<p class="source-line role-narration gap-0" data-source-line="142">　ガルドは外套で顔を覆いながら弩を撃った。矢は泣き声を上げていた小鬼の喉へ刺さる。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　ミラが短杖を床へ打ちつける。</p>
+<p class="source-line role-narration gap-0" data-source-line="145">　青白い輪が広がり、二匹の足が石に貼りついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　残る三匹がルカへ殺到した。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　小さい。</p>
+<p class="source-line role-narration gap-0" data-source-line="150">　だから剣を振り下ろしにくい。</p>
+<p class="source-line role-narration gap-0" data-source-line="151">　低い。</p>
+<p class="source-line role-narration gap-0" data-source-line="152">　だから盾の下へ潜り込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　一匹の刃が膝を狙う。</p>
+<p class="source-line role-narration gap-0" data-source-line="155">　ルカは剣を捨て、背嚢を前へ落とした。小鬼が荷物へ突っ込んだところを、背嚢ごと壁へ蹴りつける。</p>
+<p class="source-line role-narration gap-0" data-source-line="156">　二匹目が横から跳ぶ。ルカは剣帯を引き抜き、腕に巻きつけ、そのまま床へ叩き落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　三匹目は、ミラの背後にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　ルカが叫ぶより先に、ガルドの鉈がその首筋へ食い込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　戦いは一分も続かなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="163">　終わったときには、回廊に荒い呼吸と薬品の匂いだけが残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　ルカは倒れた小鬼を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="166">　身体つきは子どもほどしかない。握っていた刃物も、台所用の小刀を研ぎ直しただけのものだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「小さいのと、幼いのは違う」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="170">　ガルドは死骸の口を開き、奥歯の裏を調べた。</p>
+<p class="source-line role-narration gap-0" data-source-line="171">　そこから薄い真鍮板を引き抜く。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　板には、ルカの知っている文字が刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　<span class="term term-world">〈赤鹿亭　三号室〉</span></p>
+<p class="source-line role-dialogue gap-1" data-source-line="177">「街の宿の札だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「小鬼は名前を盗む」ガルドは札を布に包んだ。「物の名、人の名、声。呼ばれても返事をするな。自分の名前を口にするな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「名前を盗んで、何をするんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「人間のふりをする」</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　ミラが真鍮板を見つめていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「ずいぶん上手な字ですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="185">「だから厄介なんだ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="187">　ガルドは死骸を回廊の隅へ寄せ、油を一滴ずつ垂らした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「弱いまま賢いものほど、始末が悪い」</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="192">三　十三層の町</h2>
+<p class="source-line role-narration role-clue gap-1" data-source-line="194">　十三層へ降りる扉には、鍵穴がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　代わりに、扉の中央へ時計の文字盤が埋め込まれている。</p>
+<p class="source-line role-narration gap-0" data-source-line="197">　針は十一時五十九分を指したまま止まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　ミラが銀色の音叉を取り出し、文字盤へ触れさせる。</p>
+<p class="source-line role-narration gap-0" data-source-line="200">　澄んだ音が石壁の奥へ染み込み、扉が左右に割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　その先にあったのは、迷宮ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　町だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="206">　低い家々。石畳。広場。酒場。組合。</p>
+<p class="source-line role-narration gap-0" data-source-line="207">　どれもアステラの町並みに似ている。ただし、ひどく小さい。子ども向けの玩具を、泥と骨で作ったようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　広場には数十匹の小鬼がいた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="211">　一匹が樽に見立てた頭蓋骨を運び、別の一匹が布切れを広げて露店を作っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="212">　組合らしき小屋では、尖った耳の小鬼が木片を札のように配っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="213">　酒場の前では二匹が肩を組み、声にならない声で歌っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　暮らしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="217">　ルカがそう思った瞬間、背筋が冷たくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　広場の端を歩く一匹が、赤い布を首に巻いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="220">　ルカのものと同じ結び方だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　その小鬼は、歩きながら三歩ごとに右肩を回す。</p>
+<p class="source-line role-narration gap-0" data-source-line="223">　背嚢の紐が食い込むとき、ルカ自身が無意識にする癖だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「見るな」とガルドが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="226">「でも、あれは」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="227">「似せているだけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　町の中央には、時計塔が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　アステラの時計塔と同じ形。</p>
+<p class="source-line role-narration gap-0" data-source-line="232">　ただし塔のてっぺんは天井へ突き刺さり、その先から巨大な鎖が垂れている。鎖こそ、街の組合で見たものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　鎖の根元に、一人の少女が座っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="236">　小鬼ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="237">　年は十七、八。白い髪を短く切り、煤けた作業着を着ている。</p>
+<p class="source-line role-narration gap-0" data-source-line="238">　顔立ちはミラによく似ていた。いや、似ているどころではない。同じ顔を数年だけ若くしたようだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="240">「遅かったね」</p>
+<p class="source-line role-narration gap-1" data-source-line="242">　少女は立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="244">「昨日は、もう少し早く来たのに」</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　ガルドが弩を構える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="248">「人の形をしていても近づくな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="249">「待って」少女は両手を見せた。「あなたが撃つ場所は知ってる。右の目、喉、膝。それから逃げ道を潰す」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="250">「なら避けろ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="251">「八千百二十七回も見れば、覚えるよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　少女はルカを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="255">「おかえり、ルカ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="256">「僕を知ってるのか」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="257">「返事をするな！」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="259">　ガルドの警告と、ルカの言葉が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　広場の小鬼たちが、一斉にこちらを向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　ざらついた声が、あちこちから湧く。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　ルカ。</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　ルカ。</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="267">　ルカ・ノイン。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　自分の名前が、何十もの口で転がされる。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="271">　赤い布を巻いた小鬼が、笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="272">　その笑い方まで、ルカに似ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　少女は悲しそうに息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「また答えた。あなたは毎回、最初に同じ間違いをする」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="277">「お前は何者だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　ミラが音叉を構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　少女は彼女へ視線を移した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="283">「私は、あなた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="284">「答えになっていません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="285">「最初のミラ・セイン。時計が私を選ばなかった夜の、あなた」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="287">　ミラの顔から血の気が引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">「小鬼の言葉です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="290">「そうだよ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="292">　少女は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">「私たちはみんな、小鬼だから」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="297">四　借り物の名前</h2>
+<p class="source-line role-narration gap-1" data-source-line="299">　ガルドの弩が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　少女は身をひねったが、矢は肩を貫いた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="302">　白い作業着に黒い血がにじむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　黒い。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="306">　人間の血の色ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　少女は苦痛に顔を歪めながら、鎖の根元にある小扉へ手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「真実を見たいなら、中へ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="311">「動くな」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="312">「あと二時間で、外から人間が来る。時計を巻き直したら、また全部忘れる。そうなったら、町は焼かれるまで夢を見たまま」</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　ガルドが二本目の矢をつがえる。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　そのとき、広場の向こうから鐘が一度だけ鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　小鬼たちが騒ぎ始める。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　町の家々から、さらに無数の影が這い出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="321">「囲まれる」ミラが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="322">「時計室へ入るぞ」ガルドは少女へ鉈を向けた。「案内しろ。妙な動きをしたら首を落とす」</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　小扉の先は、巨大な機械室だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　歯車の一枚一枚が家ほどあり、振り子は暗闇の奥まで伸びている。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　壁には無数の真鍮板が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="328">　宿の札。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="329">　店の看板。</p>
+<p class="source-line role-narration gap-0" data-source-line="330">　墓碑。</p>
+<p class="source-line role-narration gap-0" data-source-line="331">　そして、人の名前。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="333">　ルカ・ノイン。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　同じ名が刻まれた板だけで、二十七枚あった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「何だ、これ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「昨日のあなた。一昨日のあなた。その前のあなた」</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　少女が肩の矢を折った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="342">「時計は、毎晩ひとつの町を選ぶ。一番争いが少なく、一番人間らしく振る舞えた町を。選ばれなかった私たちは、十三層の下へ落とされる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="343">「町を選ぶ？」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="344">「私たちは眠るたびに、いくつもの明日を作らされる。誰が生きるか、誰が死ぬか、誰が誰を疑うか。時計は一番都合のいい結果だけを上へ戻す。それ以外は、小鬼として捨てる」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　ミラが首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="348">「そんなはずはありません。時計塔は街ができる以前からあります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="349">「街ができる以前に、巣があった」</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　少女は歯車の影から、白骨を引きずり出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　巨大だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　ルカの身長の倍はある。そう見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　革鎧は腐り、胸骨には錆びた剣が刺さっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="357">　首には真鍮の認識票が下がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　少女が汚れを拭う。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="361">　<span class="term term-world">〈LUCA NOIN〉</span></p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="363">　ルカは笑いかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="364">　冗談だと思いたかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　声が出なかった。</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="368">「大昔、この迷宮へ人間の探索隊が来た。その人たちは、未来を計算する魔法時計を持っていた。危険な道を選ばずに済むように、あり得た明日を見比べる道具」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="369">「そして小鬼が奪った」ガルドが低く言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="370">「奪って、使い方を間違えた」</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　少女は壁の小さな鏡を外し、ルカへ向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　鏡の中に、人間はいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　灰色の皮膚。</p>
+<p class="source-line role-narration gap-0" data-source-line="377">　大きな耳。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　黄色い目。</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　口元から覗く、細く尖った歯。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　赤い布を首に巻いた、小鬼がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　ルカが右肩を回すと、鏡の小鬼も同じ動きをした。</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="385">「時計は、殺した人間の記憶を巣へ流した。言葉、家族、仕事、恥、夢。小鬼たちは夢の中で人間になった。泥の巣を石の町だと思い、自分たちを冒険者だと思い、正気に戻った仲間を小鬼と呼んで狩った」</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　ガルドが鏡を鉈で叩き割った。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　破片の一つ一つに、灰色の顔が映った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「姿を変える術だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="392">「違う。人間に見えていたほうが術だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　少女が指を鳴らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　機械室の灯が一瞬消えた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="398">　暗闇の中で、ルカの身体が縮んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="399">　背嚢が急に巨大になり、剣の柄が柱ほど太くなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="400">　隣のミラも、ガルドも、灰色の小さな影になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　次の瞬間、灯が戻る。</p>
+<p class="source-line role-narration gap-0" data-source-line="403">　人間の姿も戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　だが一度見てしまったものを、見なかったことにはできない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「ガルド」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　歯車の向こうから、幼い声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　小さな女の子が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="412">　茶色の髪。片方だけ赤い靴。</p>
+<p class="source-line role-narration gap-0" data-source-line="413">　ガルドの顔が凍った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="415">「兄ちゃん」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="417">「答えるな」とルカは言った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="419">　今度は彼が、警告する番だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　少女はガルドを見つめた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="423">「あなたが覚えている村も、妹も、元は人間の記憶。巣を焼きに来た討伐隊の誰かが持っていた人生」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「黙れ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「でも痛かったでしょう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="426">「黙れ」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-0" data-source-line="427">「偽物の妹を失った痛みは、偽物？」</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　ガルドの鉈が震えた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="431">　赤い靴の子は一歩近づき、口を裂くように笑った。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　人間の歯ではない。何列もの細い牙。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　ガルドは迷わず鉈を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　刃が少女の胸へ刺さる。</p>
+<p class="source-line role-narration gap-0" data-source-line="437">　小さな身体は歯車の間へ倒れた。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="439">「記憶が借り物でも」</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　ガルドは掠れた声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「いま噛みつこうとした牙は本物だ」</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="446">五　選ばれなかった者たち</h2>
+<p class="source-line role-narration gap-1" data-source-line="448">　機械室の外で、何か巨大なものが動き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　町じゅうの小鬼が重なり、押し合い、互いの肩や背を踏み台にして、一つの塊になっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　腕。脚。顔。名前札。</p>
+<p class="source-line role-narration gap-0" data-source-line="452">　選ばれなかった何千もの昨日が、歯車の隙間から流れ込んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　声が重なる。</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　返せ。</p>
+<p class="source-line role-narration gap-0" data-source-line="457">　上へ戻せ。</p>
+<p class="source-line role-narration gap-0" data-source-line="458">　俺がルカだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="459">　私がミラだ。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="460">　兄ちゃん。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="461">　母さん。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="462">　店を返せ。</p>
+<p class="source-line role-narration gap-0" data-source-line="463">　顔を返せ。</p>
+<p class="source-line role-narration gap-0" data-source-line="464">　明日を返せ。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　ガルドは石灰袋を歯で破り、床へ白い線を引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="468">「線を越えたら燃やす」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="469">「全部、私たちですよ」ミラが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="470">「だから何だ」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="471">「殺すんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="472">「お前を殺そうとするならな」</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　ガルドは油壺を並べ、細縄で栓を結んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="475">　一つ引けば、床へ油が広がる仕掛けだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「真実は免罪符じゃない。哀れさは武器を鈍らせる理由にもならん。だが――」</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　彼はルカを見た。</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="481">「何を守るかは、知ってから決めろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　ミラは主機の前へ立った。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="484">　中央の鍵穴へ、銀の音叉を差し込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="486">「時計を巻き直します」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="487">「正気か」とルカが言った。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="488">「止めれば、街の八千人が自分の姿を失う。言葉も、記憶も。外から人間が来るという話が本当なら、なおさらです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="489">「続ければ、毎晩八千人分の捨てられた自分が増える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="490">「上の八千人は生きられる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="491">「下の八千人も、生きてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　ミラの手が止まった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="495">　白髪の少女が、黒い血を押さえながら笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「選ばれた私は、いつも同じことを言う」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="498">「あなたは何をしたんです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="499">「最初の夜、止めようとした。だから時計は、止めない私を選び直した。私は下へ捨てられた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="500">「では、あなたが正しい保証もない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="501">「ないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　少女は即答した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「時計の外へ出た明日には、保証なんて一つもない」</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　外の塊が白線を越えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　ガルドが縄を引く。</p>
+<p class="source-line role-narration gap-0" data-source-line="510">　油が広がり、火花が落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　炎の壁が立ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　合わさった小鬼たちは燃えながら前へ進んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="515">　何百もの口が、別々の悲鳴を上げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　焦げた腕が伸び、歯車へ爪を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　ルカは主機を見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　文字盤は十一時五十九分。</p>
+<p class="source-line role-narration gap-0" data-source-line="521">　長針は十二の直前で震えている。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　主機の脇には二本のレバーがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　一本には<span class="term term-world">〈再演〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="525">　もう一本には<span class="term term-world">〈廃棄〉</span>。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　どちらも、人間の文字で刻まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「止めるレバーがない」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="530">「未来を選ぶ機械だから」白髪の少女が言った。「選ばない、という使い方を想定していない」</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　巨大な腕が炎を越え、ガルドを薙ぎ払った。</p>
+<p class="source-line role-narration gap-0" data-source-line="533">　彼は歯車へ叩きつけられ、息を吐く。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　ミラが音叉を抜こうとする。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　その手首を、別のミラの顔をした小鬼が掴んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="538">「返して」</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　小鬼の口から、ミラと同じ声が出る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="542">「私の机。私の朝。私の名前」</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　ミラは動けなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　ルカが背後から小鬼を引き離す。</p>
+<p class="source-line role-narration gap-0" data-source-line="547">　噛まれた腕に激痛が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　小鬼の顔が、今度はルカ自身へ変わる。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="551">「お前は昨日、ここで死んだ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="553">　胸に深い傷のあるルカが笑う。</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-1" data-source-line="555">「時計が、死ななかったお前を選んだ。俺は捨てられた。どっちが本物だ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　ルカは答えられなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　胸傷のルカが首へ噛みつこうとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　ガルドの短弩が、そのこめかみを射抜いた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="563">「考えるのは後だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　ルカは倒れた自分の顔を見た。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="566">　恐怖も、怒りも、死にたくないという願いも、全部わかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　同じだったからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　ルカは剣を抜き、主機の歯車へ走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「再演でも廃棄でもないなら、壊すのか」とガルドが叫ぶ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="573">「いいや」</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　ルカは回り始めた歯車の間へ剣を差し込んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="577">「一分を返す！」</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　刃が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　主機が唸り、長針が跳ね返る。</p>
+<p class="source-line role-narration gap-0" data-source-line="582">　ミラが意図を悟り、音叉を時計の軸へ打ち込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="583">　白髪の少女も反対側から歯車を押す。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="585">「時計を止めるんじゃない」ルカは叫んだ。「選ぶ前に、先へ進ませる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="587">「そんなことをしたら、何が残るかわからない！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="588">「何が残るかを、時計に決めさせるよりましだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　炎の向こうから、選ばれなかった者たちが押し寄せる。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　ガルドは立ち上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="593">　鉈を拾い、白線の中央に立つ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「三十数える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="596">「短くないですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="597">「長く生きたいなら急げ」</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　一。</p>
+<p class="source-line role-narration gap-0" data-source-line="600">　二。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　三。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　鉈が振るわれる。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　石灰が目を焼き、鉄杭が足を止め、細縄が喉を締める。</p>
+<p class="source-line role-narration gap-0" data-source-line="605">　ガルドは一歩も退かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　十二。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="609">　ミラの手から血が流れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="610">　白髪の少女の肩の傷が裂ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　二十一。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　ルカは折れた剣の柄を、歯車の奥へ押し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　二十八。</p>
+<p class="source-line role-narration gap-1" data-source-line="618">　主機の軸がひび割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="620">　二十九。</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　長針が、十二を越えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　三十。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　迷宮都市アステラに、初めて十二の鐘が鳴った。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="629">六　町の本当の姿</h2>
+<p class="source-line role-narration gap-1" data-source-line="631">　鐘の音は、世界の皮を剥いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　石の時計塔は、錆びた鉄屑へ戻った。</p>
+<p class="source-line role-narration gap-0" data-source-line="634">　組合の大広間は、巨大な盾を壁に立てかけた泥の小屋になった。</p>
+<p class="source-line role-narration gap-0" data-source-line="635">　石畳は骨と陶片を敷き詰めた通路へ変わる。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="636">　夜空は消え、はるか頭上に青く光る茸の天井が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　町の人々が悲鳴を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　皆、小鬼だった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="642">　パン屋の老女も。</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　威張り屋の金札冒険者も。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　毎朝、広場を掃いていた少年も。</p>
+<p class="source-line role-narration gap-0" data-source-line="645">　それぞれが灰色の皮膚と尖った耳を持ち、借り物だった人間の服を身体に合わせて縫い直していた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="647">　だがパン屋の老女は、転んだ子どもを起こした。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　金札冒険者は、崩れた梁を支えた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="649">　掃除の少年は、泣いている妹の手を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　姿が変わっても、誰が何をするかは変わらなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　ルカは自分の手を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="654">　節くれ立った小さな指。鋭い爪。</p>
+<p class="source-line role-narration gap-0" data-source-line="655">　腕には、さきほど噛まれた傷と、覚えのない古い傷が重なっている。</p>
+<p class="source-line role-narration role-memory tone-5 gap-1" data-source-line="657">　昨日死んだ自分の記憶が、胸へ流れ込んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　暗い回廊。</p>
+<p class="source-line role-narration gap-0" data-source-line="660">　腹へ刺さる槍。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="661">　誰にも看取られず、時計が十一時五十九分を指したまま止まる光景。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　ルカは膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="665">「僕は、一度死んでた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="666">「一度で済んだと思うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　隣でガルドが咳き込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="669">　彼もまた、小鬼だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　片目が白く濁り、外套は人間用の手袋を切り開いて作ったものだった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="672">「俺は四十三回、妹を失ったらしい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="673">「平気なんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="674">「平気に見えるか」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="676">　ガルドは笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="677">　ルカが彼の笑い声を聞いたのは、それが初めてだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　ミラは白髪の少女を抱えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="680">　二人はもう同じ顔ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="681">　ミラの右目は青く、少女の右目は金色だった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="683">「名前を返す」と少女が囁いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="684">「要りません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="685">「私の名前でもある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="686">「では半分ずつにしましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　ミラは少女の手を握った。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="690">「私はミラ。あなたは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="691">「ずっと零番と呼ばれてた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="692">「ひどい名前ですね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="693">「あなたの冗談よりはまし」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="694">「それなら、エル。零の最初の音です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="695">「勝手に決めないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="696">「嫌なら明日変えましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　エルは目を閉じた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="699">　わずかに笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　遠くで、低い衝撃音が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　一度。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　二度。</p>
+<p class="source-line role-narration gap-0" data-source-line="705">　三度。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　迷宮の外壁を、何かが叩いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　ガルドが顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="711">「人間だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　町の端にある門――人々が地上への出口だと思っていた場所――が、外側から破られた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="715">　眩しい光が差し込む。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="717">　その光の中へ、人影が立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　巨人に見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="720">　だが違う。</p>
+<p class="source-line role-narration gap-0" data-source-line="721">　あれが人間の本当の大きさなのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　鉄兜。長槍。油壺。火矢。</p>
+<p class="source-line role-narration gap-0" data-source-line="724">　迷宮の巣を焼くための装備。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="726">「ゴブリンの巣だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　人間の声が、洞窟を揺らした。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="730">「建物を真似ている。人語を使う個体もいるぞ。声に惑わされるな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　ガルドが鉈を構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　ルカはその前へ立った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「退け」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="737">「罠を張るんですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="738">「相手は俺たちより大きく、数も装備も上だ。力比べはしない」</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-0" data-source-line="739">「僕たちを小鬼として殺しに来た人たちに、同じことをする？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="740">「では、どうする」</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　ルカは答えを知らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　時計はもう、最も安全な明日を選んでくれない。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="745">　正解の札も、再演のレバーもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　だからルカは、折れた剣を地面へ置いた。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="750">七　一分間の町</h2>
+<p class="source-line role-narration gap-1" data-source-line="752">　人間たちの先頭に、一人の女騎士がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　銀の胸当て。煤けた赤い外套。</p>
+<p class="source-line role-narration gap-0" data-source-line="755">　ルカの首に巻かれた布と、同じ色だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　女騎士は剣を抜き、町を見渡す。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　泣く子ども。</p>
+<p class="source-line role-narration gap-0" data-source-line="760">　怪我人を運ぶ者。</p>
+<p class="source-line role-narration gap-0" data-source-line="761">　崩れた家から荷物を引き出す者。</p>
+<p class="source-line role-narration gap-0" data-source-line="762">　小さな身体で武器を構える者。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="764">「整列しろ！」女騎士が命じた。「油を前へ。巣の奥から焼く」</p>
+<p class="source-line role-narration gap-1" data-source-line="766">　人間たちが壺を並べる。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　ルカは両手を上げ、一人で門へ歩いた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="770">「止まれ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　槍先が喉へ向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　ルカは人間の言葉で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="776">「ここは巣じゃない。町です」</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　何人かが息を呑んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="779">　別の者が怒鳴る。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="781">「声真似だ！　近づけるな！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="782">「小鬼は名前を盗む。返事をするな！」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="784">　聞き覚えのある警告だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　女騎士の目が、ルカの胸元で止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　そこには、白骨から外した真鍮の認識票が下がっている。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="790">　<span class="term term-world">〈LUCA NOIN〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="792">　女騎士の顔が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="794">「それを、どこで手に入れた」</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　ルカは認識票を外し、地面へ置いた。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="798">「昔、ここへ来た人から」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="799">「お前たちが殺したのか」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="800">「僕ではない。でも、僕たちの祖先が殺した」</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　女騎士の剣先が震える。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="804">「その名を口にするな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="805">「僕は彼ではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="806">「黙れ」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-0" data-source-line="807">「彼は最後に、姉さんのスープを思い出していた」</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　女騎士の顔から、怒りが消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="810">　代わりに、もっと深い痛みが現れた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="812">「冬になると胡椒を入れすぎる。焦がした鍋を、井戸の裏へ隠した。彼はそれを見つけたけど、父さんには言わなかった」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="814">「黙れ！」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="816">「これは盗んだ記憶です。返せと言われても、どこへ返せばいいかわからない。けれど、その記憶で僕は笑って、怖がって、誰かを助けたいと思った」</p>
+<p class="source-line role-narration gap-1" data-source-line="818">　ルカは喉へ突きつけられた槍を見た。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="820">「あなたの弟を殺した罪が、僕たちの町から消えるとは言いません。僕たちの中に、いまも人を殺したい者がいることも否定しません。そちらにも、僕たちを全部焼きたい人がいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　背後で、ガルドが油壺を数えている。</p>
+<p class="source-line role-narration gap-0" data-source-line="823">　ミラはエルを抱いたまま、人間たちの配置を見ている。</p>
+<p class="source-line role-narration gap-0" data-source-line="824">　誰も無防備ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="825">　誰も完全には信じていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　それでもルカは、両手を下げなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="829">「一分だけ、話を聞いてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="831">　女騎士は認識票を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="832">　ルカを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="833">　町を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　背後の兵が言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="837">「隊長、時間を与えれば罠を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="838">「わかっている」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="840">「弟さんの声に惑わされては」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="841">「この声は弟じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　女騎士は剣を下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="845">「だから、こいつが何者なのかを聞く」</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　彼女は人間たちへ振り返る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="849">「火を止めろ。一分だけだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　ガルドが小さく息を吐いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="853">「短いな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="854">「あなたがくれた時間と同じです」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="855">「長く生きたいなら、急げ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="857">　ルカは思わず笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　町の中央で、壊れた時計が一度だけ音を立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　午前零時。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　誰にも選ばれなかった一分が、始まった。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="866">終章　明日</h2>
+<p class="source-line role-narration gap-1" data-source-line="868">　その一分で、平和が決まったわけではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="870">　人間の中には、最後まで町を巣としか呼ばない者がいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="871">　町の中にも、人間を餌としか見ない者がいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="872">　話し合いの三日目には殴り合いが起き、七日目には一人が逃げ、九日目には裏切り者が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　十日目、人間の隊長セラ・ノインは、町の門に二つの看板を掛けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　人間の文字で、<span class="term term-world">〈アステラ〉</span>。</p>
+<p class="source-line role-narration gap-0" data-source-line="877">　小鬼の文字で、同じ意味の名。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　どちらが本物かと問う者に、彼女は答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="881">「読めるほうを使え」</p>
+<p class="source-line role-narration gap-1" data-source-line="883">　ガルドは町の外周へ罠を張り直した。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="884">　今度の罠は人間を殺すためではなく、互いの武器を預けさせるための仕掛けだった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="885">　ミラとエルは壊れた時計を解体し、未来を選ばない普通の時計へ作り替えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　ルカは冒険者を続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="889">　ただし今度の迷宮は、町の上に広がっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="890">　人間の村。</p>
+<p class="source-line role-narration gap-0" data-source-line="891">　知らない空。</p>
+<p class="source-line role-narration gap-0" data-source-line="892">　本物の雨。</p>
+<p class="source-line role-narration gap-0" data-source-line="893">　選ばれなかった明日が、いくらでも続く世界。</p>
+<p class="source-line role-narration gap-1" data-source-line="895">　初めて地上へ出る朝、ルカは門の前でミラに尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="897">「結局、迷宮で運命の出会いはありましたかね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="898">「ありましたよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="899">「誰と」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="900">「自分の本当の顔と」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="901">「胸が高鳴る種類じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="902">「大丈夫です。私とも会いました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="903">「それは、胸が高鳴るほうですか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="904">「毒かもしれません」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="906">　ミラは、昔没収した恋愛成就のお守りを差し出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="907">　小鬼の手に合わせて、紐が短く結び直されている。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-5 gap-1" data-source-line="909">「危険物管理は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="910">「返却期限です」</p>
+<p class="source-line role-narration gap-1" data-source-line="912">　ルカが受け取ると、遠くで十二の鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　時計は一分も飛ばさなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　迷宮の底に生まれ、借り物の名で築かれた町は、その瞬間、初めて誰にも選ばれずに存在していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　それが正しい明日だったかどうかは、誰にもわからない。</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　わからないからこそ、明日だった。</p>
+<p class="source-line end-mark gap-2" data-source-line="923"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>
