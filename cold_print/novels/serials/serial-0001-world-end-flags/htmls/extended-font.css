@@ -1,0 +1,979 @@
+:root {
+  color-scheme: light;
+  --reader-scale: 1;
+  --measure: 43rem;
+  --base-size: 18.5px;
+  --peak-max: 2.02em;
+  --climax-max: 1.68em;
+
+  /* Local system fonts only. Keep every semantic role behind a variable. */
+  --font-serif: "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "Hiragino Mincho Pro", "BIZ UDPMincho", "Noto Serif CJK JP", serif;
+  --font-soft-serif: "Klee", "Yu Mincho", "YuMincho", "Hiragino Mincho ProN", "BIZ UDPMincho", serif;
+  --font-sans: "Yu Gothic", "YuGothic", "Hiragino Sans", "Hiragino Kaku Gothic ProN", "BIZ UDPGothic", "Meiryo", sans-serif;
+  --font-round: "Hiragino Maru Gothic ProN", "HG丸ｺﾞｼｯｸM-PRO", "Yu Gothic", "Meiryo", sans-serif;
+  --font-mono: "BIZ UDGothic", "MS Gothic", "Osaka-Mono", ui-monospace, "SFMono-Regular", Consolas, monospace;
+  --font-impact: "Yu Gothic UI Semibold", "Hiragino Kaku Gothic StdN W8", "Arial Black", "Meiryo", sans-serif;
+  --font-classic: "Yu Mincho Demibold", "Hiragino Mincho ProN W6", "HGS明朝E", "Yu Mincho", serif;
+  --font-hand: "Klee", "Yuji Syuku", "Hannotate SC", "Yu Mincho", cursive;
+  --font-ui: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", "Yu Gothic UI", "Meiryo", sans-serif;
+
+  --font-body: var(--font-serif);
+  --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono);
+  --font-document: var(--font-mono);
+  --font-command: var(--font-impact);
+  --font-memory: var(--font-hand);
+  --font-comic: var(--font-round);
+  --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic);
+  --font-name: var(--font-classic);
+  --font-sound: var(--font-mono);
+  --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif);
+  --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+
+  --paper: #f5f0e7;
+  --paper-2: #e9dfd0;
+  --ink: #24211d;
+  --muted: #746d63;
+  --panel: rgb(250 247 240 / 94%);
+  --line: rgb(58 48 37 / 18%);
+  --shadow: rgb(45 34 22 / 16%);
+  --tone-1: #93632c;
+  --tone-2: #315c77;
+  --tone-3: #765066;
+  --tone-4: #4c6770;
+  --tone-5: #9c3b33;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 0;
+  scroll-behavior: smooth;
+  scroll-padding-top: 5.2rem;
+  background: var(--paper-2);
+}
+
+body {
+  margin: 0;
+  min-width: 0;
+  min-height: 100vh;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 18% -5%, rgb(255 255 255 / 72%), transparent 33rem),
+    linear-gradient(90deg, rgb(70 55 35 / 3.5%) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+  font-family: var(--font-body);
+  font-size: calc(var(--base-size) * var(--reader-scale));
+  line-height: 2.02;
+  letter-spacing: .016em;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body[data-theme="night"] {
+  color-scheme: dark;
+  --paper: #12161a;
+  --paper-2: #090c0f;
+  --ink: #ebe6dc;
+  --muted: #aaa49a;
+  --panel: rgb(18 22 27 / 94%);
+  --line: rgb(235 230 220 / 16%);
+  --shadow: rgb(0 0 0 / 52%);
+  --tone-1: #e4b76e;
+  --tone-2: #7fc1e1;
+  --tone-3: #cf8eb0;
+  --tone-4: #99b9c5;
+  --tone-5: #ef867b;
+  background:
+    radial-gradient(circle at 18% -5%, rgb(83 111 130 / 16%), transparent 34rem),
+    linear-gradient(90deg, rgb(255 255 255 / 1.6%) 1px, transparent 1px),
+    var(--paper);
+  background-size: auto, 28px 28px, auto;
+}
+
+::selection {
+  color: var(--paper);
+  background: var(--tone-2);
+}
+
+/*
+ * Genre presets change role stacks, not the semantic markup. The first eight
+ * retain the reference bundle's values; the remaining seven cover CSV genres.
+ */
+body[data-genre="literary"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-classic); --font-memory: var(--font-soft-serif);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="military-sf"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="logic-thriller"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="school-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="web-fantasy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="institutional-horror"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="satirical-sf"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-mono); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-hand);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="folklore-dark"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-classic); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="adventure-action"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-serif);
+  --font-command: var(--font-impact); --font-memory: var(--font-soft-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="romance-drama"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-soft-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-sans); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-soft-serif);
+  --font-sound: var(--font-serif); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-soft-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="absurd-comedy"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-classic); --font-name: var(--font-sans);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-round); --font-horror: var(--font-hand);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="historical-drama"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-classic);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-sans); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-impact); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-soft-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="sports-competition"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-sans);
+  --font-system: var(--font-mono); --font-document: var(--font-mono);
+  --font-command: var(--font-impact); --font-memory: var(--font-soft-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-impact);
+  --font-ritual: var(--font-impact); --font-name: var(--font-impact);
+  --font-sound: var(--font-impact); --font-motif: var(--font-impact);
+  --font-sensory: var(--font-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="music-lyrical"] {
+  --font-body: var(--font-serif); --font-dialogue: var(--font-soft-serif);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-hand);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-classic);
+  --font-sound: var(--font-hand); --font-motif: var(--font-soft-serif);
+  --font-sensory: var(--font-soft-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+body[data-genre="daily-work"] {
+  --font-body: var(--font-sans); --font-dialogue: var(--font-round);
+  --font-system: var(--font-mono); --font-document: var(--font-sans);
+  --font-command: var(--font-impact); --font-memory: var(--font-soft-serif);
+  --font-comic: var(--font-round); --font-magic: var(--font-classic);
+  --font-ritual: var(--font-classic); --font-name: var(--font-serif);
+  --font-sound: var(--font-sans); --font-motif: var(--font-classic);
+  --font-sensory: var(--font-soft-serif); --font-horror: var(--font-serif);
+  --font-clue: var(--font-mono);
+}
+
+.progress-track {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  height: 3px;
+  background: transparent;
+  pointer-events: none;
+}
+
+.progress-bar {
+  width: 0;
+  height: 100%;
+  background: linear-gradient(90deg, var(--tone-2), var(--tone-1), var(--tone-5));
+}
+
+.reader-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 900;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: .55rem;
+  padding: .58rem .75rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--panel);
+  box-shadow: 0 8px 28px var(--shadow);
+  font-family: var(--font-ui);
+  font-size: 12.5px;
+  line-height: 1.35;
+  backdrop-filter: blur(15px) saturate(1.15);
+}
+
+.toolbar-title {
+  margin-right: .2rem;
+  font-weight: 800;
+  letter-spacing: .07em;
+}
+
+.reader-toolbar label,
+.size-group {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+}
+
+.reader-toolbar label {
+  color: var(--muted);
+}
+
+.reader-toolbar select,
+.reader-toolbar button,
+.reader-toolbar a {
+  min-height: 2.12rem;
+  border: 1px solid var(--line);
+  border-radius: .62rem;
+  color: var(--ink);
+  background: var(--paper);
+  padding: .34rem .58rem;
+  font: inherit;
+}
+
+.reader-toolbar button {
+  cursor: pointer;
+  font-weight: 750;
+}
+
+.reader-toolbar a {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.reader-toolbar button:hover,
+.reader-toolbar select:hover,
+.reader-toolbar a:hover {
+  border-color: var(--tone-2);
+  color: var(--tone-2);
+}
+
+.reader-toolbar :focus-visible,
+.panel :focus-visible {
+  outline: 3px solid var(--tone-1);
+  outline-offset: 2px;
+}
+
+.size-group {
+  gap: .25rem;
+}
+
+.size-group button {
+  min-width: 2.15rem;
+}
+
+.panel {
+  position: fixed;
+  top: 4.35rem;
+  z-index: 880;
+  width: min(24rem, calc(100vw - 2rem));
+  max-height: calc(100vh - 5.4rem);
+  overflow: auto;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: .95rem;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: 0 18px 62px var(--shadow);
+  font-family: var(--font-ui);
+  font-size: .88rem;
+  line-height: 1.65;
+  overscroll-behavior: contain;
+}
+
+.panel[hidden] {
+  display: none;
+}
+
+.toc-panel {
+  left: max(1rem, calc(50vw - 36rem));
+}
+
+.info-panel {
+  right: max(1rem, calc(50vw - 36rem));
+}
+
+.panel h2 {
+  margin: 0 0 .7rem;
+  font-size: 1rem;
+}
+
+.panel h3 {
+  margin: 1rem 0 .3rem;
+  font-size: .9rem;
+}
+
+.panel p {
+  margin: .35rem 0;
+}
+
+.panel ol,
+.panel ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.toc-panel ol {
+  padding: 0;
+  list-style: none;
+}
+
+.toc-panel li + li {
+  border-top: 1px solid var(--line);
+}
+
+.toc-panel a {
+  display: block;
+  padding: .55rem .25rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.toc-panel a:hover {
+  color: var(--tone-2);
+}
+
+.legend-grid {
+  display: grid;
+  gap: .35rem;
+}
+
+.legend-item {
+  display: grid;
+  grid-template-columns: minmax(5rem, 7rem) 1fr;
+  gap: .5rem;
+  align-items: baseline;
+}
+
+.legend-sample {
+  color: var(--tone-1);
+}
+
+.reader-shell {
+  padding: clamp(2.7rem, 7vw, 6.5rem) 1rem 8rem;
+}
+
+.novel {
+  width: min(100%, var(--measure));
+  margin-inline: auto;
+  font-family: var(--font-body);
+  line-break: strict;
+  word-break: normal;
+  overflow-wrap: anywhere;
+  hanging-punctuation: first allow-end last;
+}
+
+.reader-footer {
+  width: min(100%, var(--measure));
+  margin: 5rem auto 0;
+  padding-top: 2rem;
+  border-top: 1px solid var(--line);
+  text-align: center;
+}
+
+.return-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: .55rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: var(--panel);
+  box-shadow: 0 8px 24px var(--shadow);
+  font-family: var(--font-ui);
+  font-size: .86rem;
+  font-weight: 750;
+  line-height: 1.4;
+  text-decoration: none;
+}
+
+.return-link:hover {
+  border-color: var(--tone-2);
+  color: var(--tone-2);
+}
+
+.return-link:focus-visible {
+  outline: 3px solid var(--tone-1);
+  outline-offset: 3px;
+}
+
+.title-page {
+  display: grid;
+  min-height: min(63vh, 42rem);
+  place-items: center;
+  padding: 4rem 0 6rem;
+}
+
+.title-line {
+  max-width: 100%;
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--font-motif);
+  font-size: clamp(1.9rem, 6.8vw, 4.35rem);
+  line-height: 1.35;
+  letter-spacing: .055em;
+  text-align: center;
+  text-shadow: 0 .08em .3em var(--shadow);
+  text-wrap: balance;
+  white-space: normal;
+}
+
+.prologue,
+.chapter,
+.prose-section {
+  margin-block: 0 8.5rem;
+}
+
+.chapter,
+.prologue,
+.prose-section {
+  scroll-margin-top: 5.5rem;
+}
+
+.chapter-heading {
+  margin: 0 0 3.6rem !important;
+  padding: 0 0 .95rem;
+  border-bottom: 1px solid var(--line);
+  color: var(--ink);
+  font-family: var(--font-motif);
+  font-size: clamp(1.35rem, 4.4vw, 2.2rem);
+  line-height: 1.42;
+  letter-spacing: .11em;
+  text-align: center;
+  white-space: normal;
+}
+
+.source-line {
+  position: relative;
+  max-width: 100%;
+  margin: 0;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+  white-space: pre-wrap;
+}
+
+.source-indent {
+  display: none;
+}
+
+.gap-0 { margin-top: .12em; }
+.gap-1 { margin-top: 1.15em; }
+.gap-2 { margin-top: 2.45em; }
+.gap-3 { margin-top: 4em; }
+
+.scene-break {
+  color: var(--muted);
+  padding-left: .8em;
+  text-align: center;
+  letter-spacing: .8em;
+  white-space: normal;
+}
+
+.end-mark {
+  margin-top: 5rem !important;
+  font-family: var(--font-motif);
+  text-align: center;
+  letter-spacing: .55em;
+  white-space: normal;
+}
+
+.role-narration { font-family: var(--font-body); }
+.role-dialogue { font-family: var(--font-dialogue); letter-spacing: .008em; }
+.role-sensory { font-family: var(--font-sensory); }
+.role-memory,
+.role-thought { font-family: var(--font-memory); font-style: italic; letter-spacing: .035em; }
+.role-comic { font-family: var(--font-comic); font-weight: 700; }
+.role-magic { font-family: var(--font-magic); letter-spacing: .055em; }
+.role-ritual { font-family: var(--font-ritual); letter-spacing: .12em; }
+.role-name { font-family: var(--font-name); font-weight: 700; letter-spacing: .07em; }
+.role-sound { font-family: var(--font-sound); letter-spacing: .15em; }
+.role-system,
+.role-interface { font-family: var(--font-system); letter-spacing: .045em; font-variant-numeric: tabular-nums; }
+.role-document {
+  border-inline-start: .22em solid var(--tone-4);
+  padding: .38em .78em;
+  background: color-mix(in srgb, var(--tone-4) 7%, transparent);
+  font-family: var(--font-document);
+  font-variant-numeric: tabular-nums;
+}
+.role-clue { font-family: var(--font-clue); font-variant-numeric: tabular-nums; }
+.role-command,
+.role-action { font-family: var(--font-command); font-weight: 850; letter-spacing: .045em; }
+.role-horror { font-family: var(--font-horror); letter-spacing: .075em; }
+.role-motif { font-family: var(--font-motif); font-weight: 700; }
+
+.term {
+  font-family: inherit;
+  font-weight: 700;
+}
+
+.term-skill,
+.term-magic,
+.term-world,
+.term-ritual { font-family: var(--font-magic); letter-spacing: .05em; }
+.term-system,
+.term-code,
+.term-document { font-family: var(--font-system); font-variant-numeric: tabular-nums; }
+.term-name,
+.term-title,
+.term-proper { font-family: var(--font-name); }
+.term-food { font-family: var(--font-sensory); }
+.term-memory { font-family: var(--font-memory); }
+.term-horror { font-family: var(--font-horror); }
+.term-motif { font-family: var(--font-motif); }
+.term-product { font-family: var(--font-sans); letter-spacing: .04em; }
+.term-threat { font-family: var(--font-command); }
+.term-object { font-family: var(--font-classic); }
+.term-clue,
+.term-number { font-family: var(--font-clue); font-variant-numeric: tabular-nums; }
+.term-sound { font-family: var(--font-sound); letter-spacing: .1em; }
+
+.tone-1 { color: var(--tone-1); }
+.tone-2 { color: var(--tone-2); }
+.tone-3 { color: var(--tone-3); }
+.tone-4 { color: var(--tone-4); }
+.tone-5 { color: var(--tone-5); }
+
+.fx-whisper {
+  font-size: .94em;
+  letter-spacing: .035em;
+  opacity: .94;
+}
+
+.fx-key {
+  font-size: 1.075em;
+  font-weight: 700;
+}
+
+.fx-beat {
+  font-size: clamp(1.08em, 2.5vw, 1.24em);
+  line-height: 1.82;
+}
+
+.fx-shout {
+  font-size: clamp(1.16em, 3.5vw, 1.52em);
+  line-height: 1.7;
+  font-weight: 850;
+}
+
+.fx-climax {
+  margin-block: 1.45em !important;
+  border-inline-start: .16em solid currentColor;
+  padding-inline-start: clamp(.45rem, 2vw, 1.1rem);
+  font-size: clamp(1.26em, 4.6vw, var(--climax-max));
+  line-height: 1.62;
+}
+
+.fx-peak {
+  margin-block: 2em !important;
+  border-block: 1px solid currentColor;
+  padding: .7em .25em;
+  font-family: var(--font-motif);
+  font-size: clamp(1.4em, 6vw, var(--peak-max));
+  line-height: 1.48;
+  text-align: center;
+  text-wrap: balance;
+  white-space: normal;
+}
+
+.fx-silence {
+  margin-block: 2.2em !important;
+  font-size: .92em;
+  letter-spacing: .08em;
+  opacity: .82;
+}
+
+body[data-effects="full"] .role-comic.fx-shout {
+  transform: rotate(-.32deg);
+  transform-origin: left center;
+}
+
+/* Reduce or remove font switching independently from color and scale. */
+body[data-fontmode="soft"] {
+  --font-dialogue: var(--font-body);
+  --font-memory: var(--font-body);
+  --font-comic: var(--font-sans);
+  --font-name: var(--font-motif);
+  --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+}
+
+body[data-fontmode="off"],
+body[data-effects="off"] {
+  --font-dialogue: var(--font-body);
+  --font-system: var(--font-body);
+  --font-document: var(--font-body);
+  --font-command: var(--font-body);
+  --font-memory: var(--font-body);
+  --font-comic: var(--font-body);
+  --font-magic: var(--font-body);
+  --font-ritual: var(--font-body);
+  --font-name: var(--font-body);
+  --font-sound: var(--font-body);
+  --font-motif: var(--font-body);
+  --font-sensory: var(--font-body);
+  --font-horror: var(--font-body);
+  --font-clue: var(--font-body);
+}
+
+body[data-effects="soft"] .fx-whisper { font-size: .97em; }
+body[data-effects="soft"] .fx-key { font-size: 1.035em; }
+body[data-effects="soft"] .fx-beat { font-size: 1.08em; }
+body[data-effects="soft"] .fx-shout { font-size: 1.18em; }
+body[data-effects="soft"] .fx-climax { margin-block: 1.15em !important; font-size: 1.26em; }
+body[data-effects="soft"] .fx-peak { margin-block: 1.45em !important; font-size: 1.42em; }
+body[data-effects="soft"] .fx-silence { margin-block: 1.35em !important; }
+body[data-effects="soft"] .role-comic { transform: none; }
+body[data-effects="soft"] .tone-1 { color: color-mix(in srgb, var(--tone-1) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-2 { color: color-mix(in srgb, var(--tone-2) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-3 { color: color-mix(in srgb, var(--tone-3) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-4 { color: color-mix(in srgb, var(--tone-4) 58%, var(--ink)); }
+body[data-effects="soft"] .tone-5 { color: color-mix(in srgb, var(--tone-5) 58%, var(--ink)); }
+
+body[data-effects="off"] .source-line,
+body[data-effects="off"] .source-line * {
+  border: 0 !important;
+  padding: 0 !important;
+  color: var(--ink) !important;
+  background: transparent !important;
+  font-size: 1em !important;
+  font-style: normal !important;
+  font-weight: inherit !important;
+  letter-spacing: .016em !important;
+  text-align: start !important;
+  text-shadow: none !important;
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+body[data-effects="off"] .source-line {
+  margin-bottom: 0 !important;
+}
+
+body[data-effects="off"] .gap-0 { margin-top: .12em !important; }
+body[data-effects="off"] .gap-1 { margin-top: 1.15em !important; }
+body[data-effects="off"] .gap-2 { margin-top: 2.45em !important; }
+body[data-effects="off"] .gap-3 { margin-top: 4em !important; }
+
+body[data-effects="off"] .title-line {
+  font-size: clamp(1.7rem, 5vw, 3rem) !important;
+  text-align: center !important;
+}
+
+body[data-effects="off"] .chapter-heading {
+  border-bottom: 1px solid var(--line) !important;
+  padding-bottom: .8rem !important;
+  font-size: 1.45rem !important;
+  text-align: center !important;
+}
+
+body[data-effects="off"] .scene-break,
+body[data-effects="off"] .end-mark {
+  text-align: center !important;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px !important;
+  height: 1px !important;
+  margin: -1px !important;
+  overflow: hidden !important;
+  clip: rect(0 0 0 0) !important;
+  clip-path: inset(50%) !important;
+  white-space: nowrap !important;
+}
+
+@supports not (color: color-mix(in srgb, black, white)) {
+  .role-document {
+    background: transparent;
+  }
+
+  body[data-effects="soft"] .tone-1,
+  body[data-effects="soft"] .tone-2,
+  body[data-effects="soft"] .tone-3,
+  body[data-effects="soft"] .tone-4,
+  body[data-effects="soft"] .tone-5 {
+    color: var(--ink);
+  }
+}
+
+@media (max-width: 760px) {
+  html {
+    scroll-padding-top: 4.2rem;
+  }
+
+  .reader-toolbar {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-inline: .45rem;
+    scrollbar-width: thin;
+  }
+
+  .reader-toolbar label,
+  .reader-toolbar button,
+  .reader-toolbar a,
+  .size-group {
+    flex: 0 0 auto;
+  }
+
+  .toolbar-title {
+    display: none;
+  }
+
+  .panel {
+    top: 4rem;
+  }
+
+  .reader-shell {
+    padding-inline: .82rem;
+  }
+
+  .fx-climax {
+    padding-inline-start: .45rem;
+  }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --base-size: 17px;
+  }
+
+  .reader-toolbar select {
+    max-width: 10.5rem;
+  }
+
+  .title-line {
+    font-size: clamp(1.65rem, 9vw, 2.7rem);
+  }
+
+  .fx-peak {
+    font-size: min(var(--peak-max), 1.68em);
+  }
+
+  .legend-item {
+    grid-template-columns: 5rem 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: .001ms !important;
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .reader-toolbar,
+  .panel,
+  .role-document,
+  .fx-climax,
+  .fx-peak {
+    border-color: CanvasText;
+  }
+
+  .progress-bar {
+    background: Highlight;
+  }
+}
+
+@media print {
+  :root {
+    color-scheme: light;
+  }
+
+  .reader-toolbar,
+  .panel,
+  .progress-track,
+  .reader-footer {
+    display: none !important;
+  }
+
+  body {
+    color: #000 !important;
+    background: #fff !important;
+    font-size: 11pt;
+  }
+
+  .reader-shell {
+    padding: 0;
+  }
+
+  .novel {
+    width: auto;
+    max-width: none;
+  }
+
+  .source-line,
+  .source-line * {
+    color: #000 !important;
+    background: transparent !important;
+    text-shadow: none !important;
+  }
+
+  .chapter {
+    break-before: page;
+  }
+
+  .fx-peak,
+  .fx-climax {
+    border-color: #777 !important;
+  }
+}
+/* Serial-only navigation; kept separate from .return-link for iframe routing. */
+.reader-footer nav[aria-label="各話の移動"] {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: .75rem;
+  align-items: stretch;
+}
+
+.serial-episode-navigation-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 2.8rem;
+  padding: .55rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  color: var(--ink);
+  background: var(--panel);
+  font-family: var(--font-ui);
+  font-size: .82rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+a.serial-episode-navigation-link:hover {
+  border-color: var(--tone-2);
+  color: var(--tone-2);
+}
+
+.serial-episode-navigation-link[aria-disabled="true"] {
+  color: var(--muted);
+  border-style: dashed;
+}
+
+@media (max-width: 44rem) {
+  .reader-footer nav[aria-label="各話の移動"] {
+    grid-template-columns: 1fr;
+  }
+}

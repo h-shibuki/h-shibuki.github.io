@@ -2,6 +2,13 @@
   "use strict";
 
   const BASE_TITLE = "Cold Print | 参考小説ライブラリ";
+  const APPLICATION_SCRIPT_SOURCE =
+    document.currentScript?.src ||
+    document.querySelector('script[src*="cold_print.js"]')?.src;
+  const APPLICATION_SCRIPT_URL = APPLICATION_SCRIPT_SOURCE
+    ? new URL(APPLICATION_SCRIPT_SOURCE, document.baseURI)
+    : null;
+  const ASSET_VERSION = APPLICATION_SCRIPT_URL?.searchParams.get("v") || "";
   const ONE_SHOT_CATALOG_URL = new URL(
     "./novel-sample-genre-inventory.csv",
     document.baseURI,
@@ -28,6 +35,7 @@
     "連載ID",
     "タイトル",
     "概要",
+    "サムネイル",
     "連載状態",
     ...VOTE_COLUMNS,
   ];
@@ -45,7 +53,13 @@
     "章数表示",
     "節表示",
   ];
-  const VOLUME_COLUMNS = ["巻ID", "表示順", "巻数表示", "巻タイトル"];
+  const VOLUME_COLUMNS = [
+    "巻ID",
+    "表示順",
+    "巻数表示",
+    "巻タイトル",
+    "サムネイル",
+  ];
   const SERIAL_STATES = new Set(["連載中", "完結", "休載"]);
   const SERIAL_ID_PATTERN = /^serial-[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$/;
   const EPISODE_ID_PATTERN = /^ep-[0-9]{3,}$/;
@@ -120,6 +134,7 @@
     ),
     seriesView: document.querySelector("#series-view"),
     seriesTitle: document.querySelector("#series-title"),
+    seriesThumbnail: document.querySelector("#series-thumbnail"),
     seriesState: document.querySelector("#series-state"),
     seriesTags: document.querySelector("#series-tags"),
     seriesSummary: document.querySelector("#series-summary"),
@@ -136,6 +151,9 @@
     readerNavLabel: document.querySelector("#reader-nav-label"),
     extendedReader: document.querySelector("#extended-reader"),
     extendedReaderStatus: document.querySelector("#extended-reader-status"),
+    extendedEpisodeNavigation: document.querySelector(
+      "#extended-episode-navigation",
+    ),
     extendedReaderFrame: document.querySelector("#extended-reader-frame"),
     readerArticle: document.querySelector("#reader-article"),
     readerKicker: document.querySelector("#reader-kicker"),
@@ -178,6 +196,10 @@
     pendingSeriesFocus: null,
     historySnapshotTimer: null,
     lastHistorySnapshotTime: 0,
+    frameScrollWindow: null,
+    frameScrollHandler: null,
+    frameScrollEndHandler: null,
+    currentFrameScrollY: 0,
   };
 
   if ("scrollRestoration" in history) {
@@ -208,7 +230,7 @@
     elements.skipLink.addEventListener("click", (event) => {
       event.preventDefault();
       const target = elements.body.dataset.view === "reader"
-        ? state.currentReading?.kind === "one-shot" && !elements.extendedReader.hidden
+        ? !elements.extendedReader.hidden
           ? elements.extendedReaderFrame
           : elements.readerTitle
         : elements.body.dataset.view === "series"
@@ -377,11 +399,19 @@
   }
 
   async function fetchText(url, label, options = {}) {
-    const response = await fetch(url, options);
+    const response = await fetch(withAssetVersion(url), options);
     if (!response.ok) {
       throw new Error(`${label}を取得できませんでした（HTTP ${response.status}）`);
     }
     return response.text();
+  }
+
+  function withAssetVersion(url) {
+    const resolvedUrl = new URL(url, document.baseURI);
+    if (ASSET_VERSION) {
+      resolvedUrl.searchParams.set("v", ASSET_VERSION);
+    }
+    return resolvedUrl;
   }
 
   function setCatalogLoading() {
@@ -485,11 +515,17 @@
       const seriesId = row["連載ID"];
       const title = row["タイトル"];
       const summary = row["概要"];
+      const thumbnail = row["サムネイル"];
       const serialState = row["連載状態"];
 
       if (!SERIAL_ID_PATTERN.test(seriesId)) {
         throw new Error(`連載CSV ${rowIndex + 2}行目の連載IDが不正です。`);
       }
+      validateSerialThumbnailPath(
+        thumbnail,
+        `thumbnails/serials/${seriesId}/series.webp`,
+        `連載CSV ${rowIndex + 2}行目`,
+      );
       if (!title) {
         throw new Error(`連載CSV ${rowIndex + 2}行目のタイトルが空です。`);
       }
@@ -515,6 +551,7 @@
         seriesId,
         title,
         summary,
+        thumbnail,
         serialState,
         genres,
         ...voteCounts,
@@ -661,6 +698,7 @@
       const orderText = row["表示順"];
       const label = row["巻数表示"];
       const title = row["巻タイトル"];
+      const thumbnail = row["サムネイル"];
       if (!VOLUME_ID_PATTERN.test(volumeId)) {
         throw new Error(`volumes.csv ${rowIndex + 2}行目の巻IDが不正です。`);
       }
@@ -674,6 +712,11 @@
       if (!label || !title) {
         throw new Error(`volumes.csv ${rowIndex + 2}行目の巻情報が空です。`);
       }
+      validateSerialThumbnailPath(
+        thumbnail,
+        `thumbnails/serials/${series.seriesId}/volumes/${volumeId}.webp`,
+        `volumes.csv ${rowIndex + 2}行目`,
+      );
       if (volumeMap.has(volumeId)) {
         throw new Error(`volumes.csvに同じ巻IDがあります: ${volumeId}`);
       }
@@ -685,6 +728,7 @@
         displayOrder,
         label,
         title,
+        thumbnail,
         episodes: [],
         chapters: [],
       };
@@ -814,6 +858,18 @@
       return;
     }
     const expectedPath = `thumbnails/${filename.slice(0, -4)}.webp`;
+    if (
+      thumbnailPath !== expectedPath ||
+      /[\u0000-\u001f\u007f?#]/u.test(thumbnailPath)
+    ) {
+      throw new Error(`${label}のサムネイル相対パスが不正です。`);
+    }
+  }
+
+  function validateSerialThumbnailPath(thumbnailPath, expectedPath, label) {
+    if (!thumbnailPath) {
+      return;
+    }
     if (
       thumbnailPath !== expectedPath ||
       /[\u0000-\u001f\u007f?#]/u.test(thumbnailPath)
@@ -1053,30 +1109,41 @@
       item.summary,
     );
     link.classList.add("novel-card--one-shot");
-    link.prepend(createOneShotThumbnail(item.thumbnail, item.genres));
+    link.prepend(
+      createThumbnailMedia(item.thumbnail, item.genres, {
+        className: "novel-card__thumbnail",
+        imageClassName: "novel-card__thumbnail-image",
+      }),
+    );
     link.setAttribute("href", buildOneShotHash(item.filename));
     link.dataset.filename = item.filename;
     link.dataset.focusKey = item.workKey;
     return wrapListItem(link, item);
   }
 
-  function createOneShotThumbnail(thumbnailPath, genres) {
+  function createThumbnailMedia(thumbnailPath, genres, options = {}) {
     const thumbnail = document.createElement("span");
-    thumbnail.className = "novel-card__thumbnail";
+    thumbnail.className = `thumbnail-media ${options.className || ""}`.trim();
+    configureThumbnailMedia(thumbnail, thumbnailPath, genres, options);
+    return thumbnail;
+  }
+
+  function configureThumbnailMedia(thumbnail, thumbnailPath, genres, options = {}) {
+    thumbnail.replaceChildren();
     thumbnail.dataset.thumbnailTheme = getThumbnailTheme(genres);
     thumbnail.dataset.thumbnailState = thumbnailPath ? "loading" : "fallback";
     thumbnail.setAttribute("aria-hidden", "true");
 
     if (!thumbnailPath) {
-      return thumbnail;
+      return;
     }
 
     const image = document.createElement("img");
-    image.className = "novel-card__thumbnail-image";
+    image.className = `thumbnail-media__image ${options.imageClassName || ""}`.trim();
     image.alt = "";
-    image.setAttribute("width", "800");
-    image.setAttribute("height", "450");
-    image.setAttribute("loading", "lazy");
+    image.setAttribute("width", String(options.width || 800));
+    image.setAttribute("height", String(options.height || 450));
+    image.setAttribute("loading", options.loading || "lazy");
     image.setAttribute("decoding", "async");
     image.addEventListener(
       "load",
@@ -1093,9 +1160,8 @@
       },
       { once: true },
     );
-    image.setAttribute("src", thumbnailPath);
+    image.setAttribute("src", withAssetVersion(thumbnailPath).href);
     thumbnail.append(image);
-    return thumbnail;
   }
 
   function getThumbnailTheme(genres) {
@@ -1136,6 +1202,10 @@
     callToAction.className = "novel-card__cta";
     callToAction.textContent = "目次を開く";
     link.append(
+      createThumbnailMedia(item.thumbnail, item.genres, {
+        className: "novel-card__thumbnail",
+        imageClassName: "novel-card__thumbnail-image",
+      }),
       meta,
       title,
       summary,
@@ -1524,6 +1594,12 @@
     elements.body.dataset.view = "series";
     elements.seriesTitle.textContent = series.title;
     elements.seriesState.textContent = series.serialState;
+    configureThumbnailMedia(
+      elements.seriesThumbnail,
+      series.thumbnail,
+      series.genres,
+      { imageClassName: "series-header__thumbnail-image" },
+    );
     elements.seriesTags.replaceChildren(...createGenreTags(series.genres));
     elements.seriesSummary.hidden = true;
     elements.seriesActions.hidden = true;
@@ -1655,7 +1731,16 @@
     const marker = document.createElement("span");
     marker.className = "volume-summary__marker";
     marker.setAttribute("aria-hidden", "true");
-    summary.append(number, title, count, marker);
+    summary.append(
+      createThumbnailMedia(volume.thumbnail, series.genres, {
+        className: "volume-summary__thumbnail",
+        imageClassName: "volume-summary__thumbnail-image",
+      }),
+      number,
+      title,
+      count,
+      marker,
+    );
 
     const body = document.createElement("div");
     body.className = "volume-details__body";
@@ -1919,11 +2004,10 @@
         seriesReturnDepth = historyData.seriesReturnDepth + 1;
       }
       history.replaceState(
-        {
-          ...historyData,
-          readerScrollY: window.scrollY,
-          readerFocusKey: options.returnFocusKey || historyData.readerFocusKey,
-        },
+        captureReaderHistory(
+          historyData,
+          options.returnFocusKey || historyData.readerFocusKey,
+        ),
         "",
         location.href,
       );
@@ -2008,25 +2092,56 @@
     elements.extendedReaderStatus.hidden = false;
     elements.extendedReaderStatus.textContent =
       "拡張フォント版の本文を読み込んでいます…";
+    elements.extendedEpisodeNavigation.hidden = true;
+    elements.extendedEpisodeNavigation.replaceChildren();
     elements.extendedReaderFrame.title = `${item.title} 拡張フォント版の本文`;
   }
 
-  function loadExtendedReaderFrame(documentUrl, routeToken, routeKey) {
+  function prepareExtendedEpisodeReader(series, episode, manifest) {
+    elements.body.dataset.readerMode = "extended-episode";
+    elements.readerArticle.hidden = true;
+    elements.readerFooter.hidden = true;
+    elements.extendedReader.hidden = false;
+    elements.extendedReader.dataset.ready = "false";
+    elements.extendedReader.setAttribute("aria-busy", "true");
+    elements.extendedReaderStatus.hidden = false;
+    elements.extendedReaderStatus.textContent =
+      "拡張フォント版の本文を読み込んでいます…";
+    renderEpisodeNavigation(
+      elements.extendedEpisodeNavigation,
+      series,
+      episode,
+      manifest,
+    );
+    elements.extendedEpisodeNavigation.hidden = false;
+    elements.extendedReaderFrame.title =
+      `${formatEpisodeTitle(episode)} 拡張フォント版の本文`;
+  }
+
+  function loadExtendedReaderFrame(documentUrl, routeToken, routeKey, options = {}) {
     const frame = elements.extendedReaderFrame;
     frame.onload = () => {
       if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
         return;
       }
       guardReferenceChapterLinks(frame);
+      if (options.kind === "episode") {
+        guardEpisodeReaderLinks(frame);
+      }
+      attachFrameScrollTracking(frame);
       frame.onload = null;
       frame.onerror = null;
       elements.extendedReader.dataset.ready = "true";
       elements.extendedReader.setAttribute("aria-busy", "false");
       elements.extendedReaderStatus.hidden = true;
-      completeScrollRestore(0, () => frame.focus({ preventScroll: true }));
+      restoreExtendedReaderPosition(frame);
     };
     frame.onerror = () => {
       if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+        return;
+      }
+      if (options.onError) {
+        options.onError();
         return;
       }
       const item = state.currentReading?.item;
@@ -2036,7 +2151,7 @@
         () => item && showOneShot(item, { forceReload: true }),
       );
     };
-    frame.contentWindow.location.replace(documentUrl.href);
+    frame.contentWindow.location.replace(withAssetVersion(documentUrl).href);
   }
 
   function guardReferenceChapterLinks(frame) {
@@ -2090,8 +2205,168 @@
     }
   }
 
+  function guardEpisodeReaderLinks(frame) {
+    try {
+      const frameDocument = frame.contentDocument;
+      const reading = state.currentReading;
+      if (
+        !frameDocument?.body ||
+        reading?.kind !== "episode" ||
+        frameDocument.documentElement.dataset.coldPrintEpisodeGuard === "true"
+      ) {
+        return;
+      }
+      frameDocument.documentElement.dataset.coldPrintEpisodeGuard = "true";
+      const controls = frameDocument.querySelectorAll("[data-serial-navigation]");
+      controls.forEach((control) => {
+        if (!(control instanceof frame.contentWindow.HTMLAnchorElement)) {
+          return;
+        }
+        const standaloneUrl = new URL(
+          "../../../../cold_print.html",
+          frameDocument.baseURI,
+        );
+        if (control.dataset.serialNavigation === "contents") {
+          standaloneUrl.hash = buildSeriesHash(reading.series.seriesId);
+        } else {
+          const targetEpisodeId = control.dataset.episodeId;
+          if (!reading.manifest.episodeMap.has(targetEpisodeId)) {
+            control.removeAttribute("href");
+            control.setAttribute("aria-disabled", "true");
+            return;
+          }
+          standaloneUrl.hash = buildEpisodeHash(
+            reading.series.seriesId,
+            targetEpisodeId,
+          );
+        }
+        control.href = standaloneUrl.href;
+      });
+      frameDocument.addEventListener("click", (event) => {
+        const control = event.target.closest?.("[data-serial-navigation]");
+        if (!control || !shouldHandleLinkClick(event)) {
+          return;
+        }
+        event.preventDefault();
+        if (control.dataset.serialNavigation === "contents") {
+          navigateToSeries(reading.series.seriesId, {
+            returnFocusKey: "extended-episode:contents",
+          });
+          return;
+        }
+        const targetEpisodeId = control.dataset.episodeId;
+        if (
+          typeof targetEpisodeId !== "string" ||
+          targetEpisodeId === reading.episode.episodeId ||
+          !reading.manifest.episodeMap.has(targetEpisodeId)
+        ) {
+          return;
+        }
+        navigateToEpisode(reading.series.seriesId, targetEpisodeId, {
+          source: "reader",
+          returnFocusKey: "extended-episode:navigation",
+        });
+      }, { capture: true });
+    } catch (_error) {
+      /* The parent navigation remains available if frame access is blocked. */
+    }
+  }
+
+  function attachFrameScrollTracking(frame) {
+    detachFrameScrollTracking();
+    try {
+      const frameWindow = frame.contentWindow;
+      if (!frameWindow) {
+        return;
+      }
+      const handleScroll = () => {
+        state.currentFrameScrollY = readFrameScrollY(frameWindow);
+        requestHistorySnapshot();
+      };
+      const handleScrollEnd = () => {
+        state.currentFrameScrollY = readFrameScrollY(frameWindow);
+        flushHistorySnapshot();
+      };
+      frameWindow.addEventListener("scroll", handleScroll, { passive: true });
+      frameWindow.addEventListener("scrollend", handleScrollEnd, { passive: true });
+      state.frameScrollWindow = frameWindow;
+      state.frameScrollHandler = handleScroll;
+      state.frameScrollEndHandler = handleScrollEnd;
+      state.currentFrameScrollY = readFrameScrollY(frameWindow);
+    } catch (_error) {
+      state.currentFrameScrollY = 0;
+    }
+  }
+
+  function detachFrameScrollTracking() {
+    if (state.frameScrollWindow && state.frameScrollHandler) {
+      try {
+        state.frameScrollWindow.removeEventListener(
+          "scroll",
+          state.frameScrollHandler,
+        );
+        state.frameScrollWindow.removeEventListener(
+          "scrollend",
+          state.frameScrollEndHandler,
+        );
+      } catch (_error) {
+        /* A navigated frame may no longer expose its previous Window object. */
+      }
+    }
+    state.frameScrollWindow = null;
+    state.frameScrollHandler = null;
+    state.frameScrollEndHandler = null;
+  }
+
+  function readFrameScrollY(frameWindow = state.frameScrollWindow) {
+    if (!frameWindow) {
+      return Math.max(0, state.currentFrameScrollY || 0);
+    }
+    try {
+      return Math.max(
+        0,
+        frameWindow?.scrollY ||
+          frameWindow?.document?.documentElement?.scrollTop ||
+          0,
+      );
+    } catch (_error) {
+      return Math.max(0, state.currentFrameScrollY || 0);
+    }
+  }
+
+  function restoreExtendedReaderPosition(frame) {
+    const historyData = isPlainObject(history.state) ? history.state : {};
+    const scrollY = Number.isFinite(historyData.readerFrameScrollY)
+      ? historyData.readerFrameScrollY
+      : 0;
+    completeScrollRestore(0, () => {
+      try {
+        frame.contentWindow?.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
+      } catch (_error) {
+        /* The child may restore itself when same-origin frame access is blocked. */
+      }
+      state.currentFrameScrollY = scrollY;
+      const focusControl = historyData.readerFocusKey
+        ? [...elements.readerView.querySelectorAll("[data-reader-focus-key]")].find(
+          (candidate) =>
+            candidate.dataset.readerFocusKey === historyData.readerFocusKey,
+        )
+        : null;
+      (focusControl || frame).focus({ preventScroll: true });
+      try {
+        frame.contentWindow?.postMessage(
+          { type: "cold-print:restore-scroll", scrollY },
+          location.origin === "null" ? "*" : location.origin,
+        );
+      } catch (_error) {
+        /* Direct scroll restoration above is sufficient for same-origin pages. */
+      }
+    });
+  }
+
   function resetExtendedReader() {
     const frame = elements.extendedReaderFrame;
+    detachFrameScrollTracking();
     frame.onload = null;
     frame.onerror = null;
     try {
@@ -2104,7 +2379,10 @@
     elements.extendedReader.dataset.ready = "false";
     elements.extendedReader.setAttribute("aria-busy", "true");
     elements.extendedReaderStatus.hidden = false;
+    elements.extendedEpisodeNavigation.hidden = true;
+    elements.extendedEpisodeNavigation.replaceChildren();
     elements.readerArticle.hidden = false;
+    state.currentFrameScrollY = 0;
     delete elements.body.dataset.readerMode;
   }
 
@@ -2147,6 +2425,37 @@
       state.currentReading = { kind: "episode", series, episode, manifest };
       updateEpisodeReaderHeader(series, episode, manifest);
 
+      let usePlainText = Boolean(options.plainTextOnly);
+      if (!usePlainText) {
+        const documentUrl = buildEpisodeHtmlUrl(series.seriesId, episode.episodeId);
+        try {
+          await fetchText(documentUrl, "拡張フォント版本文", {
+            signal: controller.signal,
+            cache: options.forceExtended ? "reload" : "default",
+          });
+        } catch (error) {
+          if (error.name === "AbortError") {
+            throw error;
+          }
+          usePlainText = true;
+        }
+        if (routeToken !== state.routeToken || state.currentRouteKey !== routeKey) {
+          return;
+        }
+        if (!usePlainText) {
+          prepareExtendedEpisodeReader(series, episode, manifest);
+          loadExtendedReaderFrame(documentUrl, routeToken, routeKey, {
+            kind: "episode",
+            onError: () =>
+              showEpisode(series, episodeId, {
+                plainTextOnly: true,
+                forceText: true,
+              }),
+          });
+          return;
+        }
+      }
+
       const cacheKey = routeKey;
       if (!options.forceText && state.textCache.has(cacheKey)) {
         renderReaderText(state.textCache.get(cacheKey), { episodeMode: true });
@@ -2174,6 +2483,7 @@
           showEpisode(series, episodeId, {
             forceManifest: !state.seriesCache.has(series.seriesId),
             forceText: true,
+            plainTextOnly: true,
           }),
         );
       }
@@ -2458,14 +2768,86 @@
   function handleExtendedReaderMessage(event) {
     if (
       event.source !== elements.extendedReaderFrame.contentWindow ||
-      state.currentReading?.kind !== "one-shot" ||
       elements.extendedReader.hidden ||
       !isPlainObject(event.data) ||
-      event.data.type !== "cold-print:return-to-portal"
+      (location.origin !== "null" && event.origin !== location.origin)
     ) {
       return;
     }
-    returnFromOneShotToPortal(elements.readerBack.dataset.readerFocusKey);
+    const reading = state.currentReading;
+    if (event.data.type === "cold-print:reader-scroll") {
+      if (
+        Number.isFinite(event.data.scrollY) &&
+        event.data.scrollY >= 0 &&
+        event.data.scrollY <= Number.MAX_SAFE_INTEGER
+      ) {
+        state.currentFrameScrollY = event.data.scrollY;
+        requestHistorySnapshot();
+      }
+      return;
+    }
+    if (event.data.type === "cold-print:return-to-portal") {
+      if (reading?.kind === "one-shot") {
+        returnFromOneShotToPortal(elements.readerBack.dataset.readerFocusKey);
+      } else if (reading?.kind === "episode") {
+        navigateToSeries(reading.series.seriesId, {
+          returnFocusKey: "extended-episode:contents",
+        });
+      }
+      return;
+    }
+    if (reading?.kind !== "episode") {
+      return;
+    }
+    if (
+      event.data.type === "cold-print:return-to-series" ||
+      event.data.type === "cold-print:series-contents"
+    ) {
+      navigateToSeries(reading.series.seriesId, {
+        returnFocusKey: "extended-episode:contents",
+      });
+      return;
+    }
+
+    let targetEpisodeId = null;
+    if (event.data.type === "cold-print:navigate-episode") {
+      targetEpisodeId = event.data.episodeId;
+    } else if (
+      event.data.type === "cold-print:previous-episode" ||
+      event.data.type === "cold-print:next-episode"
+    ) {
+      const currentIndex = reading.manifest.episodes.findIndex(
+        (episode) => episode.episodeId === reading.episode.episodeId,
+      );
+      const offset = event.data.type === "cold-print:previous-episode" ? -1 : 1;
+      targetEpisodeId = reading.manifest.episodes[currentIndex + offset]?.episodeId;
+    }
+    if (
+      typeof targetEpisodeId !== "string" ||
+      targetEpisodeId === reading.episode.episodeId ||
+      !reading.manifest.episodeMap.has(targetEpisodeId)
+    ) {
+      return;
+    }
+    navigateToEpisode(reading.series.seriesId, targetEpisodeId, {
+      source: "reader",
+      returnFocusKey: "extended-episode:navigation",
+    });
+  }
+
+  function captureReaderHistory(historyData, readerFocusKey) {
+    const snapshot = {
+      ...historyData,
+      readerFocusKey,
+    };
+    if (!elements.extendedReader.hidden) {
+      snapshot.readerFrameScrollY = readFrameScrollY();
+      delete snapshot.readerScrollY;
+    } else {
+      snapshot.readerScrollY = window.scrollY;
+      delete snapshot.readerFrameScrollY;
+    }
+    return snapshot;
   }
 
   function navigateToSeries(seriesId, options = {}) {
@@ -2484,11 +2866,10 @@
     }
     if (historyData.view === "reader" && returnDepth > 0) {
       history.replaceState(
-        {
-          ...historyData,
-          readerScrollY: window.scrollY,
-          readerFocusKey: options.returnFocusKey || historyData.readerFocusKey,
-        },
+        captureReaderHistory(
+          historyData,
+          options.returnFocusKey || historyData.readerFocusKey,
+        ),
         "",
         location.href,
       );
@@ -2497,11 +2878,10 @@
     }
     if (historyData.view === "reader") {
       history.replaceState(
-        {
-          ...historyData,
-          readerScrollY: window.scrollY,
-          readerFocusKey: options.returnFocusKey || historyData.readerFocusKey,
-        },
+        captureReaderHistory(
+          historyData,
+          options.returnFocusKey || historyData.readerFocusKey,
+        ),
         "",
         location.href,
       );
@@ -2534,11 +2914,10 @@
       historyData.fromPortal
     ) {
       history.replaceState(
-        {
-          ...historyData,
-          readerScrollY: window.scrollY,
-          readerFocusKey: returnFocusKey || historyData.readerFocusKey,
-        },
+        captureReaderHistory(
+          historyData,
+          returnFocusKey || historyData.readerFocusKey,
+        ),
         "",
         location.href,
       );
@@ -2620,6 +2999,15 @@
   function buildExtendedHtmlUrl(filename) {
     const htmlFilename = `${filename.slice(0, -".txt".length)}.html`;
     return new URL(encodeURIComponent(htmlFilename), EXTENDED_HTML_DIRECTORY_URL);
+  }
+
+  function buildEpisodeHtmlUrl(seriesId, episodeId) {
+    const seriesDirectory = new URL(
+      `${encodeURIComponent(seriesId)}/`,
+      SERIAL_DIRECTORY_URL,
+    );
+    const htmlDirectory = new URL("./htmls/", seriesDirectory);
+    return new URL(`${encodeURIComponent(episodeId)}.html`, htmlDirectory);
   }
 
   function buildSeriesHash(seriesId) {
@@ -2713,26 +3101,34 @@
     if (historyData.view !== view) {
       return;
     }
+    const extendedReaderActive =
+      view === "reader" && !elements.extendedReader.hidden;
     const property = view === "portal"
       ? "portalScrollY"
       : view === "series"
         ? "seriesScrollY"
         : view === "reader"
-          ? "readerScrollY"
+          ? extendedReaderActive
+            ? "readerFrameScrollY"
+            : "readerScrollY"
           : null;
     if (!property) {
       return;
     }
-    const scrollY = Math.max(0, window.scrollY);
+    const scrollY = extendedReaderActive
+      ? readFrameScrollY()
+      : Math.max(0, window.scrollY);
     if (historyData[property] === scrollY) {
       return;
     }
     try {
-      history.replaceState(
-        { ...historyData, [property]: scrollY },
-        "",
-        location.href,
-      );
+      const snapshot = { ...historyData, [property]: scrollY };
+      if (extendedReaderActive) {
+        delete snapshot.readerScrollY;
+      } else if (view === "reader") {
+        delete snapshot.readerFrameScrollY;
+      }
+      history.replaceState(snapshot, "", location.href);
     } catch (error) {
       if (!(error instanceof DOMException && error.name === "SecurityError")) {
         throw error;
