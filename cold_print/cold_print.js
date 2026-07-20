@@ -20,6 +20,7 @@
     "ファイル名",
     "タイトル",
     "概要",
+    "サムネイル",
     "重複元ファイル",
     ...VOTE_COLUMNS,
   ];
@@ -58,6 +59,37 @@
   const TITLE_COLLATOR = new Intl.Collator("ja", {
     numeric: true,
     sensitivity: "variant",
+  });
+  const THUMBNAIL_THEME_BY_GENRE = Object.freeze({
+    "冒険活劇": "action",
+    "ヒーロー": "action",
+    "アクション": "action",
+    "バトル": "action",
+    "スポーツ": "action",
+    "ミステリ": "mystery",
+    "サスペンス": "mystery",
+    "頭脳戦": "mystery",
+    "ホラー": "horror",
+    "伝奇": "horror",
+    "ロマンス": "romance",
+    "ラブコメ": "romance",
+    "BL": "romance",
+    "ジュブナイル": "fantasy",
+    "異世界": "fantasy",
+    "ファンタジー": "fantasy",
+    "タイムトラベル": "fantasy",
+    "SF": "science-fiction",
+    "歴史": "historical",
+    "会話劇": "slice-of-life",
+    "奇妙な味": "horror",
+    "日常": "slice-of-life",
+    "学園": "slice-of-life",
+    "家族ドラマ": "slice-of-life",
+    "お仕事": "slice-of-life",
+    "音楽": "slice-of-life",
+    "ギャグ": "comedy",
+    "料理": "comedy",
+    "知識チート": "mystery",
   });
 
   const elements = {
@@ -379,6 +411,7 @@
       const filename = row["ファイル名"];
       const title = row["タイトル"];
       const summary = row["概要"];
+      const thumbnail = row["サムネイル"];
       const duplicateOf = row["重複元ファイル"];
 
       if (!filename || !title || !summary) {
@@ -396,6 +429,11 @@
         );
       }
       validateTextFilename(filename, `読み切りCSV ${rowIndex + 2}行目`);
+      validateThumbnailPath(
+        thumbnail,
+        filename,
+        `読み切りCSV ${rowIndex + 2}行目`,
+      );
       if (itemMap.has(filename)) {
         throw new Error(`読み切りCSVに同じファイル名があります: ${filename}`);
       }
@@ -406,6 +444,7 @@
         filename,
         title,
         summary,
+        thumbnail,
         duplicateOf,
         genres,
         ...voteCounts,
@@ -770,6 +809,19 @@
     }
   }
 
+  function validateThumbnailPath(thumbnailPath, filename, label) {
+    if (!thumbnailPath) {
+      return;
+    }
+    const expectedPath = `thumbnails/${filename.slice(0, -4)}.webp`;
+    if (
+      thumbnailPath !== expectedPath ||
+      /[\u0000-\u001f\u007f?#]/u.test(thumbnailPath)
+    ) {
+      throw new Error(`${label}のサムネイル相対パスが不正です。`);
+    }
+  }
+
   function updateArchiveCounts() {
     const oneShotCatalog = state.catalogs["one-shot"];
     const serialCatalog = state.catalogs.serial;
@@ -1000,10 +1052,60 @@
       item.genres,
       item.summary,
     );
+    link.classList.add("novel-card--one-shot");
+    link.prepend(createOneShotThumbnail(item.thumbnail, item.genres));
     link.setAttribute("href", buildOneShotHash(item.filename));
     link.dataset.filename = item.filename;
     link.dataset.focusKey = item.workKey;
     return wrapListItem(link, item);
+  }
+
+  function createOneShotThumbnail(thumbnailPath, genres) {
+    const thumbnail = document.createElement("span");
+    thumbnail.className = "novel-card__thumbnail";
+    thumbnail.dataset.thumbnailTheme = getThumbnailTheme(genres);
+    thumbnail.dataset.thumbnailState = thumbnailPath ? "loading" : "fallback";
+    thumbnail.setAttribute("aria-hidden", "true");
+
+    if (!thumbnailPath) {
+      return thumbnail;
+    }
+
+    const image = document.createElement("img");
+    image.className = "novel-card__thumbnail-image";
+    image.alt = "";
+    image.setAttribute("width", "800");
+    image.setAttribute("height", "450");
+    image.setAttribute("loading", "lazy");
+    image.setAttribute("decoding", "async");
+    image.addEventListener(
+      "load",
+      () => {
+        thumbnail.dataset.thumbnailState = "loaded";
+      },
+      { once: true },
+    );
+    image.addEventListener(
+      "error",
+      () => {
+        thumbnail.dataset.thumbnailState = "fallback";
+        image.remove();
+      },
+      { once: true },
+    );
+    image.setAttribute("src", thumbnailPath);
+    thumbnail.append(image);
+    return thumbnail;
+  }
+
+  function getThumbnailTheme(genres) {
+    for (const genre of genres) {
+      const theme = THUMBNAIL_THEME_BY_GENRE[genre];
+      if (theme) {
+        return theme;
+      }
+    }
+    return "default";
   }
 
   function createSeriesCard(item) {
