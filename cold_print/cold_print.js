@@ -14,15 +14,19 @@
   const SERIAL_DIRECTORY_URL = new URL("./novels/serials/", document.baseURI);
 
   const VOTE_COLUMNS = ["Good数", "Bad数"];
+  const SUMMARY_MIN_LENGTH = 200;
+  const SUMMARY_MAX_LENGTH = 300;
   const ONE_SHOT_META_COLUMNS = [
     "ファイル名",
     "タイトル",
+    "概要",
     "重複元ファイル",
     ...VOTE_COLUMNS,
   ];
   const SERIAL_META_COLUMNS = [
     "連載ID",
     "タイトル",
+    "概要",
     "連載状態",
     ...VOTE_COLUMNS,
   ];
@@ -368,11 +372,21 @@
       const row = makeRow(headers, fields, rowIndex + 2, "読み切りCSV");
       const filename = row["ファイル名"];
       const title = row["タイトル"];
+      const summary = row["概要"];
       const duplicateOf = row["重複元ファイル"];
 
-      if (!filename || !title) {
+      if (!filename || !title || !summary) {
         throw new Error(
-          `読み切りCSV ${rowIndex + 2}行目のファイル名またはタイトルが空です。`,
+          `読み切りCSV ${rowIndex + 2}行目のファイル名、タイトルまたは概要が空です。`,
+        );
+      }
+      const summaryLength = Array.from(summary).length;
+      if (
+        summaryLength < SUMMARY_MIN_LENGTH ||
+        summaryLength > SUMMARY_MAX_LENGTH
+      ) {
+        throw new Error(
+          `読み切りCSV ${rowIndex + 2}行目の概要は${SUMMARY_MIN_LENGTH}〜${SUMMARY_MAX_LENGTH}文字にしてください。`,
         );
       }
       validateTextFilename(filename, `読み切りCSV ${rowIndex + 2}行目`);
@@ -382,7 +396,14 @@
 
       const voteCounts = readVoteCounts(row, rowIndex + 2, "読み切りCSV");
       const genres = readGenreValues(row, genreNames, rowIndex + 2, "読み切りCSV");
-      const item = { filename, title, duplicateOf, genres, ...voteCounts };
+      const item = {
+        filename,
+        title,
+        summary,
+        duplicateOf,
+        genres,
+        ...voteCounts,
+      };
       allItems.push(item);
       itemMap.set(filename, item);
     });
@@ -418,6 +439,7 @@
       const row = makeRow(headers, fields, rowIndex + 2, "連載CSV");
       const seriesId = row["連載ID"];
       const title = row["タイトル"];
+      const summary = row["概要"];
       const serialState = row["連載状態"];
 
       if (!SERIAL_ID_PATTERN.test(seriesId)) {
@@ -425,6 +447,15 @@
       }
       if (!title) {
         throw new Error(`連載CSV ${rowIndex + 2}行目のタイトルが空です。`);
+      }
+      const summaryLength = Array.from(summary).length;
+      if (
+        summaryLength < SUMMARY_MIN_LENGTH ||
+        summaryLength > SUMMARY_MAX_LENGTH
+      ) {
+        throw new Error(
+          `連載CSV ${rowIndex + 2}行目の概要は${SUMMARY_MIN_LENGTH}〜${SUMMARY_MAX_LENGTH}文字にしてください。`,
+        );
       }
       if (!SERIAL_STATES.has(serialState)) {
         throw new Error(`連載CSV ${rowIndex + 2}行目の連載状態が不正です。`);
@@ -438,6 +469,7 @@
       const item = {
         seriesId,
         title,
+        summary,
         serialState,
         genres,
         ...voteCounts,
@@ -960,6 +992,7 @@
       `No. ${String(item.displayNumber).padStart(3, "0")}`,
       item.title,
       item.genres,
+      item.summary,
     );
     link.setAttribute("href", buildOneShotHash(item.filename));
     link.dataset.filename = item.filename;
@@ -988,14 +1021,23 @@
     const title = document.createElement("span");
     title.className = "novel-card__title";
     title.textContent = item.title;
+    const summary = document.createElement("span");
+    summary.className = "novel-card__summary";
+    summary.textContent = item.summary;
     const callToAction = document.createElement("span");
     callToAction.className = "novel-card__cta";
     callToAction.textContent = "目次を開く";
-    link.append(meta, title, createTagList(item.genres), callToAction);
+    link.append(
+      meta,
+      title,
+      summary,
+      createTagList(item.genres),
+      callToAction,
+    );
     return wrapListItem(link, item);
   }
 
-  function createWorkCardShell(numberText, titleText, genres) {
+  function createWorkCardShell(numberText, titleText, genres, summaryText = "") {
     const link = document.createElement("a");
     link.className = "novel-card";
     const number = document.createElement("span");
@@ -1005,7 +1047,10 @@
     const title = document.createElement("span");
     title.className = "novel-card__title";
     title.textContent = titleText;
-    link.append(number, title, createTagList(genres));
+    const summary = document.createElement("span");
+    summary.className = "novel-card__summary";
+    summary.textContent = summaryText;
+    link.append(number, title, summary, createTagList(genres));
     return link;
   }
 
@@ -1464,9 +1509,7 @@
     elements.episodeCatalogTitle.textContent = manifest.volumeMode
       ? "巻・Web話目次"
       : "目次";
-    elements.seriesSummary.textContent = manifest.volumeMode
-      ? `${manifest.volumes.length}巻・全${manifest.episodes.length}Web話を収録・${series.serialState}`
-      : `${manifest.episodes.length}話を収録・${series.serialState}`;
+    elements.seriesSummary.textContent = series.summary;
     elements.seriesSummary.hidden = false;
     elements.seriesActions.hidden = false;
     elements.episodeCount.textContent = manifest.volumeMode
