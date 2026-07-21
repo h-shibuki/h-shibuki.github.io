@@ -1691,7 +1691,7 @@
         : 1;
     summary.scrollTop += event.deltaY * deltaScale;
     event.preventDefault();
-    event.stopPropagation();
+    event.stopImmediatePropagation();
   }
 
   function handleVote(button) {
