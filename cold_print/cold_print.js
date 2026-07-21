@@ -286,6 +286,11 @@
 
     elements.workList.addEventListener("click", handleWorkListClick);
     elements.recommendationRows.addEventListener("click", handleWorkListClick);
+    elements.recommendationRows.addEventListener(
+      "wheel",
+      handleRecommendationSummaryWheel,
+      { passive: false },
+    );
     elements.deleteReadingHistory.addEventListener("click", deleteReadingHistory);
     elements.seriesView.addEventListener("click", handleSeriesViewClick);
     elements.readerView.addEventListener("click", handleReaderViewClick);
@@ -1672,6 +1677,21 @@
       return;
     }
     handleWorkLinkClick(event);
+  }
+
+  function handleRecommendationSummaryWheel(event) {
+    const summary = event.target.closest(".recommendation-row__item .novel-card__summary");
+    if (!summary || summary.scrollHeight <= summary.clientHeight) {
+      return;
+    }
+    const deltaScale = event.deltaMode === WheelEvent.DOM_DELTA_LINE
+      ? 16
+      : event.deltaMode === WheelEvent.DOM_DELTA_PAGE
+        ? summary.clientHeight
+        : 1;
+    summary.scrollTop += event.deltaY * deltaScale;
+    event.preventDefault();
+    event.stopPropagation();
   }
 
   function handleVote(button) {
