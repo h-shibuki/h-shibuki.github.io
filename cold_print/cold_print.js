@@ -1176,12 +1176,24 @@
     section.className = "recommendation-row";
     section.dataset.recommendationRow = row.id;
     section.setAttribute("aria-labelledby", `${row.id}-title`);
+    const rowHeader = document.createElement("div");
+    rowHeader.className = "recommendation-row__heading";
     const heading = document.createElement("h3");
     heading.id = `${row.id}-title`;
     heading.textContent = row.title;
+    const controls = document.createElement("div");
+    controls.className = "recommendation-row__controls";
+    controls.setAttribute("aria-label", `${row.title}のスクロール操作`);
+    controls.append(
+      createRecommendationScrollButton("previous", row.title),
+      createRecommendationScrollButton("next", row.title),
+    );
+    rowHeader.append(heading, controls);
     const list = document.createElement("div");
     list.className = "recommendation-row__list";
     list.setAttribute("role", "list");
+    list.tabIndex = 0;
+    list.setAttribute("aria-label", `${row.title}の作品一覧`);
     row.items.slice(0, RECOMMENDATION_ROW_SIZE).forEach((item, index) => {
       const rankedItem = { ...item, displayNumber: index + 1 };
       const card = item.catalogType === "serial"
@@ -1199,8 +1211,21 @@
       card.classList.add("recommendation-row__item");
       list.append(card);
     });
-    section.append(heading, list);
+    section.append(rowHeader, list);
     return section;
+  }
+
+  function createRecommendationScrollButton(direction, rowTitle) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "recommendation-row__scroll-button";
+    button.dataset.recommendationScroll = direction;
+    button.setAttribute(
+      "aria-label",
+      `${rowTitle}を${direction === "previous" ? "左" : "右"}へスクロール`,
+    );
+    button.textContent = direction === "previous" ? "←" : "→";
+    return button;
   }
 
   function calculateFavoriteGenres(historyEntries, works) {
@@ -1624,6 +1649,21 @@
   }
 
   function handleWorkListClick(event) {
+    const scrollButton = event.target.closest("button[data-recommendation-scroll]");
+    if (scrollButton) {
+      const list = scrollButton.closest(".recommendation-row")
+        ?.querySelector(".recommendation-row__list");
+      if (list) {
+        const direction = scrollButton.dataset.recommendationScroll === "previous" ? -1 : 1;
+        list.scrollBy({
+          left: direction * Math.max(240, list.clientWidth * 0.8),
+          behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+            ? "auto"
+            : "smooth",
+        });
+      }
+      return;
+    }
     const voteButton = event.target.closest("button[data-vote-kind][data-work-key]");
     if (voteButton) {
       handleVote(voteButton);
