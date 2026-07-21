@@ -1507,6 +1507,7 @@
     title.textContent = item.title;
     const summary = document.createElement("span");
     summary.className = "novel-card__summary";
+    summary.dataset.previewTitle = item.title;
     summary.textContent = item.summary;
     const callToAction = document.createElement("span");
     callToAction.className = "novel-card__cta";
@@ -1537,6 +1538,7 @@
     title.textContent = titleText;
     const summary = document.createElement("span");
     summary.className = "novel-card__summary";
+    summary.dataset.previewTitle = titleText;
     summary.textContent = summaryText;
     link.append(number, title, summary, createTagList(genres));
     return link;

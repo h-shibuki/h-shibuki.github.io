@@ -369,9 +369,49 @@ button {
   background: var(--surface-strong);
 }
 
-.recommendation-row__item .novel-card__summary,
 .recommendation-row__item .vote-controls {
   display: none;
+}
+
+.recommendation-row__item .novel-card__summary {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  display: block;
+  margin: 0;
+  padding: 52px 22px 22px;
+  overflow: auto;
+  color: #f4f8f6;
+  background:
+    linear-gradient(180deg, rgb(15 32 35 / 96%), rgb(23 37 42 / 98%));
+  font-size: 13px;
+  line-height: 1.85;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(10px);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+
+.recommendation-row__item .novel-card__summary::before {
+  position: absolute;
+  top: 18px;
+  left: 22px;
+  color: #9fc8c3;
+  width: calc(100% - 44px);
+  overflow: hidden;
+  content: "概要｜" attr(data-preview-title);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.recommendation-row__item .novel-card:hover .novel-card__summary,
+.recommendation-row__item .novel-card:focus-visible .novel-card__summary,
+.recommendation-row__item .novel-card:focus-within .novel-card__summary {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 @media (max-width: 720px) {
