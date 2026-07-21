@@ -1,0 +1,942 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="浮環都市の雨樋横丁に、五日後の立ち退きを告げる赤紙が貼られる。十四歳の地図師ミナは、父の測量箱から都市下層と風盗王の宝を示す金属地図を発見する。怪力のガラム、機械好きのトビ、音に敏いエルと地下へ向かおうとした矢先、屋根を突き破って殺人容疑の逃亡者セイが落ちてきた。追手はすぐそこまで来ている。追跡局に狙われる男と子どもたちを結ぶのは、夜ごと七拍子で鳴る忘れられた塔。故郷を買い戻す旅は、夜鳴き塔の旋律へ近づいていく。">
+<title>夜鳴き塔の逃亡者たち｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="夜鳴き塔の逃亡者たち" data-novel-id="夜鳴き塔の逃亡者たち" data-theme="paper" data-effects="full" data-fontmode="full" data-genre="music-lyrical">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる" selected>音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="false">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　赤紙と地図</a></li><li><a href="#chapter-2">二　屋根から落ちてきた殺人犯</a></li><li><a href="#chapter-3">三　追う者</a></li><li><a href="#chapter-4">四　夜鳴き塔</a></li><li><a href="#chapter-5">五　都市の腹</a></li><li><a href="#chapter-6">六　風律機</a></li><li><a href="#chapter-7">七　耳のない聴衆</a></li><li><a href="#chapter-8">八　夜明けの所有者</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ジュブナイル</p>
+  <p><strong>補助ジャンル：</strong>異世界・ファンタジー・音楽</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ジュブナイル、異世界、ファンタジー、音楽</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">音楽・抒情</span></p>
+  <p id="currentPresetDescription">明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる</p>
+  <h3>意味色</h3><p>青＝静寂、紅＝感情、金＝旋律、紫＝残響、緑＝調和</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：465行／章：8／役割・強度タグ：511</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="夜鳴き塔の逃亡者たち 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">夜鳴き塔の逃亡者たち</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration fx-key role-motif gap-2" data-source-line="4">　雲より下へ落ちたものは、二度と戻らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　浮環都市アルカ＝ミレでは、幼い子どもでさえそう教わる。硬貨も、帽子も、人間も。都市を支える巨大な環の外へ出れば、そこには乳色の雲海が果てしなく広がり、その下が大地なのか、海なのか、それとも世界の底なのかを知る者はいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　ただし、借金だけは別だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　借金は落としても、必ず戻ってくる。</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="13">一　赤紙と地図</h2>
+<p class="source-line role-narration gap-1" data-source-line="15">　ミナが家の扉に貼られた赤紙を見つけたのは、風曜日の朝だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="17"><span class="term term-world">〈第七码頭拡張工事につき、雨樋横丁の全住戸を五日後に収用する〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="19">　赤紙には評議会の黒い歯車印が押され、その下に補償額が記されていた。家族四人が一月暮らせるかどうかという額だ。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="21">「五日って、パン種より気が短いじゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　隣家の大柄な少年ガラムが言った。彼は十五歳で、石臼を一人で持ち上げられるが、難しい話を聞くと眉毛が同じ方向へ寄っていく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="25">「第七码頭なんて上層にあるのに、なんで横丁を壊すんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　針金細工のゴーグルを額に載せたトビが、赤紙を爪で弾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="29">「支柱を増やすんだって。ほら、ここ」</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　ミナは工事図の小さな注記を指した。十四歳の彼女は、亡き父の地図工房を母と守っていたから、線と縮尺を読むのは大人より早い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「雨樋横丁の下に古い空洞がある。そこを埋めて新しい杭を通すつもりなんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="35">「空洞じゃないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　末っ子のエルが、扉の陰から言った。十二歳で、痩せた頬に灰色の髪がかかっている。彼は音に妙に敏感だった。水道管の向こうを鼠が走っただけで、何匹か言い当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="39">「夜になると、下で音がする。ずっと遠くで、誰かが弓を引いてるみたいな」</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　トビが肩をすくめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「鼠の舞踏会さ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「鼠は七拍子で踊らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　エルは真顔だった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="49">　その日の午後、四人はミナの家の屋根裏に集まった。立ち退きを止める方法を探すためだったが、評議会の命令をひっくり返す法律書も、家を丸ごと移す飛行船も、もちろん見つからなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　見つかったのは、父の古い測量箱だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　箱の底板は二重になっていた。トビが錆びた留め金を外すと、中から油紙に包まれた薄い金属板が出てきた。青銅の表面に、蜘蛛の巣のような線が刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　ミナは息を止めた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="57">「これ……都市下層の図だ」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="59">　アルカ＝ミレは一枚の円盤ではない。古い時代の環、橋、船殻、塔、墜落した宮殿までを何百年も継ぎ足した都市だ。公式地図に載るのは人が日常使う部分だけで、その下には忘れられた街路が幾層も眠っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　金属板の隅には、翼の生えた王冠と、短い文が彫られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="63"><span class="term term-world">〈風盗王サルガの最後の蔵。都市を買い戻すだけのものを収める〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="65">　トビの目が丸くなった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「風盗王って、二百年前に税船を七隻さらって、評議会の金庫を空にしたっていう？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">「最後は雲海へ落ちた」ガラムが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="71">「落ちたことになってるだけかも」</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　ミナは板を明かりにかざした。雨樋横丁の真下から、廃止された水路、旧鐘楼、細長い塔を経て、都市の外縁へ線が続いている。終点には王冠印。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="75">「これが本物なら、横丁を買える」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="77">「偽物なら？」とエル。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">「五日後に追い出される。それは何もしなくても同じ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="81">　ミナは測量箱から父の折り畳み羅針盤を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="83">「今夜、行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　ちょうどそのとき、屋根の上で何かが爆発した。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="88">二　屋根から落ちてきた殺人犯</h2>
+<p class="source-line role-narration gap-1" data-source-line="90">　瓦と煤煙と一緒に、男が天井を突き破って落ちてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　男は食卓を真っ二つにし、床を転がり、片膝をついた。黒い外套は焼け焦げ、左腕から血を流していた。短く刈った髪、頬を横切る古い傷。右手には折れた飛行翼の操縦索を握っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="94">　四人が声も出せずにいると、男は人差し指を唇に当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「静かに」</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　その直後、横丁の上空を複数の翼音が通り過ぎた。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　窓から見ると、灰色の滑空甲冑を着た執行官たちが屋根から屋根へ降りている。胸には銀の輪を断ち切る剣の紋章。都市評議会直属の追跡局だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　街角の音声筒が一斉に鳴った。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="104"><span class="term term-world">〈市民に告ぐ。特級逃亡犯セイ・ラドンが雨樋区へ侵入した。元境界警備官。大評議長殺害の容疑。武装しており、極めて危険――〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="106">　床の男が、疲れたように目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　トビが囁いた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="110">「屋根から殺人犯が降ってきた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「雲よりましだ」と男は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="114">　ミナは壁の包丁を取った。切っ先は震えていたが、男へ向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「出ていって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「三十秒だけ隠れ場所を貸してくれ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="120">「大評議長を殺したの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「殺していない」</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　答えがあまりに速かったので、嘘にも本当にも聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　階下で扉が叩かれた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="128">「追跡局だ。開けろ！」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="130">　男――セイ・ラドンは部屋を見回し、青銅板を見つけた。その顔から血の気が引いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「それをどこで手に入れた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「父の箱」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「裏返せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　ミナは動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「早く。彼らが探しているのは俺だけじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　板を裏返すと、煤で汚れた面に、ごく細い銀線が走っていた。さっきまで何もなかった場所に文字が浮かぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="144"><span class="term term-world">〈第七弦を風律機へ。窓が開く前に〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="146">　エルが板へ耳を近づけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「鳴ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　階下の扉が蹴破られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　セイは床板を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="154">「この家に地下雨水槽は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「台所の下」とミナ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="158">「案内しろ。追跡局の先頭はイザル・ケインだ。扉一枚、嘘一つで止まる男じゃない」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="160">「だからって殺人犯と逃げるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　階段が軋んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　セイは懐から黒い水晶片を出した。中に淡い像が揺れている。誰かの声が封じられた記録晶だった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="166">「大評議長を殺した者の証拠だ。評議会はこれを取り戻すため、お前たちの横丁ごと掘り返す。地図の終点にあるものもな」</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　先頭の足音が屋根裏の扉の前で止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="170">「セイ・ラドン」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　扉越しの声は低く、怒鳴っていないのに部屋全体へ届いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「逃げ道はない。子どもを巻き込むな」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　セイが苦笑した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="178">「ほらな。もう俺たちが一緒だと見抜いてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　ミナは包丁を置き、青銅板を丸めて上着へ差した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="182">「台所まで十五歩。床蓋の蝶番は右」</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　ガラムが割れた食卓を扉へ押しつけ、トビが煙玉を投げた。屋根裏が黄色い煙で満ちる。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　五人は階段ではなく、洗濯物用の滑車索を伝って窓から階下へ飛び降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　床蓋へ滑り込む寸前、ミナは煙の向こうに追跡者を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　長い灰色の外套。片目に真鍮の焦点鏡。手には短銃ではなく、捕縛用の鋼索弩。イザル・ケインは走らず、慌てず、床に落ちた水滴と、開いた窓と、揺れる滑車索を一度ずつ見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　それだけで、彼は正しい床蓋へ歩き始めた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="195">三　追う者</h2>
+<p class="source-line role-narration gap-1" data-source-line="197">　雨水槽の底には、都市の古い喉が口を開けていた。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="199">　石積みの排水路は子ども一人が屈んで通れるほど狭く、冷たい水が踝まであった。ガラムが先頭で鉄格子を持ち上げ、ミナたちは闇へ潜った。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　セイは左腕を布で縛りながらも、足を止めなかった。</p>
+<p class="source-line role-dialogue role-sensory gap-1" data-source-line="203">「灯りは使うな。ケインは煤の匂いを追う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="205">「犬かよ」とトビ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「犬より執念深い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「友達？」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="211">「昔は上官だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　背後で床蓋が開く音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　セイは全員を止め、水路脇の細い亀裂を指した。五人が身を押し込むと、彼は自分の血を指につけ、水路の分岐へ点々と垂らした。その先は急な落水口だ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="217">　ほどなく焦点鏡の青白い光が近づいた。</p>
+<p class="source-line role-narration role-sensory tone-5 gap-1" data-source-line="219">　イザル・ケインは血痕を見つけ、落水口を覗いた。だが飛び込まない。膝をつき、水面へ手を触れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「流れが乱れていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　後続の執行官が尋ねた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「偽装ですか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="227">「血は本物だ。道が偽物だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　ケインの焦点鏡が、隠れている亀裂へ向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　セイが歯を食いしばった。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="233">「走れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　鋼索弩が放たれた。鉤が石壁へ食い込み、網が広がる。ガラムが錆びた樋を引き倒して網を逸らし、全員が水路を駆けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　前方は行き止まりだった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="239">「地図ではここに階段！」ミナが叫んだ。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="241">　エルが壁へ耳をつける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="243">「向こうが空洞。トビ、下から三番目の石」</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　トビが工具を差し込み、石をこじる。隠し錠が外れ、壁全体が内側へ倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　その先には、逆さまの街路があった。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="249">　天井から家々がぶら下がり、窓も扉も下を向いている。かつて都市の環が半回転した際、捨てられた区画らしい。床に相当するものはなく、雲海まで続く暗い竪穴へ、何十本もの鎖橋が張られていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「地図を持っていても、これは聞いてない」ガラムが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　背後から追跡局の灯りが迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　セイは一番細い鎖橋へ飛び乗った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="257">「重い順に渡るな。揺れが重なる」</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　五人は間隔をずらして走った。真下には雲が渦巻き、ときおり巨大な影が泳いでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　半分まで渡ったとき、対岸に別の執行官隊が現れた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="263">「挟まれた！」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　セイは橋の留め金へ短剣を当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="267">「向こうの隊はケインの部下じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　銀の紋章は同じだが、彼らの肩には黒い三角印があった。評議官ハルヴァの私兵章だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　私兵たちは捕縛を命じなかった。無言で連発弩を構えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　矢が雨のように飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　セイが留め金を切った。鎖橋が片側から外れ、全員の体が宙へ投げ出される。ミナは鎖へしがみつき、ガラムがエルを抱え、トビは悲鳴を上げながら工具袋を歯でくわえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　橋は振り子のように竪穴を横切り、逆さの家の屋根へ激突した。</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　瓦を突き破って転がり込んだ部屋には、椅子も机も天井へ釘づけされていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　対岸でケインが私兵隊長の胸ぐらを掴むのが見えた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="283">「発砲許可は出していない！」</p>
+<p class="source-line role-dialogue role-command tone-2 gap-1" data-source-line="285">「ハルヴァ評議官の命令だ。逃亡犯は即時処分――」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　ケインは相手を殴り倒した。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　だが次の瞬間には、切れた鎖橋の残りへ鋼索を撃ち込み、自らも竪穴へ飛び出していた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="291">「助けてくれたんじゃないのかよ！」トビが叫ぶ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="293">　セイは苦い顔をした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">「職務違反と追跡中止は、あの男の中では別の話だ」</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="298">四　夜鳴き塔</h2>
+<p class="source-line role-narration gap-1" data-source-line="300">　逆さ街を抜けた頃には、都市の夜鐘が九つ鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　地図の線は、外縁に傾いて立つ細い塔へ続いていた。塔は周囲の建物から孤立し、錆びた一本橋でしか渡れない。窓は最上階に一つだけ。そこから、弦楽器の音が流れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　エルが立ち止まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="306">「ずっと聞こえてた音だ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="308">　旋律は美しいというより、必死だった。高い音が夜空へ細い針を打ち込み、低い音が何か重いものを押し返している。七拍子ごとに、奏者はわざと一音を外した。その外れた音を聞くたび、ミナは背後の暗闇が一歩遠ざかるように感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　塔の扉は鍵がかかっていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　中の階段は異様に急で、壁にはびっしりと楽譜が貼られていた。どれも同じ旋律の変奏だが、紙の端には震える字で注意書きがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="314"><span class="term term-world">〈完全な和音を作るな〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="316"><span class="term term-world">〈窓の外の星を数えるな〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="318"><span class="term term-world">〈拍手が聞こえても振り返るな〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="320">　最上階には、白髪の老人が一人いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　老人は窓に背を向け、七本弦の黒いヴィオルを弾いていた。目には布を巻き、指先から血が滲んでいる。窓の外には星空ではなく、光を吸うような真っ黒な面が広がっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「戸を閉めろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　老人は演奏を止めずに言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　ガラムが扉を閉める。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">「レム・オルクさん？」ミナは地図の余白にあった名を読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「その名で呼ばれたのは久しぶりだ。地図師の娘だな」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="334">「父を知ってるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="336">「知っていた。彼はここへ来て、下の風律機を見つけた。評議会が掘り当てる前に、道を封じると言っていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　ミナは胸の奥がきしむのを感じた。父は三年前、測量事故で雲海へ落ちたと聞かされていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="340">「父は落ちたんじゃないの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　老人の弓が一瞬だけ鈍った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="344">「落とされた」</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　セイが黒い水晶片を取り出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="348">「ハルヴァか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="350">「そうだ。彼はこの都市を支える古代機構を兵器だと思っている。だが、あれは鍵ではない。錠だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　窓の向こうで、何かがゆっくり擦れる音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　塔全体が震え、壁の楽譜が一斉にめくれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　エルが耳を塞いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="358">「外に、たくさんいる」</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="360">「いるのではない」老人は言った。「一つだ。だが、こちら側の数え方では形を保てぬ。昔の者は<span class="term term-world">〈耳のない聴衆〉</span>と呼んだ。世界の外から、音の隙間を覗いている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「その曲で閉じ込めてる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="364">「不完全な音楽は、あれに理解できない。理解できぬものを、あれは嫌う。二百年、奏者が代わりながら窓を閉じてきた」</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　トビが老人の血だらけの指を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">「休憩は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="370">「曲の間に八秒ある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="372">「それは休憩じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　老人はかすかに笑った。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="376">「今夜で弦が尽きる。ハルヴァが下の風律機から第七弦を抜いたからだ。あれが戻らなければ、夜明け前に窓が開く」</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　ミナは青銅板を広げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「終点が風律機？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「そして風盗王サルガの蔵でもある。彼はこの秘密を守る代わりに、都市の富を盗んだ。金も、権利証も、すべて下へ隠した」</p>
+<p class="source-line role-narration gap-1" data-source-line="384">　セイが階段の方を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「ハルヴァは工事を口実に、真上から掘るつもりだ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="388">「五日後じゃない」老人が言った。「掘削は今夜始まる。赤紙は住民を家から出すためではない。死者の数を減らすためでもない。ただ、目撃者を減らすためだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　遠くで金属が裂ける音がした。下層を巨大な掘削機が進んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　その直後、塔の扉が三度叩かれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="394">「追跡局、イザル・ケイン」</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　老人は演奏したまま言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「入れ。戸を壊されると音が狂う」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　ケインは一人で上がってきた。外套は裂け、額から血を流していたが、鋼索弩はミナたちへまっすぐ向いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「セイ・ラドン。終わりだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　セイは両手を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「俺を連れていけば、ハルヴァは証拠を消し、風律機を開ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="408">「証拠を渡せ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="410">「渡した追跡官が三人死んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="412">「私を四人目に数えるな」</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　黒い窓の向こうで、見えない指が硝子をなぞった。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　ケインの焦点鏡が勝手に回転し、窓へ焦点を合わせた。彼の顔色が変わった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「これは何だ」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="420">　老人が答える前に、塔の下から爆発音が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　私兵隊が橋を渡ってくる。先頭の兵が拡声石で叫んだ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="424"><span class="term term-world">〈評議官命令。逃亡犯、協力者、塔の奏者を全員処分せよ〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="426">　ケインはゆっくり鋼索弩を下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="428">「ラドン。逃げる道は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「ある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="432">「先導しろ。逮捕は後だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　トビがミナへ囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="436">「やっぱり友達なんじゃない？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「聞こえている」と二人の男が同時に言った。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="441">五　都市の腹</h2>
+<p class="source-line role-narration gap-1" data-source-line="443">　レム・オルクは演奏を続けるため塔に残った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="445">「第七弦を持ち帰れ」と彼は言った。「ただし覚えておけ。地図は道ではない。曲だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　ミナが問い返す前に、老人は足元の隠し踏板を蹴った。床が開き、六人は暗い滑走路へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　塔の内部を螺旋状に下る金属樋だった。背後から私兵も飛び込んでくる。火花と矢が飛び交う中、トビは工具袋から磁石を投げ、分岐器を切り替えた。追ってきた三人が別の樋へ流され、遠くで鐘のような悲鳴がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　樋の終点で、六人は巨大な空洞へ投げ出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　そこは都市の腹だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　何百本もの支柱が上下左右へ伸び、その間を古い歯車と風車と水路が走っている。都市全体が、眠りながら呼吸する獣の骨格に見えた。中央には、黒い岩盤を穿つ評議会の掘削機。三本の回転刃が青い火を散らし、封印扉へ迫っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　地図の線は、空洞を渡る保守橋と一致していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="459">「王冠印はあの扉の向こう」ミナが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　ケインは掘削機の配置を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「ハルヴァは正規隊を下げ、私兵だけを置いている。記録を残す気がない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="465">「まだ俺を殺人犯だと思ってるか？」とセイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「証拠を検証するまでは容疑者だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="469">「融通が利かないな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="471">「君が逃げるたび、私の評価書に同じことが書かれる」</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　保守橋へ踏み出した瞬間、警報鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　掘削機の上に、紫の礼服を着た男が立っていた。評議官ハルヴァ。細身で、白い手袋をはめ、戦場には不似合いなほど整った姿をしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「ケイン執行官」</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="479">　ハルヴァの声は空洞中の音声管から響いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">「反逆者への協力とは残念だ。君の規律だけは買っていたのだが」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="483">「大評議長殺害事件の捜査権限を私へ戻してください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="485">「不要だ。犯人はそこにいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　セイが水晶片を掲げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="489">「大評議長の最後の記録だ。あんたが風律機の使用に反対した彼を刺した」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="491">　ハルヴァは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="493">「記録晶は加工できる」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="495">「だから全員殺すのか？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="497">「都市を救うためだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　掘削機の刃が封印扉へ食い込み、空洞に低い唸りが満ちた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="501">「我々は雲海の一都市に閉じ込められている。外敵も、飢饉も、落下も、すべて力がないから恐れる。古代の風律機は世界の外へ届く。あの力を制御すれば、都市は二度と脅かされない」</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　エルが耳を押さえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「違う。向こうが、こっちの音を覚え始めてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="507">　ハルヴァが手を上げる。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="509">「撃て」</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　私兵が一斉に発砲した。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　ケインの鋼索弩が唸り、天井の歯車へ鉤を打ち込む。六人は索へ掴まり、橋から飛び降りた。矢の群れが足元を通り過ぎる。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　彼らは振り子のように空洞を横断し、掘削機の背後へ着地した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="517">「地図は？」セイが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　ミナは走りながら青銅板を見た。線は封印扉の前で途切れ、七つの点になっている。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="521">「扉に七つの錠！」</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　トビが先に滑り込み、点と同じ位置にある円形錠を見つけた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="525">「鍵穴がない！」</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="527">　エルが壁へ耳をつける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「錠じゃない。音叉だ。違う高さで鳴る」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　七つの円盤を順に叩く必要がある。しかし順番は地図に書かれていない。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="533">　ミナは父の言葉を思い出した。地図は、読む方向を変えると別のものになる。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　青銅板を九十度回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　道の線が五本の平行線を横切り、七つの点が音符の位置へ並んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「地図は道じゃない。曲だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　ガラムが拳で円盤を叩き、トビが工具で高い音を出し、エルが順番を叫ぶ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="543">「低、低、高、真ん中――一つ空けて、下、上！」</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　最後の円盤をケインの弩床が打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　封印扉が開いた。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="550">六　風律機</h2>
+<p class="source-line role-narration gap-1" data-source-line="552">　扉の向こうは宝物庫ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　少なくとも、最初はそう見えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　円形の広間いっぱいに、途方もなく大きな楽器が組まれていた。床から立つ金属弦、天井へ伸びる風管、回転する共鳴輪。都市を吹き抜ける風そのものを弓にして奏でる装置――風律機。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="558">　中央には黒い弦が一本、祭壇のような台に張られていた。人の腕ほど太いのに、触れずとも震えている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="560">「第七弦」エルが囁く。</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　その周囲には、箱が山のように積まれていた。蓋の割れた箱から、古い金貨がこぼれている。別の棚には巻物、印璽、土地証書。二百年分の盗品が、乾いた光を放っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　トビは金貨を一枚拾い、噛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「本物だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　ガラムの眉毛が離れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「横丁、買える？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="572">「横丁どころか、上層の議事堂まで買えるかも」</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　ミナは笑いかけたが、すぐに止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　風律機の向こう側で、人影が動いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="578">　ハルヴァが別の通路から入ってきたのだ。白手袋は血で濡れ、手には細身の音響銃がある。背後には私兵隊。</p>
+<p class="source-line role-dialogue role-command gap-1" data-source-line="580">「装置から離れろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　セイがミナたちの前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="584">「ここで撃てば弦が傷つく」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="586">「だから貴様を先に撃つ」</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　音響銃が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　目に見えない衝撃がセイを吹き飛ばし、共鳴輪へ叩きつけた。黒い水晶片が床を滑る。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　ケインが弩を構えるが、私兵の矢が彼の肩を射抜いた。膝をつきながらも二発撃ち返し、音響銃をハルヴァの手から弾く。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="594">「ミナ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　エルの声で、ミナは見上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　天井の風管から、夜鳴き塔の旋律が流れ込んでいた。だが音が途切れ途切れになっている。老人の弦が限界なのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　第七弦を外すには、台座の三つの留め具を同時に解除しなければならない。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="602">「ガラム、左！　トビ、右！　私が中央！」</p>
+<p class="source-line role-narration gap-1" data-source-line="604">　三人が散る。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　私兵が追う。ガラムは金貨箱を蹴り倒し、床を滑る硬貨で兵を転ばせた。トビは共鳴輪の調律槌を投げ、照明管を割る。広間が明滅する。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　ミナは中央留め具へ飛びついた。だが錆びて動かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　背後で足音。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　ハルヴァが落ちた音響銃を拾っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="614">「君の父親も、最後までその錠にしがみついた」</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　ミナの手が止まる。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="618">「父を殺したのは、あなた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="620">「有能な地図師だった。都市より迷信を選んだのが惜しい」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　銃口が上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　その前へケインが滑り込んだ。音の衝撃を胸に受け、背後の柱へ叩きつけられる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="626">「執行官！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">「錠を開けろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　ケインは息を吐きながら言った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="632">「逮捕は……後だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　ミナは父の羅針盤を留め具の隙間へ差し込んだ。蓋が歪み、針が砕ける。だが錠は回った。</p>
+<p class="source-line role-narration gap-1" data-source-line="636">　三つの留め具が同時に外れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　黒い弦が宙へ浮いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　その瞬間、夜鳴き塔の音楽が止んだ。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="642">　完全な静寂が、広間を満たした。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　次いで、都市の外から拍手が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　一人分ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　千人でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　数という考え方そのものが腐るほどの拍手だった。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="653">七　耳のない聴衆</h2>
+<p class="source-line role-narration gap-1" data-source-line="655">　風律機の中央に、窓が開いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="657">　壁でも空でもない場所が、縦に裂けた。裂け目の向こうには暗闇があり、その暗闇の奥に、巨大な何かの注意だけがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　目はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　顔もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　それでも、見られていると全員が理解した。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　私兵の一人が叫び、裂け目へ矢を放った。矢は途中でゆっくりほどけ、金属、木、羽、火、時間という順番に分解されて消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　その兵も同じようにほどけ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　ハルヴァは恐怖に顔を引きつらせながら、風律機の操作盤へ飛びついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">「制御できる。音階を固定すれば――」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="673">「完全な和音を作るな！」エルが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　ハルヴァは七本の制御桿を一直線に揃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　風律機が、澄み切った和音を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　裂け目が大きく開く。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="681">　向こう側から伸びてきたのは腕ではなかった。影でも触手でもない。曲の続きを要求する、巨大な空白だった。空白に触れた私兵たちは声を失い、輪郭を失い、存在していた理由まで消えていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　セイがよろめきながら立ち上がり、ハルヴァへ体当たりした。二人は操作盤の上を転がる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="685">「弦を塔へ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　だが風律機から塔へ続く昇降管は、裂け目の向こう側にある。広間を横断しなければならない。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　ミナは青銅板を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　地図の道は、ここで終わっていなかった。熱を受けた銀線がさらに浮かび、風律機の七つの足場を巡る経路を描いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　その線もまた、楽譜だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="695">「みんな、地図の上を走るの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="697">「何を言ってる？」トビ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="699">「この広間そのものが楽器。足場を踏むと音が出る。塔まで弦を運びながら、曲を続けるんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　七つの足場は、回転輪、吊り橋、風管の弁、鐘架へ散らばっている。一人では間に合わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　ミナは指示を飛ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="705">「ガラムは低音の輪！　トビは弁を三つおき！　エルは全員の拍を数えて！　ケインさん、上の鐘！　セイは弦を！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「お前は？」とセイ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="709">「道を読む！」</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　彼らは走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　ガラムが巨大輪へ飛び乗り、体重で回す。腹の底へ響く低音が鳴った。トビは風管の間を猿のように渡り、弁を開けるたび甲高い笛音を放つ。肩を負傷したケインは鋼索で鐘架へ上がり、弩床で不規則に鐘を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　エルは目を閉じ、裂け目の拍手の中から塔の旋律を拾った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="717">「七、七、五！　次は四を二回！　ガラム、早い！　トビ、一つ飛ばして！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="719">「最初からそう言え！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="721">「今、言った！」</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　不格好な音楽が始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　音は揃わず、何度も外れ、息切れし、工具が落ち、鐘がひび割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　だからこそ、裂け目の向こうの注意が揺らいだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　耳のない聴衆は理解できないものを嫌う。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　セイは黒い弦を肩へ担ぎ、回転する足場を渡って昇降管へ向かった。ハルヴァが追いすがり、背中へ短剣を突き立てようとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　ミナが叫ぶより早く、鋼索が飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　ケインの一射がハルヴァの手首へ巻きつく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「評議官ハルヴァ」</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　鐘架の上から、ケインが言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="741">「大評議長殺害、証拠隠滅、私兵による市民殺害の容疑で逮捕する」</p>
+<p class="source-line role-dialogue fx-beat tone-2 gap-1" data-source-line="743">「この状況で規則を読むのか！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="745">「この状況だからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　ハルヴァは索を切り、セイへ飛びかかった。二人は昇降管前の細い橋で殴り合う。下には裂け目が広がり、足場の一部が現実ごと欠けていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　セイは負傷で動きが鈍い。ハルヴァの拳が頬へ入り、黒い弦が橋から滑り落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　ガラムが回転輪から飛び降り、片手で弦を掴んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　その体が宙へ引かれる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="755">「重い！」</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　トビが風管から飛び移り、ガラムの腰帯を掴む。エルがトビを掴み、ミナがエルを掴んだ。四人が鎖のように橋から垂れ下がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="759">「こういうの、宝探しでは普通なのか！」トビが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="761">「初めてだから知らない！」ミナも叫び返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　最上部のミナの手が滑る。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　そこへケインの鋼索が巻きついた。彼は負傷した肩で巻上機を引き、四人と弦を橋へ戻す。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　セイはハルヴァの短剣を受け流し、肘で顎を打った。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="769">　ハルヴァがよろめく。その足元で、橋の一部が空白に触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="771">「助けろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　彼は片手で縁へしがみついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　セイは一瞬ためらい、腕を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　ハルヴァはその手を取るふりをして、袖から小銃を抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　発砲。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　セイは身を捻った。弾は昇降管の留め金を砕いた。管が大きく傾き、ハルヴァの手元から橋が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　彼は悲鳴を上げて裂け目へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　落ちながら、体が無数の白い手袋へ分かれ、その一つ一つがさらに小さな扉になり、すべての扉が同時に閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　あとには何も残らなかった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="789">「弦を上へ！」ミナが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　昇降管は壊れ、途中までしか動かない。夜鳴き塔まではまだ垂直の風道が続いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　トビが操作盤を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="795">「風圧を最大にすれば、弦だけなら吹き上げられる。でも誰かが下で弁を手動固定しないと」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="797">「俺が残る」とセイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="799">「あなたは傷だらけ」とミナ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="801">「ケインはもっと傷だらけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="803">「私は職務中だ」とケイン。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="805">「だから融通が利かないって言ってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　二人が同時に弁へ手をかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　エルが首を振る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="811">「一人じゃない。最後の音は二つ、わざとずらす。二人必要」</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　セイとケインは顔を見合わせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「逮捕は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="817">「後だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="819">「さっきも聞いたな」</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　二人が弁を開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　暴風が広間を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　ミナ、トビ、ガラム、エルは黒い弦へ四方から手を添え、風道へ押し込んだ。弦は唸りながら上昇する。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　裂け目から空白が迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="829">　セイとケインが左右の弁を、わずかに違う拍で打ち鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="831">　不完全な二音が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　耳のない聴衆が、初めて身を退いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　裂け目が細くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　風道のはるか上で、黒い弦が何かに嵌まる音がした。</p>
+<p class="source-line role-narration role-sensory gap-1" data-source-line="839">　そして夜鳴き塔から、レム・オルクのヴィオルが再び響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　今度の音は太く、深く、都市のあらゆる梁と樋と窓を震わせた。完全ではない。老人の指は疲れ、弓は何度も掠れた。それでも旋律は、世界のこちら側にいる者すべての息づかいを巻き込み、巨大な拒絶の歌になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　裂け目の向こうで、数えきれない拍手が一斉に止んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　窓は閉じた。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="848">八　夜明けの所有者</h2>
+<p class="source-line role-narration gap-1" data-source-line="850">　朝、アルカ＝ミレには珍しく雨が降った。</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　雲海から吹き上げた細かな雨が、屋根と橋と飛行翼を銀色に濡らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　夜鳴き塔の最上階で、レム・オルクは椅子に座ったまま眠っていた。黒いヴィオルを抱え、穏やかな顔で、もう目を覚まさなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　エルは老人の弓を受け取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="858">「僕が弾く」</p>
+<p class="source-line role-narration gap-1" data-source-line="860">　ミナは心配になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="862">「ずっと？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「ずっとじゃない。風律機を直せば、都市の風が曲の半分を弾ける。残り半分は人が変えていく。完全にならないように」</p>
+<p class="source-line role-narration gap-1" data-source-line="866">　トビが鼻をすすりながら言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「自動演奏に、わざと故障を組み込むわけだ。得意分野だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="870">「お前の機械は最初から故障してる」とガラム。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="872">「設計上の個性だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="874">　追跡局の正規隊が到着したのは、日の出直後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　ケインは黒い水晶片を提出し、風律機の記録管に残ったハルヴァの命令音声も確保した。セイの手首には一応、捕縛環が嵌められた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="878">「本当に逮捕するの？」ミナが抗議した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="880">「脱走、官有翼の窃盗、執行官への暴行が残っている」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="882">「大評議長殺しじゃないだろ」とセイ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="884">「それは取り下げられるだろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「暴行はお互い様だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="888">「私は報告書に、自分が殴られた回数を正確に書く」</p>
+<p class="source-line role-narration gap-1" data-source-line="890">　ケインは捕縛環の鍵を回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　環は外れ、床へ落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="894">「だが、証人が多すぎる。君が今朝、風道の混乱に乗じて逃亡したとしても、私一人の報告では覆せまい」</p>
+<p class="source-line role-narration gap-1" data-source-line="896">　セイは口元を歪めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="898">「友達じゃないな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="900">「断じて違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="902">　二人は握手をしなかった。ただ互いに一度だけ頷いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="904">　宝物庫から運び出されたものの中で、金貨より大きな騒ぎを起こしたのは、一枚の古い羊皮紙だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="906"><span class="term term-world">〈都市創建憲章・第七码頭下層共同所有証〉</span></p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="908">　二百年前、風盗王サルガは評議会から金だけでなく、雨樋横丁を含む下層支柱の所有権そのものを盗み出し、住民共同体へ譲渡していた。評議会が証書を隠したため、効力だけが忘れられていたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="910">　収用命令は無効になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="912">　雨樋横丁の住民たちは、自分たちが立っている場所を初めて本当に所有した。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="914">　金貨の一部は家々の修理に使われ、残りは夜鳴き塔と風律機の保守基金になった。ガラムの家のパン屋には新しい石窯が入り、トビは工房を一つ与えられたが、三日で屋根を吹き飛ばした。エルは毎晩塔へ通い、決して同じようには弾かない曲を覚え始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　ミナは父の工房の看板を書き直した。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="918"><span class="term term-world">〈雨樋地図店――地上、地下、忘れられた道、逃亡経路〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="920">　最後の項目はケインの要請で小さくした。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="922">　セイは夜明け前に都市を離れた。どこへ行ったかは誰も知らない。だが一月後、工房へ差出人のない包みが届いた。中には父の砕けた羅針盤を直すための希少な星鉄と、短い手紙が入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="924"><span class="term term-world">〈追跡者に見つからない地図を一枚頼む〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="926">　ミナは返事の代わりに、都市外縁から雲海へ降りる古い風道の図を描いた。ただし途中に、わざと一つだけ間違った曲がり角を入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="928">　追跡者にも、逃亡者にも、完全な道を渡してはいけない。</p>
+<p class="source-line role-narration gap-1" data-source-line="930">　完全なものは、世界の外にいる何かを呼ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="932">　その夜、雨樋横丁の下から七拍子の音楽が聞こえた。窓辺で耳を澄ませたミナには、老人のヴィオル、エルの不器用な弓、風律機の低い唸りに混じって、遠くから二つの足音が追いつ追われつしながら拍を刻んでいるように思えた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="934">　雲より下へ落ちたものは、二度と戻らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="936">　けれど音楽は、どれほど深い闇へ落ちても、誰かが続きを奏でるかぎり帰ってくる。</p>
+<p class="source-line end-mark gap-2" data-source-line="939">――了――</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

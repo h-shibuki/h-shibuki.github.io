@@ -1,0 +1,898 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="失踪した姉・沙耶から映像修復者の羽鳥真琴へ届いた、再生禁止の二十四秒動画。家畜の分娩室を映すファイルは、再生するたび同じ容量のまま一フレームずつ成長し、画面の内側から現実へ痕跡を残し始める。姉の研究する進化生態学と、映像を直す自分の仕事。その二つが旧家畜施設で交差するとき、「見た器官から産まれる」という警告が意味を持つ。止めれば姉を失い、見続ければ何かが生まれるかもしれない。再生が繁殖なら、真琴は姉の姿を追わずにいられるのか。">
+<title>再生者の家｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="再生者の家_ダーウィンの悪魔" data-novel-id="再生者の家_ダーウィンの悪魔" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>SF・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ホラー、SF、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：437行／章：0／役割・強度タグ：481</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="再生者の家 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">再生者の家</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　姉は、「再生するな」と書いた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="6">　映像修復を仕事にしている羽鳥真琴には、それが命令ではなく、ほとんど挑発に見えた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="8">　メールが届いたのは午前三時十三分だった。差出人は十日前から行方の知れない姉、沙耶。件名は<span class="term term-world">〈Ｄ・Ｄ〉</span>。本文は一行だけで、二十四秒の動画ファイルが添付されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　再生するな。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　再生は、繁殖だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　真琴は三度読み返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　沙耶は国立大学で進化生態学を研究していた。笑うときに鼻へ皺を寄せ、実験動物の死にはひどく弱く、迷信という言葉を侮辱として使う人だった。そんな姉が、脅かすような文面を残すはずがない。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　だから真琴は再生した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="19">　画面に白い部屋が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　家畜用の分娩室らしい。黄ばんだタイル。天井から垂れる鎖。奥には腹を上にした大きな雌豚が、鉄枠へ固定されている。腹部は縦に裂かれ、切り口から透明な袋がいくつも葡萄のように下がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　音はなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="25">　十八秒目、画面の右端を白衣の女が横切った。沙耶だった。頬が痩せ、髪が濡れて顔に貼りついている。彼女はカメラに気づくと足を止め、こちらへ歩いてきた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="27">　二十三秒目。沙耶の顔が画面いっぱいになる。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　唇が動く。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　音声はないはずなのに、真琴には言葉がわかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="33">　――見た器官から、産まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　そこで映像は終わった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="37">　真琴は停止した画面を見つめた。マウスを握る指が、じっとり濡れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　雌豚の腹から下がる袋の一つに、小さな眼球が入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　最初に見たとき、あんなものはなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　真琴は動画を先頭へ戻し、もう一度再生した。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　今度は二十四秒と一フレームあった。</p>
+<div class="source-line scene-break gap-2" data-source-line="48" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="51">　ファイルサイズは増えていなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="53">　ハッシュ値も同じだった。動画の中身が変われば必ず変化するはずの数字が、一桁も違わない。それなのに再生するたび、末尾へ一フレームずつ新しい映像が加わった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="55">　三回目、沙耶は画面の外へ手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　四回目、カメラのレンズに指が触れた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="59">　五回目、黒い指紋が画面の内側へ残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　六回目を再生しかけたところで、真琴はノートパソコンを閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　部屋が暗くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　閉じた液晶の黒い表面に、自分の顔が映っている。左目の白目に、髪の毛ほど細い黒い線があった。線は瞬きのたびに位置を変え、瞳孔へ少しずつ近づいていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　真琴は洗面所へ駆け込み、鏡に顔を寄せた。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　線は消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　寝不足だ、と自分へ言い聞かせた。目をこすり、冷水で顔を洗った。だが蛇口を閉めても、排水口の奥で水音が続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　ぴちゃ。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　ぴちゃ。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　ぴちゃ。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　生まれたばかりの何かが、濡れた床を這うような音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　朝になると、真琴は同僚の大庭修司を呼び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　大庭は大学映像資料室の音響担当で、壊れた磁気テープから咳払い一つまで拾い上げる耳を持っていた。三十五歳。体格がよく、怖いものを見ると冗談が増える男だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　真琴は動画そのものを見せず、音声トラックだけを解析させた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="87">「無音じゃないな」</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　大庭はヘッドホンを片耳だけに当て、波形を拡大した。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="91">「可聴域の上に何かある。周期信号……いや、鳴き声か」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="93">「豚？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="95">「豚ならまだ可愛い」</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　彼は速度を落とし、周波数を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　スピーカーから、低い呼吸音が流れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　吸う音が二回。吐く音が一回。吸う音が三回。吐く音が一回。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　その間隔は一定ではなかった。だが真琴には、何かが数を増やしているように聞こえた。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="105">　一、二。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="106">　一、二、三。</p>
+<p class="source-line role-narration role-document gap-0" data-source-line="107">　一、二、三、四。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　やがて呼吸の下から、沙耶の声が浮かび上がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="111">『朽縄峠。旧・七窪家畜適応試験場』</p>
+<p class="source-line role-narration gap-1" data-source-line="113">　大庭がヘッドホンを外した。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="115">「場所を埋め込んだのか。姉さん、助けを呼んでる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「警察に知らせる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="119">「十日前から探して、見つけられてないんだろ。先に行って場所だけ確認しよう。山道なら説明するより座標を渡した方が早い」</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　真琴は反対した。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="123">　反対しながら、もう車の鍵を鞄へ入れていた。</p>
+<div class="source-line scene-break gap-2" data-source-line="126" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="129">　朽縄峠へ入る県道は、午後四時を過ぎると急に細くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　山は夏の湿気を抱え込み、樹木の隙間から白い霧を吐いていた。携帯電話の電波は消え、カーナビの地図から道路がなくなった。それでも古いガードレールには、赤い塗料で矢印が描かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　矢印は山の奥を指していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「親切な秘境だな」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　大庭が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　次のカーブで、矢印の正体がわかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　ガードレールへ小動物の死骸が針金で括りつけられていた。狸、兎、猫。腹を裂かれ、赤黒い内臓を道路側へ垂らしている。乾いた血が矢印の形に塗り広げられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　大庭は冗談を言わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　七窪家畜適応試験場は、峠の行き止まりにあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　低い研究棟と、波板で囲われた畜舎。それらへ古い農家が継ぎ足され、全体が一匹の巨大な虫のように斜面へ貼りついている。屋根にはテレビアンテナが何十本も立ち、すべて違う方向を向いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　門柱の看板は錆びていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="151"><span class="term term-world">〈より強く　より早く　より多く〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="153">　その下に、誰かが爪で文字を刻んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="155"><span class="term term-world">〈次へ〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="157">　車を降りた瞬間、甘い腐敗臭が鼻へ入った。</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="159">　畜舎から豚の鳴き声がした。苦痛の叫びではない。短く、規則正しく、合図を送り合うような声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="161">　一頭が鳴く。</p>
+<p class="source-line role-narration gap-0" data-source-line="162">　二頭が答える。</p>
+<p class="source-line role-narration gap-0" data-source-line="163">　四頭が続く。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　真琴は大庭を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　彼も同じ数え方をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　農家の引き戸が開いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="171">　出てきたのは、背の低い老女だった。白髪を頭へ貼りつけ、ゴム製の前掛けを胸まで着けている。前掛けには新しい血が飛んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="173">「羽鳥の妹さんだね」</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　真琴は足を止めた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="177">「姉はどこです」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「中で増えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　老女は笑った。歯は一本もなく、歯茎の奥に小さな乳歯のようなものが列を作っていた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="183">「私は呉木イト。ここを預かってる。お姉さんから聞いてるよ。妹さんは、壊れたものを元に戻す仕事だって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「姉に会わせてください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="187">「もちろん。そのために種を送ったんだから」</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　真琴の背中で、大庭が息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「メールを送ったのは、あんたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="193">「送ったのは沙耶さんだよ。書いたのが沙耶さんかどうかは、もうわからないけどね」</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　家の奥で、電動機械の回る音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="197">　ぎゅるるるる、と鈍い回転音。</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　続いて、骨が砕ける乾いた破裂音。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　イトは二人を招き入れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「日が落ちる前に入んな。暗くなると、目じゃないもので見始めるから」</p>
+<div class="source-line scene-break gap-2" data-source-line="206" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="209">　家の中には、時計がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　代わりにテレビがあった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="213">　廊下、台所、仏間、階段の踊り場。大小のブラウン管が積み上げられ、どの画面にも白い分娩室が映っていた。映像は少しずつ時間がずれている。ある画面では雌豚がまだ生きていて、別の画面では腹から袋が下がり、さらに別の画面では袋の中の眼球がまばたきしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　真琴は視線を床へ落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「全部消してください」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「消したら見えなくなるだけだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　イトは台所へ入り、大鍋の蓋を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　白い湯気とともに、脂の匂いが広がった。鍋の中では肉の塊が煮えていた。皮膚のついた細長い肉。表面に、指紋のような渦がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「食べな。ここじゃ、食べたものが早く身につく」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　大庭が吐き気をこらえるように口を押さえた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="229">「姉さんは研究棟か」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　真琴は訊いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　イトは鍋をかき回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="235">「沙耶さんは賢かった。あれが生き物じゃないって、すぐ気づいた」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="237">「あれ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="239">「おつぎさま」</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　老女は、幼い子供の名を呼ぶように言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="243">「昔の先生たちは<span class="term term-world">〈ＤＤ〉</span>って呼んでた。ダーウィンの悪魔。生まれた瞬間から子を作り、永遠に死なず、どんな場所にも適応し、子を無限に増やす生き物。そんなものは本当にはいない。生きるには飯が要るし、強くなるには時間が要る。何かを得れば、何かを捨てなきゃならない」</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　イトは鍋から肉を一つ掬い上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　肉の端に爪があった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="249">「でもね。捨てるものを、他人に持たせたらどうなる？」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　大庭が後ずさった。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　その拍子にポケットの中で電子音が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　彼のスマートフォンだった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="257">　画面に動画の再生マークが浮かんでいる。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="259">「何で……」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　大庭が取り出すと、あの動画が自動再生された。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="263">　真琴は送っていない。コピーもさせていない。だが音声解析のために接続した機器が、一時ファイルを作っていたのだ。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="265">　画面の中で沙耶が振り向いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="267">「見るな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　真琴はスマートフォンを叩き落とした。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="271">　床へ落ちた画面に亀裂が走った。大庭は両手で右耳を押さえ、膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「中に、虫が」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　耳の穴から血が流れた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="277">　彼は爪を差し込み、悲鳴を上げながら掻きむしった。皮膚が裂け、耳たぶが半分ちぎれた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="279">　血まみれの軟骨の下で、もう一つの小さな耳が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　赤子の耳だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　それがぴくりと動き、床のスマートフォンへ向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　イトは嬉しそうに手を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="287">「早い。都会の人は、覚えるのが早いねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　大庭は立ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　顔から苦痛が消えていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="293">「真琴」</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　彼は穏やかな声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「聞こえるよ。壁の中で、姉さんが息してる」</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　右耳の下で、新しい耳が次々に芽を出した。首筋、頬、まぶた。濡れた茸のように皮膚を押し上げ、すべてが別々の方向へ向いた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="301">　大庭は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「お前の眼球が動く音も聞こえる」</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　真琴は椅子を掴み、彼へ投げつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　大庭は片腕で受けた。木の脚が前腕を突き抜け、骨が折れた。だが折れた腕は床へ垂れず、途中から新しい関節を作って逆向きに曲がった。指が椅子の脚を包み込み、握り潰した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">「痛いと、よくわかる」</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　大庭の喉から、沙耶の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">「壊されるたび、次は壊れなくなる」</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　廊下の奥で扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　大男が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　上半身は裸で、透明な防水フードを頭から被っている。フードの内側は曇り、顔は見えない。両目の位置に丸い鏡が貼られ、そこへ真琴の姿が小さく映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　男は枝肉を縦に割る電動鋸を持っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　刃が回り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　ぎゅるるるる。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　大庭が男へ振り向く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="329">「伍作、切ってやりな」</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　イトが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="333">「新しいことを教えてあげな」</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　大男――伍作は、大庭の肩へ鋸を振り下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="337">　回転刃が鎖骨を砕き、胸まで食い込んだ。血と骨片が壁のテレビへ飛び散る。大庭は絶叫したが、伍作は止めなかった。刃を押し下げ、胴体を斜めに裂いた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="339">「やめろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　真琴が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　イトは首を振った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="345">「殺すんじゃない。教えるんだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　大庭の裂けた胸から、白い肋骨が何本も伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　骨は鋸の刃を挟み込み、火花を散らして止めた。切り口の肉が泡立ち、左右の半身を縫い合わせる。しかも元どおりではなかった。胸郭は二重になり、心臓の鼓動が二つ、わずかにずれて鳴り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　どくん。</p>
+<p class="source-line role-narration gap-0" data-source-line="352">　　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　大庭は伍作の腕を掴み、ありえない方向へ捻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　伍作は声を上げず、折れた腕をぶら下げたまま後退した。鏡の目に映る真琴が、細かく震えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　真琴は床のスマートフォンを踏み砕いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="360">　画面が消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　同時に、家中のテレビが一斉に砂嵐へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　砂嵐の向こうで、誰かが笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　沙耶の声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="368">『真琴、地下へ』</p>
+<div class="source-line scene-break gap-2" data-source-line="371" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="374">　台所の床下収納を開けると、コンクリートの階段があった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="376">　真琴は暗闇へ飛び込んだ。背後で大庭が何かを引き裂く音と、イトの甲高い笑い声が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　階段の下は研究棟へ繋がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="380">　非常灯が赤く点滅し、廊下の両側に実験室が並んでいる。扉の小窓には内側から肉が貼りついていた。薄い膜状の肉。呼吸するたびに膨らみ、ガラスを舐めるように収縮する。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　壁には古い研究ポスターが残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="384"><span class="term term-world">〈家畜における全環境適応性の獲得〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="385"><span class="term term-world">〈情報性病原体による表現型誘導〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="386"><span class="term term-world">〈観察行為を介した非接触継代〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="388">　最後の一枚へ、沙耶の字で書き込みがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　個体ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="391">　配列でもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　これは「選択」そのもの。</p>
+<p class="source-line role-narration gap-0" data-source-line="393">　器官を持たず、器官を借りる。</p>
+<p class="source-line role-narration gap-0" data-source-line="394">　身体を持たず、観察者を身体にする。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　その下に、赤いペンで何度も丸がつけられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　再生＝継代。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　真琴は実験机の上に、沙耶のノートを見つけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　ページは湿り、ところどころ指の形に変色していた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="404">　七窪試験場では、四十年以上前、感染した動物の映像を別の動物へ見せる実験が行われていた。病原体を移さず、適応だけを移す。寒冷地で生き残った豚の神経反応を映像と音へ変換し、温暖地の豚へ見せる。飢餓、熱、毒、外傷。死ぬ直前の反応を記録し、次の個体へ「学習」させる。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　最初は効果がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　千二百七十六回目の再生で、一頭の豚が映像に映っていない傷を作った。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　千二百七十七回目、その傷に耐える骨格を持つ子を産んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　千二百七十八回目、映像を見ていない飼育員の妻が、同じ骨格の子を流産した。</p>
+<p class="source-line role-narration gap-1" data-source-line="414">　研究は中止された。</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　だが映像は消えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　焼いたフィルムの灰に模様が残り、磁気テープを消去した装置から呼吸音が出た。内容を知る人間が夢で見れば、翌朝には別の媒体へ記録されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　それは情報に感染するのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　情報を理解した脳に、次の世代を作らせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　ノートの最後に、沙耶はダーウィンの悪魔について書いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　完全な生物は存在できない。</p>
+<p class="source-line role-narration gap-0" data-source-line="427">　繁殖へ全資源を使えば生存できず、生存へ全資源を使えば繁殖できない。速さ、強さ、多産、寿命。すべてには代価がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　しかし、ＤＤは代価を宿主へ払わせる。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="430">　自分は規則だけであり、肉も時間も持たない。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　見る者が目を払い、聞く者が耳を払い、触れる者が皮膚を払う。</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　悪魔が完璧なのではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="434">　私たちが、悪魔の不足分なのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　廊下の奥から、弱い声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="438">「真琴」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="440">　姉の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="442">　真琴はノートを抱え、走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　突き当たりの扉には<span class="term term-world">〈環境負荷統合室〉</span>と書かれていた。電子錠は壊れ、隙間から温かい風が漏れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　扉を開けると、白い分娩室があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　動画と同じ部屋。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　黄ばんだタイル。天井の鎖。奥の鉄枠。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　ただし、固定されていたのは豚ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　沙耶だった。</p>
+<div class="source-line scene-break gap-2" data-source-line="457" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="460">　姉の身体は、腰から下が壁へ埋まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　白衣は腹まで裂かれ、皮膚から透明な管が何十本も伸びている。管は床、天井、ブラウン管、空調ダクトへ繋がり、脈打つたびに乳白色の液体を送っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　両目には黒い布が巻かれ、耳は縫い閉じられていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="466">「来ちゃだめだった」</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　沙耶の唇はほとんど動かなかった。それでも声は部屋中のスピーカーから聞こえた。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-3 gap-1" data-source-line="470">「動画を送ったのは姉さん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="472">「途中までは」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「助けに来た」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="476">「違う。あれは、あなたを呼んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="478">　真琴は鉄枠へ駆け寄った。管を掴むと、内部の液体が逆流し、手のひらへ微かな振動が伝わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　言葉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　開けて。</p>
+<p class="source-line role-narration gap-0" data-source-line="483">　見せて。</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　次へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　真琴は手を離した。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="488">「どうすれば出せる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「出したら、私の形で増える」</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　沙耶は苦しそうに息を吸った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="494">「私はここへ来て、映像を全部見た。消す方法を探した。焼いた。砕いた。自分の目も潰そうとした。でも遅かった。見たものは、記憶の中で何度でも再生される」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="496">「なら、どうすれば」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="498">「選ばせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　背後で扉が閉まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　大庭が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　上半身の裂け目は塞がっていたが、左右の肩から別々の首が伸びかけていた。一つは大庭の顔。もう一つはまだ皮膚のない赤い頭部で、無数の耳だけが花弁のように開いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　彼の後ろに伍作がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　折れた腕は金属の添え木で固定され、もう片方の手には枝肉鋸がある。透明フードの鏡へ、分娩室全体が映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　イトもいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="512">「姉妹は似てるけど、同じじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　老女は言った。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="516">「同じ血が、違う暮らしで何を覚えるか。おつぎさまは、それが欲しいんだよ。沙耶さんだけじゃ片方だからね」</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　大庭の二つの口が同時に開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="520">「真琴、見て」</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　部屋のブラウン管が点いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="524">　画面には真琴自身が映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　今、この部屋に立つ真琴を、天井のカメラが撮っている。映像の真琴は、現実より一秒早く動いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="528">　画面の中で、彼女は右を向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　一秒後、現実の首が勝手に右へ回った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="532">　画面の真琴が腕を上げる。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　現実の腕が持ち上がる。</p>
+<p class="source-line role-narration role-system tone-4 gap-1" data-source-line="536">　画面の真琴は笑っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　現実の真琴の頬も、意思に逆らって吊り上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="540">「予測してるんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　沙耶の声がスピーカーから響く。</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="544">「次のあなたを産んでる。画面が親で、あなたが子」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="546">　画面の真琴が、自分の左目へ指を入れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="548">　真琴の左手が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　指先がまぶたへ触れる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="552">「目を閉じて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　沙耶が叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　真琴は目を閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　指が眼球の表面を擦り、爪が角膜を傷つけた。激痛が走ったが、指は止まった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="560">　暗闇で沙耶が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="562">「完全な生き物に、選択肢はない。全部を選べるから悪魔なの。でも全部を選べない場所へ閉じ込めれば、ただの生き物になる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="564">「どうやって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="566">「この部屋は、環境を作る装置。熱、寒さ、乾燥、飢餓、毒。昔は順番に与えた。だから学べた」</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　真琴は目を閉じたまま、制御卓の位置を思い出した。動画修復のために何度も見た部屋だ。右の壁。鉄枠から六歩。高さは腰ほど。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="570">「同時に与えるの」</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　沙耶が言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="574">「枝分かれさせて。全部の答えを、一度に産ませる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="576">「それなら、もっと強くなるだけじゃないの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="578">「外に代価を払わせられるうちはね」</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　姉の声が少し笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="582">「だから家を閉じる。酸素も、餌も、熱も、全部この中だけ。無限に増えるものへ、有限を返す」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　伍作の鋸が唸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　真琴は目を閉じたまま走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　刃が背中すれすれを通り、白衣ではなく上着を裂いた。真琴は壁へ肩をぶつけ、手探りで制御卓を探した。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　大庭の声が四方から近づく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="592">「目を開けて。もう怖くない。怖さにも慣れられる」</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　指先が金属のスイッチへ触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　真琴は一つずつ押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　冷却。</p>
+<p class="source-line role-narration gap-0" data-source-line="599">　加熱。</p>
+<p class="source-line role-narration gap-0" data-source-line="600">　減圧。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　加湿。</p>
+<p class="source-line role-narration gap-0" data-source-line="602">　高酸素。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　窒素置換。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　紫外線。</p>
+<p class="source-line role-narration gap-0" data-source-line="605">　栄養液循環。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　警報が鳴り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="609"><span class="term term-world">〈競合設定。安全限界を超過します〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="611">　真琴は最後のレバーを倒した。</p>
+<p class="source-line role-narration gap-1" data-source-line="613"><span class="term term-world">〈閉鎖循環モード〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="615">　分厚い隔壁が落ち、扉を塞いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　空調が咆哮した。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　熱風と冷気が交互ではなく、別々の噴出口から同時に吹き出した。天井から熱湯が降り、床には液体窒素の白い霧が這う。紫外線灯が青白く点滅し、栄養液の管が破裂して甘い液体を撒いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　真琴は薄目を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　大庭の身体が膨らんでいた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="625">　熱に耐えるため、皮膚が分厚い脂肪へ変わる。その上から冷気に耐える毛が生える。水中で呼吸する鰓が首に開き、乾燥を防ぐ殻が鰓を塞ぐ。紫外線を遮る黒い膜が眼球を覆い、暗闇を見るための新しい眼球が膜の下から押し出される。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　適応が適応を邪魔し始めていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="629">　大庭の身体は答えを一つに決められず、次々と別の身体を産んだ。肩から腕が生え、腕の先から胸郭が生え、胸郭の内側に口が開いた。増えた器官は互いの血を奪い合い、噛み合い、食い始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="631">「ちがう」</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　いくつもの口が叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="635">「これは、環境じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「そうだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　沙耶が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="641">「これは勘定」</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　伍作が鋸を振り上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　だが鏡の目に映った自分自身が、先に動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　フードの内側から細い指が何本も伸び、伍作の眼窩へ潜り込んだ。彼は初めて声を上げた。透明フードが内側から赤く染まる。鏡が割れ、破片の一つ一つへ別々の伍作が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　そのすべてが違う傷を負っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　現実の伍作の身体に、傷だけが一斉に現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　腹が裂け、喉が潰れ、脚が反対へ折れた。傷口は即座に再生しようとし、余分な肉を噴き出した。肉は鋸の回転刃へ絡みつき、機械と一体になって暴れ回った。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　刃がイトの腰を捉えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　老女の身体が半分に割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　上半身が床へ落ちても、彼女は笑っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="661">「増えな。もっと増えな」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="663">　切断面から、何十人もの小さなイトが顔を出した。乳歯を剥き、互いを押しのけ、母体の外へ出ようとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　しかし床にはもう空間がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　肉、骨、毛、殻、歯、眼球、耳。適応の枝が部屋を埋め、天井まで盛り上がっていた。閉鎖循環装置の酸素濃度表示が急速に下がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　二十パーセント。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　十五。</p>
+<p class="source-line role-narration gap-0" data-source-line="671">　九。</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　増えるほど、呼吸する口も増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　栄養液は数秒で吸い尽くされ、管の中を肉が逆流した。冷却装置へ侵入した組織は凍り、加熱装置へ侵入した組織は焼けた。それぞれに耐える子が生まれ、その子を養うため、別の子が食われた。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　完璧な生き物が、自分自身を餌にし始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　真琴の左目に黒い線が戻った。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　視界の端から瞳孔へ伸びてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　線は血管ではなかった。細い脚を持ち、眼球の表面を歩いていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="685">　画面を見た代価が、まだ彼女の中に残っている。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="687">「姉さん、私も感染してる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="689">「知ってる」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="691">「一緒に焼けばいい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　沙耶は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　代わりに、鉄枠から伸びた一本の管が真琴の手首へ巻きついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　管の中を温かいものが流れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="699">　幼いころの記憶が見えた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="701">　夏の市民プール。姉に泳ぎを教わった日。水を怖がる真琴へ、沙耶は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　息を止めるんじゃない。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　吐ききれば、身体は勝手に次を欲しがる。</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　記憶の中の姉が、今の声で囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「ここから出るまで、息を吐いて」</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　鉄枠の横に、非常排出用の小さな扉が開いた。人一人が這えるほどの保守管路だ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="712">「姉さんは」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="714">「私は家の一部。家を閉じる鍵」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="716">「切れば出せる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="718">「切ったものは増える」</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　沙耶の唇が、わずかに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「真琴。壊れたものを、何でも元に戻さなくていい」</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　背後で大庭だったものが盛り上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="726">　無数の耳が一斉に真琴へ向き、声にならない声を聞き取った。肉の山から腕が伸びる。熱へ耐える鱗、冷気へ耐える毛、水を弾く脂に覆われた腕。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　真琴は沙耶の手を握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　指先は冷たかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「ごめん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">「再生しないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　真琴は管路へ飛び込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　背後で隔壁が閉じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　直前、沙耶の黒い目隠しが燃え、下から何もない眼窩が見えた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="742">　それでも姉は、まっすぐ真琴を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="744"><span class="term term-world">〈酸素濃度　三パーセント〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="746"><span class="term term-world">〈閉鎖循環系　飽和〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="748"><span class="term term-world">〈有機物総量　上限超過〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="750">　警報の最後に、沙耶の声が混じった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="752">「完璧なものは、完璧に飢える」</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　真琴は管路を這った。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　息を吐き続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　後ろから、家全体が巨大な肺のように収縮する音がした。壁が内側へ凹み、床下の管が脈打つ。畜舎の豚が一斉に鳴いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　一頭。</p>
+<p class="source-line role-narration gap-0" data-source-line="761">　二頭。</p>
+<p class="source-line role-narration gap-0" data-source-line="762">　四頭。</p>
+<p class="source-line role-narration gap-0" data-source-line="763">　八頭。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　その声が頂点へ達した瞬間、七窪家畜適応試験場は破裂した。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　熱風が管路を走り、真琴の身体を外へ吐き出した。</p>
+<div class="source-line scene-break gap-2" data-source-line="770" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="773">　真琴が目を覚ましたのは、峠道の側溝だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　夜が明けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　試験場のあった斜面から黒煙が上がっている。建物は崩れ、湿った灰の山になっていた。消防も警察も、焼け跡から人間の遺体を特定できなかった。見つかった骨は豚と人の特徴を同時に持ち、一本の骨の途中で年齢さえ変わっていたという。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　大庭の車は残っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="781">　運転席のダッシュボードに、彼のスマートフォンが置かれていた。真琴が踏み砕いたはずの画面は新品のように滑らかだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　電源は入れなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　ガソリンをかけ、灰になるまで燃やした。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　大学へ戻ると、真琴は沙耶から届いたメールを削除した。サーバー管理者に頼み、バックアップも消した。解析機器の記憶媒体を砕き、音響室のスピーカーを廃棄した。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　それでも、夜になると左目の中で黒い線が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　医師は飛蚊症だと言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　線は日に日に枝分かれした。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　一本が二本に。</p>
+<p class="source-line role-narration gap-0" data-source-line="796">　二本が四本に。</p>
+<p class="source-line role-narration gap-1" data-source-line="798">　ただし、瞳孔へは近づかなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　真琴が何かを思い出すたび、線は増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　白いタイル。</p>
+<p class="source-line role-narration gap-0" data-source-line="803">　雌豚の腹。</p>
+<p class="source-line role-narration gap-0" data-source-line="804">　沙耶の唇。</p>
+<p class="source-line role-narration gap-0" data-source-line="805">　大庭の耳。</p>
+<p class="source-line role-narration gap-0" data-source-line="806">　イトの乳歯。</p>
+<p class="source-line role-narration gap-0" data-source-line="807">　鏡の目。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="809">　記憶が再生されるたび、眼球の中に細い枝が生まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="811">　真琴は映像を残さないことにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　音も残さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　絵も、図も、数式も使わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　起きたことを伝える必要はある。だが、見たものをそのまま複製してはいけない。だから文字だけで記録することにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　文字は静止している。</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　音を出さない。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="823">　光景を映さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　ただ並んだ記号にすぎない。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　そう思って、ここまで書いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="829">　けれど今、画面の端に白い部屋が見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="831">　書いた覚えのない一文が、末尾に増えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　消しても、保存し直すたびに戻ってくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　文字は映像ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　だが読む人の頭の中では、文字もまた再生される。</p>
+<p class="source-line role-narration gap-1" data-source-line="839">　だから、ここで読むのをやめてほしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　もう遅いかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　今、あなたの頭の中に、黄ばんだタイルの部屋がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　天井から鎖が垂れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　奥で、腹を裂かれた雌豚が、ゆっくりと首をこちらへ向ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　最初の一フレームが、増えた。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

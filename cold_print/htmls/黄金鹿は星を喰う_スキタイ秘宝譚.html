@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="アルマトイの博物館で起きた密室死。死者の口に残された黄金鹿には、十八年前にアルタイ山脈で消えた考古学者・九鬼玄堂の印が刻まれていた。娘の真名は文化財捜査官アイダルと、父の元共同研究者で連続殺人犯のゾリンを訪ねる。スキタイの動物文様は装飾ではなく、何かを閉じる手順書だという。黄金鹿を狙う武装財団も草原へ動き出すなか、真名は父の墓と“知性を狩るもの”を追う危険な探索へ踏み出す。狩る側と狩られる側は、墓へ近づくほど入れ替わっていく。">
+<title>黄金鹿は星を喰う｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="黄金鹿は星を喰う_スキタイ秘宝譚" data-novel-id="黄金鹿は星を喰う_スキタイ秘宝譚" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ミステリ</p>
+  <p><strong>補助ジャンル：</strong>ホラー・SF・歴史</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ミステリ、ホラー、SF、歴史</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：580行／章：0／役割・強度タグ：650</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="黄金鹿は星を喰う 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">黄金鹿は星を喰う</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-0" data-source-line="2">――スキタイ秘宝譚――</p>
+<p class="source-line role-narration role-magic role-horror tone-5 gap-2" data-source-line="5"><span class="term term-skill">【序　黄金の死者】</span></p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="7">　午前三時十七分、アルマトイ国立博物館の地下収蔵庫で、死者は馬具の展示台にまたがっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　男の名はラシード・オルロフ。旧ソ連圏で略奪文化財を動かす仲買人で、警察が十年追っても尻尾をつかめなかった人物だ。その彼が今、二千五百年前の鞍に腰を据え、両腕を胸の前で折り畳み、まるで寒さに耐える胎児のような姿勢で息絶えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　口には、親指ほどの黄金の鹿が噛ませてあった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="13">「防犯カメラには誰も映っていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　文化財犯罪対策局の捜査官、アイダル・サパロフが言った。背の高いカザフ人で、灰色のコートの肩にまだ夜明け前の雪を残している。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="17">「収蔵庫は内側から施錠。カードの履歴もオルロフ一人分。死因は、おそらく薬物による心停止。ただし注射痕がない。舌の裏に小さな裂傷があるが、毒物検査はこれからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　九鬼真名は、返事をせず黄金鹿を見つめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　鹿は脚を深く折り、角を背へ沿わせていた。スキタイ美術に特有の、静止しているのに今にも跳ねそうな造形。だが、真名が息を止めた理由は様式ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　鹿の腹に、針で刻んだような二文字があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　Ｇ・Ｋ。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　九鬼玄堂。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　十八年前、アルタイ山脈で消息を絶った父の頭文字だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「触るなと言われるだろうけど」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="33">　真名は薄い手袋をはめ、黄金鹿を死者の歯の間から抜き取った。金属は奇妙に温かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　裏面に、さらに細い刻線が走っている。鹿、猪、翼を持つ獣。互いに噛みつき、絡まり、円を描く動物文様。その中心に、現代の工具で彫られた日本語があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　――獲物は、追う者の内側にいる。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="39">　真名の喉の奥で、古い記憶が軋んだ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="41">　父が最後に家を出た夜、同じ言葉を口にしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="43">「この鹿を知っているか」</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　アイダルの問いに、真名はゆっくりとうなずいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="47">「父が“天馬の墓”から持ち帰ったものです。公式記録では発見されていない。父自身が、存在を否定していた」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="49">「では、なぜオルロフが持っていた？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="51">「それを知っている人間は、たぶん一人だけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　真名は黄金鹿を掌に載せた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="55">「レフ・ゾリン博士。考古学者で、殺人犯。いまは第九隔離医療刑務所にいる」</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　アイダルの顔から、眠気が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　レフ・ゾリン。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　中央アジア各地で八人を殺し、遺体をスキタイの動物闘争文様に見立てて配置した男。犠牲者はすべて盗掘業者か密売人だった。ゾリンは裁判で動機を語らず、ただ一度だけこう述べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　――彼らの最後の顔には、歴史より正直なものが出ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　真名は鹿を握った。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="67">「彼は父の最後の共同研究者です」</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="70"><span class="term term-skill">【一　硝子の獣】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="72">　第九隔離医療刑務所は、天山山脈の裾野にある旧軍病院を改築した施設だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　レフ・ゾリンは、地下三階の面会室で本を読んでいた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="76">　硝子の向こうにいる男は、真名の記憶より老いていた。銀色の髪は短く、頬は痩せ、囚人服の襟元から白い傷跡がのぞく。だが姿勢は大学の講壇に立っていた頃と変わらない。静かで、無駄がなく、自分の周囲だけ重力が違うようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　彼は本を閉じ、真名を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「君は大人になったのではないな」</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　挨拶の代わりに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「置いていかれた子供が、背丈だけ伸ばした顔だ」</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="86">「あなたは年を取った。中身は腐ったままだけど」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「安心した。玄堂の娘なら、それくらいは言う」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　真名は机上のトレーに黄金鹿を置いた。看守が長い柄の器具で硝子の下の受け渡し口へ押し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　ゾリンは鹿に触れなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「オルロフは死んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「句読点が一つ、打たれた」</p>
+<p class="source-line role-dialogue fx-beat tone-5 gap-1" data-source-line="98">「あなたが殺した？」</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="100">「この部屋から？　それなら私は悪人ではなく魔術師だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="102">「外に手足がある人間ほど、そう言う」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="104">　ゾリンは微笑んだ。喜びではない。真名の反応を測るための、ごく小さな筋肉の動きだった。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="106">「死体はどんな姿勢だった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「鹿のように脚を折っていた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="110">「口には？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「これが」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「なら彼は警告ではない。鍵穴だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="116">　ゾリンはようやく黄金鹿を取り上げ、天井灯に透かした。金の薄板に見えた表面から、蜘蛛の巣ほど細い影が浮かぶ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="118">「スキタイの動物文様を、多くの学者は装飾だと考える。権威、戦い、自然崇拝。どれも間違いではない。だが玄堂は、別の仮説を立てた。これは文章だ、と」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="120">「絵文字？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="122">「もっと古く、もっと冷たい。動物の向き、噛みつく位置、折れた脚、角の分岐。すべてが位置と順序を示す。地図ではない。機械を扱うための手順書だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="124">「何の機械？」</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　ゾリンは黄金鹿を机に置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="128">「人間が神と呼ぶ前に、獣と呼んだものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="130">　真名は表情を変えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="132">「父はどこで死んだの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="134">「質問が飛んだな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="136">「答えて」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="138">「君が本当に知りたいのは、死んだ場所ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　ゾリンは指先で鹿の角をなぞった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="142">「玄堂が、なぜ君より墓を選んだかだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　真名の右手の親指が、人差し指の付け根を一度こすった。</p>
+<p class="source-line role-narration gap-1" data-source-line="146">　ゾリンの目がそこへ落ちる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「嘘をつく前の癖も変わらない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="150">「次に父の話で遊んだら、その鹿をあなたの喉に詰める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="152">「怒りは便利だ。悲しみより持ち運びやすい」</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　面会室の空調音が、やけに大きくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　アイダルが壁際から一歩進み出る。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="158">「博士。オルロフの死と、この遺物の意味を知っているなら話せ。取引は検察が用意する」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="160">「取引？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「刑の軽減はない。ただし研究資料への限定アクセス、屋外運動時間の拡大、その他の条件は交渉できる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「私は空が見たいわけではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　ゾリンは真名だけを見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「空の下に埋まっているものが見たい」</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　彼は黄金鹿を裏返した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「この鹿には三つの仲間がある。猪、鷲獅子、鹿。玄堂は鹿を持ち帰り、猪を墓に残し、鷲獅子を共同出資者へ預けた。共同出資者の会社は今、エリュシオン生体工学財団と名を変えている」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「ヘレナ・コルダ」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　アイダルが低く言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　ヘレナ・コルダ。臓器再生と神経接続技術で巨万の富を築きながら、裏では紛争地帯の遺物を買い漁る女。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="180">「オルロフは彼女の仲介人だった」</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　ゾリンは続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="184">「鹿が表へ出た以上、コルダも動く。玄堂の墓へ至る道は、今夜から狩場になる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="186">「場所を知っているの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="188">「入口までは」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="190">「中は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「私が必要だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　真名は即座に答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="196">「必要ない」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="198">「では君は、父と同じ場所で同じ間違いをする」</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　ゾリンは鹿の折れた脚を爪で弾いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「見ろ。鹿は逃げる姿ではない。跳ぶ姿でもない。自分の脚を腹の下へ畳み、輪を閉じている。玄堂はこれを“眠る鍵”と呼んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="204">「何を開く鍵？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="206">「逆だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　ゾリンの声から、初めて微笑が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="210">「閉じるための鍵だ」</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="213"><span class="term term-skill">【二　草原の歯】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="215">　その日の夕方、真名たちは軍用輸送ヘリでアルマトイを発った。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="217">　ゾリンの同行を認めたのは、文化財犯罪対策局でも刑務所でもない。エリュシオン財団がすでに国境地帯へ武装要員を送り込んだという情報だった。時間が法手続きを追い越し、責任者たちは全員、後で否定できる命令だけを出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　ゾリンの両手には短い鎖、足首には発信器。護送官が二名。アイダルは自動小銃を膝に置き、真名は窓の外を流れる褐色の大地を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　雪をいただく峰の下に、草原が果てしなく広がっている。</p>
+<p class="source-line role-narration role-memory role-horror tone-5 gap-1" data-source-line="223">　スキタイの騎馬集団は、かつてこの地を風のように移動した。王の墓には黄金と馬を埋め、死者に武器と酒を持たせた。彼らは都市を築かなかったが、星と水場と敵の匂いを読む術を知っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　父は言っていた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="227">　文明は石の高さでは測れない。何を記憶し、何を忘れるかで測るのだ、と。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「右へ二度、左へ一度」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　ゾリンが突然言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　操縦士が振り返る。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="235">「何だ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="237">「回避運動だ。今すぐ」</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　次の瞬間、機体の右側で空が爆ぜた。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　肩撃ち式ミサイルが、尾翼すれすれを白煙を引いて通過した。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　操縦士が機体を倒す。真名の身体が安全帯へ叩きつけられ、窓外の地平線が縦に回った。二発目が後方ローターの基部を削り、警報が鳴り響く。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="245">「どうして分かった！」アイダルが怒鳴る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="247">「谷の入口に鳥がいなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　ゾリンは鎖につながれたまま、平然と窓の外を見ていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「それに、狙撃手は最初の一発を風上から撃つ。自分の煙で視界を失いたくないからな」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　ヘリは高度を失い、石の多い斜面へ滑り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　着地というより墜落だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　脚部が砕け、機体が半回転する。真名は頭を打ち、視界の端が白くなった。燃料の臭い。誰かの呻き。ローターが土を噛み、やがて止まる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="259">「出ろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　アイダルが扉を蹴り開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　斜面の上から銃弾が降った。護送官の一人が肩を撃たれ、機体の陰へ倒れる。もう一人が応射する。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　ゾリンは座席に鎖で固定されたままだった。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="267">「鍵を！」</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　彼が叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="271">「ふざけるな！」護送官が怒鳴り返す。</p>
+<p class="source-line role-dialogue role-horror tone-1 gap-1" data-source-line="273">「三十秒後に燃料へ火が回る。私を焼くのは自由だが、君も同じ棺桶だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　真名は床に落ちた鍵を拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　アイダルが止めるより早く、ゾリンの手錠を座席から外す。ただし両手の鎖は残した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="279">「逃げたら撃つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「君は逃げる者を背中から撃たない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="283">「試してみる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="285">「今は遠慮しよう」</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　彼らが機体を離れた直後、尾部が炎を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　斜面下の乾いた谷へ走る。背後で燃料タンクが破裂し、熱風が真名の背を押した。銃声が二つ、三つ。護送官の一人が倒れたが、戻る余裕はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　谷底には、遊牧民の冬営地があった。無人の柵に六頭の馬が残されている。アイダルが手早く手綱を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="293">「乗れるか？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="295">「父に最初に教わったのが馬」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「次は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「落ち方」</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　真名は栗毛へ飛び乗った。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　ゾリンは手錠のまま黒馬の背へ上がった。長い空白を感じさせない姿勢だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　五人になった一行は、夕暮れの草原を東へ駆けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　やがて銃声は遠ざかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　日が落ち、空に無数の星が開いた頃、彼らは岩陰で馬を休ませた。負傷した護送官は熱を出し、アイダルが応急処置をしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　真名は火から離れ、黄金鹿を月光にかざした。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　薄い金板の内部に、肉眼では見えない格子が浮かぶ。角の枝を星の並びに重ねると、一本の線が北東を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「座標ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　ゾリンが背後から言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="319">「季節と見る角度を指定している。鹿の角は星図、脚は地形、噛みつく獣は入口の向きだ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="321">「あなたは、父とどこまで行った？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「第一の門まで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="325">「そこで何があった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">「玄堂は私を追い返した」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="329">「なぜ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">「私が喜びすぎたからだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　真名は振り向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　ゾリンの横顔を、焚き火の光が半分だけ照らしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「墓の奥から、声が聞こえた。耳で聞く声ではない。自分が最も欲しい言葉が、自分自身の声で囁く。玄堂は恐れた。私は美しいと思った」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="339">「その後、あなたは人を殺し始めた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="341">「因果を急ぐな。人は理由が一つなら理解できると思いたがる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「八人殺した事実は一つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="345">「そうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　ゾリンはあっさり認めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「だから私はここにいる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「後悔は？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="353">「後悔は、失敗した選択に対する感情だ。私は選択を誤ったとは思っていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　真名の手が、無意識に腰の拳銃へ触れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「だが」</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　ゾリンは彼女の動きを見て続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="361">「一人だけ、最後の言葉を聞き損ねた。それは惜しい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「誰？」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="365">「君の父親だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　風が火の粉をさらった。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　真名は拳銃を抜き、銃口をゾリンの眉間へ向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　アイダルが立ち上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　ゾリンは動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="375">「あなたが父を殺した？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="377">「いいや」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="379">「では、見殺しにした？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="381">「それも違う。玄堂は自分で門を閉じた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「何を閉じ込めるために」</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　ゾリンの目が、真名の背後の星空へ向いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「人間を見つけたがっているものを」</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="390"><span class="term term-skill">【三　獣文の門】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="392">　翌日、彼らはベルクト谷へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　両側から黒い岩壁が迫り、風が獣の唸りのような音を立てる。谷の奥には季節外れの雪が残り、その中央に、自然の丘と見分けのつかない巨大な墳丘があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　スキタイ王族のクルガン。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　だが頂上には盗掘口も祭祀柱もない。周囲を三度回った真名は、南斜面の低い位置で馬を止めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="400">「入口はここ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「根拠は？」アイダルが訊く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="404">「普通の王墓なら、太陽や山へ軸を合わせる。でもこの墳丘は、全部の基準から少しずつ外れている。見せるための墓じゃない。見つからないための箱」</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　真名は黄金鹿を岩肌へ当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　角の輪郭と、岩の亀裂が一致した。</p>
+<p class="source-line role-narration gap-1" data-source-line="410">　護送官が工具で土を払い、平たい石板を露出させる。そこには鹿、猪、鷲獅子が渦を巻く浮彫りがあった。三頭とも互いの急所へ歯を立てている。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="412">「動物闘争文様」アイダルが言う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　ゾリンが膝をついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「闘っていない。互いを止めている」</p>
+<p class="source-line role-narration gap-1" data-source-line="420">　彼は手錠の鎖を鳴らしながら、猪の前脚を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「鹿は猪の肩を噛み、猪は鷲獅子の翼を押さえ、鷲獅子は鹿の角を折っている。三者が同時に動けば、輪はほどける。一者だけなら、他の二者が締まる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="424">「三つの黄金板が必要ということか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「開けるならな」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　背後で、安全装置の外れる音がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="430">「では、開けてもらいましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　女の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　岩壁の上に、黒い防寒服の人影が並んでいる。銃口が一斉に谷底を向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　中央に立つ金髪の女が、ゆっくりとゴーグルを外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　ヘレナ・コルダ。</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　写真より若く見えた。だが目の下には眠れない人間特有の薄い影がある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="442">「九鬼真名。あなたのお父様には、大きな借りがある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="444">「返しに来た顔には見えない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="446">「利子を受け取りに来たのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　コルダは指を鳴らした。部下が二人、斜面を降りてくる。一人の手には黄金の猪、もう一人の手には翼を丸めた鷲獅子があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　三枚が揃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　アイダルは銃を下ろさない。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="454">「民間財団が国境内で武装作戦とは、趣味が悪いな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「国家は遺跡を守れない。市場は守る。私は市場より少し先にいるだけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　コルダの視線がゾリンへ移った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「博士。あなたの伝言は届いたわ」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　真名はゾリンを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="464">「伝言？」</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　ゾリンは何も答えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　コルダが笑った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="470">「オルロフの口に鹿を入れたのは、私の人間。でも姿勢を指定したのは彼よ。刑務所の図書請求票、貸出番号、返却日の数字。几帳面な看守ほど暗号を運びやすい」</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　アイダルがゾリンの胸へ銃口を突きつけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="474">「最初からか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="476">「最初からではない」ゾリンは言った。「玄堂が死んだ日からだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="478">「あなたは私たちを餌にした」真名の声は、自分でも驚くほど静かだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="480">「鍵は三つ必要だ。コルダは鷲獅子を持つ。君は鹿を持つ。猪は墓の門にあると考えていたが、彼女が先に回収していた。全員を同じ場所へ呼ぶのが最も早い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="482">「人間を道具にする癖は、治療されなかったのね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「治療とは、社会にとって扱いやすい嘘を覚えることだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　コルダが部下に顎をしゃくった。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　負傷した護送官が銃床で殴られ、膝をつく。真名とアイダルも武器を奪われた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="490">「開けなさい、博士」</p>
+<p class="source-line role-narration gap-1" data-source-line="492">　三枚の黄金板が浮彫りの窪みへはめ込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　鹿、猪、鷲獅子。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　ゾリンが一枚ずつ回す。三頭の口が別々の方向を向き、最後に鹿の脚が外側へ伸びた。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　真名は眉を寄せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「鹿は脚を畳むはず」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="502">「閉じる時はな」</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　ゾリンが黄金鹿を押し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　墳丘の奥から、何か巨大なものが息を吸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　石板の継ぎ目が割れ、黒い空気が吐き出される。二千年以上閉ざされていたはずなのに、黴や土の臭いはしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　代わりに、雨の前の金属臭がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　扉が左右へ沈み、下り階段が現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="514">「ようこそ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="516">　ゾリンは闇へ向かって囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「王のいない墓へ」</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="521"><span class="term term-skill">【四　王のいない墓】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="523">　階段は地下深くへ続いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　壁には松明を置く窪みがあるが、煤の跡がない。コルダの部下が携帯灯を点けると、光は磨かれた黒石に吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　最初の広間には、十三頭の馬が立っていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="529">　死んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　だが倒れてはいない。氷に包まれ、黄金の面をかぶせられ、生きて主人を待つ姿のまま凍っている。鞍には赤い羊毛、たてがみには小さな金の筒。二千五百年の時を越え、馬の眼球さえ青白く残っていた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="533">　護送官が胸の前で祈りの印を切る。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="535">　アイダルは小さくカザフ語で何かを唱えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="537">「十四頭目がいた」</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　真名が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　床に、空いた蹄跡が四つある。そこだけ氷が掘り返され、奥の通路へ続いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「父たちが動かした？」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="545">「いいや」</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　ゾリンは床へ屈み、氷の傷を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「内側から歩いた」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="551">　コルダの部下が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="553">「二千年前の馬が？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「歩いたのは馬とは限らない」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="557">　その直後、最後尾で短い悲鳴が上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　一人が床へ倒れている。足首に、黒い糸のようなものが絡みついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　糸は床の穴へ引き込まれ、男の脚を強く引く。仲間が腕をつかんだが、石床の継ぎ目が上下から開き、白い歯のような石杭が現れた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="563">「離せ！」ゾリンが叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　仲間が手を放した瞬間、男の身体が隙間へ消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　石の顎が閉じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　音は一度だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　静寂の中で、ゾリンが壁の浮彫りを照らした。鹿の後脚へ、狼が噛みついている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="573">「捕食者は傷を狙う。床の欠けた石を踏めば、罠はそこへ噛みつく。先ほどから同じ規則が書かれていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　コルダが彼の頬を平手で打った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="577">「先に言いなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　ゾリンはゆっくり顔を戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="581">「あなたは部下の命より、自分が無知に見えたことへ怒っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　コルダの目が細くなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="585">「もう一度、私を分析してみなさい」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="587">「弟はまだ眠っているのか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　空気が凍った。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　コルダの拳が止まる。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="593">「落馬事故。脳幹は生き、身体も生きている。だがあなたを姉と呼んだ記憶だけが戻らない。だから神経再生に投資し、記憶の保存に投資し、最後に墓へ投資した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「黙れ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="597">「あなたが欲しいのは不老ではない。たった一度、“ヘレナ”と呼ばれたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　コルダは拳銃を抜き、ゾリンの額へ押しつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　真名は彼女の手が震えているのを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="603">「撃てば門を開ける者がいなくなる」</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　ゾリンは瞬きもしない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「君はいつも、それで助かると思っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　コルダは数秒後、銃を下ろした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="611">「進みなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　一行は、浮彫りの“傷”を避けて進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　第二の広間には、人間の骸骨が円形に座っていた。王冠をかぶる者はいない。男も女も、戦士も子供もいる。全員が中央の黒い柱へ顔を向け、頭蓋骨の内側に薄い金箔が貼られている。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="617">「王墓ではない」真名は呟いた。「集団祭祀場でもない。これは……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「観客席だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　ゾリンが答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　黒い柱の根元に、古びた登山用ザックがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　日本製。十八年前の型。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　真名は駆け寄り、膝をついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　中には腐食した懐中電灯、フィルムケース、革表紙の野帳。そして、銀の指輪。</p>
+<p class="source-line role-narration gap-1" data-source-line="631">　父がいつも右手にはめていたものだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　真名は指輪を握りしめた。金属は冷たく、掌の熱を奪っていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　野帳の最終ページは、水に濡れたように波打っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="637">　日本語の走り書きが残っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　――牙ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　――墓でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　――これは呼び声を待つ罠だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　――金は装飾ではなく、檻。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　――真名へ。帰れなかったら、私を探すな。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　そこから先は、黒い染みで読めない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="651">「探すな、か」</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　ゾリンが背後で言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　真名は立ち上がり、彼の顔を殴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　拳に骨の感触が走る。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="659">　ゾリンはよろめいたが、笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="661">「父が死ぬと知っていたなら、なぜ止めなかった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「止めた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="665">「嘘」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="667">「玄堂は私を門の外へ撃ち出し、内側から封じた。私は三日間、岩を掘った。指の爪が剥がれるまで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="669">「あなたが？」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="671">「信じたくないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　ゾリンの口元から血が一筋落ちた。</p>
+<p class="source-line role-dialogue role-horror gap-1" data-source-line="675">「怪物が誰かを救おうとした事実は、君の世界を不潔にする。だが人間は分類ほど親切ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　真名は返す言葉を失った。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　そのとき、黒い柱の奥で低い振動が始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　コルダの部下が、壁の穴へ鷲獅子の黄金板を差し込んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　柱が二つに割れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　その向こうに、星のない夜より黒い回廊が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　真名の頭の内側で、懐かしい声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　――真名。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　父の声だった。</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="694"><span class="term term-skill">【五　星喰み】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="696">　回廊の先にある空間は、人間が掘ったものではなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="698">　壁も床も継ぎ目のない黒い物質でできている。光を当てると、表面の奥を青白い点が走った。神経の発火にも、遠い銀河にも見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　中央には、巨大な牙が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　長さは人の腕ほど。湾曲した半透明の黒い結晶。その内部で、無数の光点がゆっくり渦を巻いている。牙は黄金の枝に絡め取られ、鹿の角を思わせる格子の中心に吊られていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　スキタイの黄金動物文様は、すべてこの格子へつながっていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="706">「彼らはこれを作ったのではない」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="708">　真名は父の野帳を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="710">「見つけて、封じた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">「約二万年前、この地域へ落下した」ゾリンが言う。「玄堂は周辺の地層から、地球上に存在しない同位体比を検出した。牙に見えるのは偶然だ。生物の器官か、機械の一部か、その区別に意味がある文明のものではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　コルダの瞳に、黒い結晶の光が映る。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="716">「記憶を保存できるの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="718">「保存ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　ゾリンは囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="722">「狩る」</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　結晶が脈打った。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="726">　真名の耳元で父の声がする。</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　――こっちへ来い。もう帰れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　彼女は奥歯を噛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="732">「何を狩る？」アイダルが訊く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">「知性だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　ゾリンは黒い牙から目を離さない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="738">「恐怖、欲望、攻撃、服従。生物が生き延びるために作る選択を読み、最も効率のよい捕食者の型を抽出する。スキタイの祭司たちは、戦士や王をここへ座らせた。牙は彼らの心を開き、互いに争わせ、最後に残った精神の輪郭を取り込んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="740">「古代の兵器？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="742">「もっと単純だ。罠だよ。知性が自分から近づき、自分から接続し、自分から餌になるように作られた」</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　コルダが黄金の猪を、格子の空いた窪みへはめ込んだ。</p>
+<p class="source-line role-dialogue fx-key fx-peak role-motif gap-1" data-source-line="746">「やめろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　真名が飛び出そうとしたが、部下に腕をつかまれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　続いて鷲獅子、最後に鹿。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　三枚の黄金板が、脚を外へ伸ばした姿で並んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　輪が開く。</p>
+<p class="source-line role-narration gap-1" data-source-line="756">　黒い牙の内部で、星々が一斉に瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　音はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　それでも全員が、何か巨大なものに名前を呼ばれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　コルダの部下の一人が、突然隣の男へ銃を向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="764">「お前が盗んだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">「何を――」</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　銃声。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="770">　別の男が悲鳴を上げ、壁へ向けて乱射する。黒い表面には傷一つつかない。弾丸が跳ね返り、灯りが砕けた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="772">　闇の中で、人々はそれぞれ別の敵を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　アイダルが頭を抱え、膝をつく。</p>
+<p class="source-line role-dialogue fx-whisper tone-3 gap-1" data-source-line="776">「弟を……離せ……」</p>
+<p class="source-line role-narration gap-1" data-source-line="778">　コルダは牙へ歩いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　彼女の前には、誰にも見えない誰かが立っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="782">「ミハイル？」</p>
+<p class="source-line role-narration gap-1" data-source-line="784">　声が少女のように震える。</p>
+<p class="source-line role-narration gap-1" data-source-line="786">　黒い牙から細い光の糸が伸び、コルダの額へ触れた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="788">　彼女は微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="790">「私が分かるのね」</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　次の瞬間、身体が弓なりに反った。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　彼女の目から感情が消えた。笑みだけが顔に残り、糸の先へ吸い上げられるように、皮膚から色が失われていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　真名は部下の手を振りほどいた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="798">　頭の中で、父の声が近づく。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　――真名。怖かったな。</p>
+<p class="source-line role-narration gap-1" data-source-line="802">　黒い空間が、いつの間にか故郷の台所へ変わっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="804">　十二歳の真名が椅子に座っている。窓の外は雨。父が遠征用の鞄を持ち、玄関に立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　あの夜だ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="808">　何度夢に見ても、父は振り返らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="810">　だが今、父は戻ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="812">　若い頃の顔で、濡れた上着を脱ぎ、真名の前へ膝をつく。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="814">「すまなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="816">　彼は言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="818">「お前より、墓を選んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="820">　真名の胸の奥で、十八年間固まっていたものが崩れそうになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="822">　その言葉を待っていた。</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="824">　夢の中でも、怒りの中でも、誰にも言わず待ち続けていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="826">　父が手を差し出す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="828">「一緒に帰ろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="830">　真名も手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="832">　指先が触れる直前、彼女は止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="834">　父の右手に、銀の指輪がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="836">　だが現実の指輪は、真名の掌の中にある。</p>
+<p class="source-line role-narration gap-1" data-source-line="838">　それだけではない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="840">　父は一度も「墓を選んだ」とは言わなかった。真名が心の中で使ってきた言葉だ。父の声を借りているのは、父ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="842">　彼女自身の傷だった。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="844">「あなたは、私の記憶しか知らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="846">　真名は幻へ言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="848">　父の顔が微笑んだまま静止する。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="850">「私が知らない父を、あなたは作れない」</p>
+<p class="source-line role-narration gap-1" data-source-line="852">　台所がひび割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="854">　黒い空間が戻る。</p>
+<p class="source-line role-narration gap-1" data-source-line="856">　真名の前で、ゾリンが牙へ両手を伸ばしていた。いつの間にか手錠の鎖を切り、黄金格子の内側へ入っている。</p>
+<p class="source-line role-dialogue fx-climax fx-key role-motif gap-1" data-source-line="858">「やめろ！」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="860">「なぜ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="862">　彼の顔には、初めて隠しようのない歓喜があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="864">「ここには嘘がない。人間が最後に隠すものまで剥がし、純粋な選択だけを残す。恐怖がどこから生まれ、愛がどの瞬間に憎悪へ変わるか。私は一生、それを見たかった」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="866">「だから人を殺した？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="868">「死の直前、人は役割を捨てる。父親も、商人も、善人も悪人もなくなる。残るのは、ただの動物だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="870">「違う」</p>
+<p class="source-line role-narration gap-1" data-source-line="872">　真名は黄金鹿の窪みへ向かって歩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="874">「あなたは真実を見たかったんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="876">　ゾリンの目が彼女へ動く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="878">「自分を見てほしかっただけ」</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="880">　黒い牙の光が揺れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="882">「八人を殺して、最後の顔を集めた。なぜなら、その瞬間だけは誰もあなたから目をそらさない。恐怖であれ何であれ、相手の世界の中心になれるから」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="884">「安い診断だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="886">「では、なぜ遺体を作品にしたの。真実だけが欲しいなら、誰にも見せずに埋めればよかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="888">　ゾリンの口元がわずかに歪んだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="890">「あなたは観客が必要だった。父にも、私にも、この牙にも」</p>
+<p class="source-line role-narration gap-1" data-source-line="892">　真名は黄金鹿へ手をかけた。</p>
+<p class="source-line role-dialogue role-memory tone-5 gap-1" data-source-line="894">「あなたが一番恐れているのは死じゃない。誰の記憶にも残らず、見られないまま消えること」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="896">「手を離せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="898">　ゾリンの声が低くなった。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="900">「鹿を反転させれば接続が閉じる。玄堂の残留記憶も消える」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="902">「残留記憶？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="904">「彼は最後に牙へ触れた。痕跡はある。君が見た幻の中に、本物が混じっているかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="906">　真名の手が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="908">　ゾリンは穏やかな声へ戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="910">「知りたくないか。最後に何を考えたのか。君を愛していたのか。置き去りにしたことを悔やんだのか」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="912">　黒い牙の中に、父の顔が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="914">　今度は声を出さない。</p>
+<p class="source-line role-narration gap-1" data-source-line="916">　ただ、真名を見ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="918">　十八年分の問いが、喉元まで上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="920">　真名は銀の指輪を握りしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="922">「痕跡は、人じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="924">　黄金鹿を引き抜く。</p>
+<p class="source-line role-narration gap-1" data-source-line="926">　ゾリンの顔から余裕が消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="928">「やめろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="930">「父が残したのは、答えじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="932">　真名は鹿の脚を内側へ折り、上下を反転させた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="934">「選ぶ権利よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="936">　窪みへ押し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="938">　輪が閉じた。</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="941"><span class="term term-skill">【六　最後の狩り】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="943">　黄金格子が、檻へ変わった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="945">　鹿、猪、鷲獅子が互いの動きを封じ、黒い牙の光が中心へ圧縮される。空間全体が歪み、耳では聞こえない絶叫が骨を震わせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　ゾリンの額へ、無数の光糸が突き刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　彼は逃げようとした。だが両手は牙の表面へ吸いつき、離れない。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="951">「閉じろ！」アイダルが叫んだ。「全部閉じろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　真名は猪と鷲獅子へ手を伸ばす。</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　床に倒れていたコルダが、彼女の足首をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="957">　空っぽだった目に、狂気だけが戻っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="959">「弟を返して」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="961">「それは弟じゃない！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="963">「返して！」</p>
+<p class="source-line role-narration gap-1" data-source-line="965">　コルダが拳銃を抜く。</p>
+<p class="source-line role-narration gap-1" data-source-line="967">　発砲。</p>
+<p class="source-line role-narration gap-1" data-source-line="969">　弾丸は真名の肩をかすめ、黄金格子へ当たった。青白い火花が走る。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="971">　アイダルがコルダへ飛びかかる。二人は床を転がり、拳銃が滑って闇へ消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　真名は猪を回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="975">　牙の中で光点が猛スピードで渦巻く。</p>
+<p class="source-line role-narration gap-1" data-source-line="977">　ゾリンが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="979">　彼の声ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="981">　老人、若者、女、男。八人の声が重なっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="983">　――見るな。</p>
+<p class="source-line role-narration gap-1" data-source-line="985">　――助けてくれ。</p>
+<p class="source-line role-narration gap-1" data-source-line="987">　――私は何も知らない。</p>
+<p class="source-line role-narration gap-1" data-source-line="989">　――お願いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="991">　ゾリンが奪った最後の言葉が、すべて彼の口から流れ出す。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="993">「違う」彼は喘いだ。「これは記録だ。私は観察している」</p>
+<p class="source-line role-narration gap-1" data-source-line="995">　黒い牙は答えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="997">　観察者と獲物の境界を消し、彼が切り取ってきた恐怖を、内側から再生している。</p>
+<p class="source-line role-narration gap-1" data-source-line="999">　真名は鷲獅子へ手をかけた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1001">「真名！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1003">　ゾリンが彼女を呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1005">　初めて、博士でも子供でもなく、ただ一人の人間へ助けを求める声だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1007">「ここに残せば、私は永遠に彼らを感じ続ける」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1009">「それがあなたの欲しかった真実でしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1011">「待て」</p>
+<p class="source-line role-narration gap-1" data-source-line="1013">　真名は鷲獅子を回した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1015">　三つの黄金板が完全な輪を作る。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1017">　ゾリンの身体が黒い光に包まれた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="1019">「一人にするな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1021">　その叫びだけは、彼自身の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1023">　牙が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1025">　音ではなく、夜空が割れるような感覚が走った。黒い結晶の内部から光が噴き上がり、天井を貫く。しかし黄金格子がそれを絡め取り、何重もの動物文様へ分散させる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1027">　鹿が猪を押さえ、猪が鷲獅子を噛み、鷲獅子が鹿の角を封じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1029">　捕食者は互いを喰い、最後に輪だけが残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1031">　ゾリンの姿は消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1033">　床に、切れた手錠が落ちている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1035">　次の瞬間、墳墓全体が大きく揺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1037">　壁の亀裂から水が噴き出す。地下の永久凍土が熱で融け、空洞へ流れ込んでいる。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1039">「出口へ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1041">　アイダルが真名の腕をつかむ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1043">　コルダは床を這い、砕けた牙の欠片を拾おうとしていた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="1045">「ヘレナ！」真名が叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1047">　彼女は振り返らない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1049">　黒い欠片の中に、弟の姿を見ている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1051">　天井の一部が崩れ、黄金格子ごと彼女を闇へ飲み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1053">　真名とアイダルは回廊を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1055">　背後から水が追ってくる。第二の広間を抜けると、座した骸骨が次々に倒れ、金箔の頭蓋が濁流へ転がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1057">　第一の広間では、氷漬けの馬たちが崩れ始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1059">　空いていた十四頭目の位置に、古い戦車が隠されている。二輪の木製車体は青銅で補強され、床には入口へ向かう二本の石溝が伸びていた。</p>
+<p class="source-line role-dialogue role-horror fx-shout tone-5 gap-1" data-source-line="1061">「葬送路だ！」真名が叫ぶ。「死者を外から運び込むための傾斜路！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1063">　二人は戦車へ飛び乗った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1065">　アイダルが車輪止めの青銅棒を蹴る。動かない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1067">　水が足元へ達した。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="1069">　真名は父の銀の指輪を棒の穴へ差し込み、梃子にした。金属が曲がり、棒が外れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1071">　戦車が動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1073">　最初はゆっくり、次いで石溝へ噛み合い、猛烈な速度で坂を下る。</p>
+<p class="source-line role-narration gap-1" data-source-line="1075">　氷の馬たちの間を抜け、閉じかけた石の顎をすり抜ける。牙のような杭が真名の髪を数本切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="1077">　前方で通路が崩れている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="1079">「止まれないぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1081">「止まらなくていい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="1083">　真名は戦車の前縁をつかんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1085">　崩落の向こうに、夜の青が見える。</p>
+<p class="source-line role-narration gap-1" data-source-line="1087">　戦車は石溝を外れ、空中へ飛び出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="1089">　一瞬、草原と星空が上下に開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1091">　二人は雪の斜面へ投げ出される。</p>
+<p class="source-line role-narration gap-1" data-source-line="1093">　背後で墳丘が沈み、巨大な呼吸のように土煙を吐いた。黒い水が入口から噴き、すぐに岩と雪で塞がれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1095">　真名は仰向けになったまま、空を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1097">　星々は何事もなかったように瞬いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="1099">　アイダルが隣で咳き込み、笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1101">「次に遺跡へ行く時は、地上にあるものにしろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1103">「善処する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1105">「嘘だな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1107">「分かる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="1109">「親指をこすった」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="1111">　真名は自分の手を見て、初めて声を上げて笑った。</p>
+<p class="source-line role-narration role-magic gap-2" data-source-line="1114"><span class="term term-skill">【終　走らない鹿】</span></p>
+<p class="source-line role-narration gap-1" data-source-line="1116">　三か月後、ベルクト谷は国際調査団によって封鎖された。</p>
+<p class="source-line role-narration gap-1" data-source-line="1118">　墳丘の地下は完全に崩落し、黒い物質も黄金格子も回収されなかった。エリュシオン財団は武装部門の存在を否定し、ヘレナ・コルダは小型機事故で死亡したと発表された。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="1120">　レフ・ゾリンは死亡扱いとなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1122">　遺体はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1124">　だが真名は、彼がどこかで生きているとは思わなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1126">　生きることと、残ることは同じではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1128">　アルマトイ国立博物館の修復室で、真名は父の野帳を一ページずつ乾かした。黒い染みの下から、最後の数行が浮かび上がったのは、作業を始めて四十日目だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1130">　――真名へ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1132">　――人は獣だ。恐れ、奪い、群れ、時に仲間を喰う。</p>
+<p class="source-line role-narration gap-1" data-source-line="1134">　――だからこそ、何を追わないかを選べる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1136">　――私が帰らなかったのは、お前を捨てたからではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1138">　――お前が帰れる場所を残したかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1140">　真名は長いあいだ、その文字を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1142">　涙は出なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="1144">　ただ胸の奥にあった硬い塊が、ようやく自分の重さで沈んでいくのを感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1146">　夕方、彼女は博物館の中庭へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="1148">　展示ケースの中には、修復を終えた黄金鹿が置かれている。脚を腹の下へ深く畳み、角を背へ沿わせ、輪を閉じた姿。</p>
+<p class="source-line role-narration gap-1" data-source-line="1150">　逃げる鹿ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1152">　追う鹿でもない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1154">　走らないことを選んだ鹿だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="1156">　中庭の向こうで、アイダルが車のクラクションを鳴らした。新しい盗掘事件の資料を助手席に積んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="1158">　真名は展示ケースに背を向けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="1160">　空には一筋の流星が走っていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="1162">　こちらへ落ちてくる光ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="1164">　遠ざかっていく光に見えた。</p>
+<p class="source-line end-mark gap-2" data-source-line="1167">――了――</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

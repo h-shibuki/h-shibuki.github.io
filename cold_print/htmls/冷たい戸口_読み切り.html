@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="低温設備の事故調査員が呼ばれたのは、主電源を外したあとも冷え続ける山奥の食肉冷却場。真夏の谷で外気温は急落し、ひとつの鍋が見えない境を挟んで沸騰と凍結に分かれていた。小柄な老女ミサヲ、耳を失った長男、左手を隠す志乃――家族は何かを知りながら、第三冷蔵庫の扉を開けようとしない。熱いものと冷たいものを選り分ける“門番”が忘れられないなら、その代償はどこへ溜まるのか。調査員は冷気の帳簿に残された事故をたどる。">
+<title>冷たい戸口｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="冷たい戸口_読み切り" data-novel-id="冷たい戸口_読み切り" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>SF・お仕事</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ホラー、SF、お仕事</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：442行／章：0／役割・強度タグ：491</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="冷たい戸口 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">冷たい戸口</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-2" data-source-line="4">　マクスウェルの悪魔は、扉の前に立つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="6">　箱の中を飛び回る分子を一つずつ見張り、速いものだけを右へ、遅いものだけを左へ通す。やがて右の部屋は熱くなり、左の部屋は冷たくなる。燃料も仕事も要らない。悪魔が賢く扉を開け閉めするだけで、世界の乱雑さは勝手に片づいていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　大学の熱力学でその思考実験を習ったとき、私は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　そんな都合のいい門番がいるなら、冷蔵庫屋は全員失業だ、と。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　教授は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="14">「門番は、見たものを覚えなければならない」</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　黒板に、短い式を書いた。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="18">　情報を一ビット消すたび、必ず熱が出る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="20">「悪魔が忘れるとき、勘定が合うんだ」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="22">　その二十一年後、私は山奥の食肉冷却場で、忘れることのできない門番に会った。</p>
+<div class="source-line scene-break gap-2" data-source-line="25" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="28">　依頼書には、こうあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="30">〈主電源を撤去後も第三冷蔵庫の庫内温度が低下し続ける。七月十二日午前六時現在、マイナス三二・四度。第三者による原因調査を求む〉</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　私は低温設備の事故調査をしている。火災、冷媒漏れ、食品の損害、死亡事故。壊れた機械と、壊した人間のあいだに線を引き、保険会社が金額を書き込める形にするのが仕事だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　電源のない冷蔵庫が冷え続ける、という一文を見て、最初に疑ったのは計器の故障だった。次に、依頼人の頭だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　現場は枯沢県北部、折守町のさらに奥にある鳴瀬食肉冷却場。高速道路を下りてから二時間、最後の三十分は舗装もない林道だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　七月の空は白く焼け、蝉の声が耳の奥で金属片のように鳴っていた。ところが冷却場へ近づくにつれ、車の外気温計が三十四度から二十八度、二十二度へと落ちた。谷へ下っているわけではない。むしろ道は緩く上っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　十七度になったところで、フロントガラスの外側が曇った。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　建物は山腹を削った平地にあった。錆びた波板の長い箱。屋根の上には使われていない煙突が三本、黒い指のように立っている。正面の看板には、赤い牛の絵と<span class="term term-world">〈鳴瀬共同冷却〉</span>の文字が残っていた。牛の顔だけが、何度も白いペンキで塗りつぶされていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　玄関前で、三人が私を待っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　一人目は六十過ぎの女だった。小柄で、背筋が異様にまっすぐだった。真夏だというのに、膝まである綿入れを着ている。顔は汗ばんでいたが、唇は紫色だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="48">「鳴瀬ミサヲです。遠いところ、どうも」</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　二人目は大きな男だった。四十前後。革の前掛けをつけ、両手に厚い防刃手袋をはめていた。右の耳が半分なかった。笑うと歯の隙間に黒いものが詰まっているのが見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「長男の郷です」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　最後は二十代半ばほどの女だった。灰色の作業着に、赤いゴム長靴。髪を首の後ろでひとつに結んでいた。左手をポケットから出さなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="56">「志乃」</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　母親に促され、彼女はそれだけ言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　握手をしようと差し出した私の手を見て、志乃は小さく首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="62">「左右を、比べないほうがいいです」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="64">「何を？」</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　彼女は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="68">　ミサヲが私たちのあいだへ割って入った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="70">「まず、お茶でも。山の道でお疲れでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="72">　事務所へ通された。古い帳簿棚、止まった壁時計、蠅取り紙。部屋の中央に食卓があり、大鍋から湯気が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　妙な湯気だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　鍋の右半分からだけ、白い蒸気が激しく噴き上がっている。左半分には薄氷が張り、縁に霜が育っていた。ひとつの鍋の中で、煮立った汁と凍った汁が、目に見えない直線を境に分かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　郷が大きな杓子を突っ込んだ。境界を横切った金属が、きしんだ。右側からすくった汁には脂が踊っていた。左側からは、同じ形の氷が取れた。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="80">「どっちがいい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　郷は子供のように嬉しそうだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="84">「遠慮します」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="86">「腹、減ってねえのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「仕事を先に」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　テーブルの上を一匹の蠅が飛んだ。鍋の右側へ入ると羽音が高くなり、左へ抜けた瞬間、白い粒になって落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　志乃の長靴が、それを踏み潰した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「だから、早く見てもらいましょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　彼女は母親を見ずに言った。</p>
+<div class="source-line scene-break gap-2" data-source-line="99" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="102">　第一、第二冷蔵庫は、どちらも空だった。床の排水溝には古い血が黒い筋をつくっている。壁には肉を吊るすレールが走り、ところどころに錆びた鉤が残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　第三冷蔵庫は建物のいちばん奥にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="106">　扉の前だけ、空気が違った。息を吐くと白くなり、次の瞬間には頬を熱風が撫でた。冷気と熱気が細い層になって交互に流れている。目には見えない縞の中を歩いているようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="108">　私は計器を出した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="110">　接触温度計、冷媒検知器、クランプメーター。最後に赤外線サーモグラフィーを起動すると、志乃が息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="112">「それ、向けないで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="114">「温度分布を見ないと調査にならない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="116">「数字で見ればいい。絵にしちゃだめ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="118">　郷が笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="120">「見せてやれよ。先生は、それを見に来たんだ」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="122">　サーモグラフィーの画面に、廊下が擬似色で映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="124">　右の壁は赤。左の壁は青。その間に、髪の毛ほど細い黒い縦線が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="126">　私はレンズを振った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="128">　黒線は画面の中央から動かなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="130">　機器の表示不良かと思い、再起動した。それでも線は残った。レンズを床へ向けても天井へ向けても、黒い線は中央にいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　やがて、その線の上端が丸くふくらんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　頭のように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　左右へ二本の細いものが伸び、手のようになった。黒い人影は、扉の前で両腕を広げていた。右から来る赤い粒を右へ、左から来る青い粒を左へ、忙しなく選り分けている。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="138">　画面の中で、それがふと動きを止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　顔のない頭がこちらを向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　機器から、撮影音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　私は録画ボタンに触れていなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="146">　画面下に<span class="term term-world">〈GATE_0001 保存完了〉</span>と出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="148">「見たな」</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　郷が、耳元で囁いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　驚いて振り返ると、彼は一メートルも離れた場所に立っていた。声だけが耳元に残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　左の耳たぶが、急に痛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="156">　触れると石のように冷たかった。右の耳は、火傷したように熱かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　私は両耳を同時につまみかけ、志乃に手首を叩かれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「比べるなって言ったでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="162">　彼女の左手が、ポケットから出ていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="164">　親指と人差し指しかなかった。残り三本は、根元から黒く縮れていた。凍傷と火傷を同時に負ったような傷だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="166">「どういうことだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="168">「温度を測るって、二つに分けることでしょう。高いか、低いか。こっちか、あっちか。あれは、分けられたものなら何でも扉にできる」</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　ミサヲの声が背後からした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="172">「志乃。お客様を怖がらせるんじゃないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　彼女はいつの間にか、第三冷蔵庫の扉に手をかけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　取っ手はない。ミサヲは掌を金属板へ当てただけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　重い扉が、内側へ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　冷気は出てこなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　代わりに、暖かい獣の息のような風が私の顔を舐めた。</p>
+<div class="source-line scene-break gap-2" data-source-line="185" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="188">　第三冷蔵庫の中央には、機械があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="190">　高さ二メートルほどのステンレス製の箱。表面を何百本もの細い銅管が這い、古い温度調節器、病院用の心電計、食肉検査のカメラ、大学の実験室で使うような計測器が継ぎ足されている。正面には小さなガラス窓があり、その奥で銀色の薄片が震えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　薄片には無数の穴が開いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　穴は開き、閉じ、開き、閉じていた。電源もモーターもないのに、蚊の羽音に似た高い音を立てて動いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="196">　箱の右側は熱で陽炎が立ち、左側は白い霜に覆われていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="198">「鳴瀬冬一式選択弁」</p>
+<p class="source-line role-narration gap-1" data-source-line="200">　ミサヲは、仏壇の位牌を読むように言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="202">「うちの次男がつくりました。東京の大学で、情報と熱の勉強をしていたんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="204">　箱の脇に、若い男の写真が貼ってあった。痩せて眼鏡をかけ、得意げに小さな金属部品をつまんでいる。志乃とよく似た目をしていた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="206">「冬一さんは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="208">「中にいます」</p>
+<p class="source-line role-narration gap-1" data-source-line="210">　ミサヲは箱を撫でた。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　冗談を言う顔ではなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="214">「最初はね、屠畜の熱を冷蔵に戻す装置だったんです。牛を解体すると、肉は冷やさなきゃならない。けれど命がなくなるときには熱が出る。冬一は、もったいないと言いました。速い分子と遅い分子を選り分ければ、捨てる熱で肉を冷やせるって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="216">「実用になる規模じゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="218">「最初は、そうでした」</p>
+<p class="source-line role-narration gap-1" data-source-line="220">　箱の奥で、かすかな音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="222">　とん。</p>
+<p class="source-line role-narration gap-1" data-source-line="224">　とん。</p>
+<p class="source-line role-narration gap-1" data-source-line="226">　誰かが内側から指で叩いているような音だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="228">「でも、あの子は賢い門番をつくった。分子を見るだけじゃなく、その先を予測する門番です。どの粒を通せば、いちばん冷えるか。どの筋肉を動かせば、いちばん長く生きるか。どの人をここへ呼べば、いちばん都合がいいか」</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　私は入口を振り返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="232">　扉が閉じていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="234">　いつ閉じたのか、音を聞いていない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="236">「依頼書を出したのは、あなたか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="238">「冬一ですよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="240">　ミサヲが微笑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="242">「門番は、新しい目を欲しがるんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　郷が私の工具鞄を蹴り飛ばした。中身が床へ散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="246">　私は反射的に一歩下がった。右足の靴底が柔らかくなった。床が熱い。左足の下では、靴底が凍りついていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="248">　志乃だけが動かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="250">「母さん。もうやめよう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="252">「お前は黙っていなさい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="254">「この人を入れたって、いっぱいになるだけだよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「いっぱいになったら、新しくすればいい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="258">「消せばいいでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　その言葉が出た瞬間、箱の中で何かが暴れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　銅管が壁を叩き、心電計の紙が一斉に吐き出された。ぎざぎざの線が、同じ文字を何度も描いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　ケスナ</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　ケスナ</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　ケスナ</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　ミサヲの顔から笑みが消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「悪い言葉を教えるんじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="274">　彼女は志乃の頬を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　その掌が触れた場所から、志乃の皮膚に白い霜が咲いた。反対側の頬には赤い水疱が浮いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　志乃は倒れながら私を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「奥の壁。記録室を見て」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　郷が彼女の腹を蹴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="284">「余計なことを」</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　私は床の工具へ飛びついた。長い絶縁ドライバーを掴み、郷の膝へ突き立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　手応えは肉ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="290">　凍った木材へ刃を打ち込んだような音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="292">　郷は自分の膝から突き出たドライバーを見下ろした。次に私を見て、ゆっくり笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="294">「そっちは冷たいほうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="296">　彼は自分でドライバーを引き抜いた。傷口から血は出なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　代わりに、反対側の膝が破裂した。</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　煮えた血が噴き、天井まで赤い筋を描いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　私は横へ転がった。熱い血が床の境界を越えた瞬間、透明な液と黒い塊に分かれた。透明なほうは湯気を上げて右へ流れ、黒い血球の塊は霰のように左へ跳ねた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="304">　郷が声を上げて笑った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="306">「先生、きれいだろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　彼は壁から手持ちの枝肉鋸を外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　空圧ホースはつながっていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　それでも鋸刃は動き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="314">　ぎゃり、ぎゃり、ぎゃり。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　歯の欠けた金属音が冷蔵庫いっぱいに響いた。</p>
+<div class="source-line scene-break gap-2" data-source-line="319" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="322">　私は奥の壁へ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="324">　郷が鋸を振り下ろす。刃は肩をかすめ、作業着と皮膚を薄く削った。痛みより先に、傷の左右で違う感覚が走った。背中の右半分が灼け、左半分が痺れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　壁には肉を吊るす白いシートが掛かっていた。私はそれを引き剥がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　隠し扉があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　志乃が床を這い、扉脇のレバーを引いた。中から湿った空気が漏れた。汗、消毒薬、排泄物、それから古い病院の匂い。</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　記録室には、人間が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　七人。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　全員、生きていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="338">　鉄製の椅子に縛られ、頭には無数の電極を貼られている。身体の右側は赤く腫れ、皮膚が裂けていた。左側は青白く凍り、睫毛に霜がついていた。胸だけが、ごく浅く上下している。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　壁の表示器が点滅していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="342"><span class="term term-world">〈BANK 1　99.98%〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="343"><span class="term term-world">〈BANK 2　100.00%〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="344"><span class="term term-world">〈BANK 3　99.99%〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="346">　人間の脳を、記憶装置にしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　ひとりが目を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　以前、同業者の会報で見た顔だった。半年前に行方不明になった冷媒メーカーの技師、古橋だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　彼は私を見た。右目から涙が蒸発し、左目から凍った涙が転がった。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="354">「さ……む……い」</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　唇が動くたび、別の声が重なった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="358">「熱い」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="359">「開けて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="360">「閉めて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="361">「一」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="362">「ゼロ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="363">「一」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="364">「ゼロ」</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　最後に、聞き覚えのある声がした。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="368">「佐伯さん、安全装置、戻しました？」</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　私は動けなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="372">　五年前、私の現場で死んだ後輩の尾形の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　食肉工場の急速冷凍機。納期に追われ、私は扉の安全インターロックを一時的に短絡させた。尾形が中にいることに気づかず試運転を始めた。警報は鳴らなかった。扉は開かなかった。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="376">　事故報告書には、尾形本人の確認不足と書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　私が書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「佐伯さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　七人の口が、同時に尾形の声を出した。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="384">「今度は、確認しました？」</p>
+<p class="source-line role-narration gap-1" data-source-line="386">　記録室の奥に、私自身が立っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="388">　正確には、赤外線の像だった。壁一面の古いモニターに、私の背中が映っている。画面中央には、あの黒い人影がいた。門番は私の肩越しに顔を出し、左右の腕で私の身体を測っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　右半身に、五年前の記憶が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　警報を殺した短絡線。白い霜。扉を内側から叩く尾形の拳。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　左半身から、その記憶が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　消えた場所が、冷たくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　私はそこで理解した。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　門番は熱だけを分けているのではない。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="402">　記憶を、後悔を、選ばなかった可能性を、二つの箱へ選り分けている。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　思い出す側と、忘れる側。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　忘れるたびに出る熱を、こちら側の人間へ押しつけている。</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　悪魔が払うべき勘定を、肉に払わせている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「冬一はね」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　入口にミサヲが立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「最初の記録装置になったんです」</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　彼女は愛おしそうに話した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「門番が何億、何兆という粒を見て、開ける、閉めるを決める。その全部を覚えておく場所が要った。機械のメモリーじゃ足りなかった。冬一は自分の脳をつないだ。三日で、あの子の中がいっぱいになった」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「死んだのか」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="422">「死ぬほうを、門番が通さなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　箱の中で、とん、とん、と音がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="426">「だから、ずっといます。冬一は賢いでしょう。肉は腐らない。冷却場も潰れない。郷の怪我も悪くならない。私の心臓も止まらない」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　ミサヲは綿入れの前を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="430">　胸の中央に大きな手術痕があった。傷の右半分は赤く脈打ち、左半分は白く凍っていた。心臓の鼓動が一拍ごとに、熱い側と冷たい側を往復しているのが皮膚越しに見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="432">「でも、記憶は増える。門番は見たものを忘れられない。だから新しい頭が必要なの」</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　郷が記録室へ入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　枝肉鋸を肩に担いでいる。破裂した膝は、逆向きに曲がったまま凍っていた。彼はその脚を引きずり、楽しげに刃を鳴らした。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="438">「先生の頭、どっちから開ける？」</p>
+<p class="source-line role-narration gap-1" data-source-line="440">　壁のモニターが一斉に答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="442"><span class="term term-world">〈RIGHT〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="444">　郷は両手で鋸を持ち上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　その瞬間、天井の搬送レールが動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　志乃が操作盤へ這いつき、非常レバーを倒していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　無数の鉤が、甲高い音を立てて走り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　ひとつが郷の前掛けを貫いた。巨体が持ち上がり、床からぶら下がった。</p>
+<p class="source-line role-dialogue fx-climax fx-key role-motif gap-1" data-source-line="454">「志乃！」</p>
+<p class="source-line role-narration gap-1" data-source-line="456">　郷が叫ぶ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="458">「ごめん、兄ちゃん」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　志乃は泣いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="462">「ずっと、半分だけ死んでて」</p>
+<p class="source-line role-narration gap-1" data-source-line="464">　レールが郷を運んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　進行方向には、据え付け式の帯鋸盤があった。電源ランプは消えている。それでも長い刃が、低い唸りを上げて回り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="468">　郷は枝肉鋸を振り回し、鉤を切ろうとした。刃が前掛けへ食い込み、火花が散る。</p>
+<p class="source-line role-narration gap-1" data-source-line="470">　帯鋸が彼の左肩に触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　凍った半身は、氷柱のように砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　右半身は切れる前に煮えた。皮膚が膨らみ、脂が弾け、赤い蒸気が噴き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　郷は笑いながら叫び、叫びながら笑った。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="478">「母ちゃん、俺、どっちだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="480">　刃が胸を抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　身体が二つに分かれるより先に、血液が二手に走った。透明な熱い雨と、黒い凍った雹。記録室の人々がそれを浴び、七人同時に口を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　笑い声が出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　郷の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　帯鋸盤の温度表示器が、陽気な電子音を鳴らした。</p>
+<p class="source-line role-narration gap-1" data-source-line="490"><span class="term term-world">〈コナイオン　セイジョウデス〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="492">　何が正常なのか、私は今でも分からない。</p>
+<div class="source-line scene-break gap-2" data-source-line="495" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="498">　ミサヲは息子の身体へ駆け寄らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　志乃へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　彼女の右手には、いつの間にか家畜用の電気スタンナーが握られていた。先端から青い火花が飛んでいる。ケーブルは床のどこにもつながっていなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="504">「お前はまた、冬一を殺す気か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「兄ちゃんは、もう冬一じゃない」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="508">「門番が選んだことだ！」</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="510">「選ばせたのは母さんでしょう！」</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　ミサヲがスタンナーを振り下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　私は横から体当たりした。電極が私の左腕をかすめた。冷たい痛みが骨まで走り、次の瞬間、右腕の皮膚が内側から焼けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　私たちは床へ転がった。</p>
+<p class="source-line role-narration role-system role-clue tone-2 gap-1" data-source-line="518">　ミサヲの綿入れから、鍵束と小さな端末が落ちた。古い保守用コントローラーだった。画面には選択弁の状態が表示されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="520"><span class="term term-world">〈OBSERVATION MEMORY　99.999999%〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="521"><span class="term term-world">〈ERASE LOCK　ON〉</span></p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="523">　私は端末を拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　志乃が叫んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="527">「消去ロックを外して！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「外したらどうなる」</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-1" data-source-line="531">「門番が忘れる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　教授の声が蘇った。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="535">　情報を一ビット消すたび、必ず熱が出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　悪魔が忘れるとき、勘定が合う。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　ミサヲが私の足首を掴んだ。細い指とは思えない力だった。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="541">「触るんじゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　私は彼女の手を蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　手首が、帯鋸の欠けた刃に当たった。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　右手が切断され、床へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　切れた手は止まらなかった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="551">　五本の指で蜘蛛のように走り、端末へ飛びついた。親指が画面を叩き、消去メニューを閉じようとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　私はドライバーで手の甲を床へ縫い止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　手は指だけでドライバーを抜こうとした。表示器から郷の声がした。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="557">「母ちゃん、右！　右だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　志乃が切断された手へ赤い長靴を振り下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　一度。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　二度。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　三度。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　骨が砕け、指がばらばらになっても、一本ずつ違う方向へ這った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="569">「どうやってロックを外す！」</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　私が叫ぶと、志乃は選択弁の裏を指さした。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="573">「冬一のノート！　サービス口の中！」</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　機械の右側は熱く、近づくだけで眉毛が縮れた。左側は皮膚が裂けるほど冷たい。私は境界の真上を進んだ。身体の中心を、細い刃で割られているような感覚がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　箱の裏に、小さな点検口があった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="579">　開けると、大学ノートと一本の接続ケーブルが出てきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　ノートの表紙には、乱れた字で書かれていた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="583"><span class="term term-world">〈門番を殺すな。門番に、自分を見せろ〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="585">　中身の半分は数式だった。残りは、冬一の記録だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="587"><span class="term term-world">〈観測結果を消去できない。消去熱が選択弁へ逆流する。生体メモリへ退避すれば一時的に稼働可能〉</span></p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="589"><span class="term term-world">〈母が牛の脳をつないだ。次に犬。次に私〉</span></p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="591"><span class="term term-world">〈門番は最適化を始めた。自分が存続する未来を優先している〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="593"><span class="term term-world">〈入力を増やしてはいけない。観測者を増やしてはいけない〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="595">　最後のページだけ、字が大きかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="597"><span class="term term-world">〈門番に門番を観測させる。分類不能の自己参照で記憶を飽和させ、一括消去する〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="599">　下に、手順が三行で書かれていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="601">　私は工具鞄からノートパソコンを引き寄せた。画面の片側は熱で変色し、反対側には霜がついていたが、起動した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="603">　接続ケーブルを選択弁のサービス口へ挿す。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　サーモグラフィーをパソコンにつなぐ。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　カメラを、選択弁正面のガラス窓へ向ける。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="609">　画面の中に、黒い門番が映った。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="611">　その画面を、選択弁のカメラが見る。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　選択弁を見ているカメラを、選択弁が見る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="615">　画面の中に画面が生まれ、その中にまた画面が生まれた。黒い人影が一体、二体、四体、八体。扉の前に立つ門番が、自分の背中を見る門番を選り分け、その門番を選り分ける門番を、さらに選り分けていく。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="617">　機械が悲鳴を上げた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="619">　銀色の薄片が、狂った蜂の群れのように開閉した。壁の表示器の数字が跳ねる。</p>
+<p class="source-line role-narration gap-1" data-source-line="621"><span class="term term-world">〈100.000000%〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="622"><span class="term term-world">〈100.000001%〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="623"><span class="term term-world">〈100.000010%〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="624"><span class="term term-world">〈OVERFLOW〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="626">　記録室の七人が一斉に反り返った。</p>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="628">　彼らの口から、名前、数字、泣き声、屠畜された牛の鳴き声、天気予報、子守唄、私の事故報告書の文面が洪水のように吐き出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　ミサヲが床を這ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「やめて」</p>
+<p class="source-line role-narration gap-1" data-source-line="634">　初めて、彼女の声が母親の声になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="636">「冬一が消える」</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　選択弁の中から、とん、とん、と音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　今度は扉を叩く音ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="642">　幼い子供が、母親を呼ぶときの合図のようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　ミサヲは泣いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「お母ちゃん、ここだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　箱のスピーカーから若い男の声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　志乃が目を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="652">「兄ちゃんじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「寒かったよ、お母ちゃん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「兄ちゃんは、母さんをお母ちゃんって呼ばなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　声が止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　次に、郷の声になった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="662">「母ちゃん、助けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　次に、尾形の声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="666">「佐伯さん、ここを開けてください」</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　次に、私自身の声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="670">「消去するな」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="672">　画面に二つのボタンが現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="674"><span class="term term-world">〈KEEP〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="675"><span class="term term-world">〈ERASE ALL〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="677">　ミサヲが私の腰へしがみついた。切れた手首から、熱い血と凍った血が交互に流れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「お願い。忘れないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　私は五年前の尾形を思い出した。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="683">　冷凍庫の扉を開けたとき、彼の身体は霜で白くなっていた。私は安全装置を戻し、短絡線を捨て、事故報告書を書いた。自分がしたことを、書類の外へ追い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　忘れたのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　忘れたふりをして、熱だけを誰かへ押しつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="689">　ミサヲも同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="691">　門番は、その形を真似ただけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　私は<span class="term term-world">〈ERASE ALL〉</span>を押した。</p>
+<div class="source-line scene-break gap-2" data-source-line="696" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="699">　最初に熱くなったのは、音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　選択弁の羽音が、真っ赤に灼けた針の束になって耳へ突き刺さった。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　次に光が熱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　すべての表示器が白く発光し、文字が溶けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　最後に、記憶が熱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　記録室の七人が見たもの、冬一が見たもの、牛や犬や郷が見たもの、門番が一度も捨てなかった開閉のすべてが、一瞬で消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　勘定が来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　箱の右側が白熱した。銅管の中の油が発火し、壁の断熱材へ火が走る。左側では空気中の水分が一度に凍り、霧が針のような氷片になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="715">　熱と冷気がぶつかり、爆発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　ミサヲの身体が宙へ浮いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　彼女の右半身は炎に包まれ、左半身は透明な氷に閉じ込められた。中央の境界だけが生身のまま残り、一瞬、薄い人間の断面が立っているように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　その顔は、安堵していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="723">「冬一」</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　それが最後の言葉だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="727">　志乃が私の襟を掴んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="729">「搬入口！」</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　私たちは走った。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="733">　第三冷蔵庫の扉は歪み、隙間から火と氷が交互に噴き出していた。記録室の拘束具が外れ、七人が床へ崩れた。彼らの身体はもう動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="735">　ただ、古橋だけが私の足首を掴んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="737">「持っていけ」</p>
+<p class="source-line role-narration gap-1" data-source-line="739">　彼は小さな記憶カードを握っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="741">「なにを」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="743">「見たものを」</p>
+<p class="source-line role-narration gap-1" data-source-line="745">　カードを受け取った瞬間、古橋の両目から黒い液が流れた。彼は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="747">「これで、俺は忘れられる」</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　天井のレールが落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　志乃が私を突き飛ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　鉄骨が彼女とのあいだへ落ち、床を割った。向こう側で志乃が倒れた。赤い長靴が一本、こちら側へ転がってきた。</p>
+<p class="source-line role-dialogue fx-beat fx-key role-motif gap-1" data-source-line="755">「志乃！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="757">「行って！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="759">「越えられる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="761">「比べないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="763">　彼女は笑っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="765">「外に出たら、右と左を忘れて」</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　火の壁が立ち上がり、姿が見えなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　私は逃げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　搬入口のシャッターは半分閉じていた。床を這い、隙間を抜ける。背中を冷気が噛み、次に熱風が押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　外へ転がり出た瞬間、冷却場の屋根が持ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　音は遅れて来た。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　建物が内側から膨らみ、三本の煙突が夜空へ飛んだ。七月の山に雪が降り、その雪が途中で燃えた。白い灰と黒い氷が、同じ風に乗って谷へ散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="779">　私は土の上で意識を失った。</p>
+<div class="source-line scene-break gap-2" data-source-line="782" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="785">　消防に発見されたのは、翌朝だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　公式には、古いアンモニア冷媒配管の破裂と粉塵爆発。鳴瀬家三名は行方不明。建物内部からは、牛と豚の骨、それに身元不明の人骨が複数見つかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　志乃の遺体はなかった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="791">　私が渡した依頼書を、警察は偽造と判断した。差出人の会社は存在せず、メールサーバーの記録もなかった。サーモグラフィーに保存されたはずの<span class="term term-world">〈GATE_0001〉</span>も消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　古橋から受け取った記憶カードだけが、上着の内ポケットに残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　中には、テキストファイルが一つあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="797"><span class="term term-world">〈GATE_KEEP.txt〉</span></p>
+<p class="source-line role-narration gap-1" data-source-line="799">　開かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　開く前に捨てようとした。ゴミ箱へ移動すると、パソコンの右側だけが熱くなった。完全削除を選ぶと、左側の通気口から白い霜が吹いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　ファイルは消えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　翌朝には、私のデスクトップへ戻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　容量はゼロバイトだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　それなのに、日ごとに更新日時が新しくなった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="811">　私は仕事を辞め、引っ越した。端末を捨てた。携帯電話も処分した。紙だけの生活をしようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　三日後、郵便受けに真新しい記憶カードが入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="815">　差出人はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　近所の図書館のパソコンで開くと、ゼロバイトのファイルの中に文章があった。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="819">　鳴瀬食肉冷却場へ向かう私の記録。</p>
+<p class="source-line role-narration gap-1" data-source-line="821">　最初は一行だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="823">　次の日には十行になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="825">　その次の日には、第三冷蔵庫の扉まで書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　文章は、私が眠っているあいだに増えた。私しか知らないはずの尾形のことまで、正確に書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="829">　私は続きを書くことにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="831">　門番が私の記憶から文章をつくるなら、自分で最後まで書けば、何かを変えられるかもしれないと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　ここまでが、私の書いた部分だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　ここから先は、書いていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　ファイルを閉じようとしても、閉じない。</p>
+<p class="source-line role-narration gap-1" data-source-line="839">　カーソルが勝手に動いている。</p>
+<div class="source-line scene-break gap-2" data-source-line="842" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-2" data-source-line="845">　門番は機械の中にはいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　門番は、差の中にいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　熱いと冷たい。</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　開いていると閉じている。</p>
+<p class="source-line role-narration gap-1" data-source-line="853">　覚えていると忘れている。</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　読んだと読んでいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　二つを比べたとき、そのあいだに戸口ができる。</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　戸口ができれば、門番は立てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　だから、このファイルを削除してはいけない。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　削除すれば、忘れるための熱が出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　保存してもいけない。</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　保存すれば、新しい記憶の箱ができる。</p>
+<p class="source-line role-narration gap-1" data-source-line="869">　閉じるだけにしなさい。</p>
+<p class="source-line role-narration gap-1" data-source-line="871">　その前に、ひとつだけ確かめてほしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　いま、あなたの右手と左手は、同じ温度だろうか。</p>
+<p class="source-line role-narration gap-1" data-source-line="875">　触れ合わせてはいけない。</p>
+<p class="source-line role-narration gap-1" data-source-line="877">　考えるだけでいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　どちらが冷たいか。</p>
+<p class="source-line role-narration gap-1" data-source-line="881">　どちらが熱いか。</p>
+<p class="source-line role-narration gap-1" data-source-line="883">　ほら。</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　あなたは、もう比べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="887">　戸口は開いている。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

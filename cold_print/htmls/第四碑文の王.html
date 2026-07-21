@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="四十三歳の元考古学者・葉室弦は、かつて冒険小説のため創作した〈無名王〉の名が、二千年以上前の円筒印章に刻まれていると知る。碑文学者サミラとザグロスの地下水路へ入ると、三枚の石扉は王について互いに矛盾する碑文を掲げ、存在しないはずの第四の文字が二人を待っていた。嘘を本物らしく書く男と、石の声を読む女。想像が歴史へ輪郭を与えるなら、物語の結末は牢獄の扉まで開くのか。まだ形を持たない王が、作者に続きを要求する。">
+<title>第四碑文の王｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="第四碑文の王" data-novel-id="第四碑文の王" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ミステリ</p>
+  <p><strong>補助ジャンル：</strong>ホラー・SF・頭脳戦</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ミステリ、ホラー、SF、頭脳戦</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：659行／章：0／役割・強度タグ：734</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="第四碑文の王 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『第四碑文の王』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　王の墓を掘る者は、三つの嘘を用意しろ。</p>
+<p class="source-line role-narration gap-0" data-source-line="4">　ひとつは役人に。ひとつは雇い主に。</p>
+<p class="source-line role-narration gap-0" data-source-line="5">　最後のひとつは、墓の主に。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　葉室弦はそう書いて、旅行鞄の上で万年筆を止めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　乾いた風が、崩れかけた隊商宿の中庭を横切っていく。砂に削られた煉瓦壁の向こうでは、夕陽がザグロスの稜線を銅貨のように赤く染めていた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="9">「三つでは足りないかもしれません」</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　向かいに座るサミラ・ナーデリーが言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　彼女は三十代半ばの碑文学者で、日に焼けた指先に白い綿手袋をはめている。その手の中に、黒緑色の円筒印章があった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="12">「今度の墓には、四人目がいるので」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="13">「墓の中に四人？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="14">「碑文が四つ、という意味です」</p>
+<p class="source-line role-narration gap-0" data-source-line="15">　サミラは円筒印章を柔らかな粘土板の上で転がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　現れたのは、玉座に座す王と、その前に進み出る諸国の使者たちだった。見慣れた王宮図像に見える。だが葉室は、すぐに異様な点に気づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="17">　王だけが跪いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="18">　使者たちは贈り物を捧げているのではない。両手で耳を塞ぎ、顔を背けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　玉座の上には翼ある円盤ではなく、四つの瞳を持つ星が浮かんでいる。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「贋物だな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="21">「そう思いますか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="22">「少なくとも正規の工房じゃない。王を膝につかせる図像を、帝国の印章師が彫るはずがない」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="23">「では、何のために？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="24">「王を辱めるため。あるいは――」</p>
+<p class="source-line role-narration gap-0" data-source-line="25">　葉室は粘土板に顔を近づけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　王の足元に、微細な楔形文字が並んでいる。古代ペルシア語でも、エラム語でも、バビロニア語でもない。けれど完全に未知というわけでもなかった。三つの文字体系の特徴を、悪意ある子供がひとつに混ぜたような字形だ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="27">「あるいは、王に見えるものが王じゃない」</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="28">　サミラが微笑んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="29">「あなたの本は、正しかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="30">「どの本だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="31">「『無名王の火冠』。十一年前、あなたが学界から追放される原因になった本です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="32">「あれは冒険譚だ。史料の欠落を想像で埋めた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="33">「想像で埋めた名が、ここにある」</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　サミラは印章の末尾を指した。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="35">　葉室の笑みが消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　アズ・マルク。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　無名なる王。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　葉室が本の中で作った言葉だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="41">　古代語の断片を継ぎ合わせ、響きだけを整えた、存在しない王名。砂漠の地下に火の冠を隠したという、売れるための虚構。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　だが印章は、彼がその名を書く二千年以上も前に作られていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="44">「どこで見つけた」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="45">「叔母の遺品です」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-0" data-source-line="46">「叔母さんは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="47">「生きています。本人は、半分だけ、と言っていますが」</p>
+<p class="source-line role-narration gap-0" data-source-line="48">　風がやんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="49">　隊商宿の外で、繋いだラクダが一斉に鳴いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="50">　サミラは印章を布に包んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="51">「明日の夜、地下水路に入ります。王墓ではありません。王墓のふりをした牢獄です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="52">「牢獄なら、中にいるものは出したくないな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="53">「だからあなたを呼びました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="54">「俺は錠前師じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="55">「いいえ。あなたは嘘を本物にする人です」</p>
+<div class="source-line scene-break gap-1" data-source-line="57" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="59">　入口は、涸れた葡萄畑の井戸に偽装されていた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="60">　夜明け前、葉室とサミラは縄梯子を三十メートル降り、古いカナートの横坑に立った。水はとうに失われ、底には塩の粉が雪のように積もっている。天井は低く、油灯の火が黒い煤を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="61">　サミラが先を行き、葉室が続いた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="62">　彼は四十三歳だった。若いころほど速くはないが、危険を嗅ぐ勘だけは研ぎ澄まされている。大学で考古学を教えていた時代より、追放されてからの十一年のほうが長く感じられた。密輸業者、私設博物館、軍閥、収集家。どの雇い主も最後には同じ目をした。歴史を知りたいのではない。歴史を所有したいのだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="63">　サミラは違う、と葉室は思いたかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="64">　横坑はやがて、切石で組まれた回廊に変わった。</p>
+<p class="source-line role-narration gap-0" data-source-line="65">　壁面に浮彫が続いている。長衣の男たちが、壺、織物、牙、金杯を運ぶ。王宮の朝貢図に似ているが、足の向きがおかしい。全員、身体は前へ進みながら、足首だけが後ろを向いていた。</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="66">「帰ろうとしている」</p>
+<p class="source-line role-narration gap-0" data-source-line="67">　葉室が呟いた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="68">「何から？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="69">「王からだろう」</p>
+<p class="source-line role-narration gap-0" data-source-line="70">　回廊の終点には、三枚の石扉が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　一枚目には古代ペルシア語。</p>
+<p class="source-line role-narration gap-0" data-source-line="72">　二枚目にはエラム語。</p>
+<p class="source-line role-narration gap-0" data-source-line="73">　三枚目にはバビロニア語。</p>
+<p class="source-line role-narration gap-0" data-source-line="74">　帝国の王たちが権威を示すために用いた三言語碑文である。だが内容は一致していなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　一枚目はこう刻む。</p>
+<p class="source-line role-narration gap-0" data-source-line="77">　王は天より落ちた火を討ち、地の底に埋めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　二枚目はこう告げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="80">　王は天の火に選ばれ、永遠の身体を授かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="82">　三枚目はこう否定する。</p>
+<p class="source-line role-narration gap-0" data-source-line="83">　王は生まれず、火も落ちず、この扉も存在しない。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="85">「翻訳違いではありません」</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="86">　サミラは光を滑らせた。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="87">「意図的な矛盾です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="88">「三人の書記が喧嘩していた」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="89">「帝国の中枢で？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="90">「人間は場所を選ばず喧嘩する」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="91">「あなたは、いつも冗談で恐怖を測るんですね」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="92">「恐怖は目盛りが細かいからな」</p>
+<p class="source-line role-narration gap-0" data-source-line="93">　葉室は中央の床に膝をついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="94">　三枚の扉から等距離の場所に、小さな円孔がある。円筒印章を差し込む形だ。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="95">「鍵穴だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="96">「触らないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「触ってない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「嘘」</p>
+<p class="source-line role-narration gap-0" data-source-line="99">　葉室の指は、すでに縁の砂を払っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="100">　そのとき、背後で石が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="102">　低い音だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="103">　巨大な動物が遠くで喉を鳴らすような音。</p>
+<p class="source-line role-narration gap-0" data-source-line="104">　回廊の浮彫に刻まれた使者たちの目から、黒い砂が流れ出した。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="106">「走って！」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="107">　サミラが叫んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="108">　床が傾いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="109">　塩の粉の下から、青銅の格子が跳ね上がる。葉室はサミラを突き飛ばし、自分も壁へ飛んだ。格子は二人の間を断ち切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="110">　次の瞬間、天井の水門が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="111">　涸れていたはずのカナートから、冷たい濁流が噴き込んできた。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="112">「弦！」</p>
+<p class="source-line role-narration gap-0" data-source-line="113">　鉄格子の向こうでサミラが手を伸ばす。</p>
+<p class="source-line role-narration gap-0" data-source-line="114">　葉室も手を伸ばした。</p>
+<p class="source-line role-narration gap-0" data-source-line="115">　指先が触れる寸前、横壁が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　白い仮面をつけた男たちが現れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="118">　作業着姿の四人。手に短銃と鉤縄を持っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="119">　サミラが振り返り、一人の膝を蹴った。だが別の男が彼女の首に布を押し当てた。</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　葉室が格子をよじ登ろうとしたとき、足元の石床が抜けた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="121">　彼は暗闇へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　落下の途中で、誰かの声を聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　男でも女でもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="126">　老人でも子供でもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="127">　それは葉室自身の声で、まだ書いていない文章を読んでいた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="129">　――四人目の碑文は、血で書かれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="131">　岩に脚を打ちつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="132">　骨が折れる音を、葉室は自分の身体の外から聞いた。</p>
+<div class="source-line scene-break gap-1" data-source-line="134" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="136">　目覚めると、雨の音がしていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="137">　砂漠ではあり得ない雨だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　葉室は白い寝台に横たわっていた。右脚は膝から足首まで副木で固定され、胸には包帯が巻かれている。窓には厚い木戸。壁紙には糸杉と孔雀の意匠。部屋の隅で、銅の水盤に細い水が落ち続けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　雨音の正体はそれだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　扉には内側の取っ手がない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="143">「目覚めるまで四日かかりました」</p>
+<p class="source-line role-narration gap-0" data-source-line="144">　女の声がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="145">　窓辺の肘掛椅子に、人が座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="146">　六十代後半だろうか。銀色の髪をきっちりと後ろへ束ね、黒い長衣を着ている。顔立ちはサミラに似ていたが、目の色だけが異様に淡い。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="147">「マフターブ・ナーデリー」</p>
+<p class="source-line role-narration gap-0" data-source-line="148">　葉室が言うと、女は満足そうに頷いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="149">「姪から聞いていましたか」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="150">「遺品の持ち主だと」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="151">「私はまだ、遺品になるほど死んでいません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="152">「サミラは」</p>
+<p class="source-line role-narration gap-0" data-source-line="153">　マフターブは答えず、小卓の上の注射器を取り上げた。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="154">「痛みは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="155">「上等だ。一本二千ドルで売れる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="156">「その冗談は、本の中のあなたほど面白くない」</p>
+<p class="source-line role-narration gap-0" data-source-line="157">　注射針が点滴管に刺さる。</p>
+<p class="source-line role-narration gap-0" data-source-line="158">　冷たい薬が腕から入り、砕けた脚の痛みを遠ざけた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="159">「サミラはどこだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="160">「回廊が崩れました。あなたは下の水路に落ち、私の作業員が救助した。姪は――」</p>
+<p class="source-line role-narration gap-0" data-source-line="161">　わずかな間。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="162">「見つかっていません」</p>
+<p class="source-line role-dialogue role-horror role-clue tone-5 gap-0" data-source-line="163">「死体も？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="164">「ええ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="165">「なら生きている」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="166">「そう書けば、生き返ると思いますか？」</p>
+<p class="source-line role-narration gap-0" data-source-line="167">　マフターブは立ち上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="168">　背が高い。歩くたび、長衣の裾から乾いた音がした。砂ではない。薄い金属片が擦れ合うような音。</p>
+<p class="source-line role-narration gap-0" data-source-line="169">　彼女は革装丁の本を寝台に置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="170">　葉室の著書『無名王の火冠』だった。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="171">　頁の余白が、細かな書き込みで埋め尽くされている。文章の誤り、史料の出典、地形の矛盾。執念深いほど精密な注釈。</p>
+<p class="source-line role-narration gap-0" data-source-line="172">　最後の頁だけが切り取られていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="174">「続きを書いてください」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="175">「完結してる」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="176">「いいえ。あなたは王墓を見つけ、火冠を海へ捨て、女と別れる。あんな結末は嘘です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="177">「小説だからな」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="178">「嘘にも質があります。あなたの結末は、逃げた者の嘘だ」</p>
+<p class="source-line role-narration gap-0" data-source-line="179">　マフターブは小卓の引き出しを開け、原稿用紙の束と万年筆を出した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="180">「本当の結末を書いてください。第四碑文を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="181">「俺が何を書こうと、石扉は開かない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="182">「開きます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="183">「なぜ分かる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="184">「もう一度、あなたの名を読んだからです」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　彼女は長衣の袖をまくった。</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　左腕の皮膚に、黒い結晶が生えていた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="188">　静脈に沿って細い楔形をつくり、肘から手首まで文字列のように連なっている。結晶は脈打つたび、微かな光を放った。</p>
+<p class="source-line role-narration gap-0" data-source-line="189">　葉室は息を止めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="190">　字形は、あの円筒印章の第四の文字だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="192">「それは何だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="193">「私の読者です」</p>
+<p class="source-line role-narration gap-0" data-source-line="194">　マフターブは袖を戻した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="195">「そして、とても辛抱のない読者です」</p>
+<div class="source-line scene-break gap-1" data-source-line="197" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-document tone-2 gap-1" data-source-line="199">　監禁は、奇妙な規則のもとで始まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　朝、マフターブが朝食と薬を運ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="202">　午前中、葉室は原稿を書く。</p>
+<p class="source-line role-narration gap-0" data-source-line="203">　午後、マフターブが声に出して読む。</p>
+<p class="source-line role-narration gap-0" data-source-line="204">　気に入れば鎮痛剤が与えられ、気に入らなければ量が減る。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="205">　夜、扉の外から鍵が三度鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="206">　窓は開かない。扉に取っ手はない。水盤の排水口は指一本入らない。部屋にある金属は万年筆のペン先と、寝台の脚を留める四本の螺子だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="208">　最初の日、葉室は一行だけ書いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="210">　――王は死んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="212">　マフターブは読んで、紙を破った。</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="213">「死は結末ではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="214">「大抵はそうだ」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-0" data-source-line="215">「読者にとっては違う。読者は死者を何度でも頁から起こす」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="216">「本を閉じれば終わる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="217">「本の外へ出た読者なら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　二日目、葉室は百年前に王墓を発見した英国人探検家の手記をでっち上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="220">　マフターブは三頁で見抜いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="221">「方位が逆です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="222">「砂嵐で磁針が狂った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「磁針は砂嵐で狂いません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="224">「じゃあ、探検家が酔っていた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="225">「便利な逃げ道ですね」</p>
+<p class="source-line role-narration gap-0" data-source-line="226">　彼女は薬瓶を小卓に置いたまま、扉の外へ出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="227">　手を伸ばせば届きそうで届かない距離だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="228">　その夜、葉室は痛みで一睡もできなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="230">　三日目、彼は自分の過去を書いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="231">　大学で発見した粘土板を、教授が偽物と決めつけたこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="232">　反論して職を失ったこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="233">　借金を返すため、発掘知識を収集家へ売ったこと。</p>
+<p class="source-line role-narration gap-0" data-source-line="234">　事実だけを書いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="235">　マフターブは静かに読み終えた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="236">「最も退屈な嘘です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="237">「全部本当だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="238">「だからです。事実を並べれば責任から逃げられると思っている」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="239">「責任？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="240">「あなたは『アズ・マルク』という名を作った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="241">「語呂合わせだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="242">「名は器です。空だった器に、あなたは取っ手をつけた。世界中の読者が持ち上げられるように」</p>
+<p class="source-line role-narration gap-0" data-source-line="243">　マフターブは本を開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="244">　葉室の小説は二十七か国語に翻訳され、映画化もされた。安っぽい冒険活劇として、何百万人もの頭の中に「無名王」の像を作った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="245">「あなたが嘘を語るたび、あれは少しずつ輪郭を得た」</p>
+<p class="source-line role-dialogue role-horror role-clue gap-0" data-source-line="246">「俺の小説が怪物を育てたと？」</p>
+<p class="source-line role-dialogue role-horror gap-0" data-source-line="247">「怪物ではありません。可能性です」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="248">「同じことだ」</p>
+<p class="source-line role-dialogue role-horror gap-0" data-source-line="249">「違います。怪物には形がある。あれには、まだない」</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　マフターブが部屋を出たあと、葉室は天井を見つめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="252">　やがて、水盤の滴る音に混じって、別の音が聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="254">　こつ。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　こつ、こつ。</p>
+<p class="source-line role-narration gap-0" data-source-line="256">　こつ、こつ、こつ。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　壁の中からだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="259">　一回、二回、三回。間を置いて、また一回。</p>
+<p class="source-line role-narration gap-0" data-source-line="260">　三つの言語。三枚の石扉。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　葉室は寝台脇の木枠を指で叩いた。</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="263">　一、二、三。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　壁の向こうが沈黙した。</p>
+<p class="source-line role-narration role-document tone-2 gap-0" data-source-line="266">　それから、規則正しい打音が返ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="267">　長い。短い。長い。二度。</p>
+<p class="source-line role-narration gap-0" data-source-line="268">　軍用信号の簡易符号だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="270">　イ・キ・テ・ル。</p>
+<p class="source-line role-narration gap-1" data-source-line="272">　葉室は目を閉じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　痛みとは別の熱が胸に上がった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="275">　サ・ミ・ラ？</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　返事は一打。</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　ハ・イ。</p>
+<div class="source-line scene-break gap-1" data-source-line="281" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="283">　壁の向こうの部屋まで、距離は二メートルほどだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="284">　配管が水盤を通じて繋がっているらしい。声は通らないが、打音は届く。</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　サミラは生きていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　左肩を負傷し、鎖で繋がれている。</p>
+<p class="source-line role-narration gap-0" data-source-line="288">　屋敷は砂漠北端の古い発掘基地。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="289">　叔母マフターブが十五年前に放棄したはずの場所だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　ナ・ゼ・オ・バ・ハ。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　葉室が尋ねると、返事は長く途切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　チ・チ・ヲ・モ・ド・ス・タ・メ。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="297">　サミラの父、ファリド・ナーデリーは、マフターブの弟だった。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="298">　二十年前、姉弟は同じ地下遺構を発見した。外郭の一室で、黒い隕鉄の破片を拾った。ファリドはその夜、四つの名を名乗り、翌朝には自分の舌を噛み切って死んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="299">　マフターブは遺体を地下に運び込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="300">　戻ってきたとき、左腕に文字が生えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　オ・バ・ハ・チ・チ・ノ・コ・エ・ヲ・キ・イ・テ・イ・ル。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="304">　死者の声を餌にされている。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="305">　葉室には理解できた。人は宝石のためより、死者のために深く掘る。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　第四碑文について、サミラはこう打った。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="309">　三枚の碑文は、鍵ではなく錠だ。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="310">　矛盾そのものが封印になっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="311">　三つの言語が同じ出来事を別々に語るかぎり、中の存在はひとつの現実を選べない。</p>
+<p class="source-line role-narration gap-0" data-source-line="312">　第四碑文は、三つを統合する物語。</p>
+<p class="source-line role-narration gap-0" data-source-line="313">　マフターブは、それを書ける人間を探していた。</p>
+<p class="source-line role-narration role-clue tone-1 gap-0" data-source-line="314">　断片から筋道を作り、矛盾を読者に信じさせる人間を。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　モ・ノ・ガ・タ・リ・ヲ・カ・ン・セ・イ・サ・セ・ナ・イ・デ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="318">　葉室は苦笑した。</p>
+<p class="source-line role-narration gap-0" data-source-line="319">　作家に向かって、完成させるなとは酷な注文だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="320">　だが彼は作家である前に、墓泥棒だった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="321">　墓泥棒は、出口から逆算して仕事をする。</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　彼は万年筆を分解した。</p>
+<p class="source-line role-narration gap-0" data-source-line="324">　ペン先。軸。吸入器。細い金属棒。</p>
+<p class="source-line role-narration gap-0" data-source-line="325">　螺子に差し込めるものはない。だが木製の寝台脚は、長年の乾燥で割れている。</p>
+<p class="source-line role-narration gap-0" data-source-line="326">　毎晩、物音を水盤の滴に合わせ、少しずつ木を削った。</p>
+<p class="source-line role-narration gap-0" data-source-line="327">　四晩目、一本の螺子が外れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="328">　五晩目、寝台の横桟を持ち上げ、先端を尖らせた。</p>
+<p class="source-line role-narration gap-0" data-source-line="329">　六晩目、マフターブが原稿を読んでいるあいだ、葉室は彼女の影を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　影は、本人より先に頁をめくった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="333">「見えましたか」</p>
+<p class="source-line role-narration gap-0" data-source-line="334">　マフターブが言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="335">　葉室は視線を上げた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="336">「何が」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="337">「私の中にいるもの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「老眼だろう」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="339">「あなたは恐怖に名前をつけない。だから長生きした」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="340">「名前をつけると請求書が来る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="341">「でも今回は、名前をつけてもらいます」</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　彼女は原稿を閉じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="344">　葉室は六日かけて、王墓への道程を書いていた。三枚の碑文。塩の回廊。天から落ちた火。王がそれを冠として戴いたという伝説。</p>
+<p class="source-line role-narration gap-0" data-source-line="345">　マフターブは満足していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="346">　物語が、彼女の望む形へ近づいているからだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="348">「明日、戻ります」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="349">「どこへ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="350">「あなたが落ちた場所へ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="351">「脚が折れてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="352">「運ばせます」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="353">「サミラも？」</p>
+<p class="source-line role-narration gap-0" data-source-line="354">　マフターブの瞳が細くなった。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　部屋の温度が下がったように感じた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="356">「壁は、よく響きますか」</p>
+<p class="source-line role-narration gap-0" data-source-line="357">　葉室は答えなかった。</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="358">「姪は私に似て、賢い。賢い人間は、世界が理解できると信じる。だから理解できないものに出会うと、すぐ壊れる」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="359">「お前は壊れなかった？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="360">「私は、壊れたまま学びました」</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　マフターブは長衣の胸元から、小さな銀箱を出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　蓋を開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="364">　中には人間の乳歯が一本あった。</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="365">「ファリドが七歳のとき、私が抜いてやった歯です。あれは弟の声で言いました。この歯があれば、身体を作り直せると」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="366">「信じたのか」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="367">「二十年かけて信じました」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="368">「それは信仰じゃない。拷問だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="369">「ええ」</p>
+<p class="source-line role-narration gap-0" data-source-line="370">　マフターブは初めて、疲れた人間の顔をした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="371">「だから早く終わらせてください」</p>
+<div class="source-line scene-break gap-1" data-source-line="373" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="375">　その夜、葉室は脱出した。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="377">　外した横桟を扉の下へ差し込み、蝶番側を梃子で浮かせた。脚の骨が軋み、視界が白くなった。声を噛み殺し、全身の体重を木へかける。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　古い蝶番の一本が抜けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　二本目は折れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="380">　扉が内側へ傾いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="382">　廊下は暗く、薬草と油の匂いがした。</p>
+<p class="source-line role-narration gap-0" data-source-line="383">　葉室は床を這った。右脚を引きずるたび、固定具の中で骨片が擦れる。冷や汗が額から落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="384">　壁には発掘写真が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　若いマフターブとファリド。</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　帝国期の列柱基壇。</p>
+<p class="source-line role-narration gap-0" data-source-line="387">　地下から出土した青銅器。</p>
+<p class="source-line role-narration gap-0" data-source-line="388">　最後の写真には、塩の壁に埋まった黒い球体が写っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　球体の表面に、人間の顔が浮かんでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="391">　何百もの顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　どれも目を閉じ、口だけが開いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　廊下の突き当たりに階段がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="395">　下から、鎖の音がした。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="396">「サミラ」</p>
+<p class="source-line role-narration gap-0" data-source-line="397">　葉室が小声で呼ぶ。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="398">「弦？」</p>
+<p class="source-line role-narration gap-0" data-source-line="399">　地下室の扉は施錠されていた。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="400">　葉室は万年筆の金属棒を鍵穴に差し込んだ。錠は古いが複雑だ。指先の感覚が薄れていく。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="401">「急いで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="402">「分かってる」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="403">「違う。叔母が来る」</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="404">　背後で、裸足の足音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="406">　葉室は振り返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="407">　廊下の端にマフターブが立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="408">　黒い長衣を着ていない。</p>
+<p class="source-line role-narration gap-0" data-source-line="409">　寝間着の左半分が裂け、腕から肩、胸元にかけて黒い結晶が広がっていた。文字列は皮膚の上ではなく、皮膚の下を這っている。ひとつの文章が、彼女の身体を使って書き進められていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「戻りなさい」</p>
+<p class="source-line role-narration gap-0" data-source-line="412">　声が二重に響いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="413">　マフターブの声と、葉室の声。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="414">「結末がまだです」</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="415">　葉室は鍵穴から金属棒を抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="416">　武器には短すぎる。</p>
+<p class="source-line role-narration gap-0" data-source-line="417">　マフターブが一歩進む。</p>
+<p class="source-line role-narration gap-0" data-source-line="418">　その影は三歩進んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="419">　影の腕が長く伸び、壁を伝って葉室の足首へ迫る。</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="421">「叔母さん！」</p>
+<p class="source-line role-narration gap-0" data-source-line="422">　地下室からサミラが叫んだ。</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-0" data-source-line="423">「お父さんは戻らない！　聞こえているのは、お父さんじゃない！」</p>
+<p class="source-line role-narration gap-0" data-source-line="424">　マフターブの顔が歪んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="425">「黙りなさい」</p>
+<p class="source-line role-dialogue fx-shout tone-3 gap-0" data-source-line="426">「叔母さんは知ってる！」</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-0" data-source-line="427">「黙れ！」</p>
+<p class="source-line role-narration gap-0" data-source-line="428">　廊下のランプが一斉に割れた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="429">　闇が落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　葉室は金属棒を投げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　狙いはマフターブではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　壁の消火壺だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　壺が砕け、細かな砂が床へ広がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="435">　伸びてきた影が、砂の上で輪郭を失った。</p>
+<p class="source-line role-narration gap-0" data-source-line="436">　葉室は扉の横へ身体を投げ、非常用の閂を引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="437">　地下室の扉が開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="438">　サミラが飛び出した。左腕を吊り、右手には鎖の切れ端を握っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="439">　二人は階段を上がろうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　最上段に、白い仮面の作業員が二人立っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="442">　銃床が振り下ろされた。</p>
+<p class="source-line role-narration gap-0" data-source-line="443">　葉室の意識は、今度こそ完全に消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="445" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="447">　砂漠へ戻ったのは、星のない夜だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="449">　葉室は木製の担架に縛られ、荷台へ積まれていた。隣にサミラが座らされている。手首には青銅の枷。白仮面の男が四人、銃を持って囲んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="450">　運転席の横にマフターブが座る。</p>
+<p class="source-line role-narration gap-0" data-source-line="451">　長衣に戻っていたが、左手の指先は黒く透けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　車は涸れた河床を進み、やがて崩れた葡萄畑へ着いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="454">　井戸の周囲には滑車と照明が組まれている。作業員たちは葉室を担架ごと吊り下げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="455">　地下の冷気が上がってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　落下した夜と同じ匂い。</p>
+<p class="source-line role-narration gap-0" data-source-line="457">　塩。古い油。濡れた石。</p>
+<p class="source-line role-narration gap-0" data-source-line="458">　そして、雷雨の前に似た金属臭。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="460">「原稿は？」</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　葉室が尋ねた。</p>
+<p class="source-line role-narration gap-0" data-source-line="462">　マフターブは胸元から革袋を出した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="463">「ここに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="464">「最後の頁は白紙だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="465">「だから、あなたを連れてきた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="466">「万年筆がない」</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="467">　マフターブは微笑み、彼の胸ポケットに万年筆を差した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="468">「作家に武器を返すほど、私は愚かではありません」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="469">「これは武器じゃない」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="470">「知っています。武器より危険です」</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　回廊は水害の跡を残していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="473">　浮彫の使者たちは腰まで泥に埋まり、黒い砂の涙を流している。三枚の石扉は閉じたままだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　中央の円孔に、マフターブが円筒印章を差し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　一回、回した。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　古代ペルシア語の扉が沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　二回。</p>
+<p class="source-line role-narration gap-0" data-source-line="480">　エラム語の扉が沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　三回。</p>
+<p class="source-line role-narration gap-0" data-source-line="483">　バビロニア語の扉が沈む。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　その奥に、第四の扉が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　扉ではなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="488">　磨き上げられた銀白色の鏡面。</p>
+<p class="source-line role-narration gap-0" data-source-line="489">　葉室たちの姿を映している。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　だが数が合わない。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　マフターブ。</p>
+<p class="source-line role-narration gap-0" data-source-line="494">　葉室。</p>
+<p class="source-line role-narration gap-0" data-source-line="495">　サミラ。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　四人の作業員。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　七人のはずだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　鏡の中には、八人いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　最後列に、王冠を戴いた長身の男が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="503">　顔はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="504">　顔のあるべき場所に、星空が開いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「四枚目は最初からあった」</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　サミラが息を呑んだ。</p>
+<p class="source-line role-dialogue fx-whisper gap-0" data-source-line="508">「碑文ではなく、読む者自身……」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="509">「そうです」</p>
+<p class="source-line role-narration gap-0" data-source-line="510">　マフターブは鏡へ手を触れた。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="511">「三つの矛盾を見た者が、最後に自分を見る。自分の中で意味を統合してしまう。古代の書記たちは、それを恐れて鏡を曇らせ、入口を隠した」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="512">「なら、なぜ開ける」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="513">「私にはもう閉じられないからです」</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　鏡の中の王が、腕を上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="516">　現実のマフターブの腕も上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="518">　石壁が左右へ開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="519">　冷たい風が噴き出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="520">　その先に、巨大な円形地下室があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="522">　天井は黒いガラスで覆われ、無数の白点が埋め込まれている。星図に見えるが、知っている星座はひとつもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="523">　周囲には牛頭柱が環状に並び、その間を金箔の帯が巡る。</p>
+<p class="source-line role-narration gap-0" data-source-line="524">　中央に、透明な塩の塊が浮いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="525">　塩の中には、拳ほどの黒い種子が封じられている。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　種子は脈打っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　一度脈打つたび、天井の星が位置を変える。</p>
+<p class="source-line role-narration gap-0" data-source-line="530">　二度脈打つたび、牛頭柱の目が開く。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="531">　三度脈打つたび、葉室の頭の中に知らない記憶が流れ込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　燃える都市。</p>
+<p class="source-line role-narration gap-0" data-source-line="534">　逆さに降る雨。</p>
+<p class="source-line role-narration gap-0" data-source-line="535">　皮膚の内側で羽化する黒い昆虫。</p>
+<p class="source-line role-narration gap-0" data-source-line="536">　四つの太陽の下、顔のない王に跪く無数の人々。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　作業員の一人が仮面を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="539">　顔には目も鼻もなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="540">　皮膚の中央に、縦長の口だけが開いている。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="541">「名を」</p>
+<p class="source-line role-narration gap-0" data-source-line="542">　その口が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="543">「名を」</p>
+<p class="source-line role-narration gap-0" data-source-line="544">　他の三人も仮面を外す。</p>
+<p class="source-line role-narration gap-0" data-source-line="545">　同じ顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="546">　同じ口。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="547">「名を」</p>
+<p class="source-line role-narration gap-0" data-source-line="548">　声が地下室を満たした。</p>
+<p class="source-line role-narration gap-1" data-source-line="550">　マフターブは革袋から原稿を取り出し、葉室の胸へ置いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="551">「書いて」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="552">「何を」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="553">「三つをひとつにする結末を」</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-0" data-source-line="554">「そうしたら、弟が戻る？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="555">「すべてが戻ります」</p>
+<p class="source-line role-dialogue role-horror role-clue tone-5 gap-0" data-source-line="556">「死者も？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="557">「失われた都市も。焼かれた書物も。消えた王朝も」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="558">「それは復元じゃない。複製だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="559">「複製でも、抱きしめられるなら同じです」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　塩の塊の中で、黒い種子が裂けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="562">　細い糸が一本、外へ伸びる。</p>
+<p class="source-line role-narration gap-0" data-source-line="563">　空気中に文字を書きながら、マフターブの胸へ繋がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　彼女の顔が若返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="566">　皺が消え、髪が黒くなる。</p>
+<p class="source-line role-narration gap-0" data-source-line="567">　隣に、少年の幻が立った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="568">　七歳のファリドだろう。銀箱の乳歯と同じ、前歯の欠けた笑顔。</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="569">「姉さん」</p>
+<p class="source-line role-narration gap-0" data-source-line="570">　少年が言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="571">　マフターブの唇が震える。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="572">「ファリド」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="573">「やっと見つけた」</p>
+<p class="source-line role-narration gap-0" data-source-line="574">　少年が両腕を広げた。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="576">「見るな！」</p>
+<p class="source-line role-narration fx-key role-motif gap-0" data-source-line="577">　サミラが叫んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　作業員が彼女を殴り倒す。</p>
+<p class="source-line role-narration gap-1" data-source-line="580">　葉室は万年筆を抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　原稿の最終頁を開く。</p>
+<p class="source-line role-narration gap-0" data-source-line="582">　白紙。</p>
+<p class="source-line role-narration gap-0" data-source-line="583">　マフターブが見守っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="584">　顔のない作業員たちが見守っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="585">　塩の中の種子が見守っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="586">　読者が揃った。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　葉室は書き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　――王は天から落ちた火を討った。</p>
+<p class="source-line role-narration gap-1" data-source-line="592">　古代ペルシア語の碑文と同じ文章。</p>
+<p class="source-line role-narration gap-0" data-source-line="593">　地下室の左側で金箔が輝いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　――王は天の火に選ばれ、永遠の身体を授かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　エラム語の碑文と同じ。</p>
+<p class="source-line role-narration gap-0" data-source-line="598">　右側の牛頭柱が低く唸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　――王は生まれず、火も落ちず、この部屋も存在しない。</p>
+<p class="source-line role-narration gap-1" data-source-line="602">　バビロニア語の碑文と同じ。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　天井の星が一斉に消えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="605">「続けて」</p>
+<p class="source-line role-narration gap-0" data-source-line="606">　マフターブが囁く。</p>
+<p class="source-line role-narration gap-0" data-source-line="607">　少年ファリドが近づいてくる。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="608">　足音はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　葉室は最後の一行を書いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　――ゆえに王は、これを読む者の名を得て、ただ一度だけ生まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　黒い種子が大きく脈打った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="616">「読んで」</p>
+<p class="source-line role-narration gap-0" data-source-line="617">　マフターブが言う。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="618">「声に出して」</p>
+<p class="source-line role-narration gap-0" data-source-line="619">　葉室は原稿を持ち上げた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="620">「サミラ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="621">「何」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="622">「二頁前の註釈、覚えてるか」</p>
+<p class="source-line role-narration gap-0" data-source-line="623">　サミラの目が動いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="624">　原稿の余白に、彼は小さな記号を書き込んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="625">　監禁中、壁越しの打音で伝えた合図。</p>
+<p class="source-line role-narration gap-0" data-source-line="626">　同じ文を、主語だけ変えて読む。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　一方は王。</p>
+<p class="source-line role-narration gap-0" data-source-line="628">　一方は書記。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="630">「やめなさい」</p>
+<p class="source-line role-narration gap-0" data-source-line="631">　マフターブの影が膨らんだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="632">　葉室は読み始めた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="633">「王は天から落ちた火を討った」</p>
+<p class="source-line role-narration gap-0" data-source-line="634">　同時に、サミラも声を上げる。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="635">「書記は天から落ちた火を討った」</p>
+<p class="source-line role-narration gap-0" data-source-line="636">　地下室が震えた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="637">「王は天の火に選ばれた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="638">「書記は天の火を選んだ」</p>
+<p class="source-line role-narration gap-0" data-source-line="639">　鏡面に亀裂が走る。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="640">「王は生まれなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="641">「書記は王を生まなかった」</p>
+<p class="source-line role-dialogue fx-key fx-shout role-motif gap-0" data-source-line="642">「黙れ！」</p>
+<p class="source-line role-narration gap-0" data-source-line="643">　マフターブが叫んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　彼女の影が黒い翼となり、サミラへ襲いかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="646">　葉室は万年筆の軸を折った。</p>
+<p class="source-line role-narration gap-0" data-source-line="647">　中から、濃い青のインクが流れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　彼はそれを原稿へ叩きつけ、最後の一行を滲ませた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="650">「王は、これを読む者の名を得る！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="651">「書記は、これを読む者から名を奪う！」</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　二つの結末が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　黒い種子が、二つに割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　いや、二つではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="658">　見る者の数だけ、割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="659">　鏡の亀裂ひとつひとつに異なる王が映る。</p>
+<p class="source-line role-narration gap-0" data-source-line="660">　老人の王。女の王。子供の王。骨の王。無数の口を持つ王。</p>
+<p class="source-line role-narration gap-0" data-source-line="661">　可能性が互いを食い始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　作業員たちが頭を抱えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="664">　顔の縦口から黒い糸が噴き出し、隣の者へ絡みつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　牛頭柱が崩れ、天井の黒ガラスが雨のように降った。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="667">「ファリド！」</p>
+<p class="source-line role-narration gap-0" data-source-line="668">　マフターブは少年の幻へ駆けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="669">　少年の顔が開いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　内側に星空があった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="672">　サミラが叔母の腕を掴む。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="673">「こっちへ！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="674">「離しなさい！」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="675">「あれはお父さんじゃない！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="676">「分かっている！」</p>
+<p class="source-line role-narration gap-0" data-source-line="677">　マフターブの声が、突然ひとつに戻った。</p>
+<p class="source-line role-narration gap-0" data-source-line="678">　彼女はサミラを強く突き飛ばした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="679">「だから、あなたは行きなさい」</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　黒い糸が彼女の背中を貫いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="682">　マフターブはよろめきながら、塩の塊へ両腕を回した。</p>
+<p class="source-line role-narration gap-0" data-source-line="683">　抱きしめるように。</p>
+<p class="source-line role-narration gap-0" data-source-line="684">　押さえ込むように。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="686">「葉室弦！」</p>
+<p class="source-line role-narration gap-0" data-source-line="687">　彼女が叫ぶ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="688">「あなたの結末は、いつも逃げる！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="689">「生き残るのが俺の作風だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="690">「では、今回もそうしなさい！」</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　葉室は担架の革帯を切った。</p>
+<p class="source-line role-narration gap-0" data-source-line="693">　サミラが肩を貸す。</p>
+<p class="source-line role-narration gap-0" data-source-line="694">　二人は崩れる地下室を出口へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　背後で、マフターブが歌い始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="697">　子供を寝かしつける古い歌だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="698">　少年の幻も歌っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="699">　二つの声は少しずつずれ、やがて地鳴りに呑まれた。</p>
+<div class="source-line scene-break gap-1" data-source-line="701" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="703">　回廊へ出たとき、三枚の石扉は閉じ始めていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="704">　葉室は片脚で跳び、サミラに支えられながら隙間へ滑り込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="705">　白仮面の最後の一人が追ってきた。</p>
+<p class="source-line role-narration gap-0" data-source-line="706">　顔の口から伸びた黒い糸が、サミラの足首に絡む。</p>
+<p class="source-line role-narration gap-0" data-source-line="707">　彼女が倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　葉室は円筒印章を円孔から引き抜いた。</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="710">「それがないと出られない！」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="711">「鍵は、内側からも使える」</p>
+<p class="source-line role-narration gap-0" data-source-line="712">　彼は印章を扉の歯車へ突っ込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="713">　黒緑色の石が砕ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="714">　歯車が噛み、石扉が途中で止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="715">　追手の腕だけが隙間から伸びる。</p>
+<p class="source-line role-narration gap-0" data-source-line="716">　葉室は浮彫の供物壺を蹴り倒した。</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　中から石油臭い液体が流れ出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="719">　二千年以上密封されていた灯火油。</p>
+<p class="source-line role-narration gap-0" data-source-line="720">　彼は油灯を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　炎が青く走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="723">　黒い糸は音もなく燃え、追手の腕が灰になった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="725">「こっち！」</p>
+<p class="source-line role-narration gap-0" data-source-line="726">　サミラが壁の水門を指す。</p>
+<p class="source-line role-narration gap-0" data-source-line="727">　獅子頭の青銅取っ手。</p>
+<p class="source-line role-narration gap-0" data-source-line="728">　二人で引くと、古い機構が唸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="730">　カナートの奥から水が来た。</p>
+<p class="source-line role-narration gap-0" data-source-line="731">　地下湖に蓄えられていた塩水が、濁流となって回廊を満たす。</p>
+<p class="source-line role-narration gap-0" data-source-line="732">　炎と水がぶつかり、白い蒸気が爆発した。</p>
+<p class="source-line role-narration gap-0" data-source-line="733">　浮彫の使者たちが、次々に壁から剥がれ落ちる。</p>
+<p class="source-line role-narration gap-0" data-source-line="734">　全員、やっと後ろ向きに逃げ始めたように見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　葉室とサミラは流れに乗り、横坑へ押し出された。</p>
+<p class="source-line role-narration gap-0" data-source-line="737">　岩に打たれ、泥を飲み、何度も沈んだ。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="738">　前方に、井戸の縦穴から差す夜明けの光が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　葉室は壁の足場へ指をかけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　右脚はもう感覚がない。</p>
+<p class="source-line role-narration gap-0" data-source-line="742">　サミラが先に登り、上から手を伸ばす。</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="743">「掴んで！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="744">「俺は重いぞ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="745">「知っています！」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="746">「本はもっと軽い」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="747">「次の本の題名は？」</p>
+<p class="source-line role-narration gap-0" data-source-line="748">　葉室は彼女の手を掴んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="749">「もう書かない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="750">「それは四つ目の嘘ですね」</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　二人が地上へ這い出した直後、井戸の底が崩れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="753">　暗い穴から、熱い風が一度だけ吹き上がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　その風の中に、マフターブの声があった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="757">　――結末を忘れないで。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　井戸は砂に埋まり、声も消えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="761" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="763">　三か月後、葉室はイスタンブールの安宿にいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="764">　右脚には金属の固定具が入り、杖が手放せない。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="765">　サミラはテヘランへ戻った。叔母の発掘記録を整理し、地元当局へ匿名で提出したという。地下遺構の位置だけは除いて。</p>
+<p class="source-line role-narration gap-0" data-source-line="766">　円筒印章は失われた。</p>
+<p class="source-line role-narration gap-0" data-source-line="767">　写真は水没した。</p>
+<p class="source-line role-narration gap-0" data-source-line="768">　原稿は燃えた。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="769">　証拠は何もない。</p>
+<p class="source-line role-narration gap-1" data-source-line="771">　出版社からは毎週、続編の催促が届いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="772">『無名王の帰還』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="773">『火冠再び』</p>
+<p class="source-line role-dialogue gap-0" data-source-line="774">『第四の王墓』</p>
+<p class="source-line role-narration gap-0" data-source-line="775">　題名案だけで十冊分ある。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　葉室はすべて断った。</p>
+<p class="source-line role-narration gap-0" data-source-line="778">　物語は、読まれた数だけ現実になる。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="779">　そう信じたわけではない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="780">　ただ、信じないと断言するほど愚かでもなくなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="782">　雨の夜、宿の受付から小包が届いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="783">　差出人はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="784">　中には革装丁の本が一冊入っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="786">『無名王の火冠』</p>
+<p class="source-line role-narration gap-1" data-source-line="788">　葉室の旧著だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="789">　余白には、マフターブの細かな書き込み。</p>
+<p class="source-line role-narration gap-0" data-source-line="790">　最後の頁だけが新しい紙に差し替えられている。</p>
+<p class="source-line role-narration gap-1" data-source-line="792">　そこには、葉室の筆跡で一行だけ書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="794">　――王の墓を掘る者は、四つ目の嘘を読者に残せ。</p>
+<p class="source-line role-narration gap-1" data-source-line="796">　葉室は本を暖炉へ投げ込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="797">　革が縮み、頁が黒く巻き上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="798">　やがて一冊は灰になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="800">　窓ガラスに、部屋の中が映っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="801">　椅子。</p>
+<p class="source-line role-narration gap-0" data-source-line="802">　机。</p>
+<p class="source-line role-narration gap-0" data-source-line="803">　杖。</p>
+<p class="source-line role-narration gap-0" data-source-line="804">　立ち尽くす葉室。</p>
+<p class="source-line role-narration gap-1" data-source-line="806">　その背後に、王冠を戴いた影はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="808">　葉室は長く息を吐いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="809">　そして振り返らずに、窓の木戸を閉めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="811">　閉じる直前、</p>
+<p class="source-line role-narration gap-0" data-source-line="812">　ガラスの中の四人目だけが、こちらを見ていた。</p>
+<p class="source-line end-mark gap-1" data-source-line="814"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

@@ -1,0 +1,828 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="解体前の団地で無人確認を行う三島澪は、実在しない四〇四号室をカメラの画面にだけ見つける。壁を抜けた先は、電気も回線もないのに古い電話が鳴る六畳間。そこへ十二分後の自分から留守番電話が届き、「名前を言わないで」と警告する。机の下には、十八年前に仕事へ出たまま消えた父の社員証とビデオカメラが残されていた。空室を記録する仕事が、存在しない部屋と失われた家族をつなぐ回線へ変わる夜。澪は呼び出しに答えず、父の映像を最後まで確かめられるのか。">
+<title>空室回線｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="空室回線_読み切り小説" data-novel-id="空室回線_読み切り小説" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>SF・奇妙な味・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ホラー、SF、奇妙な味、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：367行／章：0／役割・強度タグ：430</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="空室回線 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">空室回線</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration role-horror gap-1" data-source-line="5">　誰もいない部屋には、音がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　冷蔵庫を抜いたあとの床が軋む音。壁の中を下りていく水の音。窓枠が夜気に縮み、爪を立てるように鳴る音。古い集合住宅では、隣室の咳や、何階も離れた蛇口の震えまで、空室の呼吸に混じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　三島澪は、それらを三十分ずつ録音する仕事をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="11">　建物を解体する前に、不法侵入者や残置設備がないことを映像と音で証明する。会社では「無人確認」と呼ばれていたが、澪はひそかに「空室の遺言」と呼んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　星見坂団地Ｅ棟の解体前調査は、十一月最後の月曜日に行われた。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　築四十七年。地上七階。住民は半年前に退去し、電気も水道も止まっている。窓には合板が打たれ、廊下の蛍光灯だけが仮設電源で白く瞬いていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="17">「四階だけ、映像が飛ぶんだよ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="19">　機材を運び込んだとき、管理会社の宇田川が言った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="21">「飛ぶ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="23">「昨日、下見の人間が回したら、四〇三の次が四〇五になってる。まあ、もともと四〇四号室はないんだけど」</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　澪はタブレットに表示された平面図を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　四階は四〇一、四〇二、四〇三、四〇五、四〇六。縁起を担いで四を重ねた番号を飛ばす古い建物は珍しくない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="29">「番号がないなら、飛んでいて正常でしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="31">「そうじゃなくてさ。録画を見返すと、四〇三を出てから四〇五に入るまで、必ず四十四秒だけ真っ黒になる。音は残ってるんだけど」</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="33">「何が入ってるんです？」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　宇田川は笑わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="37">「電話の呼び出し音」</p>
+<p class="source-line role-narration gap-1" data-source-line="39">　Ｅ棟には固定電話など残っていない。回線設備は十年前に撤去されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="41">　澪はそれ以上聞かなかった。怪談めいた前置きをする現場担当者は多い。空室では誰もが、自分の立てた音を誰かの気配だと思いたがる。</p>
+<p class="source-line role-narration gap-1" data-source-line="43">　ただ、宇田川が帰り際に言った言葉だけは、少し気になった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="45">「この棟、昔、電話工事の人が一人いなくなってるらしい。名字、たしか三島だったかな」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　澪の父も、電話設備の保守員だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　十八年前、仕事に出たきり帰らなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="51" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="53">　午後九時十三分、澪は四階に上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　無人確認は一室三十分。七階から始めて、上から順に下りてきた。宇田川は一階の管理室で映像を遠隔確認している。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　四〇三号室の録画を終え、廊下へ出る。</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　左手に四〇二。右手に四〇五。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　その間は、幅三メートルほどの灰色の壁だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　澪は胸元のカメラを確認した。録画ランプは点いている。タブレットにも同じ映像が映っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="65">　画面の中だけに、扉があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　灰色の壁の中央。塗装の剥げた鉄扉。上部に、黒い数字で「４０４」と貼られている。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　澪は顔を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　肉眼では壁しかない。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="73">　再び画面を見る。扉はある。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="75">「宇田川さん、見えてますか」</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　イヤホンに雑音が走った。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-1" data-source-line="79">『……何が？』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="81">「四〇四号室です」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="83">『冗談やめてよ。画面、また落ちてる。真っ黒だ』</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　タブレットの映像では、扉の郵便受けがゆっくり開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　内側は暗い。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　その闇から、細い電子音が漏れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　プルルルル。</p>
+<p class="source-line role-narration gap-1" data-source-line="93">　プルルルル。</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　古い電話の呼び出し音だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　澪は後ずさった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="99">　画面の中で、扉が少しだけ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="101">　現実の壁から、冷たい空気が流れ出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　指先を伸ばすと、壁に触れるはずの位置で、何か金属の縁に当たった。肉眼では何もない。だがカメラ越しには、澪の手が扉を押していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="105">「入ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="107">『待て、三島さん。こっちは何も――』</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　音声が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　澪はタブレットだけを見ながら、存在しない扉の隙間へ身体を滑り込ませた。</p>
+<div class="source-line scene-break gap-1" data-source-line="113" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="115">　中は六畳ほどの和室だった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="117">　畳は黒ずみ、天井から裸電球がぶら下がっている。電気は止まっているはずなのに、橙色の光が弱く灯っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　窓はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　壁際に低い机が一つ。机の上に、黄ばんだプッシュ式電話機が置かれていた。電話線はどこにもつながっていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　それでもベルは鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　プルルルル。</p>
+<p class="source-line role-narration gap-1" data-source-line="127">　プルルルル。</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　澪は受話器を取らなかった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="131">　呼び出しは十四回で止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　直後、胸元でスマートフォンが震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　留守番電話が一件。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="137">　発信者は、三島澪。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　自分の番号だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="141">　受信時刻は午後九時三十七分。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　現在時刻は、午後九時二十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　十二分後の自分から届いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　澪は再生した。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="149">『――聞こえる？　三島澪、よく聞いて』</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　確かに自分の声だった。息が乱れ、何か硬いものを何度も叩いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="153">『カメラを切らないで。名前を言わないで。机の下を見て。そこに父さんの――』</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　激しい雑音。</p>
+<p class="source-line role-narration gap-1" data-source-line="157">　遠くで、あの電話が鳴っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　そして最後に、幼い子どもの声が入った。</p>
+<p class="source-line role-dialogue fx-beat fx-key role-motif gap-1" data-source-line="161">『お名前を、どうぞ』</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　録音はそこで切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="165">　澪は、留守番電話の冒頭で自分が自分の名を口にしたことに気づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　部屋の電話機が、かちりと鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　誰も触れていないのに、受話器がわずかに持ち上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　澪は机の下にしゃがんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　埃の中に、古い社員証が落ちていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　写真の男は、今の澪より少し若い。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　勤務先は東央通信設備。氏名欄には「三島和也」とある。</p>
+<p class="source-line role-narration gap-1" data-source-line="179">　父の社員証だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　その下に、小型のデジタルビデオカメラがあった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="183">　電池は腐食している。だが澪が手に取ると、液晶画面が青白く点灯した。</p>
+<p class="source-line role-narration gap-1" data-source-line="185">　再生マーク。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　日付は二〇〇八年六月十七日。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　父が消えた日だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="191" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="193">　映像の中で、父は同じ廊下を歩いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　今より髪が黒い。作業服の胸に、小さなカメラを固定している。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">『四階、未使用回線の確認に入ります』</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　父は誰かに報告し、四〇三号室と四〇五号室の間で立ち止まった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="201">　画面の中だけに現れた扉を見つけ、澪と同じように中へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　部屋の電話が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　父はためらわず受話器を取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">『もしもし』</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　しばらく無音が続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　やがて、幼い少女の泣き声が聞こえた。</p>
+<p class="source-line role-dialogue role-clue fx-beat tone-3 gap-1" data-source-line="213">『お父さん、どこ？』</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　澪の声だった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="217">　七歳のころ、父に買ってもらった録音玩具へ吹き込んだ、自分の声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">『迎えに来て』</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　映像の中の父が息を呑んだ。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="223">『澪か？　どうしてここに』</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　電話の向こうで、子どもの澪が繰り返す。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="227">『お名前を、どうぞ』</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　父は周囲を見回し、受話器を握り直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="231">『三島和也だ。澪、今どこにいる』</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　その瞬間、映像が大きく乱れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　父の右腕から輪郭が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　モザイクでも、暗転でもない。そこに映るべき人間だけを、映像が思い出せなくなったように、身体が背景へ溶けていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　父は叫び、受話器を落とした。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="241">　画面は畳の上に倒れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　父の靴だけが映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　靴はゆっくり持ち上がり、宙で消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　その後、四十四秒間、無人の部屋が映り続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　四十四秒目。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="251">　画面奥の押し入れが開いた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="253">　暗闇の中に、父が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　顔は見えない。けれど作業服の胸に、社員証の白い四角があった。</p>
+<p class="source-line role-narration role-system tone-3 gap-1" data-source-line="257">　父は画面へ向かい、唇だけを動かした。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　名前を言うな。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　映像が終わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　澪の背後で、押し入れの襖が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　ぎ、と木が擦れる。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="267">　澪は振り返らず、タブレットの前面カメラを起動した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="269">　画面には、背後の押し入れが映っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="271">　襖は指一本分、開いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　その隙間に、人の目が並んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　一つではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="277">　高さも大きさも違う目が、棚の奥から、床下から、天袋から、ぎっしりと澪を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　誰も瞬きをしなかった。</p>
+<div class="source-line scene-break gap-1" data-source-line="281" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="283">　部屋の電話が再び鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　今度は一度だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　呼び出し音が途切れると、受話器が自分で外れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">『入居確認です』</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　機械の女声が、机の上から流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="293">『未割当回線を検出しました。契約者のお名前を、フルネームでお願いします』</p>
+<p class="source-line role-narration gap-1" data-source-line="295">　澪は黙った。</p>
+<p class="source-line role-dialogue fx-beat fx-key role-motif gap-1" data-source-line="297">『お名前を、どうぞ』</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　押し入れの目が一斉に瞬いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="301">　タブレットに着信が入った。宇田川からだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　澪は通話ボタンを押したが、声を出さなかった。</p>
+<p class="source-line role-dialogue role-clue gap-1" data-source-line="305">『三島さん？　聞こえる？』</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　宇田川の声は遠く、何度も反響していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="309">『急に映像が戻った。けど、おかしい。今、君の後ろに――』</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　電話機の女声が割り込んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="313">『契約者のお名前をお願いします』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">『宇田川です。誰だ、これ』</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　澪は反射的に叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="319">「名乗らないで！」</p>
+<p class="source-line role-narration gap-1" data-source-line="321">　遅かった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="323">　タブレットの通話画面から、宇田川の名前が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="325">　連絡先欄には「未登録」と表示された。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　受話器の向こうで、宇田川が短く息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="329">『三島さん、管理室の壁に、扉が――』</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　衝撃音。</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　通話が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="335">　押し入れの中で、新しい目が二つ開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「宇田川さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="339">　返事はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　代わりに、ビデオカメラの液晶が勝手に再生を始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　日付は現在。</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　管理室の映像だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="347">　宇田川が机の下へ逃げ込んでいる。壁には、存在しない鉄扉が開いていた。暗い室内から、何本もの電話線が蛇のように這い出し、彼の足首へ絡みついている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="349">『三島さん！』</p>
+<p class="source-line role-narration gap-1" data-source-line="351">　映像の宇田川がカメラへ手を伸ばした。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="353">『切ってくれ！　映像を切れば、こいつは――』</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="355">　未来の自分の留守番電話が脳裏によみがえった。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　カメラを切らないで。</p>
+<p class="source-line role-narration gap-1" data-source-line="359">　澪は録画を続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　映像の宇田川は床を引きずられ、扉の向こうへ消えた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="363">　鉄扉が閉じる直前、暗闇の奥に、作業服の男が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　父だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="367">　父は電話線を両腕で抱え、引き止めようとしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　その顔が、初めてはっきり見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="371">　十八年前と同じ若さだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　父はカメラを見て、首を横に振った。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　そして自分の背後を指さした。</p>
+<div class="source-line scene-break gap-1" data-source-line="377" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="379">　畳の下に、鉄の蓋があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　澪が剥がすと、古い電話交換盤が埋め込まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　緑青の浮いた端子。布巻きの配線。焼け焦げたリレー。中央に、小さな紙札が挟まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　星見坂団地Ｅ棟　四〇四号室</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　加入者名　空欄</p>
+<p class="source-line role-narration role-document gap-1" data-source-line="388">　その下に、工事報告書が折りたたまれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　一九七九年十二月二日。Ｅ棟四階で一酸化炭素事故。四〇四号室の母子が死亡。事故当夜、室内電話から管理室へ四十四回の発信記録があったが、建物台帳では四〇四号室が欠番扱いとなっており、交換機は発信元を特定できなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="392">　通話はすべて、同じ部屋へ転送されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　受話器の向こうにいたのは、自分たちだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="396">　事故後、部屋は封鎖され、番号は平面図から削除された。だが旧交換盤だけは撤去されなかった。回線上では四〇四号室が「存在するのに契約者がいない場所」として残り続けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="398">　紙の余白に、父の筆跡があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　回線は、空欄を埋めようとしている。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　声、映像、名札、記録。名前が載るものは、すべて電話帳になる。</p>
+<p class="source-line role-narration gap-0" data-source-line="402">　名を受け取るたび、人を一人、部屋へ割り当てる。</p>
+<p class="source-line role-narration gap-0" data-source-line="403">　ただし回線は人間と建物を区別できない。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="405">　最後の一行だけ、血のように黒いインクで強く書かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　部屋そのものに名前を与えろ。</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　澪は交換盤を見下ろした。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　端子の一つに「音声登録」と刻まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　傍らには小さなマイクがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　電話機の女声が繰り返す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">『契約者のお名前をお願いします』</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　澪は口を開きかけ、止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="421">　建物の名前を言えばいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　だが、未来の留守番電話で、自分はすでに「三島澪」と口にしている。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　あの録音をこの部屋で再生した時点で、回線は名前を聞いてしまったのではないか。</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　交換盤の小窓に、赤い文字が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　候補名：三島澪</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　登録保留</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="432">「まだ、保留……」</p>
+<p class="source-line role-narration gap-1" data-source-line="434">　確定には返答が要る。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="436">　澪はスマートフォンを交換盤のマイクへ近づけた。録画中の画面には、自分と電話機と交換盤が映っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　電話機の受話器を、スマートフォンのスピーカーの前へ置く。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="440">　次に、ビデオカメラを電話機へ向け、その液晶画面をタブレットのカメラへ映し、タブレットの画面を胸元のカメラへ映した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="442">　画面の中に画面が続き、その奥で同じ部屋が小さく、小さく、無限に重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　一番奥の部屋で、父が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　父の隣には、見知らぬ男女と、制服姿の少年と、赤ん坊を抱いた女がいた。宇田川もいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="448">　全員が、同じ言葉を口の形だけで伝えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="450">　今だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="452">　澪は管理用タブレットの建物情報を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　正式名称を確認する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="456">「東都住宅公社星見坂団地Ｅ棟」</p>
+<p class="source-line role-narration gap-1" data-source-line="458">　交換盤へ向かって、はっきり発音した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="460">「契約者名は、東都住宅公社星見坂団地Ｅ棟」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　女声が答えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="464">『確認します。契約者名、東都住宅公社星見坂団地Ｅ棟』</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　映像の中の電話機から、同じ声が返る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="468">『確認します。契約者名、東都住宅公社星見坂団地Ｅ棟』</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="470">　さらにその奥の画面から、同じ声。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　奥へ、奥へ、無限に反復していく。</p>
+<p class="source-line role-narration gap-1" data-source-line="474">　交換盤のリレーが激しく動き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　候補名：三島澪</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　登録保留</p>
+<p class="source-line role-narration gap-1" data-source-line="479">　表示が明滅する。</p>
+<p class="source-line role-narration gap-1" data-source-line="481">　その上から、新しい文字が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　契約者名：東都住宅公社星見坂団地Ｅ棟</p>
+<p class="source-line role-narration gap-0" data-source-line="484">　所在地：東都住宅公社星見坂団地Ｅ棟</p>
+<p class="source-line role-narration gap-0" data-source-line="485">　転送先：東都住宅公社星見坂団地Ｅ棟</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　建物が、自分自身へ転送され始めた。</p>
+<div class="source-line scene-break gap-1" data-source-line="489" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="491">　最初に鳴ったのは、机の電話だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　次に、壁の中。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　天井裏。床下。押し入れの奥。廊下の向こう。上階、下階、管理室、屋上、配電盤、エレベーターの非常電話。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　Ｅ棟じゅうの呼び出し音が、一斉に重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　プルルルルルルルルルルルルルルルルルル――。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　音が建物の形を歪めた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="503">　畳が波打ち、壁紙の下から無数の受話器の輪郭が浮かび上がる。押し入れの目が見開かれ、その奥の人々が暗闇から押し出されるように前へよろめいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　父が一歩、部屋へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「澪」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　十八年ぶりに聞く、生の声だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　澪は返事をしそうになり、唇を噛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　父は悲しそうに笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="515">「よく来たな」</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="517">「帰ろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「俺はもう、この部屋の側だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="521">「名前を消せば――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「名前だけじゃない。十八年分、ここで呼び出し音を聞いた。人は長く住んだ場所に似てくる」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　天井が大きく裂けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　裂け目の向こうに夜空はなく、同じ六畳間が上下逆さに重なっていた。その部屋にも父と澪がいる。さらにその上にも、下にも。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　父は澪の肩をつかみ、現れた鉄扉へ押した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="531">「カメラを切るな。見られている間だけ、出口は出口のままだ」</p>
+<p class="source-line role-dialogue fx-climax role-motif tone-3 gap-1" data-source-line="533">「お父さん！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="535">「名を呼ぶな！」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　父の声に、部屋全体が震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="539">　澪は扉へ走った。</p>
+<p class="source-line role-narration role-system tone-3 gap-1" data-source-line="541">　画面越しにしか見えない廊下へ飛び出す。背後で、電話線の束が鞭のように伸び、父の身体へ巻きついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　父は両腕を広げてそれを受け止めた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="545">　宇田川が暗闇から転がり出てきた。澪は彼の腕をつかみ、引きずる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="547">「走って！」</p>
+<p class="source-line role-narration gap-1" data-source-line="549">　廊下の左右で、すべての部屋の扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　四〇一号室の中に四〇二号室があり、その奥に四〇三号室があり、さらに四〇四号室が続いている。建物が自分の内部へ折れ込み、同じ廊下を飲み込んでいく。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　澪と宇田川は階段を駆け下りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　五階へ上がるはずの踊り場が一階へつながり、一階の管理室を抜けると、また四階の廊下へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="557">　胸元のカメラを見る。</p>
+<p class="source-line role-narration role-system tone-3 gap-1" data-source-line="559">　画面の隅で、父が非常口の方向を指している。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　澪は肉眼では壁にしか見えない場所へ突っ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　冷たい金属扉が肩に当たる。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　非常口が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　二人は屋外階段へ転がり出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　その瞬間、Ｅ棟の全窓が内側から白く光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　呼び出し音が止まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　一拍遅れて、四階が建物の内側へ潰れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　爆発ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　巨大な手が、一枚の紙を中心線で折るように、Ｅ棟を静かに折り畳んだ。七階と一階が触れ、コンクリートの箱が自分自身へめり込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="579">　土煙が上がる直前、四階の窓に父が立っていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="581">　父は澪を見ていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　そして、もう一度だけ唇を動かした。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　名前を言うな。</p>
+<div class="source-line scene-break gap-1" data-source-line="587" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="589">　事故は「老朽化による局所崩落」と発表された。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　宇田川は両足を骨折したが、生きていた。病院で目を覚ました彼は、自分の名前を思い出せなくなっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　身分証を見せても、首を傾げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="595">「これ、俺ですか」</p>
+<p class="source-line role-narration role-system role-document tone-4 gap-1" data-source-line="597">　連絡先のデータからも、会社の名簿からも、「宇田川」という文字だけが抜け落ちていた。顔写真も住所も残っているのに、氏名欄はすべて空白だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　父の社員証は、澪の手元に残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　ただし、氏名欄は白紙になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　解体会社はＥ棟の残骸から電話交換盤を見つけられなかった。四〇四号室に相当する空間も存在しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　澪の胸元カメラには、午後九時十三分から十時二分まで、四十九分間の映像が残っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="607">　だが再生すると、四〇三号室を出た直後に画面が暗転し、四十四秒後、澪と宇田川が非常口から飛び出す場面へつながっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　父も、部屋も、交換盤も映っていない。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　澪は安心した。</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　映像に残らなければ、回線は途切れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="615">　そう思った。</p>
+<div class="source-line scene-break gap-1" data-source-line="617" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="619">　一週間後の午前零時四十四分、澪のスマートフォンが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　表示は「自宅」。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　自宅の番号など登録していない。固定電話もない。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="625">　呼び出しは十四回で止まった。</p>
+<p class="source-line role-narration role-system tone-4 gap-1" data-source-line="627">　直後、会社のクラウドサービスから通知が届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　――無人確認映像の自動解析が完了しました。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="631">　澪は通知を開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　星見坂団地Ｅ棟の映像に、自動生成された字幕が付いている。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　暗転している四十四秒間にも、音声だけは残っていた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="637">　画面に白い文字が浮かぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="639"><span class="term term-skill">【話者１：三島澪】</span></p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="640">　聞こえる？　三島澪、よく聞いて。</p>
+<p class="source-line role-narration gap-0" data-source-line="641">　カメラを切らないで。名前を言わないで。</p>
+<p class="source-line role-narration gap-1" data-source-line="643">　あの未来の留守番電話だ。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="645">　クラウドは声紋から話者を推定し、映像のメタデータへ澪のフルネームを書き込んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　続いて、解析結果が表示された。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　検出された部屋数：一</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　部屋番号：４０４</p>
+<p class="source-line role-narration gap-0" data-source-line="651">　入居者名：三島澪</p>
+<p class="source-line role-narration gap-0" data-source-line="652">　状態：転送待ち</p>
+<p class="source-line role-narration gap-1" data-source-line="654">　部屋の外で、何かが鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="656">　プルルルル。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　玄関ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="660">　澪の部屋にはないはずの、廊下の奥から聞こえる。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="662">　スマートフォンのカメラを起動して向ける。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="664">　画面の中で、寝室と浴室の間に、鉄の扉があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　黒い数字で「４０４」と貼られている。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　肉眼では、白い壁しかない。</p>
+<p class="source-line role-narration gap-1" data-source-line="670">　スマートフォンに留守番電話が届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　受信時刻は、十一月最後の月曜日、午後九時二十五分。</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　すでに一週間前の時刻だった。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="676">　発信者は、三島澪。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　澪は理解した。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="680">　あのとき聞いた警告は、これから自分が録音する。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="682">　録音しなければ、過去の自分は机の下を見ない。父の社員証もビデオカメラも見つけない。宇田川を連れて脱出できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="684">　録音すれば、自分の名が過去の部屋へ届く。</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　どちらを選んでも、回線はつながる。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　鉄扉の向こうで、父の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="690">「澪」</p>
+<p class="source-line role-narration gap-1" data-source-line="692">　昔と同じ、穏やかな呼び方だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="694">「迎えに来たぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　澪はスマートフォンの録音ボタンを押した。</p>
+<p class="source-line role-narration gap-1" data-source-line="698">　十二分前の自分へ送る言葉を、息を殺して吹き込む。</p>
+<p class="source-line role-dialogue role-clue tone-3 gap-1" data-source-line="700">「聞こえる？　三島澪、よく聞いて。カメラを切らないで。名前を言わないで。机の下を見て。そこに父さんの――」</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　背後で、電話が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="704">　振り向くと、机の上に黄ばんだ受話器が置かれていた。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="706">　コードは、壁の中へ消えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="708">　録音の残り時間は四秒。</p>
+<p class="source-line role-narration gap-1" data-source-line="710">　受話器がひとりでに持ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="712">『入居確認です』</p>
+<p class="source-line role-narration gap-1" data-source-line="714">　押し入れのないはずの壁が、内側から膨らんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="716">『契約者のお名前を、フルネームでお願いします』</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　澪はカメラを切らなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="720">　画面の中で、背後の鉄扉が、音もなく半分まで開いていた。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

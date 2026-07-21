@@ -1,0 +1,993 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="妹が失踪して十一日目、映像修復師のもとへ明日の日付のビデオが届く。廃屠畜研究所の白い廊下で、妹・澪は「見つけても私だと決めないで」と警告し、続く映像には屠畜銃で倒される未来の自分が映っていた。撮影担当かなえ、音声技師の江波戸と山へ向かうと、足音は半歩先に録れ、鏡には撮影者の位置だけが映る。悪魔は嘘を見せず、見た者に嘘を完成させるという。誰の感覚を信じれば現実になるのか。三人は映像の結末より先に澪へ届こうとする。">
+<title>疑いの屠場｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="疑いの屠場_読み切り小説" data-novel-id="疑いの屠場_読み切り小説" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ミステリ・サスペンス・ホラー</p>
+  <p><strong>補助ジャンル：</strong>SF・奇妙な味・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ミステリ、サスペンス、ホラー、SF、奇妙な味、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：532行／章：0／役割・強度タグ：606</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="疑いの屠場 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">疑いの屠場</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration tone-5 gap-1" data-source-line="3">　妹が失踪して十一日目、未来の私が殺される映像が届いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="5">　差出人のない薄い段ボール箱に、黒いビデオカセットが一本だけ入っていた。ラベルには、妹の字で「照合０」とある。癖の強い右上がりの「合」を見間違えるはずがなかった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="6">　私は映像修復を仕事にしている。焼けたフィルム、黴びたテープ、事故で半分だけ上書きされた家族映像。失われた像を、ノイズの底から拾い上げる仕事だ。だから、再生するなという常識よりも、再生できるかという職業病が勝った。</p>
+<p class="source-line role-narration gap-0" data-source-line="7">　カセットの規格は古い業務用だった。事務所の棚からデッキを引きずり出し、接点を清掃し、時刻表示を切ってモニターに送った。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　最初の四十七秒は黒だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="10">　ただし、無音ではない。遠くで重い鎖が擦れ、一定の間隔で金属が何か柔らかなものを叩いている。</p>
+<p class="source-line role-narration gap-0" data-source-line="11">　四十八秒目、蛍光灯が一本ずつ点いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="12">　白いタイルの廊下。天井には、食肉工場で使う枝肉搬送用のレールが延びている。左右の壁に小さな鏡が貼られ、どの鏡にも廊下の奥ではなく、こちら側――撮影者の立つ位置が映っていた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="13">　廊下の突き当たりに、妹の澪がいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　白衣は汚れ、右の頬が腫れていた。けれど生きていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　澪はカメラに近づき、レンズを覗き込んだ。</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="17">「兄さん。これを見ているなら、まだ来ていない」</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="18">　画面の隅に日付が出た。</p>
+<p class="source-line role-narration gap-0" data-source-line="19">　明日の日付だった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="20">「来ないで。ここでは、見たことと起きたことの順番が逆になる。私を見つけても、私だと決めないで」</p>
+<p class="source-line role-narration gap-0" data-source-line="21">　澪は背後を振り返った。</p>
+<p class="source-line role-narration gap-0" data-source-line="22">　廊下の奥で、何かが動いた。人の背丈ほどある金属板が、ゆっくりこちらを向く。鏡だった。その表面に、モニターの前に座る私が映っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="23">　録画された時点では存在しないはずの私が。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="25">「悪魔は嘘を見せない」</p>
+<p class="source-line role-narration gap-0" data-source-line="26">　澪は囁いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="27">「こっちに、嘘を完成させる」</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　映像が跳んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="30">　同じ廊下を、私が歩いている。服も今着ている灰色のシャツだった。私の後ろには、撮影仲間の相馬かなえと、音声技師の江波戸がいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="31">　未来の私は立ち止まり、カメラに向かって言った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="32">「これは現実だ」</p>
+<p class="source-line role-narration gap-0" data-source-line="33">　その瞬間、天井のレールから人影が降りた。</p>
+<p class="source-line role-narration gap-0" data-source-line="34">　牛の額を打ち抜く屠畜銃が、私の後頭部に押し当てられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　乾いた破裂音。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="37">　画面いっぱいに赤い霧が広がり、テープは終わった。</p>
+<div class="source-line scene-break gap-1" data-source-line="39" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="41">　澪は認知科学の研究者だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="42">　専門は「知覚の合意形成」。人は何を見たときに現実だと判断するのか。より正確には、複数の人間が何を共有したとき、それを現実と呼び始めるのか。</p>
+<p class="source-line role-narration gap-0" data-source-line="43">　彼女は三か月前から、北関東の山中にある廃施設を調べていた。旧・敷島畜産生理研究所。表向きは家畜のストレスと肉質の関係を研究する民間施設だったが、二十七年前、職員九名が失踪して閉鎖された。警察は集団夜逃げと処理したが、研究所には財布も車も、夕食の途中の食器まで残されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　澪が最後に送ってきたメールには、施設の古い見取り図と一行だけがあった。</p>
+<p class="source-line role-narration role-clue gap-1" data-source-line="47">　――悪意ある存在が、私の見るもの、聞くもの、触れるものをすべて偽っているとしたら？</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　デカルトの「悪しき霊」だ。</p>
+<p class="source-line role-narration gap-0" data-source-line="50">　澪は学生時代から、その思考実験を嫌っていた。世界のすべてが偽物でも、疑っている私の存在だけは疑えない。そこから確実なものを積み上げ直す。教科書ではそう習う。</p>
+<p class="source-line role-narration gap-0" data-source-line="51">　だが澪は、酔うと決まって言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="52">「“私”が一人だって、誰が保証するの」</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="53">　笑いながら言う冗談だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　私は灰色のシャツを脱いで黒い作業着に替え、それからかなえに映像を見せた。未来を変える方法として、江波戸の冗談と大差ないことは分かっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="56">　かなえは三度見直し、三度とも違う箇所で停止した。最初は鏡、次は澪の口元、最後は屠畜銃の先端。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="57">「合成じゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="58">「分かってる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="59">「日付だけなら細工できる」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="60">「鏡の中の俺は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="61">「巧妙な合成」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="62">「俺が明日着る服まで？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="63">「着替えればいい」</p>
+<p class="source-line role-narration gap-0" data-source-line="64">　彼女はそう言ってから、私の灰色のシャツを見た。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="65">「でも、行くんでしょ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="66">「ああ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="67">「なら私も行く。映像が嘘なら暴く。ほんとうなら、撮る」</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="68">　かなえは勇敢なのではなく、カメラを通すと恐怖を自分の外へ置ける人間だった。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="69">　江波戸は映像を見せても笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="70">「要するに、灰色のシャツを着なきゃ助かる」</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　彼は私の事務所にあった黄色い雨具を勝手に羽織り、胸を張った。</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-0" data-source-line="72">「これで未来は変わった」</p>
+<p class="source-line role-narration gap-0" data-source-line="73">　私たちはその冗談に救われた。</p>
+<p class="source-line role-narration gap-0" data-source-line="74">　少なくとも、山へ入るまでは。</p>
+<div class="source-line scene-break gap-1" data-source-line="76" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="78">　翌日の午後、私たちは敷島畜産生理研究所へ向かった。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="79">　国道を外れ、杉林の間の細い道を一時間ほど登る。携帯の電波は早々に消えた。カーナビは白い画面に自車位置だけを浮かべ、やがて到着時刻を「昨日　18:40」と表示した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="80">「中古だからな」</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="81">　江波戸が叩くと、画面の中の現在地が三つに増えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　施設の門は開いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="84">　錆びた看板の「畜産生理研究所」という文字の上に、赤い塗料で「明証」と書かれている。門柱には監視カメラがあった。電源など通っているはずもないのに、私たちの車が通るとレンズが動いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="86">　建物は、屠畜場と研究棟と古い農家を無理に繋いだような形をしていた。中央に赤錆びた搬入口。左に窓の少ないコンクリート棟。右奥に、黒い瓦屋根の母屋が沈んでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="87">　風はなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="88">　それなのに、搬入口の奥から吊り鎖が揺れる音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　かなえがカメラを回し、江波戸がガンマイクを向けた。</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="91">「音、来てる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="92">「来てる。近い。でも反響が変だ」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="93">「どう変？」</p>
+<p class="source-line role-dialogue role-horror gap-0" data-source-line="94">「俺たちの足音が、半歩先に録れてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　冗談だと思った。</p>
+<p class="source-line role-narration gap-0" data-source-line="97">　江波戸はヘッドホンを私に渡した。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　ざっ、ざっ、ざっ。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="100">　砂利を踏む三人分の足音。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　その次に、まだ誰も言っていない私の声が入った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="102">『戻ろう』</p>
+<p class="source-line role-narration gap-1" data-source-line="104">　一秒後、私は同じ言葉を口にした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="105">「戻ろう」</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　三人とも止まった。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="108">　ヘッドホンの中では、足音だけがさらに数歩進み、重い扉の開く音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　かなえはカメラを下ろさなかった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="111">「偶然」</p>
+<p class="source-line role-narration gap-0" data-source-line="112">　彼女は言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="113">　その言葉も、江波戸のヘッドホンから先に聞こえたらしい。彼の顔が引きつった。</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　帰るべきだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="116">　だが、そのとき建物の二階で白いものが動いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="117">　澪の白衣だった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="119">「澪！」</p>
+<p class="source-line role-narration gap-0" data-source-line="120">　私は叫んで走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="121">　後ろでかなえが悪態をつき、江波戸が追ってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="122">　搬入口の鉄扉は、触れる前に内側へ開いた。</p>
+<div class="source-line scene-break gap-1" data-source-line="124" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="126">　中は冷えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="127">　電気のない廃墟の冷たさではない。稼働中の冷蔵庫の、肉から熱を奪う冷たさだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　天井のレールから、白い袋が十数体ぶら下がっている。牛の枝肉を包む不織布に見えた。床には水が流れ、排水溝へ赤黒い筋を作っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="129">　江波戸が一番近い袋に指を触れた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="130">「温かい」</p>
+<p class="source-line role-narration gap-0" data-source-line="131">　袋の中で、何かが息を吸った。</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　私たちは一斉に離れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="134">　袋は揺れたが、それきり動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="136">　壁に新しい貼り紙があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　第一照合　見えるものを言え。</p>
+<p class="source-line role-narration gap-0" data-source-line="139">　第二照合　聞こえるものを言え。</p>
+<p class="source-line role-narration gap-0" data-source-line="140">　第三照合　痛む場所を言え。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　三名以上が一致した場合、それを現実とする。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　その下に、黒い指跡で一文が足されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　一致しない者は、感覚器を訂正する。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="147">「カルトだな」</p>
+<p class="source-line role-narration gap-0" data-source-line="148">　江波戸が言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="149">　声がやけに大きく響いた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="150">　かなえは貼り紙を撮った。液晶画面には、紙の前に立つ私たち三人のほかに、背後の袋の間から覗く女が映っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="151">　かなえが振り向く。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="152">　誰もいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　液晶の中では、女がさらに近づいていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="155">　白髪を短く刈り、顔の上半分を丸い鏡で覆っている。鏡の縁から細い針金が頬の肉に食い込んでいた。作業着の胸には「照合主任」と刺繍されている。</p>
+<p class="source-line role-narration gap-0" data-source-line="156">　女は液晶の中で、かなえの肩に手を置いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　現実のかなえの肩が沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　かなえが叫び、カメラを取り落とした。</p>
+<p class="source-line role-narration gap-0" data-source-line="161">　床に転がったカメラの液晶に、女の長靴が映った。</p>
+<p class="source-line role-narration gap-0" data-source-line="162">　次の瞬間、私たちのすぐ後ろで屠畜銃が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="164">　江波戸の黄色い雨具が跳ねた。</p>
+<p class="source-line role-narration gap-0" data-source-line="165">　背中ではなく、頭でもない。銃口は彼の左手の甲に押し当てられていた。圧縮空気で飛び出した鉄棒が、掌ごと床へ縫いつけている。</p>
+<p class="source-line role-narration gap-0" data-source-line="166">　江波戸の絶叫が冷蔵室を満たした。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　鏡面の女が、そこにいた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="169">「見えたか」</p>
+<p class="source-line role-narration gap-0" data-source-line="170">　落ち着いた声だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="171">　腰のホースが床を這い、壁の古いコンプレッサーに繋がっている。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="172">「私が見えたか」</p>
+<p class="source-line role-narration gap-0" data-source-line="173">　女はもう一度尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　かなえがカメラを拾い、女の顔面へ叩きつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="176">　鏡が割れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　その下に目はなかった。瞼を縫い閉じた皮膚の中央に、小さなレンズが埋め込まれていた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="178">　女は笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="179">「二名一致」</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　江波戸の手から鉄棒を引き抜き、かなえに向けて撃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="182">　私はかなえを突き飛ばした。鉄棒は背後の白い袋を貫いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="183">　袋の中から、何本もの腕がこぼれた。</p>
+<p class="source-line role-narration gap-0" data-source-line="184">　人間の腕だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="185">　肘から先だけの腕が、魚のように床で跳ねた。指が一斉に私たちを指した。</p>
+<p class="source-line role-narration gap-1" data-source-line="187">　私たちは冷蔵室の奥へ走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="188">　背後で女が叫ぶ。</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="189">「見たことを言え！」</p>
+<p class="source-line role-narration gap-0" data-source-line="190">　吊られた袋が次々に裂け、肉と骨の塊が床に落ちる音が追ってきた。</p>
+<div class="source-line scene-break gap-1" data-source-line="192" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="194">　研究棟へ続く防火扉を閉め、鉄製の棚を押しつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="195">　江波戸の左手は中央に穴が開き、指が二本動かなかった。かなえがシャツを裂いて巻き、私は消毒薬を探した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="196">「帰る」</p>
+<p class="source-line role-narration gap-0" data-source-line="197">　江波戸は震えながら言った。</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="198">「妹さんには悪いけど、俺は帰る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="199">「一緒に戻る」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="200">「戻るって、どっちだよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="202">　彼が指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="203">　廊下の両端に、同じ「搬入口」と書かれた扉があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="204">　私たちは片方から来た。だが、どちらだったか、誰も思い出せなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="206">　かなえが撮影データを確認した。</p>
+<p class="source-line role-narration gap-0" data-source-line="207">　最初の門から冷蔵室まで、十二分ほどの映像のはずだった。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="208">　タイムコードは四時間三十二分を示していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="209">　映像の大半は、私たち三人が搬入口へ入る場面の繰り返しだった。入るたびに服が少しずつ違う。江波戸の雨具は黄色、青、灰色。かなえの髪は長くなったり短くなったりしている。私はある回では一人で、ある回では担架を引き、ある回では鏡面の女と手を繋いでいた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="211">「止めろ」</p>
+<p class="source-line role-narration gap-0" data-source-line="212">　江波戸が言った。</p>
+<p class="source-line role-narration gap-0" data-source-line="213">　かなえが停止ボタンを押した。</p>
+<p class="source-line role-narration gap-0" data-source-line="214">　映像は止まらなかった。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="216">　画面の中の私たちは、今いる廊下へ入った。</p>
+<p class="source-line role-narration gap-0" data-source-line="217">　カメラの視点がゆっくり動き、こちらを向く。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="218">　画面の中で、私とかなえが江波戸を見ていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="219">　現実の私たちも、江波戸を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="221">「やめろ」</p>
+<p class="source-line role-narration gap-0" data-source-line="222">　江波戸は負傷した手を抱え、後ずさった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="223">「俺を見るな」</p>
+<p class="source-line role-narration role-system tone-4 gap-0" data-source-line="224">　画面の中の江波戸は笑っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="225">　そして、自分の傷口へ右手の指を差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　現実の江波戸の右手が動いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="228">「違う」</p>
+<p class="source-line role-narration gap-0" data-source-line="229">　彼は自分の腕を押さえた。</p>
+<p class="source-line role-narration gap-0" data-source-line="230">　だが指は傷口へ潜り、掌の中を探るように動いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="231">「俺じゃない。俺がやってるんじゃない」</p>
+<p class="source-line role-narration gap-0" data-source-line="232">　かなえが彼の右腕を掴む。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="233">　その瞬間、画面の中のかなえも同じように掴んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="234">　江波戸の身体が安心したように力を抜いた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="236">　画面の中の私は言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="237">『三名一致』</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　江波戸の右手が掌から何かを引き抜いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="240">　細い磁気テープだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="241">　濡れた黒い帯が、傷の奥から際限なく出てくる。江波戸は泣きながら引き出し続けた。床に落ちたテープが蛇のようにのたうち、棚の脚へ巻きつく。</p>
+<p class="source-line role-narration gap-0" data-source-line="242">　かなえがカメラの電池を外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="243">　液晶は暗くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　同時に、江波戸の動きが止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="246">　彼は大量の汗をかき、荒い息をしていた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="247">「外へ」</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　かなえが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="249">「澪さんを見つけたら連れていく。見つからなくても二十分で切り上げる。映像はもう見ない。録音も聞かない。三人で同じものを確認しない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="250">「どうやって進む」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="251">「別々のものを見ればいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　かなえはカメラのレンズを後ろへ向けて肩に載せた。</p>
+<p class="source-line role-narration gap-0" data-source-line="254">　私は床だけを見ることにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="255">　江波戸は目を閉じ、私のベルトを握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　私たちは、誰も同じものを見ないようにして歩き出した。</p>
+<div class="source-line scene-break gap-1" data-source-line="259" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="261">　研究棟の壁には、小窓のついた実験室が並んでいた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="262">　床だけを見ていた私は、何度も血の跡を跨いだ。裸足の足跡と、牛の蹄跡と、車輪の跡。それらは途中で重なり、一つの大きな手形になって階段へ続いていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="264">　二階の資料室で、澪の鞄を見つけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="265">　中にはノートが七冊、乾いたパン、電池の切れた携帯、そして封筒に入った自分の奥歯があった。奥歯には日付が書かれていた。失踪した翌日の日付。</p>
+<p class="source-line role-narration gap-0" data-source-line="266">　かなえが吐きそうな顔をしたが、何も言わなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="267">　私たちはもう、見たものを口にしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　澪のノートを一冊だけ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="271"><span class="term term-world">〈敷島式・明証試験〉</span></p>
+<p class="source-line role-narration gap-0" data-source-line="272">　対象者を三名一組とし、同一刺激を与える。</p>
+<p class="source-line role-narration gap-0" data-source-line="273">　一致した報告のみを採用する。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　不一致を繰り返す対象者は、視覚・聴覚・触覚の順に除外する。</p>
+<p class="source-line role-narration gap-0" data-source-line="275">　最終的に全員の報告が一致したとき、刺激の有無にかかわらず「現実」が成立する。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="277">　研究責任者は敷島貞雄。獣医師であり、退職後に哲学の通信課程を修めていた。彼は家畜が屠殺前に感じる恐怖を減らすため、知覚の同期実験を始めた。牛に穏やかな牧草地の映像を見せ、別の牛の心拍と呼吸を音で聞かせる。群れ全体が安全だと錯覚すれば、死の直前まで肉質を損なうストレスが生じない。</p>
+<p class="source-line role-narration gap-0" data-source-line="278">　実験は成功した。</p>
+<p class="source-line role-narration gap-0" data-source-line="279">　少なくとも、最初は。</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　次の頁から、澪の字になっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">〈敷島は、恐怖を消したのではない。群れの一頭へ集めた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="284">　一頭だけに全個体分の恐怖反応が出る。ほかの個体は静かになる。</p>
+<p class="source-line role-narration gap-0" data-source-line="285">　“現実”も同じではないかと彼は考えた。</p>
+<p class="source-line role-narration role-clue gap-0" data-source-line="286">　多数が同じ世界を見るために、誰か一人が矛盾を引き受けている。</p>
+<p class="source-line role-narration gap-0" data-source-line="287">　彼はその一人を「疑者」と呼んだ。〉</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　頁の端に、強く筆圧をかけた文字があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">〈悪魔は感覚を偽らない。</p>
+<p class="source-line role-narration gap-0" data-source-line="292">　合意を操作する。</p>
+<p class="source-line role-narration gap-0" data-source-line="293">　三人が赤いと言えば、白いものも赤くなる。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="294">　三人が生きていると言えば、死体も立つ。</p>
+<p class="source-line role-narration gap-0" data-source-line="295">　三人が“私”だと言えば、一つの身体に三人が入る。〉</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　廊下で、江波戸の声がした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="298">「見つけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　私のベルトを握っていたはずの手が消えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="301">　いつからいなかったのか分からない。</p>
+<p class="source-line role-narration gap-1" data-source-line="303">　声は階段の下から聞こえた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="304">「出口だ。二人とも、こっちだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　かなえと目が合った。</p>
+<p class="source-line role-narration gap-0" data-source-line="307">　私たちは同時に首を振った。</p>
+<p class="source-line role-narration gap-0" data-source-line="308">　同意したことに気づき、すぐに別々の方向を向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="310">　階段の下で、江波戸がまた呼んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="311">「出口だよ」</p>
+<p class="source-line role-narration gap-0" data-source-line="312">　その声に重なって、澪の声がした。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-0" data-source-line="313">「兄さん」</p>
+<p class="source-line role-narration gap-0" data-source-line="314">　さらに、私自身の声。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="315">「これは現実だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="317">　三つの声は、最後の一音まで完全に一致していた。</p>
+<div class="source-line scene-break gap-1" data-source-line="319" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="321">　資料室の奥に、地下へ降りる非常階段があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="322">　見取り図では、その先に「共同知覚室」がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="323">　出口と反対だと分かっていた。それでも澪がそこにいる気がした。気がした、というだけで進むことが、この施設では致命的だとも分かっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="324">　私は理由を作らなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="325">　ただ降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　地下は屠畜場の下へ繋がっていた。</p>
+<p class="source-line role-narration role-system role-horror tone-5 gap-0" data-source-line="328">　階段を降り切ると、温い風と腐敗臭が吹いた。暗闇の中で、無数のモニターが青白く光っている。古いブラウン管、監視用の小型画面、家庭用テレビ、手のひらほどの液晶。すべてが円形に並び、中央の椅子へ向けられていた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="329">　画面には、それぞれ別の私が映っていた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="330">　幼い私。眠っている私。澪を叱る私。母の葬式で泣けなかった私。撮った覚えのない場面ばかりだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="331">　中央の椅子に、白衣の人間が縛られている。</p>
+<p class="source-line role-narration gap-0" data-source-line="332">　澪だった。</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="334">　頭部を覆う金属の枠から、細いコードが何十本も伸びている。瞼は開いていたが、黒目が小刻みに揺れ、どの画面にも焦点が合っていない。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="335">「澪」</p>
+<p class="source-line role-narration gap-0" data-source-line="336">　呼ぶと、彼女の唇が動いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="337">「決めないで」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="338">「助けに来た」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="339">「それも決めないで」</p>
+<p class="source-line role-narration gap-0" data-source-line="340">　かなえが椅子の拘束具へ近づいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="341">　澪は激しく首を振った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="342">「触らないで。私がここにいるから、上のものは一つになれない」</p>
+<p class="source-line role-dialogue role-clue fx-beat gap-0" data-source-line="343">「上のもの？」</p>
+<p class="source-line role-dialogue role-clue tone-5 gap-0" data-source-line="344">「敷島たち。職員。家族。牛。記録。死んだ順番がばらばらのまま残ってる。私が矛盾を引き受けてる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="345">「何をすればいい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="346">「何もしないで。私が私だと確認しないで」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="348">　暗闇の奥で、コンプレッサーが動き始めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="349">　モニターが一斉に切り替わる。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="351">　画面の中で、かなえが澪の拘束具を外していた。</p>
+<p class="source-line role-narration gap-0" data-source-line="352">　現実のかなえは動いていない。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="353">　別の画面では、私がかなえの首を絞めていた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="354">　別の画面では、澪が椅子から立ち上がり、私の顔を撫でていた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="355">　さらに別の画面では、中央の椅子にいるのは澪ではなく、黄色い雨具を着た江波戸だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="357">「見えるか」</p>
+<p class="source-line role-narration gap-0" data-source-line="358">　背後から、鏡面の女の声がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="359">　かなえが振り向く。</p>
+<p class="source-line role-narration gap-0" data-source-line="360">　私は振り向かなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="362">「見えるか」</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　今度は江波戸の声。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="364">　右側の暗闇から、鎖を引きずる音が近づく。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="365">「俺だよ。助けてくれ」</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="367">　かなえのカメラが勝手に起動した。</p>
+<p class="source-line role-narration gap-0" data-source-line="368">　電池は外したまま、液晶に江波戸が映る。</p>
+<p class="source-line role-narration gap-0" data-source-line="369">　彼は黄色い雨具を着ていた。負傷した左手は、肘から先がなくなっている。右手で大きな骨鋸を引きずっていた。回転刃には黒い肉片がこびりついている。</p>
+<p class="source-line role-narration gap-0" data-source-line="370">　液晶の中の江波戸は泣いていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="371">　現実の暗闇から、同じ泣き声が聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="373">「俺が俺に見えるか」</p>
+<p class="source-line role-narration gap-0" data-source-line="374">　彼が尋ねた。</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　かなえは答えなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="377">　カメラを床へ置き、踏みつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="378">　液晶が割れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="379">　その破片一枚一枚に、江波戸の笑う口が映った。</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　骨鋸のモーターが唸った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="383">　暗闇から黄色い塊が飛び出した。</p>
+<p class="source-line role-narration role-system tone-5 gap-0" data-source-line="384">　かなえは避けたが、肩を回転刃が掠めた。服と肉が裂け、血がモニターへ飛んだ。画面の中の私たちが一斉に口を開け、飛沫を舐めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="385">　私は椅子の脚を掴んで引き倒し、江波戸の膝へぶつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="386">　彼は倒れなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="387">　黄色い雨具のフードの中に、顔が三つ重なっていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="388">　江波戸の顔。鏡面の女の縫われた顔。知らない老人の顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="389">　瞬きするたびに入れ替わる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="391">「一致しろ」</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　三つの口が言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="393">「一つになれば、もう疑わなくていい」</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　骨鋸が横薙ぎに振られた。</p>
+<p class="source-line role-narration gap-0" data-source-line="396">　私は床へ伏せた。背後のモニターが砕け、ガラスの雨が降る。</p>
+<p class="source-line role-narration gap-0" data-source-line="397">　かなえが壁のレバーを見つけ、体重をかけて倒した。</p>
+<p class="source-line role-narration gap-0" data-source-line="398">　天井の搬送レールが動き出した。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="399">　吊り下げフックが暗闇から滑ってきて、江波戸の雨具へ引っかかった。彼の身体が持ち上がる。だが、雨具の中から伸びた何本もの腕が床を掴んだ。袖口ではなく、裂けた背中から腕が生えていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="400">　かなえがもう一度レバーを押す。</p>
+<p class="source-line role-narration gap-0" data-source-line="401">　レールの速度が上がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="402">　江波戸は壁際の回転滑車へ引かれた。腕が一本ずつ伸び、外れ、床へ落ちた。落ちた腕は指で走り、私たちの足首を掴もうとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　澪が叫んだ。</p>
+<p class="source-line role-dialogue role-system fx-climax role-motif gap-0" data-source-line="405">「画面を消して！」</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　私は椅子の後ろの配電盤へ飛びついた。</p>
+<p class="source-line role-narration gap-0" data-source-line="408">　主電源の大きなハンドルを下げる。</p>
+<p class="source-line role-narration gap-0" data-source-line="409">　モニターがすべて消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　真っ暗になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　骨が砕ける音。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="414">　かなえの悲鳴。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="415">　誰かが私の耳元で笑う。</p>
+<p class="source-line role-narration gap-0" data-source-line="416">　そして、私自身の内側から声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="418">　――暗い、とおまえは思った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="419">　――ならば、暗闇は現実になった。</p>
+<div class="source-line scene-break gap-1" data-source-line="421" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="423">　私は目を閉じた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="424">　暗闇の中で目を閉じても意味はない。だが、意味がないことが重要だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="425">　見えたものを否定するのではない。見えないと決めるのでもない。</p>
+<p class="source-line role-narration gap-0" data-source-line="426">　判断を保留する。</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　右腕に激痛が走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="429">　何かに切られたのかもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　そうではないかもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="431">　かなえが私を呼んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="432">　本物かもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="433">　録音かもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="434">　澪が泣いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="435">　澪かもしれない。</p>
+<p class="source-line role-narration gap-0" data-source-line="436">　澪でないかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="438">　私は「私」と考えないようにした。</p>
+<p class="source-line role-narration gap-0" data-source-line="439">　疑いがある。</p>
+<p class="source-line role-narration gap-0" data-source-line="440">　痛みがある。</p>
+<p class="source-line role-narration gap-0" data-source-line="441">　声がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="442">　それだけにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="444">　内側の声が苛立った。</p>
+<p class="source-line role-narration gap-1" data-source-line="446">　――疑っているのは、おまえだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="447">　――おまえはここにいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　――おまえは妹を助けたい。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="449">　――おまえは妹を見捨てたくない。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　どれも正しいように思えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="452">　だから、どれも選ばなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="454">　手探りで配電盤を離れた。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="455">　床にはガラス、肉片、温い液体、細いコード。指先が触れるたび、それを名づけそうになる。名づければ、それが現実になる気がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　何かが足首を掴んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="457">　小さな手だった。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-0" data-source-line="458">「兄さん」</p>
+<p class="source-line role-narration gap-0" data-source-line="459">　澪の声が足元からした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="460">「見つけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="462">　私は手を振りほどいた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="463">　その瞬間、自分が妹を蹴ったのではないかという確信が胸に刺さった。</p>
+<p class="source-line role-narration gap-0" data-source-line="464">　確信こそが罠だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="466">　前方で、かなえが叫んだ。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-0" data-source-line="467">「冬一、右！」</p>
+<p class="source-line role-narration gap-0" data-source-line="468">　反射的に左へ倒れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="469">　骨鋸の刃が頬を掠めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="470">　かなえの声が本物だったとしても、私は従わなかったから助かった。あるいは、従ったから助かったのかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="472">　手が金属の円筒に触れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="473">　映像テープの大型リールだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　澪のノートにあった図を思い出す。共同知覚室の中心装置。すべてのカメラとモニターを同期させる「明証母帯」。敷島は、被験者の視線、声、心拍、筋電位を一つの信号へまとめ、繰り返し再生した。</p>
+<p class="source-line role-narration gap-0" data-source-line="475">　人間同士を一致させるための、機械仕掛けの悪魔。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　リールは回っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="478">　電源を落としたのに。</p>
+<p class="source-line role-narration gap-0" data-source-line="479">　磁気テープが指へ絡みつき、皮膚を薄く切った。テープの表面から、何百人もの囁きが伝わる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">「見える」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="482">「聞こえる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="483">「痛い」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="484">「同じだ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="485">「同じだ」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-0" data-source-line="486">「同じだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　私はリールを両腕で抱え、引いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="489">　重かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="490">　背後から骨鋸が近づく。</p>
+<p class="source-line role-narration gap-0" data-source-line="491">　かなえが何かと格闘している。</p>
+<p class="source-line role-narration gap-0" data-source-line="492">　澪が「やめて」と叫ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="493">　内側の声が言う。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="495">　――それを壊せば、妹が死ぬ。</p>
+<p class="source-line role-narration gap-0" data-source-line="496">　――それを壊さなければ、妹は生きる。</p>
+<p class="source-line role-narration gap-0" data-source-line="497">　――どちらかを選べ。</p>
+<p class="source-line role-narration gap-0" data-source-line="498">　――選んだほうを現実にしてやる。</p>
+<p class="source-line role-narration gap-1" data-source-line="500">　私は選ばなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="501">　ただ、手を離した。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　巨大なリールは軸から外れ、床を転がった。</p>
+<p class="source-line role-narration gap-0" data-source-line="504">　骨鋸の回転刃へぶつかる。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="505">　磁気テープが刃に巻き込まれ、黒い帯となって部屋中へ噴き出した。刃が悲鳴のような高音を発し、火花を散らす。</p>
+<p class="source-line role-narration gap-0" data-source-line="506">　火花は床の油に落ちた。</p>
+<p class="source-line role-narration gap-0" data-source-line="507">　青い炎が走った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="509">　暗闇が、燃えた。</p>
+<div class="source-line scene-break gap-1" data-source-line="511" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="513">　火の中で、私は初めて目を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　江波戸がいた。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="516">　彼は骨鋸を抱えたまま、搬送レールから逆さに吊られていた。顔は一つだった。血の気はなく、左腕は失われている。もう死んでいるように見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="517">　かなえは壁際に倒れ、肩を押さえていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="518">　中央の椅子には、澪がいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="519">　拘束具は外れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　澪が立ち上がる。</p>
+<p class="source-line role-narration gap-0" data-source-line="522">　私は彼女の顔を見た。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="523">　子どものころ、台風の夜に私の布団へ潜り込んできた顔。母の葬式で、私の代わりに泣いてくれた顔。失踪する前、電話で「兄さんは見えたものしか信じない」と怒った顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="524">　間違いなく澪だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="526">　そう確信した瞬間、彼女の顔が縦に裂けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="528">　内側から、鏡面の女の顔が現れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="529">　その奥から江波戸。</p>
+<p class="source-line role-narration gap-0" data-source-line="530">　その奥から私。</p>
+<p class="source-line role-narration gap-0" data-source-line="531">　顔の層が濡れた紙のようにめくれ続けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「三名一致」</p>
+<p class="source-line role-narration gap-0" data-source-line="534">　澪の声でそれは言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="535">「おまえたちは今、同じものを見た」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　かなえが起き上がり、炎の向こうで私を見ていた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="538">「澪さんよ」</p>
+<p class="source-line role-narration gap-0" data-source-line="539">　彼女は確信に満ちた声で言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="540">「助けて」</p>
+<p class="source-line role-narration gap-1" data-source-line="542">　吊られた江波戸が目を開いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="543">「澪さんだ」</p>
+<p class="source-line role-narration gap-0" data-source-line="544">　死んだ口が言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　二人の声が一致した。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="547">　私が同意すれば、目の前のものは妹になる。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="548">　妹になったものを、私は助ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="549">　そして施設の外へ連れ出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　それが悪魔の望みだと分かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="553">　私は床の屠畜銃を拾った。</p>
+<p class="source-line role-narration gap-0" data-source-line="554">　ホースは切れていたが、圧力筒に一発分残っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="555">　目の前のものは両腕を広げた。</p>
+<p class="source-line role-dialogue fx-key role-motif tone-3 gap-0" data-source-line="556">「兄さん」</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　声だけは、完全に澪だった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="558">「私を見て」</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　私は見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="561">　見たうえで、決めなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　銃口を自分の左耳へ当てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　かなえが叫ぶ。</p>
+<p class="source-line role-narration gap-0" data-source-line="566">　澪の顔をしたものが初めて後ずさる。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="567">「何をするの」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="568">「三人を二人にする」</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　引き金を引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　爆発ではなく、世界が片側から潰れる音がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="573">　痛みは白い光になり、すべての声を押し流した。</p>
+<p class="source-line role-narration gap-0" data-source-line="574">　私は倒れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="575">　左耳から温いものが流れ、平衡感覚が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　だが、銃口は耳のすぐ後ろを掠めただけだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="578">　鉄棒は私ではなく、背後の圧力管を貫いていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="579">　蒸気が噴き出し、共同知覚室を白く満たした。</p>
+<p class="source-line role-narration gap-0" data-source-line="580">　モニターの残骸が次々に破裂する。</p>
+<p class="source-line role-narration gap-0" data-source-line="581">　かなえの姿が消えた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="582">　江波戸の死体も消えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="583">　澪の顔をしたものは、蒸気の中で何十人分もの輪郭に分かれ、互いを掴み、互いの口へ指を突っ込みながら崩れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="585">「一人では現実になれない」</p>
+<p class="source-line role-narration gap-0" data-source-line="586">　声が遠ざかった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="587">「誰かに見てもらわなければ」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　天井が落ちた。</p>
+<div class="source-line scene-break gap-1" data-source-line="591" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="593">　気がつくと、私は杉林の斜面にいた。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="594">　夜明けだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="595">　施設は谷の下で燃えていた。炎の向こうに、屠畜場と研究棟と母屋が見えた。三つの建物は、見る角度によって一つになったり、離れたりした。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　かなえは数メートル先に倒れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="598">　息はあった。右肩に深い裂傷があったが、命に別状はなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="599">　江波戸はいなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　私たちは山を下り、昼前に保護された。</p>
+<p class="source-line role-narration gap-0" data-source-line="602">　警察はすぐ捜索隊を出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="603">　しかし谷には、焼けた施設どころか建物の基礎もなかったという。</p>
+<p class="source-line role-narration gap-0" data-source-line="604">　古い登記を調べると、敷島畜産生理研究所が存在したのは事実だった。ただし所在地は、私たちが発見された山から百二十キロ離れていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="605">　その跡地は二十年前にダムの底へ沈んでいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　江波戸は行方不明として扱われた。</p>
+<p class="source-line role-narration gap-0" data-source-line="608">　かなえは入院中、私とほとんど話さなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="609">　一度だけ、彼女は尋ねた。</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="610">「最後に、澪さんを撃った？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="611">「撃ってない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="612">「そう」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="613">「君は何を見た」</p>
+<p class="source-line role-narration gap-0" data-source-line="614">　かなえは長く黙った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="615">「あなたが自分を撃った」</p>
+<p class="source-line role-dialogue role-clue gap-0" data-source-line="616">「それだけ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="617">「そのあと立ち上がって、私に“二名一致”って言った」</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　退院したかなえは、撮影を辞めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="620">　鏡とモニターをすべて捨て、海辺の町へ移った。半年後、彼女から無地の封筒が届いた。中には割れたカメラのメモリーカードが入っていた。</p>
+<p class="source-line role-narration role-system gap-0" data-source-line="621">　データは一つだけ残っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="622">　十二秒の映像。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　私は再生しなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="626">　再生しないまま、金槌でカードを砕き、別々のごみ袋に分けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　それでも夜になると、事務所のモニターが勝手に点く。</p>
+<p class="source-line role-narration role-system tone-2 gap-0" data-source-line="628">　電源コードを抜いても、黒い画面の中に白い廊下が映る。</p>
+<p class="source-line role-narration gap-0" data-source-line="629">　廊下の奥には澪が立っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="630">　ときどき江波戸。</p>
+<p class="source-line role-narration gap-0" data-source-line="631">　ときどきかなえ。</p>
+<p class="source-line role-narration gap-0" data-source-line="632">　いちばん多いのは、私だ。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="634">　画面の中の私は、こちらへ歩きながら口を動かす。</p>
+<p class="source-line role-narration gap-0" data-source-line="635">　音はない。</p>
+<p class="source-line role-narration gap-0" data-source-line="636">　だが何を言っているのか分かる。</p>
+<p class="source-line role-narration gap-1" data-source-line="638">　見えるか。</p>
+<p class="source-line role-narration gap-0" data-source-line="639">　私が私に見えるか。</p>
+<div class="source-line scene-break gap-1" data-source-line="641" role="separator"><span class="source-indent" aria-hidden="true">　　　　　</span>＊</div>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="643">　ここまでを、私は映像ではなく文章で記録した。</p>
+<p class="source-line role-narration gap-0" data-source-line="644">　像を残さなければ安全だと思ったからではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="645">　文字は像より古い罠だと、もう知っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　文章を読むとき、人は書かれていないものまで見る。</p>
+<p class="source-line role-narration gap-0" data-source-line="648">　白いタイルの汚れ。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　鎖の揺れ。</p>
+<p class="source-line role-narration gap-0" data-source-line="650">　鏡に埋め込まれた女の顔。</p>
+<p class="source-line role-narration gap-0" data-source-line="651">　黄色い雨具から伸びる腕。</p>
+<p class="source-line role-narration gap-0" data-source-line="652">　私はそれらの細部を、すべて書いたわけではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="653">　足りない部分を補ったのは、読んでいる者だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　一人が書き、一人が読む。</p>
+<p class="source-line role-narration gap-0" data-source-line="656">　二名一致。</p>
+<p class="source-line role-narration gap-1" data-source-line="658">　あと一人いれば、ここは現実になる。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="660">　今、事務所の外で足音が止まった。</p>
+<p class="source-line role-narration gap-0" data-source-line="661">　ノックが三回。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="662">　澪の声で「兄さん」と呼んでいる。</p>
+<p class="source-line role-narration gap-0" data-source-line="663">　返事はしない。</p>
+<p class="source-line role-narration gap-0" data-source-line="664">　私はもう、何も確かめない。</p>
+<p class="source-line role-narration gap-1" data-source-line="666">　ただ一つ、気になっていることがある。</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　この記録を書き始めたとき、私は冒頭を「妹が失踪して十一日目」とした。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="669">　だが私に妹などいなかったと、警察の資料には書かれている。</p>
+<p class="source-line role-narration gap-0" data-source-line="670">　私の戸籍にも、兄弟姉妹はいない。</p>
+<p class="source-line role-narration gap-1" data-source-line="672">　それでも私は、澪の顔を思い出せる。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="673">　声も、手の温度も、子どものころの記憶も。</p>
+<p class="source-line role-narration gap-0" data-source-line="674">　そして、ここまで読んだあなたも、おそらく澪の姿を思い浮かべることができる。</p>
+<p class="source-line role-narration gap-1" data-source-line="676">　ならば、彼女を作ったのは誰だ。</p>
+<p class="source-line role-narration role-system tone-4 gap-1" data-source-line="678">　画面の中の私が、笑っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="679">　口の動きが、今度ははっきり読めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　――三名一致。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　その瞬間、廊下の向こうで、あなたが振り返った。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

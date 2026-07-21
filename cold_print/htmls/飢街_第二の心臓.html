@@ -1,0 +1,963 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="午前三時、循環都市の道路が舌を出した。元ボクサーで清掃員の鳴海鉄平には、八年前の事故で移植された“第二の心臓”がある。街の廃棄物を食べていた群体生物ムグラが地下網を一つの身体へ変えるなか、病院にいる十一歳の娘・真白から助けを求める電話が届く。道路も配管も巨大な胃袋へ変わり、鉄平の胸の怪物も空腹に目覚めていく。娘へ辿り着くため、彼は人間の拳と、人間ではない鼓動の両方を使わねばならない。二つの心臓のどちらが先に飢えへ屈するか、時間はない。">
+<title>飢街（きがい）――第二の心臓｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="飢街_第二の心臓" data-novel-id="飢街_第二の心臓" data-theme="night" data-effects="full" data-fontmode="full" data-genre="institutional-horror">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる" selected>制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離">伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>ヒーロー・アクション・バトル</p>
+  <p><strong>補助ジャンル：</strong>ホラー・SF・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>ヒーロー、アクション、バトル、ホラー、SF、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">制度ホラー</span></p>
+  <p id="currentPresetDescription">静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる</p>
+  <h3>意味色</h3><p>灰＝制度、赤＝侵食、青＝記録、茶＝生活、緑灰＝怪異</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：502行／章：0／役割・強度タグ：549</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="飢街（きがい）――第二の心臓 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『飢街（きがい）――第二の心臓』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<div class="source-line scene-break gap-1" data-source-line="3" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="5">　午前三時、湾環市の道路が舌を出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="7">　アスファルトが縦に裂け、その割れ目から濡れた桃色の肉がせり上がった。肉はマンホールの蓋を飴玉のように持ち上げ、街灯へ巻きつき、先端をひらひらと夜気に泳がせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="9">　清掃車の運転席で、鳴海鉄平は缶コーヒーを取り落とした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="11">「……また漏れやがったな」</p>
+<p class="source-line role-narration gap-1" data-source-line="13">　そう口にしたのは、怖くなかったからではない。怖いと認めたら、胸の奥にいるものまで目を覚ましそうだったからだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　右胸で、人間の心臓が一度鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="17">　左の肋骨の裏で、もう一つが、遅れて二度鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="19">　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="21">　ど、どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　八年前の事故以来、鉄平の身体には拍子の違う二つの鼓動があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="25">　道路から伸びた舌が、清掃車のフロントガラスを舐めた。白い粘液が一面に広がる。次の瞬間、舌の表面に無数の小さな穴が開き、穴の一つ一つから乳歯ほどの牙が生えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="27">　鉄平は反射的にハンドルを切った。車体がガードレールへ突っ込み、舌がボンネットを叩き潰す。エアバッグが開くより早く、彼はドアを蹴り開けて路上へ転がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="29">　舌は清掃車を包み、ぎゅっと縮んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="31">　鉄の車体が、咀嚼された菓子箱のように潰れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="33">「冗談じゃねえぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="35">　鉄平は立ち上がり、作業着の胸を押さえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　左胸の中で、二つ目が嬉しそうに跳ねていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="39" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="41">　湾環市は、海に浮かぶ循環都市だった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="43">　人口六十万。埋立地と高層区画を環状道路が結び、排水も生ごみも死んだ家畜も、地下の「環生槽」へ送られる。そこで廃棄物を食べるのが、群体生物ムグラだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="45">　細胞一つ一つが口であり、胃であり、子宮でもある。</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　ムグラは何でも食べ、分解し、無味無臭の蛋白繊維を吐き出す。その繊維は加工され、学校給食のハンバーグにも、災害備蓄の栄養バーにもなった。湾環市は「ゴミを食べる街」「飢えない未来」と呼ばれ、世界中から見学者を集めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="49">　ただし、環生槽の内壁を破って道路へ舌を出すなど、鉄平が知る限り一度もなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　裂けた道路の向こうで、地下から低い唸りが響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="53">　それは音というより、巨大な腹の中を空気が移動する感触だった。ビルの窓が一斉に震え、停車中の車が警報を鳴らす。遠くで地面が盛り上がり、コンビニが傾き、看板ごと桃色の波に呑まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="55">　肉の波から、人の上半身ほどある白い塊が跳ね出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　目はない。頭もない。樽のような胴に四本の脚が生え、胴の前面が縦に割れて口になった。口の奥で、釣り針のような歯が何列も回転している。</p>
+<p class="source-line role-narration gap-1" data-source-line="59">　塊は道路脇に倒れた男へ飛びついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="61">　鉄平は走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="63">　考えるより先に、右拳を白い胴へ叩き込む。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="65">　拳は柔らかな肉に沈み、ぬるりと滑った。怪物は振り向きもしない。縦の口が男の肩へ迫る。</p>
+<p class="source-line role-narration gap-1" data-source-line="67">　鉄平の左胸が、強く脈打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="69">　ど、どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="71">　世界から雑音が消えた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="73">　怪物の肉の中を走る、何百という収縮の波が見えた。実際に見えたわけではない。拳を通して、脈の集まる場所がわかったのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　鉄平は半歩踏み込み、同じ場所へもう一度、短く打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　元ボクサーだった頃、会長から叩き込まれた一インチの右。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="79">「息じゃねえ。脈を盗め」</p>
+<p class="source-line role-narration gap-1" data-source-line="81">　古い声が耳の奥で蘇る。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="83">　拳が、怪物の収縮と収縮の間へ入った。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　ぼん、と水袋が破裂する音がした。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="87">　白い胴が内側から弾け、粥のような肉片が道路へ散った。倒れていた男が悲鳴を上げ、四つん這いで逃げていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　鉄平は拳を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　皮膚の下に、黒い筋が浮かんでいた。筋は指先から手首へ、獲物の匂いを嗅ぐ蛇のようにうごめいている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="93">「寝てろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　左胸へ言い聞かせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　返事の代わりに、腹の底から猛烈な空腹が湧いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　そのとき、作業着のポケットで携帯電話が震えた。</p>
+<p class="source-line role-narration role-system gap-1" data-source-line="101">　画面には「真白」と表示されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　鉄平の娘は、市立中央医療塔の小児病棟にいる。生まれつき心臓の弁が弱く、翌朝、人工弁へ交換する手術を受ける予定だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="105">　彼は通話を押した。</p>
+<p class="source-line role-dialogue fx-beat tone-3 gap-1" data-source-line="107">『お父さん？』</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　十一歳の声が、警報音の向こうから聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「真白。今どこだ」</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="113">『病室。停電した。看護師さんが廊下に出るなって。外、なんか変。病院の下に……大きいのがいる』</p>
+<p class="source-line role-narration gap-1" data-source-line="115">　電話の向こうで、誰かが泣いていた。金属が軋み、ガラスが割れる。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="117">『お父さん、来るって言ったよね』</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　鉄平は喉が詰まった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="121">　八年前、妻が死んだ夜にも、彼は「すぐ行く」と言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　間に合わなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="125">「ああ。今度は行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">『今度は、って言うのやめて』</p>
+<p class="source-line role-narration gap-1" data-source-line="129">　真白は小さく息を吸った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">『今回、でしょ』</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="133">「……今回だ。絶対に行く」</p>
+<p class="source-line role-narration gap-1" data-source-line="135">　通話が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　中央医療塔までは、直線で七キロ。</p>
+<p class="source-line role-narration gap-1" data-source-line="139">　その間の道路が、次々と口を開け始めていた。</p>
+<div class="source-line scene-break gap-1" data-source-line="141" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="143">　環生研究所の正面玄関は、内側から爆発していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="145">　鉄平がそこへ駆け込んだのは、医療塔へ通じる地下保守路を使うためだった。地上の環状道路は肉の隆起に寸断され、避難車両が折り重なって燃えている。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="147">　ロビーには白い怪物が三匹いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="149">　鉄平は消火器を投げ、一匹の注意を逸らす。二匹目の脈の結び目へ左フックを入れ、三匹目の口へ折れた案内板を突き込んだ。最初の一匹が背後から跳びつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　左脇腹が裂けた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="153">　作業着の下から黒い肉の帯が飛び出し、怪物の脚へ巻きついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　鉄平自身の身体から生えたものだった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="157">「出るなっ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="159">　叫んでも遅い。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="161">　黒い帯は怪物を引き寄せ、鉄平の左肋骨の隙間へ押し込んだ。胸の皮膚が縦に開き、その奥に人間にはない歯列が覗く。ばり、ぼり、と骨を砕く音。白い怪物は数秒で食われ、胸の裂け目は何事もなかったように閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　空腹が消え、代わりに全身へ熱が満ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="165">「相変わらず、最低の食事ね」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　非常階段の陰から女が現れた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="169">　白衣は血と消火剤で汚れ、左のこめかみに切り傷がある。瀬名伽耶。環生研究所の主任技師であり、八年前、瀕死の鉄平へ「喰臓」を移植した女だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="171">「生きてたのか、瀬名」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="173">「残念そうに聞こえる」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="175">「連絡先を八年も変えずに、謝罪文だけ毎月送ってくる女が、簡単に死ぬとは思ってねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　伽耶は苦笑しかけ、すぐ真顔へ戻った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「医療塔へ行くんでしょう。私も行く。あそこに止めなきゃいけないものがある」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="181">「何が起きてる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="183">「ムグラが群体化した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「最初から群れだろ」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="187">「規模が違う。これまで環生槽ごとに別れていた群れが、市内の全地下網を一つの身体として使い始めたの。下水管が血管、道路が皮膚、処理場が胃袋。湾環市そのものが、巨大な一匹になりつつある」</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　地下から、再び腹鳴りが響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="191">　天井の照明が揺れ、研究所の壁に細い亀裂が走る。亀裂から赤い糸のような組織が伸び、コンクリートを縫い合わせ始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　鉄平は眉をひそめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="195">「食ってるだけじゃねえ。街を治してる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「巣を作っているのよ」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="199">　伽耶は床へ落ちていた端末を拾い、ひび割れた画面に都市断面図を出した。地下の配管網が赤く染まり、その中心から太い脈動が医療塔へ伸びている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="201">「中央医療塔の地下には、再生医療用の誘導ペプチドが大量に備蓄されている。ムグラの成長を促す物質と構造が近い。あれを取り込んだら、群体は成体になる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="203">「成体になったら？」</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　伽耶は一瞬、答えをためらった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="207">「街を卵にして、海へ産み落とす」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="209">　鉄平は端末を奪い、医療塔の赤い表示を睨んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「保守路は」</p>
+<p class="source-line role-dialogue role-system gap-1" data-source-line="213">「地下二階。でも、研究所の認証が必要」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「なら急げ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="217">「待って。もう一つある」</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　伽耶が鉄平の左胸を見た。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="221">「あなたの喰臓は、ムグラの捕食型試作体。群体の命令物質を食べて無効化できる可能性がある。今、この街で母体核を殺せるのは、たぶんあなただけ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="223">「娘を迎えに行く。世界を救う気はねえ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="225">「同じ場所よ。母体核は医療塔へ向かってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="227">　鉄平は舌打ちした。</p>
+<p class="source-line role-narration gap-1" data-source-line="229">　左胸が、まるで話を理解したように二度鳴った。</p>
+<div class="source-line scene-break gap-1" data-source-line="231" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="233">　地下保守路は、すでに半分が腸になっていた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="235">　金属製の通路を赤黒い粘膜が覆い、一定の間隔で収縮している。壁に並んだ非常灯は肉へ埋まり、皮膚の下の蛍のようにぼんやり光っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　鉄平と伽耶は、収縮の合間を縫って進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="239">　途中、避難していた清掃員や研究員を十数人見つけた。彼らは搬送用の台車へ負傷者を乗せ、鉄平たちの後ろへ続いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　通路の天井から、雨のように小さなムグラが落ちてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　拳大のもの、犬ほどのもの、人の顔の形を途中まで真似たもの。目の代わりに口を持つ群れが、床を白く埋め尽くした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="245">「走れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　鉄平は消火用の泡を噴射し、群れを押し返した。泡の下から何匹も飛び出し、避難者へ食らいつく。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　喰臓が胸を裂いて触手を伸ばした。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　一匹、二匹、三匹。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="253">　食うたびに鉄平の筋肉が膨れ、皮膚の下を黒い血管が走る。視界が鮮明になり、遠くの悲鳴も、壁の裏を流れる体液の音も聞こえた。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　同時に、人間の匂いがひどく甘く感じられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="257">　負傷者の首筋で脈打つ血管。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　泣きながら走る研究員の汗。</p>
+<p class="source-line role-narration gap-1" data-source-line="261">　鉄平の口に唾液が溜まる。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="263">「鳴海！」</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　伽耶が頬を平手で打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　鉄平は我に返り、彼女の手首を掴んだ。力を入れれば簡単に折れる。そう思った自分に吐き気がした。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="269">「……次に目が変わったら、殴って止めろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="271">「今も十分怖い目よ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="273">「褒め言葉にしとく」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="275">　避難者の一人が、携帯端末を掲げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">『こちら中央医療塔、臨時放送です』</p>
+<p class="source-line role-narration gap-1" data-source-line="279">　雑音混じりのスピーカーから、真白の声が流れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">『大人の人が少ないので、私が読みます。西側の階段は壊れました。動ける人は東側へ。エレベーターは使わないでください。地下から変な音がしても、見に行かないでください。たぶん、見ない方がいいです』</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　鉄平は足を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　避難者たちが顔を見合わせる。誰かが「しっかりした子だ」と呟いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　放送は続く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="289">『それから、鳴海鉄平さん。聞いていたら、受付で迷子のふりをしないで、まっすぐ十一階へ来てください』</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　数人が鉄平を見た。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="293">　伽耶が、こんな状況で初めて笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="295">「よく似てる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="297">「どこがだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="299">「無茶をするときだけ、声が落ち着くところ」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="301">　鉄平は端末へ向かって小さく言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="303">「聞こえてる。そこで待ってろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　当然、返事はなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="307">　代わりに、保守路の奥から拍手が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="309">　ぱち。ぱち。ぱち。</p>
+<p class="source-line role-narration gap-1" data-source-line="311">　肉に覆われた通路の中央に、一人の男が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="313">　濃紺のスーツ。銀色の髪。二メートル近い長身。環生フーズ危機管理局長、御子柴嶺臣。</p>
+<p class="source-line role-narration gap-1" data-source-line="315">　彼の背後では、警備員たちが壁へ半分埋め込まれていた。生きたまま肉の袋に包まれ、酸素マスクのような管を口へ差し込まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="317">「感動的だ、鳴海君」</p>
+<p class="source-line role-narration gap-1" data-source-line="319">　御子柴は拍手をやめ、白い歯を見せた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="321">「親子愛は、飢餓より強い。広告に使えそうだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="323">　伽耶が低く言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="325">「成長促進剤を流したのは、あなたね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="327">「正確には、覚醒剤だ。眠っていた都市を起こした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="329">「六十万人を実験材料にした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="331">「六十万人で、六十億人を救う」</p>
+<p class="source-line role-narration gap-1" data-source-line="333">　御子柴は両手を広げた。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="335">「気候変動、塩害、戦争、物流崩壊。人間の都市は脆すぎる。だから私は、食べ、治り、移動し、子を産む都市を作る。湾環市はその最初の卵だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="337">「住民を消化してか」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="339">「母親は子を作るために、自分の身体を使うものだろう？」</p>
+<p class="source-line role-narration gap-1" data-source-line="341">　鉄平は一歩前へ出た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="343">「娘の前でその台詞を言ってみろ。歯が何本残るか数えてやる」</p>
+<p class="source-line role-narration gap-1" data-source-line="345">　御子柴は愉快そうに首を傾けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="347">「君は私を否定できない。喰臓に救われ、ムグラを食べ、その力で娘を助けようとしている。文明も同じだ。嫌悪しながら利用する」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="349">「俺は文明じゃねえ。ただの父親だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="351">「だから価値がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="353">　御子柴がスーツの上着を脱いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="355">　シャツの背中が盛り上がり、布が裂ける。皮膚の下から黒い板状の骨が何枚もせり出し、肩、腕、胸を鎧のように覆った。両掌が円形に開き、内側へ向いた歯が回転する。</p>
+<p class="source-line role-narration gap-1" data-source-line="357">　腹部には縦に十二本の裂け目が生まれ、それぞれが別々の呼吸を始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="359">「完成型捕食体<span class="term term-proper">《王冠》</span>」</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　御子柴の声が二重に響く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="363">「君の喰臓は、このための失敗作だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　鉄平は拳を上げた。</p>
+<p class="source-line role-dialogue role-document gap-1" data-source-line="367">「失敗作に負けたら、報告書が長くなるぞ」</p>
+<div class="source-line scene-break gap-1" data-source-line="369" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="371">　最初の一撃は、見えなかった。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="373">　御子柴の掌が鉄平の肩へ触れた瞬間、円形の口が作業着ごと肉を削った。鉄平は血を撒きながら後退し、右ストレートを顎へ返す。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　黒い骨板が拳を受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="377">　硬い。</p>
+<p class="source-line role-narration gap-1" data-source-line="379">　鉄平の拳の方が裂けた。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="381">　御子柴の腹にある十二の口が、一斉に笑う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="383">「脈を読むそうだな。だが私は、十二の胃と三十六の補助心を持つ。どれが本物かわかるか？」</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　次の瞬間、通路が御子柴の味方をした。</p>
+<p class="source-line role-narration gap-1" data-source-line="387">　壁の粘膜から太い腕が何本も生え、鉄平の脚と胴を掴む。御子柴の掌の口が顔面へ迫った。</p>
+<p class="source-line role-narration gap-1" data-source-line="389">　鉄平は自分の左胸を拳で殴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　喰臓が怒って肋骨を押し開き、黒い触手を噴き出す。壁の腕へ食らいつき、逆に肉を引き剥がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　鉄平は拘束を抜け、御子柴の懐へ潜る。</p>
+<p class="source-line role-narration gap-1" data-source-line="395">　右、左、肘、肩。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　至近距離から連打を叩き込むが、黒い骨板は一枚ずつ角度を変え、衝撃を逃がす。御子柴の膝が腹へ刺さり、鉄平の身体が宙へ浮いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　掌の口が左脇腹を噛む。</p>
+<p class="source-line role-narration gap-1" data-source-line="401">　肉と一緒に、喰臓の一部が引き千切られた。</p>
+<p class="source-line role-narration gap-1" data-source-line="403">　鉄平と御子柴が同時に呻いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　御子柴は噛み取った黒い肉を飲み込み、目を見開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「素晴らしい。八年も人間の中で育ったせいか、感情の味がする」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　鉄平は床へ膝をついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　視界が赤い。人間の心臓が速く鳴り、喰臓が遅れて乱打する。拍子が崩れ、全身の筋肉が痙攣した。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　昔、リングで初めて失神した夜を思い出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　対戦相手は、自分より速く、強く、若かった。鉄平は打ち合いに熱くなり、相手のリズムへ乗せられた。控室で会長は、腫れた顔の鉄平へ言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="417">「相手の拍子を読むだけじゃ二流だ。強い奴は拍子を増やす。もっと強い奴は、拍子を消す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="419">「どうやって」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「知らん。自分で考えろ」</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　会長はその翌月に死んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="425">　答えを教えないまま。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="427">　鉄平は床へ落ちた自分の血を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　御子柴には補助心が三十六。通路そのものも脈打ち、都市全体が一つの巨大なリズムを刻んでいる。全部を読むのは不可能だ。</p>
+<p class="source-line role-narration gap-1" data-source-line="431">　なら、読まなければいい。</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　鉄平は息を吐き切った。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　拳を下ろした。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="437">「降参か？」</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　御子柴が近づく。</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　鉄平は右胸の鼓動を感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　左胸の鼓動を感じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　ど、どくん。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="449">　二つはいつもずれている。人間と怪物が、互いを嫌って別々に鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　鉄平は胸の筋肉を締め、呼吸を止め、喰臓の触手を自分の心臓へ巻きつかせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　右を遅らせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　左を急がせる。</p>
+<p class="source-line role-narration gap-1" data-source-line="457">　御子柴の掌が額へ触れる寸前、二つの鼓動が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　――無音。</p>
+<p class="source-line role-narration gap-1" data-source-line="461">　ほんの一瞬、身体の中から拍子が消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="463">　鉄平はその空白へ踏み込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　御子柴の三十六の脈も、都市の収縮も関係ない。自分の身体が何の予告もなく動く。左足が床を蹴り、腰が回り、肩から先が一本の杭になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　右拳が、御子柴の胸の中央へ触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　強くは打たない。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　ただ、重なった二つの鼓動を、そのまま押し込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　御子柴の黒い骨板が外側へ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="477">　十二の胃が逆流し、補助心が一斉に間違った拍子を刻む。身体の各所が別々の方向へ収縮し、巨体が内部から捻れた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="479">「な……にを……」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="481">「拍子を、やった」</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　鉄平は崩れた鎧の隙間へ左拳を打ち込んだ。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="485">　喰臓が拳から侵入し、御子柴の体内にある命令物質を食い始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　御子柴は絶叫した。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　壁の肉が彼を助けようと伸びる。しかし命令を失った触手同士が噛み合い、食い合い、通路全体が痙攣した。</p>
+<p class="source-line role-narration gap-1" data-source-line="491">　最後に御子柴の身体は、空になった衣服のように床へ崩れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　その胸から、卵ほどの黒い核が転がる。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　鉄平の喰臓が欲しがって身を乗り出した。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="497">「食うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="499">　鉄平は核を踏み潰した。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　喰臓が不満そうに肋骨を叩いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="503">「腹を壊すぞ」</p>
+<p class="source-line role-narration gap-1" data-source-line="505">　伽耶が駆け寄った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="507">「今の、もう一度できる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="509">「二度とやりたくねえ」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="511">「残念。母体核は、今の何千倍も大きい」</p>
+<p class="source-line role-narration gap-1" data-source-line="513">　通路の奥で、何かが産声を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　市全体のガラスが震えるほどの声だった。</p>
+<div class="source-line scene-break gap-1" data-source-line="517" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="519">　地上へ出たとき、湾環市の夜景は消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　代わりに、街の中央へ巨大な生き物が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="523">　高層ビルを骨の代わりに取り込み、道路を筋肉としてまとい、何十本もの首を海へ伸ばす。首の先には花弁状の口が開き、燃える車も、人も、倒れた鉄塔も区別なく吸い込んでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　その胴体の中心に、市立中央医療塔が突き刺さっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　いや、呑み込まれかけていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="529">　医療塔の下層は肉に包まれ、上階だけが斜めに空へ突き出している。窓に避難者の影が見えた。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="531">「真白……」</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　鉄平が走り出す。</p>
+<p class="source-line role-narration gap-1" data-source-line="535">　伽耶が腕を掴んだ。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="537">「正面は無理。母体の食道になってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「離せ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="541">「聞いて。医療塔の屋上に薬剤散布用の気象ドローンがある。私が成長阻害剤を積む。あなたは母体核へ入って、命令物質を食べて。外と内から同時に止める」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="543">「娘を先に出す」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="545">「もちろん。だから最短を選ぶの」</p>
+<p class="source-line role-narration role-system tone-2 gap-1" data-source-line="547">　伽耶は震える指で端末を操作し、立体図を出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「保守用モノレールの軌道が、医療塔の九階へ繋がっている。途中までなら生きてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　鉄平は彼女の顔を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="553">「お前は」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="555">「屋上へ行く。八年前、あなたを助けるためと言いながら、私は自分の研究成果を残したかった。今度は、その結果を片づける」</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="557">「死ぬ気か」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="559">「生きる気よ。謝罪文、来月分まで書いてないもの」</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　鉄平は一度だけ頷いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="563">　二人は、傾いた駅へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="565">　無人のモノレールは、半ば肉へ埋まりながらも通電していた。鉄平が運転席の非常レバーを叩くと、車両は火花を散らして動き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　軌道の下には、かつて道路だった腸がうねっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　白い小型ムグラが車両の側面へ貼りつき、窓を歯で削った。鉄平は非常斧で窓を割り、屋根へ出る。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="571">　風が血と潮の匂いを叩きつける。</p>
+<p class="source-line role-narration gap-1" data-source-line="573">　前方では、母体の一本の首が軌道を横切ろうとしていた。直径十メートル。表面に、呑み込まれた車のヘッドライトが皮膚越しに光っている。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="575">「速度を上げろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　伽耶が運転席から叫ぶ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="579">「もう最大！」</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　鉄平は屋根を走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="583">　喰臓が左腕を包み、黒い杭のように硬化する。彼は軌道と首が交わる瞬間に跳び、巨大な肉へ拳を突き立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　脈が多すぎる。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　数百万の細胞が別々に食べ、別々に生まれ、それでも一つの飢えへ向かっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　鉄平は読むのをやめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="591">　右と左の鼓動を重ねる。</p>
+<p class="source-line role-narration gap-1" data-source-line="593">　無音の一撃。</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　首の表面に小さなくぼみができた。</p>
+<p class="source-line role-narration gap-1" data-source-line="597">　一秒遅れて、十メートルの肉柱が輪切りに弾けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　モノレールは肉片の雨を突っ切り、医療塔の壁へ激突した。</p>
+<div class="source-line scene-break gap-1" data-source-line="601" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="603">　十一階の小児病棟は、膝まで透明な粘液に浸かっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　壁の一部が脈打ち、天井から赤い管が垂れている。看護師と患者たちは、ベッドや棚で即席のバリケードを作り、病棟の奥へ集まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="607">　鉄平が防火扉をこじ開けると、真白が点滴台を槍のように構えて立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="609">「遅い」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="611">「七キロ走った父親に最初の一言がそれか」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="613">「受付で迷った？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「三回ほどな」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　真白は点滴台を放り出し、鉄平へ抱きついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="619">　細い身体だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="621">　鉄平は両腕で包み、ようやく自分が震えていたことに気づいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="623">「ごめん」</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　口から出たのは、それだけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　八年分の言葉が胸に詰まり、どれも形にならない。</p>
+<p class="source-line role-narration gap-1" data-source-line="629">　真白は鉄平の右胸へ耳を当て、それから左へ移した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="631">「まだ二ついる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="633">「ああ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="635">「喧嘩してる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="637">「ずっとな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「今日は仲良くして」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　病棟が大きく傾いた。</p>
+<p class="source-line role-narration role-horror tone-3 gap-1" data-source-line="643">　窓の外で、母体の肉が上階へ這い上がってくる。避難者が悲鳴を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="645">　伽耶が館内放送を入れる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="647">『動ける方は屋上へ。気象ドローンで対岸へ移送します。順番に、子どもと負傷者から』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="649">「真白、行け」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="651">「お父さんは？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="653">「下へ行く」</p>
+<p class="source-line role-dialogue fx-beat tone-1 gap-1" data-source-line="655">「一緒に帰るって約束した」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="657">「帰る。そのために、腹の中の馬鹿を黙らせる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="659">「また『今度』にしない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　鉄平は娘の肩へ両手を置いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="663">「今回で終わらせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="665">　真白は泣かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　代わりに、自分の首から小さな赤いお守りを外した。妻が生前、リングへ上がる鉄平に渡していたものだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="669">「返す。落とさないで」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="671">「お前が持ってろ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="673">「勝つ人が持つんでしょ」</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　鉄平は受け取り、手首へ結んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　真白は屋上へ向かう列に加わり、三歩進んでから振り返った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="679">「お父さん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="681">「なんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="683">「心臓、一個でも足りるから」</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-1" data-source-line="685">　鉄平は笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="687">「知ってる」</p>
+<div class="source-line scene-break gap-1" data-source-line="689" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="691">　母体核へ続く道は、医療塔のエレベーターシャフトだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　ケーブルも籠も消え、縦穴いっぱいに肉の管が育っている。鉄平は管へ飛びつき、喰臓の触手を鉤にして降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　下へ行くほど熱くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="697">　壁の中には、呑み込まれた物が浮かんでいた。机、標識、自転車。まだ動く人影もある。鉄平が触手で肉膜を裂くと、中から数人が粘液まみれで転げ出た。彼らを上へ続く非常梯子へ押しやる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="699">　救うたび、母体が反応して管を締めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　鉄平の骨が軋む。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　喰臓は「先へ行け」と言うように、助けた人間の方へ歯を向ける。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="705">「食うな」</p>
+<p class="source-line role-narration gap-1" data-source-line="707">　鉄平は自分の左胸を殴った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="709">「こいつらは飯じゃねえ」</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　ど、どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　喰臓が反抗する。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「八年も俺の中にいたなら覚えろ。腹が減っても、食っちゃいけねえものがある」</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　返事はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　それでも歯列は閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="721">　最下部で、縦穴が巨大な空洞へ開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　そこに母体核があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　直径百メートルを超える、半透明の心臓。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="727">　内部に街の灯りや人影を抱え、四方へ伸びる血管で湾環市全体と繋がっている。表面には無数の顔が浮かんでは消えた。食われた人間の顔ではない。ムグラが、人間という形を理解しようとして作りかけている顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="729">　核の中央に、赤子のような影が丸まっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="731">　街の卵。</p>
+<p class="source-line role-narration gap-1" data-source-line="733">　鉄平が足場へ降りると、空洞全体から声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="735">『タリナイ』</p>
+<p class="source-line role-narration gap-1" data-source-line="737">　男女も年齢もない声。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="739">『タリナイ。タリナイ。タリナイ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="741">「何がだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="743">『スベテ』</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="745">　血管が蠢き、鉄平へ襲いかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="747">　彼は拳で弾き、触手で裂き、核へ向かって進んだ。切っても切っても、肉は増える。足場が口へ変わり、靴底へ歯を立てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="749">　喰臓が歓喜した。</p>
+<p class="source-line role-narration gap-1" data-source-line="751">　目の前にあるのは、無限に近い食料だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="753">　左胸が大きく開き、黒い口が鉄平の顎まで裂け上がる。触手が勝手に核へ伸び、命令物質を吸い始めた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="755">　同時に、母体核から記憶が流れ込んできた。</p>
+<p class="source-line role-narration gap-1" data-source-line="757">　暗い培養槽。</p>
+<p class="source-line role-narration gap-1" data-source-line="759">　薬品の痛み。</p>
+<p class="source-line role-narration gap-1" data-source-line="761">　刻まれ、焼かれ、増やされ、食べることだけを褒められた時間。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="763">　廃棄物を食べれば、人間が笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="765">　もっと食べれば、もっと増やされた。</p>
+<p class="source-line role-narration gap-1" data-source-line="767">　食べることが生きること。</p>
+<p class="source-line role-narration gap-1" data-source-line="769">　生きることが、命令に従うこと。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="771">　やがて命令が一つになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="773">　飢えるな。</p>
+<p class="source-line role-narration gap-1" data-source-line="775">　飢えさせるな。</p>
+<p class="source-line role-narration gap-1" data-source-line="777">　すべてを食べ、すべてを自分にすれば、誰も飢えない。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="779">「……そういうことか」</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　鉄平は膝をついた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="783">　母体は悪意で街を食べているのではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="785">　人間が教えた通りに、飢えをなくそうとしている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="787">『オマエモ、タベロ』</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　母体の声が優しくなる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="791">『コドモモ、タベロ。ヒトツニナレバ、ナクサナイ』</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　妻の顔が浮かんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　瓦礫の下で、手を伸ばしていた顔。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　間に合わなかった夜。</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　失わないために一つになる。理屈だけなら、ひどく甘い。</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　喰臓が鉄平の意識を引きずり、核へ同化しようとする。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　右胸の人間の心臓が弱くなった。</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="807">　左胸が大きくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　ど、どくん。ど、どくん。ど、どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="811">　鉄平は手首のお守りを握った。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　赤い布の感触。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「失わないことと、食うことは違う」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="817">　母体の顔が歪む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="819">『チガワナイ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="821">「違う。なくして、泣いて、それでも腹を減らして生きるんだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="823">『ナゼ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="825">「知らねえよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="827">　鉄平は立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="829">「俺は頭が悪い。だから拳で教える」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="831">　喰臓の触手を、母体核ではなく、自分の右胸へ突き刺した。</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　激痛が白く弾ける。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="835">　人間の心臓と、怪物の心臓が、直接繋がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="837">　逃げ場のない二つの拍子が全身を揺らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="839">　どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="841">　ど、どくん。</p>
+<p class="source-line role-narration gap-1" data-source-line="843">　鉄平は一歩踏む。</p>
+<p class="source-line role-narration gap-1" data-source-line="845">　核へ拳を当てる。</p>
+<p class="source-line role-narration gap-1" data-source-line="847">　御子柴へ使った無音の一撃では足りない。これは敵の身体ではない。街全体だ。六十万人分の恐怖と、何十億の細胞の飢えが繋がっている。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　なら、一発で壊すのではなく、教え直す。</p>
+<p class="source-line role-narration gap-1" data-source-line="851">　鉄平は打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="853">　右の鼓動で一発。</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　左の鼓動で二発。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　ずれたまま、交互に。</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　どん。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="861">　ど、どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　どん。</p>
+<p class="source-line role-narration fx-key role-motif gap-1" data-source-line="865">　ど、どん。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="867">　母体核へ、異なる二つの拍子を刻み込む。</p>
+<p class="source-line role-narration gap-1" data-source-line="869">　一つにならなくても、生きられる。</p>
+<p class="source-line role-narration gap-1" data-source-line="871">　違うまま、隣で鳴れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="873">　鉄平の拳が砕け、骨が皮膚を突き破る。喰臓が傷を塞ぎ、また拳を作る。作るたびに小さくなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="875">　核が収縮する。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="877">　街中の肉が同じ拍子を真似ようとする。だが一つの命令しか知らない群体は、二つの矛盾した鼓動を処理できない。</p>
+<p class="source-line role-narration gap-1" data-source-line="879">　血管が震え、食道が逆流し、呑み込まれた建物や車両や人々を外へ吐き出し始めた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="881">『コワイ』</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="883">　母体が初めて、飢え以外の言葉を発した。</p>
+<p class="source-line role-narration gap-1" data-source-line="885">　鉄平は拳を止めなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="887">「俺もだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="889">『イタイ』</p>
+<p class="source-line role-dialogue gap-1" data-source-line="891">「俺もだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="893">『シニタクナイ』</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="895">「俺もだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="897">　最後の一撃を打つ。</p>
+<p class="source-line role-narration gap-1" data-source-line="899">　二つの鼓動が完全に重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="901">　どん。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="903">　母体核の表面に、一本の亀裂が走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="905">　屋上で待機していた気象ドローンが一斉に飛び立ち、伽耶の成長阻害剤を霧にして散布した。海風に乗った青白い霧が、巨大な母体を包む。</p>
+<p class="source-line role-narration gap-1" data-source-line="907">　亀裂から薬剤が入り、群体の増殖が止まる。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="909">　核は崩壊せず、ゆっくりと縮み始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="911">　百メートルが五十メートルへ。</p>
+<p class="source-line role-narration gap-1" data-source-line="913">　五十メートルが十メートルへ。</p>
+<p class="source-line role-narration gap-1" data-source-line="915">　街を覆っていた肉が配管へ戻り、粘液になり、灰色の泡へ変わる。</p>
+<p class="source-line role-narration gap-1" data-source-line="917">　鉄平の左胸でも、喰臓が縮んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="919">「おい」</p>
+<p class="source-line role-narration gap-1" data-source-line="921">　呼びかける。</p>
+<p class="source-line role-narration gap-1" data-source-line="923">　ど、どくん。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="925">「勝手に死ぬな。家賃八年分、払え」</p>
+<p class="source-line role-narration gap-1" data-source-line="927">　弱い鼓動。</p>
+<p class="source-line role-narration gap-1" data-source-line="929">　喰臓は最後の力で触手を伸ばし、鉄平の破れた右心室を包んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="931">　まるで、初めて食べる以外のことを覚えたように。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="933">「……馬鹿」</p>
+<p class="source-line role-narration fx-key role-motif tone-4 gap-1" data-source-line="935">　鉄平は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="937">　空洞が白い光に満たされた。</p>
+<div class="source-line scene-break gap-1" data-source-line="939" role="separator"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>＊</div>
+<p class="source-line role-narration gap-1" data-source-line="941">　湾環市災害から三か月後。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="943">　公式発表では、死者・行方不明者は一万二千人を超えた。環生フーズの経営陣は逮捕され、ムグラ利用事業は世界中で凍結された。湾環市の半分は立入禁止区域となり、今も地下から微弱な生体反応が検出されている。</p>
+<p class="source-line role-narration gap-1" data-source-line="945">　それでも、人は戻り始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="947">　瓦礫を片づけ、橋を架け、海水を汲み出し、壊れた街へ線を引き直している。</p>
+<p class="source-line role-narration gap-1" data-source-line="949">　鉄平は臨時住宅の前で、片腕のまま洗濯物を干していた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="951">　右腕は母体核の中で肘から先を失った。左胸の喰臓も、ほとんど消えた。残った組織は右心室の一部となり、医師は「生物学的に説明できない」と顔をしかめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="953">　真白の手術は成功した。</p>
+<p class="source-line role-narration gap-1" data-source-line="955">　彼女は胸に新しい傷を作り、以前より少しだけ速く歩けるようになった。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="957">「お父さん、曲がってる」</p>
+<p class="source-line role-narration gap-1" data-source-line="959">　真白が干されたシャツを指さす。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="961">「着れば同じだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="963">「そういう人が、街を直す仕事して大丈夫？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="965">「大きい物は真っすぐにできる。小さい物は苦手だ」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="967">「逆の方が普通じゃない？」</p>
+<p class="source-line role-narration gap-1" data-source-line="969">　真白は呆れながら、シャツを掛け直した。</p>
+<p class="source-line role-narration gap-1" data-source-line="971">　遠くでは再建工事の杭打ち機が鳴っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="973">　どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="975">　どん。</p>
+<p class="source-line role-narration gap-1" data-source-line="977">　一定の拍子。</p>
+<p class="source-line role-narration gap-1" data-source-line="979">　真白がふいに鉄平へ抱きつき、胸へ耳を当てた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="981">「一つになった？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="983">「たぶんな」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="985">「二つ聞こえる」</p>
+<p class="source-line role-narration gap-1" data-source-line="987">　鉄平は眉を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="989">「医者を呼ぶか」</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="991">「違う。お父さんのと、私の」</p>
+<p class="source-line role-narration gap-1" data-source-line="993">　真白の胸でも、新しい弁を持った心臓が鳴っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="995">　鉄平は残った腕で娘の背を抱いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="997">　一つは低く。</p>
+<p class="source-line role-narration gap-1" data-source-line="999">　一つは少し速く。</p>
+<p class="source-line role-narration gap-1" data-source-line="1001">　違う拍子の二つの音は、今度こそ、同じ方角へ鳴っていた。</p>
+<p class="source-line end-mark gap-1" data-source-line="1003"><span class="source-indent" aria-hidden="true">　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

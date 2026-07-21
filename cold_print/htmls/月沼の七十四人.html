@@ -1,0 +1,865 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="塩町が夜明けに取り壊される前夜、十四歳のナギは祖父の遺品から、二本の針を持つ羅針盤と地図にない《月沼》への道を見つける。樽職人のミナ、時計屋徒弟ホロ、聖歌隊のセラと井戸の底へ降りた四人の前に、黒い沼と古い船が現れる。船には七十四人分の名簿、空には二つの月。四十二年前に祖父が語った“別の空”は、この場所につながっているのか。潮が戻るまでに、四人は失われた乗客と故郷を結ぶ航路を読み解けるのか。青い月が沼を満たしていく。">
+<title>月沼の七十四人｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="月沼の七十四人" data-novel-id="月沼の七十四人" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　塩町がなくなる前夜</a></li><li><a href="#chapter-2">二　笑う崖</a></li><li><a href="#chapter-3">三　月沼の舞踏</a></li><li><a href="#chapter-4">四　海のない航海</a></li><li><a href="#chapter-5">五　雪の国の春</a></li><li><a href="#chapter-6">六　帰国願い</a></li><li><a href="#chapter-7">七　皇宮の地下</a></li><li><a href="#chapter-8">八　七十四番目の名</a></li><li><a href="#chapter-9">九　朝日の港</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・ミステリ・ホラー</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・異世界・ファンタジー</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、ミステリ、ホラー、ジュブナイル、異世界、ファンタジー</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：386行／章：9／役割・強度タグ：429</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="月沼の七十四人 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">月沼の七十四人</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4">一　塩町がなくなる前夜</h2>
+<p class="source-line role-narration gap-1" data-source-line="6">　塩町がなくなる前夜、僕らは祖父の壁から地図を掘り出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　正確にいえば、壁を壊したのは港務局の人夫たちだった。翌朝の日の出とともに家々を取り壊すため、赤い印を柱に打って回っていたのである。僕の家の台所で漆喰が剥がれ、煉瓦の隙間から緑青の浮いた銅筒が転げ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　人夫は気づかなかった。僕は足で筒を踏み、荷箱を運ぶふりをして隠した。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　塩町は岬都バルカのいちばん古い貧民街だった。海から吹く風はいつも魚と石炭の匂いを運び、屋根は斜めで、路地は猫の背骨のように曲がっていた。王立造船所を広げるため、町ごと買い上げる話が決まっていたが、住民に払われる金では郊外の小屋さえ借りられない。大人たちは「仕方がない」と言い、荷造りをしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　十四歳の僕には、その言葉がひどく卑怯に聞こえた。</p>
+<p class="source-line role-narration role-ritual tone-3 gap-1" data-source-line="16">　銅筒を持って、僕は夕暮れの樽工房へ走った。そこにはミナがいた。僕より一つ年上で、腕まくりをすると大人の樽職人より筋が浮いた。時計屋の徒弟ホロは床に散った歯車を拾っており、寺院の聖歌隊にいるセラは、明日の立ち退き祈祷で歌うはずの紙を丸めて火吹き筒にしていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="18">「荷造りは？」とミナが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="20">「宝を見つけてからする」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="22">　僕が銅筒を置くと、三人とも笑わなかった。塩町の子どもは、笑うべきでない冗談を見分けるのが早い。</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　筒の蓋には、見慣れない双頭の鳥が刻まれていた。中から出てきたのは、油を吸って黒ずんだ羊皮紙の地図、薄い手帳、それに針が二本ある羅針盤だった。片方の針は北を指し、もう片方は僕の胸を指した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="26">「気味が悪い」とホロが言った。「ナギ、おまえの心臓が磁石なんじゃないか」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　地図は祖父ミハルの筆跡だった。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="30">　ミハルじいは四十二年前、岬の向こうにある月沼で倒れているところを漁師に拾われた。背が高く、灰色の目をし、誰にも通じない言葉で三日三晩しゃべり続けたという。やがてこの国の言葉を覚え、石工になり、祖母と結婚した。酒に酔うと「故郷は北ではない。別の空の下だ」と言ったので、町の者は<span class="term term-world">〈星酔いミハル〉</span>と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　僕が七つのとき、祖父は死んだ。最後まで月明かりを嫌い、窓を厚い布で塞いでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　羊皮紙の上には、塩町の古い井戸から岬の内部へ続く道が描かれ、その先に、地図には存在しない月沼があった。沼の中央には黒い船。余白に祖父の字で、こう記されていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="36">　――月が空から落ち、足もとで二度目に昇る夜、故郷への船は泥の底から帰る。</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　その下に、別のインクで一行。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　――船倉の金は、ひとつの町を買い戻してなお余る。</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　僕らは顔を見合わせた。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="44">　その夜は、十二年に一度、青い満月が昇る<span class="term term-world">〈二重月の夜〉</span>だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="46">「行くの？」とセラが訊いた。声だけは震えていたが、彼女はもう聖歌隊の白い上着を脱ぎ、動きやすいズボンに履き替えていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="48">「行かない理由がある？」とミナ。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="50">「死ぬかもしれない理由なら、二十個くらいある」</p>
+<p class="source-line role-narration gap-1" data-source-line="52">　ホロはそう言いながら、工具袋を肩に掛けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　僕は祖父の羅針盤を握った。二本目の針は、今度は岬の方角を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　日が沈み、港の鐘が七つ鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="58">　僕らは塩町を買い戻すため、家出をした。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="61">二　笑う崖</h2>
+<p class="source-line role-narration gap-1" data-source-line="63">　地図の入口は、共同井戸の底にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="65">　水はすでに抜かれていた。造船所の測量隊が井戸を埋めるため、昼のうちに汲み上げたのだ。縄梯子を下りると、底の煉瓦に魚の骨の印があり、ホロが釘を差し込むと壁が音もなく横へずれた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="67">「この仕掛け、少なくとも百年は前のものだ」とホロは嬉しそうに言った。「百年放っておかれた扉ってのは、だいたい開かないか、開いたら落ちる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="69">「先に言って」とセラが言った。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="71">　扉の向こうには、潮の匂いがする狭い階段が続いていた。岬の内部は空洞で、昔、密輸商たちが海から荷を運び込む道に使ったらしい。壁には樽、王冠、絞首台などの落書きがあり、角を曲がるたび、どこかで笑い声に似た風が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　最初の罠は、石の食卓だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="75">　長い部屋の中央に皿が十二枚並び、それぞれに石の魚が載っている。出口の扉には「腹を満たせ。されど食い過ぎるな」と古語で刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="77">　ホロが魚を一匹持ち上げた途端、天井から鉄の槍が落ち、彼の帽子を床に縫いつけた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="79">「食い過ぎるなって書いてある！」とセラが叫んだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="81">「一匹で食い過ぎなら、この密輸商はずいぶん小食だ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="83">　僕は地図の隅にある十二個の点に気づいた。大きい点が三つ、小さい点が九つ。石魚の腹には重さの違う鉛が入っていた。三枚の皿に大きな魚を、残りに小さな魚を置き直すと、床の秤が釣り合い、扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="85">　二つ目は、音の罠だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="87">　洞窟いっぱいに青銅の管が立ち、踏み石ごとに違う音が鳴る。誤った石を踏むと、横穴から海水が噴き出した。僕らは膝まで水に浸かり、セラが青ざめた顔で耳を澄ませた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="89">「ミハルさんの手帳に歌がある」</p>
+<p class="source-line role-narration gap-1" data-source-line="91">　彼女は濡れた頁を押さえ、見慣れない文字の下に書かれた音符を読んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="93">「子守歌みたい。低い音から、五つ上がって、二つ戻る」</p>
+<p class="source-line role-narration gap-1" data-source-line="95">　僕らはセラの指示どおりに踏み石を渡った。最後の音が鳴ると、青銅管の奥で誰かがため息をついた。水が引き、壁が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="97">　三つ目は、底なしの裂け目だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="99">　橋は腐っていた。向こう岸まで十歩ほどだが、下には青白い蟹が星空のように光っている。ミナが樽工房から持ち出した綱を岩角に掛け、一人ずつ渡った。ホロの工具袋が裂け目に落ち、蟹の星が一斉に動いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="101">「僕の商売道具！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="103">「命が残っただけ得したと思え」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="105">「命じゃ歯車は回せない！」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="107">　最後に僕が渡ろうとしたとき、後ろの闇に灯が見えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="109">「誰か来る」</p>
+<p class="source-line role-narration gap-1" data-source-line="111">　声も聞こえた。港務局の徴発官ラドだった。昼に僕の家の壁を検分していた男で、赤い外套を着ている。人夫を二人連れ、僕らの足跡を追ってきたのだ。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="113">「小僧ども！」ラドの声が響いた。「持ち出したものは港務局の財産だ。戻れ！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="115">「町を盗る人に、盗人って言われたくない！」とミナが叫び返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　彼女は僕が渡り終えると綱を切った。ラドたちの灯が裂け目の向こうで揺れ、怒鳴り声が遠ざかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　僕らは走った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="121">　道は急に下り、湿った風が強くなった。石壁がなくなり、足もとが滑った。僕らは悲鳴を上げながら泥の斜面を転がり、葦の茂みに放り出された。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　そこで、笑う崖の声はぴたりと止んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　目の前に、空より広い沼があった。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="128">三　月沼の舞踏</h2>
+<p class="source-line role-narration gap-1" data-source-line="130">　岬の向こうに沼などない。少なくとも、どの地図にもそう書いてある。</p>
+<p class="source-line role-narration gap-1" data-source-line="132">　だが月沼はそこにあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="134">　黒い水面が地平まで続き、銀色の葦が風もないのに揺れていた。空には青い満月が一つ。その同じ月が、沼のあちこちに丸く浮かんでいる。水たまりの反射ではなかった。どの月にも雲が流れ、どの月にも違う角度の光が差していた。</p>
+<p class="source-line role-dialogue tone-1 gap-1" data-source-line="136">「帰ろう」とホロが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="138">「賛成」とセラ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="140">「宝を見てから」とミナ。</p>
+<p class="source-line role-narration gap-1" data-source-line="142">　羅針盤の二本目の針は、沼の中央を指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="144">　地図には、石を並べた古い道が描かれている。僕らは葦をかき分け、泥の中の踏み石を探した。一歩外せば腰まで沈む。泥は生ぬるく、ときどき足首を指でなぞるように動いた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="146">　半分ほど進んだとき、鈴が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　最初は一つ。次に十。やがて沼じゅうから、細く乾いた音が返ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　葦の間に、人が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="152">　白い服を着た男だった。顔は月明かりで見えない。隣に女、その隣に子ども。次々と影が現れ、僕らを囲んだ。服は古びた外国風で、胸元には双頭の鳥の徽章があった。彼らは手を取り、ゆっくりと踊り始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="154">　足は泥に沈まない。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="156">　鈴の音に合わせて、七歩進み、七歩退く。首だけをこちらに向ける。顔のあるべき場所には、濡れた葦が束ねて詰められていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="158">　セラが息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="160">「数えてる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="162">「何を？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="164">「自分たちを。だけど、途中で同じ数に戻る。ずっと、一人足りない」</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　影たちは歌っていた。祖父の手帳にあった言葉と同じ響きだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　ホロがふらりと踏み石を外れた。目を開けたまま、踊りの輪へ向かっていく。ミナが襟を掴んだが、泥の中から白い手が伸び、彼の足首を抱いた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="170">「セラ、あの歌を！」</p>
+<p class="source-line role-narration gap-1" data-source-line="172">　僕は叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="174">　セラは震えながら、洞窟で読んだ子守歌を歌った。</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　低い音から五つ上がり、二つ戻る。澄んだ声が沼を渡ると、踊る影が一斉に止まった。葦の顔がセラへ向いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="178">　彼らの輪がゆっくり開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="180">　その先に、船があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="182">　沼の中央から、黒い鉄の船首が斜めに突き出している。帆柱は折れ、船腹の半分は泥に埋もれていた。側面に剥げかけた白い文字があり、その下に双頭の鳥。</p>
+<p class="source-line role-narration gap-1" data-source-line="184">　祖父の手帳で、何度も見た印だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　影たちは僕らを追わなかった。ただ、通り過ぎる僕らに向かって手を差し出した。掌には一人ずつ、錆びた名札を載せていた。文字は泥で読めない。</p>
+<p class="source-line role-narration gap-1" data-source-line="188">　船には縄梯子が下がっていた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="190">　僕らが甲板へ登ると、沼の鈴が一度だけ大きく鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　その音の中に、祖父の声を聞いた気がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="194">　――遅かったな、ナギ。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="197">四　海のない航海</h2>
+<p class="source-line role-narration role-magic gap-1" data-source-line="199">　船の名は<span class="term term-world">〈聖なる鴎〉</span>号といった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="201">　船室の壁に、祖父がこちらの文字で訳していた。もとはヴェレス帝国という国の調査船で、乗員は七十四人。月の反射を通って「世界の外海」へ出る実験に使われたらしい。</p>
+<p class="source-line role-narration gap-1" data-source-line="203">　船長室には、湿気を免れた航海日誌が残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="205">　最初の頁に祖父の本名がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="207">　ミハイル・ボロディン。二等測量士。二十一歳。</p>
+<p class="source-line role-narration gap-1" data-source-line="209">　僕の知っている石工の祖父よりずっと若い字で、彼はこう記していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="211">　――帝国暦八〇三年、乗員七十四名、月門を通過。</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　――同年、帰還装置故障。未知世界の湿原に座礁。</p>
+<p class="source-line role-narration gap-1" data-source-line="215">　――救援は来ず。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="217">　その後の頁は、水染みと、短い記録ばかりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="219">　熱病。食料不足。沼の歌。夜ごと消える乗員。船長は名簿を守れと命じた。死人は名を失うと沼に取られる。最後の冬、ミハイルだけが崖を越え、人里へたどり着いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="221">　最後の一行は、僕が生まれるずっと前の日付だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="223">　――私は帰れない。せめて彼らの名だけを帰したい。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="225">「金は？」とホロが小さな声で言った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="227">　船倉には箱がいくつもあった。けれど中身は腐った制服、測量器、石炭、割れた瓶ばかり。金貨の箱は見つからない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「一つの町を買える金って書いてあった」とミナが言った。「嘘だったの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="231">　僕は返事をしなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　船長室の机に、羅針盤と同じ形の窪みがあった。二本目の針は激しく震え、そこへ嵌めろと命じるように机を叩いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　外で怒鳴り声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　徴発官ラドが沼を渡ってきたのだ。人夫はおらず、外套は泥まみれだった。片手に剣を持ち、もう片方で名札を握り潰している。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="239">「その船は王室のものだ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　彼の背後で、白い影たちが踊りを始めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="243">　ラドは気づかない。甲板へ飛び移り、僕に剣を向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="245">「羅針盤を寄越せ」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="247">　ミナが樽用の木槌で剣を叩き落とした。ホロがラドの足へ工具箱を投げ、セラが悲鳴を上げた。船が揺れたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　僕の手から羅針盤が落ち、机の窪みに嵌まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="251">　二本の針が重なった。</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　船腹の奥で、巨大な心臓が一度鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="255">　沼の月が全部、こちらを向いた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="257">　泥に埋もれていた船体が浮き上がる。黒い水が甲板を越え、空へ流れた。僕らは壁に叩きつけられた。ラドは滑って舷側へ落ち、白い影の腕に受け止められた。彼の叫びが鈴の音に呑まれる。</p>
+<p class="source-line role-narration gap-1" data-source-line="259">　次の瞬間、空も沼も裏返った。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="261">　<span class="term term-world">〈聖なる鴎〉</span>号は、星の海に浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　上にも下にも星があり、波はなかった。船は見えない流れに運ばれ、帆もないのに進んだ。遠くで、月ほど大きな魚が腹を光らせて泳いでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="265">　僕らは十一日漂流した。</p>
+<p class="source-line role-narration gap-1" data-source-line="267">　最初の二日は、冒険だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="269">　三日目から、飢えだった。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="271">　船倉の乾パンは石のように硬く、樽の水は鉄の味がした。ホロは壊れた加熱器を直し、ミナは帆布で雨受けを作った。雨など降らなかったが、夜になると甲板に透明な露が溜まった。セラは毎日、同じ時刻に歌った。歌っているあいだだけ、遠くの巨大な魚が近寄らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　僕は航海日誌を読み続けた。祖父の知らない若さ、恐れ、怒りが頁に残っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="275">　七日目、ホロが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="277">「帰ったら、時計屋を継ぐのをやめる」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="279">「どうして？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="281">「時計なんか信じられない。ここじゃ朝が来ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　九日目、セラが水を飲まなくなった。残りが少ないから、自分の分を僕らに回そうとしたのだ。ミナが彼女の鼻をつまみ、無理やり飲ませた。</p>
+<p class="source-line role-narration gap-1" data-source-line="285">　十日目、僕は羅針盤の二本目の針が、もう僕を指していないことに気づいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="287">　遠い星の一つを指していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="289">　十一日目、その星が白い裂け目になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　船は裂け目へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="293">　冷たい風と雪が甲板を叩いた。空が戻り、海が戻り、僕らは高い波の谷へ沈んだ。右も左も氷山だった。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="295">　水平線の向こうから、鐘を鳴らす黒い船団が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="297">　船首に、双頭の鳥の旗が翻っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="299">　祖父の故郷だった。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="302">五　雪の国の春</h2>
+<p class="source-line role-narration role-horror gap-1" data-source-line="304">　ヴェレス帝国の人々は、僕らを幽霊だと思った。</p>
+<p class="source-line role-narration gap-1" data-source-line="306">　四十二年前に失われた船が、子ども四人だけを乗せて氷海から現れたのだから当然かもしれない。僕らは毛皮の服を着せられ、港の石造りの建物に閉じ込められた。扉には衛兵が立ち、窓の外では見物人が十重二十重に集まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　言葉はまったく通じなかった。</p>
+<p class="source-line role-narration role-ritual tone-3 gap-1" data-source-line="310">　ただし、祖父の手帳があった。左頁にヴェレス語、右頁に僕らの言葉。食べ物、方角、身体、祈り、悪態。最後の項目がいちばん多かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　ホロは三日で「腹が減った」と「それを分解してもいいか」を覚えた。ミナは五日で衛兵と腕相撲をし、七日で勝った。セラは港の礼拝堂で歌い、老司祭を泣かせた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="314">　僕は祖父の名を何度も言った。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="316">「ミハイル・ボロディン」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　その名だけは、誰にでも通じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　役人たちは顔色を変え、僕らをさらに奥の部屋へ移した。</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　やがて通訳が来た。ターニャという二十歳ほどの書記官で、髪を短く切り、片目に丸い硝子をはめていた。彼女は帝国大学で「外界語」を研究していたが、実際に話す相手が現れるとは思っていなかったらしい。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="324">「あなたがたは、ボロディンの子孫？」</p>
+<p class="source-line role-narration gap-1" data-source-line="326">　ぎこちない僕らの言葉で、彼女は訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="328">「孫です」</p>
+<p class="source-line role-narration gap-1" data-source-line="330">　僕が言うと、ターニャは椅子から立ち上がった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="332">「彼は、生きた？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="334">「生きました。結婚して、子どもをつくって、石工になって、七十まで」</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　ターニャは窓の方を向いた。雪明かりで、頬を流れるものが見えた。</p>
+<p class="source-line role-narration role-magic tone-3 gap-1" data-source-line="338">　彼女の曽祖父は<span class="term term-world">〈聖なる鴎〉</span>号の機関士で、公式には「任務中の反逆により消息不明」とされていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　帝国は僕らを首都へ送ることにした。</p>
+<p class="source-line role-narration gap-1" data-source-line="342">　帰るためには、女帝の許可が必要だという。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　旅は八十七日かかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　凍った海を橇で渡り、針葉樹の森を抜け、煙を吐く鉄道に乗った。町ごとに空気の味が違った。黒パンと酸っぱい汁を食べ、蒸気風呂でのぼせ、夜の二時にも沈まない太陽を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　僕らは珍獣のように見物されたが、同時に客として丁重にもてなされた。子どもたちは僕らの服を触り、老人は祖父の話をせがんだ。どの家にも、海で消えた親族の肖像があった。ヴェレス帝国は広大で、豊かで、そして帰らない人の話に慣れすぎていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="350">　春になるころ、僕らは日常会話ができるようになっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="352">　そのことが、僕を怖がらせた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="354">　朝起きてヴェレス語で夢を思い出し、塩町の路地の名がすぐ出てこない日があった。ミナは鍛冶場の親方から弟子になれと誘われた。ホロは帝国の時計がぜんまいでなく小さな蒸気筒で動くことに夢中だった。セラは礼拝堂の合唱で独唱を任された。</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　僕だけが毎晩、地図を描いた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="358">　港から首都までの道。泊まった村。川の曲がり。雪原で見た一本杉。忘れないためではない。僕らの家が地図の外へ流されないよう、線で繋ぎ止めるためだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　首都レドガルドは、凍った大河の両岸に広がっていた。金色の屋根が百も並び、宮殿の窓は夕日を燃やしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="362">　その宮殿で、僕らは女帝に会った。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="365">六　帰国願い</h2>
+<p class="source-line role-narration gap-1" data-source-line="367">　女帝セヴェリナは、玉座に座っていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="369">　長い机の端で、湯気の立つ茶を飲んでいた。白髪まじりの髪を後ろで束ね、軍服の上に黒い肩掛けを羽織っている。僕らが礼をすると、彼女は椅子を四つ出させた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="371">「座りなさい。漂流者を立たせて話す国は、文明国ではない」</p>
+<p class="source-line role-narration gap-1" data-source-line="373">　ターニャが訳すより先に、意味がわかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="375">　女帝は祖父の手帳を一頁ずつ読んだ。途中で何度も指を止めたが、表情は変えなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="377">「ミハイル・ボロディンは、帝国の記録では反逆者です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="379">「違います」</p>
+<p class="source-line role-narration gap-1" data-source-line="381">　僕は即座に言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　部屋の奥にいた海軍卿ドルガン公が鼻を鳴らした。痩せた老人で、胸に勲章を重ねている。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="385">「調査船を奪い、乗員を扇動し、国家機密である月門を敵国へ渡した。記録は明白だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="387">「敵国じゃありません。僕らの町です」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="389">「ならば、なお悪い」</p>
+<p class="source-line role-narration gap-1" data-source-line="391">　ミナが立ち上がりかけ、僕は袖を掴んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="393">　女帝は手帳の最後を閉じた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="395">「あなたがたは何を望む？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="397">「帰国を」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="399">「月門は四十年前に閉鎖された。再起動には莫大な費用がかかる。しかも出口は、あなたがたの世界のどこに開くかわからない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="401">「月沼です。祖父の羅針盤が道を知っています」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="403">「その羅針盤を帝国に渡し、ここに留まるなら、あなたがたを保護し、教育を与えよう。家族にも、可能なら使節を送る」</p>
+<p class="source-line role-narration gap-1" data-source-line="405">　部屋が静かになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="407">　僕は返事ができなかった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="409">　ここにいれば、飢えることはない。ミナは鍛冶を学べる。ホロは好きなだけ機械を分解できる。セラは大聖堂で歌える。僕は帝国大学で、世界と世界の地図を描ける。</p>
+<p class="source-line role-narration gap-1" data-source-line="411">　塩町はもう取り壊されているかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　帰る場所が、すでにないかもしれない。</p>
+<p class="source-line role-narration gap-1" data-source-line="415">　そのときセラが、静かに歌い始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="417">　月沼で歌った、祖父の子守歌だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="419">　ターニャの顔が強張った。女帝も海軍卿も、その歌を知っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="421">「第九海軍の葬送歌です」とターニャが言った。「出征者の名を読み上げる前に歌います」</p>
+<p class="source-line role-narration gap-1" data-source-line="423">　セラは歌い終えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="425">「沼に、七十三人います。名前を忘れて、ずっと帰れない人たちが」</p>
+<p class="source-line role-narration gap-1" data-source-line="427">　ドルガン公が机を叩いた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="429">「迷信だ！」</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="431">「なら、なぜ名簿がないんです？」僕は訊いた。「船の日誌には七十四人とある。でも帝国の記録は祖父一人しか名前を出さない。残りはどこです？」</p>
+<p class="source-line role-narration gap-1" data-source-line="433">　ドルガン公は答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="435">　女帝が、初めて茶から手を離した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="437">「名簿は存在するのね、海軍卿」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">「陛下、古い失敗を掘り返せば、帝国の威信が――」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「存在するのね」</p>
+<p class="source-line role-narration gap-1" data-source-line="443">　長い沈黙のあと、老人は頷いた。</p>
+<p class="source-line role-narration role-magic tone-2 gap-1" data-source-line="445">　四十二年前、帝国海軍は月門の実験を急ぎ、帰還装置が未完成のまま<span class="term term-world">〈聖なる鴎〉</span>号を送り出した。失敗を知った海軍上層部は救援を断念し、乗員を「反逆者」として記録から消した。祖父は一人で生き延び、真実を書いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="447">「名簿をください」と僕は言った。「僕らが持ち帰ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="449">「名簿は旧海軍省の封印庫にある」とドルガン公。「国家反逆資料だ。皇帝の印がなければ開かない」</p>
+<p class="source-line role-narration gap-1" data-source-line="451">　女帝は窓の外を見た。春の薄明が凍った大河を青くしていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="453">「明日の夜、月食がある。月門を開ける唯一の時機よ」</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　彼女は僕らに視線を戻した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="457">「今ここで命令を出せば、名簿は夜明けまでに焼かれるでしょう」</p>
+<p class="source-line role-narration gap-1" data-source-line="459">　ドルガン公の顔色が変わった。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="461">「陛下！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="463">「私は何も命じていない」</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　女帝は立ち上がり、祖父の手帳を僕へ返した。その下に、小さな金の鍵があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="467">「漂流者は、ときに道を間違えるものです。今夜、宮殿の西門は修理中で、衛兵が少ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　ミナが笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="471">　ホロが鍵を拾った。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　セラはもう一度、子守歌の最初の音を口ずさんだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="475">　僕らの帰国願いは、宝探しに変わった。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="478">七　皇宮の地下</h2>
+<p class="source-line role-narration gap-1" data-source-line="480">　旧海軍省は、宮殿の地下に埋まっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="482">　三十年前の火事で上階が焼け、その上に新しい舞踏館が建てられたという。地下へ通じる正式な階段は封鎖されていたが、ホロは暖房管の図面を一目見て、台所の石炭庫から入れる道を見つけた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="484">「どこの国も、秘密の部屋より煙突の方が正直だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　僕らは煤だらけになって管を這った。</p>
+<p class="source-line role-narration gap-1" data-source-line="488">　途中、舞踏館の床下を通った。頭上で貴族たちが月食前夜の宴を開き、靴音と音楽が響いている。僕らは腹這いで、その真下を進んだ。ホロがくしゃみをし、音楽が一瞬止まった。四人とも息を止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="490">　やがて管が崩れ、僕らは古い文書室へ落ちた。</p>
+<p class="source-line role-narration tone-2 gap-1" data-source-line="492">　棚が迷路のように並び、革表紙の記録が天井まで積まれている。紙は湿気で波打ち、インクと黴の匂いがした。</p>
+<p class="source-line role-narration gap-1" data-source-line="494">　金の鍵は、最奥の鉄扉に合った。</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　中には、黒い箱が一つだけあった。</p>
+<p class="source-line role-narration role-magic tone-2 gap-1" data-source-line="498">　箱の蓋に<span class="term term-world">〈第九外海調査・永久封印〉</span>と刻まれている。鍵穴はなかった。代わりに、七つの回転盤があり、数字ではなく音符が並んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="500">「また歌？」とミナ。</p>
+<p class="source-line role-narration gap-1" data-source-line="502">　セラは祖父の手帳を開いた。子守歌の旋律は七音で一巡する。彼女が回転盤を合わせると、箱の中で七つの錠が外れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="504">　名簿は、薄い紙束だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="506">　一番上に船長。次に航海士、機関士、医師、兵士、炊事夫。七十四番目に、ミハイル・ボロディン。</p>
+<p class="source-line role-narration gap-1" data-source-line="508">　ターニャの曽祖父の名もあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="510">　セラは頁を胸に抱いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="512">　背後で拍手がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="514">　ドルガン公が扉に立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="516">　衛兵を六人連れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="518">「子どもは便利だ。陛下がどこまで知っているか、勝手に証明してくれる」</p>
+<p class="source-line role-narration gap-1" data-source-line="520">　僕らは後ずさった。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="522">「名簿を渡せ。船も羅針盤も帝国が管理する。おまえたちは、雪原で病死したことにする」</p>
+<p class="source-line role-narration gap-1" data-source-line="524">　ミナが僕の耳元で囁いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="526">「走れる？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="528">「どこへ？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="530">「走ってから考える」</p>
+<p class="source-line role-narration gap-1" data-source-line="532">　彼女は棚を蹴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="534">　古い記録が雪崩れ、衛兵の前へ崩れ落ちた。僕らは横の小扉へ飛び込み、螺旋階段を駆け上がった。背後でドルガン公が叫ぶ。警鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　階段の先は舞踏館だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="538">　月食の仮面舞踏会の真ん中へ、煤まみれの子ども四人が飛び出した。音楽が止まり、何百もの仮面がこちらを向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="540">　ホロは楽団の大太鼓を倒した。ミナは料理を運ぶ台車を奪った。僕らは台車に飛び乗り、磨かれた床を滑った。貴族たちが逃げ、皿が飛び、果物と燭台が宙を舞う。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="542">「西門！」と僕は叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="544">　台車は扉を突き破り、階段を下り、中庭を横切った。セラが名簿を服の中へ入れる。衛兵の銃声がして、石壁が欠けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　西門には、ターニャが馬車で待っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="548">「道を間違えたのね」と彼女は言った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="550">「盛大に！」とホロ。</p>
+<p class="source-line role-narration gap-1" data-source-line="552">　馬車は凍った大河へ向かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="554">　月門の装置は、首都から五里下流の旧観測所にある。月食まで一刻。追手の橇が後ろに迫った。</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　川の氷は春で薄くなっていた。馬車の車輪が割れ目を跨ぐたび、水が黒く口を開けた。ドルガン公の橇は軽く、距離を詰めてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="558">　観測所の尖塔が見えたとき、砲声がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="560">　馬車の後輪が吹き飛んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="562">　僕らは氷の上へ投げ出された。名簿がセラの手から滑り、風に舞った。ドルガン公の橇がその上を通り、老人が紙束を掴む。</p>
+<p class="source-line role-dialogue tone-5 gap-1" data-source-line="564">「これで死人は永遠に黙る」</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　彼は火を点けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="568">　名簿は青い炎を上げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="570">　ターニャが膝をついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="572">　僕は声も出なかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="574">　そのとき、セラが歌った。</p>
+<p class="source-line role-narration gap-1" data-source-line="576">　子守歌ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="578">　名前だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="580">「アレクセイ・グロモフ。パーヴェル・イリイン。ソーニャ・メレホワ――」</p>
+<p class="source-line role-narration gap-1" data-source-line="582">　彼女は封印庫で名簿を見た短いあいだに、七十四人の名を旋律として覚えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　一人の名を一音節ずつ、切らさず歌った。</p>
+<p class="source-line role-narration gap-1" data-source-line="586">　ドルガン公の顔から血の気が引いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="588">　月が欠け始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="590">　凍った川の下で、巨大な鐘が鳴った。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="593">八　七十四番目の名</h2>
+<p class="source-line role-narration gap-1" data-source-line="595">　旧観測所は、氷の上に建つ石の円環だった。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="597">　中央に<span class="term term-world">〈聖なる鴎〉</span>号と同じ形の船が繋がれていた。新しい船ではない。四十二年前、救援に出るはずだった二番船だった。甲板には石炭と水、食料、それに三つの箱が積まれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="599">　兵士たちが月門を起動していた。</p>
+<p class="source-line role-narration gap-1" data-source-line="601">　女帝の命令書を持つ近衛隊が、先に到着していたのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　ドルガン公は橇を止めた。追ってきた衛兵たちも、誰の命令に従うべきかわからず動けない。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　女帝セヴェリナは、船の前に立っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="607">「海軍卿」と彼女は言った。「帝国の威信とは、罪を隠す厚さではない。罪を認めても立っていられる強さだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="609">　ドルガン公は何も答えず、燃え残った名簿を氷へ落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="611">　月が半分消えた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="613">　円環の内側に黒い水が湧いた。氷の上なのに波が立ち、そこへ星空が映った。祖父の羅針盤の二本目の針が、僕の胸と黒い水のあいだを行き来した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="615">「船は四人をあなたがたの世界へ送り届ける」と女帝は言った。「箱の一つは、塩町への滞在料。帝国は四十二年間、あの町に一人の漂流者を養ってもらった。利息をつけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="617">　ミナが箱を叩いた。金属の重い音がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="619">「二つ目は、月門の共同管理を求める国書。あなたがたの王が賢ければ、町を壊す代わりに港を造るでしょう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「三つ目は？」とホロ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="623">「工具よ。あなたが途中で全部落としたと聞いた」</p>
+<p class="source-line role-narration gap-1" data-source-line="625">　ホロは初めて女帝へ深々と頭を下げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="627">　ターニャが僕に、小さな包みを渡した。中には七十三枚の新しい名札が入っていた。一枚ずつ名前が刻まれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="629">「曽祖父に、遅くなったと伝えて」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="631">「あなたも来ればいい」</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　僕は思わず言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　ターニャは笑った。</p>
+<p class="source-line role-dialogue tone-2 gap-1" data-source-line="637">「私はここで、帰ってくる人の名を記録する」</p>
+<p class="source-line role-narration gap-1" data-source-line="639">　別れの時間は短かった。</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　ミナは鍛冶場の親方からもらった鉄の腕輪を握り、ホロは蒸気時計を胸に入れ、セラは礼拝堂の楽譜を抱えた。僕は女帝に祖父の手帳を見せた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="643">「これは持って帰ります」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="645">「当然です。帰国者の言葉は、帰国者のものよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="647">　月が細い環になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="649">　僕らは船へ乗った。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　円環の黒い水が立ち上がり、壁になり、空になった。女帝、ターニャ、近衛兵、凍った都が遠ざかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="653">　最後に見えたのは、ドルガン公が帽子を脱ぎ、燃え残った名簿へ頭を垂れる姿だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="655">　船は星の海を一息で越えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="657">　次に揺れたとき、月沼の泥が船底を擦っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　空には、出発した夜と同じ青い満月があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　塩町では、まだ夜が明けていなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="663">　だが沼の踊りは続いていた。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="665">　七十三の白い影が船を囲み、鈴を鳴らしている。僕らが名札を持って甲板へ出ると、影たちは踊るのをやめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="667">　セラが一人目の名を歌った。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　僕が名札を沼へ投げる。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="671">　白い影の一人に顔が戻った。髭の濃い、若い船長だった。彼は驚いたように自分の手を見て、それから遠い故郷へ礼をした。身体が光になり、月へ昇った。</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　二人目。三人目。</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　機関士、医師、炊事夫、兵士、測量士。</p>
+<p class="source-line role-narration gap-1" data-source-line="677">　名を呼ばれるたび、影は人に戻り、船へ乗り、光になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="679">　ターニャの曽祖父は、油まみれの帽子を被った大男だった。ホロの新しい工具箱を見て笑い、親指を立てて消えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="681">　七十三枚目の名札がなくなると、沼は静かになった。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="683">　けれど鈴が一つだけ鳴り続けていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="685">　葦の奥から、最後の影が歩いてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="687">　背が高く、片足を少し引きずっている。石工の手。僕が知っている祖父の歩き方だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="689">「名札がない」とセラが囁いた。</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="691">　祖父は名簿では七十四番目だった。だが彼は船とともに死んだのではない。この世界で生き、この世界で葬られた。ターニャが作った名札は、沼に残った七十三人分しかない。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　白い影が僕の前に手を差し出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="695">　僕は祖父の羅針盤を掌に載せた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="697">「ミハイル・ボロディン」</p>
+<p class="source-line role-narration gap-1" data-source-line="699">　ヴェレス語で呼んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="701">「あなたは帰れなかった。でも、ここでミハルと呼ばれて、祖母を愛して、父を育てて、僕に地図を残した」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="703">　影の葦がほどけ、祖父の顔が現れた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="705">　僕の記憶より若く、航海日誌の文字より穏やかな顔だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="707">「あなたの故郷を見た。雪の国だった。みんな、あなたを待っていた」</p>
+<p class="source-line role-narration gap-1" data-source-line="709">　祖父は笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="711">　そして羅針盤を僕の手へ戻した。</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　二本目の針は、塩町を指していた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="715">「七十四番目、ミハイル・ボロディン。帰還」</p>
+<p class="source-line role-narration gap-1" data-source-line="717">　セラが歌った。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　祖父は船へ乗らなかった。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="721">　僕の頭に手を置く仕草をしてから、七十三人の光とは反対に、塩町の方へ歩いた。朝靄の中で姿は薄れ、最後に石工の槌の音だけが残った。</p>
+<p class="source-line role-narration gap-1" data-source-line="723">　月沼の水が引き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="725">　星の船は泥の上に静かに着き、もう二度と動かなかった。</p>
+</section>
+<section class="chapter" id="chapter-9">
+<h2 class="source-line chapter-heading gap-2" data-source-line="728">九　朝日の港</h2>
+<p class="source-line role-narration gap-1" data-source-line="730">　僕らが井戸から這い出したとき、東の空が白んでいた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="732">　塩町には人夫が集まり、最初の家に縄を掛けているところだった。徴発官ラドは共同井戸の脇で毛布に包まれ、昨夜から「葦の顔が踊る」と繰り返していた。僕らを見ると悲鳴を上げ、泥の中へ逃げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　父は僕を殴ろうとして、抱きしめた。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　ミナの母は娘を抱きしめてから殴った。ホロの親方は新しい工具箱を見て、殴るのを忘れた。セラの老司祭は、彼女が歌い始めた七十四人の名を、黙って最後まで聞いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　港務局の役人は、女帝の国書を偽物だと言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　そこでミナが一つ目の箱を開けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　中には、青銀貨がぎっしり詰まっていた。こちらの国にはない金属で、朝日に当たると雪のような匂いがした。王立鑑定官が一枚を削り、火に入れ、酸に浸け、最後には帽子を脱いだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="744">　箱の底には、塩町の土地代を三度払って余るだけの価値があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　国書は王宮へ運ばれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　三日後、取り壊しは中止された。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="750">　三月後、塩町は<span class="term term-world">〈外海使節港〉</span>に指定された。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="752">　大人たちは、すべてが子どもの作り話から始まったことを、なるべく忘れようとした。月沼の場所を尋ねられても、地図には岬しか描けない。二重月の夜でなければ、笑う崖の出口はただの岩壁になる。ヴェレス帝国から次の船が来たのは、それから十二年後だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　そのころ、僕らはもう子どもではなかった。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="756">　ミナは塩町で最初の異国式鍛冶場を開いた。ホロは蒸気時計を改良し、世界が違っても同じ時を刻む時計を作ろうとして、三度工房を爆発させた。セラは寺院を出て、帰らない船乗りの名を歌う旅の歌い手になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　僕は地図師になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　海岸線や山脈だけでなく、人がどこから来て、どこへ帰りたがったかを地図に書くようになった。道のない場所には、道がないと記した。帰れなかった者の名は、余白に残した。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　祖父の羅針盤は、今も机の上にある。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　一本の針は北を指す。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="766">　もう一本は、日によって違う場所を指す。雪の都。樽工房。古い寺院。壊れた時計屋。ときには、もう水のない月沼。</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　僕は長いあいだ、それを故障だと思っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　けれど今は違う。</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　二本目の針が指すのは、故郷ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　帰りたいと願った誰かのいる方角なのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="776">　満月の夜、塩町の石畳に雨水が溜まると、そこに知らない空が映ることがある。</p>
+<p class="source-line role-narration role-ritual gap-1" data-source-line="778">　耳を澄ませば、遠い雪の国から七十四人ぶんの鈴が鳴る。</p>
+<p class="source-line role-narration gap-1" data-source-line="780">　そして僕は、帰還者の名を一人ずつ、地図の余白に書き足していく。</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

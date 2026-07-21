@@ -69,6 +69,9 @@
   const HISTORY_SNAPSHOT_INTERVAL = 200;
   const LEGACY_VOTE_STORAGE_KEY = "cold-print-votes-v1";
   const VOTE_STORAGE_PREFIX = "cold-print-vote-v1:";
+  const READING_HISTORY_STORAGE_KEY = "cold-print-reading-history-v1";
+  const MAX_READING_HISTORY = 50;
+  const RECOMMENDATION_ROW_SIZE = 10;
   const MAX_BASE_VOTE_COUNT = Number.MAX_SAFE_INTEGER - 1;
   const TITLE_COLLATOR = new Intl.Collator("ja", {
     numeric: true,
@@ -113,6 +116,9 @@
     portalTitle: document.querySelector("#portal-title"),
     workTotal: document.querySelector("#work-total"),
     genreTotal: document.querySelector("#genre-total"),
+    recommendations: document.querySelector("#recommendations"),
+    recommendationRows: document.querySelector("#recommendation-rows"),
+    deleteReadingHistory: document.querySelector("#delete-reading-history"),
     catalogTabs: document.querySelector(".catalog-tabs"),
     catalogPanel: document.querySelector("#catalog-panel"),
     oneShotCount: document.querySelector("#one-shot-count"),
@@ -200,6 +206,9 @@
     frameScrollHandler: null,
     frameScrollEndHandler: null,
     currentFrameScrollY: 0,
+    readingHistory: loadReadingHistory(),
+    lastStoredProgress: -1,
+    serverRecommendations: null,
   };
 
   if ("scrollRestoration" in history) {
@@ -276,6 +285,8 @@
     });
 
     elements.workList.addEventListener("click", handleWorkListClick);
+    elements.recommendationRows.addEventListener("click", handleWorkListClick);
+    elements.deleteReadingHistory.addEventListener("click", deleteReadingHistory);
     elements.seriesView.addEventListener("click", handleSeriesViewClick);
     elements.readerView.addEventListener("click", handleReaderViewClick);
     document
@@ -387,6 +398,8 @@
     state.catalogsLoaded = true;
 
     updateArchiveCounts();
+    renderRecommendations();
+    loadServerRecommendations();
     const route = readRoute();
     const initialCatalogType = route.type === "series" || route.type === "episode"
       ? "serial"
@@ -1048,6 +1061,240 @@
     updateFilterControls();
   }
 
+  function renderRecommendations() {
+    if (!state.catalogsLoaded) {
+      return;
+    }
+    const works = getRecommendationWorks();
+    if (!works.length) {
+      elements.recommendations.hidden = true;
+      return;
+    }
+
+    const historyEntries = [...state.readingHistory.values()]
+      .filter((entry) => works.some((work) => work.workKey === entry.workKey))
+      .sort((left, right) => right.updatedAt - left.updatedAt);
+    const lastRead = historyEntries[0];
+    const lastWork = lastRead
+      ? works.find((work) => work.workKey === lastRead.workKey)
+      : null;
+    const favoriteGenres = calculateFavoriteGenres(historyEntries, works);
+    const primaryGenre = favoriteGenres[0]?.genre || chooseDailyGenre(works);
+    const topGenre = works.some((work) => work.genres.includes("アクション"))
+      ? "アクション"
+      : primaryGenre;
+    const readKeys = new Set(historyEntries.map((entry) => entry.workKey));
+
+    let continueReading = historyEntries
+      .filter((entry) => entry.progress > 0 && entry.progress < 98)
+      .map((entry) => works.find((work) => work.workKey === entry.workKey))
+      .filter(Boolean);
+    let today = rankWorks(works, (work) => {
+      const genreAffinity = work.genres.reduce(
+        (score, genre) => score + (favoriteGenres.find((item) => item.genre === genre)?.score || 0),
+        0,
+      );
+      return genreAffinity * 6 + work.goodCount * 2 - work.badCount + dailyTieBreaker(work.workKey);
+    }).filter((work) => !readKeys.has(work.workKey));
+    let similar = lastWork
+      ? rankWorks(
+        works.filter((work) => work.workKey !== lastWork.workKey),
+        (work) => genreSimilarity(lastWork.genres, work.genres) * 100 +
+          work.goodCount * 2 - work.badCount,
+      )
+      : [];
+    if (state.serverRecommendations) {
+      continueReading = mergeServerRanking("continue-reading", continueReading, works);
+      today = mergeServerRanking("today", today, works);
+      similar = mergeServerRanking("also-read", similar, works);
+    }
+    const genreTop = rankWorks(
+      works.filter((work) => work.genres.includes(topGenre)),
+      (work) => work.goodCount * 3 - work.badCount + dailyTieBreaker(work.workKey),
+    );
+
+    const rows = [
+      { id: "continue-reading", title: "続きを読む", items: continueReading },
+      { id: "today", title: "今日のおすすめ", items: today },
+      {
+        id: "also-read",
+        title: lastWork ? `「${lastWork.title}」を読んだ人はこちらも` : "こちらもおすすめ",
+        items: similar,
+      },
+      { id: "genre-top", title: `${topGenre} Top 10`, items: genreTop },
+    ].filter((row) => row.items.length);
+
+    elements.recommendationRows.replaceChildren(
+      ...rows.map((row) => createRecommendationRow(row)),
+    );
+    elements.recommendations.hidden = rows.length === 0;
+  }
+
+  function getRecommendationWorks() {
+    return CATALOG_TYPES.flatMap((catalogType) => {
+      const catalog = state.catalogs[catalogType];
+      if (!catalog.ready) {
+        return [];
+      }
+      return catalog.items.map((item) => ({
+        ...addEffectiveVotes(item, catalogType),
+        catalogType,
+      }));
+    });
+  }
+
+  function createRecommendationRow(row) {
+    const section = document.createElement("section");
+    section.className = "recommendation-row";
+    section.dataset.recommendationRow = row.id;
+    section.setAttribute("aria-labelledby", `${row.id}-title`);
+    const heading = document.createElement("h3");
+    heading.id = `${row.id}-title`;
+    heading.textContent = row.title;
+    const list = document.createElement("div");
+    list.className = "recommendation-row__list";
+    list.setAttribute("role", "list");
+    row.items.slice(0, RECOMMENDATION_ROW_SIZE).forEach((item, index) => {
+      const rankedItem = { ...item, displayNumber: index + 1 };
+      const card = item.catalogType === "serial"
+        ? createSeriesCard(rankedItem)
+        : createOneShotCard(rankedItem);
+      if (row.id === "continue-reading") {
+        const entry = state.readingHistory.get(item.workKey);
+        const link = card.querySelector("a");
+        link.dataset.resumeProgress = String(entry.progress);
+        if (item.catalogType === "serial" && entry.episodeId) {
+          link.dataset.episodeId = entry.episodeId;
+          link.href = buildEpisodeHash(item.seriesId, entry.episodeId);
+        }
+      }
+      card.classList.add("recommendation-row__item");
+      list.append(card);
+    });
+    section.append(heading, list);
+    return section;
+  }
+
+  function calculateFavoriteGenres(historyEntries, works) {
+    const scores = new Map();
+    historyEntries.forEach((entry, index) => {
+      const work = works.find((candidate) => candidate.workKey === entry.workKey);
+      if (!work) return;
+      const recency = Math.max(1, 5 - index * 0.25);
+      const engagement = 1 + entry.progress / 50;
+      work.genres.forEach((genre) => {
+        scores.set(genre, (scores.get(genre) || 0) + recency * engagement);
+      });
+    });
+    return [...scores.entries()]
+      .map(([genre, score]) => ({ genre, score }))
+      .sort((left, right) => right.score - left.score);
+  }
+
+  function chooseDailyGenre(works) {
+    const genres = [...new Set(works.flatMap((work) => work.genres))].sort(TITLE_COLLATOR.compare);
+    if (!genres.length) return "総合";
+    const dayNumber = Math.floor(Date.now() / 86400000);
+    return genres[dayNumber % genres.length];
+  }
+
+  function rankWorks(works, score) {
+    return [...works].sort((left, right) => {
+      const scoreOrder = score(right) - score(left);
+      return scoreOrder || TITLE_COLLATOR.compare(left.title, right.title);
+    });
+  }
+
+  function genreSimilarity(left, right) {
+    const union = new Set([...left, ...right]);
+    const overlap = left.filter((genre) => right.includes(genre)).length;
+    return union.size ? overlap / union.size : 0;
+  }
+
+  function dailyTieBreaker(workKey) {
+    const seed = `${new Date().toISOString().slice(0, 10)}:${workKey}`;
+    let hash = 0;
+    for (const character of seed) hash = (hash * 31 + character.codePointAt(0)) >>> 0;
+    return (hash % 1000) / 1000;
+  }
+
+  function mergeServerRanking(rowId, fallbackItems, works) {
+    const row = state.serverRecommendations?.rows?.find((candidate) => candidate.id === rowId);
+    if (!row || !Array.isArray(row.work_keys) || !row.work_keys.length) return fallbackItems;
+    const byKey = new Map(works.map((work) => [work.workKey, work]));
+    const serverItems = row.work_keys.map((workKey) => byKey.get(workKey)).filter(Boolean);
+    const included = new Set(serverItems.map((work) => work.workKey));
+    return [...serverItems, ...fallbackItems.filter((work) => !included.has(work.workKey))];
+  }
+
+  async function loadServerRecommendations() {
+    try {
+      const response = await fetch("/api/v1/recommendations/home", {
+        credentials: "same-origin",
+        headers: { Accept: "application/json" },
+      });
+      if (!response.ok) return;
+      const payload = await response.json();
+      if (!isPlainObject(payload) || !Array.isArray(payload.rows)) return;
+      state.serverRecommendations = payload;
+      if (Array.isArray(payload.history)) {
+        payload.history.forEach((entry) => {
+          if (!isPlainObject(entry) || !isValidVoteWorkKey(entry.work_key)) return;
+          const existing = state.readingHistory.get(entry.work_key);
+          if (existing) return;
+          state.readingHistory.set(entry.work_key, {
+            workKey: entry.work_key,
+            progress: Number(entry.progress) || 0,
+            episodeId: typeof entry.episode_id === "string" ? entry.episode_id : null,
+            updatedAt: 0,
+          });
+        });
+      }
+      if (elements.body.dataset.view === "portal") renderRecommendations();
+    } catch (_error) {
+      /* The local recommendation model is the offline fallback. */
+    }
+  }
+
+  function sendServerReadingEvent(eventType, workKey, options = {}) {
+    const payload = {
+      event_type: eventType,
+      work_key: workKey,
+      occurred_at: new Date().toISOString(),
+      ...(Number.isFinite(options.progress) ? { progress: options.progress } : {}),
+      ...(options.episodeId ? { episode_id: options.episodeId } : {}),
+      ...(options.recommendationRow ? { recommendation_row: options.recommendationRow } : {}),
+    };
+    fetch("/api/v1/reading-events", {
+      method: "POST",
+      credentials: "same-origin",
+      keepalive: true,
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    }).catch(() => {});
+  }
+
+  async function deleteReadingHistory() {
+    elements.deleteReadingHistory.disabled = true;
+    try {
+      await fetch("/api/v1/reading-history", {
+        method: "DELETE",
+        credentials: "same-origin",
+      });
+    } catch (_error) {
+      /* Local history can still be removed while offline. */
+    }
+    state.readingHistory = new Map();
+    state.serverRecommendations = null;
+    try {
+      localStorage.removeItem(READING_HISTORY_STORAGE_KEY);
+    } catch (_error) {
+      /* In-memory deletion still succeeds when storage is unavailable. */
+    }
+    renderRecommendations();
+    elements.deleteReadingHistory.disabled = false;
+  }
+
   function renderCatalogError(error) {
     elements.catalogStatus.className = "catalog-status catalog-status--error";
     elements.catalogStatus.textContent = state.activeCatalogType === "serial"
@@ -1416,8 +1663,27 @@
     }
 
     event.preventDefault();
+    const recommendationRow = link.closest("[data-recommendation-row]")?.dataset.recommendationRow;
+    if (recommendationRow) {
+      sendServerReadingEvent("recommendation_click", link.dataset.focusKey, { recommendationRow });
+    }
     savePortalHistory(link.dataset.focusKey, "link");
-    if (link.dataset.seriesId) {
+    const resumeProgress = Number.parseFloat(link.dataset.resumeProgress);
+    if (link.dataset.seriesId && link.dataset.episodeId) {
+      history.pushState(
+        {
+          view: "reader",
+          readerKind: "episode",
+          catalogType: "serial",
+          fromPortal: true,
+          seriesId: link.dataset.seriesId,
+          episodeId: link.dataset.episodeId,
+          ...(Number.isFinite(resumeProgress) ? { resumeProgress } : {}),
+        },
+        "",
+        buildEpisodeHash(link.dataset.seriesId, link.dataset.episodeId),
+      );
+    } else if (link.dataset.seriesId) {
       history.pushState(
         {
           view: "series",
@@ -1437,6 +1703,7 @@
           catalogType: "one-shot",
           fromPortal: true,
           filename: link.dataset.filename,
+          ...(Number.isFinite(resumeProgress) ? { resumeProgress } : {}),
         },
         "",
         buildOneShotHash(link.dataset.filename),
@@ -1529,6 +1796,7 @@
     elements.body.dataset.view = "portal";
     elements.readingProgressBar.style.width = "0%";
     document.title = BASE_TITLE;
+    renderRecommendations();
 
     const historyData = isPlainObject(history.state) ? history.state : {};
     const catalogType = normalizeCatalogType(
@@ -2045,6 +2313,7 @@
     const routeKey = `one-shot:${item.filename}`;
     state.currentRouteKey = routeKey;
     state.currentReading = { kind: "one-shot", item };
+    recordReadingActivity(`one-shot:${item.filename}`, 1);
     prepareReader({
       title: item.title,
       kicker: "Now reading",
@@ -2336,9 +2605,18 @@
 
   function restoreExtendedReaderPosition(frame) {
     const historyData = isPlainObject(history.state) ? history.state : {};
-    const scrollY = Number.isFinite(historyData.readerFrameScrollY)
+    let scrollY = Number.isFinite(historyData.readerFrameScrollY)
       ? historyData.readerFrameScrollY
       : 0;
+    if (!scrollY && Number.isFinite(historyData.resumeProgress)) {
+      try {
+        const maximum = frame.contentWindow.document.documentElement.scrollHeight -
+          frame.contentWindow.innerHeight;
+        scrollY = maximum * Math.min(100, Math.max(0, historyData.resumeProgress)) / 100;
+      } catch (_error) {
+        scrollY = 0;
+      }
+    }
     completeScrollRestore(0, () => {
       try {
         frame.contentWindow?.scrollTo({ top: scrollY, left: 0, behavior: "auto" });
@@ -2392,6 +2670,7 @@
     const routeKey = `episode:${series.seriesId}:${episodeId}`;
     state.currentRouteKey = routeKey;
     state.currentReading = { kind: "episode", series, episodeId };
+    recordReadingActivity(`serial:${series.seriesId}`, 1, episodeId);
     prepareReader({
       title: "各話情報を読み込んでいます",
       kicker: "Serial episode",
@@ -2519,6 +2798,7 @@
     elements.readerStatus.className = "reader-status";
     elements.readerStatus.textContent = "本文を読み込んでいます…";
     elements.readerArticle.setAttribute("aria-busy", "true");
+    state.lastStoredProgress = -1;
     document.title = options.documentTitle;
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
     const historyData = isPlainObject(history.state) ? history.state : {};
@@ -2628,7 +2908,11 @@
     const historyData = isPlainObject(history.state) ? history.state : {};
     const hasSavedPosition =
       historyData.view === "reader" && Number.isFinite(historyData.readerScrollY);
-    completeScrollRestore(hasSavedPosition ? historyData.readerScrollY : 0, () => {
+    const resumeScrollY = !hasSavedPosition && Number.isFinite(historyData.resumeProgress)
+      ? (document.documentElement.scrollHeight - window.innerHeight) *
+        Math.min(100, Math.max(0, historyData.resumeProgress)) / 100
+      : 0;
+    completeScrollRestore(hasSavedPosition ? historyData.readerScrollY : resumeScrollY, () => {
       if (!historyData.readerFocusKey) {
         if (hasSavedPosition) {
           elements.readerTitle.focus({ preventScroll: true });
@@ -3141,10 +3425,33 @@
       elements.readingProgressBar.style.width = "0%";
       return;
     }
-    const scrollTop = window.scrollY || document.documentElement.scrollTop;
-    const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const extendedReaderActive = !elements.extendedReader.hidden && state.frameScrollWindow;
+    const scrollTop = extendedReaderActive
+      ? readFrameScrollY()
+      : window.scrollY || document.documentElement.scrollTop;
+    let scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (extendedReaderActive) {
+      try {
+        scrollableHeight = state.frameScrollWindow.document.documentElement.scrollHeight -
+          state.frameScrollWindow.innerHeight;
+      } catch (_error) {
+        scrollableHeight = 0;
+      }
+    }
     const progress = scrollableHeight > 0 ? (scrollTop / scrollableHeight) * 100 : 0;
-    elements.readingProgressBar.style.width = `${Math.min(100, Math.max(0, progress))}%`;
+    const normalizedProgress = Math.min(100, Math.max(0, progress));
+    elements.readingProgressBar.style.width = `${normalizedProgress}%`;
+    if (state.currentReading && Math.abs(normalizedProgress - state.lastStoredProgress) >= 2) {
+      state.lastStoredProgress = normalizedProgress;
+      const workKey = state.currentReading.kind === "one-shot"
+        ? `one-shot:${state.currentReading.item.filename}`
+        : `serial:${state.currentReading.series.seriesId}`;
+      recordReadingActivity(
+        workKey,
+        normalizedProgress,
+        state.currentReading.episode?.episodeId || state.currentReading.episodeId || null,
+      );
+    }
   }
 
   function getActiveCatalog() {
@@ -3202,6 +3509,57 @@
   function sameStringArray(left, right) {
     return left.length === right.length &&
       left.every((value, index) => value === right[index]);
+  }
+
+  function loadReadingHistory() {
+    try {
+      const parsed = JSON.parse(localStorage.getItem(READING_HISTORY_STORAGE_KEY) || "[]");
+      if (!Array.isArray(parsed)) return new Map();
+      return new Map(parsed
+        .filter((entry) => isPlainObject(entry) &&
+          isValidVoteWorkKey(entry.workKey) &&
+          Number.isFinite(entry.progress) &&
+          Number.isFinite(entry.updatedAt))
+        .slice(0, MAX_READING_HISTORY)
+        .map((entry) => [entry.workKey, {
+          workKey: entry.workKey,
+          progress: Math.min(100, Math.max(0, entry.progress)),
+          updatedAt: entry.updatedAt,
+          episodeId: typeof entry.episodeId === "string" ? entry.episodeId : null,
+        }]));
+    } catch (_error) {
+      return new Map();
+    }
+  }
+
+  function recordReadingActivity(workKey, progress, episodeId = null) {
+    const previous = state.readingHistory.get(workKey);
+    const nextProgress = previous && previous.episodeId === episodeId
+      ? Math.max(previous.progress, progress)
+      : progress;
+    state.readingHistory.set(workKey, {
+      workKey,
+      progress: Math.min(100, Math.max(0, nextProgress)),
+      updatedAt: Date.now(),
+      episodeId,
+    });
+    state.readingHistory = new Map(
+      [...state.readingHistory.entries()]
+        .sort((left, right) => right[1].updatedAt - left[1].updatedAt)
+        .slice(0, MAX_READING_HISTORY),
+    );
+    try {
+      localStorage.setItem(
+        READING_HISTORY_STORAGE_KEY,
+        JSON.stringify([...state.readingHistory.values()]),
+      );
+    } catch (_error) {
+      /* Reading still works when browser storage is unavailable. */
+    }
+    sendServerReadingEvent(progress <= 1 ? "start" : progress >= 98 ? "complete" : "progress", workKey, {
+      progress,
+      episodeId,
+    });
   }
 
   function isPlainObject(value) {

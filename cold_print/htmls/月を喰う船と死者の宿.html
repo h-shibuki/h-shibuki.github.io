@@ -1,0 +1,907 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="空から切り捨てられる釘浜を救うため、地図師見習いミナは祖父の遺した地図と、真実を聞き分ける真鍮の耳を開く。背の高い廃品屋の娘ガロ、パン屋のポッケと辿る先は、鯨骨で組まれた《月喰い船》と、死者の道に建つ終着宿。そこで三人を迎えるのは、白い髪と赤い制服の幽霊少女ルゥだった。宿の客には行き先があり、生者には帰る刻限がある。月が欠ける夜、四人は誰にも告げられない航路を渡り、町へ戻る道を見つけられるのか。終着の鐘が近づく。">
+<title>月を喰う船と、死者の宿｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="月を喰う船と死者の宿" data-novel-id="月を喰う船と死者の宿" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一</a></li><li><a href="#chapter-2">二</a></li><li><a href="#chapter-3">三</a></li><li><a href="#chapter-4">四</a></li><li><a href="#chapter-5">五</a></li><li><a href="#chapter-6">六</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ホラー</p>
+  <p><strong>補助ジャンル：</strong>ジュブナイル・ファンタジー・家族ドラマ</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ホラー、ジュブナイル、ファンタジー、家族ドラマ</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：434行／章：6／役割・強度タグ：516</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="月を喰う船と、死者の宿 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">月を喰う船と、死者の宿</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-2" data-source-line="4"><span class="source-indent" aria-hidden="true">　</span>一</h2>
+<p class="source-line role-narration gap-1" data-source-line="6">　釘浜の朝は、空から魚が落ちてくる音で始まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="8">　雲より高いところを流れる「上の海」から、銀鱗の小魚が雨どいへ迷い込み、屋根をぱらぱら叩くのだ。釘浜の子どもたちは、それを拾って朝飯にする。大人たちは、洗濯物に鱗がついたと文句を言う。</p>
+<p class="source-line role-narration gap-1" data-source-line="10">　その朝、落ちてきたのは魚ではなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　赤い板だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="14">　板は広場の掲示柱に、黒い制服の役人によって打ちつけられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="16">　――鎖税滞納につき、釘浜区は三日後の日没をもって切り離す。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="18">「切り離すって、どこから？」</p>
+<p class="source-line role-narration gap-1" data-source-line="20">　パン屋の息子ポッケが、焼きたての丸パンを両手に抱えたまま訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="22">「世界からよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="24">　廃品屋の娘ガロが言った。十四歳にして大人より背が高く、髪にはいつも銅線が絡んでいる。「釘浜は島の腹に鎖でぶら下がってる。鎖を切られたら、家も店も学校も、雲の底まで真っ逆さま」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="26">「住民はその前に退去させる、と書いてある」</p>
+<p class="source-line role-narration gap-1" data-source-line="28">　地図師見習いのミナは、赤い板を睨みつけた。「命は助けてやるから、町は諦めろってこと」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　釘浜は、浮島ベルカの裏側にへばりついた古い港町だった。家々は岩から突き出した梁の上に建ち、道は縄梯子と吊り橋でつながり、窓の外を帆船が上下逆さに通る。立派な人々は島の上面に住み、釘浜のことを『靴底の染み』と呼んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　だがミナにとっては、祖父の地図工房があり、ガロの廃品置き場があり、ポッケの家の石窯がある場所だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="34">　役人が去ると、住民たちは広場に集まった。泣く者、怒鳴る者、荷造りを始める者。町長は「交渉する」と言ったが、誰も本気にはしなかった。鎖税は金貨三千枚。釘浜中の鍋や靴や差し歯を売っても届かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="36">「金貨三千枚なら、あるかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="38">　ミナが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="40">　ガロが片眉を上げた。ポッケはパンを落とした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="42">「祖父ちゃんの、開かずの戸棚」</p>
+<p class="source-line role-narration gap-1" data-source-line="44">　三人は走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="46">　地図工房は、島の岩肌に半分埋まっていた。亡くなった祖父オルタは、世界中の空路を描いた地図師だった。最後の十年は誰にも会わず、毎晩、壁の向こうから槌の音を響かせていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="48">　開かずの戸棚には鍵穴がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="50">　ガロは鼻歌を歌いながら蝶番を外した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="52">「鍵の意味を考え直したほうがいいわね」</p>
+<p class="source-line role-narration gap-1" data-source-line="54">　戸棚の中には、羊皮紙が一枚と、真鍮でできた人間の耳が入っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="56">　羊皮紙は真っ白だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="58">「すごい宝だね」ポッケが言った。「紙と耳。金貨三千枚まで、あと二千九百九十九枚とちょっと」</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　ミナは真鍮の耳を拾った。耳の裏には、祖父の字でこう刻まれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　――雷の話を聞かせよ。</p>
+<p class="source-line role-narration gap-1" data-source-line="64">　工房の窓の外で、ちょうど上の海が唸った。雲の中を青白い稲妻が走る。ミナが真鍮の耳を窓へ向けると、耳は雷鳴を吸い込み、ぶるぶる震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="66">　白い羊皮紙の上に、銀色の線が浮かび始めた。</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="68">　釘浜の地下。忘れられた排水路。宵待市場。終点館。そして、世界の裏側を航る巨大な船。</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　地図の端には、牙のような筆致で記されていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="72">　――月喰い号。船王ナブラの遺産。生者は死者の道を行け。</p>
+<p class="source-line role-narration gap-1" data-source-line="74">　その下に、祖父の小さな走り書きがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="76">　――ミナへ。町が空から捨てられる日が来たら、この地図を開け。</p>
+<p class="source-line role-narration gap-1" data-source-line="78">　ミナは顔を上げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="80">「行くよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="82">「どこへ？」とポッケ。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="84">「死者の道」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="86">「聞かなかったことにしていい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="88">「だめ」</p>
+<p class="source-line role-narration gap-1" data-source-line="90">　ガロは地図を覗き込み、にやりと笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="92">「三日ある。宝を見つけて、帰って、町を買う。余ったら空飛ぶ風呂桶を作ろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="94">「余らなくていいから、生きて帰ろうよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="96">　ポッケは落としたパンを拾い、埃を払って食べた。</p>
+<p class="source-line role-narration gap-1" data-source-line="98">　こうして三人は、町の大人たちに黙って、祖父の工房の床板を剥がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　その下には、口を開けた闇があった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="103"><span class="source-indent" aria-hidden="true">　</span>二</h2>
+<p class="source-line role-narration gap-1" data-source-line="105">　排水路は、巨大な獣の喉のようだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="107">　石壁には塩の結晶が歯のように並び、上の海から漏れた水が天井を逆向きに流れている。三人は縄を伝い、古い保守通路へ降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="109">　ガロは工具袋を背負い、ミナは地図と真鍮の耳を胸元にしまい、ポッケは食料袋を三つ持ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="111">「なんで食料が三つもあるの」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「一つは行き。二つは帰り」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="115">「増えてるじゃない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="117">「帰りはお腹が減るから」</p>
+<p class="source-line role-narration gap-1" data-source-line="119">　最初の仕掛けは、百本の針だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="121">　通路の床に足を置いた瞬間、壁から鉄針が飛び出した。ガロがポッケの襟首を引かなければ、彼は穴あきチーズになっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="123">　床には、古代文字で一行。</p>
+<p class="source-line role-narration gap-1" data-source-line="125">　――盗人は軽く、王は重い。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="127">「体重の軽い人だけ通れる？」ポッケが青ざめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="129">「それならあんたはここまでね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="131">「ひどい」</p>
+<p class="source-line role-narration gap-1" data-source-line="133">　ミナは地図を透かした。銀線の端に、小さな王冠の印がある。真鍮の耳を当てると、床下から、かすかな歯車の音が聞こえた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="135">「重さじゃない。持ち物だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="137">　三人は荷物をすべて床に置いた。何も持たずに歩くと、針は出なかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="139">「盗人は、宝を抱えて帰ろうとする。王は、何も持たずに先へ行く」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="141">「じゃあ帰りは？」ポッケが訊いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="143">　三人は顔を見合わせた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="145">「別の道を探す」とミナは言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="147">　次の広間には、石の骸骨が六体、円卓を囲んでいた。中央に置かれた銀杯へ水を注ぐと、骸骨たちが一斉に笑い出した。笑い声はだんだん大きくなり、天井から砂が落ちた。</p>
+<p class="source-line role-dialogue fx-beat tone-4 gap-1" data-source-line="149">「笑い返せ、って書いてある！」</p>
+<p class="source-line role-narration gap-1" data-source-line="151">　ミナが壁の銘文を読み上げる。</p>
+<p class="source-line role-narration role-memory tone-4 gap-1" data-source-line="153">　ガロは骸骨の顎を工具で叩き、陽気な拍子を作った。ポッケはパン屋に来た酔客の物真似をした。ミナは笑おうとしたが、町の赤い告示板を思い出して、うまく笑えない。</p>
+<p class="source-line role-narration gap-1" data-source-line="155">　骸骨たちの目が赤く光った。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="157">「ミナ、何か面白いこと！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="159">「いま考えてる！」</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="161">「地図師が迷子になった！」ポッケが叫んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="163">「それ、私の悪口？」</p>
+<p class="source-line role-dialogue fx-shout tone-4 gap-1" data-source-line="165">「笑って！」</p>
+<p class="source-line role-narration gap-1" data-source-line="167">　ミナは腹が立って、そして本当に笑ってしまった。</p>
+<p class="source-line role-narration gap-1" data-source-line="169">　石壁が左右に開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="171">　その向こうから、薬品の臭いが流れてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　通路の床に、男が倒れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="175">　いや、男だったものが。</p>
+<p class="source-line role-narration gap-1" data-source-line="177">　皮膚は蝋のように白く、胸には縦一文字の縫い目。両腕には銅の管が刺さり、背中の革袋が、呼吸のたびにふくらんでいる。男はゆっくり顔を上げた。片目は灰色、もう片方は青い硝子玉だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="179">「おや」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="181">　死体が言った。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="183">　ポッケが悲鳴をあげた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="185">「静かに。せっかく死んでいるのに、耳が痛い」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="187">　死体は立ち上がり、胸の縫い目から落ちた糸を結び直した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="189">「あなた、生きてるの？」ミナが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="191">「失礼だな。ちゃんと死んでいる。週に二度、医師からも確認される」</p>
+<p class="source-line role-narration gap-1" data-source-line="193">　男は胸を張った。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="195">「私はロク。元・王立郵便配達人、現・死体助手。君たちは生きた子どもだな。こんな場所にいると、先生に部品を取られるぞ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="197">「先生？」</p>
+<p class="source-line role-narration gap-1" data-source-line="199">　遠くで、金属の車輪が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="201">　ロクの硝子の目がくるりと回る。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="203">「来た。隠れろ」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="205">　三人は崩れた石棺の陰へ飛び込んだ。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="207">　黒い外套の長身の男が、鉄輪の担架を押して現れた。髪は雪のように白く、鼻には銀の医療鏡をかけている。担架には三つの死体が積まれ、指先から細い煙をあげていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="209">「ロク」男が言った。「地図の気配がした」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="211">「気のせいです、ウェイク先生。ここには苔と私しか」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　医師ウェイクは立ち止まり、空気を嗅いだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="215">「焼きたてのパンの匂いがする」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="217">　石棺の陰で、ポッケが自分の食料袋を抱きしめた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「生者だ」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="221">　ウェイクが指を鳴らすと、担架の死体たちが一斉に起き上がった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="223">「走れ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="225">　ロクが担架を蹴り倒した。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="227">　三人は通路を駆けた。背後で死体の足音と、ウェイクの冷静な声が追ってくる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="229">「地図を渡しなさい。子どもが月喰い号へ行けば、死ぬ」</p>
+<p class="source-line role-dialogue role-horror fx-shout tone-5 gap-1" data-source-line="231">「死体を歩かせてる人に言われたくない！」ガロが叫んだ。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="233">「歩かない死体ほど、役に立たないものはない」</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　行き止まりだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="237">　正面には、黒い水が垂直に流れる滝。地図の銀線は、その中へ続いている。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="239">「飛ぶよ！」ミナは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="241">「それ、落ちるって意味だよね？」</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="243">「世界の裏では同じ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="245">　三人は手をつなぎ、滝へ飛び込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　上下が裏返った。</p>
+<p class="source-line role-narration gap-1" data-source-line="249">　冷たい水に叩かれたと思った次の瞬間、彼らは夜空へ放り出されていた。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="252"><span class="source-indent" aria-hidden="true">　</span>三</h2>
+<p class="source-line role-narration gap-1" data-source-line="254">　夜空には、町が浮かんでいた。</p>
+<p class="source-line role-narration gap-1" data-source-line="256">　黒い川の両岸に、千もの屋台と灯籠が連なっている。魚の頭をした商人、傘だけで歩く客、首を小脇に抱えた騎士。透き通った馬車が石畳を走り、どの窓にも違う月が映っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="258">　宵待市場。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="260">　死者が次の旅へ出る前に、最後の買い物をする場所。</p>
+<p class="source-line role-narration gap-1" data-source-line="262">　ミナたちは川岸の葦むらへ落ちた。服から水を絞っていると、どこからか小さな声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="264">「生きてる匂いがする」</p>
+<p class="source-line role-narration gap-1" data-source-line="266">　三人は凍りついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="268">　灯籠の陰から、少女が顔を出した。年はミナと同じくらい。白い髪を耳の下で切り揃え、終点館と刺繍された赤い制服を着ている。足元は透けていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="270">「やっぱり生きてる」少女は鼻をひくつかせた。「市場で見つかったら、珍味屋に瓶詰めにされるよ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="272">「助けて」ポッケが即答した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="274">「いいけど、代わりにパンを一つ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="276">「二つでも」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="278">「ポッケ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="280">「命の値段だよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="282">　少女はパンを受け取ると、三人の顔に灰を塗った。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="284">「これで葬式帰りの匂いになる。あと、誰かに本名を呼ばれても振り返らないで。ここでは名前に返事をすると、その名前が死者名簿に載る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="286">「あなたは？」とミナ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="288">「ルゥ。たぶん」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="290">「たぶん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="292">「死ぬときに、ほとんど忘れたから」</p>
+<p class="source-line role-narration gap-1" data-source-line="294">　ルゥはくるりと背を向けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「地上へ戻る出口は、終点館の地下にある。でも今夜は大渡り祭。宿は満室、裏口も封鎖。従業員になれば入れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="298">　終点館は、市場の中央に立つ巨大な建物だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="300">　十三階あるのに、階段は十二段しかない。屋根の煙突からは鳥が吐き出され、正面玄関では骸骨の楽団が、楽器を持たずに演奏していた。壁の無数の窓には、雪原、砂漠、海底、誰かの子ども部屋が映っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="302">　女将カガリは、六枚の羽を持つ大きな蛾だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="304">　彼女は帳場の天井から逆さにぶら下がり、金色の眼鏡を三つかけていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="306">「生者三名」</p>
+<p class="source-line role-narration gap-1" data-source-line="308">　カガリは帳面をめくった。「働き口は、皿洗い、靴磨き、悪夢の煮込み係」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「悪夢は煮込むんですか？」ポッケが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="312">「生では苦いからね」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="314">　大広間では、死者たちが旅立ち前の晩餐をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="316">　首のない貴婦人には帽子を皿にしてスープを運び、百年間眠っていた兵士には固いものを出さず、火事で死んだ客の近くではロウソクを消しておく。ガロは皿洗い機を三度爆発させ、ポッケは味見で悪夢を一鍋減らし、ミナは迷子の影を持ち主へ届けた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="318">　ルゥは館内を飛ぶように働いた。死者のくせに、笑うと頬にえくぼができた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="320">「ずっとここにいるの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="322">　休憩中、ミナが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="324">「覚えてない。カガリさんが川で拾ったって。次の船に乗れって言われるけど、行き先を決められない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="326">「帰りたい場所は？」</p>
+<p class="source-line role-narration gap-1" data-source-line="328">　ルゥは考え、首を振った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="330">「ない。たぶん、あったんだけど」</p>
+<p class="source-line role-narration gap-1" data-source-line="332">　そのとき、館の表で鐘が鳴った。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　黒い外套の客が入ってきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="336">　ウェイク医師だった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="338">　後ろにロクと、縫い合わされた死体助手たちを従えている。彼らは大きな硝子棺を運んでいた。棺の中には、白い服の少女が眠っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　ルゥの手から皿が落ちた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="342">　硝子棺の少女は、ルゥと同じ顔をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="344">　ウェイクが帳場へ進む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="346">「地下船着場を借りたい。月喰い号へ渡る」</p>
+<p class="source-line role-narration gap-1" data-source-line="348">　カガリ女将の触角が揺れた。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="350">「生者が死者の船を起こすつもりかい」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="352">「娘を起こす」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="354">　ウェイクは硝子棺へ手を置いた。「十年前、私は熱病からこの子を救えなかった。だが体は保った。月喰い号の心臓なら、魂を呼び戻せる」</p>
+<p class="source-line role-narration gap-1" data-source-line="356">　ルゥが一歩、前へ出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　ウェイクは彼女を見た。</p>
+<p class="source-line role-narration gap-1" data-source-line="360">　銀の医療鏡が、床に落ちた。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="362">「リュシア」</p>
+<p class="source-line role-narration gap-1" data-source-line="364">　その名が広間へ響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="366">　ルゥが振り返った。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="368">　瞬間、天井の死者名簿がひとりでに開き、黒いインクが走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="370">　リュシア・ウェイク。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="372">　ルゥの胸に、名札のような文字が浮かぶ。彼女の体が硝子棺へ引かれた。</p>
+<p class="source-line role-dialogue fx-climax fx-key role-motif gap-1" data-source-line="374">「いや！」</p>
+<p class="source-line role-narration gap-1" data-source-line="376">　ミナはルゥの腕をつかんだ。冷たい。だが確かに、そこにいる。</p>
+<p class="source-line role-narration gap-1" data-source-line="378">　ウェイクの顔には、喜びとも恐怖ともつかない表情が浮かんだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="380">「魂まで残っていたのか。リュシア、父さんだ。帰ろう」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="382">「知らない」ルゥは震えた。「あなたなんか、知らない」</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="384">「記憶が欠けているだけだ。体へ戻れば、すべて直る」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="386">「直るって、誰が決めたの？」ミナが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　ウェイクは初めて、子どもたちを見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="390">「地図を持っているのは君だな」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="392">　死体助手たちが広間を囲んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="394">　カガリ女将が羽を広げる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="396">「館内での魂の強奪は禁止だよ、医師」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="398">「ならば正式に宿代を払う」</p>
+<p class="source-line role-narration gap-1" data-source-line="400">　ウェイクは黒い鞄から、小瓶を一本取り出した。中で青い炎が揺れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="402">「王侯七名分の最期の言葉だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　女将の眼鏡が一斉に曇った。終点館では、それは金貨の山より高価だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="406">「地下船着場を一刻。ほかの客へ危害は加えない」</p>
+<p class="source-line role-narration gap-1" data-source-line="408">　カガリは長い沈黙のあと、鍵を差し出した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="410">「契約だ。ただし、その子の意思は宿代に含まれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="412">　ウェイクは鍵を受け取った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="414">「意思は、健康になってから聞く」</p>
+<p class="source-line role-narration gap-1" data-source-line="416">　ガロが小声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="418">「最悪の医者ね」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="420">「よく言われる」ウェイクは答えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　次の瞬間、ガロは皿洗い場からくすねていた胡椒袋を火鉢へ投げ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="424">　大広間が白煙に包まれた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="426">「地下へ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="428">　四人は走った。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="431"><span class="source-indent" aria-hidden="true">　</span>四</h2>
+<p class="source-line role-narration gap-1" data-source-line="433">　終点館の地下には、川が流れていた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="435">　水は真っ黒で、星だけを映した。岸には棺桶の形をした小舟が並び、行き先の札には「昨日」「忘却」「まだ先」などと書かれている。</p>
+<p class="source-line role-narration gap-1" data-source-line="437">　月喰い号行きの舟だけが、鎖で封じられていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="439">　ガロが鍵穴へ針金を差し込む。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="441">「女将の鍵はウェイクが持ってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="443">「鍵があると思うから、鍵穴が威張るのよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="445">　かちり。</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　鎖が外れた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="449">　四人が舟へ飛び乗ると、棺舟はひとりでに岸を離れた。直後、ウェイクと死体助手たちが地下へ現れた。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="451">「ロク！」</p>
+<p class="source-line role-narration gap-1" data-source-line="453">　ウェイクが命じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　ロクは別の舟へ乗り、櫂を構えた。しかし一度だけミナたちを見て、わざと反対向きに漕ぎ始めた。</p>
+<p class="source-line role-dialogue role-name fx-shout tone-5 gap-1" data-source-line="457">「すみません先生！　死後、左右の感覚がどうも！」</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="459">「解雇するぞ！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="461">「すでに一度、人生から解雇されています！」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="463">　ウェイクは硝子棺ごと三隻目の舟へ乗り込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="465">　黒い川が急流になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="467">　市場の灯が遠ざかり、岸が消える。頭上には無数の扉が浮かび、その隙間から、生者の世界の音が漏れていた。赤子の泣き声。雨。鍛冶場の槌。誰かが「ただいま」と言う声。</p>
+<p class="source-line role-narration gap-1" data-source-line="469">　ルゥは振り返らず、前だけを見ていた。</p>
+<p class="source-line role-dialogue role-memory gap-1" data-source-line="471">「思い出した？」ミナが訊いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="473">「少し。白い部屋。薬の匂い。父さんの手」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="475">「戻りたい？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="477">「わからない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="479">「わからなくていい。決めるのは、あんた」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="481">　棺舟が滝へ落ちた。</p>
+<p class="source-line role-narration gap-1" data-source-line="483">　今度は誰も叫ばなかった。叫ぶ暇がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="485">　四人は星の海へ投げ出され、舟ごと巨大な甲板へ墜落した。</p>
+<p class="source-line role-narration gap-1" data-source-line="487">　月喰い号は、死んだ空鯨の骨から造られた船だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="489">　全長は町ひとつ分。肋骨が帆柱となり、白い帆には夜空が縫い込まれている。船首は大口を開けた鯨の頭蓋で、その歯の間に半分欠けた月が挟まっていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="491">　船は世界の裏側、重力も風も届かない暗闇を漂っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="493">　甲板中央の扉に、三つのくぼみがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="495">　耳。舌。心臓。</p>
+<p class="source-line role-narration gap-1" data-source-line="497">　ミナが真鍮の耳をはめると、船全体が低く唸った。扉の一つが開く。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="499">「舌と心臓も要るの？」ポッケが言った。「持ってきてないよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　扉の横に碑文があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="503">　――真実を語る舌。恐れながら進む心。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="505">「本物の臓器じゃない」ミナは言った。「たぶん」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="507">「たぶんをつけないで」</p>
+<p class="source-line role-narration gap-1" data-source-line="509">　第二のくぼみの前で、床から銀の蛇が現れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="511">　蛇は四人を見回した。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="513">『宝を望む者よ。もっとも欲しいものを語れ』</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="515">「金貨三千枚！」ポッケが即答した。</p>
+<p class="source-line role-narration gap-1" data-source-line="517">　蛇が牙を剥いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="519">「嘘ってこと？」ガロが訊いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="521">　ポッケは唇を噛んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="523">「……町がなくなっても、みんな一緒ならいいと思ってた。でも本当は嫌だ。新しい町で友だちができなかったら怖い。パン屋がなくなって、父ちゃんと母ちゃんが笑わなくなるのも怖い。だから、釘浜へ帰りたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　第二のくぼみが光った。</p>
+<p class="source-line role-narration gap-1" data-source-line="527">　ガロは鼻を掻いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="529">「私は、すごい機械を作りたい。誰にもガラクタって言わせないやつ。でも本当は、母さんが捨てられない物を集めてるのと同じ。壊れたものが、まだ使えるって証明したい」</p>
+<p class="source-line role-narration gap-1" data-source-line="531">　光が強くなる。</p>
+<p class="source-line role-narration gap-1" data-source-line="533">　ミナは言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="535">「祖父ちゃんみたいな地図師になりたい。でも祖父ちゃんが残した道を歩くだけじゃなくて、まだ誰も描いてない場所を見つけたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="537">　ルゥは長く黙った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="539">「私は、生き返りたいのかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　三人が彼女を見る。</p>
+<p class="source-line role-dialogue role-memory tone-3 gap-1" data-source-line="543">「でも、あの体へ戻るのは怖い。昔の私になったら、ここで会ったみんなを忘れるかもしれない。父さんを嫌いになりたくないし、好きだったことにされるのも嫌。私は……私のままで、行き先を選びたい」</p>
+<p class="source-line role-narration gap-1" data-source-line="545">　第二の扉が開いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="547">　その向こうは、船王ナブラの遊戯甲板だった。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="549">　床が傾き、砲弾が転がり、天井から海賊の幽霊が「右！」「左！」「そっちは罠！」と勝手なことを叫ぶ。四人は肋骨の橋を走り、逆さにぶら下がる帆を渡り、巨大な羅針盤の針に乗って深部へ降りた。</p>
+<p class="source-line role-narration gap-1" data-source-line="551">　途中、ポッケは金貨の山を見つけた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="553">「三千枚どころじゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="555">　彼が一枚拾うと、金貨が目を開けた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="557">『いただきます』</p>
+<p class="source-line role-narration gap-1" data-source-line="559">　金貨の山が口になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="561">　四人は全速力で逃げた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="563">「宝が人を食べるなんて聞いてない！」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="565">「宝からすれば、盗人が食べ物なんでしょ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="567">　最後の扉は、脈打っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　心臓のくぼみへ手を置くと、触れた者の恐怖が形になる。</p>
+<p class="source-line role-narration gap-1" data-source-line="571">　ガロの前には、空へ落ちていく釘浜が現れた。</p>
+<p class="source-line role-narration role-horror tone-4 gap-1" data-source-line="573">　ポッケの前には、誰もいないパン屋。</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　ミナの前には、真っ白な地図。どこへ進んでも道が描かれず、自分だけが取り残される。</p>
+<p class="source-line role-narration role-horror tone-4 gap-1" data-source-line="577">　ルゥの前には、硝子棺の中の自分が立っていた。生きた瞳で笑い、手招きする。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="579">『戻れば楽になるよ』</p>
+<p class="source-line role-narration gap-1" data-source-line="581">　ルゥは震えながら、一歩進んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="583">「楽じゃなくていい。私が選ぶ」</p>
+<p class="source-line role-narration gap-1" data-source-line="585">　四人は恐怖の幻を突き抜けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="587">　扉が開いた。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="590"><span class="source-indent" aria-hidden="true">　</span>五</h2>
+<p class="source-line role-narration gap-1" data-source-line="592">　月喰い号の心臓室は、夜明け前の空の色をしていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="594">　中央に、巨大な青い心臓が浮かんでいる。血管の代わりに無数の光る航路が伸び、世界中の浮島へつながっていた。心臓の下には、船王ナブラの石像が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="596">　像の台座に、最後の碑文。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　――この船は宝を運ばぬ。捨てられた土地を運ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="600">　ミナは息を呑んだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="602">「月喰い号は、町を助ける船だ」</p>
+<p class="source-line role-narration role-memory gap-1" data-source-line="604">　かつて空の王たちは、税を払えない村や、戦で焼かれる国を島ごと切り捨てた。船王ナブラは月喰い号でそれらを拾い、誰の地図にもない場所へ運んだのだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="606">　金貨の宝ではない。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　だが釘浜を救える。</p>
+<p class="source-line role-narration gap-1" data-source-line="610">　心臓の前には、二本のレバーがあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="612">　一方には「帰還」。もう一方には「航行」。</p>
+<p class="source-line role-narration gap-1" data-source-line="614">　そして警告。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　――心臓は一度だけ、失われたものを呼ぶ。人ひとりか、土地ひとつか。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="618">「航行を選べば、釘浜をここへ呼べる」ガロが言った。</p>
+<p class="source-line role-dialogue fx-whisper gap-1" data-source-line="620">「でも、ルゥは……」</p>
+<p class="source-line role-narration gap-1" data-source-line="622">　ポッケが言い終える前に、拍手が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="624">　ウェイク医師が入口に立っていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="626">　死体助手たちが四人を囲む。ロクもいたが、縄で両手を縛られている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="628">「よく辿り着いた」</p>
+<p class="source-line role-narration role-horror tone-2 gap-1" data-source-line="630">　ウェイクは硝子棺を心臓の下へ運んだ。「十年探した扉を、子どもが半日で開けるとは。私は教育制度を見直すべきだと思う」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="632">「ルゥをどうするつもり」ミナが言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="634">「生き返らせる。それだけだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="636">「本人が嫌がってる」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="638">「病人は治療を怖がるものだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="640">　ルゥがウェイクを見た。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="642">「父さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="644">　医師の顔が崩れた。ほんの一瞬、恐ろしい蘇生術師ではなく、疲れ果てた父親の顔になった。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="646">「リュシア」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="648">「私が死んだあと、何人を使ったの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="650">　ウェイクは答えなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="652">　ロクが静かに言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="654">「百四十七人です。墓地から許可なく連れてきた者が九十二。刑務所から買った者が三十一。自ら志願した愚か者が二十四。私を含みます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="656">「黙れ」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="658">「死体は口が軽いのです、先生。生前ほど失うものがない」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="660">　ルゥは硝子棺の自分を見た。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="662">「私のため？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="664">「そうだ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="666">「私が頼んだ？」</p>
+<p class="source-line role-narration gap-1" data-source-line="668">　ウェイクの指が震えた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="670">「子どもは死を頼まない」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="672">「だからって、ほかの人を死後まで使っていいの？」</p>
+<p class="source-line role-narration gap-1" data-source-line="674">　ウェイクは「帰還」のレバーへ手を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="676">「生きればわかる」</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="678">　ガロが工具を投げた。ウェイクが避ける。ミナはルゥを引き、ポッケはロクの縄へ噛みついた。死体助手たちが襲いかかる。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　心臓室はたちまち戦場になった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="682">　ガロは死体の背中の革袋から管を抜いた。死体は「失礼」と言ってしぼんだ。ポッケは食料袋を振り回し、干し肉で二体を転ばせた。ロクは縄がほどけるなり、自分の左腕を外して棍棒にした。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="684">「郵便は迅速に！」</p>
+<p class="source-line role-narration gap-1" data-source-line="686">　ミナはレバーへ走った。</p>
+<p class="source-line role-narration gap-1" data-source-line="688">　ウェイクが先に「帰還」を倒した。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　青い心臓が大きく脈打つ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="692">　硝子棺が砕けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="694">　眠っていた少女の体が宙へ浮かび、目を開いた。瞳は空っぽだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　ルゥの体から光の糸が引き出される。</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="698">「いや！」</p>
+<p class="source-line role-narration gap-1" data-source-line="700">　彼女が床を掴む。指が透け、輪郭がほどけていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="702">　ウェイクは娘の体へ腕を伸ばした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="704">「もう少しだ。帰ってこい」</p>
+<p class="source-line role-narration gap-1" data-source-line="706">　空っぽの少女が口を開いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="708">「お、とう、さん」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="710">　その声は、心臓室の壁から鳴っていた。記憶を真似ただけの音。</p>
+<p class="source-line role-narration gap-1" data-source-line="712">　ウェイクは立ち止まった。</p>
+<p class="source-line role-narration role-memory tone-5 gap-1" data-source-line="714">　少女の胸元から黒い根が伸び、心臓へ食い込んでいる。帰還の力は、死んだ体を生かす代わりに、ルゥの記憶を燃料にしていた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="716">「止めて！」ミナが叫ぶ。「このままじゃ、戻るのはルゥじゃない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="718">　碑文の文字が赤く変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="720">　――選択の変更には、呼んだ者の命を要す。</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　ウェイクは読んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="724">　ルゥの顔から、えくぼが消えかけていた。</p>
+<p class="source-line role-dialogue role-name tone-3 gap-1" data-source-line="726">「父さん」</p>
+<p class="source-line role-narration gap-1" data-source-line="728">　声は弱かった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="730">「私、パンの味を覚えた。友だちの声も。ここで働いた日も。いま、それが消えてる」</p>
+<p class="source-line role-narration gap-1" data-source-line="732">　ウェイクは娘の生きた体と、消えかけた魂を見比べた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="734">「私は、君を救うために」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="736">「じゃあ、私が選んだ私を救って」</p>
+<p class="source-line role-narration gap-1" data-source-line="738">　長い間、医師は動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="740">　やがて、銀の手袋を外した。</p>
+<p class="source-line role-narration gap-1" data-source-line="742">　その手は薬焼けで黒く、無数の縫い傷があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="744">「君が初めて歩いた日、私は手を放せなかった」</p>
+<p class="source-line role-narration gap-1" data-source-line="746">　ウェイクは笑った。ひどく下手な笑いだった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="748">「十年経っても、同じ間違いをしている」</p>
+<p class="source-line role-narration gap-1" data-source-line="750">　彼は「帰還」のレバーを戻し、「航行」を倒した。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　青い光が彼の体を貫いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="754">　空っぽの肉体は静かに床へ降り、灰になった。ルゥを引く糸が切れる。ウェイクの髪が、皮膚が、外套が、光の粒へほどけていく。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="756">「先生！」ロクが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="758">　ウェイクは消えかけた手で、ルゥの頬に触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　今度は、彼女は逃げなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="762">「行き先を決めたら、地図を送ってくれ」</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="764">「死者に郵便は届く？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="766">「優秀な配達人を知っている」</p>
+<p class="source-line role-narration gap-1" data-source-line="768">　ロクが胸を叩き、胸板を落とした。</p>
+<p class="source-line role-narration gap-1" data-source-line="770">　ルゥは泣きながら笑った。</p>
+<p class="source-line role-narration gap-1" data-source-line="772">　ウェイクの姿は青い光になり、月喰い号の心臓へ吸い込まれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="774">　次の瞬間、船全体が目を覚ました。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="777"><span class="source-indent" aria-hidden="true">　</span>六</h2>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="779">　死者の道で過ぎた一夜は、生者の空では三日だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="781">　釘浜では、三日目の日没が迫っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="783">　黒い制服の役人たちが、巨大な切断鋏を鎖へ取りつけた。住民は島の上面へ避難させられ、町長は最後まで赤い告示板へしがみついていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="785">「規則です」と役人は言った。「日没と同時に切る」</p>
+<p class="source-line role-narration gap-1" data-source-line="787">　太陽が雲へ触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="789">　鋏の歯が閉じる。</p>
+<p class="source-line role-narration gap-1" data-source-line="791">　そのとき、雲の底から、鯨の歌が響いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="793">　空が割れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="795">　巨大な白い頭蓋が、雲を突き破って現れた。肋骨の帆柱、夜空の帆、歯の間に月をくわえた船首。</p>
+<p class="source-line role-narration gap-1" data-source-line="797">　月喰い号は釘浜の真下へ滑り込み、町を丸ごと背中で受け止めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="799">　鎖が切れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="801">　だが釘浜は落ちなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="803">　家々の煙突から魚が舞い上がり、吊り橋が鐘のように鳴る。港町は月喰い号に乗り、浮島ベルカの腹からゆっくり離れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="805">　操舵室では、ミナが祖父の地図を舵輪へ広げていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="807">「行き先は？」ガロが訊く。</p>
+<p class="source-line role-narration gap-1" data-source-line="809">　地図には、もう銀の線がなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="811">　代わりに、真っ白な空白が広がっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="813">　ミナは笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="815">「これから描く」</p>
+<p class="source-line role-narration gap-1" data-source-line="817">　ポッケは船王ナブラの厨房を発見し、百年前の缶詰と戦っていた。ロクは船首に立ち、釘浜の住民へ向かって帽子を振っている。帽子ごと頭が飛び、慌てて追いかけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="819">　ルゥは甲板の端にいた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="821">　終点館から迎えの棺舟が近づいてくる。櫂を持つカガリ女将が、六枚の羽を不機嫌そうに畳んでいた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="823">「無断欠勤。皿三十二枚破損。悪夢一鍋盗み食い」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="825">「戻ったら働きます」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="827">「戻るのかい？」</p>
+<p class="source-line role-narration gap-1" data-source-line="829">　ルゥは月喰い号を見渡した。釘浜の子どもたちが甲板へ駆け出し、大人たちが泣きながら家を確かめ、パン屋の煙突から最初の煙が上がる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="831">「まだ決めてない」</p>
+<p class="source-line role-narration gap-1" data-source-line="833">　それからミナへ、小さな赤い名札を投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="835">　リュシア、と書かれている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="837">「預かってて。次に会ったとき、返して」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="839">「ルゥじゃなくていいの？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="841">「どっちも私。たぶん」</p>
+<p class="source-line role-dialogue fx-key role-motif gap-1" data-source-line="843">「たぶん？」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="845">「たぶんがあるほうが、冒険っぽいでしょ」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="847">　ルゥは棺舟へ飛び乗った。</p>
+<p class="source-line role-narration gap-1" data-source-line="849">　舟が黒い川の裂け目へ消える直前、ロクが叫んだ。</p>
+<p class="source-line role-dialogue role-name gap-1" data-source-line="851">「お嬢さん！　先生への地図は私が配達します！」</p>
+<p class="source-line role-narration gap-1" data-source-line="853">　ルゥは大きく手を振った。</p>
+<p class="source-line role-narration gap-1" data-source-line="855">　夜になった。</p>
+<p class="source-line role-narration gap-1" data-source-line="857">　月喰い号は、誰のものでもない空へ帆を張った。</p>
+<p class="source-line role-narration gap-1" data-source-line="859">　役人たちは遠ざかる町を見て、規則集を最初の頁からめくり直した。移動する港町に鎖税をかける条文は、どこにもなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="861">　釘浜の広場では、赤い告示板が焚き火にくべられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="863">　町長が演説を始め、誰も聞かなかった。ガロは船の機関室へ潜り、ポッケは百年前の缶詰に勝利し、ミナは祖父の真鍮の耳を舵輪に取りつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="865">　耳は風の声を聞き、かすかに震えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="867">　新しい航路が、真っ白な地図の上へ銀色に伸びていく。</p>
+<p class="source-line role-narration gap-1" data-source-line="869">　その先には、まだ名前のない島々があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="871">　そして雲の向こうから、朝の魚が降り始めていた。</p>
+<p class="source-line end-mark gap-2" data-source-line="874"><span class="source-indent" aria-hidden="true">　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>

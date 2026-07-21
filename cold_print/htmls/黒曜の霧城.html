@@ -1,0 +1,975 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<meta name="description" content="メキシコ市の秘密競売で、トレジャーハンター天城アキは一拍遅れて笑う黒曜石の鏡を盗み出す。縁に刻まれていたのは、十七年前にテオティワカンで消えた父の印。整備士マルタ、若い考古学者ルシオと鏡を解くと、地上の遺跡は地下の何かを封じる巨大な蓋だと分かる。武器商人の追撃をかわして死者の大通りの下へ降りる三人。青い霧は記憶の声と顔を読み取り、黒曜の都市から最も会いたい者の姿で呼びかけてくる。霧が真似る声を信じれば、仲間の顔まで道標に変わる。">
+<title>黒曜の霧城｜拡張フォント版</title>
+<link rel="stylesheet" href="./extended-font.css">
+</head>
+<body data-slug="黒曜の霧城" data-novel-id="黒曜の霧城" data-theme="night" data-effects="full" data-fontmode="full" data-genre="folklore-dark">
+<div class="progress-track" aria-hidden="true"><div class="progress-bar" id="progressBar"></div></div>
+<header class="reader-toolbar" aria-label="表示設定">
+  <span class="toolbar-title">拡張フォントいじり</span>
+  <button type="button" id="tocButton" aria-controls="tocPanel" aria-expanded="false">目次</button>
+  <label>ジャンル書体
+    <select id="genreSelect" aria-label="ジャンル書体">
+<option value="literary" data-description="明朝を軸に、会話・記憶・主題を静かな書体差で分離">文学・内省</option>
+<option value="military-sf" data-description="本文は明朝、会話は角ゴ、命令・端末・数値は硬質な等幅">軍事・ハードSF</option>
+<option value="logic-thriller" data-description="推理本文、質問、手掛かり、記録と判定を別々の書体層へ分離">論理ミステリー</option>
+<option value="school-action" data-description="丸ゴ・太ゴ・教本書式を使い分け、掛け合いと号令を明快に表示">学園活劇・コメディー</option>
+<option value="web-fantasy" data-description="画面向け本文、能力名、世界記述、魔法、ツッコミを書体で分離">Webファンタジー</option>
+<option value="institutional-horror" data-description="静かな明朝に、規則・契約・数字の等幅と怪異の細い異質感を重ねる">制度ホラー</option>
+<option value="satirical-sf" data-description="親しみやすい本文と企業UI、技術用語、ツッコミの書体差を活用">風刺SF・日常コメディー</option>
+<option value="folklore-dark" data-description="名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離" selected>伝奇・民俗ダーク</option>
+<option value="adventure-action" data-description="疾走する本文に、号令・衝突音・決断を太い書体で刻む">冒険・アクション</option>
+<option value="romance-drama" data-description="会話を柔らかな角ゴ、内面と記憶を明朝・筆記系で繊細に分離">恋愛・関係性</option>
+<option value="absurd-comedy" data-description="丸ゴの掛け合い、極太のツッコミ、等幅の妙な制度を軽快に切替">不条理・ギャグ</option>
+<option value="historical-drama" data-description="古典明朝を軸に、名乗り・命令・記録・剣戟を格調ある書体で分離">歴史・時代劇</option>
+<option value="sports-competition" data-description="実況・作戦・号令・身体感覚を切り替え、試合の速度を可視化">スポーツ・競技</option>
+<option value="music-lyrical" data-description="明朝の語りに、音・歌・記憶をリズムの異なる書体として重ねる">音楽・抒情</option>
+<option value="daily-work" data-description="読みやすい本文に、会話、仕事の記録、食感、家族の記憶を穏やかに分離">日常・家族・お仕事</option>
+    </select>
+  </label>
+  <label>書体差
+    <select id="fontModeSelect" aria-label="書体差">
+      <option value="full">役割別</option><option value="soft">主要層のみ</option><option value="off">統一</option>
+    </select>
+  </label>
+  <label>総合演出
+    <select id="effectsSelect" aria-label="総合演出">
+      <option value="full">標準</option><option value="soft">控えめ</option><option value="off">なし</option>
+    </select>
+  </label>
+  <span class="size-group" role="group" aria-label="本文文字サイズ">
+    <button type="button" id="sizeDown" aria-label="本文を小さくする">−</button>
+    <button type="button" id="sizeReset" aria-label="本文サイズを標準へ戻す">標準</button>
+    <button type="button" id="sizeUp" aria-label="本文を大きくする">＋</button>
+  </span>
+  <button type="button" id="themeButton" aria-label="紙背景と夜背景を切り替える" aria-pressed="true">背景</button>
+  <button type="button" id="infoButton" aria-controls="infoPanel" aria-expanded="false">設計</button>
+</header>
+<nav class="panel toc-panel" id="tocPanel" aria-label="章目次" hidden><h2>目次</h2><ol><li><a href="#chapter-1">一　鏡泥棒</a></li><li><a href="#chapter-2">二　死者の道の北</a></li><li><a href="#chapter-3">三　下へ降る雨</a></li><li><a href="#chapter-4">四　霧の中の四人目</a></li><li><a href="#chapter-5">五　神々の井戸</a></li><li><a href="#chapter-6">六　父の部屋</a></li><li><a href="#chapter-7">七　朝の心臓</a></li><li><a href="#chapter-8">八　太陽を盗む</a></li><li><a href="#chapter-9">九　帰るための宝</a></li></ol></nav>
+<aside class="panel info-panel" id="infoPanel" hidden>
+  <h2>演出設計</h2>
+  <p><strong>主ジャンル：</strong>冒険活劇・アクション・ミステリ</p>
+  <p><strong>補助ジャンル：</strong>ホラー・SF・歴史</p>
+  <p><strong>CSVタグ：</strong>冒険活劇、アクション、ミステリ、ホラー、SF、歴史</p>
+  <p><strong>推奨書体：</strong><span id="currentPresetLabel">伝奇・民俗ダーク</span></p>
+  <p id="currentPresetDescription">名前、鐘、儀式、禁忌を古典明朝と硬質書体で分離</p>
+  <h3>意味色</h3><p>金＝伝承、灰＝境界、赤＝禁忌、青＝夜、緑＝土地</p>
+  <h3>書体役割</h3>
+  <div class="legend-grid">
+    <div class="legend-item"><span>本文</span><span class="legend-sample role-narration">長文の基調</span></div>
+    <div class="legend-item"><span>会話</span><span class="legend-sample role-dialogue">発話の層</span></div>
+    <div class="legend-item"><span>端末・文書</span><span class="legend-sample role-system">数字と記録</span></div>
+    <div class="legend-item"><span>命令</span><span class="legend-sample role-command">号令と決断</span></div>
+    <div class="legend-item"><span>記憶</span><span class="legend-sample role-memory">過去と残響</span></div>
+    <div class="legend-item"><span>主題</span><span class="legend-sample role-motif">問いと転調</span></div>
+  </div>
+  <h3>検証値</h3>
+  <p>本文非空行：496行／章：9／役割・強度タグ：533</p>
+  <p>「書体差：統一」で書体変更を抑え、「総合演出：なし」で通常のWeb小説表示にできます。</p>
+</aside>
+<main class="reader-shell">
+<article class="novel" aria-label="黒曜の霧城 本文">
+<section class="title-page" id="top">
+<h1 class="source-line title-line gap-0" data-source-line="1">『黒曜の霧城』</h1>
+</section>
+<section class="prologue prose-section" id="prologue">
+<p class="source-line role-narration gap-1" data-source-line="3">　黒曜石の鏡は、人間より先にまばたきをした。</p>
+</section>
+<section class="chapter" id="chapter-1">
+<h2 class="source-line chapter-heading gap-1" data-source-line="5"><span class="source-indent" aria-hidden="true">　　　　　</span>一　鏡泥棒</h2>
+<p class="source-line role-narration gap-1" data-source-line="7">　メキシコ市旧市街、ベラ侯爵邸の大広間には、金で買えないものばかりが並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="8">　王朝の印章。戦争で消えた聖杯。砂漠から掘り出された、まだ誰も読めない石板。そして今夜の目玉は、銀の台座に立てられた一枚の黒い鏡だった。</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="10">「<span class="term term-world">〈雨喰みの鏡〉</span>。テオティワカン北方の洞穴より出土。推定、千年以上前」</p>
+<p class="source-line role-narration gap-1" data-source-line="12">　競売人の声に、客たちが息を呑む。</p>
+<p class="source-line role-narration gap-0" data-source-line="13">　鏡は掌を二つ並べたほどの大きさで、磨き上げられた黒曜石の表面に、燭台の炎が赤く浮いていた。縁には羽毛ある蛇、雲、逆さに歩く人々が彫られている。</p>
+<p class="source-line role-narration gap-1" data-source-line="15">　給仕服を着た天城アキは、銀盆を胸に抱えたまま、鏡を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="16">　鏡の中のアキが、一拍遅れてこちらを見返した。</p>
+<p class="source-line role-narration gap-1" data-source-line="18">　錯覚ではない。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="19">　アキが眉を上げると、像は動かなかった。次の瞬間、鏡の中の女だけが笑った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="21">「気に入りましたかな、セニョリータ」</p>
+<p class="source-line role-narration gap-1" data-source-line="23">　背後から声がした。</p>
+<p class="source-line role-narration gap-0" data-source-line="24">　邸の主、バルタサル・ベラが立っていた。白い口髭、象牙の杖、礼服の下に隠しきれない軍人の肩。鉱山、鉄道、武器、政変。彼が手を伸ばした国では、たいてい地面から血か金が出た。</p>
+<p class="source-line role-dialogue tone-4 gap-1" data-source-line="26">「給仕が品定めをするとは、ずいぶん上等な店だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="27">「磨けば値の出るものもございます」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="28">「鏡かね。それとも、きみかね」</p>
+<p class="source-line role-narration gap-1" data-source-line="30">　アキは微笑み、盆のシャンパンを彼の胸へ浴びせた。</p>
+<p class="source-line role-narration gap-1" data-source-line="32">　同時に大広間の灯りが消えた。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="34">　悲鳴。椅子の倒れる音。警備兵の怒声。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="35">　暗闇の中でアキは銀盆を投げ、鏡の台座へ滑り込んだ。留め金を二つ外し、本物と同じ大きさの煤けたガラス板を差し替える。七秒。父に仕込まれた手品なら五秒だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="37">　八秒目、非常灯が点いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="38">　アキは窓枠を蹴り、二階の回廊へ飛びついた。銃声が壁の漆喰を弾く。カーテンを引きちぎって手すりへ巻き、階下へ滑り降りた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="40">「天城アキ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="42">　ベラが怒鳴った。</p>
+<p class="source-line role-narration tone-2 gap-0" data-source-line="43">　名を知られているのは計算外だったが、驚いている暇はない。アキは鏡を給仕服の下へ押し込み、厨房を抜け、中庭の噴水を飛び越えた。裏門の向こうでは、荷台を幌で覆った古いトラックがエンジンを唸らせている。</p>
+<p class="source-line role-dialogue fx-shout gap-1" data-source-line="45">「遅いよ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="47">　運転席のマルタ・サンチェスが叫んだ。小柄な女で、片腕だけで牛を倒せると自称する整備士だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="49">「ワインがまずくてね」</p>
+<p class="source-line role-narration gap-1" data-source-line="51">　アキは荷台へ飛び乗った。</p>
+<p class="source-line role-narration gap-0" data-source-line="52">　トラックが石畳を削って走り出す。追っ手の自動車が角を曲がったところで、マルタは荷台から樽を一つ落とした。樽は割れ、中から油ではなく何百匹もの鶏が飛び出した。通りは羽毛と罵声で埋まった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="54">「どうして鶏？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="55">「安かったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="57">　旧市街の鐘楼が夜半を告げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="58">　アキは幌の中で黒曜石の鏡を取り出した。月明かりを受けた縁に、ごく小さな傷があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="60">　Ｓ・Ａ。</p>
+<p class="source-line role-narration gap-1" data-source-line="62">　天城修一。</p>
+<p class="source-line role-narration gap-0" data-source-line="63">　十七年前、テオティワカンで消息を絶った父の頭文字だった。</p>
+</section>
+<section class="chapter" id="chapter-2">
+<h2 class="source-line chapter-heading gap-2" data-source-line="66"><span class="source-indent" aria-hidden="true">　　　　　</span>二　死者の道の北</h2>
+<p class="source-line role-dialogue gap-1" data-source-line="68">「これは地図じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="70">　ルシオ・オルテガは、夜明けまで鏡の裏面を拡大鏡で調べ、そう結論した。</p>
+<p class="source-line role-narration gap-0" data-source-line="71">　痩せた若い考古学者で、大学から追い出された理由は「教授より正しいことを証明してしまったから」だと本人は語っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="73">　安宿の机に鏡を伏せると、裏面には細い線が幾何学模様を描いていた。大きな直線、その両側に段状の四角形。三つの巨きな印。そして北端から外へ延びる、蛇のような裂け目。</p>
+<p class="source-line role-dialogue role-horror tone-5 gap-1" data-source-line="75">「死者の大通り、太陽と月のピラミッド、羽毛ある蛇の神殿。配置は似ている。でも縮尺が逆だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="76">「逆？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="77">「地上の建物を示しているんじゃない。地上の配置を使って、地下の何かを閉じている」</p>
+<p class="source-line role-narration gap-1" data-source-line="79">　ルシオは鏡の中央を指した。</p>
+<p class="source-line role-narration gap-0" data-source-line="80">　そこには口を開けた顔が彫られていた。目は星、歯は雨滴、舌は下向きの階段。</p>
+<p class="source-line role-dialogue role-magic gap-1" data-source-line="82">「古い伝承に<span class="term term-world">〈神々の井戸〉</span>という言葉がある。神々が生まれた場所ではなく、神々を埋めた穴だという異説もね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="83">「異説で大学を追われた？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="84">「教授の帽子を窓から投げた件も少し関係している」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="86">　アキは父の真鍮製コンパスを机に置いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="87">　針は北を指さず、鏡の中心へ向いた。何度離しても同じだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="89">　その日の午後、三人はテオティワカンへ向かった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="90">　盆地には乾いた風が吹き、巨大なピラミッド群が青空の下に影を落としていた。死者の大通りを歩く人々は蟻ほどに小さい。都市を造った者たちの名も言葉も、完全には残っていない。残っているのは石と壁画と、沈黙だけだった。</p>
+<p class="source-line role-narration gap-1" data-source-line="92">　観光客が帰り、夕暮れが紫色に沈む頃、アキたちは月のピラミッドのさらに北、灌木に隠れた溶岩の裂け目へ入った。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="93">　鏡を太陽の最後の光へかざす。</p>
+<p class="source-line role-narration gap-0" data-source-line="94">　黒い面に、現実にはない白い道が映った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="96">「右へ三歩」とルシオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="97">「崖だよ」とマルタ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="98">「鏡の中では崖じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="100">　アキは小石を投げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="101">　崖に見えた壁の一部を、小石がすり抜けた。薄い岩肌と同じ色に塗られた漆喰の幕だった。剥がすと、冷たい風が吹き出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="103">　入口の左右には、黒曜石の小さな目が無数に埋め込まれていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="104">　どの目にも、三人ではなく四人の影が映っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="106">「誰かいる」とマルタが銃を抜いた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="108">「いるとも」</p>
+<p class="source-line role-narration gap-1" data-source-line="110">　背後で拍手が響いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="111">　バルタサル・ベラが、六人の武装した男を従えて立っていた。礼服ではなく砂色の探検服を着ている。象牙の杖の中には細身の剣が仕込まれていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="113">「鏡を盗んだ勇気には感謝しているよ、天城君。おかげで入口まで案内してもらえた」</p>
+<p class="source-line role-dialogue role-horror gap-0" data-source-line="114">「尾行にしては足音が大きい」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="115">「ここから先は、静かに歩く必要もあるまい」</p>
+<p class="source-line role-narration gap-1" data-source-line="117">　ベラの部下がマルタとルシオの銃を奪った。</p>
+<p class="source-line role-narration gap-0" data-source-line="118">　アキは鏡を抱いたまま、洞口の闇を見た。父のコンパスは震えている。針の先で、青白い光が脈を打った。</p>
+<p class="source-line role-narration gap-1" data-source-line="120">　洞窟の奥から、湿った息が吐き出された。</p>
+<p class="source-line role-narration gap-0" data-source-line="121">　腐臭ではない。</p>
+<p class="source-line role-narration gap-0" data-source-line="122">　雨の匂いだった。</p>
+</section>
+<section class="chapter" id="chapter-3">
+<h2 class="source-line chapter-heading gap-2" data-source-line="125"><span class="source-indent" aria-hidden="true">　　　　　</span>三　下へ降る雨</h2>
+<p class="source-line role-narration gap-1" data-source-line="127">　通路は、自然の溶岩洞を削って造られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="128">　壁は赤く塗られ、黒い斑点が星のように散っている。行列の壁画が続いていた。鳥の頭飾りをつけた人々が壺を抱え、地下へ向かって歩いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="130">「宝を運び込む行列だな」とベラ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="131">「違う」とルシオが言った。「壺は空だ。見ろ、口が下を向いている。彼らは何かを捧げに来たんじゃない。地上から空気を運んでいる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="132">「空気？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="133">「あるいは、火だ」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="135">　先頭の傭兵が笑った。</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="136">「昔の連中は、神様が息切れするとでも思ったのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="138">　通路の床が沈んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="140">　笑った男の足首に石の輪が閉じ、身体が逆さに吊り上げられる。壁の穴から黒曜石の刃が飛び出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="141">　アキは咄嗟に鏡を投げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="142">　刃は鏡の縁に当たり、軌道を変え、男の頬を浅く切って天井へ刺さった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="144">「命拾いしたね」</p>
+<p class="source-line role-dialogue fx-beat gap-0" data-source-line="145">「鏡を投げる馬鹿があるか！」とベラが叫ぶ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="146">「人間より割れにくそうだったから」</p>
+<p class="source-line role-narration gap-1" data-source-line="148">　アキは床の赤い石だけを選んで進んだ。幼い頃、父は遺跡の罠について教える代わりに、台所へ仕掛けた鼠捕りを解除させた。失敗すると朝食がなくなった。教育として正しかったかは疑わしいが、役には立っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="150">　やがて一行は、円形の石扉へ突き当たった。</p>
+<p class="source-line role-narration gap-0" data-source-line="151">　扉には四つの窪みがある。三つは黒曜石の円盤で塞がれ、一つだけが空いていた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="153">　アキは父のコンパスを見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="154">　大きさがぴたりと合う。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="156">「お父上は、ここまで来たのだろう」とベラが囁いた。「その先に答えがある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="157">「答えを欲しがる人間は、だいたい代金を払わされる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="158">「払うのは部下だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="160">　ベラが顎をしゃくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="161">　銃口がルシオの背へ押し当てられた。</p>
+<p class="source-line role-narration gap-1" data-source-line="163">　アキはコンパスを窪みへはめた。</p>
+<p class="source-line role-narration gap-0" data-source-line="164">　針が狂ったように回り、四つの円盤が同時に沈む。石扉の向こうで、巨大な歯車が一つずつ目覚める音がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="166">　扉が半分ほど開いたところで止まった。</p>
+<p class="source-line role-narration gap-1" data-source-line="168">　隙間から霧が流れ出した。</p>
+<p class="source-line role-narration gap-1" data-source-line="170">　白ではない。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="171">　月光を溶かしたような、淡い青の霧だった。床を這うのではなく、細い指のように伸び、近くにいた傭兵の靴へ絡みついた。</p>
+<p class="source-line role-narration gap-1" data-source-line="173">　男は霧を蹴った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="174">「ただの水蒸気だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="176">　霧の雫が、革靴の表面を上へ登った。</p>
+<p class="source-line role-narration gap-0" data-source-line="177">　男の脛、膝、腰。重力に逆らい、服の繊維へ染み込んでいく。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="179">「離れろ！」とルシオが叫んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="181">　遅かった。</p>
+<p class="source-line role-narration gap-0" data-source-line="182">　男は両手で顔を覆い、子供のような声で笑い始めた。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="184">「母さん。そこにいたのか」</p>
+<p class="source-line role-narration gap-1" data-source-line="186">　青い涙が指の間から流れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="187">　次の瞬間、扉の奥から何かが伸び、男を霧の中へ引き込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="189">　銃声が狭い洞窟を揺らす。</p>
+<p class="source-line role-narration gap-0" data-source-line="190">　閃光の向こうに、一瞬だけ姿が見えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="192">　人に似た胴。長すぎる四肢。背中から幾層にも生えた、羽毛のように薄い膜。頭部には顔がなく、黒曜石の鏡面があるだけだった。</p>
+<p class="source-line role-narration gap-0" data-source-line="193">　撃たれた肩から、鮮烈な青い液体が散った。</p>
+<p class="source-line role-narration gap-1" data-source-line="195">　それは血のように見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="196">　だが床へ落ちた青い滴は、虫の群れのように自力で集まり、傷口へ戻っていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="198">　石扉が完全に開いた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="199">　四つの円盤が跳ね戻り、父のコンパスが床へ落ちた。アキが拾い上げた瞬間、霧が一行を呑み込んだ。</p>
+</section>
+<section class="chapter" id="chapter-4">
+<h2 class="source-line chapter-heading gap-2" data-source-line="202"><span class="source-indent" aria-hidden="true">　　　　　</span>四　霧の中の四人目</h2>
+<p class="source-line role-narration gap-1" data-source-line="204">　アキは闇の中で二度転がり、誰かの脚にぶつかった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="205">「名前を言って」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="206">「ルシオだ」</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="207">「好きな食べ物」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="208">「今それを訊く？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="209">「霧が声を真似るかもしれない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="210">「仔山羊の煮込み。唐辛子は多め」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="211">「本人だね」</p>
+<p class="source-line role-narration gap-1" data-source-line="213">　手探りでマルタも見つけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="214">　ベラと部下たちの気配は遠く、銃声だけが霧の向こうを走っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="216">　アキは携帯灯を点けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="217">　光は一メートル先で青く滲み、壁まで届かない。足元には黒い石板が敷かれ、中央に銀色の線が延びている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="219">「上の大通りと同じ方向だ」とルシオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="220">「地下にも都市があるってこと？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="221">「都市というより、影だ。地上のテオティワカンが、この場所の蓋として造られたなら」</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="223">　遠くで男の悲鳴が上がり、途中で女の歌声に変わった。</p>
+<p class="source-line role-narration gap-0" data-source-line="224">　マルタが銃を構え直す。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="226">「私の姉の歌だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="227">「姉さんは？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="228">「十年前に死んだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="230">　霧がざわめいた。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="231">　左手から、幼い女の笑い声が近づいてくる。</p>
+<p class="source-line role-narration gap-1" data-source-line="233">　アキはマルタの襟を掴み、銀の線に沿って走った。背後で何かの爪が石を擦る。灯りを振り返すと、霧の中から小さな手が何本も現れ、すぐに長い青白い指へ変わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="235">　三人は低い部屋へ飛び込み、石扉を閉めた。</p>
+<p class="source-line role-narration gap-0" data-source-line="236">　内側には留め金がなかった。マルタが工具箱から鉄棒を抜き、扉の取っ手へ噛ませる。</p>
+<p class="source-line role-narration gap-1" data-source-line="238">　外で、姉の声がした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="239">「マルタ、開けて。寒いの」</p>
+<p class="source-line role-narration gap-1" data-source-line="241">　マルタは目を閉じ、歯を食いしばった。</p>
+<p class="source-line role-dialogue tone-3 gap-0" data-source-line="242">「姉は寒いなんて言わない。いつも暑がってた」</p>
+<p class="source-line role-narration gap-1" data-source-line="244">　扉の向こうで、声が低く歪んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="245">　鉄棒がゆっくり曲がり始める。</p>
+<p class="source-line role-narration gap-1" data-source-line="247">　部屋の壁には、鮮やかな壁画が残っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="248">　黒い空から青い星が落ちる。星は地面へ潜り、巨大な蛇になる。蛇の身体から羽毛が生え、その羽毛に触れた人々の目が青く変わる。</p>
+<p class="source-line role-narration gap-0" data-source-line="249">　次の場面では、仮面をつけた人々が蛇を地下へ追い込み、その上に階段状の山を築いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="251">「羽毛ある蛇は神じゃない」とルシオが呟いた。「少なくとも、この壁画では。羽毛は空を飛ぶ胞子、蛇は地下に伸びる本体。神の姿は、警告を忘れないための形だったのかもしれない」</p>
+<p class="source-line role-narration gap-1" data-source-line="253">　アキは壁画の下段を照らした。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="254">　青い蛇の周りに、鏡の顔を持つ細長い者たちが立っている。先ほどの怪物と同じ姿だ。彼らは人間を襲っていない。蛇へ槍を向け、人々を背に庇っていた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="256">「守ってる」とアキ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="257">「何を？」</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="258">「私たちを。少なくとも、昔は」</p>
+<p class="source-line role-narration gap-1" data-source-line="260">　扉が大きく軋んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="261">　曲がった鉄棒が抜けかける。</p>
+<p class="source-line role-narration gap-1" data-source-line="263">　部屋の中央に円形の穴があった。底から微かな風が上がってくる。</p>
+<p class="source-line role-narration gap-0" data-source-line="264">　アキはロープを穴へ投げ込んだ。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="266">「下へ行くよ」</p>
+<p class="source-line role-dialogue role-horror gap-0" data-source-line="267">「怪物から逃げるのに、怪物の巣へ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="268">「地上へ戻る道は霧で塞がれた。なら、霧の出どころへ行って栓をする」</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="270">　マルタが笑った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="271">「そういう考え方、嫌いじゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="273">　ルシオが先に降り、マルタが続く。</p>
+<p class="source-line role-narration gap-0" data-source-line="274">　アキが縁へ足をかけたとき、扉が破れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="276">　青い霧の向こうに、父が立っていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="278">　十七年前と同じ麻の上着。日に焼けた顔。困ったように垂れた眉。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="279">「アキ。遅かったな」</p>
+<p class="source-line role-narration gap-1" data-source-line="281">　胸が止まりそうになった。</p>
+<p class="source-line role-narration gap-1" data-source-line="283">　父は右手を差し出した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="284">「こっちだ。宝を見つけた」</p>
+<p class="source-line role-narration gap-1" data-source-line="286">　アキの足が、無意識に一歩進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="288">　そのとき、胸ポケットのコンパスが震えた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="289">　幻の父の右手には、指が六本あった。</p>
+<p class="source-line role-narration gap-1" data-source-line="291">　アキは携帯灯を投げつけた。</p>
+<p class="source-line role-narration gap-0" data-source-line="292">　父の顔が割れ、中から鏡面の頭部が現れる。長い腕が彼女を掴む寸前、アキは穴へ身を躍らせた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="294">　落下しながら、父の声が追ってきた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="296">「アキ。下には来るな」</p>
+<p class="source-line role-narration role-memory tone-3 gap-1" data-source-line="298">　それが幻の言葉なのか、本物の記憶なのか、彼女にはわからなかった。</p>
+</section>
+<section class="chapter" id="chapter-5">
+<h2 class="source-line chapter-heading gap-2" data-source-line="301"><span class="source-indent" aria-hidden="true">　　　　　</span>五　神々の井戸</h2>
+<p class="source-line role-narration gap-1" data-source-line="303">　縦穴の底には、都市があった。</p>
+<p class="source-line role-narration gap-1" data-source-line="305">　三人が降り立ったのは、地下の断崖から突き出した石の台だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="306">　はるか下まで、階段状の神殿、方形の中庭、斜面と垂直面を組み合わせた黒い建物が並んでいる。天井は見えず、無数の鉱物が星のように光っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="307">　都市の中央には、逆さのピラミッドが吊られていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="308">　巨大な尖端が、底なしの穴へ向かっている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="310">「霧城だ」とマルタが言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="312">　青い霧は建物の間を川のように流れ、ときおり上空へ吸い上げられる。</p>
+<p class="source-line role-narration gap-0" data-source-line="313">　遠くで鏡面の守人たちが歩いていた。二人一組で、長い槍を持ち、霧の濃い場所へ青い粉を撒いている。その動きには知性があり、目的があった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="315">「生き物なのか、造られたものなのか」とルシオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="316">「どっちでも、撃たない方がよさそうだね」</p>
+<p class="source-line role-narration gap-1" data-source-line="318">　背後から撃たれた。</p>
+<p class="source-line role-narration gap-1" data-source-line="320">　弾丸がアキの肩を掠める。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="321">　ベラと三人の部下が、別の縄を伝って降りてきた。残っていたのは半数だけだった。全員の服に青い染みがつき、目は恐怖と欲望で光っている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="323">「鏡を渡せ」とベラ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="324">「偽物なら邸に置いてきたよ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="325">「その胸にある」</p>
+<p class="source-line role-narration gap-1" data-source-line="327">　アキは懐の黒曜石を押さえた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="328">「これは扉の鍵だ。宝そのものじゃない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="329">「鍵の向こうには必ず価値がある。価値のないものに、これほど大きな錠は要らない」</p>
+<p class="source-line role-narration gap-1" data-source-line="331">　その理屈だけは、トレジャーハンターだった頃のアキにも理解できた。</p>
+<p class="source-line role-narration gap-0" data-source-line="332">　理解できるからこそ、嫌な予感がした。</p>
+<p class="source-line role-narration gap-1" data-source-line="334">　ベラはルシオを銃床で殴り、案内を命じた。</p>
+<p class="source-line role-narration gap-0" data-source-line="335">　一行は銀の線を辿り、地下都市を進んだ。</p>
+<p class="source-line role-narration role-horror gap-1" data-source-line="337">　街路の脇には、石棺のような透明な箱が並んでいた。</p>
+<p class="source-line role-narration gap-0" data-source-line="338">　中に眠るのは守人たちだった。胸に青い管を何本も通され、都市全体と繋がっている。彼らは囚人ではない。生きた濾過装置だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="340">　広場に差しかかると、ベラの部下の一人が立ち止まった。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="341">「水の音がする」</p>
+<p class="source-line role-narration gap-1" data-source-line="343">　噴水があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="344">　乾いた石鉢の上に、澄んだ水が空中から湧き、下へ落ちずに天井へ昇っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="346">　男は喉を鳴らした。</p>
+<p class="source-line role-narration gap-0" data-source-line="347">　止める間もなく、水へ口をつけた。</p>
+<p class="source-line role-narration gap-1" data-source-line="349">　彼の身体が一瞬で硬直した。</p>
+<p class="source-line role-narration gap-0" data-source-line="350">　皮膚の下を青い線が走り、目が鏡のように黒くなる。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="352">「伏せろ！」とアキ。</p>
+<p class="source-line role-narration gap-1" data-source-line="354">　男の背中が裂けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="355">　羽毛に似た薄膜が何枚も噴き出し、霧を孕んで膨らむ。男だったものは銃を振り回し、仲間へ発砲した。</p>
+<p class="source-line role-narration gap-0" data-source-line="356">　守人たちが広場へ駆け込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="358">　黒い槍が変貌した男の胸を貫く。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="359">　青い血が爆ぜ、霧が悲鳴のように震えた。守人は槍を捻り、男の身体から青い塊を引きずり出す。それは心臓に似ていたが、何本もの細い脚で逃げようとした。</p>
+<p class="source-line role-narration gap-1" data-source-line="361">　もう一人の傭兵が守人を撃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="362">　鏡面の頭が砕ける。</p>
+<p class="source-line role-narration gap-0" data-source-line="363">　守人の青い血が彼へ降りかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="365">　男は笑った。</p>
+<p class="source-line role-narration tone-4 gap-0" data-source-line="366">　笑いながら溶けた。</p>
+<p class="source-line role-narration gap-1" data-source-line="368">　アキはルシオとマルタを引き、脇道へ飛び込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="369">　ベラも後を追う。最後の部下の絶叫が、青い霧に呑まれた。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="371">「まだ宝を探すつもり？」とアキ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="372">「もちろんだ」</p>
+<p class="source-line role-narration gap-1" data-source-line="374">　ベラの白い口髭には、青い血が一滴ついていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="375">　彼はそれに気づいていなかった。</p>
+</section>
+<section class="chapter" id="chapter-6">
+<h2 class="source-line chapter-heading gap-2" data-source-line="378"><span class="source-indent" aria-hidden="true">　　　　　</span>六　父の部屋</h2>
+<p class="source-line role-narration gap-1" data-source-line="380">　脇道の先は、小さな居室だった。</p>
+<p class="source-line role-narration gap-0" data-source-line="381">　土器、乾いた布、錆びたランプ。古代のものではない。壁には鉛筆で日付と矢印が書かれ、床には革の鞄が置かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="383">　鞄の留め金に、Ｓ・Ａの刻印がある。</p>
+<p class="source-line role-narration gap-1" data-source-line="385">　アキは膝をついた。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="386">　中には野帳、壊れた眼鏡、鉱物標本、家族写真が入っていた。写真の中で、五歳のアキは父の肩に乗り、片手に玩具のスコップを持っている。</p>
+<p class="source-line role-narration gap-1" data-source-line="388">　野帳の最後の頁だけ、文字が大きく乱れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="390">　――これは墓ではない。培養槽でもない。都市そのものが傷口を縫う糸だ。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="391">　――青い霧は記憶を読む。親しい声で呼ばれても答えるな。</p>
+<p class="source-line role-narration gap-0" data-source-line="392">　――鏡面の者たちは敵ではない。最初に感染した者が、自分たちの意志を残すため身体を造り替えた守人だ。</p>
+<p class="source-line role-narration role-magic gap-0" data-source-line="393">　――中央の<span class="term term-world">〈朝の心臓〉</span>を動かしてはならない。</p>
+<p class="source-line role-narration gap-0" data-source-line="394">　――封印には、地上の太陽、地下の鏡、星の鉄が必要。</p>
+<p class="source-line role-narration gap-0" data-source-line="395">　――アキへ。宝物は見つけることより、見つけた後に何をしないかで値打ちが決まる。</p>
+<p class="source-line role-narration gap-1" data-source-line="397">　最後の一行は、途中で途切れていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="399">　部屋の隅に、人骨が座っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="400">　麻の上着。錆びた腕時計。右手には短い鉄棒が握られている。骨の指は五本だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="402">　アキはしばらく動かなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="404">　泣くつもりはなかった。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="405">　十七年も待てば、悲しみは石になると思っていた。だが石の中にも水は残っている。頬を伝った一滴が、父の野帳へ落ちた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="407">「見つけたよ」とアキは言った。「遅くなった」</p>
+<p class="source-line role-narration gap-1" data-source-line="409">　背後で拍手がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="411">「感動的だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="413">　ベラが銃を向けていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="414">　白い口髭の下、首筋に青い血管が浮いている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="416">「野帳を寄越せ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="417">「読めるの？」</p>
+<p class="source-line role-dialogue role-magic tone-2 gap-0" data-source-line="418">「数字なら読める。<span class="term term-world">〈朝の心臓〉</span>とやらは、どれほどの力を生む？　この都市を千年動かしているものなら、油田より価値がある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="419">「動かしてるんじゃない。押さえ込んでる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="420">「同じことだ。檻を造れる力は、都市も動かせる」</p>
+<p class="source-line role-narration gap-1" data-source-line="422">　ルシオが口を開いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="423">「あなたの首に青い線がある」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="424">「黙れ」</p>
+<p class="source-line role-narration gap-1" data-source-line="426">　ベラは彼を撃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="427">　弾丸は脇腹を掠め、ルシオが倒れる。</p>
+<p class="source-line role-narration gap-1" data-source-line="429">　マルタが飛びかかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="430">　ベラは杖から細剣を抜き、彼女の腿を切った。アキが銃を蹴り上げる。発砲。天井の石が砕け、霧が細い隙間から流れ込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="432">　父の人骨が青い霧に包まれる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="434">「アキ」</p>
+<p class="source-line role-narration gap-1" data-source-line="436">　骨の口は動かない。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="437">　それでも父の声がした。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="439">「こいつを殺せ」</p>
+<p class="source-line role-narration gap-1" data-source-line="441">　アキの手には、いつの間にか銃があった。</p>
+<p class="source-line role-narration gap-0" data-source-line="442">　照準の先にベラ。引き金へ指をかける。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="444">「撃て」と父の声。</p>
+<p class="source-line role-dialogue role-memory gap-0" data-source-line="445">「撃つんだ。お前は昔から、最後に迷う」</p>
+<p class="source-line role-narration gap-1" data-source-line="447">　アキは銃口を下げ、床へ撃った。</p>
+<p class="source-line role-narration gap-0" data-source-line="448">　石板が割れ、その下から青い管が現れる。銃声に反応し、管が鞭のように跳ねてベラの腕へ絡みついた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="450">「父は私を急かさない」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="452">　アキは父の骨から鉄棒を取り上げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="453">　先端には小さな星形の歯がある。コンパスの針と同じ、黒い金属だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="455">　ベラは管を斬り、奥の扉へ逃げた。</p>
+<p class="source-line role-narration gap-0" data-source-line="456">　扉には朝日を表す放射状の紋が刻まれている。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="458">「中央だ！」ルシオが傷口を押さえながら叫ぶ。「彼を止めろ！」</p>
+<p class="source-line role-narration gap-1" data-source-line="460">　アキは野帳と鉄棒を懐へ入れ、マルタへ肩を貸した。</p>
+<p class="source-line role-narration gap-0" data-source-line="461">　父の骨を連れてはいけない。</p>
+<p class="source-line role-narration gap-0" data-source-line="462">　だが置き去りにするのは、もう二度目ではなかった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="464">「帰ったら迎えに来る」</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="466">　霧の中の父は答えなかった。</p>
+</section>
+<section class="chapter" id="chapter-7">
+<h2 class="source-line chapter-heading gap-2" data-source-line="469"><span class="source-indent" aria-hidden="true">　　　　　</span>七　朝の心臓</h2>
+<p class="source-line role-narration gap-1" data-source-line="471">　扉の向こうは、逆さのピラミッドの内部だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="473">　何百段もの階段が、中心の空洞を螺旋状に下っている。</p>
+<p class="source-line role-narration gap-0" data-source-line="474">　最下部には、青い光を放つ球体が浮かんでいた。直径は人の背丈ほど。透明な殻の中で、液体とも臓器ともつかないものが脈打っている。そこから無数の管が伸び、地下都市の壁へ消えていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="476">　周囲には黄金の仮面、緑の石の首飾り、貝殻、黒曜石の刃が山積みになっている。</p>
+<p class="source-line role-narration gap-0" data-source-line="477">　王の財宝に見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="478">　だが全ての品には穴が開けられ、青い管が通されていた。</p>
+<p class="source-line role-dialogue role-ritual tone-1 gap-1" data-source-line="480">「供物じゃない」とルシオ。「熱、光、音。異なる物質を使って、心臓の活動を散らしている。財宝は部品だ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="481">「外したら？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="482">「檻が壊れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="484">　階段の下で、ベラが黄金の仮面を引き抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="486">　都市全体が震えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="487">　青い霧が滝のように上から降り、逆さのピラミッドへ流れ込む。</p>
+<p class="source-line role-dialogue fx-peak role-motif gap-1" data-source-line="489">「やめろ！」とアキが叫ぶ。</p>
+<p class="source-line role-narration tone-4 gap-1" data-source-line="491">　ベラは笑っていた。</p>
+<p class="source-line role-narration gap-0" data-source-line="492">　口から青い煙が漏れている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="494">「聞こえるぞ。都市の声が。こいつは眠ってなどいない。待っていたのだ。自分を運び出せる王を」</p>
+<p class="source-line role-narration gap-1" data-source-line="496">　彼は心臓の殻へ細剣を突き立てた。</p>
+<p class="source-line role-narration gap-1" data-source-line="498">　透明な殻に亀裂が走る。</p>
+<p class="source-line role-narration gap-0" data-source-line="499">　鮮やかな青い液体が噴き出し、ベラの全身へ浴びせかかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="501">　叫びは途中から歓喜に変わった。</p>
+<p class="source-line role-narration gap-0" data-source-line="502">　彼の身体が膨れ、骨が礼服を突き破る。背中から青い膜が何十枚も開き、顔は黒曜石のように平らになった。だが守人とは違う。左右不揃いで、腕も脚も増え続け、霧を吸うたびに人間の顔が皮膚へ浮かんだ。死んだ傭兵たちの顔だった。</p>
+<p class="source-line role-narration role-magic gap-1" data-source-line="504">　<span class="term term-world">〈王〉</span>になったベラが、何本もの声で言った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="506">「地上を見せろ」</p>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="508">　逆さのピラミッドの外から、守人たちが殺到した。</p>
+<p class="source-line role-narration gap-0" data-source-line="509">　黒い槍が王の身体を貫く。しかし王の青い血は槍を伝い、守人の腕へ侵入する。鏡面の頭にひびが走った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="511">「彼らだけじゃ止められない」とルシオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="512">「封印の方法は？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="513">「地上の太陽、地下の鏡、星の鉄」</p>
+<p class="source-line role-narration gap-1" data-source-line="515">　アキは父の野帳をめくった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="516">　乱れた図がある。逆さのピラミッド上部から、一本の縦穴が地上へ伸びている。地下の鏡で朝日を分け、都市中の黒曜石へ走らせる仕組みだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="517">　だが図の中央には、欠けた歯車が描かれていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="519">　父が握っていた星形の鉄棒。</p>
+<p class="source-line role-dialogue tone-3 gap-1" data-source-line="521">「父は装置の鍵を抜いて、止めたんだ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="522">「なぜ？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="523">「誰かが鏡を盗んだから。鏡なしで起動すれば、心臓を焼く前に都市が崩れる」</p>
+<p class="source-line role-narration gap-1" data-source-line="525">　アキは黒曜石の鏡を取り出した。</p>
+<p class="source-line role-narration gap-0" data-source-line="526">　表面には、青い霧の向こうで膨張する王が映っている。現実より少し先の姿だ。鏡の中で王の腕が伸び、マルタの胸を貫いた。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="528">「伏せて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="530">　アキがマルタを倒す。</p>
+<p class="source-line role-narration gap-0" data-source-line="531">　直後、現実の腕が同じ軌道を薙いだ。石段が砕ける。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="533">「鏡は未来を映すのか」とルシオ。</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="534">「未来じゃない。こいつの考えてることを、一拍先に盗んでる」</p>
+<p class="source-line role-narration gap-1" data-source-line="536">　アキはマルタをルシオへ預けた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="537">「上の光井戸へ行く。鏡と鉄棒をはめる」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="538">「何段あると思ってる？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="539">「数えなければ少ない」</p>
+<p class="source-line role-narration gap-1" data-source-line="541">　三人は階段を駆け上がった。</p>
+<p class="source-line role-narration gap-1" data-source-line="543">　王が追う。</p>
+<p class="source-line role-narration gap-0" data-source-line="544">　守人たちが脚へ槍を打ち込み、必死に引き留める。青い血が階段を逆流し、触れた黄金の仮面が次々と人の声で泣き始めた。</p>
+<p class="source-line role-narration gap-1" data-source-line="546">　マルタの傷が開き、歩みが遅れる。</p>
+<p class="source-line role-narration gap-0" data-source-line="547">　ルシオも脇腹を押さえている。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="549">「置いていけ」とマルタが言った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="550">「嫌だね」</p>
+<p class="source-line role-dialogue tone-5 gap-0" data-source-line="551">「三人とも死ぬ」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="552">「私は宝を置いていくことはあっても、仲間を置いていったことはない」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="553">「さっきお父さんを」</p>
+<p class="source-line role-dialogue tone-1 gap-0" data-source-line="554">「あれは迎えに来る約束をした」</p>
+<p class="source-line role-narration gap-1" data-source-line="556">　アキは黄金の首飾りを蹴り落とし、代わりにマルタを背負った。</p>
+<p class="source-line role-narration gap-0" data-source-line="557">　首飾りは青い霧へ沈み、子供の笑い声を上げた。</p>
+</section>
+<section class="chapter" id="chapter-8">
+<h2 class="source-line chapter-heading gap-2" data-source-line="560"><span class="source-indent" aria-hidden="true">　　　　　</span>八　太陽を盗む</h2>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="562">　光井戸は、ピラミッド頂部の小部屋にあった。</p>
+<p class="source-line role-narration gap-1" data-source-line="564">　天井へ垂直な穴が伸び、その遥か先に星空が見える。東の縁がわずかに白んでいた。夜明けまで、長くて数分。</p>
+<p class="source-line role-narration gap-1" data-source-line="566">　床には直径三メートルの石の円盤があり、中央に鏡を置く窪み、脇に星形の鍵穴がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="567">　アキは黒曜石の鏡をはめ、鉄棒を差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="569">　動かない。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="571">「何か足りない」とルシオ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="572">「父の図では、三つだ。太陽、鏡、星の鉄」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="573">「鏡の向きかも」</p>
+<p class="source-line role-narration gap-1" data-source-line="575">　円盤の周囲には、羽毛ある蛇の頭が四方を向いて彫られていた。だが一つだけ口が閉じている。</p>
+<p class="source-line role-narration gap-1" data-source-line="577">　王の咆哮が近づく。</p>
+<p class="source-line role-narration tone-3 gap-0" data-source-line="578">　階段の下から青い霧が盛り上がった。人の顔が幾つも浮かび、アキの父、マルタの姉、ルシオの母へ変わる。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="580">「ルシオ」と母の声が呼んだ。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="581">「お前は何も証明できなかった」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="582">「教授の帽子を投げたことは証明できた」</p>
+<p class="source-line role-narration gap-1" data-source-line="584">　ルシオは耳を塞ぎ、壁画を調べた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="585">「閉じた口……息を入れるんだ。壺の壁画と同じだ。地上の人々は空気を運んでいたんじゃない。人間の息で装置を始動させた」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="587">「神様が息切れするって話、当たってたのかもね」</p>
+<p class="source-line role-narration gap-1" data-source-line="589">　マルタが閉じた蛇の口へ息を吹き込んだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="590">　石の喉で笛のような音が鳴る。</p>
+<p class="source-line role-narration gap-0" data-source-line="591">　円盤がわずかに回った。</p>
+<p class="source-line role-dialogue fx-climax role-motif gap-1" data-source-line="593">「一人じゃ足りない！」</p>
+<p class="source-line role-narration gap-1" data-source-line="595">　三人が並び、交代で息を吹き込む。</p>
+<p class="source-line role-narration gap-0" data-source-line="596">　円盤の下で歯車が噛み合い、地下都市全体に低い振動が広がった。黒曜石の鏡がゆっくり上を向く。</p>
+<p class="source-line role-narration gap-1" data-source-line="598">　王が小部屋へ這い上がった。</p>
+<p class="source-line role-narration role-horror tone-5 gap-1" data-source-line="600">　すでに人間の面影はない。天井へ届く巨体に、何十枚もの青い膜。皮膚には死者の顔が浮かび、口々に助けを求めている。</p>
+<p class="source-line role-narration gap-0" data-source-line="601">　守人の一人が背へしがみついていた。鏡面の顔は半分割れ、胸の青い管も千切れている。それでも槍を深く突き立て、王を止めていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="603">　アキは黒曜石の鏡を覗く。</p>
+<p class="source-line role-narration gap-1" data-source-line="605">　鏡の中で、王の左腕がルシオを狙う。</p>
+<p class="source-line role-narration gap-0" data-source-line="606">　アキは先に鉄棒を抜き、投げた。星の鉄が腕の関節へ刺さり、軌道を逸らす。</p>
+<p class="source-line role-narration gap-1" data-source-line="608">　しかし鉄棒を失い、円盤が止まった。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="610">「アキ！」とルシオ。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="611">「わかってる！」</p>
+<p class="source-line role-narration gap-1" data-source-line="613">　王の右腕が来る。</p>
+<p class="source-line role-narration gap-0" data-source-line="614">　鏡では、アキの身体が壁へ叩きつけられていた。避ける場所はない。</p>
+<p class="source-line role-narration gap-1" data-source-line="616">　そのとき守人が身を投げ、腕を受けた。</p>
+<p class="source-line role-narration gap-0" data-source-line="617">　胸を貫かれ、鏡面の頭がアキの前へ転がる。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="619">　割れた鏡面に、父の顔が映った。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="621">「最後に迷え」と父は言った。</p>
+<p class="source-line role-narration gap-1" data-source-line="623">　霧が作った声ではない。</p>
+<p class="source-line role-narration role-memory tone-3 gap-0" data-source-line="624">　アキ自身が、ずっと忘れていた記憶だった。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="626">　幼い彼女が崖から川へ飛び込もうとした日、父はこう言ったのだ。</p>
+<p class="source-line role-narration gap-0" data-source-line="627">　勇気とは、迷わないことじゃない。</p>
+<p class="source-line role-narration gap-0" data-source-line="628">　最後の瞬間まで迷い、それでも選ぶことだ、と。</p>
+<p class="source-line role-narration gap-1" data-source-line="630">　アキは王の関節へ走った。</p>
+<p class="source-line role-narration gap-0" data-source-line="631">　青い血が靴を焼き、霧が耳元で千の声を上げる。彼女は刺さった鉄棒を掴み、全体重をかけて引き抜いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="633">　王の何本もの腕が彼女を包む。</p>
+<p class="source-line role-narration gap-1" data-source-line="635">　鏡の中で、次の一拍が見えた。</p>
+<p class="source-line role-narration gap-0" data-source-line="636">　王はアキを殺さない。</p>
+<p class="source-line role-narration gap-0" data-source-line="637">　胸へ取り込み、地上へ運ばせるつもりだ。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="639">「残念。私は運び屋じゃない」</p>
+<p class="source-line role-narration gap-1" data-source-line="641">　アキは星の鉄を、王の胸に浮かぶベラの顔へ突き刺した。</p>
+<p class="source-line role-narration gap-0" data-source-line="642">　一瞬だけ、白い口髭の男が現れた。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="644">「私の、宝だ」</p>
+<p class="source-line role-dialogue gap-1" data-source-line="646">「宝は持ち主を選ぶよ」</p>
+<p class="source-line role-narration gap-1" data-source-line="648">　王が絶叫し、腕を緩める。</p>
+<p class="source-line role-narration gap-0" data-source-line="649">　アキは転がって円盤へ戻り、鉄棒を鍵穴へ叩き込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="651">　東の空から、最初の太陽が差した。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="653">　一本の光が井戸を落ち、黒曜石の鏡へ当たる。</p>
+<p class="source-line role-narration gap-0" data-source-line="654">　鏡は光を反射しなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="655">　呑み込んだ。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="657">　真黒な表面の内側に、金色の亀裂が走る。次の瞬間、無数の細い光が床の溝へ迸り、壁、階段、逆さのピラミッド、地下都市の全ての黒曜石へ伝わった。</p>
+<p class="source-line role-narration gap-1" data-source-line="659">　霧が燃えた。</p>
+<p class="source-line role-narration gap-1" data-source-line="661">　炎ではない。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="662">　青い霧が一粒ずつ透明な結晶へ変わり、雨のように落ち始めた。王の膜が砕け、皮膚に浮かぶ死者の顔が安らいで消える。</p>
+<p class="source-line role-narration gap-1" data-source-line="664">　守人たちは一斉に跪いた。</p>
+<p class="source-line role-narration gap-0" data-source-line="665">　胸の青い光が、静かに消えていく。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="667">「都市が崩れる！」とルシオ。</p>
+<p class="source-line role-narration gap-1" data-source-line="669">　心臓の殻が割れた。</p>
+<p class="source-line role-narration role-horror gap-0" data-source-line="670">　中から出てきたものは怪物でも神でもなかった。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="671">　握り拳ほどの青い種だった。羽毛のような細い根を伸ばし、朝日に向かって震えている。</p>
+<p class="source-line role-narration gap-1" data-source-line="673">　王の残骸が最後の力で種を掴む。</p>
+<p class="source-line role-narration gap-1" data-source-line="675">　アキは鏡を円盤から外した。</p>
+<p class="source-line role-narration gap-0" data-source-line="676">　金色の亀裂が全面へ広がっている。父の頭文字を親指でなぞり、種へ向けて投げた。</p>
+<p class="source-line role-narration gap-1" data-source-line="678">　鏡と種が触れた。</p>
+<p class="source-line role-narration gap-1" data-source-line="680">　音もなく、青い光が一点へ縮む。</p>
+<p class="source-line role-narration gap-0" data-source-line="681">　黒曜石の鏡は種を抱いたまま、底なしの穴へ落ちていった。</p>
+<p class="source-line role-narration gap-1" data-source-line="683">　地下都市が、自らを閉じ始めた。</p>
+</section>
+<section class="chapter" id="chapter-9">
+<h2 class="source-line chapter-heading gap-2" data-source-line="686"><span class="source-indent" aria-hidden="true">　　　　　</span>九　帰るための宝</h2>
+<p class="source-line role-narration tone-5 gap-1" data-source-line="688">　崩壊は上からではなく、遠くから近づいてきた。</p>
+<p class="source-line role-narration gap-1" data-source-line="690">　街路が折れ、神殿が沈み、青い結晶の雨が津波のように迫る。</p>
+<p class="source-line role-narration gap-0" data-source-line="691">　光井戸の壁に、古い昇降路が開いた。守人が最後に残した道だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="693">　三人は狭い斜坑を這い上がった。</p>
+<p class="source-line role-narration tone-5 gap-0" data-source-line="694">　マルタの脚は動かず、ルシオは血を失って顔が白い。アキは二人をロープで結び、肩と膝で進んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="696">　胸元で鎖が切れ、父のコンパスが斜坑を滑り落ちた。アキは手を伸ばしかけ、背中のマルタの重みを感じて拳を閉じた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="698">　後ろから父の声がした。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="699">「アキ。忘れ物だ」</p>
+<p class="source-line role-narration gap-1" data-source-line="701">　振り返らなかった。</p>
+<p class="source-line role-narration gap-1" data-source-line="703">　今度こそ、それが正しい別れ方だとわかっていた。</p>
+<p class="source-line role-narration gap-1" data-source-line="705">　斜坑の先に石の蓋がある。</p>
+<p class="source-line role-narration gap-0" data-source-line="706">　アキは背中で押した。動かない。</p>
+<p class="source-line role-narration role-memory tone-5 gap-0" data-source-line="707">　崩壊の風が追いつき、青い結晶が足首へ当たる。触れた場所から、幼い頃の記憶が鮮明に蘇った。父の肩の高さ。母の歌。初めて盗んだ博物館の鍵。返しに行った翌朝の雨。</p>
+<p class="source-line role-dialogue fx-beat gap-1" data-source-line="709">「押せ！」とマルタ。</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="710">「押してる！」</p>
+<p class="source-line role-dialogue fx-shout gap-0" data-source-line="711">「もっと罪悪感を込めて！」</p>
+<p class="source-line role-narration gap-1" data-source-line="713">　三人で石蓋を押す。</p>
+<p class="source-line role-narration tone-1 gap-0" data-source-line="714">　朝日が細い刃のように差し込んだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="716">　蓋が外れた。</p>
+<p class="source-line role-narration gap-0" data-source-line="717">　アキたちは灌木の斜面へ転がり出る。背後で地面が一度だけ大きく息を吸い、裂け目が閉じた。</p>
+<p class="source-line role-narration gap-1" data-source-line="719">　盆地には朝が来ていた。</p>
+<p class="source-line role-narration role-horror tone-5 gap-0" data-source-line="720">　遠くに月のピラミッド、太陽のピラミッド、死者の大通りが見える。何事もなかったように石の巨体を横たえている。</p>
+<p class="source-line role-narration gap-1" data-source-line="722">　アキは仰向けになり、空を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="723">　雲一つない青だった。</p>
+<p class="source-line role-dialogue gap-1" data-source-line="725">「宝は？」とマルタが息を切らして訊いた。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="726">「置いてきた」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="727">「金も？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="728">「全部」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="729">「最低のトレジャーハンターだね」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="730">「三人持ち帰った」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="731">「自分も数えるの？」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="732">「一番高くつくからね」</p>
+<p class="source-line role-narration gap-1" data-source-line="734">　ルシオが笑い、傷に響いて呻いた。</p>
+<p class="source-line role-narration gap-1" data-source-line="736">　三日後、地元当局は北側の小規模な陥没を「古い溶岩洞の崩落」と発表した。</p>
+<p class="source-line role-narration gap-0" data-source-line="737">　ベラ侯爵は行方不明。彼の屋敷から押収された遺物の多くは国立博物館へ移された。競売人は何も知らなかったと証言し、鶏だけが旧市街で増え続けた。</p>
+<p class="source-line role-narration tone-3 gap-1" data-source-line="739">　ルシオは父の野帳を学術報告にしようとしたが、アキは最後の頁だけを破って渡さなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="740">　証明できないこともある。</p>
+<p class="source-line role-narration gap-0" data-source-line="741">　証明してはいけないこともある。</p>
+<p class="source-line role-narration gap-1" data-source-line="743">　マルタは療養中、ベラの残したトラックを勝手に売り、その金で新しい飛行機の頭金を払った。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="744">「次は海底神殿だ」と彼女は宣言した。</p>
+<p class="source-line role-dialogue gap-0" data-source-line="745">「泳げないくせに」</p>
+<p class="source-line role-dialogue gap-0" data-source-line="746">「だから飛行機を買う」</p>
+<p class="source-line role-narration gap-1" data-source-line="748">　出発の朝、アキは宿の洗面台で顔を洗った。</p>
+<p class="source-line role-narration gap-0" data-source-line="749">　父のコンパスは失った。黒曜石の鏡も、霧城も、持ち帰れなかった。</p>
+<p class="source-line role-narration gap-0" data-source-line="750">　残ったのは野帳の一頁と、星の鉄棒の欠片だけだ。</p>
+<p class="source-line role-narration gap-1" data-source-line="752">　彼女は壁の小さな鏡を見た。</p>
+<p class="source-line role-narration gap-0" data-source-line="753">　疲れた女が映っている。肩に包帯、頬に擦り傷、目の下に隈。だが十七年前より少しだけ軽い顔だった。</p>
+<p class="source-line role-narration gap-1" data-source-line="755">　アキは鏡へ背を向けた。</p>
+<p class="source-line role-narration tone-1 gap-1" data-source-line="757">　窓の外で、朝日が街の屋根を照らしている。</p>
+<p class="source-line role-narration gap-0" data-source-line="758">　階下からマルタのクラクションが鳴り、ルシオが「近所迷惑だ」と叫ぶ。</p>
+<p class="source-line role-narration gap-1" data-source-line="760">　アキは帽子を被り、部屋を出た。</p>
+<p class="source-line role-narration gap-1" data-source-line="762">　誰もいなくなった鏡の中で、青い霧が一筋だけ立ちのぼった。</p>
+<p class="source-line role-narration gap-1" data-source-line="764">　そして鏡の中のアキは、現実の彼女より一拍遅れてではなく、一拍早く、朝日の方を振り向いた。</p>
+<p class="source-line end-mark gap-2" data-source-line="767"><span class="source-indent" aria-hidden="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>了</p>
+</section>
+</article>
+<footer class="reader-footer">
+  <a id="returnToPortal" class="return-link" href="../cold_print.html">作品一覧へ戻る</a>
+</footer>
+</main>
+<script>
+(() => {
+  "use strict";
+
+  const GENRE_META = Object.freeze({
+    literary: Object.freeze({
+      label: "文学・内省",
+      description: "明朝中心。声の差より、余白と静かな書体差を優先",
+    }),
+    "military-sf": Object.freeze({
+      label: "軍事・ハードSF",
+      description: "地の文は明朝、会話は角ゴ、命令・端末は硬質な等幅",
+    }),
+    "logic-thriller": Object.freeze({
+      label: "論理ミステリー",
+      description: "推理本文、質問、数列、判定を別々の書体層へ分離",
+    }),
+    "school-action": Object.freeze({
+      label: "学園活劇・コメディー",
+      description: "丸ゴ・太ゴ・教本書式を使い分け、勢いと読みやすさを両立",
+    }),
+    "web-fantasy": Object.freeze({
+      label: "Webファンタジー",
+      description: "画面向け本文、能力名、世界記述、ツッコミを役割別に分離",
+    }),
+    "institutional-horror": Object.freeze({
+      label: "制度ホラー",
+      description: "本文は静かな明朝、規則と数字は等幅、怪異は細く異質に",
+    }),
+    "satirical-sf": Object.freeze({
+      label: "風刺SF・日常コメディー",
+      description: "親しみやすい本文と企業UI、食感、ツッコミの書体差を活用",
+    }),
+    "folklore-dark": Object.freeze({
+      label: "伝奇・民俗ダーク",
+      description: "名、鐘、儀式、白い書式を古典的な明朝と硬質書体で分離",
+    }),
+    "adventure-action": Object.freeze({
+      label: "冒険・アクション",
+      description: "転換と重大な選択を太ゴ、世界と余韻を明朝で対照",
+    }),
+    "romance-drama": Object.freeze({
+      label: "恋愛・関係性ドラマ",
+      description: "会話、記憶、名前の呼び方を柔らかな書体差と余白で表現",
+    }),
+    "absurd-comedy": Object.freeze({
+      label: "不条理・ギャグ",
+      description: "堅い書式と丸ゴの飛躍を切り替え、ツッコミの落差を強調",
+    }),
+    "historical-drama": Object.freeze({
+      label: "歴史・時代劇",
+      description: "古典的な明朝を基調に、名、文書、号令を格調の異なる層へ",
+    }),
+    "sports-competition": Object.freeze({
+      label: "スポーツ・競技",
+      description: "身体感覚と会話は読みやすく、記録、号令、決着を硬質書体で分離",
+    }),
+    "music-lyrical": Object.freeze({
+      label: "音楽・抒情",
+      description: "音、記憶、余韻を柔らかな書体で、譜面や数値は等幅書体で分離",
+    }),
+    "daily-work": Object.freeze({
+      label: "日常・家族・お仕事",
+      description: "画面向けの本文と丸みのある会話を基調に、業務情報と記憶を分離",
+    }),
+  });
+
+  const ALLOWED_GENRES = new Set(Object.keys(GENRE_META));
+  const ALLOWED_FONT_MODES = new Set(["full", "soft", "off"]);
+  const ALLOWED_EFFECTS = new Set(["full", "soft", "off"]);
+  const ALLOWED_THEMES = new Set(["paper", "night"]);
+  const MIN_SCALE = 0.88;
+  const MAX_SCALE = 1.22;
+  const SCALE_STEP = 0.06;
+
+  function ready(callback) {
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", callback, { once: true });
+      return;
+    }
+    callback();
+  }
+
+  ready(() => {
+    const body = document.body;
+    if (!body) return;
+
+    const genreSelect = document.getElementById("genreSelect");
+    const fontModeSelect = document.getElementById("fontModeSelect");
+    const effectsSelect = document.getElementById("effectsSelect");
+    const themeButton = document.getElementById("themeButton");
+    const sizeDownButton = document.getElementById("sizeDown");
+    const sizeResetButton = document.getElementById("sizeReset");
+    const sizeUpButton = document.getElementById("sizeUp");
+    const scaleOutput = document.getElementById("readerScaleValue");
+    const infoButton = document.getElementById("infoButton");
+    const infoPanel = document.getElementById("infoPanel");
+    const tocButton = document.getElementById("tocButton");
+    const tocPanel = document.getElementById("tocPanel");
+    const progressBar = document.getElementById("progressBar");
+    const presetLabel = document.getElementById("currentPresetLabel");
+    const presetDescription = document.getElementById("currentPresetDescription");
+    const returnLink = document.getElementById("returnToPortal")
+      || document.querySelector("[data-return-to-portal]");
+
+    const hasOption = (select, value) => {
+      if (!select) return true;
+      return Array.from(select.options).some((option) => option.value === value);
+    };
+
+    const initialGenre = ALLOWED_GENRES.has(body.dataset.genre)
+      && hasOption(genreSelect, body.dataset.genre)
+      ? body.dataset.genre
+      : "literary";
+    const initialFontMode = ALLOWED_FONT_MODES.has(body.dataset.fontmode)
+      ? body.dataset.fontmode
+      : "full";
+    const initialEffects = ALLOWED_EFFECTS.has(body.dataset.effects)
+      ? body.dataset.effects
+      : "full";
+    const initialTheme = ALLOWED_THEMES.has(body.dataset.theme)
+      ? body.dataset.theme
+      : "paper";
+
+    const state = {
+      genre: initialGenre,
+      fontmode: initialFontMode,
+      effects: initialEffects,
+      theme: initialTheme,
+      scale: 1,
+    };
+
+    const rawSlug = body.dataset.slug || document.title || "novel";
+    const slug = String(rawSlug).slice(0, 180);
+    const storageKey = `cold-print:extended-font:${slug}`;
+
+    function restore() {
+      try {
+        const raw = window.localStorage.getItem(storageKey);
+        if (!raw) return;
+        const saved = JSON.parse(raw);
+        if (!saved || typeof saved !== "object" || Array.isArray(saved)) return;
+
+        if (ALLOWED_GENRES.has(saved.genre) && hasOption(genreSelect, saved.genre)) {
+          state.genre = saved.genre;
+        }
+        if (ALLOWED_FONT_MODES.has(saved.fontmode) && hasOption(fontModeSelect, saved.fontmode)) {
+          state.fontmode = saved.fontmode;
+        }
+        if (ALLOWED_EFFECTS.has(saved.effects) && hasOption(effectsSelect, saved.effects)) {
+          state.effects = saved.effects;
+        }
+        if (ALLOWED_THEMES.has(saved.theme)) {
+          state.theme = saved.theme;
+        }
+        if (typeof saved.scale === "number" && Number.isFinite(saved.scale)) {
+          state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, saved.scale));
+        }
+      } catch (_error) {
+        /* Storage may be disabled or contain invalid JSON; defaults remain usable. */
+      }
+    }
+
+    function save() {
+      try {
+        window.localStorage.setItem(storageKey, JSON.stringify(state));
+      } catch (_error) {
+        /* Reading controls must continue to work when storage is unavailable. */
+      }
+    }
+
+    function setSelectValue(select, value, allowed, fallback) {
+      if (!select) return value;
+      if (allowed.has(value) && hasOption(select, value)) {
+        select.value = value;
+        return value;
+      }
+      const option = Array.from(select.options).find((candidate) => allowed.has(candidate.value));
+      const safeValue = option ? option.value : fallback;
+      select.value = safeValue;
+      return safeValue;
+    }
+
+    function updatePresetText() {
+      const meta = GENRE_META[state.genre] || GENRE_META.literary;
+      const selectedOption = genreSelect && genreSelect.selectedIndex >= 0
+        ? genreSelect.options[genreSelect.selectedIndex]
+        : null;
+      if (presetLabel) {
+        presetLabel.textContent = selectedOption?.textContent?.trim() || meta.label;
+      }
+      if (presetDescription) {
+        presetDescription.textContent = selectedOption?.dataset.description || meta.description;
+      }
+    }
+
+    function apply() {
+      state.genre = setSelectValue(genreSelect, state.genre, ALLOWED_GENRES, "literary");
+      state.fontmode = setSelectValue(fontModeSelect, state.fontmode, ALLOWED_FONT_MODES, "full");
+      state.effects = setSelectValue(effectsSelect, state.effects, ALLOWED_EFFECTS, "full");
+      if (!ALLOWED_THEMES.has(state.theme)) state.theme = "paper";
+      state.scale = Math.min(MAX_SCALE, Math.max(MIN_SCALE, state.scale));
+
+      body.dataset.genre = state.genre;
+      body.dataset.fontmode = state.fontmode;
+      body.dataset.effects = state.effects;
+      body.dataset.theme = state.theme;
+      body.style.setProperty("--reader-scale", String(state.scale));
+
+      const isNight = state.theme === "night";
+      if (themeButton) {
+        themeButton.setAttribute("aria-pressed", isNight ? "true" : "false");
+        themeButton.setAttribute("aria-label", isNight ? "紙背景に切り替える" : "夜背景に切り替える");
+      }
+
+      const atMinimum = state.scale <= MIN_SCALE;
+      const atMaximum = state.scale >= MAX_SCALE;
+      if (sizeDownButton) sizeDownButton.disabled = atMinimum;
+      if (sizeUpButton) sizeUpButton.disabled = atMaximum;
+      if (scaleOutput) scaleOutput.textContent = `${Math.round(state.scale * 100)}%`;
+      updatePresetText();
+    }
+
+    function applyAndSave() {
+      apply();
+      save();
+    }
+
+    function readAllowedSelect(select, allowed, currentValue) {
+      const candidate = select?.value;
+      return typeof candidate === "string" && allowed.has(candidate)
+        ? candidate
+        : currentValue;
+    }
+
+    genreSelect?.addEventListener("change", () => {
+      state.genre = readAllowedSelect(genreSelect, ALLOWED_GENRES, state.genre);
+      applyAndSave();
+    });
+    fontModeSelect?.addEventListener("change", () => {
+      state.fontmode = readAllowedSelect(fontModeSelect, ALLOWED_FONT_MODES, state.fontmode);
+      applyAndSave();
+    });
+    effectsSelect?.addEventListener("change", () => {
+      state.effects = readAllowedSelect(effectsSelect, ALLOWED_EFFECTS, state.effects);
+      applyAndSave();
+    });
+    themeButton?.addEventListener("click", () => {
+      state.theme = state.theme === "night" ? "paper" : "night";
+      applyAndSave();
+    });
+    sizeDownButton?.addEventListener("click", () => {
+      state.scale = Math.max(MIN_SCALE, Number((state.scale - SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+    sizeResetButton?.addEventListener("click", () => {
+      state.scale = 1;
+      applyAndSave();
+    });
+    sizeUpButton?.addEventListener("click", () => {
+      state.scale = Math.min(MAX_SCALE, Number((state.scale + SCALE_STEP).toFixed(2)));
+      applyAndSave();
+    });
+
+    const panelPairs = [
+      [tocButton, tocPanel],
+      [infoButton, infoPanel],
+    ];
+
+    function closePanels(exceptPanel = null, restoreFocus = false) {
+      let buttonToFocus = null;
+      panelPairs.forEach(([button, panel]) => {
+        if (!button || !panel || panel === exceptPanel || panel.hidden) return;
+        panel.hidden = true;
+        button.setAttribute("aria-expanded", "false");
+        buttonToFocus = button;
+      });
+      if (restoreFocus && buttonToFocus) buttonToFocus.focus();
+    }
+
+    function togglePanel(button, panel) {
+      if (!button || !panel) return;
+      const opening = panel.hidden;
+      closePanels(opening ? panel : null);
+      panel.hidden = !opening;
+      button.setAttribute("aria-expanded", opening ? "true" : "false");
+    }
+
+    tocButton?.addEventListener("click", () => togglePanel(tocButton, tocPanel));
+    infoButton?.addEventListener("click", () => togglePanel(infoButton, infoPanel));
+
+    /* Scroll to chapters without adding iframe hash entries to joint history. */
+    tocPanel?.addEventListener("click", (event) => {
+      const link = event.target.closest("a[href^='#']");
+      if (!link || !tocPanel.contains(link)) return;
+      const rawHref = link.getAttribute("href");
+      if (!rawHref || rawHref.length > 200 || rawHref[0] !== "#") return;
+
+      let id;
+      try {
+        id = decodeURIComponent(rawHref.slice(1));
+      } catch (_error) {
+        return;
+      }
+      const target = id ? document.getElementById(id) : null;
+      if (!target || !target.closest("article.novel")) return;
+
+      event.preventDefault();
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)").matches;
+      target.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+      togglePanel(tocButton, tocPanel);
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePanels(null, true);
+    });
+
+    document.addEventListener("click", (event) => {
+      if (panelPairs.some(([button, panel]) => button?.contains(event.target) || panel?.contains(event.target))) {
+        return;
+      }
+      closePanels();
+    });
+
+    let progressFrame = 0;
+    function updateProgress() {
+      progressFrame = 0;
+      if (!progressBar) return;
+      const scrollingElement = document.scrollingElement || document.documentElement;
+      const maximum = scrollingElement.scrollHeight - scrollingElement.clientHeight;
+      const progress = maximum > 0 ? scrollingElement.scrollTop / maximum : 0;
+      const percentage = Math.min(100, Math.max(0, progress * 100));
+      progressBar.style.width = `${percentage}%`;
+    }
+
+    function queueProgressUpdate() {
+      if (progressFrame) return;
+      progressFrame = window.requestAnimationFrame(updateProgress);
+    }
+
+    window.addEventListener("scroll", queueProgressUpdate, { passive: true });
+    window.addEventListener("resize", queueProgressUpdate);
+    window.addEventListener("load", queueProgressUpdate, { once: true });
+
+    /*
+     * The anchor remains a normal relative link for standalone and no-JS use.
+     * Inside the portal iframe, the parent owns the route transition instead.
+     */
+    returnLink?.addEventListener("click", (event) => {
+      if (event.defaultPrevented || event.button !== 0
+        || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+        || window.parent === window) {
+        return;
+      }
+
+      event.preventDefault();
+      try {
+        const targetOrigin = window.location.origin === "null" ? "*" : window.location.origin;
+        window.parent.postMessage({
+          type: "cold-print:return-to-portal",
+          slug,
+        }, targetOrigin);
+      } catch (_error) {
+        window.location.assign(returnLink.href);
+      }
+    });
+
+    restore();
+    apply();
+    updateProgress();
+  });
+})();
+
+</script>
+</body>
+</html>
