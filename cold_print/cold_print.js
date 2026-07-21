@@ -1080,16 +1080,14 @@
       : null;
     const favoriteGenres = calculateFavoriteGenres(historyEntries, works);
     const primaryGenre = favoriteGenres[0]?.genre || chooseDailyGenre(works);
-    const topGenre = works.some((work) => work.genres.includes("アクション"))
-      ? "アクション"
-      : primaryGenre;
+    const topGenre = primaryGenre;
     const readKeys = new Set(historyEntries.map((entry) => entry.workKey));
 
     let continueReading = historyEntries
       .filter((entry) => entry.progress > 0 && entry.progress < 98)
       .map((entry) => works.find((work) => work.workKey === entry.workKey))
       .filter(Boolean);
-    let today = rankWorks(works, (work) => {
+    let forYou = rankWorks(works, (work) => {
       const genreAffinity = work.genres.reduce(
         (score, genre) => score + (favoriteGenres.find((item) => item.genre === genre)?.score || 0),
         0,
@@ -1105,23 +1103,52 @@
       : [];
     if (state.serverRecommendations) {
       continueReading = mergeServerRanking("continue-reading", continueReading, works);
-      today = mergeServerRanking("today", today, works);
+      forYou = mergeServerRanking("for-you", forYou, works, "today");
       similar = mergeServerRanking("also-read", similar, works);
     }
     const genreTop = rankWorks(
       works.filter((work) => work.genres.includes(topGenre)),
       (work) => work.goodCount * 3 - work.badCount + dailyTieBreaker(work.workKey),
     );
+    const todayTop = mergeServerRanking(
+      "today-top",
+      rankWorks(
+        works,
+        (work) => work.goodCount * 3 - work.badCount + dailyTieBreaker(work.workKey),
+      ),
+      works,
+      "today",
+    );
+    const newAndUpdated = [...works]
+      .sort((left, right) => right.catalogOrder - left.catalogOrder)
+      .filter((work) => !readKeys.has(work.workKey));
+    const quickReads = rankWorks(
+      works.filter((work) => work.catalogType === "one-shot" && !readKeys.has(work.workKey)),
+      (work) => work.goodCount * 2 - work.badCount,
+    );
+    const visibleTopKeys = new Set(todayTop.slice(0, 20).map((work) => work.workKey));
+    const hiddenFavorites = [...works]
+      .filter((work) => !visibleTopKeys.has(work.workKey) && !readKeys.has(work.workKey))
+      .sort(compareHiddenFavorites);
 
     const rows = [
-      { id: "continue-reading", title: "続きを読む", items: continueReading },
-      { id: "today", title: "今日のおすすめ", items: today },
+      { id: "continue-reading", title: "読みかけの作品", items: continueReading },
+      { id: "for-you", title: "あなたへのおすすめ", items: forYou },
       {
         id: "also-read",
-        title: lastWork ? `「${lastWork.title}」を読んだ人はこちらも` : "こちらもおすすめ",
+        title: lastWork ? `最近読んだ「${lastWork.title}」に似た作品` : "最近読んだ作品に似た作品",
         items: similar,
       },
+      { id: "today-top", title: "今日の Top 10", items: todayTop },
       { id: "genre-top", title: `${topGenre} Top 10`, items: genreTop },
+      { id: "new-updated", title: "新着・更新作品", items: newAndUpdated },
+      {
+        id: "favorite-genre",
+        title: `お気に入りジャンル「${primaryGenre}」の作品`,
+        items: forYou.filter((work) => work.genres.includes(primaryGenre)),
+      },
+      { id: "quick-reads", title: "短時間で読める作品", items: quickReads },
+      { id: "hidden-favorites", title: "隠れた人気作品", items: hiddenFavorites },
     ].filter((row) => row.items.length);
 
     elements.recommendationRows.replaceChildren(
@@ -1136,9 +1163,10 @@
       if (!catalog.ready) {
         return [];
       }
-      return catalog.items.map((item) => ({
+      return catalog.items.map((item, catalogOrder) => ({
         ...addEffectiveVotes(item, catalogType),
         catalogType,
+        catalogOrder,
       }));
     });
   }
@@ -1218,13 +1246,23 @@
     return (hash % 1000) / 1000;
   }
 
-  function mergeServerRanking(rowId, fallbackItems, works) {
-    const row = state.serverRecommendations?.rows?.find((candidate) => candidate.id === rowId);
+  function mergeServerRanking(rowId, fallbackItems, works, legacyRowId = null) {
+    const row = state.serverRecommendations?.rows?.find(
+      (candidate) => candidate.id === rowId || candidate.id === legacyRowId,
+    );
     if (!row || !Array.isArray(row.work_keys) || !row.work_keys.length) return fallbackItems;
     const byKey = new Map(works.map((work) => [work.workKey, work]));
     const serverItems = row.work_keys.map((workKey) => byKey.get(workKey)).filter(Boolean);
     const included = new Set(serverItems.map((work) => work.workKey));
     return [...serverItems, ...fallbackItems.filter((work) => !included.has(work.workKey))];
+  }
+
+  function compareHiddenFavorites(left, right) {
+    const leftApproval = (left.goodCount + 1) / (left.goodCount + left.badCount + 2);
+    const rightApproval = (right.goodCount + 1) / (right.goodCount + right.badCount + 2);
+    return rightApproval - leftApproval ||
+      (left.goodCount + left.badCount) - (right.goodCount + right.badCount) ||
+      TITLE_COLLATOR.compare(left.title, right.title);
   }
 
   async function loadServerRecommendations() {
